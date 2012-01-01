@@ -60,11 +60,11 @@ public class DiscoveryResourcePanel extends JPanel {
         this.resources = new ResourcesType();
         setLayout(null);
 
-        JLabel label_1 = new JLabel("Resource Params:");
+        JLabel label_1 = new JLabel("Resource Parameters");
         label_1.setBounds(148, 11, 102, 14);
         add(label_1);
 
-        JLabel label_2 = new JLabel("Connection Params:");
+        JLabel label_2 = new JLabel("Connection Parameters");
         label_2.setBounds(148, 182, 116, 14);
         add(label_2);
 
@@ -81,6 +81,20 @@ public class DiscoveryResourcePanel extends JPanel {
             }
         });
         add(comboBox);
+        //This has to be visible on the right side of the panel!
+        JPanel description= new JPanel();
+        TextArea helpArea = new TextArea();
+        helpArea.setEditable(false);
+        helpArea.setText("Please configure your discovery resources.\n"+
+                        "Discovery process will use them to discover each of\n" +
+                        "each of the \"unknown\" neighbours found during its run.\n"+
+                        "Therefore each resource is associated with a number\n" +
+                        "of resource parameters that are used for resource matching.\n"+
+                        "Such could be device hostname, type, protocol, model \n+" +
+                        "or IP address range!");
+
+        description.add(helpArea);
+        add(description,BorderLayout.EAST);
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(149, 36, 293, 88);

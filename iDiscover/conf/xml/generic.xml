@@ -58,6 +58,12 @@
         <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
     </bean>
 
+    <bean id="GraphmlFileLogGroovyDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.GraphmlFileLogDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+        <property name="graphmDirName" value="undirected"/>
+        <property name="rawData2GraphmlGroovyTransformer" value="iDiscover/conf/groovy/RawData2GraphmlTransformer.groovy"/>
+    </bean>
+
     <bean id="Neo4JGraphmlLoggerLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.Neo4JGraphmlLoggerLogDiscoveryListener">
         <property name="labelDirName" value="version1"/>
         <property name="graphmDirName" value="undirected"/>

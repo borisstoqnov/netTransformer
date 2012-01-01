@@ -14,7 +14,7 @@ public class ConnectionDetailsDialog extends JDialog  {
 
     private int option = JOptionPane.CLOSED_OPTION;
 
-    /**
+    /**   RawData2GraphmlTransformer.groovy
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {

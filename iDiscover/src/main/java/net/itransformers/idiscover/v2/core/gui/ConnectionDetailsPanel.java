@@ -39,8 +39,24 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
 
         JPanel description= new JPanel();
         this.add(description,BorderLayout.EAST);
-        description.setSize(200,200);
-        description.add(new Label("<html>Discovery Wizard Help<br>tedfvdfvdf</html>"));
+        description.setSize(50, 50);
+        TextArea label = new TextArea();
+
+        label.setText(
+                "Please enter your initial devices for discovery.\n"+
+                "If your devices are SNMP enabled each initial\n" +
+                "device should have a valid IP address, SNMP\n" +
+                "version, community and port!\n"+
+                "If you have SDN enabled network please enter\n" +
+                "also the parameters and credentials of your\n" +
+                "SDN controller!");
+
+        label.setEditable(false);
+       // label.setSize(100,100);
+
+        description.add(label);
+        //description.
+
 
         JPanel listPanel = new JPanel();
         JPanel tablePanel = new JPanel();
@@ -161,8 +177,6 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
         }
         tableModel.addTableModelListener(this);
         table.setModel(tableModel);
-
-
     }
 
     private void initListModel() {

@@ -18,7 +18,6 @@ import org.xml.sax.InputSource;
 import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 
 public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListener {
     static Logger logger = Logger.getLogger(GraphmlFileLogGroovyDiscoveryListener.class);
@@ -47,8 +46,10 @@ public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListe
         }
 
         StringReader reader = new StringReader(out.toString());
+
         StringWriter graphmlWriter = new StringWriter();
         transformRawDataToGraphml(reader, graphmlWriter);
+
 
         try {
             final String fileName = "node-" + deviceName + ".graphml";
@@ -69,6 +70,7 @@ public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListe
 
     void transformRawDataToGraphml(Reader in, Writer out) {
         try {
+
             GPathResult response = new XmlSlurper().parse(new InputSource(in));
             Binding binding = new Binding();
             binding.setProperty("input", response);

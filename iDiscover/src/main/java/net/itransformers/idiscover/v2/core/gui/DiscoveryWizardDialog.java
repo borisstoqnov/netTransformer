@@ -1,13 +1,18 @@
 package net.itransformers.idiscover.v2.core.gui;
 import net.itransformers.idiscover.v2.core.CvsConnectionDetailsFactory;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.resourcemanager.config.ResourcesType;
+import net.itransformers.utils.JaxbMarshalar;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
+import javax.xml.bind.JAXBException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class DiscoveryWizardDialog extends JDialog  {
@@ -35,7 +40,7 @@ public class DiscoveryWizardDialog extends JDialog  {
         this.setTitle("Connection Details");
         this.setModal(true);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 1000, 300);
+        setBounds(100, 100, 1000, 400);
 		getContentPane().setLayout(new BorderLayout());
 
 
@@ -95,12 +100,16 @@ public class DiscoveryWizardDialog extends JDialog  {
     private void prev() throws IOException {
         prevButton.setEnabled(true);
         nextButton.setEnabled(true);
-        if (contentPanel instanceof DiscoveryParametersPanel){
+//        if (contentPanel instanceof DiscoveryParametersPanel){
+//            java.util.Map<String,ConnectionDetails> connDetails = CvsConnectionDetailsFactory.createConnectionDetail(new File("iDiscover/src/main/resources/connection-details.txt"));
+//            updateCurrentPanel(new ConnectionDetailsPanel(connDetails));
+//            prevButton.setEnabled(false);
+        if (contentPanel instanceof DiscoveryResourcePanel) {
             java.util.Map<String,ConnectionDetails> connDetails = CvsConnectionDetailsFactory.createConnectionDetail(new File("iDiscover/src/main/resources/connection-details.txt"));
+
             updateCurrentPanel(new ConnectionDetailsPanel(connDetails));
             prevButton.setEnabled(false);
-        } else if (contentPanel instanceof DiscoveryResourcePanel) {
-            updateCurrentPanel(new DiscoveryParametersPanel());
+
         }
 
     }
@@ -108,11 +117,30 @@ public class DiscoveryWizardDialog extends JDialog  {
     private void next() {
         prevButton.setEnabled(true);
         nextButton.setEnabled(true);
-        if (contentPanel instanceof ConnectionDetailsPanel){
-            updateCurrentPanel(new DiscoveryParametersPanel());
-        } else if (contentPanel instanceof DiscoveryParametersPanel) {
-            updateCurrentPanel(new DiscoveryResourcePanel());
-            nextButton.setEnabled(false);
+//        if (contentPanel instanceof ConnectionDetailsPanel){
+//            updateCurrentPanel(new DiscoveryParametersPanel());
+//        } else
+        if (contentPanel instanceof ConnectionDetailsPanel) {
+            FileInputStream is = null;
+
+            try {
+                is = new FileInputStream("resourceManager/conf/xml/resource.xml");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+
+            ResourcesType resources = null;
+            try {
+                resources = JaxbMarshalar.unmarshal(ResourcesType.class, is);
+            } catch (JAXBException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+            final DiscoveryResourcePanel panel = new DiscoveryResourcePanel();
+                panel.setResources(resources);
+
+            updateCurrentPanel(panel);
+            nextButton.setText("GO!");
+            nextButton.setEnabled(true);
         }
 
     }

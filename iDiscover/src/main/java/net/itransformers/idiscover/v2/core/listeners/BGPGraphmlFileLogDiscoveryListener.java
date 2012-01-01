@@ -32,8 +32,6 @@ public class BGPGraphmlFileLogDiscoveryListener implements NetworkDiscoveryListe
             byte[] discoveredDeviceData = (byte []) discoveryResultMap.get(node).getDiscoveredData("graphml");
 
 
-
-
             try {
                 final String fileName = "network.graphml";
                 final File nodeFile = new File(graphmlDir,fileName);

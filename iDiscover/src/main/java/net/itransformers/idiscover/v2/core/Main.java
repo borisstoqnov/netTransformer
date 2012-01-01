@@ -22,12 +22,9 @@ package net.itransformers.idiscover.v2.core;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.utils.CmdLineParser;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -40,20 +37,43 @@ public class Main {
         if (connectionDetailsFileName == null) {
             printUsage("depth"); return;
         }
-        FileSystemXmlApplicationContext fileApplicationContext= new FileSystemXmlApplicationContext(File.separator+"iDiscover/conf/xml/generic.xml",File.separator+"iDiscover/conf/xml/bgpInternetMapMRTDiscovery.xml",File.separator+"iDiscover/conf/xml/snmpNetworkDiscovery.xml",File.separator+"iDiscover/conf/xml/floodlightNetworkDiscovery.xml", "iDiscover/src/main/resources/connectionsDetails.xml");
-        //ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(workingDir+File.separator+"iDiscover/conf/xml/generic.xml",workingDir+File.separator+"/iDiscover/conf/xml/snmpNetworkDiscovery.xml","connectionsDetails.xml");  "
+        String projectPath = params.get("-p");
+
+        if (projectPath == null) {
+            printUsage("path"); return;
+        }
+        File workingDir = new File(projectPath);
+        if (!workingDir.exists()){
+            System.out.println("Invalid project path!");
+            return;
+        }
+        System.out.println("Loading beans!!");
+        //File generic = new File(project,"iDiscover/conf/xml/generic.xml");
+        //,project.getAbsolutePath()+project.getAbsolutePath()+File.separator+"iDiscover/conf/xml/snmpNetworkDiscovery.xml", project.getAbsolutePath()+File.separator+"iDiscover/src/main/resources/connectionsDetails.xml"
+        //FileSystemXmlApplicationContext fileApplicationContext= new FileSystemXmlApplicationContext(generic.getAbsolutePath());
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(workingDir+File.separator+"iDiscover/conf/xml/generic.xml",workingDir+File.separator+"/iDiscover/conf/xml/snmpNetworkDiscovery.xml","connectionsDetails.xml");
         // NetworkDiscoverer discoverer = fileApplicationContext.getBean("bgpPeeringMapDiscovery", NetworkDiscoverer.class);
         //NetworkDiscoverer discoverer = fileApplicationContext.getBean("floodLightNodeDiscoverer", NetworkDiscoverer.class);
-        NetworkDiscoverer discoverer = fileApplicationContext.getBean("snmpDiscovery", NetworkDiscoverer.class);
-        List connectionList = (List) fileApplicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
-        int depth = (Integer)fileApplicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1":depthCmdArg);
-        NetworkDiscoveryResult result = discoverer.discoverNetwork(connectionList, depth);
+        NetworkDiscoverer discoverer =applicationContext.getBean("snmpDiscovery", NetworkDiscoverer.class);
+        LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
+        int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1":depthCmdArg);
+        List<ConnectionDetails> connectionDetails2 = new LinkedList<ConnectionDetails>();
+
+        for (String s : connectionList.keySet()) {
+            System.out.println(s);
+
+            connectionDetails2.add(connectionList.get(s));
+        }
+            NetworkDiscoveryResult result = discoverer.discoverNetwork(connectionDetails2, depth);
         if(result!=null) {
             for (String s : result.getDiscoveredData().keySet()) {
                 System.out.println("\nNode: "+ s);
 
             }
         }
+
+
+//
     }
 
     public static void main1(String[] args) {
@@ -104,7 +124,7 @@ public class Main {
         System.out.println(result);
     }
     private static void printUsage(String param){
-        System.out.println("Usage:   iDiscoverv2.sh -f bgp-connection-details.txt -d 10");
+        System.out.println("Usage:   iDiscoverv2.sh -f bgp-connection-details.txt -p ~/Projects/MyDiscoveryProject -d 10");
         System.out.println("Missing parameter: "+param);
     }
 

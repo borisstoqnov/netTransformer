@@ -103,7 +103,7 @@ public class IntegrationTestCiscoNexusN7000 {
 
         discoveryTypes[0] = DiscoveryTypes.ADDITIONAL;
         Map<String, String> resourceParams = new HashMap<String, String>();
-        resourceParams.put("community", "netTransformer-r");
+        resourceParams.put("community", "sevone");
         resourceParams.put("version", "2c");
         resourceParams.put("retries", "1");
         resourceParams.put("timeout", "100");

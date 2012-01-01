@@ -178,7 +178,7 @@ input.object.findAll {
         it.parameters.parameter.findAll {
             it.name.text() == 'ipv4Subnet'
         }.each {
-            subnet = it.value.text()
+            subnetId = it.value.text()
 
         }
         it.parameters.parameter.findAll {
@@ -189,14 +189,15 @@ input.object.findAll {
 
         }
         it.parameters.parameter.findAll {
-            it.name.text() == 'ipv4SubnetMaskPrefix'
+            it.name.text() == 'ipv4SubnetPrefix'
         }.each {
+           // subnet = subnetId
             String ipv4SubnetMaskPrefix = it.value.text()
-            subnet.setIpv4SubnetMaskPrefix(ipv4SubnetMaskPrefix)
-            subnets.add(subnetPrefix)
-            foundSubnets.add(subnetPrefix)
+            String subnetPrefix = subnetId+"/"+ipv4SubnetMaskPrefix
             subnet.setName(subnetPrefix)
             subnet.setPrefix(subnetPrefix)
+            subnet.setIpv4SubnetMaskPrefix(ipv4SubnetMaskPrefix)
+            subnets.add(subnetPrefix)
         }
         subnet.setLocalInterface(localInterfaceName)
         device.addSubnet(subnet)

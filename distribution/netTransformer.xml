@@ -212,11 +212,16 @@
                         <directory>conf/xslt</directory>
                         <outputDirectory>iDiscover/conf/xslt</outputDirectory>
                     </fileSet>
-                    <!--fileSet>
+                    <fileSet>
+                        <directory>conf/groovy</directory>
+                        <outputDirectory>iDiscover/conf/groovy</outputDirectory>
+                    </fileSet>
+                    <fileSet>
                         <directory>conf/bat</directory>
                         <outputDirectory>bin</outputDirectory>
                         <filtered>true</filtered>
-                    </fileSet-->
+                        <fileMode>0755</fileMode>
+                    </fileSet>
                 </fileSets>
             </sources>
         </moduleSet>
