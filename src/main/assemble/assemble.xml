@@ -37,6 +37,7 @@
                     <fileSet>
                         <directory>conf/bat</directory>
                         <outputDirectory>bin</outputDirectory>
+                        <filtered>true</filtered>
                     </fileSet>
                 </fileSets>
             </sources>
@@ -79,6 +80,7 @@
                     <fileSet>
                         <directory>conf/bat</directory>
                         <outputDirectory>bin</outputDirectory>
+                        <filtered>true</filtered>
                     </fileSet>
                 </fileSets>
             </sources>
