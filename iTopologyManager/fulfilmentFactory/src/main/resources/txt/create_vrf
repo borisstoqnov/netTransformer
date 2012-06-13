@@ -1,0 +1,17 @@
+### vars: hostname, username, password, vrfName, rd, rt
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### start read_until('.*#',3)
+configure terminal
+### stop read_until
+
+### start read_until('.*#',3)
+ip vrf $vrfName
+rd $rd
+route-target both $rt
+end
+### stop read_until
+exit
+### exit

@@ -1,0 +1,18 @@
+### vars: username, password, Interfaces, prefix
+$Interfaces = \\device\object[ObjectType='Interface' and parameters\status[value!='DOWN']]\name
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### start read_until('.*#',3)
+configure terminal
+foreach i in $Interfaces
+
+interface $i
+ipv6 address {Enter manually IPv6 prefix : $prefix} eui-64
+
+}
+end
+### stop read_until
+exit
+### exit

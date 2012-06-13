@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ iTransformer is an open source tool able to discover IP networks
+  ~ and to perform dynamic data data population into a xml based inventory system.
+  ~ Copyright (C) 2010  http://itransformers.net
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+<resources>
+    <resource name="CISCOR11">
+	    <param name="DeviceName">R11</param>
+		<param name="DeviceType">CISCO</param>
+        <param name="protocol">SNMP</param>
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="community-ro">itransformer-r</param>
+            <param name="community-rw">itransformer-r</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+			<param name="port">161</param>
+            <param name="max-repetitions">65535</param>
+        </connection-params>
+    </resource>
+	<resource name="SNMPCISCO">
+		<param name="DeviceType">CISCO</param>
+        <param name="protocol">SNMP</param>
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="community-ro">itransformer-r</param>
+            <param name="community-rw">itransformer-r</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+			<param name="port">161</param>
+        </connection-params>
+    </resource>
+    <resource name="SNMPHUAWEI">
+		<param name="DeviceType">HUAWEI</param>
+        <param name="protocol">SNMP</param>
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="community-ro">itransformer-r</param>
+            <param name="community-rw">itransformer-r</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+			<param name="port">161</param>
+        </connection-params>
+    </resource>
+    <resource name="SNMPJUNIPER">
+		<param name="DeviceType">JUNIPER</param>
+        <param name="protocol">SNMP</param>
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="community-ro">itransformer-r</param>
+            <param name="community-rw">itransformer-r</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+			<param name="port">161</param>
+        </connection-params>
+    </resource>
+    <resource name="CLI">
+        <param name="protocol">TELNET</param>
+        <connection-params connection-type="telnet">
+            <param name="username">itransformer-r</param>
+            <param name="password">itransformer-r</param>
+            <param name="system-password">Password</param>
+        </connection-params>
+    </resource>
+    <resource name="SNMP">
+        <param name="protocol">SNMP</param>
+        <connection-params connection-type="snmp">
+            <param name="version">1</param>
+            <param name="community-ro">itransformer-r</param>
+            <param name="community-rw">itransformer-r</param>
+            <param name="timeout">500</param>
+            <param name="retries">1</param>
+			<param name="port">161</param>
+            <param name="max-repetitions">65535</param>
+        </connection-params>
+    </resource>
+       <resource name="HP">
+        <param name="protocol">SNMP</param>
+        <param name="DeviceType">HP</param>
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="community-ro">itransformer-r</param>
+            <param name="community-rw">itransformer-r</param>
+            <param name="timeout">500</param>
+            <param name="retries">1</param>
+			<param name="port">161</param>
+            <param name="max-repetitions">65535</param>
+        </connection-params>
+    </resource>
+</resources>

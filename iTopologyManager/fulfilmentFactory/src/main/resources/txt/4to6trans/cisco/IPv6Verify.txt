@@ -1,0 +1,11 @@
+### vars: username, password, destination
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### start read_until('.*#',3)
+ping ipv6 $destination
+### stop read_until
+end
+exit
+### exit

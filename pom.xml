@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>iTransformers</groupId>
+    <artifactId>iTransformer</artifactId>
+    <version>0.1-SNAPSHOT</version><!--Change for new version-->
+    <packaging>pom</packaging>
+
+    <!--http://mvnrepository.com/artifact/net.sf.jung-->
+    <modules>
+        <module>iDiscover</module>
+        <module>iTopologyManager</module>
+        <module>resourceManager</module>
+        <module>snmp2xml</module>
+        <module>utils</module>
+        <module>distribution</module>
+    </modules>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.3</version>
+                    <configuration>
+                        <descriptors>
+                            <descriptor>src/main/assemble/assemble.xml</descriptor>
+                        </descriptors>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                            <phase>package</phase> <!-- bind to the packaging phase -->
+                            <!--<goals>-->
+                                <!--<goal>single</goal>-->
+                            <!--</goals>-->
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>mibble</id>
+            <url>http://maven.cloudhopper.com/repos/third-party/</url>
+        </repository>
+        <repository>
+            <id>saxon9</id>
+            <url>http://www.jarvana.com/jarvana/browse/</url>
+        </repository>
+        <repository>
+            <id>snmp4j</id>
+            <url>http://openr66.free.fr/maven2/</url>
+        </repository>
+        <repository>
+            <id>jung2</id>
+            <url>http://mvnrepository.com/artifact/</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.15</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.jmx</groupId>
+                    <artifactId>jmxri</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jdmk</groupId>
+                    <artifactId>jmxtools</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.jms</groupId>
+                    <artifactId>jms</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+</project>

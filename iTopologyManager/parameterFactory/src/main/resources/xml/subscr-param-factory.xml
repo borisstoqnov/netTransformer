@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ iTransformer is an open source tool able to discover IP networks
+  ~ and to perform dynamic data data population into a xml based inventory system.
+  ~ Copyright (C) 2010  http://itransformers.net
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<param-factories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../xsd/param-factory.xsd">
+    <param-factory-element-types>
+        <type name="manual" class="com.parameterfactory.impl.GUIParamFactoryElement"/>
+        <type name="graphml" class="com.parameterfactory.impl.MapDerivedParamFactoryElement">
+            <param name="contextKey">graphml</param>
+        </type>
+        <type name="resource" class="com.parameterfactory.impl.MapDerivedParamFactoryElement">
+            <param name="contextKey">connection-params</param>
+        </type>
+        <type name="deviceData" class="com.parameterfactory.impl.XmlParamFactoryElement">
+            <param name="contextXmlFileNameKey">xmlFileName</param>
+        </type>
+    </param-factory-element-types>
+    <param-factory name="add">
+        <param-factory-element type="manual">
+            <param name="Subscriber Name"/>
+            <param name="Subscriber Address"/>
+            <param name="Subscriber Services"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+        </param-factory-element>
+    </param-factory>
+     <param-factory name="delete">
+        <param-factory-element type="manual">
+            <param name="Subscriber Name"/>
+            <param name="Subscriber Address"/>
+            <param name="Subscriber Services"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+        </param-factory-element>
+    </param-factory>
+    <param-factory name="modify">
+        <param-factory-element type="manual">
+            <param name="Subscriber Name"/>
+            <param name="Subscriber Address"/>
+            <param name="Subscriber Services"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+        </param-factory-element>
+    </param-factory>
+</param-factories>

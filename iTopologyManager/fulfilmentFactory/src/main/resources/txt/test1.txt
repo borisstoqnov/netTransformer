@@ -1,0 +1,13 @@
+### vars: host, user, passwordhost, user, password
+### read_until('(login:|user:)',3)
+$user
+### read_until('(Password:|password:)',3)
+$password
+### start read_until('>',3)
+set cli  screen-length 0
+set cli terminal xterm
+show version
+show configuration
+exit
+### stop read_until
+### exit

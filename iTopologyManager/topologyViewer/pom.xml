@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>iTransformers.iTransformer</groupId>
+        <artifactId>iTopologyManager</artifactId>
+        <version>0.1-SNAPSHOT</version><!--Change for new version-->
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
+    <artifactId>topologyViewer</artifactId>
+    <version>0.1-SNAPSHOT</version><!--Change for new version-->
+    <dependencies>
+        <dependency>
+            <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
+            <artifactId>topologyManagerConfig</artifactId>
+            <version>0.1-SNAPSHOT</version><!--Change for new version-->
+        </dependency>
+        <dependency>
+            <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
+            <artifactId>rightCiickAPI</artifactId>
+            <version>0.1-SNAPSHOT</version><!--Change for new version-->
+        </dependency>
+        <dependency>
+            <groupId>iTransformers.iTransformer</groupId>
+            <artifactId>utils</artifactId>
+            <version>0.1-SNAPSHOT</version><!--Change for new version-->
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jung</groupId>
+            <artifactId>jung-graph-impl</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jung</groupId>
+            <artifactId>jung-io</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jung</groupId>
+            <artifactId>jung-visualization</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.uci.ics</groupId>
+            <artifactId>screencap</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+</project>

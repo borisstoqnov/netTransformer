@@ -1,0 +1,45 @@
+<!--
+  ~ iTransformer is an open source tool able to discover IP networks
+  ~ and to perform dynamic data data population into a xml based inventory system.
+  ~ Copyright (C) 2010  http://itransformers.net
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<discovery-manager>
+    <discovery-helper class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">
+        <parameters>
+            <param name="fileName">iDiscover/conf/xml/discoveryParameters.xml</param>
+            <param name="resourceXML">iDiscover/conf/xml/discoveryResource.xml</param>
+        </parameters>
+    </discovery-helper>
+    <discovery-manager-listeners>
+        <discovery-manager-listener class="net.itransformers.idiscover.discoverylisteners.DeviceFileLogger">
+            <param name="path">network</param>
+        </discovery-manager-listener>
+        <discovery-manager-listener class="net.itransformers.idiscover.discoverylisteners.XmlTopologyDeviceLogger">
+            <param name="xslt">iDiscover/conf/xslt/transformator-undirected2.xslt</param>
+            <param name="path">network/undirected</param>
+        </discovery-manager-listener>
+        <discovery-manager-listener class="net.itransformers.idiscover.discoverylisteners.XmlTopologyDeviceLogger">
+            <param name="xslt">iDiscover/conf/xslt/transformator-directed.xslt</param>
+            <param name="path">network/directed</param>
+        </discovery-manager-listener>
+        <!--discovery-manager-listener class="com.discovery.discoverylisteners.KMLtransformator">
+            <param name="xslt">discovery-manager/conf/xslt/kml_transformator.xslt</param>
+            <param name="path">devices_and_models/lab/undirected</param>
+        </discovery-manager-listener-->
+    </discovery-manager-listeners>
+
+</discovery-manager>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ iTransformer is an open source tool able to discover IP networks
+  ~ and to perform dynamic data data population into a xml based inventory system.
+  ~ Copyright (C) 2010  http://itransformers.net
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="discovery-manager" type="discovery-managerType"/>
+  <xs:complexType name="discovery-helperType">
+    <xs:sequence>
+      <xs:element type="parametersType" name="parameters"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="class"/>
+  </xs:complexType>
+  <xs:complexType name="parametersType">
+    <xs:sequence>
+      <xs:element type="paramType" name="param" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="discovery-manager-listenerType">
+    <xs:sequence>
+      <xs:element type="paramType" name="param" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="class" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="discovery-manager-listenersType">
+    <xs:sequence>
+      <xs:element type="discovery-manager-listenerType" name="discovery-manager-listener" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="management-vlansType">
+    <xs:sequence>
+      <xs:element type="paramType" name="param" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="discovery-managerType">
+    <xs:sequence>
+      <xs:element type="discovery-helperType" name="discovery-helper"/>
+      <xs:element type="discovery-manager-listenersType" name="discovery-manager-listeners"/>
+      <xs:element type="management-vlansType" name="management-vlans"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="paramType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

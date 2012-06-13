@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ iTransformer is an open source tool able to discover IP networks
+  ~ and to perform dynamic data data population into a xml based inventory system.
+  ~ Copyright (C) 2010  http://itransformers.net
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<topology-viewer-conf>
+    <!--IPv6 Icons-->
+    <icon name="/images/72xx_ipv6.png">
+        <data key="deviceModel">cisco7206VXR</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/cisco_broadband_ipv6.png">
+        <data key="deviceModel">cisco7505</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+     <icon name="/images/huawei_ipv6.png">
+        <data key="deviceType">HUAWEI</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+     <icon name="/images/riverstone_ipv6.png">
+        <data key="deviceType">RIVERSTONE</data>
+         <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/76xx_ipv6.png">
+            <data key="deviceType">CISCO</data>
+            <data key="ipv6Forwarding">YES</data>
+    </icon>
+        <icon name="/images/medium_cisco_ipv6.png">
+        <data key="deviceModel">ciscoSC3640</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/m320_ipv6.png">
+            <data key="deviceType">JUNIPER</data>
+            <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/server_ipv6.png">
+       <data key="ipv6Forwarding">YES</data>
+        <data key="deviceType">SERVER</data>
+    </icon>
+    <icon name="/images/embeded_ipv6.png">
+       <data key="ipv6Forwarding">YES</data>
+        <data key="deviceType">EMBEDED</data>
+    </icon>
+    <icon name="/images/embeded.png">
+        <data key="deviceType">EMBEDED</data>
+    </icon>
+    <icon name="/images/28xx.png">
+        <data key="deviceModel">cisco2610</data>
+    </icon>
+    <icon name="/images/workgroup_switch.png">
+        <data key="deviceModel">catalyst2924XLv</data>
+    </icon>
+    <icon name="/images/72xx.png">
+        <data key="deviceModel">cisco7206VXR</data>
+    </icon>
+    <icon name="/images/28xx.png">
+        <data key="deviceModel">cisco2821</data>
+    </icon>
+    <icon name="/images/28xx.png">
+        <data key="deviceModel">cisco2801</data>
+    </icon>
+    <icon name="/images/wireless_cisco.png">
+        <data key="deviceModel">cisco1841</data>
+    </icon>
+    <icon name="/images/wireless_cisco.png">
+        <data key="deviceModel">cisco1812</data>
+    </icon>
+    <icon name="/images/wireless_cisco.png">
+        <data key="deviceModel">cisco1861Srst2BK9</data>
+    </icon>
+    <icon name="/images/wireless_cisco.png">
+        <data key="deviceModel">cisco1861Srst2BK9</data>
+    </icon>
+    <icon name="/images/cisco_asa.png">
+        <data key="deviceModel">ciscoASA5520</data>
+    </icon>
+    <icon name="/images/medium_cisco.png">
+        <data key="deviceModel">cisco3845</data>
+    </icon>
+    <icon name="/images/28xx.png">
+        <data key="deviceModel">cisco2611</data>
+    </icon>
+    <icon name="/images/wireless_cisco.png">
+        <data key="deviceModel">ciscoc851</data>
+    </icon>
+    <icon name="/images/cisco3750.png">
+        <data key="deviceModel">catalyst4948e10GE</data>
+    </icon>
+    <icon name="/images/wireless_cisco.png">
+        <data key="deviceModel">ciscoc921k9</data>
+    </icon>
+    <icon name="/images/medium_cisco.png">
+        <data key="deviceModel">cisco2851</data>
+    </icon>
+    <icon name="/images/medium_cisco.png">
+        <data key="deviceModel">ciscoSC3640</data>
+    </icon>
+    <icon name="/images/cisco_broadband.png">
+        <data key="deviceModel">cisco7505</data>
+    </icon>
+    <icon name="/images/76xx.png">
+        <data key="deviceModel">CISCO7606-S</data>
+    </icon>
+    <icon name="/images/76xx.png">
+        <data key="deviceModel">cisco7604</data>
+    </icon>
+    <icon name="/images/76xx.png">
+        <data key="deviceModel">cisco7609</data>
+    </icon>
+    <icon name="/images/asr_1000.png">
+        <data key="deviceModel">cisco7401ASR</data>
+    </icon>
+    <icon name="/images/very_big_cisco.png">
+        <data key="deviceModel">cisco12406</data>
+    </icon>
+    <icon name="/images/very_big_cisco.png">
+        <data key="deviceModel">cisco12810</data>
+    </icon>
+    <icon name="/images/cisco_broadband.png">
+        <data key="deviceModel">cisco10008</data>
+    </icon>
+    <icon name="/images/cisco_broadband.png">
+        <data key="deviceModel">cisco10720</data>
+    </icon>
+    <icon name="/images/crs.png">
+        <data key="deviceModel">ciscoCRS8S</data>
+    </icon>
+    <icon name="/images/72xx.png">
+        <data key="deviceModel">cisco7201</data>
+    </icon>
+    <icon name="/images/76xx.png">
+        <data key="deviceModel">ciscoMWRc941DCA</data>
+    </icon>
+    <icon name="/images/metro_switch_small.png">
+        <data key="deviceModel">catalyst295024G</data>
+    </icon>
+    <icon name="/images/metro_switch_small.png">
+        <data key="deviceModel">catalyst2950t24</data>
+    </icon>
+    <icon name="/images/metro_switch_small.png">
+        <data key="deviceModel">catalyst296024TT</data>
+    </icon>
+    <icon name="/images/metro_switch_medium.png">
+        <data key="deviceModel">cisco340024TSD</data>
+    </icon>
+    <icon name="/images/metro_switch_medium.png">
+        <data key="deviceModel">cisco340024TSA</data>
+    </icon>
+    <icon name="/images/metro_switch_medium.png">
+        <data key="deviceModel">ciscoMe3400g12CsD</data>
+    </icon>
+    <icon name="/images/metro_switch_medium.png">
+        <data key="deviceModel">catalyst375024ME</data>
+    </icon>
+    <icon name="/images/metro_switch_medium.png">
+        <data key="deviceModel">catalyst37xxStack</data>
+    </icon>
+    <icon name="/images/metro_switch_small.png">
+        <data key="deviceModel">catalyst35608PC</data>
+    </icon>
+    <icon name="/images/76xx.png">
+        <data key="deviceType">CISCO</data>
+    </icon>
+    <icon name="/images/huawei.png">
+        <data key="deviceType">HUAWEI</data>
+    </icon>
+    <icon name="/images/m320.png">
+        <data key="deviceType">JUNIPER</data>
+    </icon>
+    <icon name="/images/riverstone.png">
+        <data key="deviceType">RIVERSTONE</data>
+    </icon>
+    <icon name="/images/tellabs.png">
+        <data key="deviceType">TELLABS</data>
+    </icon>
+    <icon name="/images/workgroup_switch.png">
+        <data key="deviceType">HP</data>
+    </icon>
+    <icon name="/images/wireless.png">
+        <data key="deviceType">WIRELESS</data>
+    </icon>
+    <icon name="/images/metro_switch_medium.png">
+        <data key="deviceType">CISCO_SW</data>
+    </icon>
+    <icon name="/images/server.png">
+        <data key="deviceType">SERVER</data>
+    </icon>
+
+    <icon name="/images/unknown_switch.png">
+    </icon>
+
+
+     <!--iconsMap dataKey="deviceModel">
+        <icon dataValue="cisco2610">/images/28xx.png</icon>
+        <icon dataValue="catalyst2924XLv">/images/workgroup_switch.png</icon>
+		<icon dataValue="cisco7206VXR">/images/72xx.png</icon>
+        <icon dataValue="cisco2821">/images/28xx.png</icon>
+        <icon dataValue="cisco2801">/images/28xx.png</icon>
+        <icon dataValue="cisco1841">/images/wireless_cisco.png</icon>
+        <icon dataValue="cisco1812">/images/wireless_cisco.png</icon>
+        <icon dataValue="cisco1861Srst2BK9">/images/wireless_cisco.png</icon>
+        <icon dataValue="ciscoASA5520">/images/cisco_asa.png</icon>
+        <icon dataValue="cisco3845">/images/medium_cisco.png</icon>
+        <icon dataValue="cisco2611">/images/28xx.png</icon>
+        <icon dataValue="ciscoc851">/images/wireless_cisco.png</icon>
+        <icon dataValue="catalyst4948e10GE">/images/cisco3750.png</icon>
+        <icon dataValue="ciscoc921k9">/images/wireless_cisco.png</icon>
+        <icon dataValue="cisco2851">/images/medium_cisco.png</icon>
+        <icon dataValue="ciscoSC3640">/images/medium_cisco.png</icon>
+        <icon dataValue="cisco7505">/images/cisco_broadband.png</icon>
+        <icon dataValue="CISCO7606-S">/images/76xx.png</icon>
+        <icon dataValue="cisco7604">/images/76xx.png</icon>
+        <icon dataValue="cisco7609">/images/76xx.png</icon>
+
+        <icon dataValue="cisco7401ASR">/images/asr_1000.png</icon>
+        <icon dataValue="cisco12406">/images/very_big_cisco.png</icon>
+        <icon dataValue="cisco12810">/images/very_big_cisco.png</icon>
+        <icon dataValue="cisco10008">/images/cisco_broadband.png</icon>
+        <icon dataValue="cisco10720">/images/cisco_broadband.png</icon>
+        <icon dataValue="ciscoCRS8S">/images/crs.png</icon>
+        <icon dataValue="cisco7201">/images/72xx.png</icon>
+
+        
+        <icon dataValue="ciscoMWRc941DCA">/images/76xx.png</icon>
+        <icon dataValue="catalyst295024G">/images/metro_switch_small.png</icon>
+		<icon dataValue="catalyst2950t24">/images/metro_switch_small.png</icon>
+		<icon dataValue="catalyst296024TT">/images/metro_switch_small.png</icon>
+		<icon dataValue="cisco340024TSD">/images/metro_switch_medium.png</icon>
+		<icon dataValue="cisco340024TSA">/images/metro_switch_medium.png</icon>
+        <icon dataValue="ciscoMe3400g12CsD">/images/metro_switch_medium.png</icon>
+         <icon dataValue="ciscoMe3400g12CsA">/images/metro_switch_medium.png</icon>
+        <icon dataValue="catalyst375024ME">/images/metro_switch_medium.png</icon>
+
+         <icon dataValue="catalyst37xxStack">/images/metro_switch_medium.png</icon>
+        <icon dataValue="catalyst35608PC">/images/metro_switch_small.png</icon>
+        
+
+    </iconsMap>
+
+    <iconsMap dataKey="deviceType">
+        <icon dataValue="CISCO">/images/76xx.png</icon>
+        <icon dataValue="HUAWEI">/images/huawei.png</icon>
+        <icon dataValue="JUNIPER">/images/m320.png</icon>
+        <icon dataValue="RIVERSTONE">/images/riverstone.png</icon>
+        <icon dataValue="TELLABS">/images/tellabs.png</icon>
+        <icon dataValue="HP">/images/workgroup_switch.png</icon>
+        <icon dataValue="WIRELESS">/images/wireless.png</icon>
+    </iconsMap>
+    <iconsMap dataKey="deviceType">
+        <icon dataValue="CISCO_ipv6">/images/huawei.png</icon>
+        <icon dataValue="HUAWEI">/images/huawei.png</icon>
+        <icon dataValue="JUNIPER">/images/m320.png</icon>
+        <icon dataValue="RIVERSTONE">/images/riverstone.png</icon>
+        <icon dataValue="TELLABS">/images/tellabs.png</icon>
+        <icon dataValue="HP">/images/workgroup_switch.png</icon>
+        <icon dataValue="WIRELESS">/images/wireless.png</icon>
+    </iconsMap>
+    <iconsMap>
+        <icon>/images/unknown_switch.png</icon>
+    </iconsMap-->
+
+    <filters>
+
+        <filter name="IPLinkLayer-reachable">
+            <include dataKey="ipLink" dataValue="YES" for="edge"/>
+            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+            <include dataKey="deviceStatus" dataValue="initial" for="node"/>
+            <tooltip dataKey="deviceInfo" for="node"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="com.topolgyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="IPLinkLayer-reachable+unreachable">
+            <include dataKey="ipLink" dataValue="YES" for="edge"/>
+            <tooltip dataKey="deviceInfo" for="node"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="com.topolgyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+        </filter>
+        <!--In this case is presented a data+IPlink view with devices that respond to SNMP-->
+
+        <filter name="Data+IPLinkLayer-reachable">
+            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+            <include dataKey="deviceStatus" dataValue="initial" for="node"/>
+            <include dataKey="ipLink" dataValue="YES" for="edge"/>
+            <include dataKey="dataLink" dataValue="YES" for="edge"/>
+            <tooltip dataKey="deviceInfo" for="node"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="com.topolgyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="Data+IPLinkLayer-reachable+unreachable">
+            <include dataKey="ipLink" dataValue="YES" for="edge"/>
+            <include dataKey="dataLink" dataValue="YES" for="edge"/>
+            <tooltip dataKey="deviceInfo" for="node"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="com.topolgyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="Any-link-reachable">
+            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+            <include dataKey="deviceStatus" dataValue="initial" for="node"/>
+            <include dataKey="ipLink" dataValue="YES" for="edge"/>
+            <include dataKey="dataLink" dataValue="YES" for="edge"/>
+            <include dataKey="ipLink" dataValue="NO" for="edge"/>
+            <include dataKey="dataLink" dataValue="NO" for="edge"/>
+            <tooltip dataKey="deviceInfo" for="node"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="com.topolgyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="Any-link-reachable+unreachable">
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="com.topolgyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+            <include dataKey="deviceStatus" dataValue="initial" for="node"/>
+        </filter>
+    </filters>
+
+    <hops selected="3">1,2,3,4,5,6,7,8,9,10</hops>
+
+    <tooltip dataKey="method" for="edge" transformer="com.topolgyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+    <!-- this is also possible it could be used as default value-->
+    <tooltip dataKey="deviceInfo" for="node"/>
+    <rightClickItem name="ShortestPath" handlerClass="com.topolgyviewer.rightclick.impl.ShortestPath"/>
+    <rightClickItem name="ShortestPathActivation" handlerClass="com.topolgyviewer.rightclick.impl.ShortestPathProvisioning">
+        <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
+        <param name="resource">resource-manager/conf/xml/resource.xml</param>
+        <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
+    </rightClickItem>
+    <rightClickItem name="TabViewerOpener" handlerClass="com.topolgyviewer.rightclick.impl.TabbedViewerOpener">
+		<submenu name="Connect">
+        <!--rightClickItem name="jconsole" handlerClass="com.topolgyviewer.rightclick.impl.CreateTerminalHandler">
+            <param name="resource">resource-manager/conf/xml/resource.xml</param>
+        </rightClickItem-->
+		<rightClickItem name="HTTP" handlerClass="com.topolgyviewer.rightclick.impl.URLRightClickOpener">
+             <param name="protocol">http</param>
+             <param name="port">80</param>
+		</rightClickItem>
+        <rightClickItem name="HTTP" handlerClass="com.topolgyviewer.rightclick.impl.URLRightClickOpener">
+             <param name="protocol">http</param>
+             <param name="port">8080</param>
+		</rightClickItem>
+		<rightClickItem name="HTTPS" handlerClass="com.topolgyviewer.rightclick.impl.URLRightClickOpener">
+				 <param name="protocol">https</param>
+				 <param name="port">443</param>
+		</rightClickItem>
+		<rightClickItem name="putty" handlerClass="com.topolgyviewer.rightclick.impl.PuttyRightClickHandler">
+			<param name="ssh_no_saved_session">../lib/putty/putty.exe -ssh -l %s -pw %s %s</param>
+			<param name="ssh_saved_session">../lib/putty/putty.exe -ssh -l %s -pw %s -load %s %s </param>
+			<param name="telnet_no_saved_session">lib/putty/putty.exe -telnet -l %s %s</param>
+			<param name="telnet_saved_session">../lib/putty/putty.exe -telnet -l %s -load %s %s</param>
+			<param name="resource">resource-manager/conf/xml/resource.xml</param>
+			<param name="saved_session"></param>
+		</rightClickItem>
+		</submenu>
+    </rightClickItem>
+
+    <rightClickItem name="Object Tree Browser" handlerClass="com.topolgyviewer.rightclick.impl.XMLTreeViewHandler">
+        <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
+        <param name="resource">resource-manager/conf/xml/resource.xml</param>
+        <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
+        <submenu name="Reports">
+            <rightClickItem name="Device Neighbors" handlerClass="com.topolgyviewer.rightclick.impl.XsltReportCreator">
+                    <param name="xsl_transformator">rightclick/conf/xslt/deviceNeighbors.xslt</param>
+                    <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
+            </rightClickItem>
+            <rightClickItem name="Cable Cuts" handlerClass="com.topolgyviewer.rightclick.impl.XsltReportCreator">
+                    <param name="xsl_transformator">rightclick/conf/xslt/cableCut.xslt</param>
+                    <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
+            </rightClickItem>
+            <rightClickItem name="IPv4 Address Space" handlerClass="com.topolgyviewer.rightclick.impl.XsltReportCreator">
+                    <param name="xsl_transformator">rightclick/conf/xslt/IPv4.xslt</param>
+                    <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
+            </rightClickItem>
+            <rightClickItem name="IPv6 Address Space" handlerClass="com.topolgyviewer.rightclick.impl.XsltReportCreator">
+                    <param name="xsl_transformator">rightclick/conf/xslt/IPv6.xslt</param>
+                    <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
+            </rightClickItem>
+            <rightClickItem name="MPLS L3 VPN" handlerClass="com.topolgyviewer.rightclick.impl.XsltReportCreator">
+                    <param name="xsl_transformator">rightclick/conf/xslt/mplsL3VPN.xslt</param>
+                    <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
+            </rightClickItem>
+        </submenu>
+    </rightClickItem>
+
+     <rightClickItem name="ConfigureDevice" handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
+        <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
+        <param name="resource">resource-manager/conf/xml/resource.xml</param>
+        <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
+        <submenu name="discover">
+            <rightClickItem name="node" handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
+                <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
+                <param name="resource">resource-manager/conf/xml/resource.xml</param>
+                <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
+            </rightClickItem>
+            <rightClickItem name="network" handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
+                <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
+                <param name="resource">resource-manager/conf/xml/resource.xml</param>
+                <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
+            </rightClickItem>
+        </submenu>
+        <!--submenu name="4to6trans">
+            <rightClickItem name="CISCO" handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
+                <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
+                <param name="resource">resource-manager/conf/xml/resource.xml</param>
+                <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans.xml</param>
+            </rightClickItem>
+            <rightClickItem name="JUNIPER" handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
+                <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
+                <param name="resource">resource-manager/conf/xml/resource.xml</param>
+                <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans.xml</param>
+            </rightClickItem>
+            <rightClickItem name="HUAWEI" handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
+                <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
+                <param name="resource">resource-manager/conf/xml/resource.xml</param>
+                <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans.xml</param>
+            </rightClickItem>
+        </submenu-->
+    </rightClickItem>
+</topology-viewer-conf>

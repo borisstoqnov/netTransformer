@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ iTransformer is an open source tool able to discover IP networks
+  ~ and to perform dynamic data data population into a xml based inventory system.
+  ~ Copyright (C) 2010  http://itransformers.net
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="topology-viewer-conf" type="topology-viewer-confType"/>
+  <xs:complexType name="scaling-factorType">
+    <xs:sequence>
+      <xs:element type="dataType" name="data"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="iconType">
+    <xs:sequence>
+      <xs:element name="data" maxOccurs="unbounded" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute type="xs:string" name="key" use="required"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name"/>
+  </xs:complexType>
+  <xs:complexType name="edgeColorType">
+    <xs:sequence>
+      <xs:element name="data" maxOccurs="unbounded" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute type="xs:string" name="key" use="required"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="value"/>
+  </xs:complexType>
+  <xs:complexType name="edgeStrokeType">
+    <xs:sequence>
+      <xs:element name="data" maxOccurs="unbounded" minOccurs="0">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute type="xs:string" name="key" use="required"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="dash"/>
+    <xs:attribute type="xs:float" name="width"/>
+    <xs:attribute type="xs:float" name="dash_phase" default="0.0"/>
+    <xs:attribute type="xs:float" name="miterlimit"/>
+    <xs:attribute type="xs:int" name="join" default="0"/>
+    <xs:attribute type="xs:int" name="cap" default="0"/>
+  </xs:complexType>
+  <xs:complexType name="tooltipType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="dataKey"/>
+        <xs:attribute name="for" type="forType" default="node"/>
+        <xs:attribute name="transformer" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+    <xs:simpleType name="forType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="edge"/>
+            <xs:enumeration value="node"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+  <xs:complexType name="includeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="dataKey" use="optional"/>
+        <xs:attribute type="xs:string" name="dataValue" use="optional"/>
+        <xs:attribute type="forType" name="for" use="optional" default="node"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="filtersType">
+    <xs:sequence>
+      <xs:element type="filterType" name="filter" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="filterType">
+    <xs:sequence>
+      <xs:element type="includeType" name="include" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="tooltipType" name="tooltip" minOccurs="0" maxOccurs="2"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="subMenuType">
+      <xs:sequence>
+        <xs:element type="rightClickItemType" name="rightClickItem" maxOccurs="unbounded" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="name" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="rightClickItemType">
+    <xs:sequence>
+      <xs:element type="paramType" name="param" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="subMenuType" name="submenu" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name" use="required"/>
+    <xs:attribute type="xs:string" name="handlerClass" use="required"/>
+  </xs:complexType>
+    <xs:complexType name="paramType">
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute type="xs:string" name="name" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+    <!--<xs:complexType name="subMenuItemType">-->
+        <!--<xs:sequence>-->
+            <!--<xs:element type="menuItemType" name="menuItem" maxOccurs="unbounded" minOccurs="0"/>-->
+        <!--</xs:sequence>-->
+        <!--<xs:attribute type="xs:string" name="name" use="required"/>-->
+    <!--</xs:complexType>-->
+    <!--<xs:complexType name="menuItemType">-->
+        <!--<xs:sequence>-->
+            <!--<xs:element type="paramType" name="param" maxOccurs="unbounded" minOccurs="0"/>-->
+            <!--<xs:element type="subMenuItemType" name="subMenuItem" maxOccurs="unbounded" minOccurs="0"/>-->
+        <!--</xs:sequence>-->
+        <!--<xs:attribute type="xs:string" name="name" use="required"/>-->
+        <!--<xs:attribute type="xs:string" name="handlerClass" use="required"/>-->
+    <!--</xs:complexType>-->
+    <!--<xs:complexType name="menuType">-->
+        <!--<xs:sequence>-->
+            <!--<xs:element type="subMenuItemType" name="subMenu" maxOccurs="unbounded"/>-->
+        <!--</xs:sequence>-->
+    <!--</xs:complexType>-->
+
+  <xs:complexType name="topology-viewer-confType">
+    <xs:sequence>
+      <xs:element type="iconType" name="icon" maxOccurs="unbounded"/>
+      <xs:element type="edgeStrokeType" name="edgeStroke" maxOccurs="unbounded"/>
+      <xs:element type="edgeColorType" name="edgeColor" maxOccurs="unbounded"/>
+      <xs:element type="filtersType" name="filters"/>
+      <xs:element type="hopsType" name="hops"/>
+      <xs:element type="tooltipType" name="tooltip" minOccurs="0" maxOccurs="2"/>
+      <xs:element type="rightClickItemType" name="rightClickItem" minOccurs="0" maxOccurs="unbounded"/>
+      <!--<xs:element type="menuType" name="menu" minOccurs="0" maxOccurs="unbounded"/>-->
+    </xs:sequence>
+  </xs:complexType>
+    <xs:complexType name="hopsType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="selected" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+      <xs:complexType name="dataType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="key" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

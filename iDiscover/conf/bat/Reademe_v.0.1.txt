@@ -1,0 +1,9 @@
+iTransformer is simple but powerful open product for network transformation licensed under GPLv.3.
+
+This is the initial Release of iTransformer. It's sole purpose is to fulfill the needs of some impatient users.
+It is sufficient for discovering IP networks through SNMP and for previewing and analysing the discovered network topology.
+
+Watch out for the next version. It's main purpose is to include features such as discovering and previewing BGP Internet Map.
+
+
+Enjoy http://iTransformers.net

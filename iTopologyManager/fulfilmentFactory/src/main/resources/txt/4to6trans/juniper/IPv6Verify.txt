@@ -1,0 +1,11 @@
+### vars: username, password, destination
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### read_until('.*>',3)
+ping inet6 $destination count 3
+### read_until('received',3)
+exit
+exit
+### exit

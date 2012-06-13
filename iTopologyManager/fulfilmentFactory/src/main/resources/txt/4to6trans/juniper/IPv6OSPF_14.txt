@@ -1,0 +1,19 @@
+### vars: username, password
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### read_until('.*>',3)
+configure
+### start read_until('.*#',3)
+set protocols ospf3 export mine
+set protocols ospf3 area 0.0.0.0 interface so-0/0/0.0
+set protocols ospf3 area 0.0.0.0 interface so-0/0/1.0
+set protocols ospf3 area 0.0.0.0 interface lo0.0
+
+### stop read_until
+commit
+### read_until('commit complete',3)
+exit
+exit
+### exit

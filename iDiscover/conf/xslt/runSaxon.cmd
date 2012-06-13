@@ -1,0 +1,1 @@
+'E:\newRepo\discovery_manager\lib\jre1.6.0_18\bin\java -jar E:\newRepo\discovery_manager\lib\saxon\saxon9.jar -t %1 %3 >%2'
