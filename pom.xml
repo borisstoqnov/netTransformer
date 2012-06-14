@@ -49,6 +49,14 @@
 
     <repositories>
         <repository>
+            <id>my-repo</id>
+            <url>http://localhost/repos/</url>
+        </repository>
+        <!--repository>
+            <id>jung2</id>
+            <url>http://mvnrepository.com/artifact</url>
+        </repository>
+        <repository>
             <id>mibble</id>
             <url>http://maven.cloudhopper.com/repos/third-party/</url>
         </repository>
@@ -59,17 +67,13 @@
         <repository>
             <id>snmp4j</id>
             <url>http://openr66.free.fr/maven2/</url>
-        </repository>
-        <repository>
-            <id>jung2</id>
-            <url>http://mvnrepository.com/artifact/</url>
-        </repository>
+        </repository-->
     </repositories>
     <dependencies>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.15</version>
+            <version>1.2.16</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.sun.jmx</groupId>

@@ -12,9 +12,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="resourceManager" />
-    <orderEntry type="library" name="Maven: log4j:log4j:1.2.15" level="project" />
+    <orderEntry type="library" name="Maven: log4j:log4j:1.2.16" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4" level="project" />
-    <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
     <orderEntry type="module" module-name="snmp2xml" />
     <orderEntry type="library" name="Maven: snmp:mibble-parser:2.9.2" level="project" />
     <orderEntry type="library" name="Maven: org.snmp4j:snmp4j:1.11.2" level="project" />
