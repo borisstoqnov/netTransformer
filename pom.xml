@@ -49,8 +49,8 @@
 
     <repositories>
         <repository>
-            <id>my-repo</id>
-            <url>http://localhost/repos/</url>
+            <id>itransformers-repo</id>
+            <url>http://repo.itransformers.net/repos/</url>
         </repository>
         <!--repository>
             <id>jung2</id>
