@@ -21,46 +21,46 @@
     <scaling-factor>
         <data key="0.00001"/>
     </scaling-factor>
-    <icon name="/images/our/router_ipv6.png">
+    <icon name="/images/router_ipv6.png">
         <data key="deviceModel">cisco2610</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/router.png">
+    <icon name="/images/router.png">
         <data key="deviceModel">cisco2610</data>
     </icon>
-    <icon name="/images/our/medium_switch_ipv6.png">
+    <icon name="/images/medium_switch_ipv6.png">
         <data key="deviceModel">catalyst2924XLv</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/medium_switch.png">
+    <icon name="/images/medium_switch.png">
         <data key="deviceModel">catalyst2924XLv</data>
     </icon>
-    <icon name="/images/our/large_router_ipv6.png">
+    <icon name="/images/large_router_ipv6.png">
         <data key="deviceModel">cisco7206VXR</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/large_router.png">
+    <icon name="/images/large_router.png">
         <data key="deviceModel">cisco7206VXR</data>
     </icon>
-    <icon name="/images/our/router_ipv6.png">
+    <icon name="/images/router_ipv6.png">
         <data key="deviceModel">cisco2821</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/router.png">
+    <icon name="/images/router.png">
         <data key="deviceModel">cisco2821</data>
     </icon>
-    <icon name="/images/our/router_ipv6.png">
+    <icon name="/images/router_ipv6.png">
         <data key="deviceModel">cisco2811</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/router.png">
+    <icon name="/images/router.png">
         <data key="deviceModel">cisco2811</data>
     </icon>
-    <icon name="/images/our/router_ipv6.png">
+    <icon name="/images/router_ipv6.png">
         <data key="deviceModel">cisco2801</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/router.png">
+    <icon name="/images/router.png">
         <data key="deviceModel">cisco2801</data>
     </icon>
     <!--icon name="/images/wireless_cisco.png">
@@ -78,196 +78,196 @@
     <icon name="/images/cisco_asa.png">
         <data key="deviceModel">ciscoASA5520</data>
     </icon>
-    <icon name="/images/our/medium_router_ipv6.png">
+    <icon name="/images/medium_router_ipv6.png">
         <data key="deviceModel">cisco3845</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/medium_router.png">
+    <icon name="/images/medium_router.png">
         <data key="deviceModel">cisco3845</data>
     </icon>
 
     <!--icon name="/images/wireless_cisco.png">
         <data key="deviceModel">ciscoc851</data>
     </icon-->
-    <icon name="/images/our/medium_switch_ipv6.png">
+    <icon name="/images/medium_switch_ipv6.png">
         <data key="deviceModel">catalyst4948e10GE</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/medium_switch.png">
+    <icon name="/images/medium_switch.png">
         <data key="deviceModel">catalyst4948e10GE</data>
     </icon>
     <icon name="/images/wireless_cisco.png">
         <data key="deviceModel">ciscoc921k9</data>
     </icon>
-    <icon name="/images/our/router_ipv6.png">
+    <icon name="/images/router_ipv6.png">
         <data key="deviceModel">cisco2851</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/router.png">
+    <icon name="/images/router.png">
         <data key="deviceModel">cisco2851</data>
     </icon>
-    <icon name="/images/our/medium_switch_ipv6.png">
+    <icon name="/images/medium_switch_ipv6.png">
         <data key="deviceModel">ciscoSC3640</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/medium_switch.png">
+    <icon name="/images/medium_switch.png">
         <data key="deviceModel">ciscoSC3640</data>
     </icon>
-    <icon name="/images/our/large_router_ipv6.png">
+    <icon name="/images/large_router_ipv6.png">
         <data key="deviceModel">cisco7505</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/large_router.png">
+    <icon name="/images/large_router.png">
         <data key="deviceModel">cisco7505</data>
     </icon>
-    <icon name="/images/our/very_big_router_ipv6.png">
+    <icon name="/images/very_big_router_ipv6.png">
         <data key="deviceModel">cisco7606</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/very_big_router.png">
+    <icon name="/images/very_big_router.png">
         <data key="deviceModel">cisco7606</data>
     </icon>
-    <icon name="/images/our/big1_ipv6.png">
+    <icon name="/images/big1_ipv6.png">
         <data key="deviceModel">cisco7606s</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/big1.png">
+    <icon name="/images/big1.png">
         <data key="deviceModel">cisco7606s</data>
     </icon>
-    <icon name="/images/our/big_ipv6.png">
+    <icon name="/images/big_ipv6.png">
         <data key="deviceModel">cisco7604</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/big.png">
+    <icon name="/images/big.png">
         <data key="deviceModel">cisco7604</data>
     </icon>
-    <icon name="/images/our/big_ipv6.png">
+    <icon name="/images/big_ipv6.png">
         <data key="deviceModel">cisco7609</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/big.png">
+    <icon name="/images/big.png">
         <data key="deviceModel">cisco7609</data>
     </icon>
-    <icon name="/images/our/large_router_ipv6.png">
+    <icon name="/images/large_router_ipv6.png">
         <data key="deviceModel">cisco7401ASR</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/large_router.png">
+    <icon name="/images/large_router.png">
         <data key="deviceModel">cisco7401ASR</data>
     </icon>
-    <icon name="/images/our/very_big_router_ipv6.png">
+    <icon name="/images/very_big_router_ipv6.png">
         <data key="deviceModel">cisco12406</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/very_big_router_ipv6.png">
+    <icon name="/images/very_big_router_ipv6.png">
         <data key="deviceModel">cisco12406</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/very_big_router_ipv6.png">
+    <icon name="/images/very_big_router_ipv6.png">
         <data key="deviceModel">cisco12810</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/very_big_router.png">
+    <icon name="/images/very_big_router.png">
         <data key="deviceModel">cisco12810</data>
     </icon>
-    <icon name="/images/our/very_big_router_ipv6.png">
+    <icon name="/images/very_big_router_ipv6.png">
         <data key="deviceModel">cisco10008</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/very_big_router.png">
+    <icon name="/images/very_big_router.png">
         <data key="deviceModel">cisco10008</data>
     </icon>
-    <icon name="/images/our/very_big_router_ipv6.png">
+    <icon name="/images/very_big_router_ipv6.png">
         <data key="deviceModel">cisco10720</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/very_big_router.png">
+    <icon name="/images/very_big_router.png">
         <data key="deviceModel">cisco10720</data>
     </icon>
-    <icon name="/images/our/very_big_router_ipv6.png">
+    <icon name="/images/very_big_router_ipv6.png">
         <data key="deviceModel">ciscoCRS8S</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/very_big_router.png">
+    <icon name="/images/very_big_router.png">
         <data key="deviceModel">ciscoCRS8S</data>
     </icon>
-    <icon name="/images/our/large_router_ipv6.png">
+    <icon name="/images/large_router_ipv6.png">
         <data key="deviceModel">cisco7201</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/large_router.png">
+    <icon name="/images/large_router.png">
         <data key="deviceModel">cisco7201</data>
     </icon>
-    <icon name="/images/our/router.png">
+    <icon name="/images/router.png">
         <data key="deviceModel">ciscoMWRc941DCA</data>
     </icon>
-    <icon name="/images/our/medium_switch.png">
+    <icon name="/images/medium_switch.png">
         <data key="deviceModel">catalyst295024G</data>
     </icon>
-    <icon name="/images/our/medium_switch.png">
+    <icon name="/images/medium_switch.png">
         <data key="deviceModel">catalyst2950t24</data>
     </icon>
-    <icon name="/images/our/medium_switch.png">
+    <icon name="/images/medium_switch.png">
         <data key="deviceModel">catalyst296024TT</data>
     </icon>
-    <icon name="/images/our/medium_switch.png">
+    <icon name="/images/medium_switch.png">
         <data key="deviceModel">cisco340024TSD</data>
     </icon>
-    <icon name="/images/our/medium_switch.png">
+    <icon name="/images/medium_switch.png">
         <data key="deviceModel">cisco340024TSA</data>
     </icon>
-    <icon name="/images/our/medium_switch.png">
+    <icon name="/images/medium_switch.png">
         <data key="deviceModel">ciscoMe3400g12CsD</data>
     </icon>
-    <icon name="/images/our/medium_switch1.png">
+    <icon name="/images/medium_switch1.png">
         <data key="deviceModel">catalyst375024ME</data>
     </icon>
-    <icon name="/images/our/medium_switch1.png">
+    <icon name="/images/medium_switch1.png">
         <data key="deviceModel">catalyst37xxStack</data>
     </icon>
-    <icon name="/images/our/medium_switch.png">
+    <icon name="/images/medium_switch.png">
         <data key="deviceModel">catalyst35608PC</data>
     </icon>
-    <icon name="/images/our/router_ipv6.png">
+    <icon name="/images/router_ipv6.png">
         <data key="deviceType">CISCO</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/router.png">
+    <icon name="/images/router.png">
         <data key="deviceType">CISCO</data>
     </icon>
-    <icon name="/images/our/medium_router_ipv6.png">
+    <icon name="/images/medium_router_ipv6.png">
         <data key="ipv6Forwarding">YES</data>
         <data key="deviceType">HUAWEI</data>
     </icon>
-    <icon name="/images/our/medium_router.png">
+    <icon name="/images/medium_router.png">
         <data key="deviceType">HUAWEI</data>
     </icon>
-    <icon name="/images/our/very_big_router_ipv6.png">
+    <icon name="/images/very_big_router_ipv6.png">
         <data key="deviceType">JUNIPER</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/very_big_router.png">
+    <icon name="/images/very_big_router.png">
         <data key="deviceType">JUNIPER</data>
     </icon>
-    <icon name="/images/our/very_big_router_ipv6.png">
+    <icon name="/images/very_big_router_ipv6.png">
         <data key="deviceType">RIVERSTONE</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/very_big_router.png">
+    <icon name="/images/very_big_router.png">
         <data key="deviceType">RIVERSTONE</data>
     </icon>
-    <icon name="/images/our/very_big_router_ipv6.png">
+    <icon name="/images/very_big_router_ipv6.png">
         <data key="deviceType">TELLABS</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/very_big_router.png">
+    <icon name="/images/very_big_router.png">
         <data key="deviceType">TELLABS</data>
     </icon>
-    <icon name="/images/our/medium_switch1_ipv6.png">
+    <icon name="/images/medium_switch1_ipv6.png">
         <data key="deviceType">HP</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/medium_switch1.png">
+    <icon name="/images/medium_switch1.png">
         <data key="deviceType">HP</data>
     </icon>
     <icon name="/images/wireless.png">
@@ -275,7 +275,7 @@
     </icon>
 
 
-    <icon name="/images/our/unknown_switch.png">
+    <icon name="/images/unknown_switch.png">
     </icon>
 
     <filters>

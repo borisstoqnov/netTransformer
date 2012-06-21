@@ -55,52 +55,52 @@
     </edgeColor>
     <!--IPv6 Icons-->
 <!--IPv6 Icons-->
-    <icon name="/images/our/router.png,/images/circle_blue.png">
+    <icon name="/images/router.png,/images/circle_blue.png">
         <data key="deviceModel">cisco2821</data>
         <data key="diff">YES</data>
     </icon>
-    <icon name="/images/our/router.png">
+    <icon name="/images/router.png">
         <data key="deviceModel">cisco2821</data>
     </icon>
-     <icon name="/images/our/big1.png,/images/circle_blue_big.png">
+     <icon name="/images/big1.png,/images/circle_blue_big.png">
         <data key="deviceModel">cisco7606</data>
         <data key="diff">YES</data>
     </icon>
-    <icon name="/images/our/big1.png">
+    <icon name="/images/big1.png">
          <data key="deviceModel">cisco7606</data>
     </icon>
-   <icon name="/images/our/large_router.png,/images/circle_blue_big.png">
+   <icon name="/images/large_router.png,/images/circle_blue_big.png">
         <data key="deviceModel">cisco7401ASR</data>
         <data key="diff">YES</data>
     </icon>
-    <icon name="/images/our/large_router.png">
+    <icon name="/images/large_router.png">
         <data key="deviceModel">cisco7401ASR</data>
     </icon>
 
-        <icon name="/images/our/very_big_router.png,/images/circle_blue.png">
+        <icon name="/images/very_big_router.png,/images/circle_blue.png">
         <data key="deviceModel">cisco12810</data>
         <data key="diff">YES</data>
     </icon>
-    <icon name="/images/our/very_big_router.png">
+    <icon name="/images/very_big_router.png">
         <data key="deviceModel">cisco12810</data>
     </icon>
-    <icon name="/images/our/cloud.png,/images/our/ipv6_internet.png">
+    <icon name="/images/cloud.png,/images/ipv6_internet.png">
         <data key="ipv6Forwarding">YES</data>
         <data key="deviceModel">cloud</data>
     </icon>
-    <icon name="/images/our/cloud.png,/images/circle_blue_big.png">
+    <icon name="/images/cloud.png,/images/circle_blue_big.png">
         <data key="deviceModel">cloud</data>
         <data key="diff">YES</data>
     </icon>
 
-    <icon name="/images/our/cloud.png,/images/our/ipv4_internet.png">
+    <icon name="/images/cloud.png,/images/ipv4_internet.png">
         <data key="deviceModel">cloud</data>
     </icon>
-    <icon name="/images/our/house.png,/images/circle_blue_big.png">
+    <icon name="/images/house.png,/images/circle_blue_big.png">
         <data key="deviceModel">house</data>
         <data key="diff">YES</data>
     </icon>
-     <icon name="/images/our/house.png">
+     <icon name="/images/house.png">
         <data key="deviceModel">house</data>
     </icon>
     <icon name="/images/server_IPv6.png,/images/circle_blue_big.png">
@@ -110,90 +110,90 @@
        <icon name="/images/server.png">
         <data key="deviceModel">hpDL340L</data>
     </icon>
-    <icon name="/images/our/small2.png,/images/circle_blue.png">
+    <icon name="/images/small2.png,/images/circle_blue.png">
         <data key="deviceModel">homeGateway</data>
         <data key="diff">YES</data>
     </icon>
-    <icon name="/images/our/small2.png">
+    <icon name="/images/small2.png">
         <data key="deviceModel">homeGateway</data>
     </icon>
 
-    <icon name="/images/our/medium_switch.png,/images/circle_red.png">
+    <icon name="/images/medium_switch.png,/images/circle_red.png">
         <data key="deviceType">CISCO</data>
         <data key="diff">REMOVED</data>
     </icon>
-    <icon name="/images/our/medium_switch.png,/images/circle_green.png">
+    <icon name="/images/medium_switch.png,/images/circle_green.png">
         <data key="deviceType">CISCO</data>
         <data key="diff">ADDED</data>
     </icon>
-    <icon name="/images/our/medium_switch.png,/images/circle_blue.png">
+    <icon name="/images/medium_switch.png,/images/circle_blue.png">
             <data key="deviceType">CISCO</data>
             <data key="diff">YES</data>
     </icon>
-    <icon name="/images/our/medium_switch.png">
+    <icon name="/images/medium_switch.png">
             <data key="deviceType">CISCO</data>
     </icon>
 
 
-    <icon name="/images/our/medium_router.png,/images/circle_blue.png">
+    <icon name="/images/medium_router.png,/images/circle_blue.png">
         <data key="diff">YES</data>
         <data key="deviceType">HUAWEI</data>
     </icon>
-    <icon name="/images/our/medium_router.png,/images/circle_green.png">
+    <icon name="/images/medium_router.png,/images/circle_green.png">
         <data key="diff">ADDED</data>
         <data key="deviceType">HUAWEI</data>
     </icon>
-    <icon name="/images/our/medium_router.png,/images/circle_red.png">
+    <icon name="/images/medium_router.png,/images/circle_red.png">
         <data key="diff">REMOVED</data>
         <data key="deviceType">HUAWEI</data>
     </icon>
-    <icon name="/images/our/medium_router.png">
+    <icon name="/images/medium_router.png">
         <data key="deviceType">HUAWEI</data>
     </icon>
 
-    <icon name="/images/our/very_big_router.png,/images/circle_blue.png">
+    <icon name="/images/very_big_router.png,/images/circle_blue.png">
         <data key="deviceType">JUNIPER</data>
         <data key="diff">YES</data>
     </icon>
-    <icon name="/images/our/very_big_router.png,/images/circle_green.png">
+    <icon name="/images/very_big_router.png,/images/circle_green.png">
         <data key="deviceType">JUNIPER</data>
         <data key="diff">ADDED</data>
     </icon>
-    <icon name="/images/our/very_big_router.png,/images/circle_red.png">
+    <icon name="/images/very_big_router.png,/images/circle_red.png">
         <data key="deviceType">JUNIPER</data>
         <data key="diff">REMOVED</data>
     </icon>
-    <icon name="/images/our/very_big_router.png">
+    <icon name="/images/very_big_router.png">
         <data key="deviceType">JUNIPER</data>
     </icon>
-    <icon name="/images/our/medium_switch1.png,/images/circle_blue.png">
+    <icon name="/images/medium_switch1.png,/images/circle_blue.png">
         <data key="deviceType">HP</data>
         <data key="diff">YES</data>
     </icon>
-    <icon name="/images/our/medium_switch1.png,/images/circle_green.png">
+    <icon name="/images/medium_switch1.png,/images/circle_green.png">
         <data key="deviceType">HP</data>
         <data key="diff">ADDED</data>
     </icon>
-    <icon name="/images/our/medium_switch1.png,/images/circle_red.png">
+    <icon name="/images/medium_switch1.png,/images/circle_red.png">
         <data key="deviceType">HP</data>
         <data key="diff">REMOVED</data>
     </icon>
-    <icon name="/images/our/medium_switch1.png">
+    <icon name="/images/medium_switch1.png">
         <data key="deviceType">HP</data>
     </icon>
-    <icon name="/images/our/76xx_ipv6.png">
+    <icon name="/images/76xx_ipv6.png">
         <data key="deviceType">RIVERSTONE</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
 
-    <icon name="/images/our/very_big_router.png">
+    <icon name="/images/very_big_router.png">
         <data key="deviceType">RIVERSTONE</data>
     </icon>
-    <icon name="/images/our/76xx_ipv6.png">
+    <icon name="/images/76xx_ipv6.png">
         <data key="deviceType">TELLABS</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/our/very_big_router.png">
+    <icon name="/images/very_big_router.png">
         <data key="deviceType">TELLABS</data>
     </icon>
 
@@ -202,16 +202,16 @@
     <icon name="/images/wireless.png">
         <data key="deviceType">WIRELESS</data>
     </icon>
-    <icon name="/images/our/unknown_switch.png,/images/circle_green.png">
+    <icon name="/images/unknown_switch.png,/images/circle_green.png">
         <data key="diff">ADDED</data>
     </icon>
-    <icon name="/images/our/unknown_switch.png,/images/circle_red.png">
+    <icon name="/images/unknown_switch.png,/images/circle_red.png">
         <data key="diff">REMOVED</data>
     </icon>
-    <icon name="/images/our/unknown_switch.png,/images/circle_blue.png">
+    <icon name="/images/unknown_switch.png,/images/circle_blue.png">
         <data key="diff">YES</data>
     </icon>
-    <icon name="/images/our/unknown_switch.png">
+    <icon name="/images/unknown_switch.png">
     </icon>
 
 <filters>
