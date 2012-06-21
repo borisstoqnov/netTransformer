@@ -174,7 +174,6 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/iTopologyManager/topologyManagerConfig/config.iml" filepath="$PROJECT_DIR$/iTopologyManager/topologyManagerConfig/config.iml" />
       <module fileurl="file://$PROJECT_DIR$/distribution/distribution.iml" filepath="$PROJECT_DIR$/distribution/distribution.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/fulfilmentFactory/fulfilmentFactory.iml" filepath="$PROJECT_DIR$/iTopologyManager/fulfilmentFactory/fulfilmentFactory.iml" />
       <module fileurl="file://$PROJECT_DIR$/iDiscover/iDiscover.iml" filepath="$PROJECT_DIR$/iDiscover/iDiscover.iml" />
@@ -188,7 +187,6 @@
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/topologyManagerConfig/topologyManagerConfig.iml" filepath="$PROJECT_DIR$/iTopologyManager/topologyManagerConfig/topologyManagerConfig.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/topologyViewer/topologyViewer.iml" filepath="$PROJECT_DIR$/iTopologyManager/topologyViewer/topologyViewer.iml" />
       <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/utils (1).iml" filepath="$PROJECT_DIR$/utils (1).iml" />
     </modules>
   </component>
   <component name="ProjectResources">
@@ -304,17 +302,6 @@
         <root url="jar://$MAVEN_REPOSITORY$/edu/uci/ics/screencap/1.0/screencap-1.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: iTransformers.iTransformer.iTopologyManager:parameterFactory:1.0">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/iTransformers/iTransformer/iTopologyManager/parameterFactory/1.0/parameterFactory-1.0.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/iTransformers/iTransformer/iTopologyManager/parameterFactory/1.0/parameterFactory-1.0-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/iTransformers/iTransformer/iTopologyManager/parameterFactory/1.0/parameterFactory-1.0-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Maven: iTransformers.iTransformer:utils:1.0">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/iTransformers/iTransformer/utils/1.0/utils-1.0.jar!/" />
@@ -326,17 +313,6 @@
       <SOURCES>
         <root url="jar://$PROJECT_DIR$/utils/pom-sources.jar!/" />
         <root url="jar://$MAVEN_REPOSITORY$/iTransformers/iTransformer/utils/1.0/utils-1.0-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: javax.mail:mail:1.4">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.4/mail-1.4.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.4/mail-1.4-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.4/mail-1.4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: log4j:log4j:1.2.16">
