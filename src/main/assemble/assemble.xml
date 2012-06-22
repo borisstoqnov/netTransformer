@@ -21,6 +21,25 @@
 
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
+                <include>iTransformers.iTransformer.iTopologyManager:rightClick</include>
+            </includes>
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+                    <fileSet>
+                        <directory>conf</directory>
+                        <outputDirectory>bin/iTopologyManager/rightClick/conf</outputDirectory>
+                    </fileSet>
+                </fileSets>
+            </sources>
+        </moduleSet>
+
+        <moduleSet>
+            <!-- Enable access to all projects in the current multimodule build! -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
                 <include>iTransformers.iTransformer.iTopologyManager:topologyViewer</include>
             </includes>
             <sources>
@@ -120,7 +139,7 @@
                 <include>iTransformers.iTransformer.iTopologyManager:topologyViewer</include>
                 <include>iTransformers.iTransformer.iTopologyManager:topologyManagerConfig</include>
                 <include>iTransformers.iTransformer.iTopologyManager:rightClick</include>
-                <include>iTransformers.iTransformer.iTopologyManager:rightCiickAPI</include>
+                <include>iTransformers.iTransformer.iTopologyManager:rightClickAPI</include>
                 <include>iTransformers.iTransformer.iTopologyManager:parameterFactory</include>
                 <include>iTransformers.iTransformer.iTopologyManager:fulfilmentFactory</include>
                 <include>iTransformers.iTransformer:iDiscover</include>

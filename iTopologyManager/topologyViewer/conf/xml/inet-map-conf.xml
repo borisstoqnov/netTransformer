@@ -155,7 +155,8 @@
     <rightClickItem name="TabViewerOpener" handlerClass="com.topolgyviewer.rightclick.impl.TabbedViewerOpener">
 		
     </rightClickItem>
-	<rightClickItem name="RIPE" handlerClass="com.topolgyviewer.rightclick.impl.ASNRightClickOpener">
+	<rightClickItem name="RIPE" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ASNRightClickOpener">
+
              <param name="protocol">http</param>
              <param name="org">ripe</param>
 			 <param name="url">http://apps.db.ripe.net/whois/lookup/RIPE/aut-num/</param>

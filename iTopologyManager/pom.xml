@@ -8,7 +8,7 @@
     <artifactId>iTopologyManager</artifactId>
     <version>0.1-SNAPSHOT</version><!--Change for new version-->
     <modules>
-        <module>rightCiickAPI</module>
+        <module>rightClickAPI</module>
         <module>rightClick</module>
         <module>topologyManagerConfig</module>
         <module>fulfilmentFactory</module>
