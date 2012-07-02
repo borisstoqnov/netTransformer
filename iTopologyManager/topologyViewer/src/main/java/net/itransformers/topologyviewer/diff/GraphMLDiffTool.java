@@ -34,11 +34,13 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
     private String dirAPath;
     private String dirBPath;
     private String dirCPath;
+    private String ignoredKeysPath;
 
-    public GraphMLDiffTool(String dirAPath, String dirBPath, String dirCPath) {
+    public GraphMLDiffTool(String dirAPath, String dirBPath, String dirCPath, String ignoredKeysPath) {
         this.dirAPath = dirAPath;
         this.dirBPath = dirBPath;
         this.dirCPath = dirCPath;
+        this.ignoredKeysPath = ignoredKeysPath;
     }
 
     private static final FilenameFilter FILTER = new FilenameFilter() {
@@ -62,7 +64,8 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
         String dirAPath = params.get("-a");
         String dirBPath = params.get("-b");
         String dirCPath = params.get("-c");
-        GraphMLDiffTool graphMLDiffTool = new GraphMLDiffTool(dirAPath, dirBPath, dirCPath);
+        String ignoredKeysPath = params.get("-i");
+        GraphMLDiffTool graphMLDiffTool = new GraphMLDiffTool(dirAPath, dirBPath, dirCPath, ignoredKeysPath);
 //        graphMLDiffTool.execute();
         graphMLDiffTool.doInBackground();
     }
@@ -73,6 +76,7 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
             File dira = new File(dirAPath);
             File dirb = new File(dirBPath);
             File dirc = new File(dirCPath);
+            File ignoredKeysFile = new File(ignoredKeysPath);
             String[] lista = dira.list(FILTER);
             String[] listb = dirb.list(FILTER);
             Set<String> seta = new HashSet<String>(Arrays.asList(lista));
@@ -104,7 +108,7 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
                     File file1 = new File(dira, modifiedfile);
                     File file2 = new File(dirb, modifiedfile);
                     final File outputFile = new File(dirc, modifiedfile);
-                    createDiffGraphml(file1.toURI(), file2.toURI(), outputFile);
+                    createDiffGraphml(file1.toURI(), file2.toURI(), outputFile, ignoredKeysFile);
                     pw.println(outputFile.getName());
                     final int progress = 100 * (++current) / total;
                     setProgress(progress);
@@ -139,7 +143,7 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
         return null;
     }
 
-    private static void createDiffGraphml(URI file1, URI file2, File OutputFile) throws FileNotFoundException {
+    private static void createDiffGraphml(URI file1, URI file2, File OutputFile, File ignoredKeysFile) throws FileNotFoundException {
         File transformator = new File("iTopologyManager/topologyViewer/conf/xslt/graphml_diff.xslt");
         ByteArrayInputStream fileInputStream = null;
         FileOutputStream fileOutputStream = null;
@@ -153,6 +157,7 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
         xsltParams = new HashMap<String, String>();
         xsltParams.put("file1", file1.toString());
         xsltParams.put("file2", file2.toString());
+        xsltParams.put("ignored_keys_file", ignoredKeysFile.toURI().toString());
 //        params.put("url",graphml);
         try {
             transformer.transformXML(fileInputStream, transformator, fileOutputStream, xsltParams, null);

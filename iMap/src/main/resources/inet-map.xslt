@@ -24,6 +24,10 @@
 		<xsl:variable name="root" select="/root"/>
 		<graphml>
 			<graph edgedefault="undirected">
+				<key id="diffs" for="edge" attr.name="diffs" attr.type="string"/>
+				<key id="diffs" for="node" attr.name="diffs" attr.type="string"/>      
+				<key id="diff" for="edge" attr.name="diff" attr.type="string"/>
+				<key id="diff" for="node" attr.name="diff" attr.type="string"/>  			
 				<key id="AS" for="node" attr.name="AS" attr.type="string"/>
 				<key id="ASInfo" for="node" attr.name="AS" attr.type="string"/>
 				<key id="ASN" for="node" attr.name="AS" attr.type="string"/>

@@ -1,0 +1,6 @@
+<ignored-keys>
+    <ignored-key name="ASInfo"/>
+    <ignored-key name="countASTransitAppearances"/>
+    <ignored-key name="countOriginatedPrefixes"/>
+    <ignored-key name="description"/>
+</ignored-keys>

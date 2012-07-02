@@ -188,7 +188,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     private void doDiff() {
         progressMonitor = new ProgressMonitor(this,"Running diff tool","", 0, 1000);
         progressMonitor.setMillisToPopup(0);
-        task = new GraphMLDiffTool(getDiffPath1(), getDiffPath2(), getDiffPath3());
+        task = new GraphMLDiffTool(getDiffPath1(), getDiffPath2(), getDiffPath3(), null);
         task.addPropertyChangeListener(this);
         task.execute();
     }

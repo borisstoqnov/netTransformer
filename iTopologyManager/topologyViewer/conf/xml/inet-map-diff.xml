@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ iTransformer is an open source tool able to discover IP networks
+  ~ and to perform dynamic data data population into a xml based inventory system.
+  ~ Copyright (C) 2010  http://itransformers.net
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<topology-viewer-conf>
+   
+   
+    
+   <edgeStroke dash="10.0,5.0" width="2.0" dash_phase="0.0" miterlimit="10.0" join="0">
+        <data key="diff">YES</data>
+    </edgeStroke>
+    <edgeStroke dash="15.0,5.0" width="2.0" dash_phase="0.0" miterlimit="10.0" join="0">
+        <data key="diff">ADDED</data>
+    </edgeStroke>
+    <edgeStroke dash="1.0,5.0" width="2.0" dash_phase="0.0" miterlimit="10.0" join="0">
+        <data key="diff">REMOVED</data>
+    </edgeStroke>
+
+    <edgeColor value="000000">
+        <data key="diff">YES</data>
+    </edgeColor>
+    <edgeColor value="488214">
+        <data key="diff">ADDED</data>
+    </edgeColor>
+    <edgeColor value="FF0155">
+        <data key="diff">REMOVED</data>
+    </edgeColor>
+    <edgeColor value="003EFF">
+    </edgeColor>
+
+    <icon name="/images/small_greendot.png,/images/circle_green.png">
+        <data key="transit">NO</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/small_greendot.png,/images/circle_red.png">
+        <data key="transit">NO</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/small_greendot.png,/images/circle_blue.png">
+        <data key="transit">NO</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/small_greendot.png">
+        <data key="transit">NO</data>
+    </icon>
+
+
+    <icon name="/images/small_red_dot.png,/images/circle_green.png">
+        <data key="transit">YES</data>
+	  <data key="diff">ADDED</data>
+    </icon>
+   <icon name="/images/small_red_dot.png,/images/circle_red.png">
+        <data key="transit">YES</data>
+	  <data key="diff">REMOVED</data>
+    </icon>
+   <icon name="/images/small_red_dot.png,/images/circle_blue.png">
+        <data key="transit">YES</data>
+	  <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/small_red_dot.png">
+        <data key="transit">YES</data>
+    </icon>
+
+    <filters>
+     
+        <filter name="INTET">
+            <include dataKey="AS" dataValue="YES" for="node"/>
+            <include dataKey="edge" dataValue="YES" for="edge"/>
+            <tooltip dataKey="ASInfo" for="node"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="com.topolgyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="INTET-weigth 1">
+            <include dataKey="edge" dataValue="YES" for="edge"/>
+            <include dataKey="weigth" dataValue="1" for="edge"/>
+            <tooltip dataKey="ASInfo" for="node"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="com.topolgyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="INTET-weigth 1+2">
+            <include dataKey="edge" dataValue="YES" for="edge"/>
+            <include dataKey="weigth" dataValue="1" for="edge"/>
+            <include dataKey="weigth" dataValue="2" for="edge"/>
+            <tooltip dataKey="ASInfo" for="node"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="com.topolgyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="INTET-weigth 1+2+3">
+            <include dataKey="AS" dataValue="YES" for="node"/>
+            <include dataKey="weigth" dataValue="1" for="edge"/>
+            <include dataKey="weigth" dataValue="2" for="edge"/>
+            <include dataKey="weigth" dataValue="3" for="edge"/>
+            <tooltip dataKey="ASInfo" for="node"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="com.topolgyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="TRANSIT">
+            <include dataKey="edge" dataValue="YES" for="edge"/>
+            <include dataKey="transit" dataValue="YES" for="node"/>
+            <tooltip dataKey="ASInfo" for="node"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="com.topolgyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+        </filter>
+    </filters>
+
+    <hops selected="1">1,2,3,4,5,6,7,8,9,10</hops>
+
+    <tooltip dataKey="edgeID" for="edge" transformer="com.topolgyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+    <!-- this is also possible it could be used as default value-->
+    <tooltip dataKey="diffs" for="node"/>
+    <rightClickItem name="TabViewerOpener" handlerClass="com.topolgyviewer.rightclick.impl.TabbedViewerOpener">
+		
+    </rightClickItem>
+	<rightClickItem name="RIPE" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ASNRightClickOpener">
+
+             <param name="protocol">http</param>
+             <param name="org">ripe</param>
+			 <param name="url">http://apps.db.ripe.net/whois/lookup/RIPE/aut-num/</param>
+             <param name="port">80</param>
+	</rightClickItem>
+    <rightClickItem name="ARIN" handlerClass="com.topolgyviewer.rightclick.impl.ASNRightClickOpener">
+             <param name="protocol">http</param>
+             <param name="org">arin</param>
+			 <param name="url">http://whois.arin.net/rest/asn/</param>
+             <param name="port">80</param>
+	</rightClickItem>
+   
+
+</topology-viewer-conf>
+
