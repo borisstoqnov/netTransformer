@@ -52,11 +52,13 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     private JTextField diffPathTextField1;
     private JButton openButton1;
     private final JTextField diffPathTextField2;
+    private final JTextField ignoredKeysTextField;
     private final JButton openButton2;
     private final JTextField diffPathTextField3;
     private final JButton openButton3;
     private final JTextField diffConfigPathTextField;
     private final JButton openConfigButton;
+    private final JButton ignoredKeysButton;
     private Properties preferences;
     private Result result = Result.CANCELED;
     private ProgressMonitor progressMonitor;
@@ -121,6 +123,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
                 System.out.println("INSERT UPDATE");
                 final String path1 = diffPathTextField1.getText();
                 final String path2 = diffPathTextField2.getText();
+                final String ignoredKeysFile = ignoredKeysTextField.getText();
                 File file1 = new File(path1);
                 File file2 = new File(path2);
                 diffPathTextField3.setText(new File(new File(file1.getParent()).getParent(),
@@ -163,6 +166,16 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         centralPanel.add(row4);
         openConfigButton.addActionListener(new FileSelector(owner, diffConfigPathTextField, PreferencesKeys.DIFF_CONFIG.name(),false));
 
+        String ignoredKeysPath = (String) preferences.get(PreferencesKeys.IGNORED_KEYS_PATH.name());
+        JPanel row5 = new JPanel(new BorderLayout(10, 10));
+        row5.add(new JLabel("ignore"),BorderLayout.WEST);
+        ignoredKeysTextField = new JTextField(ignoredKeysPath);
+        row5.add(ignoredKeysTextField,BorderLayout.CENTER);
+        ignoredKeysButton = new JButton("Open");
+        row5.add(ignoredKeysButton,BorderLayout.EAST);
+        centralPanel.add(row5);
+        ignoredKeysButton.addActionListener(new FileSelector(owner, ignoredKeysTextField, PreferencesKeys.IGNORED_KEYS_PATH.name(),false));
+
         cp.add(centralPanel,BorderLayout.NORTH);
         setPreferredSize(new Dimension(550, 200));
         this.pack();
@@ -180,6 +193,9 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     public String getDiffConfigPath(){
         return diffConfigPathTextField.getText();
     }
+    public String getIgnoredKeysPath(){
+        return ignoredKeysTextField.getText();
+    }
 
     public Result getResult() {
         return result;
@@ -188,7 +204,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     private void doDiff() {
         progressMonitor = new ProgressMonitor(this,"Running diff tool","", 0, 1000);
         progressMonitor.setMillisToPopup(0);
-        task = new GraphMLDiffTool(getDiffPath1(), getDiffPath2(), getDiffPath3(), null);
+        task = new GraphMLDiffTool(getDiffPath1(), getDiffPath2(), getDiffPath3(), getIgnoredKeysPath());
         task.addPropertyChangeListener(this);
         task.execute();
     }

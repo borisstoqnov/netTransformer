@@ -33,5 +33,6 @@ public enum PreferencesKeys {
     DIFF_PATH1,
     DIFF_PATH2,
     DIFF_PATH3,
-    DIFF_CONFIG
+    DIFF_CONFIG,
+    IGNORED_KEYS_PATH
 }
