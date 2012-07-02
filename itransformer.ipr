@@ -177,6 +177,7 @@
       <module fileurl="file://$PROJECT_DIR$/distribution/distribution.iml" filepath="$PROJECT_DIR$/distribution/distribution.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/fulfilmentFactory/fulfilmentFactory.iml" filepath="$PROJECT_DIR$/iTopologyManager/fulfilmentFactory/fulfilmentFactory.iml" />
       <module fileurl="file://$PROJECT_DIR$/iDiscover/iDiscover.iml" filepath="$PROJECT_DIR$/iDiscover/iDiscover.iml" />
+      <module fileurl="file://$PROJECT_DIR$/iMap/iMap.iml" filepath="$PROJECT_DIR$/iMap/iMap.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/iTopologyManager.iml" filepath="$PROJECT_DIR$/iTopologyManager/iTopologyManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTransformer.iml" filepath="$PROJECT_DIR$/iTransformer.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/parameterFactory/parameterFactory.iml" filepath="$PROJECT_DIR$/iTopologyManager/parameterFactory/parameterFactory.iml" />

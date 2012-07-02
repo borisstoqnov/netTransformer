@@ -63,8 +63,8 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
         String dirBPath = params.get("-b");
         String dirCPath = params.get("-c");
         GraphMLDiffTool graphMLDiffTool = new GraphMLDiffTool(dirAPath, dirBPath, dirCPath);
-        graphMLDiffTool.execute();
-
+//        graphMLDiffTool.execute();
+        graphMLDiffTool.doInBackground();
     }
 
     @Override
@@ -140,7 +140,7 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
     }
 
     private static void createDiffGraphml(URI file1, URI file2, File OutputFile) throws FileNotFoundException {
-        File transformator = new File("topology-viewer/conf/xslt/graphml_diff.xslt");
+        File transformator = new File("iTopologyManager/topologyViewer/conf/xslt/graphml_diff.xslt");
         ByteArrayInputStream fileInputStream = null;
         FileOutputStream fileOutputStream = null;
 

@@ -20,6 +20,7 @@
         <module>snmp2xml</module>
         <module>utils</module>
         <module>distribution</module>
+        <module>iMap</module>
     </modules>
     <build>
         <pluginManagement>

@@ -63,5 +63,11 @@
             <artifactId>screencap</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>net.sourceforge.saxon</groupId>
+            <artifactId>saxon</artifactId>
+            <version>9.1.0.8</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 </project>
