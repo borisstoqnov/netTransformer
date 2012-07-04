@@ -32,7 +32,7 @@
 				<key id="ASInfo" for="node" attr.name="AS" attr.type="string"/>
 				<key id="ASN" for="node" attr.name="AS" attr.type="string"/>
 				<key id="description" for="node" attr.name="description" attr.type="string"/>
-				<key id="RoutePrefix" for="node" attr.name="RoutePrefix" attr.type="string"/>
+				<key id="RoutePrefixes" for="node" attr.name="RoutePrefixes" attr.type="string"/>
 				<key id="countOriginatedPrefixes" for="node" attr.name="countOriginatedPrefixes" attr.type="integer"/>
 				<key id="countASTransitAppearances" for="node" attr.name="countASTransitAppearances" attr.type="integer"/>
 				<key id="customer" for="node" attr.name="customer" attr.type="string"/>
@@ -62,11 +62,13 @@
 								<xsl:value-of select="$countASTransitAppearances"/>
 						</data>
 						<xsl:variable name="RoutePrefixes">
+                            <RoutePrefixes>
 							<xsl:for-each select="distinct-values($root//prefix[lastAS=$AS]/@id)">
-								<data key="RoutePrefix">
+								<RoutePrefix>
 									<xsl:value-of select="."/>
-								</data>
+								</RoutePrefix>
 							</xsl:for-each>
+                            </RoutePrefixes>
 						</xsl:variable>
 						<data key="ASInfo">
 							<xsl:text disable-output-escaping="yes">&lt;![CDATA[ &lt;html&gt;</xsl:text>
@@ -79,10 +81,6 @@
 							<xsl:text disable-output-escaping="yes">&lt;br/&gt;&lt;b&gt;Originated AS prefixes: &lt;/b&gt;</xsl:text>
 							<xsl:value-of select="$countOriginatedPrefixes"/>
 							<xsl:text disable-output-escaping="yes">&lt;br/&gt;&lt;b&gt;Advertized Prefixes: &lt;/b&gt;</xsl:text>
-							<xsl:for-each select="$RoutePrefixes/data">
-								<xsl:text disable-output-escaping="yes">&lt;br/&gt;</xsl:text>
-								<xsl:value-of select="."/>
-							</xsl:for-each>
 							<xsl:text disable-output-escaping="yes">&lt;/html&gt;]]&gt;</xsl:text>
 						</data>
 						<data key="transit">
@@ -96,6 +94,7 @@
 							<xsl:value-of select="$description"/>
 							<xsl:text disable-output-escaping="yes">&lt;/html&gt;]]&gt;</xsl:text>
 						</data>
+                        <data key="RoutePrefixes"><xsl:value-of select="$RoutePrefixes"/></data>
 					</node>
 				</xsl:for-each>
 				<xsl:for-each select="distinct-values(/root//prefix/ASes/AS)">
