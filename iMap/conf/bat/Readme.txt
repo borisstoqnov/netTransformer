@@ -4,7 +4,7 @@ iMap needs JRE  "1.6.0_25" or later.
 In order to work properly you have to have IP& SNMP connectivity to a device with BGP internet table.
 
 How to create an Internet BGP peering map?
-Edit iMap/conf/imap.properties and add there your snmp communities and the IP address of the BGP enabled device .
+Edit bin/iMap/conf/imap.properties and add there your snmp communities and the IP address of the BGP enabled device .
 With other words change X.X.X.X and test-r, test-rw with your values.
 -------------------------------------------------------------------------------
 
@@ -30,12 +30,13 @@ Then run
 !On Windows
 cd bin
 
-iMap.bat -s iMap/conf/imap.properties
+iMap.bat
 
 
 ! On Linux/Unix
 cd bin
-iMap.sh -s iMap/conf/imap.properties
+chmod 775 *.sh
+iMap.sh
 
 
 How to reveal the Internet Map?
