@@ -102,6 +102,9 @@ public class MenuBuilder {
         final JMenuItem searchByKey = new JMenuItem("Search by Key");
         searchByKey.addActionListener(new SearchByKeyMenuHandler(frame));
         search.add(searchByKey);
+        final JMenuItem searchByIP = new JMenuItem("Search by IP");
+        searchByIP.addActionListener(new SearchByIpMenuHandler(frame));
+        search.add(searchByIP);
 
         final JMenuItem newTab = new JMenuItem("New Tab");
         newTab.addActionListener(new NewTabMenuHandler(frame));

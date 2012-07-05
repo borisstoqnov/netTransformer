@@ -39,6 +39,7 @@ import edu.uci.ics.jung.visualization.layout.PersistentLayout;
 import edu.uci.ics.jung.visualization.layout.PersistentLayoutImpl;
 import edu.uci.ics.jung.visualization.picking.MultiPickedState;
 import edu.uci.ics.jung.visualization.picking.PickedState;
+import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -57,6 +58,7 @@ import java.util.*;
 
 
 public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
+    static Logger logger = Logger.getLogger(ViewerPanel.class);
     private MyVisualizationViewer vv;
     private TopologyViewerConfType viewerConfig;
     private GraphmlLoader<G> graphmlLoader;
@@ -756,38 +758,26 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
         }
         return mOrderedPred;
     }
-    public Set<String> FindNodeByKey(String Key, String Value){
-        Map<String, Map<String, GraphMLMetadata<String>>> Test = graphmlLoader.getVertexMetadatas();
-        // For values of a map
+    public Set<String> FindNodeByKey(String key, Object value){
+        Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = graphmlLoader.getVertexMetadatas();
         Set<String> foundVertexes = new HashSet<String>();
-        //Iterate arround each vertex
-        HashSet<String> set = new HashSet<String>(currentGraph.getVertices());
-        Iterator it = set.iterator();
-        while (it.hasNext()){
-                Object element = it.next();
-           //Iterate around for each vertexKey
-            for (Map<String,GraphMLMetadata<String>> vertexMetadata : Test.values()) {
-                for (String key : vertexMetadata.keySet()){
-                    System.out.println("Key:"+ key);
-                    // If the vertexKey is equal to the key get the value
-                    if(Key.equals(key))  {
-                        String value = vertexMetadata.get(key).transformer.transform(element.toString());
-                        if (value == null){ continue;
-
-                        }
-                        else{
-                            System.out.println("value: "+value+" Value: "+Value);
-                            if (value.equals(Value)){
-                                foundVertexes.add(element.toString());
-                            }
-                        }
+        outer: for (String element : currentGraph.getVertices()) {
+            //Iterate around for each vertexKey
+            for (Map<String, GraphMLMetadata<String>> vertexMetadata : vertexMetadatas.values()) {
+                logger.info("Key:" + key);
+                // If the vertexKey is equal to the key get the value
+                GraphMLMetadata<String> graphMLMetadata = vertexMetadata.get(key);
+                if (graphMLMetadata != null) {
+                    String nodeDataValue = graphMLMetadata.transformer.transform(element);
+                    logger.info("value: " + value + " Value: " + nodeDataValue);
+                    if (value.equals(nodeDataValue)) {
+                        foundVertexes.add(element);
+                        continue outer;
                     }
                 }
             }
-
-
         }
-          return foundVertexes;
+        return foundVertexes;
     }
     private static <G> Map<String, String> getVertexParams(String v, Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas) {
         HashMap<String, String> params = new HashMap<String, String>();

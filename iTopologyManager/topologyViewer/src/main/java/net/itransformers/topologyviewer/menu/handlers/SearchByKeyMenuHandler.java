@@ -26,6 +26,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -53,9 +54,8 @@ public class SearchByKeyMenuHandler implements ActionListener {
         String value = JOptionPane.showInputDialog(frame, "Enter Key Value", "Value", JOptionPane.QUESTION_MESSAGE);
 
         ViewerPanel viewerPanel = (ViewerPanel) frame.getTabbedPane().getSelectedComponent();
-        Set<String> foundVertexes;
-        foundVertexes = viewerPanel.FindNodeByKey(key,value);
-        if (foundVertexes!=null || foundVertexes.isEmpty()){
+        Set<String> foundVertexes = viewerPanel.FindNodeByKey(key,value);
+        if (!foundVertexes.isEmpty()){
             Iterator it = foundVertexes.iterator();
             if (foundVertexes.size()==1){
                 Object element = it.next();
@@ -63,7 +63,7 @@ public class SearchByKeyMenuHandler implements ActionListener {
                 viewerPanel.SetPickedState(element.toString());
                 viewerPanel.Animator(element.toString());
             }else{
-                JOptionPane.showMessageDialog(frame, "Multiple Nodes with key " + key +" and value " + value + " found", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Multiple Nodes with key " + key +" and value " + value + " found: "+foundVertexes, "Error", JOptionPane.ERROR_MESSAGE);
             }
         }  else{
             JOptionPane.showMessageDialog(frame, "Can not find node with key " + key +" and value " + value , "Error", JOptionPane.ERROR_MESSAGE);
