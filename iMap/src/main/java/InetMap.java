@@ -26,6 +26,8 @@ import net.itransformers.utils.XsltTransformer;
 import org.snmp4j.util.SnmpConfigurator;
 import net.itransformers.utils.CmdLineParser;
 
+import org.apache.log4j.Logger;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,6 +35,8 @@ import java.util.Map;
 import java.util.Properties;
 
 public class InetMap {
+    static Logger logger = Logger.getLogger(InetMap.class);
+
     private static void printUsage(String param){
         System.out.println("Usage:   java -s <Path to settings.properties>");
         System.out.println("Example: java -s iMap\\conf\\txt\\settings.properties");
@@ -40,6 +44,7 @@ public class InetMap {
     }
     public static void main(String[] args) throws Exception {
         Map<String,String> params = CmdLineParser.parseCmdLine(args);
+        logger.info("input params"+params.toString());
         if (params == null) {
             printUsage("settings.properties"); return;
         }
@@ -48,6 +53,7 @@ public class InetMap {
             printUsage("settings.properties"); return;
         }
         Map<String, String> settings = loadProperties(new File(settingsFile));
+        logger.info("Settings"+settings.toString());
         XsltTransformer transformer = new XsltTransformer();
         byte[] rawData = snmpWalk(settings);
         System.out.println(new String(rawData));
@@ -58,7 +64,7 @@ public class InetMap {
         File xsltFileName1 = new File(System.getProperty("base.dir"), settings.get("xsltFileName1"));
         ByteArrayInputStream inputStream1 = new ByteArrayInputStream(rawData);
         transformer.transformXML(inputStream1, xsltFileName1, outputStream1, settings, null);
-        System.out.println(new String(outputStream1.toByteArray()));
+//        System.out.println(new String(outputStream1.toByteArray()));
 
         ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
         File xsltFileName2 = new File(System.getProperty("base.dir"), settings.get("xsltFileName2"));
