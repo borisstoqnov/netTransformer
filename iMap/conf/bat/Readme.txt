@@ -3,11 +3,9 @@ Prerequirements:
 iMap needs JRE  "1.6.0_25" or later.
 In order to work properly you have to have IP& SNMP connectivity to a device with BGP internet table.
 
-So if  those are met:
-
 How to create an Internet BGP peering map?
 Edit iMap/conf/imap.properties and add there your snmp communities and the IP address of the BGP enabled device .
-With other words change X.X.X.X
+With other words change X.X.X.X and test-r, test-rw with your values.
 -------------------------------------------------------------------------------
 
 query.parameters=system,bgpLocalAs,bgpPeerEntry,bgp4PathAttrEntry
@@ -48,7 +46,5 @@ iMapTopoManager.bat
 
 On linux/Unix/macOS try the following to reveal undirected network graph view:
 iMapTopoManager.sh
-
-Since the fact that the discovery process might continue quite a while (currnet estimate is 6 hours 500 devices) note that iTopoManager supports dynamic topology update through the Reload button.
 
 For any further information about iTransformer please do not hesitate to consult http://itransformers.net.
