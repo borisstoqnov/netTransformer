@@ -45,6 +45,6 @@ iMapTopoManager.bat
 
 
 On linux/Unix/macOS try the following to reveal undirected network graph view:
-iMapTopoManager.sh
+./iMapTopoManager.sh
 
 For any further information about iTransformer please do not hesitate to consult http://itransformers.net.
