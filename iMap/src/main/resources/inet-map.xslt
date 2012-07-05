@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ iTransformer is an open source tool able to discover IP networks
-  ~ and to perform dynamic data data population into a xml based inventory system.
-  ~ Copyright (C) 2010  http://itransformers.net
+  ~ iMap is an open source tool able to upload Internet BGP peering information
+  ~  and to visualize the beauty of Internet BGP Peering in 2D map.
+  ~  Copyright (C) 2012  http://itransformers.net
   ~
-  ~ This program is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU General Public License as published by
-  ~ the Free Software Foundation, either version 3 of the License, or
-  ~ any later version.
+  ~  This program is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  any later version.
   ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU General Public License for more details.
+  ~  This program is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
   ~
-  ~ You should have received a copy of the GNU General Public License
-  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+    <xsl:param name="as-numbers"/>
 	<xsl:template match="/">
 		<xsl:variable name="root" select="/root"/>
 		<graphml>
@@ -29,8 +30,8 @@
 				<key id="diff" for="edge" attr.name="diff" attr.type="string"/>
 				<key id="diff" for="node" attr.name="diff" attr.type="string"/>  			
 				<key id="AS" for="node" attr.name="AS" attr.type="string"/>
-				<key id="ASInfo" for="node" attr.name="AS" attr.type="string"/>
-				<key id="ASN" for="node" attr.name="AS" attr.type="string"/>
+				<key id="ASInfo" for="node" attr.name="ASInfo" attr.type="string"/>
+				<key id="ASN" for="node" attr.name="ASN" attr.type="string"/>
 				<key id="description" for="node" attr.name="description" attr.type="string"/>
 				<key id="RoutePrefixes" for="node" attr.name="RoutePrefixes" attr.type="string"/>
 				<key id="countOriginatedPrefixes" for="node" attr.name="countOriginatedPrefixes" attr.type="integer"/>
@@ -46,7 +47,7 @@
 				<xsl:for-each select="distinct-values($root//prefix/ASes/AS)">
 					<xsl:variable name="AS" select="."/>
 					<xsl:variable name="asCount" select="count($root//prefix/ASes[AS=$AS])"/>
-					<xsl:variable name="description" select="document('as-numbers.xml')/root/AS[number=concat('AS',$AS)]/description"/>
+					<xsl:variable name="description" select="document($as-numbers)/root/AS[number=concat('AS',$AS)]/description"/>
 					<xsl:variable name="countOriginatedPrefixes" select="count($root//prefix[lastAS=$AS])"/>
 					<xsl:variable name="countASTransitAppearances" select="count($root//prefix/ASes[AS=$AS]/..[lastAS!=$AS])"/>
 					<node>
@@ -62,13 +63,9 @@
 								<xsl:value-of select="$countASTransitAppearances"/>
 						</data>
 						<xsl:variable name="RoutePrefixes">
-                            <RoutePrefixes>
 							<xsl:for-each select="distinct-values($root//prefix[lastAS=$AS]/@id)">
-								<RoutePrefix>
-									<xsl:value-of select="."/>
-								</RoutePrefix>
+									<xsl:value-of select="."/>,
 							</xsl:for-each>
-                            </RoutePrefixes>
 						</xsl:variable>
 						<data key="ASInfo">
 							<xsl:text disable-output-escaping="yes">&lt;![CDATA[ &lt;html&gt;</xsl:text>
@@ -80,7 +77,6 @@
 							<xsl:value-of select="$countASTransitAppearances"/>
 							<xsl:text disable-output-escaping="yes">&lt;br/&gt;&lt;b&gt;Originated AS prefixes: &lt;/b&gt;</xsl:text>
 							<xsl:value-of select="$countOriginatedPrefixes"/>
-							<xsl:text disable-output-escaping="yes">&lt;br/&gt;&lt;b&gt;Advertized Prefixes: &lt;/b&gt;</xsl:text>
 							<xsl:text disable-output-escaping="yes">&lt;/html&gt;]]&gt;</xsl:text>
 						</data>
 						<data key="transit">
@@ -94,7 +90,7 @@
 							<xsl:value-of select="$description"/>
 							<xsl:text disable-output-escaping="yes">&lt;/html&gt;]]&gt;</xsl:text>
 						</data>
-                        <data key="RoutePrefixes"><xsl:value-of select="$RoutePrefixes"/></data>
+                        <data key="RoutePrefixes"><xsl:copy-of select="$RoutePrefixes"/></data>
 					</node>
 				</xsl:for-each>
 				<xsl:for-each select="distinct-values(/root//prefix/ASes/AS)">
