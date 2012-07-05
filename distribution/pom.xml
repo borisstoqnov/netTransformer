@@ -41,6 +41,9 @@
                         </goals>
                         <configuration>
                             <finalName>itransformer</finalName>
+                            <filters>
+                                <filter>distribution/itransformer.properties</filter>
+                            </filters>
                             <descriptors>
                                 <descriptor>distribution/itransformer.xml</descriptor>
                             </descriptors>
@@ -54,6 +57,9 @@
                         </goals>
                         <configuration>
                             <finalName>imap</finalName>
+                            <filters>
+                                <filter>distribution/imap.properties</filter>
+                            </filters>
                             <descriptors>
                                 <descriptor>distribution/imap.xml</descriptor>
                             </descriptors>
