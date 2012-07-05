@@ -53,7 +53,7 @@ public class INetMap {
 //            return;
 //        }
 
-        File graphmlDir = new File(System.getProperty("base.dir"), settings.get("output.dir"));
+        File graphmlDir = new File(outputDir, settings.get("output.dir.graphml"));
         result = outputDir.mkdir();
 //        if (!result) {
 //            System.out.println("Unable to create dir: "+graphmlDir);
