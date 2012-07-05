@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.idiscover.core;
+package net.itransformers.utils;
 
 import java.util.HashMap;
 import java.util.Map;

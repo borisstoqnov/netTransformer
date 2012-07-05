@@ -21,7 +21,16 @@
     <annotationProcessing enabled="false" useClasspath="true" />
   </component>
   <component name="CopyrightManager" default="">
-    <module2copyright />
+    <copyright>
+      <option name="notice" value="iMap is an open source tool able to upload Internet BGP peering information&#10; and to visualize the beauty of Internet BGP Peering in 2D map.&#10; Copyright (C) 2012  http://itransformers.net&#10;&#10; This program is free software: you can redistribute it and/or modify&#10; it under the terms of the GNU General Public License as published by&#10; the Free Software Foundation, either version 3 of the License, or&#10; any later version.&#10;&#10; This program is distributed in the hope that it will be useful,&#10; but WITHOUT ANY WARRANTY; without even the implied warranty of&#10; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#10; GNU General Public License for more details.&#10;&#10; You should have received a copy of the GNU General Public License&#10; along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;." />
+      <option name="keyword" value="Copyright" />
+      <option name="allowReplaceKeyword" value="" />
+      <option name="myName" value="GNU-iMap" />
+      <option name="myLocal" value="true" />
+    </copyright>
+    <module2copyright>
+      <element module="All" copyright="GNU-iMap" />
+    </module2copyright>
   </component>
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
@@ -305,7 +314,7 @@
     </library>
     <library name="Maven: iTransformers.iTransformer.iTopologyManager:rightCiickAPI:0.1-SNAPSHOT">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/iTransformers/iTransformer/iTopologyManager/rightCiickAPI/0.1-SNAPSHOT/rightCiickAPI-0.1-SNAPSHOT.jar!/" />
+        <root url="jar://$PROJECT_DIR$/iTopologyManager/rightCiickAPI/pom.xml!/" />
       </CLASSES>
       <JAVADOC>
         <root url="jar://$PROJECT_DIR$/iTopologyManager/rightCiickAPI/pom-javadoc.jar!/" />

@@ -20,7 +20,7 @@
 package net.itransformers.idiscover.util;
 
 
-import net.itransformers.idiscover.core.CmdLineParser;
+import net.itransformers.utils.CmdLineParser;
 import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;

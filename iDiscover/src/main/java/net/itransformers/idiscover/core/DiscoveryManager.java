@@ -32,6 +32,7 @@ import net.itransformers.idiscover.util.JaxbMarshalar;
 import net.itransformers.resourcemanager.ResourceManager;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.resourcemanager.config.ResourcesType;
+import net.itransformers.utils.CmdLineParser;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
