@@ -70,7 +70,6 @@ public class INetMap {
         File xsltFileName1 = new File(System.getProperty("base.dir"), settings.get("xsltFileName1"));
         ByteArrayInputStream inputStream1 = new ByteArrayInputStream(rawData);
         transformer.transformXML(inputStream1, xsltFileName1, outputStream1, settings, null);
-        System.out.println(new String(outputStream1.toByteArray()));
 
         ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
         File xsltFileName2 = new File(System.getProperty("base.dir"), settings.get("xsltFileName2"));
