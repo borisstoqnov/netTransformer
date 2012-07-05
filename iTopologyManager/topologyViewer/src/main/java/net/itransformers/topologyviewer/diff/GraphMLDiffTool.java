@@ -66,7 +66,7 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
         String dirCPath = params.get("-c");
         String ignoredKeysPath = params.get("-i");
         GraphMLDiffTool graphMLDiffTool = new GraphMLDiffTool(dirAPath, dirBPath, dirCPath, ignoredKeysPath);
-//        graphMLDiffTool.execute();
+        graphMLDiffTool.execute();
         long time=System.currentTimeMillis();
         graphMLDiffTool.doInBackground();
         System.out.println("Executed in "+(System.currentTimeMillis()-time)+ "ms");
@@ -149,19 +149,35 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
         File transformator = new File("iTopologyManager/topologyViewer/conf/xslt/graphml_diff.xslt");
         ByteArrayInputStream fileInputStream = null;
         FileOutputStream fileOutputStream = null;
-
+        try {
 //    fileInputStream = new FileInputStream(graphml);
+        System.out.println("test1");
         String dummyXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\n</root>";
+            System.out.println("test1'");
         fileInputStream = new ByteArrayInputStream(dummyXml.getBytes());
+        System.out.println("test11"+OutputFile.getAbsolutePath());
+
         fileOutputStream = new FileOutputStream(OutputFile);
-        XsltTransformer transformer = new XsltTransformer();
+            System.out.println("test11'");
+            XsltTransformer transformer = null;
+
+            try {
+                 transformer = new XsltTransformer();
+            } catch (Error e) {
+                e.printStackTrace();
+            }
+
+        System.out.println("test111");
         HashMap<String, String> xsltParams;
         xsltParams = new HashMap<String, String>();
         xsltParams.put("file1", file1.toString());
         xsltParams.put("file2", file2.toString());
         xsltParams.put("ignored_keys_file", ignoredKeysFile.toURI().toString());
 //        params.put("url",graphml);
-        try {
+        System.out.println("test2");
+
+
+            System.out.println(fileInputStream.toString()+"|"+transformator.toString()+"|"+fileOutputStream.toString());
             transformer.transformXML(fileInputStream, transformator, fileOutputStream, xsltParams, null);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -183,6 +199,8 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
                 e.printStackTrace();
             }
         }
+
+
     }
 
     private static void createNewGraphml(String newfile, String status, URI file, File OutputFile) throws FileNotFoundException {
