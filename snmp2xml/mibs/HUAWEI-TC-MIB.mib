@@ -648,8 +648,8 @@
                    plc (174), -- Power Line Communtications
                    nfas (175), -- Non Facility Associated Signaling
                    tr008 (176), -- TR008
-                   gr303RDT (177), -- Remote Digital com.topolgyviewer.rightclick.impl.Terminal
-                   gr303IDT (178), -- Integrated Digital com.topolgyviewer.rightclick.impl.Terminal
+                   gr303RDT (177), -- Remote Digital net.itransformers.topologyviewer.rightclick.impl.Terminal
+                   gr303IDT (178), -- Integrated Digital net.itransformers.topologyviewer.rightclick.impl.Terminal
                    isup (179), -- ISUP
                    propDocsWirelessMaclayer (180), -- prop/Maclayer
                    propDocsWirelessDownstream (181), -- prop/Downstream

@@ -83,20 +83,20 @@
             <include dataKey="AS" dataValue="YES" for="node"/>
             <include dataKey="edge" dataValue="YES" for="edge"/>
             <tooltip dataKey="ASInfo" for="node"/>
-            <tooltip dataKey="edgeID" for="edge" transformer="com.topolgyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
         </filter>
         <filter name="INTET-weigth 1">
             <include dataKey="edge" dataValue="YES" for="edge"/>
             <include dataKey="weigth" dataValue="1" for="edge"/>
             <tooltip dataKey="ASInfo" for="node"/>
-            <tooltip dataKey="edgeID" for="edge" transformer="com.topolgyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
         </filter>
         <filter name="INTET-weigth 1+2">
             <include dataKey="edge" dataValue="YES" for="edge"/>
             <include dataKey="weigth" dataValue="1" for="edge"/>
             <include dataKey="weigth" dataValue="2" for="edge"/>
             <tooltip dataKey="ASInfo" for="node"/>
-            <tooltip dataKey="edgeID" for="edge" transformer="com.topolgyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
         </filter>
         <filter name="INTET-weigth 1+2+3">
             <include dataKey="AS" dataValue="YES" for="node"/>
@@ -104,22 +104,22 @@
             <include dataKey="weigth" dataValue="2" for="edge"/>
             <include dataKey="weigth" dataValue="3" for="edge"/>
             <tooltip dataKey="ASInfo" for="node"/>
-            <tooltip dataKey="edgeID" for="edge" transformer="com.topolgyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
         </filter>
         <filter name="TRANSIT">
             <include dataKey="edge" dataValue="YES" for="edge"/>
             <include dataKey="transit" dataValue="YES" for="node"/>
             <tooltip dataKey="ASInfo" for="node"/>
-            <tooltip dataKey="edgeID" for="edge" transformer="com.topolgyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
         </filter>
     </filters>
 
     <hops selected="1">1,2,3,4,5,6,7,8,9,10</hops>
 
-    <tooltip dataKey="edgeID" for="edge" transformer="com.topolgyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+    <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
     <!-- this is also possible it could be used as default value-->
     <tooltip dataKey="diffs" for="node"/>
-    <rightClickItem name="TabViewerOpener" handlerClass="com.topolgyviewer.rightclick.impl.TabbedViewerOpener">
+    <rightClickItem name="TabViewerOpener" handlerClass="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener">
 		
     </rightClickItem>
 	<rightClickItem name="RIPE" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ASNRightClickOpener">
@@ -129,7 +129,7 @@
 			 <param name="url">http://apps.db.ripe.net/whois/lookup/RIPE/aut-num/</param>
              <param name="port">80</param>
 	</rightClickItem>
-    <rightClickItem name="ARIN" handlerClass="com.topolgyviewer.rightclick.impl.ASNRightClickOpener">
+    <rightClickItem name="ARIN" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ASNRightClickOpener">
              <param name="protocol">http</param>
              <param name="org">arin</param>
 			 <param name="url">http://whois.arin.net/rest/asn/</param>

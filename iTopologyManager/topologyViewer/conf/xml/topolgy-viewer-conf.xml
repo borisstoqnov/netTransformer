@@ -251,24 +251,24 @@
     </filters>
     <!-- Number of hops in the combo box hops -->
     <hops selected="1">1,2,3,4,5,6,7,8,9,10</hops>
-    <tooltip dataKey="method" for="edge" transformer="com.topolgyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+    <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
     <!-- this is also possible it could be used as default value-->
 
     <tooltip dataKey="deviceInfo" for="node"/>
-    <rightClickItem name="NewTab" handlerClass="com.topolgyviewer.rightclick.impl.TabbedViewerOpener">
+    <rightClickItem name="NewTab" handlerClass="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener">
 		<submenu name="Connect through">
-        <rightClickItem name="jconsole" handlerClass="com.topolgyviewer.rightclick.impl.CreateTerminalHandler">
+        <rightClickItem name="jconsole" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CreateTerminalHandler">
         <param name="resource">resource-manager/conf/xml/resource.xml</param>
         </rightClickItem>
-		<rightClickItem name="HTTP" handlerClass="com.topolgyviewer.rightclick.impl.URLRightClickOpener">
+		<rightClickItem name="HTTP" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
              <param name="protocol">http</param>
              <param name="port">80</param>
 		</rightClickItem>
-		<rightClickItem name="HTTPS" handlerClass="com.topolgyviewer.rightclick.impl.URLRightClickOpener">
+		<rightClickItem name="HTTPS" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
 				 <param name="protocol">https</param>
 				 <param name="port">443</param>
 		</rightClickItem>
-		<rightClickItem name="putty" handlerClass="com.topolgyviewer.rightclick.impl.PuttyRightClickHandler">
+		<rightClickItem name="putty" handlerClass="net.itransformers.topologyviewer.rightclick.impl.PuttyRightClickHandler">
 			<param name="ssh_no_saved_session">../lib/putty/putty.exe -ssh -l %s -pw %s %s</param>
 			<param name="ssh_saved_session">../lib/putty/putty.exe -ssh -l %s -pw %s -load %s %s </param>
 			<param name="telnet_no_saved_session">lib/putty/putty.exe -telnet -l %s %s</param>
@@ -279,70 +279,70 @@
 		</submenu>
     </rightClickItem>
 
-    <rightClickItem name="Object Tree Browser" handlerClass="com.topolgyviewer.rightclick.impl.XMLTreeViewHandler">
+    <rightClickItem name="Object Tree Browser" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler">
         <submenu name="Reports">
-            <rightClickItem name="Device Neighbors" handlerClass="com.topolgyviewer.rightclick.impl.XsltReportCreator">
+            <rightClickItem name="Device Neighbors" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
                     <param name="xsl_transformator">rightclick/conf/xslt/deviceNeighbors.xslt</param>
                     <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
             </rightClickItem>
-            <rightClickItem name="Cable Cuts" handlerClass="com.topolgyviewer.rightclick.impl.XsltReportCreator">
+            <rightClickItem name="Cable Cuts" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
                     <param name="xsl_transformator">rightclick/conf/xslt/cableCut.xslt</param>
                     <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
             </rightClickItem>
-            <rightClickItem name="IPv4 Address Space" handlerClass="com.topolgyviewer.rightclick.impl.XsltReportCreator">
+            <rightClickItem name="IPv4 Address Space" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
                     <param name="xsl_transformator">rightclick/conf/xslt/IPv4.xslt</param>
                     <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
             </rightClickItem>
-            <rightClickItem name="IPv6 Address Space" handlerClass="com.topolgyviewer.rightclick.impl.XsltReportCreator">
+            <rightClickItem name="IPv6 Address Space" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
                     <param name="xsl_transformator">rightclick/conf/xslt/IPv6.xslt</param>
                     <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
             </rightClickItem>
-            <rightClickItem name="MPLS L3 VPN" handlerClass="com.topolgyviewer.rightclick.impl.XsltReportCreator">
+            <rightClickItem name="MPLS L3 VPN" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
                     <param name="xsl_transformator">rightclick/conf/xslt/mplsL3VPN.xslt</param>
                     <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
             </rightClickItem>
         </submenu>
         <submenu name="ShortestPath">
-            <rightClickItem name="ShortestPath" handlerClass="com.topolgyviewer.rightclick.impl.ShortestPath"/>
-            <rightClickItem name="ShortestPathActivation" handlerClass="com.topolgyviewer.rightclick.impl.ShortestPathProvisioning"/>
+            <rightClickItem name="ShortestPath" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPath"/>
+            <rightClickItem name="ShortestPathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning"/>
         </submenu>
     </rightClickItem>
 
 
-     <rightClickItem name="ConfigureDevice" handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
+     <rightClickItem name="ConfigureDevice" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
         <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
         <param name="resource">resource-manager/conf/xml/resource.xml</param>
         <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
         <submenu name="discover">
-            <rightClickItem name="node" handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
+            <rightClickItem name="node" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
                 <param name="protocol">http</param>
                 <param name="port">80</param>
                 <param name="action">init</param>
             </rightClickItem>
-            <rightClickItem name="network" handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
+            <rightClickItem name="network" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
                 <param name="protocol">http</param>
                 <param name="port">80</param>
                 <param name="action">init</param>
             </rightClickItem>
-            <rightClickItem name="status" handlerClass="com.topolgyviewer.rightclick.impl.URLRightClickOpener">                <param name="protocol">http</param>
+            <rightClickItem name="status" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">                <param name="protocol">http</param>
                 <param name="protocol">http</param>
                 <param name="port">80</param>
                 <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
                 <param name="action">status</param>
             </rightClickItem>
-            <rightClickItem name="stop" handlerClass="com.topolgyviewer.rightclick.impl.URLRightClickOpener">
+            <rightClickItem name="stop" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
                 <param name="protocol">http</param>
                 <param name="port">80</param>
                 <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
                 <param name="action">stop</param>
             </rightClickItem>
-            <rightClickItem name="pause" handlerClass="com.topolgyviewer.rightclick.impl.URLRightClickOpener">
+            <rightClickItem name="pause" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
                 <param name="protocol">http</param>
                 <param name="port">80</param>
                 <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
                 <param name="action">pause</param>
             </rightClickItem>
-            <rightClickItem name="resume" handlerClass="com.topolgyviewer.rightclick.impl.URLRightClickOpener">
+            <rightClickItem name="resume" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
                 <param name="protocol">http</param>
                 <param name="port">80</param>
                 <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
@@ -351,17 +351,17 @@
         </submenu>
 
         <!--submenu name="4to6trans">
-            <rightClickItem name="CISCO" handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
+            <rightClickItem name="CISCO" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
                 <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
                 <param name="resource">resource-manager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans.xml</param>
             </rightClickItem>
-            <rightClickItem name="JUNIPER" handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
+            <rightClickItem name="JUNIPER" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
                 <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
                 <param name="resource">resource-manager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans.xml</param>
             </rightClickItem>
-            <rightClickItem name="HUAWEI" handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
+            <rightClickItem name="HUAWEI" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
                 <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
                 <param name="resource">resource-manager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans.xml</param>
@@ -369,13 +369,13 @@
         </submenu-->
      </rightClickItem>
 
-            <rightClickItem name="Services" handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
+            <rightClickItem name="Services" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
                <param name="parameterFactoryXml">parameter-factory/conf/xml/serv-param-factory.xml</param>
                 <param name="resource">resource-manager/conf/xml/serv-resource.xml</param>
                 <param name="fulfilment-factory">fulfilment-factory/conf/xml/services.xml</param>
             </rightClickItem>
 
-             <rightClickItem name="Subscribers" handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
+             <rightClickItem name="Subscribers" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
                <param name="parameterFactoryXml">parameter-factory/conf/xml/subscr-param-factory.xml</param>
                 <param name="resource">resource-manager/conf/xml/serv-resource.xml</param>
                 <param name="fulfilment-factory">fulfilment-factory/conf/xml/subscribers.xml</param>

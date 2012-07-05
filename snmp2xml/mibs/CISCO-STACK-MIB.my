@@ -7050,7 +7050,7 @@ ntpAuthenticationType OBJECT-TYPE
 
 
 
--- the TACACS (com.topolgyviewer.rightclick.impl.Terminal Access Controller Access Control System) group
+-- the TACACS (net.itransformers.topologyviewer.impl.Terminal Access Controller Access Control System) group
 
 -- Implementation of the TACACS group is optional, but within the group
 -- all the elements are current. If the TACACS+ feature is
