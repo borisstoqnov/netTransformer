@@ -1,0 +1,28 @@
+<query-engines>
+    <query-engine dataSource="DEFAULT" type="snmp">
+        <query-param-factory type="snmp-params">
+            <general>
+                system
+            </general>
+            <discovery-method name="BGP">
+                bgpLocalAs,bgpPeerEntry, bgp4PathAttrEntry
+            </discovery-method>
+        </query-param-factory>
+        <query-result-transformer type="xslt">
+            <xslt-file>iDiscover/conf/xslt/bgp_as_path.xslt</xslt-file>
+        </query-result-transformer>
+    </query-engine>
+    <query-engine dataSource="CISCO" type="snmp">
+        <query-param-factory type="snmp-params">
+            <general>
+                system
+            </general>
+            <discovery-method name="BGP">
+                bgpLocalAs,bgpPeerEntry, bgp4PathAttrEntry
+            </discovery-method>
+        </query-param-factory>
+        <query-result-transformer type="xslt">
+            <xslt-file>iDiscover/conf/xslt/bgp_as_path.xslt</xslt-file>
+        </query-result-transformer>
+    </query-engine>
+</query-engines>

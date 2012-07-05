@@ -34,14 +34,28 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>distro-assembly</id>
+                        <id>itransformer-assembly</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
                         <configuration>
+                            <finalName>itransformer</finalName>
                             <descriptors>
-                                <descriptor>src/main/assemble/assemble.xml</descriptor>
+                                <descriptor>distribution/itransformer.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>imap-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>imap</finalName>
+                            <descriptors>
+                                <descriptor>distribution/imap.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </execution>
@@ -49,4 +63,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

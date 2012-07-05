@@ -67,7 +67,9 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
         String ignoredKeysPath = params.get("-i");
         GraphMLDiffTool graphMLDiffTool = new GraphMLDiffTool(dirAPath, dirBPath, dirCPath, ignoredKeysPath);
 //        graphMLDiffTool.execute();
+        long time=System.currentTimeMillis();
         graphMLDiffTool.doInBackground();
+        System.out.println("Executed in "+(System.currentTimeMillis()-time)+ "ms");
     }
 
     @Override

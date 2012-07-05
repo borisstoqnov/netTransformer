@@ -1,0 +1,138 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+<!-- http://maven.apache.org/plugins/maven-assembly-plugin/assembly.html#class_moduleSet -->
+    <id>bin</id>
+    <formats>
+        <format>dir</format>
+    </formats>
+    <!--<fileSets>-->
+        <!--<fileSet>-->
+            <!--<directory>${basedir}</directory>-->
+            <!--<includes>-->
+                <!--<include>iTopologyManager/topologyViewer/*</include>-->
+            <!--</includes>-->
+        <!--</fileSet>-->
+    <!--</fileSets>-->
+    <moduleSets>
+        <moduleSet>
+            <!-- Enable access to all projects in the current multimodule build! -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
+                <include>iTransformers.iTransformer.iTopologyManager:rightClick</include>
+            </includes>
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+                    <fileSet>
+                        <directory>conf</directory>
+                        <outputDirectory>bin/iTopologyManager/rightClick/conf</outputDirectory>
+                    </fileSet>
+                </fileSets>
+            </sources>
+        </moduleSet>
+
+        <moduleSet>
+            <!-- Enable access to all projects in the current multimodule build! -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
+                <include>iTransformers.iTransformer.iTopologyManager:topologyViewer</include>
+            </includes>
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+                    <fileSet>
+                        <directory>conf</directory>
+                        <outputDirectory>bin/iTopologyManager/topologyViewer/conf</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>src/main/resources/images</directory>
+                        <outputDirectory>images</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>conf/bat</directory>
+                        <outputDirectory>bin</outputDirectory>
+                        <filtered>true</filtered>
+                    </fileSet>
+                </fileSets>
+            </sources>
+        </moduleSet>
+
+        <moduleSet>
+            <!-- Enable access to all projects in the current multimodule build! -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
+                <include>iTransformers.iTransformer:iMap</include>
+            </includes>
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+                    <fileSet>
+                        <directory>conf</directory>
+                        <outputDirectory>bin/iMap/conf</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>conf/bat</directory>
+                        <outputDirectory>bin</outputDirectory>
+                        <filtered>true</filtered>
+                    </fileSet>
+                </fileSets>
+            </sources>
+        </moduleSet>
+
+        <moduleSet>
+            <!-- Enable access to all projects in the current multimodule build! -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
+                <include>iTransformers.iTransformer:snmp2xml</include>
+            </includes>
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+                    <fileSet>
+                        <directory>mibs</directory>
+                        <outputDirectory>bin/snmp2xml/mibs</outputDirectory>
+                    </fileSet>
+                </fileSets>
+            </sources>
+        </moduleSet>
+        <moduleSet>
+            <!-- Enable access to all projects in the current multimodule build! -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
+                <include>iTransformers.iTransformer:utils</include>
+                <include>iTransformers.iTransformer:snmp2xml</include>
+                <include>iTransformers.iTransformer.iTopologyManager:topologyViewer</include>
+                <include>iTransformers.iTransformer.iTopologyManager:topologyManagerConfig</include>
+                <include>iTransformers.iTransformer.iTopologyManager:rightClick</include>
+                <include>iTransformers.iTransformer.iTopologyManager:rightClickAPI</include>
+                <include>iTransformers.iTransformer:iMap</include>
+            </includes>
+            <binaries>
+                <outputDirectory>lib/</outputDirectory>
+                <unpack>false</unpack>
+            </binaries>
+        </moduleSet>
+    </moduleSets>
+    <files>
+        <file>
+            <source>../log4j.properties</source>
+            <outputDirectory>bin</outputDirectory>
+        </file>
+    </files>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib/</outputDirectory>
+        </dependencySet>
+    </dependencySets>
+</assembly>

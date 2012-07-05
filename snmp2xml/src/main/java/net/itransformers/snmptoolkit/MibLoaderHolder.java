@@ -89,7 +89,7 @@ public class MibLoaderHolder {
     }
     public static void main(String[] args) throws IOException, MibLoaderException {
         String oid = "1.3.6.1.4.1.9.1.574";
-        MibLoaderHolder holder = new MibLoaderHolder(new File("snmp-discoverer\\mibs1"), false);
+        MibLoaderHolder holder = new MibLoaderHolder(new File("snmp2xml/mibs"), false);
         System.out.println(holder.getSymbolByOid( "CISCO-PRODUCTS-MIB", oid));
     }
     public static void main1(String[] args) throws IOException {

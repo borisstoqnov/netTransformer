@@ -52,7 +52,7 @@ public class CmdParser {
     public static void printWalkUsage() {
         System.out.println("Usage: java -classpath=\"%CLASSPATH%\" Walk -md <mibs_dir> -a <address>/<port> -c <community> " +
                 "-v <version> -t <timeout> -r <retries> -m <max_repetitions> [-f <output_file>] -o <oid_names>");
-        System.out.println("Example: java -classpath=\"%CLASSPATH%\" Walk -md mibs -a 10.129.3.1/161 -c public -v 2c -t 1000 " +
+        System.out.println("Example: java -classpath=\"%CLASSPATH%\" Walk -md snmp2xml/mibs -a 10.129.3.1/161 -c public -v 2c -t 1000 " +
                 "-r 1 -m 100 [-f out.xml] -o \"ifIndex ifDescr ifOperStatus ifAdminStatus ifNumber ifAlias ifPhysAddress ifType dot1dTpFdb dot1dTpFdbAddress dot1dTpFdbStatus dot1dTpFdbPort dot1dBasePort dot1dBasePortIfIndex system dot1dBaseBridgeAddress dot1dStpPort ipNetToMediaTable ipAddrTable lldpRemoteSystemsData cdpCacheDevicePort cdpCacheDevicePlatform cdpCacheDeviceId cdpCacheIfIndex\"");
     }
 

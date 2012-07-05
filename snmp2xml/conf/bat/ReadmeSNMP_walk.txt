@@ -1,5 +1,5 @@
 SNMP walk will perform walk on your device.
-snmp-walk.bat Walk -md ../mibs -a 10.10.10.10/161 -c public -v 2c -t 1000 -r 1 -m 100 -f bgp.xml -o "bgp4PathAttrEntry"
+snmp-walk.bat Walk -md snmp2xml/mibs -a 10.10.10.10/161 -c public -v 2c -t 1000 -r 1 -m 100 -f bgp.xml -o "bgp4PathAttrEntry"
 -md path to your mib files
 -a  SNMP host/port
 -c community

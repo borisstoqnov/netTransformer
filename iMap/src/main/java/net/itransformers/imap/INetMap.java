@@ -1,32 +1,15 @@
-/*
- * iMap is an open source tool able to upload Internet BGP peering information
- *  and to visualize the beauty of Internet BGP Peering in 2D map.
- *  Copyright (C) 2012  http://itransformers.net
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+package net.itransformers.imap;
 
 import net.itransformers.snmptoolkit.MibLoaderHolder;
 import net.itransformers.snmptoolkit.Node;
 import net.itransformers.snmptoolkit.Walk;
 import net.itransformers.snmptoolkit.messagedispacher.DefaultMessageDispatcherFactory;
 import net.itransformers.snmptoolkit.transport.UdpTransportMappingFactory;
-import net.itransformers.utils.XsltTransformer;
-import org.snmp4j.util.SnmpConfigurator;
 import net.itransformers.utils.CmdLineParser;
-
+import net.itransformers.utils.XsltTransformer;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.snmp4j.util.SnmpConfigurator;
 
 import java.io.*;
 import java.util.Arrays;
@@ -34,43 +17,71 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class InetMap {
-    static Logger logger = Logger.getLogger(InetMap.class);
-
+/**
+ * Created with IntelliJ IDEA.
+ * User: LYCHO
+ * Date: 12-6-28
+ * Time: 19:57
+ * To change this template use File | Settings | File Templates.
+ */
+public class INetMap {
+    static Logger logger = Logger.getLogger(INetMap.class);
     private static void printUsage(String param){
-        System.out.println("Usage:   java -s <Path to settings.properties>");
-        System.out.println("Example: java -s iMap\\conf\\txt\\settings.properties");
+        System.out.println("Usage:   java net.itransformers.imap.INetMap -s <Path to settings.properties>");
+        System.out.println("Example [Windows]: java net.itransformers.imap.INetMap -s iMap\\conf\\imap.properties");
+        System.out.println("Example [Unix]: java net.itransformers.imap.INetMap -s iMap/conf/imap.properties");
         System.out.println("Missing parameter: "+param);
     }
     public static void main(String[] args) throws Exception {
+
         Map<String,String> params = CmdLineParser.parseCmdLine(args);
         logger.info("input params"+params.toString());
-        if (params == null) {
-            printUsage("settings.properties"); return;
-        }
         final String settingsFile = params.get("-s");
         if (settingsFile==null){
-            printUsage("settings.properties"); return;
+            printUsage("imap.properties"); return;
         }
-        Map<String, String> settings = loadProperties(new File(settingsFile));
+
+        Map<String, String> settings = loadProperties(new File(System.getProperty("base.dir"),settingsFile));
         logger.info("Settings"+settings.toString());
+
+        File outputDir = new File(System.getProperty("base.dir"), settings.get("output.dir"));
+        System.out.println(outputDir.getAbsolutePath());
+        boolean result = outputDir.mkdir();
+//        if (!result) {
+//            System.out.println("result:"+result);
+//            System.out.println("Unable to create dir: "+outputDir);
+//            return;
+//        }
+
+        File graphmlDir = new File(System.getProperty("base.dir"), settings.get("output.dir"));
+        result = outputDir.mkdir();
+//        if (!result) {
+//            System.out.println("Unable to create dir: "+graphmlDir);
+//            return;
+//        }
+
         XsltTransformer transformer = new XsltTransformer();
         byte[] rawData = snmpWalk(settings);
-        System.out.println(new String(rawData));
+        File rawDataFile = new File(outputDir, "raw-data.xml");
+        FileUtils.writeStringToFile(rawDataFile,new String(rawData));
 
 
         ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
-        FileOutputStream fileOutputStream = new FileOutputStream(settings.get("imapFile"));
         File xsltFileName1 = new File(System.getProperty("base.dir"), settings.get("xsltFileName1"));
         ByteArrayInputStream inputStream1 = new ByteArrayInputStream(rawData);
         transformer.transformXML(inputStream1, xsltFileName1, outputStream1, settings, null);
-//        System.out.println(new String(outputStream1.toByteArray()));
+        System.out.println(new String(outputStream1.toByteArray()));
 
         ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
         File xsltFileName2 = new File(System.getProperty("base.dir"), settings.get("xsltFileName2"));
         ByteArrayInputStream inputStream2 = new ByteArrayInputStream(outputStream1.toByteArray());
-        transformer.transformXML(inputStream2, xsltFileName2, fileOutputStream, settings, null);
-        //System.out.println(new String(outputStream2.toByteArray()));
+        transformer.transformXML(inputStream2, xsltFileName2, outputStream2, settings, null);
+
+        File outputFile = new File(graphmlDir, "imap.graphml");
+        File nodesFileListFile = new File(graphmlDir, "nodes-file-list.txt");
+        FileUtils.writeStringToFile(outputFile, new String(outputStream2.toByteArray()));
+
+        FileUtils.writeStringToFile(nodesFileListFile, "imap.graphml");
 
     }
 

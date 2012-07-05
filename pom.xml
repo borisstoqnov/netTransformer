@@ -14,13 +14,13 @@
 
     <!--http://mvnrepository.com/artifact/net.sf.jung-->
     <modules>
+        <module>iMap</module>
         <module>iDiscover</module>
         <module>iTopologyManager</module>
         <module>resourceManager</module>
         <module>snmp2xml</module>
         <module>utils</module>
         <module>distribution</module>
-        <module>iMap</module>
     </modules>
     <build>
         <pluginManagement>
@@ -31,7 +31,8 @@
                     <version>2.3</version>
                     <configuration>
                         <descriptors>
-                            <descriptor>src/main/assemble/assemble.xml</descriptor>
+                            <descriptor>distribution/itransformer.xml</descriptor>
+                            <descriptor>distribution/imap.xml</descriptor>
                         </descriptors>
                     </configuration>
                     <executions>
