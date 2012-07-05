@@ -37,7 +37,6 @@
         <moduleSet>
             <!-- Enable access to all projects in the current multimodule build! -->
             <useAllReactorProjects>true</useAllReactorProjects>
-
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
                 <include>iTransformers.iTransformer.iTopologyManager:topologyViewer</include>
@@ -53,11 +52,12 @@
                         <directory>src/main/resources/images</directory>
                         <outputDirectory>images</outputDirectory>
                     </fileSet>
-                    <fileSet>
-                        <directory>conf/bat</directory>
-                        <outputDirectory>bin</outputDirectory>
-                        <filtered>true</filtered>
-                    </fileSet>
+                    <!--<fileSet>-->
+                        <!--<includes>conf/bat/</includes>-->
+
+                        <!--<outputDirectory>bin</outputDirectory>-->
+                        <!--<filtered>true</filtered>-->
+                    <!--</fileSet>-->
                 </fileSets>
             </sources>
         </moduleSet>
@@ -128,6 +128,18 @@
         <file>
             <source>../log4j.properties</source>
             <outputDirectory>bin</outputDirectory>
+        </file>
+        <file>
+            <source>../iTopologyManager/topologyViewer/conf/bat/u_topoManager.bat</source>
+            <outputDirectory>bin</outputDirectory>
+            <destName>iMapTopoManager.bat</destName>
+            <filtered>true</filtered>
+        </file>
+        <file>
+            <source>../iTopologyManager/topologyViewer/conf/bat/u_topoManager.sh</source>
+            <outputDirectory>bin</outputDirectory>
+            <destName>iMapTopoManager.sh</destName>
+            <filtered>true</filtered>
         </file>
     </files>
     <dependencySets>
