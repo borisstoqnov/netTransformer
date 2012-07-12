@@ -19,13 +19,19 @@
 
 package net.itransformers.idiscover.v2.core.model;
 
+import net.itransformers.idiscover.v2.core.ConnectionDetails;
+
 import java.util.List;
 import java.util.Map;
 
 public class Node {
     String id;
-    Map<String,String> attributes;
-    List<Node> neighbours;
+    List<ConnectionDetails> connectionDetailsList;
+
+    public Node(String id, List<ConnectionDetails> connectionDetailsList) {
+        this.id = id;
+        this.connectionDetailsList = connectionDetailsList;
+    }
 
     public String getId() {
         return id;
@@ -35,19 +41,11 @@ public class Node {
         this.id = id;
     }
 
-    public Map<String, String> getAttributes() {
-        return attributes;
+    public List<ConnectionDetails> getConnectionDetailsList() {
+        return connectionDetailsList;
     }
 
-    public void setAttributes(Map<String, String> attributes) {
-        this.attributes = attributes;
-    }
-
-    public List<Node> getNeighbours() {
-        return neighbours;
-    }
-
-    public void setNeighbours(List<Node> neighbours) {
-        this.neighbours = neighbours;
+    public void setConnectionDetailsList(List<ConnectionDetails> connectionDetailsList) {
+        this.connectionDetailsList = connectionDetailsList;
     }
 }

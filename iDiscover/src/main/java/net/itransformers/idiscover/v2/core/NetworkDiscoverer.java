@@ -33,8 +33,12 @@ public class NetworkDiscoverer {
             NodeDiscoverer nodeDiscoverer = NodeDiscovererFactory.createNodeDiscoverer(connectionType);
             NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
             String nodeId = discoveryResult.getNodeId();
+            Node currentNode = nodes.get(nodeId);
+            if (currentNode == null) {
+                nodes.put(nodeId, new Node(nodeId,connectionDetailsList));
+            }
             List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
-
+            discoverNodes(neighboursConnectionDetails);
         }
         return nodes;
     }
