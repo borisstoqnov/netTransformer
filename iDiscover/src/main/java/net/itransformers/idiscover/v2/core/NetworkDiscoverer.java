@@ -28,6 +28,11 @@ import java.util.Map;
 public class NetworkDiscoverer {
     public Map<String,Node> discoverNodes(List<ConnectionDetails> connectionDetailsList) {
         Map<String,Node> nodes = new HashMap<String, Node>();
+        doDiscoverNodes(connectionDetailsList, nodes);
+        return nodes;
+    }
+
+    private void doDiscoverNodes(List<ConnectionDetails> connectionDetailsList, Map<String, Node> nodes) {
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
             String connectionType = connectionDetails.getConnectionType();
             NodeDiscoverer nodeDiscoverer = NodeDiscovererFactory.createNodeDiscoverer(connectionType);
@@ -38,9 +43,8 @@ public class NetworkDiscoverer {
                 nodes.put(nodeId, new Node(nodeId,connectionDetailsList));
             }
             List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
-            discoverNodes(neighboursConnectionDetails);
+            doDiscoverNodes(neighboursConnectionDetails, nodes);
         }
-        return nodes;
     }
 
 }
