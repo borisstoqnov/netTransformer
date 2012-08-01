@@ -134,7 +134,7 @@ public class TestFulfilmentImpl implements Fulfilment {
         params.put("username","user");
         params.put("password","pass!");
         params.put("site","hostname");
-        ful.execute("fulfilment-factory/conf/txt/test.txt",params);
+        ful.execute("fulfilment-factory/conf/txt/configureInterface.txt",params);
         cli1.close();
     }
 }

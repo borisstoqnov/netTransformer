@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fulfilment-factories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../xsd/fulfilment-factory.xsd">
+    <fulfilment-factory-types>
+        <type name="ConfigureInterface" class="com.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">ConfigureInterface</param>
+            <param name="commands">fulfilment-factory/conf/txt/test.txt</param>
+        </type>
+        <type name="CreateVRF" class="com.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">VPN_activator</param>
+            <param name="commands">fulfilment-factory/conf/txt/create_vrf</param>
+        </type>
+         <type name="ApplyVRF" class="com.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">VPN_activator</param>
+            <param name="commands">fulfilment-factory/conf/txt/apply_vrf.txt</param>
+        </type>
+        <type name="AddDefaultToVRF" class="com.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">VPN_activator</param>
+            <param name="commands">fulfilment-factory/conf/txt/add_default_to_vrf.txt</param>
+        </type>
+        <type name="xsl" class="com.fulfilmentfactory.impl.XslFulfilmentImpl">
+            <param name="xslFileName">fulfilment-factory/conf/xslt/setDeviceLocation.xslt</param>
+        </type>
+        <type name="xsl2" class="com.cdsd.Xsl">
+            <param name="xslFileName">some2.xsl</param>
+        </type>
+    </fulfilment-factory-types>
+    <fulfilment-factory name="create_vrf" resourceName="cisco" type="CreateVRF" parameterFactoryName="CreateVRF"/>
+    <fulfilment-factory name="apply_vrf" resourceName="cisco" type="ApplyVRF" parameterFactoryName="ApplyVRF"/>
+    <fulfilment-factory name="add_default_to_vrf" resourceName="cisco" type="AddDefaultToVRF" parameterFactoryName="addDefaultToVRF"/>
+    <fulfilment-factory name="ConfigureInterface" resourceName="cisco" type="ConfigureInterface" parameterFactoryName="ConfigureInterface"/>
+    <fulfilment-factory name="test" resourceName="cisco" type="CreateVRF" parameterFactoryName="CreateVRF"/>
+    <fulfilment-factory name="testXSL" resourceName="cisco" type="xsl" parameterFactoryName="testXSL"/>
+
+</fulfilment-factories>
