@@ -1,3 +1,22 @@
+/*
+ * iTransformer is an open source tool able to discover and transform
+ *  IP network infrastructures.
+ *  Copyright (C) 2012  http://itransformers.net
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package net.itransformers.topologyviewer.fulfilmentfactory.impl;
 
 import net.itransformers.topologyviewer.fulfilmentfactory.Fulfilment;
@@ -11,13 +30,6 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by IntelliJ IDEA.
- *
- **
- * 
- * Copyright 
- */
 public class TestFulfilmentImpl implements Fulfilment {
     public static Pattern readUntilArgsRegExp = Pattern.compile("^'(.*)',\\s*([-]?\\d+)\\s*$");
     public static Pattern readUntilRegExp = Pattern.compile("^### (?:start )?read_until\\((.*)\\)$");
@@ -127,7 +139,7 @@ public class TestFulfilmentImpl implements Fulfilment {
     }
 
     public static void main(String[] args) throws IOException {
-        TelnetCLIInterface cli1 = new TelnetCLIInterface("10.151.16.21", "user", "pass!", "hostname#", 1000, Logger.getAnonymousLogger());
+        TelnetCLIInterface cli1 = new TelnetCLIInterface("10.10.10.10", "user", "pass!", "hostname#", 1000, Logger.getAnonymousLogger());
         cli1.open();
         TestFulfilmentImpl ful = new TestFulfilmentImpl(cli1);
         Map<String,String> params = new HashMap<String, String>();

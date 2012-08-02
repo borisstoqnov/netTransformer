@@ -1,25 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ iTransformer is an open source tool able to discover and transform
+  ~  IP network infrastructures.
+  ~  Copyright (C) 2012  http://itransformers.net
+  ~
+  ~  This program is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  any later version.
+  ~
+  ~  This program is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
 <fulfilment-factories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../xsd/fulfilment-factory.xsd">
     <fulfilment-factory-types>
-        <type name="ConfigureInterface" class="com.fulfilmentfactory.impl.TestFulfilmentImpl">
-            <param name="cmd">ConfigureInterface</param>
-            <param name="commands">fulfilment-factory/conf/txt/test.txt</param>
+        <type name="ConfigureInterface" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+
+            <param name="guard">configureInterface</param>
+            <param name="commands">iTopologyManager/fulfilment-factory/conf/txt/configureInterface.txt</param>
+            <param name="effect"></param>
         </type>
-        <type name="CreateVRF" class="com.fulfilmentfactory.impl.TestFulfilmentImpl">
+        <type name="MultipleShowCommands" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">ShowCommands</param>
+            <param name="commands">iTopologyManager/fulfilment-factory/conf/txt/multiple_show.txt</param>
+        </type>
+        <type name="CreateVRF" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">VPN_activator</param>
-            <param name="commands">fulfilment-factory/conf/txt/create_vrf</param>
+            <param name="commands">iTopologyManager/fulfilment-factory/conf/txt/create_vrf</param>
         </type>
-         <type name="ApplyVRF" class="com.fulfilmentfactory.impl.TestFulfilmentImpl">
+         <type name="ApplyVRF" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">VPN_activator</param>
-            <param name="commands">fulfilment-factory/conf/txt/apply_vrf.txt</param>
+            <param name="commands">iTopologyManager/fulfilment-factory/conf/txt/apply_vrf.txt</param>
         </type>
-        <type name="AddDefaultToVRF" class="com.fulfilmentfactory.impl.TestFulfilmentImpl">
+        <type name="AddDefaultToVRF" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">VPN_activator</param>
-            <param name="commands">fulfilment-factory/conf/txt/add_default_to_vrf.txt</param>
+            <param name="commands">iTopologyManager/fulfilment-factory/conf/txt/add_default_to_vrf.txt</param>
         </type>
-        <type name="xsl" class="com.fulfilmentfactory.impl.XslFulfilmentImpl">
-            <param name="xslFileName">fulfilment-factory/conf/xslt/setDeviceLocation.xslt</param>
+        <type name="setDeviceLocation" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.XslFulfilmentImpl">
+            <param name="xslFileName">iTopologyManager/fulfilment-factory/conf/xslt/setDeviceLocation.xslt</param>
         </type>
         <type name="xsl2" class="com.cdsd.Xsl">
             <param name="xslFileName">some2.xsl</param>
@@ -29,7 +54,7 @@
     <fulfilment-factory name="apply_vrf" resourceName="cisco" type="ApplyVRF" parameterFactoryName="ApplyVRF"/>
     <fulfilment-factory name="add_default_to_vrf" resourceName="cisco" type="AddDefaultToVRF" parameterFactoryName="addDefaultToVRF"/>
     <fulfilment-factory name="ConfigureInterface" resourceName="cisco" type="ConfigureInterface" parameterFactoryName="ConfigureInterface"/>
-    <fulfilment-factory name="test" resourceName="cisco" type="CreateVRF" parameterFactoryName="CreateVRF"/>
-    <fulfilment-factory name="testXSL" resourceName="cisco" type="xsl" parameterFactoryName="testXSL"/>
+    <fulfilment-factory name="multipleShow" resourceName="cisco" type="MultipleShowCommands" parameterFactoryName="CreateVRF"/>
+    <fulfilment-factory name="setDeviceLocation" resourceName="cisco" type="xsl" parameterFactoryName="setDeviceLocation"/>
 
 </fulfilment-factories>
