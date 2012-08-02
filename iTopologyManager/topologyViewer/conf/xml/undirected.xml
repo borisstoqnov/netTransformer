@@ -427,6 +427,19 @@
         <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt</param>
     </rightClickItem>
 </submenu>
+</rightClickItem>
+
+    <rightClickItem name="nodeActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
+        <param name="parameterFactoryXml">iTopologyManager/parameter-factory/conf/xml/param-factory.xml</param>
+        <param name="resource">resource-manager/conf/xml/resource.xml</param>
+        <param name="fulfilment-factory">iTopologyManager/fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
+    </rightClickItem>
+
+    <rightClickItem name="pathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
+        <param name="parameterFactoryXml">iTopologyManager/parameter-factory/conf/xml/param-factory.xml</param>
+        <param name="resource">resource-manager/conf/xml/resource.xml</param>
+        <param name="fulfilment-factory">iTopologyManager/fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
+    </rightClickItem>
 <!--submenu name="IPv4toIPv6 Actication">
     <rightClickItem name="IPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
         <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
@@ -449,8 +462,9 @@
         <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans_undo.xml</param>
     </rightClickItem>
 
-</submenu-->
-    <!--submenu name="discover">
+</submenu>
+
+    <submenu name="discover">
         <rightClickItem name="node" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">
             <param name="protocol">http</param>
             <param name="action">init_and_start</param>
@@ -495,10 +509,10 @@
             <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
             <param name="action">resume</param>
         </rightClickItem>
-    </submenu-->
+    </submenu>
 </rightClickItem>
 
-
+  -->
 
 
 </topology-viewer-conf>
