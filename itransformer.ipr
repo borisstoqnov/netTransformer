@@ -196,7 +196,8 @@
       <module fileurl="file://$PROJECT_DIR$/snmp2xml/snmp2xml.iml" filepath="$PROJECT_DIR$/snmp2xml/snmp2xml.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/topologyManagerConfig/topologyManagerConfig.iml" filepath="$PROJECT_DIR$/iTopologyManager/topologyManagerConfig/topologyManagerConfig.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/topologyViewer/topologyViewer.iml" filepath="$PROJECT_DIR$/iTopologyManager/topologyViewer/topologyViewer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />      
+      <module fileurl="file://$PROJECT_DIR$/wsitransformer/wsitransformer.iml" filepath="$PROJECT_DIR$/wsitransformer/wsitransformer.iml" />
     </modules>
   </component>
   <component name="ProjectResources">
@@ -224,6 +225,17 @@
     <mapping directory="$PROJECT_DIR$" vcs="svn" />
   </component>
   <component name="libraryTable">
+    <library name="Maven: asm:asm:3.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/asm/asm/3.1/asm-3.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/asm/asm/3.1/asm-3.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/asm/asm/3.1/asm-3.1-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: colt:colt:1.2.0">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/colt/colt/1.2.0/colt-1.2.0.jar!/" />
@@ -244,6 +256,39 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/com/jcraft/jsch/0.1.44-1/jsch-0.1.44-1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.sun.jersey:jersey-core:1.10">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-core/1.10/jersey-core-1.10.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-core/1.10/jersey-core-1.10-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-core/1.10/jersey-core-1.10-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.sun.jersey:jersey-server:1.10">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-server/1.10/jersey-server-1.10.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-server/1.10/jersey-server-1.10-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-server/1.10/jersey-server-1.10-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.sun.jersey:jersey-servlet:1.10">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-servlet/1.10/jersey-servlet-1.10.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-servlet/1.10/jersey-servlet-1.10-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-servlet/1.10/jersey-servlet-1.10-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.wittams.gritty:gritty:0.0.2">
@@ -336,6 +381,28 @@
       <SOURCES>
         <root url="jar://$PROJECT_DIR$/utils/pom-sources.jar!/" />
         <root url="jar://$MAVEN_REPOSITORY$/iTransformers/iTransformer/utils/1.0/utils-1.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: javax.servlet:javax.servlet-api:3.0.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/javax.servlet-api/3.0.1/javax.servlet-api-3.0.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/javax.servlet-api/3.0.1/javax.servlet-api-3.0.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/javax.servlet-api/3.0.1/javax.servlet-api-3.0.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: javax.ws.rs:jsr311-api:1.1.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: log4j:log4j:1.2.16">

@@ -21,6 +21,7 @@
         <module>snmp2xml</module>
         <module>utils</module>
         <module>distribution</module>
+        <module>wsitransformer</module>
     </modules>
     <build>
         <pluginManagement>
