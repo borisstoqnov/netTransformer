@@ -22,7 +22,7 @@ import com.sun.jersey.api.core.PackagesResourceConfig;
 
 import java.util.HashSet;
 import java.util.Set;
-// http://jersey.java.net/nonav/documentation/latest/index.html
+// http://jersey.java.net/nonav/documentation/latest/user-guide.html
 // http://mworking.blogspot.com/2012/01/configuring-tomcat-7-as-jax-rs-server.html
 
 @javax.ws.rs.ApplicationPath("rest")
