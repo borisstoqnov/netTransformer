@@ -22,7 +22,6 @@
          xsi:noNamespaceSchemaLocation="../xsd/fulfilment-factory.xsd">
     <fulfilment-factory-types>
         <type name="ConfigureInterface" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
-
             <param name="guard">configureInterface</param>
             <param name="commands">iTopologyManager/fulfilment-factory/conf/txt/configureInterface.txt</param>
             <param name="effect"></param>

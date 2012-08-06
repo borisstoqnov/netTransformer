@@ -20,7 +20,7 @@
     </wildcardResourcePatterns>
     <annotationProcessing enabled="false" useClasspath="true" />
   </component>
-  <component name="CopyrightManager" default="">
+  <component name="CopyrightManager" default="GNU-iTransformer">
     <copyright>
       <option name="notice" value="iMap is an open source tool able to upload Internet BGP peering information&#10; and to visualize the beauty of Internet BGP Peering in 2D map.&#10; Copyright (C) 2012  http://itransformers.net&#10;&#10; This program is free software: you can redistribute it and/or modify&#10; it under the terms of the GNU General Public License as published by&#10; the Free Software Foundation, either version 3 of the License, or&#10; any later version.&#10;&#10; This program is distributed in the hope that it will be useful,&#10; but WITHOUT ANY WARRANTY; without even the implied warranty of&#10; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#10; GNU General Public License for more details.&#10;&#10; You should have received a copy of the GNU General Public License&#10; along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;." />
       <option name="keyword" value="Copyright" />
@@ -28,8 +28,15 @@
       <option name="myName" value="GNU-iMap" />
       <option name="myLocal" value="true" />
     </copyright>
+    <copyright>
+      <option name="notice" value="iTransformer is an open source tool able to discover and transform &#10; IP network infrastructures.&#10; Copyright (C) 2012  http://itransformers.net&#10;&#10; This program is free software: you can redistribute it and/or modify&#10; it under the terms of the GNU General Public License as published by&#10; the Free Software Foundation, either version 3 of the License, or&#10; any later version.&#10;&#10; This program is distributed in the hope that it will be useful,&#10; but WITHOUT ANY WARRANTY; without even the implied warranty of&#10; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#10; GNU General Public License for more details.&#10;&#10; You should have received a copy of the GNU General Public License&#10; along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;." />
+      <option name="keyword" value="Copyright" />
+      <option name="allowReplaceKeyword" value="" />
+      <option name="myName" value="GNU-iTransformer" />
+      <option name="myLocal" value="true" />
+    </copyright>
     <module2copyright>
-      <element module="All" copyright="GNU-iMap" />
+      <element module="Project Files" copyright="GNU-iTransformer" />
     </module2copyright>
   </component>
   <component name="DependencyValidationManager">
@@ -196,7 +203,7 @@
       <module fileurl="file://$PROJECT_DIR$/snmp2xml/snmp2xml.iml" filepath="$PROJECT_DIR$/snmp2xml/snmp2xml.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/topologyManagerConfig/topologyManagerConfig.iml" filepath="$PROJECT_DIR$/iTopologyManager/topologyManagerConfig/topologyManagerConfig.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/topologyViewer/topologyViewer.iml" filepath="$PROJECT_DIR$/iTopologyManager/topologyViewer/topologyViewer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />      
+      <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/wsitransformer/wsitransformer.iml" filepath="$PROJECT_DIR$/wsitransformer/wsitransformer.iml" />
     </modules>
   </component>

@@ -61,7 +61,45 @@
                 </fileSets>
             </sources>
         </moduleSet>
+        <moduleSet>
+            <!-- Enable access to all projects in the current multimodule build! -->
+            <useAllReactorProjects>true</useAllReactorProjects>
 
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
+                <include>iTransformers.iTransformer.iTopologyManager:parameterFactory</include>
+            </includes>
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+                    <fileSet>
+                        <directory>conf</directory>
+                        <outputDirectory>bin/iTopologyManager/parameter-factory/conf</outputDirectory>
+                    </fileSet>
+
+                </fileSets>
+            </sources>
+        </moduleSet>
+
+        <moduleSet>
+            <!-- Enable access to all projects in the current multimodule build! -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
+                <include>iTransformers.iTransformer.iTopologyManager:fulfilmentFactory</include>
+            </includes>
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+                    <fileSet>
+                        <directory>conf</directory>
+                        <outputDirectory>bin/iTopologyManager/fulfilment-factory/conf</outputDirectory>
+                    </fileSet>
+
+                </fileSets>
+            </sources>
+        </moduleSet>
         <moduleSet>
             <!-- Enable access to all projects in the current multimodule build! -->
             <useAllReactorProjects>true</useAllReactorProjects>
@@ -75,7 +113,7 @@
                 <fileSets>
                     <fileSet>
                         <directory>conf</directory>
-                        <outputDirectory>bin/resourceManager/conf</outputDirectory>
+                        <outputDirectory>bin/resource-manager/conf</outputDirectory>
                     </fileSet>
                 </fileSets>
             </sources>

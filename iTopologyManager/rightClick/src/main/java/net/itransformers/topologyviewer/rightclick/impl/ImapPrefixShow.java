@@ -23,13 +23,7 @@ import javax.swing.*;
 import java.net.URL;
 import java.util.Map;
 
-/**
- * Created with IntelliJ IDEA.
- * User: niau
- * Date: 7/5/12
- * Time: 11:58 PM
- * To change this template use File | Settings | File Templates.
- */
+
 public class ImapPrefixShow {
     public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
