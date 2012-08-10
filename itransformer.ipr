@@ -423,6 +423,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.16/log4j-1.2.16-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: mxquery:mxquery:0.6">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/mxquery/mxquery/0.6/mxquery-0.6.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/mxquery/mxquery/0.6/mxquery-0.6-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/mxquery/mxquery/0.6/mxquery-0.6-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: net.sf.jung:jung-algorithms:2.0.1">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/net/sf/jung/jung-algorithms/2.0.1/jung-algorithms-2.0.1.jar!/" />

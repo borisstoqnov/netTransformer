@@ -26,10 +26,7 @@ import org.apache.commons.collections15.Factory;
 import org.xml.sax.SAXException;
 
 import javax.servlet.ServletContext;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
@@ -80,9 +77,9 @@ public class TopologyManagementResource {
     }
 
   //  http://localhost:8080/wsitransformer/rest/topology-management/nodes/
-    @GET
-    @Produces(MediaType.TEXT_HTML+";version=1.0")
-    @Path("/nodes")
+//    @GET
+//    @Produces("text/html")
+//    @Path("/nodes")
     public String getNodesAsHtml() throws IOException, SAXException, ParserConfigurationException {
         if (graph == null) {
             File graphmlFile = new File(context.getInitParameter("config.file"));
@@ -129,6 +126,29 @@ public class TopologyManagementResource {
         if (graph == null) {
             File graphmlFile = new File(context.getInitParameter("config.file"));
             this.init(DirectedSparseGraph.<String, String>getFactory(), graphmlFile);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("<pre>&lt;node id=\"%s\"&gt;<br/>", nodeId));
+        for (Object mdKey : gmlr.getVertexMetadata().keySet()) {
+            GraphMLMetadata<String> o = (GraphMLMetadata<String>) gmlr.getVertexMetadata().get(mdKey);
+            String value = o.transformer.transform((String) nodeId);
+            if (value != null) {
+                sb.append(String.format("\t&lt;data key=\"%s\"&gt;%s&lt;/data&gt;<br/>",mdKey, value));
+            }
+        }
+        sb.append("&lt;/node&gt;</pre>");
+        return sb.toString();
+    }
+    @GET
+    @Produces("text/html")
+    @Path("/nodes/")
+    public String getNodeAsHtmlById(@QueryParam("nodeId") String nodeId) throws IOException, SAXException, ParserConfigurationException {
+        if (graph == null) {
+            File graphmlFile = new File(context.getInitParameter("config.file"));
+            this.init(DirectedSparseGraph.<String, String>getFactory(), graphmlFile);
+        }
+        if (nodeId == null) {
+            return getNodesAsHtml();
         }
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("<pre>&lt;node id=\"%s\"&gt;<br/>", nodeId));
