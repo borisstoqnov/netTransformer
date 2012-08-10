@@ -31,11 +31,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.parsers.ParserConfigurationException;
+import java.awt.print.Book;
 import java.io.*;
 import java.net.URI;
+import java.util.List;
 
 // The Java class will be hosted at the URI path "/helloworld"
 @Path("/topology-management")
@@ -44,10 +47,12 @@ public class TopologyManagementResource {
     ServletContext context;
     private Hypergraph<String, String> graph;
 
+
     @Context
     UriInfo uriInfo;
     private GraphMLReader gmlr;
 
+    @Context
     private <G extends Hypergraph<String,String>> void init(Factory<G> factory, File graphmlFile) throws IOException, SAXException, ParserConfigurationException {
         gmlr = new GraphMLReader(null, null);
         BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(graphmlFile)));
@@ -57,7 +62,7 @@ public class TopologyManagementResource {
     }
 
     @GET
-    @Produces("application/xml")
+    @Produces({MediaType.APPLICATION_XML+";version=1.0",MediaType.TEXT_HTML+";version=1.0"})
     @Path("/nodes")
     public String getNodesAsXml() throws IOException, SAXException, ParserConfigurationException {
         if (graph == null) {
@@ -74,9 +79,9 @@ public class TopologyManagementResource {
         return sb.toString();
     }
 
-//    http://localhost:8080/wsitransformer/rest/topology-management/nodes/
+  //  http://localhost:8080/wsitransformer/rest/topology-management/nodes/
     @GET
-    @Produces("text/html")
+    @Produces(MediaType.TEXT_HTML+";version=1.0")
     @Path("/nodes")
     public String getNodesAsHtml() throws IOException, SAXException, ParserConfigurationException {
         if (graph == null) {
@@ -97,7 +102,7 @@ public class TopologyManagementResource {
     }
 
     @GET
-    @Produces("application/xml")
+    @Produces(MediaType.APPLICATION_XML+";version=1.0")
     @Path("/nodes/{nodeId}/")
     public String getNodeAsXml(@PathParam("nodeId") String nodeId) throws IOException, SAXException, ParserConfigurationException {
         if (graph == null) {
@@ -118,7 +123,7 @@ public class TopologyManagementResource {
     }
 // http://localhost:8080/wsitransformer/rest/topology-management/nodes/R1
     @GET
-    @Produces("text/html")
+    @Produces(MediaType.TEXT_HTML+";version=1.0")
     @Path("/nodes/{nodeId}/")
     public String getNodeAsHtml(@PathParam("nodeId") String nodeId) throws IOException, SAXException, ParserConfigurationException {
         if (graph == null) {

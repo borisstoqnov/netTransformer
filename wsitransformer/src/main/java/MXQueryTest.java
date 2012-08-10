@@ -1,6 +1,6 @@
 /*
- * iMap is an open source tool able to upload Internet BGP peering information
- *  and to visualize the beauty of Internet BGP Peering in 2D map.
+ * iTransformer is an open source tool able to discover and transform
+ *  IP network infrastructures.
  *  Copyright (C) 2012  http://itransformers.net
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -36,8 +36,15 @@ import ch.ethz.mxquery.xdmio.XMLSource;
 public class MXQueryTest {
     public static void main(String [] args) throws Exception {
         //Sample query, replace by your own
-        String query = "declare variable $input external; <result>{$input,$input}</result>";
+//        String query = "declare variable $input external; <result>{$input,$input}</result>";
 
+        String query="\tcopy $x := <doc><el><node>this node is deleted</node></el></doc> \n" +
+                "\tmodify \n" +
+                "\t(\n" +
+                "\t\tdelete node $x/el/node, \n" +
+                "\t\tinsert node <node>this node is inserted</node> into $x/el\n" +
+                "\t)\n" +
+                "\treturn $x/el\n";
         boolean updateFiles = true;
 
         // Create new (unified) Context
@@ -65,7 +72,20 @@ public class MXQueryTest {
             // Set up dynamic context values, e.g., current time
             result = statement.evaluate();
             // Add the contents of the external variable
-            String xml = "<elem/>";
+            String xml = "<FitnessCenter>\n" +
+                    "    <Member Level=\"platinum\">\n" +
+                    "        <Name>Jeff</Name>\n" +
+                    "        <FavoriteColor>lightgrey</FavoriteColor>\n" +
+                    "    </Member>\n" +
+                    "    <Member Level=\"gold\">\n" +
+                    "        <Name>David</Name>\n" +
+                    "        <FavoriteColor>lightblue</FavoriteColor>\n" +
+                    "    </Member>\n" +
+                    "    <Member Level=\"platinum\">\n" +
+                    "        <Name>Roger</Name>\n" +
+                    "        <FavoriteColor>lightyellow</FavoriteColor>\n" +
+                    "    </Member>\n" +
+                    "</FitnessCenter>\n";
             XMLSource xmlIt = XDMInputFactory.createXMLInput(result.getContext(), new StringReader(xml), true, Context.NO_VALIDATION, QueryLocation.OUTSIDE_QUERY_LOC);
             statement.addExternalResource(new QName("input"), xmlIt);
             // Create an XDM serializer, can take an XDMSerializerSettings object if needed
