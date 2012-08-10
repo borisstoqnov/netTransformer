@@ -59,7 +59,7 @@ public class TopologyManagementResource {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_XML+";version=1.0",MediaType.TEXT_HTML+";version=1.0"})
+    @Produces({MediaType.APPLICATION_XML+";version=1.0"})
     @Path("/nodes")
     public String getNodesAsXml() throws IOException, SAXException, ParserConfigurationException {
         if (graph == null) {
@@ -98,9 +98,9 @@ public class TopologyManagementResource {
         return sb.toString();
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_XML+";version=1.0")
-    @Path("/nodes/{nodeId}/")
+//    @GET
+//    @Produces(MediaType.APPLICATION_XML+";version=1.0")
+//    @Path("/nodes/{nodeId}/")
     public String getNodeAsXml(@PathParam("nodeId") String nodeId) throws IOException, SAXException, ParserConfigurationException {
         if (graph == null) {
             File graphmlFile = new File(context.getInitParameter("config.file"));
@@ -140,8 +140,8 @@ public class TopologyManagementResource {
         return sb.toString();
     }
     @GET
-    @Produces("text/html")
-    @Path("/nodes/")
+    @Produces(MediaType.TEXT_HTML+";version=1.0")
+    @Path("/nodes")
     public String getNodeAsHtmlById(@QueryParam("nodeId") String nodeId) throws IOException, SAXException, ParserConfigurationException {
         if (graph == null) {
             File graphmlFile = new File(context.getInitParameter("config.file"));
