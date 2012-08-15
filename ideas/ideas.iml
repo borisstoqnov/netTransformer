@@ -22,9 +22,9 @@
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.3" level="project" />
     <orderEntry type="library" name="Maven: org.neo4j.app:neo4j-server:1.8.M07" level="project" />
-    <orderEntry type="library" name="Maven: org.neo4j:neo4j-kernel:1.8.M07" level="project" />
+    <orderEntry type="library" name="Maven: org.neo4j:neo4j-kernel:1.8-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.neo4j:neo4j-lucene-index:1.8.M07" level="project" />
+    <orderEntry type="library" name="Maven: org.neo4j:neo4j-lucene-index:1.8-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.apache.lucene:lucene-core:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.neo4j:neo4j-graph-algo:1.8.M07" level="project" />
     <orderEntry type="library" name="Maven: org.neo4j:neo4j-udc:1.8.M07" level="project" />

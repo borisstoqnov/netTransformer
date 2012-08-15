@@ -46,6 +46,12 @@
             <classifier>static-web</classifier>
             <version>1.8.M07</version>
         </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-lucene-index</artifactId>
+            <!--<classifier>static-web</classifier>-->
+            <version>1.8-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>

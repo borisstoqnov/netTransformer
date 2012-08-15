@@ -29,6 +29,8 @@ import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSetting;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
+import org.neo4j.graphdb.index.Index;
+import org.neo4j.graphdb.index.IndexManager;
 import org.neo4j.kernel.GraphDatabaseAPI;
 import org.neo4j.server.WrappingNeoServerBootstrapper;
 import org.neo4j.server.configuration.Configurator;
@@ -36,15 +38,17 @@ import org.neo4j.server.configuration.ServerConfigurator;
 import org.neo4j.shell.ShellSettings;
 
 import javax.xml.bind.JAXBException;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.List;
 
 public class Neo4JDataImporter {
-    public static void main(String[] args) throws JAXBException, IOException {
+    public static void main(String[] args) throws Exception {
 // let the database accept remote neo4j-shell connections
         GraphDatabaseAPI graphdb = (GraphDatabaseAPI) new GraphDatabaseFactory()
-                .newEmbeddedDatabaseBuilder( "target/configDb" )
+                .newEmbeddedDatabaseBuilder( "target/bigDB" )
                 .setConfig( ShellSettings.remote_shell_enabled, GraphDatabaseSetting.TRUE )
                 .setConfig( GraphDatabaseSettings.node_keys_indexable, "name,objectType" )
 //                .setConfig( GraphDatabaseSettings.relationship_keys_indexable, "relProp1,relProp2" )
@@ -60,22 +64,54 @@ public class Neo4JDataImporter {
         WrappingNeoServerBootstrapper srv;
         srv = new WrappingNeoServerBootstrapper( graphdb, config );
         srv.start();
+//        IndexManager index = graphdb.index();
+//        Index<Node> actors = index.forNodes( "actors" );
+//        actors.add( fishburn, "name", fishburn.getProperty( "name" ) );
+
 //       importData(graphdb);
 // add some data first
-        importData(graphdb);
+//        File dir = new File("C:\\Documents and Settings\\LYCHO\\My Documents\\4_very_big");
+
+//        Node root = createRootNetworkNode(graphdb);
+//        File[] files = dir.listFiles(new FilenameFilter() {
+//            @Override
+//            public boolean accept(File dir, String name) {
+//                return name.startsWith("device-") && name.endsWith(".xml");
+//            }
+//        });
+
+//        long start = System.currentTimeMillis();
+//        for (File file : files) {
+//            importData(graphdb, root, file);
+//        }
+//        System.out.println("Imported ... "+(System.currentTimeMillis()-start)/1000 + " seconds");
     }
-    public static void importData(GraphDatabaseService dbApi) throws IOException, JAXBException {
+    public static org.neo4j.graphdb.Node createRootNetworkNode(GraphDatabaseService dbApi) throws Exception {
         Transaction tr = dbApi.beginTx();
         try {
-            String fileName = "network/device-data-R1.xml";
-            FileInputStream is = new FileInputStream(fileName);
+            org.neo4j.graphdb.Node node= dbApi.createNode();
+            node.setProperty("name","network");
+            tr.success();
+            return node;
+        } catch (Exception e) {
+            tr.failure();
+            throw e;
+        } finally {
+            tr.finish();
+        }
+    }
+
+    public static void importData(GraphDatabaseService dbApi, Node root, File file) throws IOException, JAXBException {
+        Transaction tr = dbApi.beginTx();
+        try {
+            FileInputStream is = new FileInputStream(file);
             DiscoveredDeviceData discoveryManagerType = null;
             try {
                 discoveryManagerType = JaxbMarshalar.unmarshal(DiscoveredDeviceData.class, is);
             } finally {
                 is.close();
             }
-            importDiscoveredDeviceData(dbApi,discoveryManagerType);
+            importDiscoveredDeviceData(dbApi,root, discoveryManagerType);
             tr.success();
         } catch (Exception e) {
             tr.failure();
@@ -83,8 +119,9 @@ public class Neo4JDataImporter {
             tr.finish();
         }
     }
-    public static void importDiscoveredDeviceData(GraphDatabaseService dbApi, DiscoveredDeviceData discoveryManagerType){
+    public static void importDiscoveredDeviceData(GraphDatabaseService dbApi, Node root, DiscoveredDeviceData discoveryManagerType){
         org.neo4j.graphdb.Node node= dbApi.createNode();
+        root.createRelationshipTo(node,DynamicRelationshipType.withName("parent"));
         System.out.println("Created node id= "+node.getId());
         node.setProperty("name",discoveryManagerType.getName());
         node.setProperty("objectType","Device"); // Hardcoded because the DiscoveredDeviceData is not natural data type
