@@ -41,6 +41,7 @@
         <module>utils</module>
         <module>distribution</module>
         <module>wsitransformer</module>
+        <module>ideas</module>
     </modules>
     <build>
         <pluginManagement>
