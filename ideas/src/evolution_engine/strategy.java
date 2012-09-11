@@ -21,5 +21,5 @@ public class strategy {
      * @clientCardinality 0..*
      * @link aggregationByValue
      */
-    private step lnkstep;
+    private List<step> lnkstep;
 }

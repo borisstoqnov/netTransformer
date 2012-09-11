@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ iTransformer is an open source tool able to discover and transform
+  ~  IP network infrastructures.
+  ~  Copyright (C) 2012  http://itransformers.net
+  ~
+  ~  This program is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  any later version.
+  ~
+  ~  This program is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<strategies>
+    <strategy name="str1">
+        <step name="replace P" >
+            <businessConstraints>
+                <businessConstraint name="Risk">High</businessConstraint>
+                <businessConstraint name="Cost">150000</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">5</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Add PE router" >
+            <businessConstraints>
+                <businessConstraint name="Risk">High</businessConstraint>
+                <businessConstraint name="Cost">200000</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">6</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Enable IPv6 BGP Peering" >
+            <businessConstraints>
+                <businessConstraint name="Risk">Low</businessConstraint>
+                <businessConstraint name="Cost">0</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">1</businessConstraint>
+            </businessConstraints>
+        </step>
+    </strategy>
+    <strategy name="str2">
+        <step name="replace P" >
+            <businessConstraints>
+                <businessConstraint name="Risk">High</businessConstraint>
+                <businessConstraint name="Cost">150000</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">5</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Add PE router" >
+            <businessConstraints>
+                <businessConstraint name="Risk">High</businessConstraint>
+                <businessConstraint name="Cost">200000</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">6</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Enable IPv6 BGP Peering" >
+            <businessConstraints>
+                <businessConstraint name="Risk">High</businessConstraint>
+                <businessConstraint name="Cost">200000</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">6</businessConstraint>
+            </businessConstraints>
+        </step>
+    </strategy>
+</strategies>

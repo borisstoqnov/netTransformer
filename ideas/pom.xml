@@ -52,7 +52,87 @@
             <!--<classifier>static-web</classifier>-->
             <version>1.8-SNAPSHOT</version>
         </dependency>
+    <!--</dependencies>-->
+    <!--<dependencies>-->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.2.4</version>
+        </dependency>
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- It's advised not to checkin the generated classes. By default they are generated in target/generated-sources with xmlns namespace provided
+            in xsd. If you need the sources to be generated uncomment the below.
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <packagename>xxx.schema</packagename>
+                    <schemaDirectory>${basedir}/src/main/resources</schemaDirectory>
+                    <outputdirectory>${basedir}/src/main/java/xxx/generated</outputdirectory>
+                </configuration>
+            </plugin>
+            -->
+
+            <!--<plugin>-->
+                <!--<groupId>org.jvnet.jaxb2.maven2</groupId>-->
+                <!--<artifactId>maven-jaxb2-plugin</artifactId>-->
+
+                <!--<configuration>-->
+                    <!--<extension>true</extension>-->
+                    <!--<args>-->
+                        <!--<arg>-Xfluent-api</arg>-->
+                    <!--</args>-->
+                    <!--<plugins>-->
+                        <!--<plugin>-->
+                            <!--<groupId>net.java.dev.jaxb2-commons</groupId>-->
+                            <!--<artifactId>jaxb-fluent-api</artifactId>-->
+                            <!--<version>2.1.8</version>-->
+                        <!--</plugin>-->
+                    <!--</plugins>-->
+                    <!--<bindingDirectory>src/main/resources/binding</bindingDirectory>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>generate</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <packageName>net.itransformers.ideas</packageName> <!-- The name of your generated source package -->
+                    <outputDirectory>${basedir}/src/main/java</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <repositories>
         <repository>
             <id>neo4j-snapshot-repository</id>
