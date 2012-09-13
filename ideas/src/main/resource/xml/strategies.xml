@@ -218,7 +218,7 @@
                 <businessConstraint name="Cost">1850</businessConstraint>
                 <businessConstraint name="Time for Preparation">24</businessConstraint>
                 <businessConstraint name="Time for Lab Testing">8</businessConstraint>
-                <businessConstraint name="Time for Maintenance Window">2h</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">2</businessConstraint>
             </businessConstraints>
         </step>
 
