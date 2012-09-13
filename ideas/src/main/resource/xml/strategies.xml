@@ -19,65 +19,238 @@
   -->
 
 <strategies>
-    <strategy name="str1">
-        <step name="replace P" >
+    <strategy name="Fast-track strategy(No dual stack)">
+        <technicalConstraint name="DualStack">NO</technicalConstraint>
+        <technicalConstraint name="Tunneling">NO</technicalConstraint>
+        <technicalConstraint name="Translation">YES</technicalConstraint>
+
+        <step name="Replace P router" >
             <businessConstraints>
                 <businessConstraint name="Risk">High</businessConstraint>
-                <businessConstraint name="Cost">150000</businessConstraint>
-                <businessConstraint name="Time for Preparation">5</businessConstraint>
-                <businessConstraint name="Time for Lab Testing">5</businessConstraint>
+                <businessConstraint name="Cost">500000</businessConstraint>
+                <businessConstraint name="Time for Preparation">40</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">24</businessConstraint>
                 <businessConstraint name="Time for Maintenance Window">5</businessConstraint>
             </businessConstraints>
         </step>
-        <step name="Add PE router" >
+        <step name="Add PE1 and PE2 routers">
             <businessConstraints>
                 <businessConstraint name="Risk">High</businessConstraint>
-                <businessConstraint name="Cost">200000</businessConstraint>
-                <businessConstraint name="Time for Preparation">5</businessConstraint>
-                <businessConstraint name="Time for Lab Testing">5</businessConstraint>
+                <businessConstraint name="Cost">500000</businessConstraint>
+                <businessConstraint name="Time for Preparation">40</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">24</businessConstraint>
                 <businessConstraint name="Time for Maintenance Window">6</businessConstraint>
             </businessConstraints>
         </step>
-        <step name="Enable IPv6 BGP Peering" >
+        <step name="Enable IPv6 BGP Peering on IR1" >
             <businessConstraints>
-                <businessConstraint name="Risk">Low</businessConstraint>
-                <businessConstraint name="Cost">0</businessConstraint>
-                <businessConstraint name="Time for Preparation">5</businessConstraint>
-                <businessConstraint name="Time for Lab Testing">5</businessConstraint>
+                <businessConstraint name="Risk">Note</businessConstraint>
+                <businessConstraint name="Cost">325</businessConstraint>
+                <businessConstraint name="Time for Preparation">8</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">4</businessConstraint>
                 <businessConstraint name="Time for Maintenance Window">1</businessConstraint>
             </businessConstraints>
         </step>
-    </strategy>
-    <strategy name="str2">
-
-        <step name="replace P" >
+        <step name="Enable NAT46/64 on IR1" >
             <businessConstraints>
                 <businessConstraint name="Risk">High</businessConstraint>
-                <businessConstraint name="Cost">150000</businessConstraint>
-                <businessConstraint name="Time for Preparation">5</businessConstraint>
-                <businessConstraint name="Time for Lab Testing">5</businessConstraint>
+                <businessConstraint name="Cost">1500</businessConstraint>
+                <businessConstraint name="Time for Preparation">40</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">16</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">4</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Replace IPv4 with IPv6" >
+            <businessConstraints>
+                <businessConstraint name="Risk">Critical</businessConstraint>
+                <businessConstraint name="Cost">3625</businessConstraint>
+                <businessConstraint name="Time for Preparation">80</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">40</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">25</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Add HG">
+            <businessConstraints>
+                <businessConstraint name="Risk">Note</businessConstraint>
+                <businessConstraint name="Cost">1850</businessConstraint>
+                <businessConstraint name="Time for Preparation">3d</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">1d</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">2h</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Disable NAT46/64" >
+            <businessConstraints>
+                <businessConstraint name="Risk">High</businessConstraint>
+                <businessConstraint name="Cost">1500</businessConstraint>
+                <businessConstraint name="Time for Preparation">40</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">16</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">4</businessConstraint>
+            </businessConstraints>
+        </step>
+    </strategy>
+
+    <strategy name="Strategy for Migration through DualStack and Tunneling">
+
+        <technicalConstraint name="DualStack">YES</technicalConstraint>
+        <technicalConstraint name="Tunneling">YES</technicalConstraint>
+        <technicalConstraint name="Translation">NO</technicalConstraint>
+
+        <step name="Enable dual IP stack on CE, IR, DC, Srv">
+            <businessConstraints>
+                <businessConstraint name="Risk">Medium</businessConstraint>
+                <businessConstraint name="Cost">1600</businessConstraint>
+                <businessConstraint name="Time for Preparation">40</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">16</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">8</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Еnable 6to4 tunnels on CE, IR, DC">
+            <businessConstraints>
+                <businessConstraint name="Risk">High</businessConstraint>
+                <businessConstraint name="Cost">1325</businessConstraint>
+                <businessConstraint name="Time for Preparation">32</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">16</businessConstraint>
                 <businessConstraint name="Time for Maintenance Window">5</businessConstraint>
             </businessConstraints>
         </step>
-        <step name="Add PE router" >
+        <step name="Enable IPv6 BGP Peering on IR1" >
+            <businessConstraints>
+                <businessConstraint name="Risk">Note</businessConstraint>
+                <businessConstraint name="Cost">325</businessConstraint>
+                <businessConstraint name="Time for Preparation">8</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">4</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">1</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Add HG">
+            <businessConstraints>
+                <businessConstraint name="Risk">Note</businessConstraint>
+                <businessConstraint name="Cost">1850</businessConstraint>
+                <businessConstraint name="Time for Preparation">24</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">8</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">2h</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Replace P router" >
             <businessConstraints>
                 <businessConstraint name="Risk">High</businessConstraint>
-                <businessConstraint name="Cost">200000</businessConstraint>
-                <businessConstraint name="Time for Preparation">5</businessConstraint>
-                <businessConstraint name="Time for Lab Testing">5</businessConstraint>
+                <businessConstraint name="Cost">500000</businessConstraint>
+                <businessConstraint name="Time for Preparation">40</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">24</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">5</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Add PE1 and PE2 routers">
+            <businessConstraints>
+                <businessConstraint name="Risk">High</businessConstraint>
+                <businessConstraint name="Cost">500000</businessConstraint>
+                <businessConstraint name="Time for Preparation">40</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">24</businessConstraint>
                 <businessConstraint name="Time for Maintenance Window">6</businessConstraint>
             </businessConstraints>
         </step>
-        <step name="Enable IPv6 BGP Peering" >
+        <step name="Enable dual IP stack on P PE1 and PE2">
+            <businessConstraints>
+                <businessConstraint name="Risk">Medium</businessConstraint>
+                <businessConstraint name="Cost">1600</businessConstraint>
+                <businessConstraint name="Time for Preparation">40</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">16</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">10</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Disable 6to4 tunnels on CE, IR, DC">
+            <businessConstraints>
+                <businessConstraint name="Risk">Note</businessConstraint>
+                <businessConstraint name="Cost">1525</businessConstraint>
+                <businessConstraint name="Time for Preparation">40</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">16</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">5</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Disable dual IP stack" >
             <businessConstraints>
                 <businessConstraint name="Risk">High</businessConstraint>
-                <businessConstraint name="Cost">200000</businessConstraint>
-                <businessConstraint name="Time for Preparation">5</businessConstraint>
-                <businessConstraint name="Time for Lab Testing">5</businessConstraint>
-                <businessConstraint name="Time for Maintenance Window">6</businessConstraint>
+                <businessConstraint name="Cost">2250</businessConstraint>
+                <businessConstraint name="Time for Preparation">48</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">24</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">5</businessConstraint>
             </businessConstraints>
         </step>
     </strategy>
+    <strategy name="Strategy for Migration through full DualStack">
+
+        <technicalConstraint name="DualStack">YES</technicalConstraint>
+        <technicalConstraint name="Tunneling">NO</technicalConstraint>
+        <technicalConstraint name="Translation">NO</technicalConstraint>
+
+        <step name="Replace P router" >
+            <businessConstraints>
+                <businessConstraint name="Risk">High</businessConstraint>
+                <businessConstraint name="Cost">500000</businessConstraint>
+                <businessConstraint name="Time for Preparation">40</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">24</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">5</businessConstraint>
+            </businessConstraints>
+        </step>
+
+        <step name="Enable dual IP stack">
+            <businessConstraints>
+                <businessConstraint name="Risk">High</businessConstraint>
+                <businessConstraint name="Cost">2050</businessConstraint>
+                <businessConstraint name="Time for Preparation">40</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">24</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">18</businessConstraint>
+            </businessConstraints>
+        </step>
+
+        <step name="Enable IPv6 BGP Peering on IR1" >
+            <businessConstraints>
+                <businessConstraint name="Risk">Note</businessConstraint>
+                <businessConstraint name="Cost">325</businessConstraint>
+                <businessConstraint name="Time for Preparation">8</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">4</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">1</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Add HG">
+            <businessConstraints>
+                <businessConstraint name="Risk">Note</businessConstraint>
+                <businessConstraint name="Cost">1850</businessConstraint>
+                <businessConstraint name="Time for Preparation">24</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">8</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">2h</businessConstraint>
+            </businessConstraints>
+        </step>
+
+        <step name="Add PE1 and PE2 routers">
+            <businessConstraints>
+                <businessConstraint name="Risk">High</businessConstraint>
+                <businessConstraint name="Cost">500000</businessConstraint>
+                <businessConstraint name="Time for Preparation">40</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">24</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">6</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Enable dual IP stack on P PE1 and PE2">
+            <businessConstraints>
+                <businessConstraint name="Risk">Medium</businessConstraint>
+                <businessConstraint name="Cost">1600</businessConstraint>
+                <businessConstraint name="Time for Preparation">40</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">16</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">10</businessConstraint>
+            </businessConstraints>
+        </step>
+        <step name="Disable dual IP stack" >
+            <businessConstraints>
+                <businessConstraint name="Risk">High</businessConstraint>
+                <businessConstraint name="Cost">2250</businessConstraint>
+                <businessConstraint name="Time for Preparation">48</businessConstraint>
+                <businessConstraint name="Time for Lab Testing">24</businessConstraint>
+                <businessConstraint name="Time for Maintenance Window">5</businessConstraint>
+            </businessConstraints>
+        </step>
+    </strategy>
+
     <strategy name="Dual Stack and Translation">
         <technicalConstraint name="DualStack">YES</technicalConstraint>
         <technicalConstraint name="Tunneling">NO</technicalConstraint>
@@ -139,7 +312,7 @@
         <step name="Enable IPv6 BGP Peering on IR1" >
             <businessConstraints>
                 <businessConstraint name="Risk">Note</businessConstraint>
-                <businessConstraint name="Cost"></businessConstraint>
+                <businessConstraint name="Cost">325</businessConstraint>
                 <businessConstraint name="Time for Preparation">8</businessConstraint>
                 <businessConstraint name="Time for Lab Testing">4</businessConstraint>
                 <businessConstraint name="Time for Maintenance Window">1</businessConstraint>
