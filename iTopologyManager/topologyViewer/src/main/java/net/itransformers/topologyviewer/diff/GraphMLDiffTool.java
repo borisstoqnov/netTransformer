@@ -19,7 +19,7 @@
 
 package net.itransformers.topologyviewer.diff;
 
-import net.itransformers.utils.XsltTransformer ;
+import net.itransformers.utils.XsltTransformer;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
@@ -204,7 +204,7 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
     }
 
     private static void createNewGraphml(String newfile, String status, URI file, File OutputFile) throws FileNotFoundException {
-        File transformator = new File("topology-viewer/conf/xslt/graphml_add_remove.xslt");
+        File transformator = new File("iTopologyManager/topologyViewer/conf/xslt/graphml_add_remove.xslt");
         ByteArrayInputStream fileInputStream = null;
         FileOutputStream fileOutputStream = null;
 
