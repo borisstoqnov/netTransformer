@@ -19,6 +19,7 @@
 
 package net.itransformers.topologyviewer.gui;
 
+import edu.uci.ics.jung.visualization.renderers.VertexLabelRenderer;
 import net.itransformers.topologyviewer.config.*;
 import net.itransformers.topologyviewer.rightclick.RightClickInvoker;
 import edu.uci.ics.jung.algorithms.filters.EdgePredicateFilter;
@@ -112,7 +113,6 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
 //        }
         createPanel();
     }
-
     private void createPanel(){
         final GraphZoomScrollPane panel = new GraphZoomScrollPane(vv);
         this.setLayout(new BorderLayout());
@@ -121,6 +121,15 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
         AbstractModalGraphMouse graphMouse = createModalGraphMouse();
 
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<String>());
+        vv.getRenderContext().setVertexLabelRenderer(new VertexLabelRenderer() {
+            @Override
+            public <T> Component getVertexLabelRendererComponent(JComponent jComponent, Object o, Font font, boolean b, T t) {
+                JLabel jLabel = new JLabel(t.toString());
+                Font font1 = new Font(font.getName(), font.getStyle(), font.getSize()+5);
+                jLabel.setFont(font1);
+                return jLabel;
+            }
+        });
         vv.setGraphMouse(graphMouse);
         vv.setToolTipText("<html><center>Type 'p' for Pick mode<p>Type 't' for Transform mode");
 
