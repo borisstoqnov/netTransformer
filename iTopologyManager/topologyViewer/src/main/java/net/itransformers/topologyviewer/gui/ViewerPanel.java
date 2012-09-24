@@ -125,7 +125,8 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
             @Override
             public <T> Component getVertexLabelRendererComponent(JComponent jComponent, Object o, Font font, boolean b, T t) {
                 JLabel jLabel = new JLabel(t.toString());
-                Font font1 = new Font(font.getName(), font.getStyle(), font.getSize()+5);
+                //TOOD has to be a prefference setting
+                Font font1 = new Font(font.getName(), font.getStyle()+Font.BOLD, font.getSize()+2);
                 jLabel.setFont(font1);
                 return jLabel;
             }
