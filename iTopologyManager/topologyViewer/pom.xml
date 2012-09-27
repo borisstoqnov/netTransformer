@@ -24,6 +24,12 @@
             <version>0.1-SNAPSHOT</version><!--Change for new version-->
         </dependency>
         <dependency>
+            <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
+            <artifactId>rightClick</artifactId>
+            <version>0.1-SNAPSHOT</version><!--Change for new version-->
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
             <groupId>iTransformers.iTransformer</groupId>
             <artifactId>utils</artifactId>
             <version>0.1-SNAPSHOT</version><!--Change for new version-->
