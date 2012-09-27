@@ -20,11 +20,14 @@
 package net.itransformers.topologyviewer.parameterfactory.impl;
 
 import net.itransformers.topologyviewer.parameterfactory.ParameterFactoryElement;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MapDerivedParamFactoryElement implements ParameterFactoryElement{
+    static Logger logger = Logger.getLogger(MapDerivedParamFactoryElement.class);
     private Map<String, String> params;
     private String contextKey;
 
@@ -46,7 +49,12 @@ public class MapDerivedParamFactoryElement implements ParameterFactoryElement{
         }
         Map<String, String> result = new HashMap<String, String>();
         for (String key : params.keySet()) {
-            result.put(key,contextParams.get(key));
+            if (!contextParams.containsKey(key)) {
+                logger.log(Level.DEBUG, "Can not find key: "+key+", in context: "+contextParams);
+            } else {
+                String value = contextParams.get(key);
+                result.put(key, value);
+            }
         }
         return result;
     }
