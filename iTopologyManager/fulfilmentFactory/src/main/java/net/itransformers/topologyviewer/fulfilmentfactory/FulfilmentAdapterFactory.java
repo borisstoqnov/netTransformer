@@ -12,10 +12,7 @@ import net.itransformers.resourcemanager.config.ResourceType;
 import javax.xml.bind.JAXBException;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -28,8 +25,8 @@ import java.util.logging.Logger;
 public class FulfilmentAdapterFactory {
     private String configFileName;
     private ParameterFactoryBuilder parameterFactoryBuilder;
-    private Map<String,TypeType> fulfilmentFactoryTypesMap = new HashMap<String, TypeType>();
-    private Map<String,FulfilmentFactoryType> fulfilmentFactoryMap = new HashMap<String, FulfilmentFactoryType>();
+    private Map<String,TypeType> fulfilmentFactoryTypesMap = new LinkedHashMap<String, TypeType>();
+    private Map<String,FulfilmentFactoryType> fulfilmentFactoryMap = new LinkedHashMap<String, FulfilmentFactoryType>();
 
     public FulfilmentAdapterFactory(String configFileName,
                                     ParameterFactoryBuilder parameterFactoryBuilder,
@@ -64,7 +61,9 @@ public class FulfilmentAdapterFactory {
         String type = fulfilmentFactory.getType();
         TypeType typeType = fulfilmentFactoryTypesMap.get(type);
         Map<String, String> fulfilmentFactoryParams = new HashMap<String, String>();
-
+        if (typeType == null) {
+            throw new RuntimeException("Can not find type in fulfilment factotry types: "+type);
+        }
         List<ParamType> paramList = typeType.getParam();
         for (ParamType paramType : paramList) {
             if (fulfilmentFactoryParams.containsKey(paramType.getName())){
