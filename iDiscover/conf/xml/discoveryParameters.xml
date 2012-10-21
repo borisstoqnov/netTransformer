@@ -21,7 +21,7 @@
     <device type="DEFAULT" xslt="iDiscover/conf/xslt/transformator.xslt">
 		<!-- Contain snmp oid names needed for general device description -->
          <general>
-            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,dot1dTpFdbAddress,system,ipAddrTable,ifIndex, ifName
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
         </general>
 		
 		<!-- Contain request parameteters needed for physical description of the device and physical discovery methods -->
@@ -71,7 +71,7 @@
 
     <device type="CISCO" xslt="iDiscover/conf/xslt/transformator.xslt">
         <general>
-            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,system,sysObjectID,ipAddrTable
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,sysDescr,sysObjectID,sysName,sysLocation, ipAddrTable
         </general>
         <discovery-method name="PHYSICAL">
             lldpRemoteSystemsData,
@@ -79,8 +79,9 @@
             vtpVlanIndex,vtpVlanState
         </discovery-method>
         <discovery-method name="NEXT_HOP">
-          <!--ipRouteIfIndex,ipRouteNextHop,
-            ipCidrRouteType, ipCidrRouteIfIndex, ipCidrRouteNextHop, ipCidrRouteProto, ipCidrRouteNextHopAS  -->
+          ipRouteIfIndex,ipRouteNextHop,
+            ipCidrRouteType, ipCidrRouteIfIndex, ipCidrRouteNextHop, ipCidrRouteProto, ipCidrRouteNextHopAS,
+            cikeTunLocalAddr, cikeTunRemoteAddr,cikeTunStatus
         </discovery-method>
         <discovery-method name="OSPF">
             ospfRouterId,ospfNbrEntry,ospfAdminStat,ospfAreaBdrRtrStatus,ospfASBdrRtrStatus,ospfAreaTable,ospfIfEntry
