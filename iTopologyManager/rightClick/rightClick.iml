@@ -36,8 +36,12 @@
     <orderEntry type="library" name="Maven: asm:asm-util:3.2" level="project" />
     <orderEntry type="library" name="Maven: asm:asm-analysis:3.2" level="project" />
     <orderEntry type="module" module-name="topologyViewer" />
-    <orderEntry type="library" name="Maven: com.jcraft:jsch:0.1.44-1" level="project" />
+    <orderEntry type="module" module-name="utils" />
     <orderEntry type="library" name="Maven: net.sf.jung:jung-graph-impl:2.0.1" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.jung:jung-visualization:2.0.1" level="project" />
+    <orderEntry type="library" name="Maven: edu.uci.ics:screencap:1.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: net.sourceforge.saxon:saxon:9.1.0.8" level="project" />
+    <orderEntry type="library" name="Maven: com.jcraft:jsch:0.1.44-1" level="project" />
   </component>
 </module>
 

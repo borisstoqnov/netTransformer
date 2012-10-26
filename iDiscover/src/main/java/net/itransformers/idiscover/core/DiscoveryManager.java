@@ -259,8 +259,8 @@ public class DiscoveryManager {
     }
     private static void printUsage(String param){
         System.out.println("Usage:   java -h <Initial IP address> -p <port> [-d <mode network|node> -c <community> -c2 <community> -f <discoveryParameters.xml>");
-        System.out.println("Example WIN: java -h X.X.X.X -d network -m snmp2xml\\mibs -f iDiscover\\conf\\xml\\discoveryManager.xml");
-        System.out.print("Example UX: java -h X.X.X.X  -d network -m snmp2xml/mibs -f iDiscover/conf/xml/discoveryManager.xml");
+        System.out.println("Example WIN: java -h X.X.X.X -d network -m snmptoolkit\\mibs -f iDiscover\\conf\\xml\\discoveryManager.xml");
+        System.out.print("Example UX: java -h X.X.X.X  -d network -m snmptoolkit/mibs -f iDiscover/conf/xml/discoveryManager.xml");
         System.out.println("Missing parameter: "+param);
     }
     public static void main(String[] args) throws Exception, IllegalAccessException, JAXBException {

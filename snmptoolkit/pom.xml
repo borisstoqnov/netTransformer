@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>iTransformers.iTransformer</groupId>
-    <artifactId>snmp2xml</artifactId>
+    <artifactId>snmptoolkit</artifactId>
     <version>0.1-SNAPSHOT</version><!--Change for new version-->
 
     <parent>

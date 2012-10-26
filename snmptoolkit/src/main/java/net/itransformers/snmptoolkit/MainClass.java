@@ -66,7 +66,7 @@ public class MainClass {
         FileOutputStream outstream = new FileOutputStream("device.xml");
           //java -classpath "output\snmp-utils.jar;lib\mibble-parser-2.9.2.jar;lib\snmp4j-1.11.2.jar" Walk -md mibs -a 10.129.3.1/161 -c public -v 2c -t 1000 -r 1 -m 100 -o "ifIndex ifDescr ifOperStatus ifAdminStatus ifNumber ifAlias ifPhysAddress ifType dot1dTpFdb dot1dTpFdbAddress dot1dTpFdbStatus dot1dTpFdbPort dot1dBasePort dot1dBasePortIfIndex system dot1dBaseBridgeAddress dot1dStpPort ipNetToMediaTable ipAddrTable lldpRemoteSystemsData cdpCacheDevicePort cdpCacheDevicePlatform cdpCacheDeviceId cdpCacheIfIndex"
 //        Walk.main(new String[]{"-md","mibs","-a","10.129.3.1/161","-c","public","-v","2c -t 1000 -r 1 -m 100 -o "ifIndex ifDescr ifOperStatus ifAdminStatus ifNumber ifAlias ifPhysAddress ifType dot1dTpFdb dot1dTpFdbAddress dot1dTpFdbStatus dot1dTpFdbPort dot1dBasePort dot1dBasePortIfIndex system dot1dBaseBridgeAddress dot1dStpPort ipNetToMediaTable ipAddrTable lldpRemoteSystemsData cdpCacheDevicePort cdpCacheDevicePlatform cdpCacheDeviceId cdpCacheIfIndex"});
-        Walk walker = new Walk(new File("snmp2xml/mibs"), false, new UdpTransportMappingFactory(), new DefaultMessageDispatcherFactory());
+        Walk walker = new Walk(new File("snmptoolkit/mibs"), false, new UdpTransportMappingFactory(), new DefaultMessageDispatcherFactory());
         Properties parameters = new Properties();
             String[] includes = new String[]{
                     "ifIndex", "ifDescr", "ifOperStatus", "ifAdminStatus", "ifNumber","ifAlias","ifPhysAddress","ifType",

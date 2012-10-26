@@ -439,7 +439,7 @@
                 <param name="snmp-community1">public</param>
                 <param name="snmp-community2">publicw</param>
                 <param name="discoveryManager">discovery-manager/conf/xml/discoveryManager.xml</param>
-                <param name="mibs">snmp2xml/mibs</param>
+                <param name="mibs">snmptoolkit/mibs</param>
             </rightClickItem>
             <rightClickItem name="network" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">
                 <param name="protocol">http</param>
@@ -449,7 +449,7 @@
                 <param name="snmp-community1">public</param>
                 <param name="snmp-community2">publicw</param>
                 <param name="discoveryManager">discovery-manager/conf/xml/discoveryManager.xml</param>
-                <param name="mibs">snmp2xml/mibs</param>
+                <param name="mibs">snmptoolkit/mibs</param>
             </rightClickItem>
             <rightClickItem name="status" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">                <param name="protocol">http</param>
                 <param name="protocol">http</param>

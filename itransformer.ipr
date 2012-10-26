@@ -49,7 +49,7 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/snmp2xml/pom.xml" />
+        <option value="$PROJECT_DIR$/snmptoolkit/pom.xml" />
         <option value="$PROJECT_DIR$/iDiscover/pom.xml" />
         <option value="$PROJECT_DIR$/resourceManager/pom.xml" />
         <option value="$PROJECT_DIR$/utils/pom.xml" />
@@ -201,7 +201,7 @@
       <module fileurl="file://$PROJECT_DIR$/resourceManager/resourceManager.iml" filepath="$PROJECT_DIR$/resourceManager/resourceManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/rightClick/rightClick.iml" filepath="$PROJECT_DIR$/iTopologyManager/rightClick/rightClick.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/rightClickAPI/rightClickAPI.iml" filepath="$PROJECT_DIR$/iTopologyManager/rightClickAPI/rightClickAPI.iml" />
-      <module fileurl="file://$PROJECT_DIR$/snmp2xml/snmp2xml.iml" filepath="$PROJECT_DIR$/snmp2xml/snmp2xml.iml" />
+      <module fileurl="file://$PROJECT_DIR$/snmptoolkit/snmptoolkit.iml" filepath="$PROJECT_DIR$/snmptoolkit/snmptoolkit.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/topologyManagerConfig/topologyManagerConfig.iml" filepath="$PROJECT_DIR$/iTopologyManager/topologyManagerConfig/topologyManagerConfig.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/topologyViewer/topologyViewer.iml" filepath="$PROJECT_DIR$/iTopologyManager/topologyViewer/topologyViewer.iml" />
       <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />

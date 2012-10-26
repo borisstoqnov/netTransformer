@@ -173,7 +173,7 @@
 
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
-                <include>iTransformers.iTransformer:snmp2xml</include>
+                <include>iTransformers.iTransformer:snmptoolkit</include>
             </includes>
             <sources>
                 <includeModuleDirectory>false</includeModuleDirectory>
@@ -184,7 +184,7 @@
                     </fileSet>
                     <fileSet>
                         <directory>mibs</directory>
-                        <outputDirectory>bin/snmp2xml/mibs</outputDirectory>
+                        <outputDirectory>bin/snmptoolkit/mibs</outputDirectory>
                     </fileSet>
                 </fileSets>
             </sources>
@@ -196,7 +196,7 @@
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
                 <include>iTransformers.iTransformer:utils</include>
-                <include>iTransformers.iTransformer:snmp2xml</include>
+                <include>iTransformers.iTransformer:snmptoolkit</include>
                 <include>iTransformers.iTransformer:resourceManager</include>
                 <include>iTransformers.iTransformer.iTopologyManager:topologyViewer</include>
                 <include>iTransformers.iTransformer.iTopologyManager:topologyManagerConfig</include>
