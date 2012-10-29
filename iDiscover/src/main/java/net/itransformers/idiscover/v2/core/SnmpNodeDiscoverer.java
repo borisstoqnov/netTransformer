@@ -99,14 +99,16 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
         for (DeviceNeighbour neighbour : neighbours) {
             params.put("deviceType",neighbour.getDeviceType());
-            params.put("host",neighbour.getHostName());
-            params.put("ipAddress",""+neighbour.getIpAddress());
-            params.put("community-ro",""+neighbour.getROCommunity());
+            if (neighbour.getStatus()){ // if reachable
+                params.put("host",neighbour.getHostName());
+                params.put("ipAddress",""+neighbour.getIpAddress());
+                params.put("community-ro",""+neighbour.getROCommunity());
 
-            ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
-            neighbourConnectionDetails.setConnectionType("SNMP");
-            neighbourConnectionDetails.setParams(params);
-            neighboursConnDetails.add(neighbourConnectionDetails);
+                ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
+                neighbourConnectionDetails.setConnectionType("SNMP");
+                neighbourConnectionDetails.setParams(params);
+                neighboursConnDetails.add(neighbourConnectionDetails);
+            }
         }
         return neighboursConnDetails;
     }
