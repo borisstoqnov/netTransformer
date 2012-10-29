@@ -19,10 +19,7 @@
 
 package net.itransformers.idiscover.v2.core;
 
-import net.itransformers.idiscover.v2.core.model.Node;
-
-import java.util.List;
-import java.util.Map;
+import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 
 public interface NodeDiscoverer {
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails);

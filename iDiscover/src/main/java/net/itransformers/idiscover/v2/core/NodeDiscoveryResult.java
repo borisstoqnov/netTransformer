@@ -36,6 +36,8 @@ package net.itransformers.idiscover.v2.core;/*
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+
 import java.util.List;
 
 public class NodeDiscoveryResult {

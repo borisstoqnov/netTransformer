@@ -24,6 +24,9 @@ import java.util.Map;
 public class NodeDiscovererFactory {
 
     public static NodeDiscoverer createNodeDiscoverer(String connectionType){
+        if ("SNMP".equals(connectionType)){
+            return new SnmpNodeDiscoverer();
+        }
         return null;
     }
 }

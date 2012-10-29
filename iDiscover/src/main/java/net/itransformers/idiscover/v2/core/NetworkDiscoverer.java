@@ -19,8 +19,10 @@
 
 package net.itransformers.idiscover.v2.core;
 
+import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,11 +30,11 @@ import java.util.Map;
 public class NetworkDiscoverer {
     public Map<String,Node> discoverNodes(List<ConnectionDetails> connectionDetailsList) {
         Map<String,Node> nodes = new HashMap<String, Node>();
-        doDiscoverNodes(connectionDetailsList, nodes);
+        doDiscoverNodes(connectionDetailsList, nodes, null);
         return nodes;
     }
 
-    private void doDiscoverNodes(List<ConnectionDetails> connectionDetailsList, Map<String, Node> nodes) {
+    private void doDiscoverNodes(List<ConnectionDetails> connectionDetailsList, Map<String, Node> nodes, Node initialNode) {
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
             String connectionType = connectionDetails.getConnectionType();
             NodeDiscoverer nodeDiscoverer = NodeDiscovererFactory.createNodeDiscoverer(connectionType);
@@ -40,11 +42,50 @@ public class NetworkDiscoverer {
             String nodeId = discoveryResult.getNodeId();
             Node currentNode = nodes.get(nodeId);
             if (currentNode == null) {
-                nodes.put(nodeId, new Node(nodeId,connectionDetailsList));
+                currentNode = new Node(nodeId,connectionDetailsList);
+                nodes.put(nodeId, currentNode);
+            }
+            if (initialNode != null){
+                initialNode.addNeighbour(currentNode);
             }
             List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
-            doDiscoverNodes(neighboursConnectionDetails, nodes);
+            doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode);
         }
     }
 
+    public static void main(String[] args) {
+        ConnectionDetails connectionDetails = new ConnectionDetails();;
+        connectionDetails.setConnectionType("SNMP");
+        Map<String, String> params = new HashMap();
+//        params.put("host","172.16.36.1");
+//        params.put("version","1");
+//        params.put("community-ro","test-r");
+//        params.put("community-rw","test-rw");
+        params.put("host","10.0.1.1");
+        params.put("version","1");
+        params.put("community-ro","test-r");
+        params.put("community-rw","test-rw");
+        params.put("timeout","500");
+        params.put("retries","1");
+        params.put("port","161");
+        params.put("max-repetitions","65535");
+        params.put("mibDir","snmptoolkit/mibs");
+        connectionDetails.setParams(params);
+        NetworkDiscoverer discoverer = new NetworkDiscoverer();
+        Map<String, Node> result = discoverer.discoverNodes(Arrays.asList(connectionDetails));
+        System.out.println(result);
+    }
 }
+
+/*<resource name="SNMP">
+        <param name="protocol">SNMP</param>
+        <connection-params connection-type="snmp">
+            <param name="version">1</param>
+            <param name="community-ro">europack-r</param>
+            <param name="community-rw">itransformer-rw</param>
+            <param name="timeout">500</param>
+            <param name="retries">1</param>
+                        <param name="port">161</param>
+            <param name="max-repetitions">65535</param>
+        </connection-params>
+    </resource>*/
