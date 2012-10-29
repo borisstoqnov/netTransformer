@@ -61,10 +61,16 @@ public class NetworkDiscoverer {
 //        params.put("version","1");
 //        params.put("community-ro","test-r");
 //        params.put("community-rw","test-rw");
-        params.put("host","10.0.1.1");
+
+        params.put("host","88.203.200.94");
         params.put("version","1");
         params.put("community-ro","test-r");
         params.put("community-rw","test-rw");
+
+//        params.put("host","10.0.1.1");
+//        params.put("version","1");
+//        params.put("community-ro","test-r");
+//        params.put("community-rw","test-rw");
         params.put("timeout","500");
         params.put("retries","1");
         params.put("port","161");

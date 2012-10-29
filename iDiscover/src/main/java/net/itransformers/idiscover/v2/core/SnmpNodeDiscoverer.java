@@ -104,8 +104,8 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
             params.put("community-ro",""+neighbour.getROCommunity());
 
             ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
-            connectionDetails.setConnectionType("SNMP");
-            connectionDetails.setParams(params);
+            neighbourConnectionDetails.setConnectionType("SNMP");
+            neighbourConnectionDetails.setParams(params);
             neighboursConnDetails.add(neighbourConnectionDetails);
         }
         return neighboursConnDetails;
