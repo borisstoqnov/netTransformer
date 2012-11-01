@@ -29,8 +29,9 @@ import java.util.Map;
 
 public class NetworkDiscoverer {
     Map<String, NodeDiscoverer> nodeDiscoverers;
-
+    NodeDiscoverFilter filter;
     public Map<String,Node> discoverNodes(List<ConnectionDetails> connectionDetailsList) {
+        this.filter = filter;
         Map<String,Node> nodes = new HashMap<String, Node>();
         doDiscoverNodes(connectionDetailsList, nodes, null);
         return nodes;
@@ -40,8 +41,11 @@ public class NetworkDiscoverer {
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
             String connectionType = connectionDetails.getConnectionType();
             NodeDiscoverer nodeDiscoverer = nodeDiscoverers.get(connectionType);
+            boolean stopDiscovery = filter.match(connectionDetails);
+            if (stopDiscovery) return;
             NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
             String nodeId = discoveryResult.getNodeId();
+
             Node currentNode = nodes.get(nodeId);
             if (currentNode == null) {
                 currentNode = new Node(nodeId,connectionDetailsList);
@@ -59,4 +63,7 @@ public class NetworkDiscoverer {
         this.nodeDiscoverers = nodeDiscoverers;
     }
 
+    public void setNodeDiscoverFilter(NodeDiscoverFilter filter) {
+        this.filter = filter;
+    }
 }

@@ -7,9 +7,13 @@
         <property name="nodeDiscoverers">
             <map>
                 <entry key="SNMP" value-ref="snmpNodeDiscoverer"/>
+                <!--<entry key="NET_CONF" value-ref="netConfNodeDiscoverer"/>-->
             </map>
         </property>
+        <property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>
     </bean>
+
+
     <bean id="snmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.SnmpNodeDiscoverer">
         <constructor-arg>
             <map>
@@ -26,5 +30,21 @@
                 <entry key="resourceXML" value="iDiscover/conf/xml/discoveryResource.xml"/>
             </map>
         </constructor-arg>
+    </bean>
+    <bean id="simpleNodeDiscoveryFilter" class="net.itransformers.idiscover.v2.core.SimpleNodeDiscoveryFilter">
+        <property name="matches">
+            <list>
+                <!--<value>ipAddress=.*</value>-->
+                <!--<value>ipAddress=10.121</value>-->
+                <!--<value>ipAddress=10.122</value>-->
+            </list>
+        </property>
+        <property name="notMatches">
+            <list>
+                <!--<value>ipAddress=10\..*</value>-->
+                <!--<value>ipAddress=c82\..*</value>-->
+                <!--<value>ipAddress=c92\.168.*</value>-->
+            </list>
+        </property>
     </bean>
 </beans>

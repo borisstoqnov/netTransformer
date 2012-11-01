@@ -63,17 +63,20 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         NodeDiscoveryResult result = new NodeDiscoveryResult();
         Resource resource = new Resource(params.get("host"),params.get("deviceType"),params);
         String devName = walker.getDeviceName(resource);
+
         result.setNodeId(devName);
         String deviceType = walker.getDeviceType(resource);
         resource.setDeviceType(deviceType);
         DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper(deviceType);
         String[] requestParamsList = discoveryHelper.getRequestParams(discoveryTypes);
+
         RawDeviceData rawData = walker.getRawDeviceData(resource, requestParamsList);
         DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
 
         Device device = discoveryHelper.createDevice(discoveredDeviceData);
 
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
+
         List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(connectionDetails, params, neighbours);
         result.setNeighboursConnectionDetails(neighboursConnDetails);
         return result;
