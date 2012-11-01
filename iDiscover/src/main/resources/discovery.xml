@@ -17,6 +17,7 @@
             </map>
         </constructor-arg>
         <constructor-arg ref="discoveryHelperFactory"/>
+        <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,BGP,RIP,ADDITIONAL,IPV6"/>
     </bean>
     <bean id="discoveryHelperFactory" class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">
         <constructor-arg>

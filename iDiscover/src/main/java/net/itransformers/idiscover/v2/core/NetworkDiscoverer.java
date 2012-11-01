@@ -39,7 +39,6 @@ public class NetworkDiscoverer {
     private void doDiscoverNodes(List<ConnectionDetails> connectionDetailsList, Map<String, Node> nodes, Node initialNode) {
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
             String connectionType = connectionDetails.getConnectionType();
-//            NodeDiscoverer nodeDiscoverer = NodeDiscovererFactory.createNodeDiscoverer(connectionType);
             NodeDiscoverer nodeDiscoverer = nodeDiscoverers.get(connectionType);
             NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
             String nodeId = discoveryResult.getNodeId();
@@ -60,45 +59,4 @@ public class NetworkDiscoverer {
         this.nodeDiscoverers = nodeDiscoverers;
     }
 
-    public static void main(String[] args) {
-        ConnectionDetails connectionDetails = new ConnectionDetails();;
-        connectionDetails.setConnectionType("SNMP");
-        Map<String, String> params = new HashMap();
-//        params.put("host","172.16.36.1");
-//        params.put("version","1");
-//        params.put("community-ro","test-r");
-//        params.put("community-rw","test-rw");
-
-        params.put("host","88.203.200.94");
-        params.put("version","1");
-        params.put("community-ro","test-r");
-        params.put("community-rw","test-rw");
-
-//        params.put("host","10.0.1.1");
-//        params.put("version","1");
-//        params.put("community-ro","test-r");
-//        params.put("community-rw","test-rw");
-        params.put("timeout","500");
-        params.put("retries","1");
-        params.put("port","161");
-        params.put("max-repetitions","65535");
-        params.put("mibDir","snmptoolkit/mibs");
-        connectionDetails.setParams(params);
-        NetworkDiscoverer discoverer = new NetworkDiscoverer();
-        Map<String, Node> result = discoverer.discoverNodes(Arrays.asList(connectionDetails));
-        System.out.println(result);
-    }
 }
-
-/*<resource name="SNMP">
-        <param name="protocol">SNMP</param>
-        <connection-params connection-type="snmp">
-            <param name="version">1</param>
-            <param name="community-ro">europack-r</param>
-            <param name="community-rw">itransformer-rw</param>
-            <param name="timeout">500</param>
-            <param name="retries">1</param>
-                        <param name="port">161</param>
-            <param name="max-repetitions">65535</param>
-        </connection-params>
-    </resource>*/

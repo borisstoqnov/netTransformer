@@ -43,16 +43,16 @@ import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactor
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 
-import javax.xml.bind.JAXBException;
-import java.io.FileNotFoundException;
 import java.util.*;
 
 public class SnmpNodeDiscoverer implements NodeDiscoverer {
     private SnmpWalker walker;
     private XmlDiscoveryHelperFactory discoveryHelperFactory;
+    private String[] discoveryTypes;
 
-    public SnmpNodeDiscoverer(Map<String, String> attributes, XmlDiscoveryHelperFactory discoveryHelperFactory) throws Exception {
+    public SnmpNodeDiscoverer(Map<String, String> attributes, XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes) throws Exception {
         this.discoveryHelperFactory = discoveryHelperFactory;
+        this.discoveryTypes = discoveryTypes;
         Resource resource = new Resource("", "", attributes);
         walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
     }
@@ -64,7 +64,6 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         Resource resource = new Resource(params.get("host"),params.get("deviceType"),params);
         String devName = walker.getDeviceName(resource);
         result.setNodeId(devName);
-        String[] discoveryTypes = new String[]{"PHYSICAL","NEXT_HOP","OSPF","ISIS","BGP","RIP","ADDITIONAL","IPV6"};
         String deviceType = walker.getDeviceType(resource);
         resource.setDeviceType(deviceType);
         DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper(deviceType);
@@ -75,12 +74,12 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         Device device = discoveryHelper.createDevice(discoveredDeviceData);
 
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
-        List<ConnectionDetails> neighboursConnDetails = createNeigbourConnectionDetails(connectionDetails, params, neighbours);
+        List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(connectionDetails, params, neighbours);
         result.setNeighboursConnectionDetails(neighboursConnDetails);
         return result;
     }
 
-    private List<ConnectionDetails> createNeigbourConnectionDetails(ConnectionDetails connectionDetails, Map<String, String> params, List<DeviceNeighbour> neighbours) {
+    private List<ConnectionDetails> createNeighbourConnectionDetails(ConnectionDetails connectionDetails, Map<String, String> params, List<DeviceNeighbour> neighbours) {
         List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
         for (DeviceNeighbour neighbour : neighbours) {
             params.put("deviceType",neighbour.getDeviceType());
