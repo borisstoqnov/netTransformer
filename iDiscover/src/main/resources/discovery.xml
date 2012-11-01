@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="discovery" class="net.itransformers.idiscover.v2.core.NetworkDiscoverer">
+        <property name="nodeDiscoverers">
+            <map>
+                <entry key="SNMP" value-ref="snmpNodeDiscoverer"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="snmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.SnmpNodeDiscoverer">
+        <constructor-arg>
+            <map>
+                <entry key="mibDir" value="snmptoolkit/mibs"/>
+            </map>
+        </constructor-arg>
+    </bean>
+</beans>

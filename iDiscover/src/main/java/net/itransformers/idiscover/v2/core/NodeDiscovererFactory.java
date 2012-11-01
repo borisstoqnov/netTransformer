@@ -19,13 +19,16 @@
 
 package net.itransformers.idiscover.v2.core;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class NodeDiscovererFactory {
 
     public static NodeDiscoverer createNodeDiscoverer(String connectionType){
         if ("SNMP".equals(connectionType)){
-            return new SnmpNodeDiscoverer();
+            Map<String, String> attributes = new HashMap<String, String>();
+            attributes.put("mibDir","snmptoolkit/mibs");
+            return new SnmpNodeDiscoverer(attributes);
         }
         return null;
     }

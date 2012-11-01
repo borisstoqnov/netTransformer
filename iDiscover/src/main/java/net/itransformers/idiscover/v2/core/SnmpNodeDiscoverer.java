@@ -51,9 +51,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
     private SnmpWalker walker;
     private XmlDiscoveryHelperFactory discoveryHelperFactory;
 
-    public SnmpNodeDiscoverer() {
-        Map<String, String> attributes = new HashMap<String, String>();
-        attributes.put("mibDir","snmptoolkit/mibs");
+    public SnmpNodeDiscoverer(Map<String, String> attributes) {
         Resource resource = new Resource("", "", attributes);
         try {
             walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
