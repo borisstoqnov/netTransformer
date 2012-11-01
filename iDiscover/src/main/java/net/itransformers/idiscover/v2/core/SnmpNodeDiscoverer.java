@@ -51,23 +51,10 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
     private SnmpWalker walker;
     private XmlDiscoveryHelperFactory discoveryHelperFactory;
 
-    public SnmpNodeDiscoverer(Map<String, String> attributes) {
+    public SnmpNodeDiscoverer(Map<String, String> attributes, XmlDiscoveryHelperFactory discoveryHelperFactory) throws Exception {
+        this.discoveryHelperFactory = discoveryHelperFactory;
         Resource resource = new Resource("", "", attributes);
-        try {
-            walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        HashMap<String, String> discoveryHelperParams = new HashMap<String, String>();
-        discoveryHelperParams.put("fileName","iDiscover/conf/xml/discoveryParameters.xml");
-        discoveryHelperParams.put("resourceXML","iDiscover/conf/xml/discoveryResource.xml");
-        try {
-            discoveryHelperFactory = new XmlDiscoveryHelperFactory(discoveryHelperParams);
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
     }
 
     @Override

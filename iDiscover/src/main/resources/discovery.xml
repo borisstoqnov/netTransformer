@@ -16,5 +16,14 @@
                 <entry key="mibDir" value="snmptoolkit/mibs"/>
             </map>
         </constructor-arg>
+        <constructor-arg ref="discoveryHelperFactory"/>
+    </bean>
+    <bean id="discoveryHelperFactory" class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">
+        <constructor-arg>
+            <map>
+                <entry key="fileName" value="iDiscover/conf/xml/discoveryParameters.xml"/>
+                <entry key="resourceXML" value="iDiscover/conf/xml/discoveryResource.xml"/>
+            </map>
+        </constructor-arg>
     </bean>
 </beans>

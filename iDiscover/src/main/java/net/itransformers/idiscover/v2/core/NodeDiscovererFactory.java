@@ -19,16 +19,26 @@
 
 package net.itransformers.idiscover.v2.core;
 
+import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
+
+import javax.xml.bind.JAXBException;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class NodeDiscovererFactory {
 
-    public static NodeDiscoverer createNodeDiscoverer(String connectionType){
+    public static NodeDiscoverer createNodeDiscoverer(String connectionType) throws Exception {
         if ("SNMP".equals(connectionType)){
             Map<String, String> attributes = new HashMap<String, String>();
             attributes.put("mibDir","snmptoolkit/mibs");
-            return new SnmpNodeDiscoverer(attributes);
+            HashMap<String, String> discoveryHelperParams = new HashMap<String, String>();
+            discoveryHelperParams.put("fileName","iDiscover/conf/xml/discoveryParameters.xml");
+            discoveryHelperParams.put("resourceXML","iDiscover/conf/xml/discoveryResource.xml");
+            XmlDiscoveryHelperFactory discoveryHelperFactory;
+            discoveryHelperFactory = new XmlDiscoveryHelperFactory(discoveryHelperParams);
+
+            return new SnmpNodeDiscoverer(attributes, discoveryHelperFactory);
         }
         return null;
     }
