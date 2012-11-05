@@ -42,6 +42,7 @@ import net.itransformers.idiscover.discoverers.SnmpWalker;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.resourcemanager.config.ResourceType;
 
 import java.util.*;
 
@@ -49,10 +50,12 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
     private SnmpWalker walker;
     private XmlDiscoveryHelperFactory discoveryHelperFactory;
     private String[] discoveryTypes;
+    private DiscoveryResourceManager discoveryResource;
 
-    public SnmpNodeDiscoverer(Map<String, String> attributes, XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes) throws Exception {
+    public SnmpNodeDiscoverer(Map<String, String> attributes, XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource) throws Exception {
         this.discoveryHelperFactory = discoveryHelperFactory;
         this.discoveryTypes = discoveryTypes;
+        this.discoveryResource = discoveryResource;
         Resource resource = new Resource("", "", attributes);
         walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
     }
@@ -61,9 +64,25 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
         Map<String, String> params = connectionDetails.getParams();
         NodeDiscoveryResult result = new NodeDiscoveryResult();
-        Resource resource = new Resource(params.get("host"),params.get("deviceType"),params);
-        String devName = walker.getDeviceName(resource);
 
+        //esource resource = new Resource(params.get("ipAddress"),params.get("deviceType"),params);
+        String hostName = params.get("host");
+        IPv4Address ipAddress = new IPv4Address(params.get("ipAddress"), params.get("netMask"));
+
+
+        Map<String,String> params1 = new HashMap<String, String>();
+        params1.put("DeviceName",hostName);
+        //params1.put("DeviceType",params.get("deviceType"));
+        params1.put("protocol","SNMP");
+
+        ResourceType SNMP = this.discoveryResource.ReturnResourceByParam(params1);
+        Map<String, String> SNMPconnParams = new HashMap<String, String>();
+        SNMPconnParams = this.discoveryResource.getParamMap(SNMP);
+        Resource resource = new Resource(hostName,ipAddress,params.get("deviceType"), Integer.parseInt(SNMPconnParams.get("port")), SNMPconnParams);
+
+
+
+        String devName = walker.getDeviceName(resource);
         result.setNodeId(devName);
         String deviceType = walker.getDeviceType(resource);
         resource.setDeviceType(deviceType);
@@ -88,9 +107,9 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
             params.put("deviceType",neighbour.getDeviceType());
             if (neighbour.getStatus()){ // if reachable
                 params.put("host",neighbour.getHostName());
-                params.put("ipAddress",""+neighbour.getIpAddress());
+                params.put("ipAddress",neighbour.getIpAddress().getIpAddress());
+                params.put("netMask",neighbour.getIpAddress().getNetMask());
                 params.put("community-ro",""+neighbour.getROCommunity());
-
                 ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
                 neighbourConnectionDetails.setConnectionType("SNMP");
                 neighbourConnectionDetails.setParams(params);

@@ -86,7 +86,7 @@ public class SnmpWalkerBase implements Discoverer {
         try {
             return snmpGet(resource, deviceNameOID);
         } catch (Exception e) {
-            System.out.println("Error getDevice Name (" + resource.getAddress() + "), err msg=" + e.getMessage());
+            logger.error("Error getDevice Name (" + resource.getAddress() + "), err msg=" + e.getMessage());
             return null;
         }
     }

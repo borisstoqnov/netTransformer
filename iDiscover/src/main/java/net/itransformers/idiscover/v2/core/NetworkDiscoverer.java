@@ -1,6 +1,6 @@
 /*
- * iMap is an open source tool able to upload Internet BGP peering information
- *  and to visualize the beauty of Internet BGP Peering in 2D map.
+ * iTransformer is an open source tool able to discover and transform
+ *  IP network infrastructures.
  *  Copyright (C) 2012  http://itransformers.net
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -45,7 +45,7 @@ public class NetworkDiscoverer {
             if (stopDiscovery) return;
             NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
             String nodeId = discoveryResult.getNodeId();
-
+            System.out.println("Discovering node:"+nodeId);
             Node currentNode = nodes.get(nodeId);
             if (currentNode == null) {
                 currentNode = new Node(nodeId,connectionDetailsList);

@@ -52,7 +52,7 @@ public class Main {
         ConnectionDetails connectionDetails = new ConnectionDetails();
         connectionDetails.setConnectionType("SNMP");
         Map<String, String> params = new HashMap<String,String>();
-        params.put("host","88.203.200.94");
+        params.put("ipAddress","172.16.36.10");
         params.put("version","1");
         params.put("community-ro","test-r");
         params.put("community-rw","test-rw");
