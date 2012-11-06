@@ -60,7 +60,13 @@ public class SnmpWalkerBase implements Discoverer {
 
     public String getDeviceType(Resource resource) {
         String deviceSysDescrOID = "1.3.6.1.2.1.1.1";
-        String sysDescr = snmpGet(resource, deviceSysDescrOID);
+        String sysDescr = null;
+        try {
+             sysDescr = snmpGet(resource, deviceSysDescrOID);
+        } catch (Exception e) {
+            logger.error("Error getDevice Type (" + resource.getAddress() + "), err msg=" + e.getMessage());
+            return null;
+        }
         if (sysDescr == null) return null;
         if (sysDescr.contains("ProCurve")){
           return "HP";
@@ -95,7 +101,7 @@ public class SnmpWalkerBase implements Discoverer {
         try {
             return snmpGet(resource, oid);
         } catch (Exception e) {
-            logger.error("Error getDevice Name (" + resource.getAddress() + "), err msg=" + e.getMessage(), e);
+            logger.error("Error get oid( " +oid.toString()+ " ) ( "+ resource.getAddress() + "), err msg=" + e.getMessage(), e);
             return null;
         }
     }
