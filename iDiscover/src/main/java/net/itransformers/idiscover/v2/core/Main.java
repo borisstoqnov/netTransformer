@@ -47,21 +47,30 @@ public class Main {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
                 "discovery.xml","connectionsDetails.xml");
         NetworkDiscoverer discoverer = applicationContext.getBean(NetworkDiscoverer.class);
-//        ConnectionDetails connectionDetails = new ConnectionDetails();
-//        connectionDetails.setConnectionType("SNMP");
-//        connectionDetails.put("ipAddress","172.16.36.10");
-//        connectionDetails.put("version","1");
-//        connectionDetails.put("community-ro","test-r");
-//        connectionDetails.put("community-rw","test-rw");
-//        connectionDetails.put("timeout","500");
-//        connectionDetails.put("retries","1");
-//        connectionDetails.put("port","161");
-//        connectionDetails.put("max-repetitions","65535");
-//        connectionDetails.put("mibDir","snmptoolkit/mibs");
         List connectionList = applicationContext.getBean("connectionList", ArrayList.class);
-        Map<String, Node> result = discoverer.discoverNodes(connectionList);
+        int depth = applicationContext.getBean("discoveryDepth", Integer.class);
+        Map<String, Node> result = discoverer.discoverNodes(connectionList, depth);
         System.out.println(result);
 
+    }
+    public static void main2(String[] args) {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+                "discovery.xml","connectionsDetails.xml");
+        NetworkDiscoverer discoverer = applicationContext.getBean(NetworkDiscoverer.class);
+        ConnectionDetails connectionDetails = new ConnectionDetails();
+        connectionDetails.setConnectionType("SNMP");
+        connectionDetails.put("ipAddress","172.16.36.10");
+        connectionDetails.put("version","1");
+        connectionDetails.put("community-ro","test-r");
+        connectionDetails.put("community-rw","test-rw");
+        connectionDetails.put("timeout","500");
+        connectionDetails.put("retries","1");
+        connectionDetails.put("port","161");
+        connectionDetails.put("max-repetitions","65535");
+        connectionDetails.put("mibDir","snmptoolkit/mibs");
+        int depth = -1;
+        Map<String, Node> result = discoverer.discoverNodes(Arrays.asList(connectionDetails), depth);
+        System.out.println(result);
     }
 
     public static void main1(String[] args) {
