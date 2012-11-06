@@ -52,7 +52,7 @@ public class SimpleNodeDiscoveryFilter implements NodeDiscoverFilter {
 
     @Override
     public boolean match(ConnectionDetails details) {
-        String host = details.getParams().get("host");
+        String host = details.getParam("host");
         for (String notMatch : notMatches){
             String propertyName = notMatch.substring(0,notMatch.indexOf("="));
             String propVal = host;

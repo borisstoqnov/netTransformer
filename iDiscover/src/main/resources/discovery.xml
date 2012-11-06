@@ -43,6 +43,7 @@
         <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,BGP,RIP,ADDITIONAL,IPV6"/>
         <constructor-arg ref="discoveryResourceManager"/>
     </bean>
+
     <bean id="discoveryHelperFactory" class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">
         <constructor-arg>
             <map>
@@ -51,6 +52,7 @@
             </map>
         </constructor-arg>
     </bean>
+
     <bean id="simpleNodeDiscoveryFilter" class="net.itransformers.idiscover.v2.core.SimpleNodeDiscoveryFilter">
         <property name="matches">
             <list>

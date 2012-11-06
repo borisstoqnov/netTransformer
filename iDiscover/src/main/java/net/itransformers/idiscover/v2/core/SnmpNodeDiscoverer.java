@@ -62,12 +62,11 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
     @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
-        Map<String, String> params = connectionDetails.getParams();
         NodeDiscoveryResult result = new NodeDiscoveryResult();
 
         //esource resource = new Resource(params.get("ipAddress"),params.get("deviceType"),params);
-        String hostName = params.get("host");
-        IPv4Address ipAddress = new IPv4Address(params.get("ipAddress"), params.get("netMask"));
+        String hostName = connectionDetails.getParam("host");
+        IPv4Address ipAddress = new IPv4Address(connectionDetails.getParam("ipAddress"), connectionDetails.getParam("netMask"));
 
 
         Map<String,String> params1 = new HashMap<String, String>();
@@ -78,7 +77,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         ResourceType SNMP = this.discoveryResource.ReturnResourceByParam(params1);
         Map<String, String> SNMPconnParams = new HashMap<String, String>();
         SNMPconnParams = this.discoveryResource.getParamMap(SNMP);
-        Resource resource = new Resource(hostName,ipAddress,params.get("deviceType"), Integer.parseInt(SNMPconnParams.get("port")), SNMPconnParams);
+        Resource resource = new Resource(hostName,ipAddress,connectionDetails.getParam("deviceType"), Integer.parseInt(SNMPconnParams.get("port")), SNMPconnParams);
 
 
 
@@ -96,23 +95,22 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
 
-        List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(connectionDetails, params, neighbours);
+        List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(connectionDetails, neighbours);
         result.setNeighboursConnectionDetails(neighboursConnDetails);
         return result;
     }
 
-    private List<ConnectionDetails> createNeighbourConnectionDetails(ConnectionDetails connectionDetails, Map<String, String> params, List<DeviceNeighbour> neighbours) {
+    private List<ConnectionDetails> createNeighbourConnectionDetails(ConnectionDetails connectionDetails, List<DeviceNeighbour> neighbours) {
         List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
         for (DeviceNeighbour neighbour : neighbours) {
-            params.put("deviceType",neighbour.getDeviceType());
+            connectionDetails.put("deviceType",neighbour.getDeviceType());
             if (neighbour.getStatus()){ // if reachable
-                params.put("host",neighbour.getHostName());
-                params.put("ipAddress",neighbour.getIpAddress().getIpAddress());
-                params.put("netMask",neighbour.getIpAddress().getNetMask());
-                params.put("community-ro",""+neighbour.getROCommunity());
+                connectionDetails.put("host",neighbour.getHostName());
+                connectionDetails.put("ipAddress",neighbour.getIpAddress().getIpAddress());
+                connectionDetails.put("netMask",neighbour.getIpAddress().getNetMask());
+                connectionDetails.put("community-ro",""+neighbour.getROCommunity());
                 ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
                 neighbourConnectionDetails.setConnectionType("SNMP");
-                neighbourConnectionDetails.setParams(params);
                 neighboursConnDetails.add(neighbourConnectionDetails);
             }
         }

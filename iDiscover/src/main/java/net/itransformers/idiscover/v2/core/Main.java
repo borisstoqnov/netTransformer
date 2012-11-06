@@ -52,16 +52,15 @@ public class Main {
         ConnectionDetails connectionDetails = new ConnectionDetails();
         connectionDetails.setConnectionType("SNMP");
         Map<String, String> params = new HashMap<String,String>();
-        params.put("ipAddress","172.16.36.10");
-        params.put("version","1");
-        params.put("community-ro","test-r");
-        params.put("community-rw","test-rw");
-        params.put("timeout","500");
-        params.put("retries","1");
-        params.put("port","161");
-        params.put("max-repetitions","65535");
-        params.put("mibDir","snmptoolkit/mibs");
-        connectionDetails.setParams(params);
+        connectionDetails.put("ipAddress","172.16.36.10");
+        connectionDetails.put("version","1");
+        connectionDetails.put("community-ro","test-r");
+        connectionDetails.put("community-rw","test-rw");
+        connectionDetails.put("timeout","500");
+        connectionDetails.put("retries","1");
+        connectionDetails.put("port","161");
+        connectionDetails.put("max-repetitions","65535");
+//        connectionDetails.put("mibDir","snmptoolkit/mibs");
         Map<String, Node> result = discoverer.discoverNodes(Arrays.asList(connectionDetails));
         System.out.println(result);
 
@@ -70,27 +69,25 @@ public class Main {
     public static void main1(String[] args) {
         ConnectionDetails connectionDetails = new ConnectionDetails();;
         connectionDetails.setConnectionType("SNMP");
-        Map<String, String> params = new HashMap();
 //        params.put("host","172.16.36.1");
 //        params.put("version","1");
 //        params.put("community-ro","test-r");
 //        params.put("community-rw","test-rw");
 
-        params.put("host","88.203.200.94");
-        params.put("version","1");
-        params.put("community-ro","test-r");
-        params.put("community-rw","test-rw");
+        connectionDetails.put("host","88.203.200.94");
+        connectionDetails.put("version","1");
+        connectionDetails.put("community-ro","test-r");
+        connectionDetails.put("community-rw","test-rw");
 
 //        params.put("host","10.0.1.1");
 //        params.put("version","1");
 //        params.put("community-ro","test-r");
 //        params.put("community-rw","test-rw");
-        params.put("timeout","500");
-        params.put("retries","1");
-        params.put("port","161");
-        params.put("max-repetitions","65535");
-        params.put("mibDir","snmptoolkit/mibs");
-        connectionDetails.setParams(params);
+        connectionDetails.put("timeout","500");
+        connectionDetails.put("retries","1");
+        connectionDetails.put("port","161");
+        connectionDetails.put("max-repetitions","65535");
+        connectionDetails.put("mibDir","snmptoolkit/mibs");
         NetworkDiscoverer discoverer = new NetworkDiscoverer();
         Map<String, Node> result = discoverer.discoverNodes(Arrays.asList(connectionDetails));
         System.out.println(result);

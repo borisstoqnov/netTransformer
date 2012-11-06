@@ -36,11 +36,19 @@ package net.itransformers.idiscover.v2.core.model;/*
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class ConnectionDetails {
     private String connectionType;
-    private Map<String,String> params;
+    private Map<String,String> params = new HashMap<String, String>();
+
+    public ConnectionDetails() {
+    }
+
+    public ConnectionDetails(String connectionType) {
+        this.connectionType = connectionType;
+    }
 
     public String getConnectionType() {
         return connectionType;
@@ -50,12 +58,8 @@ public class ConnectionDetails {
         this.connectionType = connectionType;
     }
 
-    public Map<String, String> getParams() {
-        return params;
-    }
-
-    public void setParams(Map<String, String> params) {
-        this.params = params;
+    public String getParam(String key) {
+        return params.get(key);
     }
 
     @Override
@@ -64,5 +68,9 @@ public class ConnectionDetails {
                 "connectionType='" + connectionType + '\'' +
                 ", params=" + params +
                 '}';
+    }
+
+    public void put(String key, String value) {
+        params.put(key,value);
     }
 }

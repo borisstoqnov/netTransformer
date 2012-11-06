@@ -30,19 +30,27 @@ import java.util.Map;
 public class NetworkDiscoverer {
     Map<String, NodeDiscoverer> nodeDiscoverers;
     NodeDiscoverFilter filter;
+
     public Map<String,Node> discoverNodes(List<ConnectionDetails> connectionDetailsList) {
-        this.filter = filter;
+        return discoverNodes(connectionDetailsList, -1);
+    }
+
+    public Map<String,Node> discoverNodes(List<ConnectionDetails> connectionDetailsList, int depth) {
         Map<String,Node> nodes = new HashMap<String, Node>();
-        doDiscoverNodes(connectionDetailsList, nodes, null);
+        doDiscoverNodes(connectionDetailsList, nodes, null, 0, depth);
         return nodes;
     }
 
-    private void doDiscoverNodes(List<ConnectionDetails> connectionDetailsList, Map<String, Node> nodes, Node initialNode) {
+    void doDiscoverNodes(List<ConnectionDetails> connectionDetailsList, Map<String, Node> nodes,
+                                 Node initialNode, int level, int depth) {
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
             String connectionType = connectionDetails.getConnectionType();
             NodeDiscoverer nodeDiscoverer = nodeDiscoverers.get(connectionType);
-            boolean stopDiscovery = filter.match(connectionDetails);
-            if (stopDiscovery) return;
+            if (level == depth) return;
+            if (filter != null) {
+                boolean stopDiscovery = filter.match(connectionDetails);
+                if (stopDiscovery) return;
+            }
             NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
             String nodeId = discoveryResult.getNodeId();
             System.out.println("Discovering node:"+nodeId);
@@ -50,12 +58,15 @@ public class NetworkDiscoverer {
             if (currentNode == null) {
                 currentNode = new Node(nodeId,connectionDetailsList);
                 nodes.put(nodeId, currentNode);
+            } else {
+                System.out.println("Node '"+currentNode.getId()+"' is already discovered.");
+                return;
             }
             if (initialNode != null){
                 initialNode.addNeighbour(currentNode);
             }
             List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
-            doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode);
+            doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode, level+1, depth);
         }
     }
 
