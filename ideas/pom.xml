@@ -64,6 +64,11 @@
             <artifactId>jaxb-impl</artifactId>
             <version>2.2.4</version>
         </dependency>
+        <dependency>
+            <groupId>net.i2cat.netconf</groupId>
+            <artifactId>netconf4j</artifactId>
+            <version>0.0.2</version>
+        </dependency>
 
     </dependencies>
 
@@ -134,7 +139,7 @@
     </build>
 
     <repositories>
-        <repository>
+        <!--repository>
             <id>neo4j-snapshot-repository</id>
             <name>Neo4j Maven 2 snapshot repository</name>
             <url>http://m2.neo4j.org/content/repositories/snapshots/</url>
@@ -144,6 +149,10 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
+        </repository-->
+        <repository>
+            <id>itransformers-repo</id>
+            <url>http://repo.itransformers.net/repos/</url>
         </repository>
     </repositories>
 
