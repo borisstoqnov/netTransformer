@@ -70,4 +70,13 @@ public class NetworkDiscovererTestCase {
                 "{D=Node{id='D', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=C}}, ConnectionDetails{connectionType='mock', params={node=D}}, ConnectionDetails{connectionType='mock', params={node=B}}, ConnectionDetails{connectionType='mock', params={node=B}}]}, A=Node{id='A', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=A}}]}, B=Node{id='B', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=B}}, ConnectionDetails{connectionType='mock', params={node=A}}, ConnectionDetails{connectionType='mock', params={node=A}}, ConnectionDetails{connectionType='mock', params={node=A}}]}, C=Node{id='C', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=C}}, ConnectionDetails{connectionType='mock', params={node=D}}, ConnectionDetails{connectionType='mock', params={node=B}}, ConnectionDetails{connectionType='mock', params={node=B}}]}}",
                 nodes.toString());
     }
+    @Test
+    public void testDoDiscoverNodesOneLevel(){
+        Map<String, Node> nodes = new HashMap<String, Node>();
+        Node node = null;
+        networkDiscoverer.doDiscoverNodes(Arrays.asList(connectionDetailsToA), nodes, node, 1, 1);
+        Assert.assertEquals("discovered nodes are different",
+                "{D=Node{id='D', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=C}}, ConnectionDetails{connectionType='mock', params={node=D}}, ConnectionDetails{connectionType='mock', params={node=B}}, ConnectionDetails{connectionType='mock', params={node=B}}]}, A=Node{id='A', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=A}}]}, B=Node{id='B', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=B}}, ConnectionDetails{connectionType='mock', params={node=A}}, ConnectionDetails{connectionType='mock', params={node=A}}, ConnectionDetails{connectionType='mock', params={node=A}}]}, C=Node{id='C', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=C}}, ConnectionDetails{connectionType='mock', params={node=D}}, ConnectionDetails{connectionType='mock', params={node=B}}, ConnectionDetails{connectionType='mock', params={node=B}}]}}",
+                nodes.toString());
+    }
 }

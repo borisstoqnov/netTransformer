@@ -21,6 +21,7 @@ package net.itransformers.idiscover.v2.core;
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
+import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 public class NetworkDiscoverer {
+    static Logger logger = Logger.getLogger(NetworkDiscoverer.class);
     Map<String, NodeDiscoverer> nodeDiscoverers;
     NodeDiscoverFilter filter;
 
@@ -46,25 +48,23 @@ public class NetworkDiscoverer {
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
             String connectionType = connectionDetails.getConnectionType();
             NodeDiscoverer nodeDiscoverer = nodeDiscoverers.get(connectionType);
+            // Limit discovery by depth
             if (level == depth) return;
-            if (filter != null) {
-                boolean stopDiscovery = filter.match(connectionDetails);
-                if (stopDiscovery) return;
-            }
+            // Limit discovery by Filter
+            if (filter != null && filter.match(connectionDetails)) return;
             NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
             String nodeId = discoveryResult.getNodeId();
-            System.out.println("Discovering node:"+nodeId);
+            logger.info("Discovering node:"+nodeId);
+            logger.debug("Connection details: "+connectionDetails);
             Node currentNode = nodes.get(nodeId);
             if (currentNode == null) {
                 currentNode = new Node(nodeId,connectionDetailsList);
                 nodes.put(nodeId, currentNode);
             } else {
-                System.out.println("Node '"+currentNode.getId()+"' is already discovered.");
+                logger.debug("Node '"+currentNode.getId()+"' is already discovered. Skipping it.");
                 return;
             }
-            if (initialNode != null){
-                initialNode.addNeighbour(currentNode);
-            }
+            if (initialNode != null) initialNode.addNeighbour(currentNode);
             List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
             doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode, level+1, depth);
         }
