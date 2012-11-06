@@ -50,6 +50,13 @@ public class ConnectionDetails {
         this.connectionType = connectionType;
     }
 
+    public ConnectionDetails(String connectionType, Map<String, String> params) {
+        this.connectionType = connectionType;
+        for (String key : params.keySet()) {
+            this.params.put(key,params.get(key));
+        }
+    }
+
     public String getConnectionType() {
         return connectionType;
     }

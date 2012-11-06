@@ -40,28 +40,26 @@ import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-                "discovery.xml");
+                "discovery.xml","connectionsDetails.xml");
         NetworkDiscoverer discoverer = applicationContext.getBean(NetworkDiscoverer.class);
-        ConnectionDetails connectionDetails = new ConnectionDetails();
-        connectionDetails.setConnectionType("SNMP");
-        Map<String, String> params = new HashMap<String,String>();
-        connectionDetails.put("ipAddress","172.16.36.10");
-        connectionDetails.put("version","1");
-        connectionDetails.put("community-ro","test-r");
-        connectionDetails.put("community-rw","test-rw");
-        connectionDetails.put("timeout","500");
-        connectionDetails.put("retries","1");
-        connectionDetails.put("port","161");
-        connectionDetails.put("max-repetitions","65535");
+//        ConnectionDetails connectionDetails = new ConnectionDetails();
+//        connectionDetails.setConnectionType("SNMP");
+//        connectionDetails.put("ipAddress","172.16.36.10");
+//        connectionDetails.put("version","1");
+//        connectionDetails.put("community-ro","test-r");
+//        connectionDetails.put("community-rw","test-rw");
+//        connectionDetails.put("timeout","500");
+//        connectionDetails.put("retries","1");
+//        connectionDetails.put("port","161");
+//        connectionDetails.put("max-repetitions","65535");
 //        connectionDetails.put("mibDir","snmptoolkit/mibs");
-        Map<String, Node> result = discoverer.discoverNodes(Arrays.asList(connectionDetails));
+        List connectionList = applicationContext.getBean("connectionList", ArrayList.class);
+        Map<String, Node> result = discoverer.discoverNodes(connectionList);
         System.out.println(result);
 
     }
