@@ -1,6 +1,6 @@
 /*
- * iMap is an open source tool able to upload Internet BGP peering information
- *  and to visualize the beauty of Internet BGP Peering in 2D map.
+ * iTransformer is an open source tool able to discover and transform
+ *  IP network infrastructures.
  *  Copyright (C) 2012  http://itransformers.net
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -37,44 +37,33 @@ package net.itransformers.idiscover.v2.core;/*
  */
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NodeDiscoveryResult {
-    String nodeId;
-    List<ConnectionDetails> neighboursConnectionDetails;
-    Map<String,Object> discoveredData = new HashMap<String,Object>();
-
-    public String getNodeId() {
-        return nodeId;
-    }
-
-    public void setNodeId(String nodeId) {
-        this.nodeId = nodeId;
-    }
-
-    public List<ConnectionDetails> getNeighboursConnectionDetails() {
-        return neighboursConnectionDetails;
-    }
-
-    public void setNeighboursConnectionDetails(List<ConnectionDetails> neighboursConnectionDetails) {
-        this.neighboursConnectionDetails = neighboursConnectionDetails;
-    }
-    public Object getDiscoveredData(String key){
-        return discoveredData.get(key);
-    }
-    public void setDiscoveredData(String key, Object data){
-        discoveredData.put(key,data);
-    }
-
-    @Override
-    public String toString() {
-        return "NodeDiscoveryResult{" +
-                "nodeId='" + nodeId + '\'' +
-                ", neighboursConnectionDetails=" + neighboursConnectionDetails +
-                ", discoveredData=" + discoveredData +
-                '}';
+public class CvsConnectionDetailsFactory {
+    public static List<ConnectionDetails> createConnectionDetail(File file) throws IOException {
+        List<String> lines = FileUtils.readLines(file);
+        List<ConnectionDetails> result = new ArrayList<ConnectionDetails>();
+        Map<String, String> attributes = new HashMap<String, String>();
+        for (String line : lines) {
+            String[] fields = line.split(",");
+            for (String field : fields) {
+                String[] nameValPair = field.split("=");
+                if (nameValPair.length != 2) {
+                    throw new RuntimeException("Missing '=' sign in field: "+ field+", for connection details line: "+line);
+                }
+                attributes.put(nameValPair[0],nameValPair[1]);
+            }
+            String connectionType = attributes.remove("type");
+            ConnectionDetails details = new ConnectionDetails(connectionType,attributes);
+            result.add(details);
+        }
+        return result;
     }
 }

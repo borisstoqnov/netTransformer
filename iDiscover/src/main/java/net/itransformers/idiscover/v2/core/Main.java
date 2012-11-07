@@ -38,21 +38,26 @@ package net.itransformers.idiscover.v2.core;/*
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
+import net.itransformers.utils.CmdLineParser;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.File;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-                "discovery.xml","connectionsDetails.xml");
+        Map<String, String> params = CmdLineParser.parseCmdLine(args);
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("discovery.xml","connectionsDetails.xml");
         NetworkDiscoverer discoverer = applicationContext.getBean(NetworkDiscoverer.class);
-        List connectionList = applicationContext.getBean("connectionList", ArrayList.class);
-        int depth = applicationContext.getBean("discoveryDepth", Integer.class);
+        String connectionDetailsFileName = params.get("-f");
+        List connectionList = (List) applicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
+        String depthCmdArg = params.get("-d");
+        int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1":depthCmdArg);
         Map<String, Node> result = discoverer.discoverNodes(connectionList, depth);
         System.out.println(result);
 
     }
+
     public static void main2(String[] args) {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
                 "discovery.xml","connectionsDetails.xml");

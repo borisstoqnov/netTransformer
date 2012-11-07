@@ -1,0 +1,2 @@
+type=SNMP,ipAddress=10.0.1.1,version=1,community-ro=test-r,community-rw=test-rw,timeout=500,retries=1,port=161,max-repetitions=65535
+type=SNMP,ipAddress=88.203.200.94,version=1,community-ro=test-r,community-rw=test-rw,timeout=500,retries=1,port=161,max-repetitions=65535

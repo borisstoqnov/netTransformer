@@ -30,8 +30,15 @@
             </map>
         </property>
         <property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>
+        <property name="nodeDiscoveryListeners">
+            <list>
+                <ref bean="sampleNodeDiscoveryListener"/>
+            </list>
+        </property>
     </bean>
 
+    <bean id="sampleNodeDiscoveryListener" class="net.itransformers.idiscover.v2.core.SampleNodeDiscoveryListener">
+    </bean>
 
     <bean id="snmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.SnmpNodeDiscoverer">
         <constructor-arg>

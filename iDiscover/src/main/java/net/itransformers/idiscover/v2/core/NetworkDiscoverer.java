@@ -23,15 +23,13 @@ import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
 import org.apache.log4j.Logger;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class NetworkDiscoverer {
     static Logger logger = Logger.getLogger(NetworkDiscoverer.class);
     Map<String, NodeDiscoverer> nodeDiscoverers;
-    NodeDiscoverFilter filter;
+    List<NodeDiscoveryListener> nodeDiscoveryListeners;
+    NodeDiscoverFilter nodeDiscoverFilter;
 
     public Map<String,Node> discoverNodes(List<ConnectionDetails> connectionDetailsList) {
         return discoverNodes(connectionDetailsList, -1);
@@ -51,22 +49,32 @@ public class NetworkDiscoverer {
             // Limit discovery by depth
             if (level == depth) return;
             // Limit discovery by Filter
-            if (filter != null && filter.match(connectionDetails)) return;
+            if (nodeDiscoverFilter != null && nodeDiscoverFilter.match(connectionDetails)) return;
             NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
+            fireNodeDiscoveredEvent(discoveryResult);
+
             String nodeId = discoveryResult.getNodeId();
-            logger.info("Discovering node:"+nodeId);
+            logger.info("Discovered node:"+nodeId);
             logger.debug("Connection details: "+connectionDetails);
+
             Node currentNode = nodes.get(nodeId);
             if (currentNode == null) {
                 currentNode = new Node(nodeId,connectionDetailsList);
                 nodes.put(nodeId, currentNode);
             } else {
-                logger.debug("Node '"+currentNode.getId()+"' is already discovered. Skipping it.");
+                logger.debug("Node '" + currentNode.getId() + "' is already discovered. Skipping it.");
                 return;
             }
+
             if (initialNode != null) initialNode.addNeighbour(currentNode);
             List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
             doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode, level+1, depth);
+        }
+    }
+
+    private void fireNodeDiscoveredEvent(NodeDiscoveryResult discoveryResult) {
+        for (NodeDiscoveryListener nodeDiscoveryListener : nodeDiscoveryListeners) {
+            nodeDiscoveryListener.nodeDiscovered(discoveryResult);
         }
     }
 
@@ -75,6 +83,14 @@ public class NetworkDiscoverer {
     }
 
     public void setNodeDiscoverFilter(NodeDiscoverFilter filter) {
-        this.filter = filter;
+        this.nodeDiscoverFilter = filter;
+    }
+
+    public List<NodeDiscoveryListener> getNodeDiscoveryListeners() {
+        return nodeDiscoveryListeners;
+    }
+
+    public void setNodeDiscoveryListeners(List<NodeDiscoveryListener> nodeDiscoveryListeners) {
+        this.nodeDiscoveryListeners = nodeDiscoveryListeners;
     }
 }
