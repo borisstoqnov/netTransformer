@@ -21,6 +21,7 @@ package net.itransformers.idiscover.v2.core;
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -54,12 +55,15 @@ public class NetworkDiscoverer {
             fireNodeDiscoveredEvent(discoveryResult);
 
             String nodeId = discoveryResult.getNodeId();
-            logger.info("Discovered node:"+nodeId);
-            logger.debug("Connection details: "+connectionDetails);
 
             Node currentNode = nodes.get(nodeId);
             if (currentNode == null) {
-                currentNode = new Node(nodeId,connectionDetailsList);
+                if (logger.getLevel() == Level.INFO) {
+                    logger.info("Discovered node: '"+nodeId+"'");
+                } else {
+                    logger.debug("Node '"+nodeId+"' discovered with connection details: "+connectionDetails);
+                }
+                currentNode = new Node(nodeId,Arrays.asList(connectionDetails));
                 nodes.put(nodeId, currentNode);
             } else {
                 logger.debug("Node '" + currentNode.getId() + "' is already discovered. Skipping it.");
@@ -68,11 +72,13 @@ public class NetworkDiscoverer {
 
             if (initialNode != null) initialNode.addNeighbour(currentNode);
             List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
+            logger.debug("Found Neighbours, connection details: "+neighboursConnectionDetails);
             doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode, level+1, depth);
         }
     }
 
     private void fireNodeDiscoveredEvent(NodeDiscoveryResult discoveryResult) {
+        if (nodeDiscoveryListeners != null)
         for (NodeDiscoveryListener nodeDiscoveryListener : nodeDiscoveryListeners) {
             nodeDiscoveryListener.nodeDiscovered(discoveryResult);
         }

@@ -50,7 +50,6 @@ public class MockNetworkDiscoverer implements NodeDiscoverer{
         links = new HashSet<Pair<String, String>>();
         links.add(new Pair<String,String>("A","B"));
         links.add(new Pair<String,String>("A","C"));
-        links.add(new Pair<String,String>("A","D"));
         links.add(new Pair<String,String>("B","D"));
     }
 
@@ -61,11 +60,13 @@ public class MockNetworkDiscoverer implements NodeDiscoverer{
         result.setNodeId(node);
         Set<ConnectionDetails> neighbours = new HashSet<ConnectionDetails>();
         for (Pair<String, String> link : links) {
-            String neighbour = null;
+            String neighbour;
             if (link.getFirst().equals(node)){
                 neighbour = link.getSecond();
-            } else {
+            } else if (link.getSecond().equals(node)){
                 neighbour = link.getFirst();
+            } else {
+                continue;
             }
             if (neighbour != null){
                 ConnectionDetails conn = new ConnectionDetails("mock");

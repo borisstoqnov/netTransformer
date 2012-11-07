@@ -80,4 +80,25 @@ public class ConnectionDetails {
     public void put(String key, String value) {
         params.put(key,value);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ConnectionDetails details = (ConnectionDetails) o;
+
+        if (connectionType != null ? !connectionType.equals(details.connectionType) : details.connectionType != null)
+            return false;
+        if (params != null ? !params.equals(details.params) : details.params != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = connectionType != null ? connectionType.hashCode() : 0;
+        result = 31 * result + (params != null ? params.hashCode() : 0);
+        return result;
+    }
 }
