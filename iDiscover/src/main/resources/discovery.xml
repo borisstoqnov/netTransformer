@@ -37,7 +37,9 @@
         </property>
     </bean>
 
-    <bean id="sampleNodeDiscoveryListener" class="net.itransformers.idiscover.v2.core.SampleNodeDiscoveryListener">
+    <bean id="sampleNodeDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SampleNodeDiscoveryListener"/>
+    <bean id="rawDataFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.RawDataFileLogDiscoveryListener">
+        <property name="baseDirName" value="c:/itransformer/net"/>
     </bean>
 
     <bean id="snmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.SnmpNodeDiscoverer">

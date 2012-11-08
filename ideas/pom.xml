@@ -52,6 +52,12 @@
             <!--<classifier>static-web</classifier>-->
             <version>1.8-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-rest-graphdb</artifactId>
+            <version>1.8.M07</version>
+        </dependency>
     <!--</dependencies>-->
     <!--<dependencies>-->
         <dependency>
@@ -70,7 +76,10 @@
             <version>0.0.2</version>
         </dependency>
 
+
     </dependencies>
+
+
 
     <build>
         <plugins>
@@ -153,6 +162,22 @@
         <repository>
             <id>itransformers-repo</id>
             <url>http://repo.itransformers.net/repos/</url>
+        </repository>
+        <repository>
+            <id>neo4j-release-repository</id>
+            <name>Neo4j Maven 2 release repository</name>
+            <url>http://m2.neo4j.org/content/repositories/releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-snapshot</id>
+            <name>Spring Maven SNAPSHOT Repository</name>
+            <url>http://repo.springsource.org/libs-milestone</url>
         </repository>
     </repositories>
 

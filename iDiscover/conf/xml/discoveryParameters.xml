@@ -78,28 +78,28 @@
             cdpCacheDevicePort,cdpCacheDevicePlatform,cdpCacheDeviceId,cdpCacheIfIndex,cdpCachePrimaryMgmtAddrType,cdpCachePrimaryMgmtAddr, 
             vtpVlanIndex,vtpVlanState
         </discovery-method>
-        <discovery-method name="NEXT_HOP">
+        <!--discovery-method name="NEXT_HOP">
           ipRouteIfIndex,ipRouteNextHop,
             ipCidrRouteType, ipCidrRouteIfIndex, ipCidrRouteNextHop, ipCidrRouteProto, ipCidrRouteNextHopAS,
             cikeTunLocalAddr, cikeTunRemoteAddr,cikeTunStatus
-        </discovery-method>
+        </discovery-method-->
         <discovery-method name="OSPF">
             ospfRouterId,ospfNbrEntry,ospfAdminStat,ospfAreaBdrRtrStatus,ospfASBdrRtrStatus,ospfAreaTable,ospfIfEntry
         </discovery-method>
-        <discovery-method name="BGP">
-            <!--bgpLocalAs,bgpPeerEntry,bgp4PathAttrEntry-->
+        <!--discovery-method name="BGP">
+            <bgpLocalAs,bgpPeerEntry,bgp4PathAttrEntry>
             bgpLocalAs,bgpPeerEntry
-        </discovery-method>
-        <discovery-method name="ISIS">
+        </discovery-method-->
+        <!--discovery-method name="ISIS">
             isisISAdjIPAddrEntry, ciiISAdjIPAddrEntry
-        </discovery-method>
-        <discovery-method name="RIP">
+        </discovery-method-->
+        <!--discovery-method name="RIP">
             rip2IfConfTable,rip2IfStatTable
-        </discovery-method>
-        <discovery-method name="ADDITIONAL">
+        </discovery-method-->
+        <!--discovery-method name="ADDITIONAL">
             mplsVpnVrfEntry,mplsVpnVrfRouteTargetEntry,mplsVpnInterfaceConfEntry,mplsInterfaceConfIndex,
             dot1dBaseNumPorts,dot1qVlanStaticTable
-        </discovery-method>
+        </discovery-method-->
          <discovery-method name="IPV6">
             cIpv6Forwarding,cIpv6InterfaceEntry
          </discovery-method>

@@ -55,7 +55,6 @@ public class Main {
         int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1":depthCmdArg);
         Map<String, Node> result = discoverer.discoverNodes(connectionList, depth);
         System.out.println(result);
-
     }
 
     public static void main2(String[] args) {

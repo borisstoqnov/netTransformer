@@ -52,9 +52,15 @@ public class Node {
 
     @Override
     public String toString() {
+        StringBuffer neighboursStr = new StringBuffer();
+        for (Node neighbour : neighbours) {
+            neighboursStr.append(neighbour.getId());
+            neighboursStr.append(",");
+        }
         return "Node{" +
                 "id='" + id + '\'' +
                 ", connectionDetailsList=" + connectionDetailsList +
+                String.format(", neighbours=[%s]",neighboursStr.toString())+
                 '}';
     }
 

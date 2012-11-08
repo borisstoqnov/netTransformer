@@ -29,13 +29,12 @@ import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSetting;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
-import org.neo4j.graphdb.index.Index;
-import org.neo4j.graphdb.index.IndexManager;
 import org.neo4j.kernel.GraphDatabaseAPI;
 import org.neo4j.server.WrappingNeoServerBootstrapper;
 import org.neo4j.server.configuration.Configurator;
 import org.neo4j.server.configuration.ServerConfigurator;
 import org.neo4j.shell.ShellSettings;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
@@ -46,6 +45,15 @@ import java.util.List;
 
 public class Neo4JDataImporter {
     public static void main(String[] args) throws Exception {
+//        org.springframework.data.neo4j.rest.SpringRestGraphDatabase     d;
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("neo4j-spring.xml");
+        GraphDatabaseService graphdb = applicationContext.getBean("graphDbService", GraphDatabaseService.class);
+//        GraphDatabaseService gds = new RestGraphDatabase("http://localhost:7474/db/data");
+//        GraphDatabaseService graphdb = new RestGraphDatabase("http://localhost:7474/db/data",username,password);
+        doImport(graphdb);
+
+    }
+    public static void main1(String[] args) throws Exception {
 // let the database accept remote neo4j-shell connections
         GraphDatabaseAPI graphdb = (GraphDatabaseAPI) new GraphDatabaseFactory()
                 .newEmbeddedDatabaseBuilder( "target/bigDB" )
@@ -64,28 +72,35 @@ public class Neo4JDataImporter {
         WrappingNeoServerBootstrapper srv;
         srv = new WrappingNeoServerBootstrapper( graphdb, config );
         srv.start();
-//        IndexManager index = graphdb.index();
+        doImport(graphdb);
+
+    }
+
+    private static void doImport(GraphDatabaseService graphdb) throws Exception {
+        //        IndexManager index = graphdb.index();
 //        Index<Node> actors = index.forNodes( "actors" );
 //        actors.add( fishburn, "name", fishburn.getProperty( "name" ) );
 
 //       importData(graphdb);
 // add some data first
-//        File dir = new File("C:\\Documents and Settings\\LYCHO\\My Documents\\4_very_big");
+        File dir = new File("C:\\Documents and Settings\\LYCHO\\My Documents\\4_very_big");
 
-//        Node root = createRootNetworkNode(graphdb);
-//        File[] files = dir.listFiles(new FilenameFilter() {
-//            @Override
-//            public boolean accept(File dir, String name) {
-//                return name.startsWith("device-") && name.endsWith(".xml");
-//            }
-//        });
+        Node root = createRootNetworkNode(graphdb);
+        File[] files = dir.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.startsWith("device-") && name.endsWith(".xml");
+            }
+        });
 
-//        long start = System.currentTimeMillis();
-//        for (File file : files) {
-//            importData(graphdb, root, file);
-//        }
-//        System.out.println("Imported ... "+(System.currentTimeMillis()-start)/1000 + " seconds");
+        long start = System.currentTimeMillis();
+//        importData(graphdb, root, new File(dir, "device-data-M-110.xml"));
+        for (File file : files) {
+            importData(graphdb, root, file);
+        }
+        System.out.println("Imported ... "+(System.currentTimeMillis()-start)/1000 + " seconds");
     }
+
     public static org.neo4j.graphdb.Node createRootNetworkNode(GraphDatabaseService dbApi) throws Exception {
         Transaction tr = dbApi.beginTx();
         try {

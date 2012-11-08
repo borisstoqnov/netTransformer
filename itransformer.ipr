@@ -398,6 +398,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/contribs/jersey-multipart/1.9/jersey-multipart-1.9-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: com.sun.jersey:jersey-client:1.4">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-client/1.4/jersey-client-1.4.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-client/1.4/jersey-client-1.4-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-client/1.4/jersey-client-1.4-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: com.sun.jersey:jersey-core:1.10">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-core/1.10/jersey-core-1.10.jar!/" />
@@ -1126,6 +1137,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-lucene-index/1.8-SNAPSHOT/neo4j-lucene-index-1.8-SNAPSHOT-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.neo4j:neo4j-rest-graphdb:1.8.M07">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-rest-graphdb/1.8.M07/neo4j-rest-graphdb-1.8.M07.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-rest-graphdb/1.8.M07/neo4j-rest-graphdb-1.8.M07-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-rest-graphdb/1.8.M07/neo4j-rest-graphdb-1.8.M07-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.neo4j:neo4j-shell:1.8.M07">
