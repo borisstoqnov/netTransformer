@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.idiscover.v2.core;/*
+package net.itransformers.idiscover.v2.core.snmpdiscoverer;/*
  * iTransformer is an open source tool able to discover IP networks
  * and to perform dynamic data data population into a xml based inventory system.
  * Copyright (C) 2010  http://itransformers.net
@@ -36,12 +36,10 @@ package net.itransformers.idiscover.v2.core;/*
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import net.itransformers.idiscover.v2.core.NodeDiscoverFilter;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
-import org.apache.commons.beanutils.NestedNullException;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class SimpleNodeDiscoveryFilter implements NodeDiscoverFilter {

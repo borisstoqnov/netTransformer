@@ -45,13 +45,16 @@ public class DeviceFileLogger implements DiscoveryListener{
 
     public void handleDevice(String deviceName, RawDeviceData rawData, DiscoveredDeviceData discoveredDeviceData, Resource resource) {
         final String deviceFileName = path + File.separator + "device-data-" + deviceName + ".xml";
+        OutputStream os = null;
         try {
-            OutputStream os = new FileOutputStream(new File(System.getProperty("base.dir"),deviceFileName));
+            os = new FileOutputStream(new File(System.getProperty("base.dir"),deviceFileName));
             JaxbMarshalar.marshal(discoveredDeviceData, os, "DiscoveredDevice");
         } catch (FileNotFoundException e) {
             logger.error(e.getMessage(),e);
         } catch (JAXBException e) {
             logger.error(e.getMessage(),e);
+        } finally {
+            if (os != null) try {os.close();} catch (IOException e) {}
         }
         byte[] data = rawData.getData();
         final String rawDeviceName = path + File.separator + "raw-data-" + deviceName + ".xml";

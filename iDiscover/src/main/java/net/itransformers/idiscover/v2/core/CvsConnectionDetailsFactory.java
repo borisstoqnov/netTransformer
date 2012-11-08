@@ -47,11 +47,13 @@ import java.util.List;
 import java.util.Map;
 
 public class CvsConnectionDetailsFactory {
+    @SuppressWarnings("unchecked")
     public static List<ConnectionDetails> createConnectionDetail(File file) throws IOException {
         List<String> lines = FileUtils.readLines(file);
         List<ConnectionDetails> result = new ArrayList<ConnectionDetails>();
         Map<String, String> attributes = new HashMap<String, String>();
         for (String line : lines) {
+            if (line.trim().equals("")) continue;
             String[] fields = line.split(",");
             for (String field : fields) {
                 String[] nameValPair = field.split("=");

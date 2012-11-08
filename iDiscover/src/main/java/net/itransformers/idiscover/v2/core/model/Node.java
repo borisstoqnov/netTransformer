@@ -52,7 +52,7 @@ public class Node {
 
     @Override
     public String toString() {
-        StringBuffer neighboursStr = new StringBuffer();
+        StringBuilder neighboursStr = new StringBuilder();
         for (Node neighbour : neighbours) {
             neighboursStr.append(neighbour.getId());
             neighboursStr.append(",");

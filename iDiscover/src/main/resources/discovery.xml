@@ -34,6 +34,7 @@
             <list>
                 <ref bean="sampleNodeDiscoveryListener"/>
                 <ref bean="rawDataFileLogDiscoveryListener"/>
+                <ref bean="deviceDataFileLogDiscoveryListener"/>
             </list>
         </property>
     </bean>
@@ -42,8 +43,11 @@
     <bean id="rawDataFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.RawDataFileLogDiscoveryListener">
         <property name="baseDirName" value="c:/itransformer/net"/>
     </bean>
+    <bean id="deviceDataFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.DeviceDataFileLogDiscoveryListener">
+        <property name="baseDirName" value="c:/itransformer/net"/>
+    </bean>
 
-    <bean id="snmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.SnmpNodeDiscoverer">
+    <bean id="snmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.snmpdiscoverer.SnmpNodeDiscoverer">
         <constructor-arg>
             <map>
                 <entry key="mibDir" value="snmptoolkit/mibs"/>
@@ -63,7 +67,7 @@
         </constructor-arg>
     </bean>
 
-    <bean id="simpleNodeDiscoveryFilter" class="net.itransformers.idiscover.v2.core.SimpleNodeDiscoveryFilter">
+    <bean id="simpleNodeDiscoveryFilter" class="net.itransformers.idiscover.v2.core.snmpdiscoverer.SimpleNodeDiscoveryFilter">
         <property name="matches">
             <list>
                 <!--<value>ipAddress=.*</value>-->

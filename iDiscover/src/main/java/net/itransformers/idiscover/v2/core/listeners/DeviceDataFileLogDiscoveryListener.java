@@ -36,32 +36,41 @@ package net.itransformers.idiscover.v2.core.listeners;/*
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
+import net.itransformers.idiscover.util.JaxbMarshalar;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
-import java.io.File;
-import java.io.IOException;
+import javax.xml.bind.JAXBException;
+import java.io.*;
 
-public class RawDataFileLogDiscoveryListener implements NodeDiscoveryListener {
-    static Logger logger = Logger.getLogger(RawDataFileLogDiscoveryListener.class);
+public class DeviceDataFileLogDiscoveryListener implements NodeDiscoveryListener {
+    static Logger logger = Logger.getLogger(DeviceDataFileLogDiscoveryListener.class);
     String baseDirName;
 
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
         File baseDir = new File(baseDirName);
-        File rawDataDir = new File(baseDir, "raw-data");
-        if (!rawDataDir.exists()) rawDataDir.mkdir();
+        File deviceDataDir = new File(baseDir, "device-data");
+        if (!deviceDataDir.exists()) deviceDataDir.mkdir();
 
         String deviceName = discoveryResult.getNodeId();
-        File file = new File(rawDataDir, deviceName+".xml");
-        String rawDataXml = new String((byte[]) discoveryResult.getDiscoveredData("rawData"));
+        File file = new File(deviceDataDir, deviceName+".xml");
+        DiscoveredDeviceData discoveredDeviceData = (DiscoveredDeviceData) discoveryResult.getDiscoveredData("deviceData");
+        OutputStream os = null;
         try {
-            FileUtils.writeStringToFile(file,rawDataXml);
-        } catch (IOException e) {
-            logger.error(e);
+            os = new FileOutputStream(file);
+            JaxbMarshalar.marshal(discoveredDeviceData, os, "DiscoveredDevice");
+        } catch (FileNotFoundException e) {
+            logger.error(e.getMessage(),e);
+        } catch (JAXBException e) {
+            logger.error(e.getMessage(),e);
+        } finally {
+            if (os != null) try {os.close();} catch (IOException e) {}
         }
+
     }
 
     public String getBaseDirName() {
