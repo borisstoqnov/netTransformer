@@ -33,6 +33,7 @@
         <property name="nodeDiscoveryListeners">
             <list>
                 <ref bean="sampleNodeDiscoveryListener"/>
+                <ref bean="rawDataFileLogDiscoveryListener"/>
             </list>
         </property>
     </bean>

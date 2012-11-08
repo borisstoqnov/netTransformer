@@ -70,11 +70,11 @@
             <artifactId>jaxb-impl</artifactId>
             <version>2.2.4</version>
         </dependency>
-        <dependency>
-            <groupId>net.i2cat.netconf</groupId>
-            <artifactId>netconf4j</artifactId>
-            <version>0.0.2</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>net.i2cat.netconf</groupId>-->
+            <!--<artifactId>netconf4j</artifactId>-->
+            <!--<version>0.0.2</version>-->
+        <!--</dependency>-->
 
 
     </dependencies>
