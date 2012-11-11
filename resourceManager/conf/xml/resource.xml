@@ -61,7 +61,9 @@
 
     <resource name="huawei">
 		<param name="deviceType">HUAWEI</param>
+
         <connection-params connection-type="ssh">
+
             <param name="username">user</param>
             <param name="password">password</param>
             <param name="system-password">password</param>
