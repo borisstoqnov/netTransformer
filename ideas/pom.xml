@@ -29,6 +29,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ideas</artifactId>
+
+
     <dependencies>
         <dependency>
             <groupId>iTransformers.iTransformer</groupId>
@@ -56,20 +58,32 @@
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-rest-graphdb</artifactId>
-            <version>1.8.M07</version>
+            <version>1.8-SNAPSHOT</version>
         </dependency>
     <!--</dependencies>-->
     <!--<dependencies>-->
+        <!--<dependency>-->
+            <!--<groupId>javax.xml.bind</groupId>-->
+            <!--<artifactId>jaxb-api</artifactId>-->
+            <!--<version>2.2.4</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.sun.xml.bind</groupId>-->
+            <!--<artifactId>jaxb-impl</artifactId>-->
+            <!--<version>2.2.4</version>-->
+        <!--</dependency>-->
+
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.2.2</version>
+            <groupId>com.sun.jersey.contribs</groupId>
+            <artifactId>jersey-apache-client</artifactId>
+            <version>1.14</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.2.4</version>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.14</version>
         </dependency>
+
         <!--<dependency>-->
             <!--<groupId>net.i2cat.netconf</groupId>-->
             <!--<artifactId>netconf4j</artifactId>-->
@@ -77,6 +91,18 @@
         <!--</dependency>-->
 
 
+        <!--<dependency>-->
+            <!--<groupId>com.sun.xml.ws</groupId>-->
+            <!--<artifactId>jaxws-rt</artifactId>-->
+            <!--<version>2.2.7</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; to compile xjc-generated sources &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.jvnet.jaxb2_commons</groupId>-->
+            <!--<artifactId>jaxb2-basics-runtime</artifactId>-->
+            <!--<version>0.6.3</version>-->
+        <!--</dependency>-->
     </dependencies>
 
 
@@ -132,6 +158,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>1.5</version>
                 <executions>
                     <execution>
                         <goals>
@@ -140,9 +167,36 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <clearOutputDir>false</clearOutputDir>
                     <packageName>net.itransformers.ideas</packageName> <!-- The name of your generated source package -->
                     <outputDirectory>${basedir}/src/main/java</outputDirectory>
                 </configuration>
+            </plugin>
+
+            <!--http://stackoverflow.com/questions/2158175/use-maven-to-trigger-a-wsgen-wsimport-in-a-row-using-wsdllocation -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>1.10</version>
+                <executions>
+                    <execution>
+                        <id>generate-stubs</id>
+                        <!--<phase>process-classes</phase>-->
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <keep>true</keep>
+                            <wsdlDirectory>${basedir}/src/wsdl</wsdlDirectory>
+                            <wsdlFiles>
+                                <wsdlFile>TreeImporterImplService.wsdl</wsdlFile>
+                            </wsdlFiles>
+                            <!-- *** you need the next line to set the wsdlLocation in the generated stubs *** -->
+                            <wsdlLocation>http://localhost:8080/wsitransformer-0.1-SNAPSHOT/upload?wsdl</wsdlLocation>
+                            <sourceDestDir>${basedir}/src/main/java</sourceDestDir>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -163,22 +217,29 @@
             <id>itransformers-repo</id>
             <url>http://repo.itransformers.net/repos/</url>
         </repository>
-        <repository>
-            <id>neo4j-release-repository</id>
-            <name>Neo4j Maven 2 release repository</name>
-            <url>http://m2.neo4j.org/content/repositories/releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
+        <!--<repository>-->
+            <!--<id>neo4j-release-repository</id>-->
+            <!--<name>Neo4j Maven 2 release repository</name>-->
+            <!--<url>http://m2.neo4j.org/content/repositories/releases/</url>-->
+            <!--<releases>-->
+                <!--<enabled>true</enabled>-->
+            <!--</releases>-->
+            <!--<snapshots>-->
+                <!--<enabled>false</enabled>-->
+            <!--</snapshots>-->
+        <!--</repository>-->
         <repository>
             <id>spring-snapshot</id>
             <name>Spring Maven SNAPSHOT Repository</name>
             <url>http://repo.springsource.org/libs-milestone</url>
         </repository>
+        <repository>
+            <id>mvn-repo</id>
+            <name>MVN repo</name>
+            <url>http://mvnrepository.com/artifact/</url>
+        </repository>
+
+
     </repositories>
 
 </project>

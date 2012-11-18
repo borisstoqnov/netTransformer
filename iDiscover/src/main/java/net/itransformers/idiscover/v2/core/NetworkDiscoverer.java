@@ -52,6 +52,7 @@ public class NetworkDiscoverer {
             // Limit discovery by Filter
             if (nodeDiscoverFilter != null && nodeDiscoverFilter.match(connectionDetails)) return;
             NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
+            if (discoveryResult == null) return; // in case some error during discovery
             fireNodeDiscoveredEvent(discoveryResult);
 
             String nodeId = discoveryResult.getNodeId();

@@ -12,7 +12,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="iDiscover" />
-    <orderEntry type="module" module-name="resourceManager" />
+    <orderEntry type="library" name="Maven: iTransformers.iTransformer:resourceManager:0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: junit:junit:4.8.2" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.16" level="project" />
     <orderEntry type="module" module-name="snmptoolkit" />
@@ -30,24 +30,30 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:3.1.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:3.1.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:3.1.2.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.neo4j.app:neo4j-server:1.8.M07" level="project" />
+    <orderEntry type="library" name="Maven: org.neo4j:neo4j-rest-graphdb:1.8-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-jaxrs:1.8.3" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.8.3" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.8.3" level="project" />
+    <orderEntry type="library" name="Maven: org.neo4j:server-api:1.8.M07" level="project" />
     <orderEntry type="library" name="Maven: org.neo4j:neo4j-kernel:1.8-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.neo4j:neo4j-lucene-index:1.8-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-core:3.5.0" level="project" />
-    <orderEntry type="library" name="Maven: org.neo4j:neo4j-graph-algo:1.8.M07" level="project" />
-    <orderEntry type="library" name="Maven: org.neo4j:neo4j-udc:1.8.M07" level="project" />
-    <orderEntry type="library" name="Maven: org.neo4j:neo4j-graph-matching:1.8.M07" level="project" />
-    <orderEntry type="library" name="Maven: org.neo4j:neo4j-cypher:1.8.M07" level="project" />
-    <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.9.1-1" level="project" />
-    <orderEntry type="library" name="Maven: org.neo4j:neo4j-jmx:1.8.M07" level="project" />
-    <orderEntry type="library" name="Maven: org.neo4j:server-api:1.8.M07" level="project" />
     <orderEntry type="library" name="Maven: org.neo4j.3rdparty.javax.ws.rs:jsr311-api:1.1.2.r612" level="project" />
     <orderEntry type="library" name="Maven: commons-configuration:commons-configuration:1.6" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.1" level="project" />
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.4" level="project" />
     <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils-core:1.8.0" level="project" />
     <orderEntry type="library" name="Maven: commons-digester:commons-digester:1.8.1" level="project" />
+    <orderEntry type="library" name="Maven: org.neo4j:neo4j-lucene-index:1.8-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-core:3.5.0" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-client:1.14" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.14" level="project" />
+    <orderEntry type="library" name="Maven: org.neo4j.app:neo4j-server:1.8.M07" level="project" />
+    <orderEntry type="library" name="Maven: org.neo4j:neo4j-graph-algo:1.8.M07" level="project" />
+    <orderEntry type="library" name="Maven: org.neo4j:neo4j-udc:1.8.M07" level="project" />
+    <orderEntry type="library" name="Maven: org.neo4j:neo4j-graph-matching:1.8.M07" level="project" />
+    <orderEntry type="library" name="Maven: org.neo4j:neo4j-cypher:1.8.M07" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.9.1-1" level="project" />
+    <orderEntry type="library" name="Maven: org.neo4j:neo4j-jmx:1.8.M07" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:0.9.30" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:0.9.30" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.2" level="project" />
@@ -58,11 +64,7 @@
     <orderEntry type="library" name="Maven: org.mortbay.jetty:servlet-api:2.5-20081211" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-server:1.9" level="project" />
     <orderEntry type="library" name="Maven: asm:asm:3.1" level="project" />
-    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.9" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-jaxrs:1.8.3" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.8.3" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.8.3" level="project" />
     <orderEntry type="library" name="Maven: com.tinkerpop.gremlin:gremlin-groovy:1.5" level="project" />
     <orderEntry type="library" name="Maven: com.tinkerpop.gremlin:gremlin-java:1.5" level="project" />
     <orderEntry type="library" name="Maven: com.tinkerpop.blueprints:blueprints-core:1.2" level="project" />
@@ -84,12 +86,9 @@
     <orderEntry type="library" name="Maven: org.apache.servicemix.bundles:org.apache.servicemix.bundles.jline:0.9.94_1" level="project" />
     <orderEntry type="library" name="Maven: bouncycastle:bcprov-jdk16:140" level="project" />
     <orderEntry type="library" name="Maven: org.neo4j.app:neo4j-server:static-web:1.8.M07" level="project" />
-    <orderEntry type="library" name="Maven: org.neo4j:neo4j-rest-graphdb:1.8.M07" level="project" />
-    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-client:1.4" level="project" />
-    <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.2.2" level="project" />
-    <orderEntry type="library" name="Maven: javax.xml.stream:stax-api:1.0-2" level="project" />
-    <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
-    <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.4" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey.contribs:jersey-apache-client:1.14" level="project" />
+    <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.2" level="project" />
   </component>
 </module>
 

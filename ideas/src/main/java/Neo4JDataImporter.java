@@ -36,15 +36,33 @@ import org.neo4j.server.configuration.ServerConfigurator;
 import org.neo4j.shell.ShellSettings;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.ws.rs.core.UriBuilder;
 import javax.xml.bind.JAXBException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FilenameFilter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class Neo4JDataImporter {
+    public static int nodeCounter = 0;
     public static void main(String[] args) throws Exception {
+        /*
+        org.neo4j.rest.read_timeout=30
+org.neo4j.rest.connect_timeout=30
+org.neo4j.rest.driver="neo4j-rest-graphdb/1.8.RC1"
+org.neo4j.rest.stream=true
+org.neo4j.rest.batch_transactions=false (convert transaction scope into batch-rest-operations)
+org.neo4j.rest.logging_filter=false (set to true if verbose request/response logging should be enabled)
+
+ org.neo4j.rest.read_timeout=30
+* org.neo4j.rest.connect_timeout=30
+* org.neo4j.rest.driver="neo4j-rest-graphdb/1.8M07"
+* org.neo4j.rest.stream=true
+        * */
+        System.setProperty("org.neo4j.rest.read_timeout","30");
+        System.setProperty("org.neo4j.rest.connect_timeout","30");
+        System.setProperty("org.neo4j.rest.driver","neo4j-rest-graphdb/1.8.RC1");
+        System.setProperty("org.neo4j.rest.stream","true");
+        System.setProperty("org.neo4j.rest.batch_transactions","true");
+        System.setProperty("org.neo4j.rest.logging_filter","false");
 //        org.springframework.data.neo4j.rest.SpringRestGraphDatabase     d;
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("neo4j-spring.xml");
         GraphDatabaseService graphdb = applicationContext.getBean("graphDbService", GraphDatabaseService.class);
@@ -72,7 +90,16 @@ public class Neo4JDataImporter {
         WrappingNeoServerBootstrapper srv;
         srv = new WrappingNeoServerBootstrapper( graphdb, config );
         srv.start();
-        doImport(graphdb);
+//        Transaction tr = graphdb.beginTx();
+//        try {
+            doImport(graphdb);
+//            tr.success();
+//        } catch (Exception e) {
+//            tr.failure();
+//            throw e;
+//        } finally {
+//            tr.finish();
+//        }
 
     }
 
@@ -94,10 +121,18 @@ public class Neo4JDataImporter {
         });
 
         long start = System.currentTimeMillis();
-//        importData(graphdb, root, new File(dir, "device-data-M-110.xml"));
+//        importData(graphdb, root, new File(dir, "device-data-MAG-112-1.xml"));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Press enter to continue");
+//        reader.readLine();
         for (File file : files) {
+            System.out.println("importing file: "+file.getName());
             importData(graphdb, root, file);
+            System.out.println("Press enter to continue");
+//            reader.readLine();
+            Thread.sleep(300);
         }
+        System.out.println("Created nodes: "+nodeCounter);
         System.out.println("Imported ... "+(System.currentTimeMillis()-start)/1000 + " seconds");
     }
 
@@ -105,18 +140,23 @@ public class Neo4JDataImporter {
         Transaction tr = dbApi.beginTx();
         try {
             org.neo4j.graphdb.Node node= dbApi.createNode();
+            nodeCounter++;
             node.setProperty("name","network");
+            System.out.println("before to commit transaction (createRootNetworkNode)");
             tr.success();
+            System.out.println("after to commit transaction (createRootNetworkNode)");
             return node;
         } catch (Exception e) {
             tr.failure();
             throw e;
         } finally {
+            System.out.println("before to finish transaction (createRootNetworkNode)");
             tr.finish();
+            System.out.println("after to finish transaction (createRootNetworkNode)");
         }
     }
 
-    public static void importData(GraphDatabaseService dbApi, Node root, File file) throws IOException, JAXBException {
+    public static void importData(GraphDatabaseService dbApi, Node root, File file) throws Exception {
         Transaction tr = dbApi.beginTx();
         try {
             FileInputStream is = new FileInputStream(file);
@@ -127,22 +167,30 @@ public class Neo4JDataImporter {
                 is.close();
             }
             importDiscoveredDeviceData(dbApi,root, discoveryManagerType);
+            System.out.println("before to commit transaction");
             tr.success();
+            System.out.println("after to commit transaction");
         } catch (Exception e) {
+            e.printStackTrace();
             tr.failure();
         } finally {
+            System.out.println("before to finish transaction");
             tr.finish();
+            System.out.println("after to finish transaction");
         }
     }
-    public static void importDiscoveredDeviceData(GraphDatabaseService dbApi, Node root, DiscoveredDeviceData discoveryManagerType){
+    public static void importDiscoveredDeviceData(GraphDatabaseService dbApi, Node root, DiscoveredDeviceData discoveryManagerType) throws Exception {
         org.neo4j.graphdb.Node node= dbApi.createNode();
+        nodeCounter++;
         root.createRelationshipTo(node,DynamicRelationshipType.withName("parent"));
-        System.out.println("Created node id= "+node.getId());
+//        System.out.println("Created node id= "+node.getId());
+        System.out.println("Created node count= "+nodeCounter);
         node.setProperty("name",discoveryManagerType.getName());
         node.setProperty("objectType","Device"); // Hardcoded because the DiscoveredDeviceData is not natural data type
         ParametersType parameters = discoveryManagerType.getParameters();
         for (ParameterType param : parameters.getParameter()) {
-            node.setProperty(param.getName(),param.getValue());
+            String nameURI = UriBuilder.fromPath(param.getName()).build("").toString();
+            node.setProperty(nameURI,param.getValue());
         }
         List<ObjectType> objectTypeList = discoveryManagerType.getObject();
         for (ObjectType objectType : objectTypeList) {
@@ -150,14 +198,18 @@ public class Neo4JDataImporter {
             node.createRelationshipTo(child, DynamicRelationshipType.withName("parent"));
         }
     }
-    public static org.neo4j.graphdb.Node importObjectType(GraphDatabaseService dbApi, ObjectType objectType){
+
+    public static org.neo4j.graphdb.Node importObjectType(GraphDatabaseService dbApi, ObjectType objectType) throws Exception {
         org.neo4j.graphdb.Node node= dbApi.createNode();
-        System.out.println("Created node id= "+node.getId());
+        nodeCounter++;
+//        System.out.println("Created node id= "+node.getId());
+        System.out.println("Created node count= "+nodeCounter);
         if (objectType.getName() != null) node.setProperty("name",objectType.getName());
         node.setProperty("objectType",objectType.getObjectType());
         ParametersType parameters = objectType.getParameters();
         for (ParameterType param : parameters.getParameter()) {
-            node.setProperty(param.getName(),param.getValue());
+            String nameURI = UriBuilder.fromPath(param.getName()).build("").toString();
+            node.setProperty(nameURI,param.getValue());
         }
         List<ObjectType> objectTypeList = objectType.getObject();
         for (ObjectType childObjectType : objectTypeList) {

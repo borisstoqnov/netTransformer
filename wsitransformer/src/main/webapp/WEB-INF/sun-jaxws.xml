@@ -18,11 +18,11 @@
   ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+<endpoints
+        xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime"
+        version="2.0">
+    <endpoint name="example"
+              implementation="net.itransformers.ws.upload.TreeImporterImpl"
+              url-pattern="/upload"/>
+</endpoints>
 
-    <bean id="graphDbService" class="org.neo4j.rest.graphdb.RestGraphDatabase" destroy-method="shutdown">
-        <constructor-arg index="0" value="http://192.168.1.102:7474/db/data" />
-    </bean>
-</beans>

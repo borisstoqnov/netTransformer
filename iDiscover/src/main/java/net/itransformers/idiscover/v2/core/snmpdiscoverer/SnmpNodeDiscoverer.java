@@ -45,10 +45,12 @@ import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.resourcemanager.config.ResourceType;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
 public class SnmpNodeDiscoverer implements NodeDiscoverer {
+    static Logger logger = Logger.getLogger(SnmpNodeDiscoverer.class);
     private SnmpWalker walker;
     private XmlDiscoveryHelperFactory discoveryHelperFactory;
     private String[] discoveryTypes;
@@ -81,6 +83,13 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         Resource resource = new Resource(hostName,ipAddress,connectionDetails.getParam("deviceType"), Integer.parseInt(SNMPconnParams.get("port")), SNMPconnParams);
 
         String devName = walker.getDeviceName(resource);
+        if (devName == null) {
+            logger.info("Device name is null for resource: "+resource);
+            return null;
+        }
+        if  (devName.contains(".")){
+            devName=devName.substring(0,devName.indexOf("."));
+        }
         result.setNodeId(devName);
         String deviceType = walker.getDeviceType(resource);
         resource.setDeviceType(deviceType);
@@ -95,21 +104,21 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
 
-        List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(connectionDetails, neighbours);
+        List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
         result.setNeighboursConnectionDetails(neighboursConnDetails);
         return result;
     }
 
-    private List<ConnectionDetails> createNeighbourConnectionDetails(ConnectionDetails connectionDetails, List<DeviceNeighbour> neighbours) {
+    private List<ConnectionDetails> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
         List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
         for (DeviceNeighbour neighbour : neighbours) {
-            connectionDetails.put("deviceType",neighbour.getDeviceType());
+            ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
+            neighbourConnectionDetails.put("deviceType",neighbour.getDeviceType());
             if (neighbour.getStatus()){ // if reachable
-                connectionDetails.put("host",neighbour.getHostName());
-                connectionDetails.put("ipAddress",neighbour.getIpAddress().getIpAddress());
-                connectionDetails.put("netMask",neighbour.getIpAddress().getNetMask());
-                connectionDetails.put("community-ro",""+neighbour.getROCommunity());
-                ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
+                neighbourConnectionDetails.put("host",neighbour.getHostName());
+                neighbourConnectionDetails.put("ipAddress",neighbour.getIpAddress().getIpAddress());
+                neighbourConnectionDetails.put("netMask",neighbour.getIpAddress().getNetMask());
+                neighbourConnectionDetails.put("community-ro",""+neighbour.getROCommunity());
                 neighbourConnectionDetails.setConnectionType("SNMP");
                 neighboursConnDetails.add(neighbourConnectionDetails);
             }

@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.idiscover.v2.core;/*
+package net.itransformers.ws.upload;/*
  * iTransformer is an open source tool able to discover IP networks
  * and to perform dynamic data data population into a xml based inventory system.
  * Copyright (C) 2010  http://itransformers.net
@@ -36,37 +36,34 @@ package net.itransformers.idiscover.v2.core;/*
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CvsConnectionDetailsFactory {
-    @SuppressWarnings("unchecked")
-    public static List<ConnectionDetails> createConnectionDetail(File file) throws IOException {
-        List<String> lines = FileUtils.readLines(file);
-        List<ConnectionDetails> result = new ArrayList<ConnectionDetails>();
-        Map<String, String> attributes = new HashMap<String, String>();
-        for (String line : lines) {
-            if (line.trim().equals("")) continue;
-            if (line.startsWith("#")) continue;
-            String[] fields = line.split(",");
-            for (String field : fields) {
-                String[] nameValPair = field.split("=");
-                if (nameValPair.length != 2) {
-                    throw new RuntimeException("Missing '=' sign in field: "+ field+", for connection details line: "+line);
-                }
-                attributes.put(nameValPair[0],nameValPair[1]);
-            }
-            String connectionType = attributes.remove("type");
-            ConnectionDetails details = new ConnectionDetails(connectionType,attributes);
-            result.add(details);
-        }
-        return result;
+public class Node {
+    Map<String, String> attributes;
+    List<Node> children;
+
+    public Node() {
+    }
+
+    public Node(Map<String, String> attributes, List<Node> children) {
+        this.attributes = attributes;
+        this.children = children;
+    }
+
+    public Map<String, String> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Map<String, String> attributes) {
+        this.attributes = attributes;
+    }
+
+    public List<Node> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Node> children) {
+        this.children = children;
     }
 }

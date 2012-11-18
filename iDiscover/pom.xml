@@ -51,6 +51,43 @@
             <version>3.1.2.RELEASE</version>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>org.neo4j.app</groupId>-->
+            <!--<artifactId>neo4j-server</artifactId>-->
+            <!--<version>1.8.M07</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.neo4j.app</groupId>-->
+            <!--<artifactId>neo4j-server</artifactId>-->
+            <!--<classifier>static-web</classifier>-->
+            <!--<version>1.8.M07</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.neo4j</groupId>-->
+            <!--<artifactId>neo4j-lucene-index</artifactId>-->
+            <!--&lt;!&ndash;<classifier>static-web</classifier>&ndash;&gt;-->
+            <!--<version>1.8-SNAPSHOT</version>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-rest-graphdb</artifactId>
+            <version>1.8-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
+	<!--<repositories>-->
+        <!--<repository>-->
+            <!--<id>neo4j-release-repository</id>-->
+            <!--<name>Neo4j Maven 2 release repository</name>-->
+            <!--<url>http://m2.neo4j.org/content/repositories/releases/</url>-->
+            <!--<releases>-->
+                <!--<enabled>true</enabled>-->
+            <!--</releases>-->
+            <!--<snapshots>-->
+                <!--<enabled>false</enabled>-->
+            <!--</snapshots>-->
+        <!--</repository>        -->
+    <!--</repositories>-->
     
 </project>

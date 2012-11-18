@@ -23,7 +23,7 @@
     <orderEntry type="library" name="Maven: org.codehaus.woodstox:wstx-asl:3.2.6" level="project" />
     <orderEntry type="library" name="Maven: stax:stax-api:1.0.1" level="project" />
     <orderEntry type="module" module-name="fulfilmentFactory" />
-    <orderEntry type="module" module-name="resourceManager" />
+    <orderEntry type="library" name="Maven: iTransformers.iTransformer:resourceManager:0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-io:1.3.2" level="project" />
     <orderEntry type="module" module-name="parameterFactory" />
     <orderEntry type="library" name="Maven: com.wittams.gritty:gritty:0.0.2" level="project" />

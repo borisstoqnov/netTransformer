@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://upload.ws.itransformers.net/" xmlns:tns="http://upload.ws.itransformers.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="Exception" type="tns:Exception"/>
+
+  <xs:element name="importNode" type="tns:importNode"/>
+
+  <xs:element name="importNodeResponse" type="tns:importNodeResponse"/>
+
+  <xs:complexType name="importNode">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:long" minOccurs="0"/>
+      <xs:element name="arg1" type="tns:node" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="node">
+    <xs:sequence>
+      <xs:element name="attributes">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:string"/>
+                  <xs:element name="value" minOccurs="0" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="children" type="tns:node" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="importNodeResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element name="message" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+
