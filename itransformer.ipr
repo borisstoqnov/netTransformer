@@ -197,6 +197,7 @@
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/iTopologyManager.iml" filepath="$PROJECT_DIR$/iTopologyManager/iTopologyManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTransformer.iml" filepath="$PROJECT_DIR$/iTransformer.iml" />
       <module fileurl="file://$PROJECT_DIR$/ideas/ideas.iml" filepath="$PROJECT_DIR$/ideas/ideas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/iTopologyManager/launcher/launcher.iml" filepath="$PROJECT_DIR$/iTopologyManager/launcher/launcher.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/parameterFactory/parameterFactory.iml" filepath="$PROJECT_DIR$/iTopologyManager/parameterFactory/parameterFactory.iml" />
       <module fileurl="file://$PROJECT_DIR$/resourceManager/resourceManager.iml" filepath="$PROJECT_DIR$/resourceManager/resourceManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/rightClick/rightClick.iml" filepath="$PROJECT_DIR$/iTopologyManager/rightClick/rightClick.iml" />

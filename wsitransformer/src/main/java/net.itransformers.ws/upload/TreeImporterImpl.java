@@ -89,6 +89,7 @@ public class TreeImporterImpl implements TreeImporter{
 
     public org.neo4j.graphdb.Node doImportNode(org.neo4j.graphdb.Node root, Node node) throws Exception {
         org.neo4j.graphdb.Node neonode= getGraphDatabaseAPI().createNode();
+        System.out.println("Node created, nodeId="+neonode.getId());
         if (root != null) {
             root.createRelationshipTo(neonode, DynamicRelationshipType.withName("parent"));
         }

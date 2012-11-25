@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>iTransformers.iTransformer</groupId>
+    <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
     <artifactId>iTopologyManager</artifactId>
     <version>0.1-SNAPSHOT</version><!--Change for new version-->
     <modules>
@@ -14,6 +14,7 @@
         <module>fulfilmentFactory</module>
         <module>parameterFactory</module>
         <module>topologyViewer</module>
+        <module>launcher</module>
     </modules>
     <packaging>pom</packaging>
 
