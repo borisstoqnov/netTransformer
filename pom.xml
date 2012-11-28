@@ -26,7 +26,7 @@
         <version>0.1-SNAPSHOT</version><!--Change for new version-->
     </properties>
 
-    <groupId>net.itransformers</groupId>
+    <groupId>iTransformers</groupId>
     <artifactId>iTransformer</artifactId>
     <version>0.1-SNAPSHOT</version><!--Change for new version-->
     <packaging>pom</packaging>
