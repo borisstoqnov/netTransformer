@@ -42,7 +42,7 @@
                         <configuration>
                             <finalName>itransformer</finalName>
                             <filters>
-                                <filter>distribution/itransformer.properties</filter>
+                                    <filter>distribution/itransformer.properties</filter>
                             </filters>
                             <descriptors>
                                 <descriptor>distribution/itransformer.xml</descriptor>
@@ -66,6 +66,11 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.2</version>
             </plugin>
         </plugins>
     </build>
