@@ -38,14 +38,14 @@ public class Neo4JWsDataImporter {
 
 
     public static void main(String[] args) throws java.lang.Exception {
-        treeImporter = new TreeImporterImplService(new URL("http://192.168.1.102:8080/wsitransformer-0.1-SNAPSHOT/upload"),
+        treeImporter = new TreeImporterImplService(new URL("http://localhost:8080/wsitransformer/upload"),
                 new QName("http://upload.ws.itransformers.net/","TreeImporterImplService")).getTreeImporterImplPort();
 //        System.out.println(port.importNode(5L, new net.itransformers.ws.upload.Node()));
         doImport();
     }
 
     private static void doImport() throws java.lang.Exception {
-        File dir = new File("C:\\Documents and Settings\\LYCHO\\My Documents\\4_very_big");
+        File dir = new File("//Users//niau//svn//4_very_big");
 
         Long rootId = createRootNetworkNode();
         File[] files = dir.listFiles(new FilenameFilter() {
@@ -93,17 +93,26 @@ public class Neo4JWsDataImporter {
         nodeCounter++;
         System.out.println("Created node count= "+nodeCounter);
         Node.Attributes.Entry entry = new Node.Attributes.Entry();
+
         entry.setKey("name");entry.setValue(discoveryManagerType.getName());
+
         node.setAttributes(new Node.Attributes());
+
         node.getAttributes().getEntry().add(entry);
+
         entry = new Node.Attributes.Entry();
         entry.setKey("objectType");entry.setValue("Device");// Hardcoded because the DiscoveredDeviceData is not natural data type
+        node.getAttributes().getEntry().add(entry);
+
         ParametersType parameters = discoveryManagerType.getParameters();
         for (ParameterType param : parameters.getParameter()) {
             String nameURI = UriBuilder.fromPath(param.getName()).build("").toString();
             entry = new Node.Attributes.Entry();
             entry.setKey(nameURI);entry.setValue(param.getValue());
+            node.getAttributes().getEntry().add(entry);
+
         }
+
         List<ObjectType> objectTypeList = discoveryManagerType.getObject();
         for (ObjectType objectType : objectTypeList) {
             Node child = importObjectType(objectType);
@@ -117,17 +126,24 @@ public class Neo4JWsDataImporter {
         nodeCounter++;
         System.out.println("Created node count= "+nodeCounter);
         Node.Attributes.Entry entry;
+        node.setAttributes(new Node.Attributes());
+
         if (objectType.getName() != null) {
             entry = new Node.Attributes.Entry();
             entry.setKey("name");entry.setValue(objectType.getName());
+            node.getAttributes().getEntry().add(entry);
+
         }
         entry = new Node.Attributes.Entry();
         entry.setKey("objectType");entry.setValue(objectType.getObjectType());
+        node.getAttributes().getEntry().add(entry);
+
         ParametersType parameters = objectType.getParameters();
         for (ParameterType param : parameters.getParameter()) {
             String nameURI = UriBuilder.fromPath(param.getName()).build("").toString();
             entry = new Node.Attributes.Entry();
             entry.setKey(nameURI);entry.setValue(param.getValue());
+            node.getAttributes().getEntry().add(entry);
         }
         List<ObjectType> objectTypeList = objectType.getObject();
         for (ObjectType childObjectType : objectTypeList) {
