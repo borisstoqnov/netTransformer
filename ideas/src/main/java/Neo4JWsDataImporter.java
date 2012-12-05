@@ -45,7 +45,7 @@ public class Neo4JWsDataImporter {
     }
 
     private static void doImport() throws java.lang.Exception {
-        File dir = new File("//Users//niau//svn//4_very_big");
+        File dir = new File("//Users//niau//svn//1_small");
 
         Long rootId = createRootNetworkNode();
         File[] files = dir.listFiles(new FilenameFilter() {
@@ -136,7 +136,7 @@ public class Neo4JWsDataImporter {
 
             List<ObjectType> objectTypeList = discoveryManagerType.getObject();
             for (ObjectType objectType : objectTypeList) {
-                if(objectType.getName()!=null || !objectType.getName().isEmpty()){
+                if(objectType.getName()!=null && !objectType.getName().isEmpty()){
                     Node child = importObjectType(objectType);
                     node.getChildren().add(child);
                 }   else{
