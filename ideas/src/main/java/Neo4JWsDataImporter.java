@@ -39,7 +39,7 @@ public class Neo4JWsDataImporter {
 
     public static void main(String[] args) throws java.lang.Exception {
         treeImporter = new TreeImporterImplService(new URL("http://localhost:8080/wsitransformer/upload"),
-                new QName("http://upload.ws.itransformers.net/","TreeImporterImplService")).getTreeImporterImplPort();
+                new QName("http://upload.ws.itransformers.net/", "TreeImporterImplService")).getTreeImporterImplPort();
 //        System.out.println(port.importNode(5L, new net.itransformers.ws.upload.Node()));
         doImport();
     }
@@ -63,14 +63,15 @@ public class Neo4JWsDataImporter {
             importData(rootId, file);
 
         }
-        System.out.println("Created nodes: "+nodeCounter);
-        System.out.println("Imported ... "+(System.currentTimeMillis()-start)/1000 + " seconds");
+        System.out.println("Created nodes: " + nodeCounter);
+        System.out.println("Imported ... " + (System.currentTimeMillis() - start) / 1000 + " seconds");
     }
 
     public static Long createRootNetworkNode() throws java.lang.Exception {
         Node root = new Node();
         Node.Attributes.Entry entry = new Node.Attributes.Entry();
-        entry.setKey("name");entry.setValue("network");
+        entry.setKey("name");
+        entry.setValue("network");
         Node.Attributes value = new Node.Attributes();
         root.setAttributes(value);
         root.getAttributes().getEntry().add(entry);
@@ -85,65 +86,110 @@ public class Neo4JWsDataImporter {
         } finally {
             is.close();
         }
-        Node node = importDiscoveredDeviceData(discoveryManagerType);
-        treeImporter.importNode(rootId, node);
+        if(discoveryManagerType.getName()!=null || !discoveryManagerType.getName().isEmpty())  {
+            Node node = importDiscoveredDeviceData(discoveryManagerType);
+            treeImporter.importNode(rootId, node);
+
+        }
     }
+
     public static Node importDiscoveredDeviceData(DiscoveredDeviceData discoveryManagerType) throws java.lang.Exception {
-        Node node= new Node();
-        nodeCounter++;
-        System.out.println("Created node count= "+nodeCounter);
-        Node.Attributes.Entry entry = new Node.Attributes.Entry();
 
-        entry.setKey("name");entry.setValue(discoveryManagerType.getName());
+            Node node = new Node();
+            nodeCounter++;
+            System.out.println("Created node count= " + nodeCounter);
+            Node.Attributes.Entry entry = new Node.Attributes.Entry();
 
-        node.setAttributes(new Node.Attributes());
+            entry.setKey("name");
+            entry.setValue(discoveryManagerType.getName());
 
-        node.getAttributes().getEntry().add(entry);
 
-        entry = new Node.Attributes.Entry();
-        entry.setKey("objectType");entry.setValue("Device");// Hardcoded because the DiscoveredDeviceData is not natural data type
-        node.getAttributes().getEntry().add(entry);
+            node.setAttributes(new Node.Attributes());
 
-        ParametersType parameters = discoveryManagerType.getParameters();
-        for (ParameterType param : parameters.getParameter()) {
-            String nameURI = UriBuilder.fromPath(param.getName()).build("").toString();
-            entry = new Node.Attributes.Entry();
-            entry.setKey(nameURI);entry.setValue(param.getValue());
             node.getAttributes().getEntry().add(entry);
 
-        }
+            entry = new Node.Attributes.Entry();
+            entry.setKey("objectType");
+            entry.setValue("Device");// Hardcoded because the DiscoveredDeviceData is not natural data type
+            node.getAttributes().getEntry().add(entry);
 
-        List<ObjectType> objectTypeList = discoveryManagerType.getObject();
-        for (ObjectType objectType : objectTypeList) {
-            Node child = importObjectType(objectType);
-            node.getChildren().add(child);
-        }
+            ParametersType parameters = discoveryManagerType.getParameters();
+            for (ParameterType param : parameters.getParameter()) {
+                String nameURI = UriBuilder.fromPath(param.getName()).build("").toString();
+                entry = new Node.Attributes.Entry();
+
+                entry.setKey(nameURI);
+                if (param.getValue() != null) {
+
+                    if (param.getValue().isEmpty()) {
+                        entry.setValue("emptyValue");
+
+                    } else {
+                        entry.setValue(param.getValue());
+
+                    }
+                } else {
+                    entry.setValue("emptyValue");
+                }
+                node.getAttributes().getEntry().add(entry);
+            }
+
+            List<ObjectType> objectTypeList = discoveryManagerType.getObject();
+            for (ObjectType objectType : objectTypeList) {
+                if(objectType.getName()!=null || !objectType.getName().isEmpty()){
+                    Node child = importObjectType(objectType);
+                    node.getChildren().add(child);
+                }   else{
+                    System.out.println("Child Node without name");
+                }
+            }
+
         return node;
+
     }
 
     public static Node importObjectType(ObjectType objectType) throws Exception {
-        Node node= new Node();
+        Node node = new Node();
         nodeCounter++;
-        System.out.println("Created node count= "+nodeCounter);
+        System.out.println("Created node count= " + nodeCounter);
         Node.Attributes.Entry entry;
         node.setAttributes(new Node.Attributes());
 
-        if (objectType.getName() != null) {
+        if (objectType.getName() != null && !objectType.getName().isEmpty()) {
             entry = new Node.Attributes.Entry();
-            entry.setKey("name");entry.setValue(objectType.getName());
+            entry.setKey("name");
+            entry.setValue(objectType.getName());
             node.getAttributes().getEntry().add(entry);
 
         }
         entry = new Node.Attributes.Entry();
-        entry.setKey("objectType");entry.setValue(objectType.getObjectType());
+        entry.setKey("objectType");
+        entry.setValue(objectType.getObjectType());
         node.getAttributes().getEntry().add(entry);
 
         ParametersType parameters = objectType.getParameters();
         for (ParameterType param : parameters.getParameter()) {
-            String nameURI = UriBuilder.fromPath(param.getName()).build("").toString();
-            entry = new Node.Attributes.Entry();
-            entry.setKey(nameURI);entry.setValue(param.getValue());
-            node.getAttributes().getEntry().add(entry);
+            if (param.getName() != null) {
+                String nameURI = UriBuilder.fromPath(param.getName()).build("").toString();
+                entry = new Node.Attributes.Entry();
+                if (nameURI != null) {
+                    entry.setKey(nameURI);
+                }
+
+                if (param.getValue() != null) {
+
+                    if (param.getValue().isEmpty()) {
+                        entry.setValue("emptyValue");
+
+                    } else {
+                        entry.setValue(param.getValue());
+
+                    }
+                } else {
+                    entry.setValue("emptyValue");
+                }
+                node.getAttributes().getEntry().add(entry);
+            }
         }
         List<ObjectType> objectTypeList = objectType.getObject();
         for (ObjectType childObjectType : objectTypeList) {
