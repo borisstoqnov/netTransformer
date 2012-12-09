@@ -45,7 +45,7 @@ public class Neo4JWsDataImporter {
     }
 
     private static void doImport() throws java.lang.Exception {
-        File dir = new File("//Users//niau//svn//1_small");
+        File dir = new File("//Users//niau//sf_svn//test-data//1_small");
 
         Long rootId = createRootNetworkNode();
         File[] files = dir.listFiles(new FilenameFilter() {
@@ -72,6 +72,7 @@ public class Neo4JWsDataImporter {
         Node.Attributes.Entry entry = new Node.Attributes.Entry();
         entry.setKey("name");
         entry.setValue("network");
+      //  entry.setKey("version");
         Node.Attributes value = new Node.Attributes();
         root.setAttributes(value);
         root.getAttributes().getEntry().add(entry);
