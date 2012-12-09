@@ -25,6 +25,7 @@ import edu.uci.ics.jung.graph.*;
 import edu.uci.ics.jung.io.GraphMLMetadata;
 import org.apache.commons.collections15.Factory;
 import org.apache.log4j.Logger;
+import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
@@ -42,7 +43,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-
 /**
  * Demonstrates loading (and visualizing) a graph from a GraphML file.
  * http://www.mesur.org/services/mesur4/mesur_test.html
@@ -57,6 +57,7 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
     private G entireGraph;
     private TopologyViewerConfType viewerConfig;
     private GraphmlLoader<G> graphmlLoader;
+    private Neo4jLoader<G> neo4jLoader;
     private URL path;
     private String initialNode;
     private String graphmlRelDir;
@@ -163,7 +164,17 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
         iconMapLoader = new IconMapLoader(viewerConfig);
         edgeStrokeMapLoader = new EdgeStrokeMapLoader(viewerConfig);
         edgeColorMapLoader = new EdgeColorMapLoader(viewerConfig);
-        graphmlLoader = new GraphmlLoader<G>(viewerConfig, entireGraph, factory);
+        neo4jLoader = new Neo4jLoader<G>(entireGraph,factory,"http://localhost:7474/db/data/");
+        String NetworkId=neo4jLoader.getLatestNetwork();
+
+        try {
+            neo4jLoader.getVertexes(NetworkId);
+            neo4jLoader.getNeighbourVertexes(NetworkId);
+        } catch (ParseException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+        graphmlLoader = new GraphmlLoader<G>(viewerConfig, entireGraph, factory,neo4jLoader.getVertexMetadatas());
         graphmlLoader.addGraphmlLoaderListener(iconMapLoader);
         graphmlLoader.addGraphmlLoaderListener(edgeStrokeMapLoader);
         graphmlLoader.addGraphmlLoaderListener(edgeColorMapLoader);

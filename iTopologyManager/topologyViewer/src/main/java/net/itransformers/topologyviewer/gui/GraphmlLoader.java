@@ -48,10 +48,11 @@ public class GraphmlLoader<G extends Graph<String,String>> {
     private G entireGraph;
     private List<GraphmlLoaderListener> listeners = new ArrayList<GraphmlLoaderListener>();
 
-    public GraphmlLoader(TopologyViewerConfType viewerConfig, G entireGraph, Factory<G> factory) {
+    public GraphmlLoader(TopologyViewerConfType viewerConfig, G entireGraph, Factory<G> factory,Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas) {
         this.viewerConfig = viewerConfig;
         this.entireGraph = entireGraph;
         this.factory = factory;
+        this.vertexMetadatas = vertexMetadatas;
     }
 
     List<String> readGraphmlFileNames(URL nodeListUrl) throws IOException {
@@ -81,7 +82,11 @@ public class GraphmlLoader<G extends Graph<String,String>> {
             GraphMLReader gmlr = loadGraphmlInGraph(grahmlUrl, graph);
             Collection<String> verteces = graph.getVertices();
             for (String vertex :verteces){
-                entireGraph.addVertex(vertex);
+                if(!entireGraph.containsVertex(vertex)){
+                     entireGraph.addVertex(vertex);
+                }             else{
+                    System.out.println("Out");
+                }
             }
             Collection<String> edges = graph.getEdges();
             for (String edge : edges){
@@ -90,9 +95,9 @@ public class GraphmlLoader<G extends Graph<String,String>> {
                     entireGraph.addEdge(edge,endpoints);
                 }
             }
-            graphMetadatas.put(fileName,gmlr.getGraphMetadata());
+        //    graphMetadatas.put(fileName,gmlr.getGraphMetadata());
             edgeMetadatas.put(fileName,gmlr.getEdgeMetadata());
-            vertexMetadatas.put(fileName,gmlr.getVertexMetadata());
+       //     vertexMetadatas.put(fileName,gmlr.getVertexMetadata());
             notifyListeners(fileName, gmlr.getVertexMetadata(), gmlr.getEdgeMetadata(), graph);
         }
     }
