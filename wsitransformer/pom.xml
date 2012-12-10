@@ -33,15 +33,15 @@
 
     <dependencies>
         <!--<dependency>-->
-            <!--<groupId>iTransformers.iTransformer</groupId>-->
-            <!--<artifactId>iDiscover</artifactId>-->
-            <!--<version>0.1-SNAPSHOT</version>&lt;!&ndash;Change for new version&ndash;&gt;-->
+        <!--<groupId>iTransformers.iTransformer</groupId>-->
+        <!--<artifactId>iDiscover</artifactId>-->
+        <!--<version>0.1-SNAPSHOT</version>&lt;!&ndash;Change for new version&ndash;&gt;-->
         <!--</dependency>-->
 
         <!--<dependency>-->
-            <!--<groupId>mxquery</groupId>-->
-            <!--<artifactId>mxquery</artifactId>-->
-            <!--<version>0.6</version>-->
+        <!--<groupId>mxquery</groupId>-->
+        <!--<artifactId>mxquery</artifactId>-->
+        <!--<version>0.6</version>-->
         <!--</dependency>-->
         <dependency>
             <groupId>javax.ws.rs</groupId>
@@ -110,57 +110,58 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>2.2</version>
             </plugin>
-        </plugins>
-    </build>
-    <!--<build>-->
-        <!--<plugins>-->
+            <!--</plugins>-->
+            <!--</build>-->
+            <!--<build>-->
+            <!--<plugins>-->
 
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-war-plugin</artifactId>-->
-                <!--<version>2.1.1</version>-->
-                <!--<configuration>-->
-                    <!--<failOnMissingWebXml>false</failOnMissingWebXml>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
 
-            <!--&lt;!&ndash;https://blogs.oracle.com/enterprisetechtips/entry/using_jax_ws_with_maven&ndash;&gt;-->
+            <!--https://blogs.oracle.com/enterprisetechtips/entry/using_jax_ws_with_maven-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>1.10</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsgen</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+
+                    <sei>net.itransformers.ws.upload.TreeImporterImpl</sei>
+                    <!--for demo purpose only, the webapp does not-->
+                    <!--need the generated wsdl files-->
+                    <genWsdl>true</genWsdl>
+                    <keep>true</keep>
+                </configuration>
+            </plugin>
             <!--<plugin>-->
                 <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>jaxws-maven-plugin</artifactId>-->
-                <!--<version>1.10</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<goals>-->
-                            <!--<goal>wsgen</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-                <!--<configuration>-->
-
-                    <!--<sei>net.itransformers.ws.upload.TreeImporterImpl</sei>-->
-                    <!--&lt;!&ndash;for demo purpose only, the webapp does not&ndash;&gt;-->
-                    <!--&lt;!&ndash;need the generated wsdl files&ndash;&gt;-->
-                    <!--<genWsdl>true</genWsdl>-->
-                    <!--<keep>true</keep>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-            <!--&lt;!&ndash;<plugin>&ndash;&gt;-->
-            <!--&lt;!&ndash;<groupId>org.codehaus.mojo</groupId>&ndash;&gt;-->
-            <!--&lt;!&ndash;<artifactId>tomcat-maven-plugin</artifactId>&ndash;&gt;-->
-            <!--&lt;!&ndash;<configuration>&ndash;&gt;-->
-            <!--&lt;!&ndash;<url>http://localhost:8080/manager/html</url>&ndash;&gt;-->
-            <!--&lt;!&ndash;</configuration>&ndash;&gt;-->
-            <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.tomcat.maven</groupId>-->
-                <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
-                <!--<version>2.0-SNAPSHOT</version>-->
+                <!--<artifactId>tomcat-maven-plugin</artifactId>-->
                 <!--<configuration>-->
                     <!--<url>http://localhost:8080/manager/html</url>-->
-                    <!--<update>true</update>-->
+
                 <!--</configuration>-->
             <!--</plugin>-->
-        <!--</plugins>-->
-    <!--</build>-->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.0-SNAPSHOT</version>
+                <configuration>
+                    <url>http://localhost:8080/manager/html</url>
+                    <update>true</update>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
