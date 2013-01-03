@@ -185,25 +185,25 @@ public class DiscoveryParametersPanel extends JPanel {
     }
 
     private void bindTo(DiscoveryMethodType discoveryMethodType) {
-        StringBuilder sb = new StringBuilder();
-        Vector oidsTableModelData = oidsTableModel.getDataVector();
-        Iterator iterator = oidsTableModelData.iterator();
-        while (iterator.hasNext()){
-            iterator.next();
-            Vector vec = new Vector();
-            vec.add(oid);
-            oidsTableModelData.add(0,vec);
-        }
-
-        List<ParamType> paramsList = discoveryMethodType.setValue();
-        paramsList.clear();
-        for (int i=0; i< resourceParamsTableModel.getDataVector().size(); i++) {
-            ParamType paramType = new ParamType();
-            Vector rows = (Vector) resourceParamsTableModel.getDataVector().get(i);
-            paramType.setName((String) rows.get(0));
-            paramType.setValue((String) rows.get(1));
-            paramsList.add(paramType);
-        }
+//        StringBuilder sb = new StringBuilder();
+//        Vector oidsTableModelData = oidsTableModel.getDataVector();
+//        Iterator iterator = oidsTableModelData.iterator();
+//        while (iterator.hasNext()){
+//            iterator.next();
+//            Vector vec = new Vector();
+//            vec.add(oid);
+//            oidsTableModelData.add(0,vec);
+//        }
+//
+//        List<ParamType> paramsList = discoveryMethodType.setValue();
+//        paramsList.clear();
+//        for (int i=0; i< resourceParamsTableModel.getDataVector().size(); i++) {
+//            ParamType paramType = new ParamType();
+//            Vector rows = (Vector) resourceParamsTableModel.getDataVector().get(i);
+//            paramType.setName((String) rows.get(0));
+//            paramType.setValue((String) rows.get(1));
+//            paramsList.add(paramType);
+//        }
 
     }
 
