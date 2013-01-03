@@ -89,6 +89,7 @@
     <orderEntry type="library" name="Maven: com.sun.jersey.contribs:jersey-apache-client:1.14" level="project" />
     <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.json.simple:json-simple:1.1.1" level="project" />
   </component>
 </module>
 
