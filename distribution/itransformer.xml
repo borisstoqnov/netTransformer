@@ -4,17 +4,24 @@
 <!-- http://maven.apache.org/plugins/maven-assembly-plugin/assembly.html#class_moduleSet -->
     <id>bin</id>
     <formats>
+        <format>zip</format>
         <format>dir</format>
     </formats>
+
+
     <!--<fileSets>-->
         <!--<fileSet>-->
             <!--<directory>${basedir}</directory>-->
             <!--<includes>-->
-                <!--<include>iTopologyManager/topologyViewer/*</include>-->
+                <!--<include>configs/*</include>-->
             <!--</includes>-->
+            <!--<outputDirectory>/</outputDirectory>-->
         <!--</fileSet>-->
     <!--</fileSets>-->
     <moduleSets>
+
+        <moduleSet>
+        </moduleSet>
         <moduleSet>
             <!-- Enable access to all projects in the current multimodule build! -->
             <useAllReactorProjects>true</useAllReactorProjects>
@@ -46,8 +53,16 @@
                 <includeModuleDirectory>false</includeModuleDirectory>
                 <fileSets>
                     <fileSet>
-                        <directory>conf</directory>
-                        <outputDirectory>bin/iTopologyManager/topologyViewer/conf</outputDirectory>
+                        <directory>conf/xml</directory>
+                        <outputDirectory>bin/iTopologyManager/topologyViewer/conf/xml</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>conf/xsd</directory>
+                        <outputDirectory>bin/iTopologyManager/topologyViewer/conf/xsd</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>conf/xslt</directory>
+                        <outputDirectory>bin/iTopologyManager/topologyViewer/conf/xslt</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>src/main/resources/images</directory>
@@ -73,10 +88,13 @@
                 <includeModuleDirectory>false</includeModuleDirectory>
                 <fileSets>
                     <fileSet>
-                        <directory>conf</directory>
-                        <outputDirectory>bin/iTopologyManager/parameter-factory/conf</outputDirectory>
+                        <directory>conf/xml</directory>
+                        <outputDirectory>bin/iTopologyManager/parameterFactory/conf/xml</outputDirectory>
                     </fileSet>
-
+                    <fileSet>
+                        <directory>conf/xsd</directory>
+                        <outputDirectory>bin/iTopologyManager/parameterFactory/conf/xsd</outputDirectory>
+                    </fileSet>
                 </fileSets>
             </sources>
         </moduleSet>
@@ -93,10 +111,21 @@
                 <includeModuleDirectory>false</includeModuleDirectory>
                 <fileSets>
                     <fileSet>
-                        <directory>conf</directory>
-                        <outputDirectory>bin/iTopologyManager/fulfilment-factory/conf</outputDirectory>
+                        <directory>conf/txt</directory>
+                        <outputDirectory>bin/iTopologyManager/fulfilmentFactory/conf/txt</outputDirectory>
                     </fileSet>
-
+                    <fileSet>
+                        <directory>conf/xml</directory>
+                        <outputDirectory>bin/iTopologyManager/fulfilmentFactory/conf/xml</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>conf/xsd</directory>
+                        <outputDirectory>bin/iTopologyManager/fulfilmentFactory/xsd</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>conf/xslt</directory>
+                        <outputDirectory>bin/iTopologyManager/fulfilmentFactory/conf/xslt</outputDirectory>
+                    </fileSet>
                 </fileSets>
             </sources>
         </moduleSet>
@@ -112,8 +141,12 @@
                 <includeModuleDirectory>false</includeModuleDirectory>
                 <fileSets>
                     <fileSet>
-                        <directory>conf</directory>
-                        <outputDirectory>bin/resource-manager/conf</outputDirectory>
+                        <directory>conf/xml</directory>
+                        <outputDirectory>bin/resourceManager/conf/xml</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>conf/xsd</directory>
+                        <outputDirectory>bin/resourceManager/conf/xsd</outputDirectory>
                     </fileSet>
                 </fileSets>
             </sources>
@@ -131,8 +164,16 @@
                 <includeModuleDirectory>false</includeModuleDirectory>
                 <fileSets>
                     <fileSet>
-                        <directory>conf</directory>
-                        <outputDirectory>bin/iDiscover/conf</outputDirectory>
+                        <directory>conf/xml</directory>
+                        <outputDirectory>bin/iDiscover/conf/xml</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>conf/xsd</directory>
+                        <outputDirectory>bin/iDiscover/conf/xsd</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>conf/xslt</directory>
+                        <outputDirectory>bin/iDiscover/conf/xslt</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/bat</directory>
@@ -184,10 +225,33 @@
                     </fileSet>
                     <fileSet>
                         <directory>mibs</directory>
-                        <outputDirectory>bin/snmptoolkit/mibs</outputDirectory>
+                        <outputDirectory>lib/snmpToolkit/mibs</outputDirectory>
                     </fileSet>
                 </fileSets>
             </sources>
+        </moduleSet>
+        <moduleSet>
+            <!-- Enable access to all projects in the current multimodule build! -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
+                <include>iTransformers.iTransformer:utils</include>
+                <include>iTransformers.iTransformer:snmptoolkit</include>
+                <include>iTransformers.iTransformer:resourceManager</include>
+                <include>iTransformers.iTransformer.iTopologyManager:topologyViewer</include>
+                <include>iTransformers.iTransformer.iTopologyManager:topologyManagerConfig</include>
+                <include>iTransformers.iTransformer.iTopologyManager:rightClick</include>
+                <include>iTransformers.iTransformer.iTopologyManager:rightClickAPI</include>
+                <include>iTransformers.iTransformer.iTopologyManager:parameterFactory</include>
+                <include>iTransformers.iTransformer.iTopologyManager:fulfilmentFactory</include>
+                <include>iTransformers.iTransformer:iDiscover</include>
+                <!--<include>iTransformers.iTransformer:iMap</include>-->
+            </includes>
+            <binaries>
+                <outputDirectory>lib/</outputDirectory>
+                <unpack>false</unpack>
+            </binaries>
         </moduleSet>
         <moduleSet>
             <!-- Enable access to all projects in the current multimodule build! -->
@@ -224,4 +288,5 @@
             <outputDirectory>lib/</outputDirectory>
         </dependencySet>
     </dependencySets>
+
 </assembly>
