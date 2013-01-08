@@ -65,6 +65,9 @@ public class MenuBuilder {
         JMenuItem captureTpEPSMenuItem = new JMenuItem("Capture to EPS");
         captureTpEPSMenuItem.addActionListener(new CaptureToEPSMenuHandler(frame));
         capture.add(captureTpEPSMenuItem);
+        final JMenuItem newProject = new JMenuItem("New Project");
+        newProject.addActionListener(new NewProjectMenuHandler(frame));
+        file.add(newProject);
         final JMenuItem open = new JMenuItem("Open");
         open.addActionListener(new OpenMenuHandler(frame));
         file.add(open);

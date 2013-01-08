@@ -22,16 +22,19 @@ package net.itransformers.idiscover.gui;
 import net.itransformers.idiscover.discoveryhelpers.xml.discoveryParameters.DeviceType;
 import net.itransformers.idiscover.discoveryhelpers.xml.discoveryParameters.DiscoveryHelperType;
 import net.itransformers.idiscover.discoveryhelpers.xml.discoveryParameters.DiscoveryMethodType;
-import net.itransformers.resourcemanager.config.ParamType;
 import net.itransformers.utils.JaxbMarshalar;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.bind.JAXBException;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
@@ -117,7 +120,12 @@ public class DiscoveryParametersPanel extends JPanel {
 		add(button_1);
 		
 		JButton button_2 = new JButton("+");
-		button_2.addActionListener(new RowAddListener(discoveryMethodTable));
+		button_2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onAddDiscoveryMethod();
+            }
+        });
 		button_2.setBounds(156, 293, 46, 23);
 		add(button_2);
 		
@@ -138,76 +146,80 @@ public class DiscoveryParametersPanel extends JPanel {
 
 	}
 
+    private void onAddDiscoveryMethod() {
+        DeviceType device = getCurrentDevice();
+        List<DiscoveryMethodType> discoveryMethods = device.getDiscoveryMethod();
+        DiscoveryMethodType discoveryMethodType = new DiscoveryMethodType();
+        discoveryMethodType.setName("");
+        discoveryMethodType.setValue("");
+        discoveryMethods.add(discoveryMethodType);
+        onSelectedDevice(currentDeviceIndex);
+    }
+
     private void onSelectedDevice(int index) {
-        if (currentDeviceIndex >= 0){
-            DeviceType currentDevice = discoveryHelperType.getDevice().get(currentDeviceIndex);
-            bindTo(currentDevice);
-        }
-        if (index >= 0){
-            DeviceType deviceType = discoveryHelperType.getDevice().get(index);
-            bindFrom(deviceType);
-        } else {
-            discoveryMethodTableModel.getDataVector().removeAllElements();
-        }
+        updateCurrentDiscoveryMethod();
+        updateCurrentOids();
         currentDeviceIndex = index;
-        discoveryMethodTableModel.fireTableDataChanged();
-        oidsTableModel.getDataVector().removeAllElements();
-        oidsTableModel.fireTableDataChanged();
+        currentDiscoveryMethodIndex = -1;
+        updateDiscoveryMethodTable();
+        clearOidsTable();
+    }
+
+    private void updateCurrentDiscoveryMethod() {
+        DeviceType device = getCurrentDevice();
+        if (device != null) {
+            Vector discoveryMethodsRows = discoveryMethodTableModel.getDataVector();
+            for (int i=0;i < discoveryMethodsRows.size(); i++) {
+                String discoveryMethodName = (String) ((Vector) discoveryMethodsRows.get(i)).get(0);
+                device.getDiscoveryMethod().get(discoveryMethodsRows.size()-i-1).setName(discoveryMethodName);
+            }
+        }
     }
 
     private void onSelectedDiscoveryMethod(int index) {
-        if (currentDiscoveryMethodIndex >= 0 && currentDeviceIndex >= 0){
-            DeviceType currentDevice = discoveryHelperType.getDevice().get(currentDeviceIndex);
-            DiscoveryMethodType currentDiscoveryMethod = currentDevice.getDiscoveryMethod().get(currentDiscoveryMethodIndex);
-            bindTo(currentDiscoveryMethod);
-        }
-        if (index >= 0 && currentDeviceIndex >= 0){
-            DeviceType currentDevice = discoveryHelperType.getDevice().get(currentDeviceIndex);
-            DiscoveryMethodType discoveryMethod = currentDevice.getDiscoveryMethod().get(index);
-            bindFrom(discoveryMethod);
-        } else {
-            oidsTableModel.getDataVector().removeAllElements();
-        }
+        updateCurrentOids();
         currentDiscoveryMethodIndex = index;
+        updateOidsTable();
+    }
+
+    private void updateDeviceTable() {
+        DeviceType currentDevice = getCurrentDevice();
+    }
+
+    private DiscoveryMethodType getCurrentDiscoveryMethod() {
+        if (currentDiscoveryMethodIndex < 0 ) return null;
+        DeviceType currentDevice = getCurrentDevice();
+        return currentDevice.getDiscoveryMethod().get(currentDiscoveryMethodIndex);
+    }
+
+    private DeviceType getCurrentDevice() {
+        return discoveryHelperType.getDevice().get(currentDeviceIndex);
+    }
+
+    private void updateOidsTable() {
+        DiscoveryMethodType discoveryMethod = getCurrentDiscoveryMethod();
+        if (discoveryMethod != null) {
+            String discoveryMethodValueList = discoveryMethod.getValue();
+            String[] oids = discoveryMethodValueList.split(",");
+            Vector oidsTableModelData = oidsTableModel.getDataVector();
+            oidsTableModelData.removeAllElements();
+            for (String oid : oids) {
+                Vector vec = new Vector();
+                vec.add(oid);
+                oidsTableModelData.add(0,vec);
+            }
+            oidsTableModel.fireTableDataChanged();
+        }
+    }
+
+    private void clearOidsTable() {
+        Vector oidsTableModelData = oidsTableModel.getDataVector();
+        oidsTableModelData.removeAllElements();
         oidsTableModel.fireTableDataChanged();
     }
 
-    private void bindFrom(DiscoveryMethodType discoveryMethod) {
-        String discoveryMethodValueList = discoveryMethod.getValue();
-        String[] oids = discoveryMethodValueList.split(",");
-        Vector oidsTableModelData = oidsTableModel.getDataVector();
-        oidsTableModelData.removeAllElements();
-        for (String oid : oids) {
-            Vector vec = new Vector();
-            vec.add(oid);
-            oidsTableModelData.add(0,vec);
-        }
-    }
-
-    private void bindTo(DiscoveryMethodType discoveryMethodType) {
-//        StringBuilder sb = new StringBuilder();
-//        Vector oidsTableModelData = oidsTableModel.getDataVector();
-//        Iterator iterator = oidsTableModelData.iterator();
-//        while (iterator.hasNext()){
-//            iterator.next();
-//            Vector vec = new Vector();
-//            vec.add(oid);
-//            oidsTableModelData.add(0,vec);
-//        }
-//
-//        List<ParamType> paramsList = discoveryMethodType.setValue();
-//        paramsList.clear();
-//        for (int i=0; i< resourceParamsTableModel.getDataVector().size(); i++) {
-//            ParamType paramType = new ParamType();
-//            Vector rows = (Vector) resourceParamsTableModel.getDataVector().get(i);
-//            paramType.setName((String) rows.get(0));
-//            paramType.setValue((String) rows.get(1));
-//            paramsList.add(paramType);
-//        }
-
-    }
-
-    private void bindFrom(DeviceType deviceType) {
+    private void updateDiscoveryMethodTable() {
+        DeviceType deviceType = getCurrentDevice();
         List<DiscoveryMethodType> discoveryMethodTypeList = deviceType.getDiscoveryMethod();
         Vector discoveryMethodTableModelData = discoveryMethodTableModel.getDataVector();
         discoveryMethodTableModelData.removeAllElements();
@@ -216,10 +228,7 @@ public class DiscoveryParametersPanel extends JPanel {
             vec.add(discoveryMethodType.getName());
             discoveryMethodTableModelData.add(0,vec);
         }
-    }
-
-    private void bindTo(DeviceType deviceType) {
-        //To change body of created methods use File | Settings | File Templates.
+        discoveryMethodTableModel.fireTableDataChanged();
     }
 
     public DiscoveryHelperType getDiscoveryHelperType() {
@@ -245,6 +254,20 @@ public class DiscoveryParametersPanel extends JPanel {
 //
 //        }
 //    }
+
+    private void updateCurrentOids(){
+        DiscoveryMethodType discoveryMethod = getCurrentDiscoveryMethod();
+        if (discoveryMethod != null) {
+            StringBuilder sbs = new StringBuilder();
+            Vector oidsTableModelData = oidsTableModel.getDataVector();
+            for (int i=oidsTableModelData.size()-1; i >= 0;  i--) {
+                Vector row = (Vector) oidsTableModelData.get(i);
+                sbs.append(row.get(0));
+                if (i > 0) sbs.append(",");
+            }
+            discoveryMethod.setValue(sbs.toString());
+        }
+    }
 
     public void bindFrom(DiscoveryHelperType discoveryHelperType) {
         List<DeviceType> deviceTypeList = discoveryHelperType.getDevice();

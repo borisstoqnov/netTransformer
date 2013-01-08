@@ -38,16 +38,19 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class DiscoveryResourcePanel extends JPanel {
-    private JTable resourceParamsTable;
-    private JTable connectionParamsTable;
     private DefaultTableModel resourcesTableModel;
     private DefaultTableModel resourceParamsTableModel;
     private ResourcesType resources;
-    private int currentResourceIndex;
     private final DefaultTableModel resourceConnectionParamsTableModel;
+    private JComboBox comboBox;
+    private JTable resourcesTable;
+    private int currentResourceIndex;
+    private int mCurrentConnectionTypeIndex;
 
 
     /**
@@ -65,34 +68,42 @@ public class DiscoveryResourcePanel extends JPanel {
         label_2.setBounds(148, 182, 116, 14);
         add(label_2);
 
-        JComboBox comboBox = new JComboBox();
+        comboBox = new JComboBox();
         comboBox.setEditable(true);
-        comboBox.setModel(new DefaultComboBoxModel(new String[]{"snmp"}));
-        comboBox.setBounds(274, 179, 82, 20);
+        comboBox.setModel(new DefaultComboBoxModel(new String[]{}));
+        comboBox.setBounds(254, 179, 82, 20);
+        comboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = comboBox.getSelectedIndex();
+                if (index < 0) return;
+                onConnectionComboBoxChanged(index);
+            }
+        });
         add(comboBox);
 
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(149, 36, 261, 88);
+        scrollPane.setBounds(149, 36, 293, 88);
         add(scrollPane);
 
-        resourceParamsTable = new JTable();
+        JTable resourceParamsTable = new JTable();
         resourceParamsTableModel = new DefaultTableModel(
                 new Object[][]{}, new String[]{"Name", "Value"});
         resourceParamsTable.setModel(resourceParamsTableModel);
         scrollPane.setViewportView(resourceParamsTable);
 
         JScrollPane scrollPane_1 = new JScrollPane();
-        scrollPane_1.setBounds(148, 207, 267, 143);
+        scrollPane_1.setBounds(148, 207, 294, 143);
         add(scrollPane_1);
 
-        connectionParamsTable = new JTable();
+        JTable connectionParamsTable = new JTable();
         resourceConnectionParamsTableModel = new DefaultTableModel(
                 new Object[][]{}, new String[]{"Name", "Value"});
         connectionParamsTable.setModel(resourceConnectionParamsTableModel);
         connectionParamsTable.getColumnModel().getColumn(0).setPreferredWidth(90);
         scrollPane_1.setViewportView(connectionParamsTable);
 
-        final JTable resourcesTable = new JTable();
+        resourcesTable = new JTable();
 
         String[] columnNames = {"Resources"};
 
@@ -104,7 +115,6 @@ public class DiscoveryResourcePanel extends JPanel {
         resourcesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-//                int index = e.getLastIndex();
                 if (!e.getValueIsAdjusting()) {
                     int selectedRow = resourcesTable.getSelectedRow();
                     onSelectedResource(selectedRow);
@@ -114,13 +124,14 @@ public class DiscoveryResourcePanel extends JPanel {
         resourcesTableModel.addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
-                    if (e.getType() == TableModelEvent.INSERT){
-                        resources.getResource().add(e.getFirstRow(), new ResourceType());
-                    } else if (e.getType() == TableModelEvent.DELETE) {
-                        resources.getResource().remove(e.getFirstRow());
-                    } else {
-                        resources.getResource().get(e.getFirstRow()).setName((String) ((DefaultTableModel)e.getSource()).getValueAt(e.getFirstRow(),0));
-                    }
+                int index = e.getFirstRow();
+                if (e.getType() == TableModelEvent.INSERT){
+                    resources.getResource().add(index, new ResourceType());
+                } else if (e.getType() == TableModelEvent.DELETE) {
+                    resources.getResource().remove(index);
+                } else {
+                    resources.getResource().get(index).setName((String) ((DefaultTableModel)e.getSource()).getValueAt(index,0));
+                }
             }
         });
         JScrollPane scrollPane_2 = new JScrollPane();
@@ -159,6 +170,89 @@ public class DiscoveryResourcePanel extends JPanel {
         button_5.setBounds(204, 130, 46, 23);
         add(button_5);
 
+        JButton button_6 = new JButton("+");
+        button_6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                onAddConnection();
+            }
+        });
+        button_6.setBounds(346, 178, 46, 23);
+        add(button_6);
+
+        JButton btnNewButton = new JButton("-");
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                onRemoveConnection();
+            }
+        });
+        btnNewButton.setBounds(396, 178, 46, 23);
+        add(btnNewButton);
+
+    }
+
+    private void onAddConnection() {
+        ResourceType resource = getCurrentResource();
+        if (resource == null){
+            JOptionPane.showMessageDialog(this, "Can not insert new connection until resource is not selected","Error",JOptionPane.OK_OPTION);
+            return;
+        }
+        String newConnectionType = (String)comboBox.getSelectedItem();
+        if (newConnectionType == null || newConnectionType.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Can not insert empty connection","Error",JOptionPane.OK_OPTION);
+            return;
+        }
+        List<ConnectionParamsType> connParamList = resource.getConnectionParams();
+        boolean found = false;
+        for (ConnectionParamsType connectionParamsType : connParamList) {
+            if (newConnectionType.equals(connectionParamsType.getConnectionType())){
+                found = true;
+                break;
+            }
+        }
+        if (!found){
+            ConnectionParamsType newConnParamType = new ConnectionParamsType();
+            newConnParamType.setConnectionType(newConnectionType);
+            connParamList.add(newConnParamType);
+            mCurrentConnectionTypeIndex = connParamList.size()-1; // the last added
+            updateConnectionCombo();
+            updateConnectionParamsTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Can not insert duplicated connection. Already exists","Error",JOptionPane.OK_OPTION);
+        }
+    }
+    private void onRemoveConnection() {
+        ResourceType resource = getCurrentResource();
+        if (resource == null){
+            JOptionPane.showMessageDialog(this, "Can not remove a connection until resource is not selected","Error",JOptionPane.OK_OPTION);
+            return;
+        }
+        String newConnectionType = (String)comboBox.getSelectedItem();
+        if (newConnectionType == null || newConnectionType.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Can not insert empty connection","Error",JOptionPane.OK_OPTION);
+            return;
+        }
+        List<ConnectionParamsType> connParamList = resource.getConnectionParams();
+        ConnectionParamsType found = null;
+        for (ConnectionParamsType connectionParamsType : connParamList) {
+            if (newConnectionType.equals(connectionParamsType.getConnectionType())){
+                found = connectionParamsType;
+                break;
+            }
+        }
+        if (found != null){
+            connParamList.remove(found);
+            mCurrentConnectionTypeIndex = connParamList.size()-1; // the last added
+            updateConnectionCombo();
+            updateConnectionParamsTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Can find connection type for remove","Error",JOptionPane.OK_OPTION);
+        }
+    }
+
+    private void onConnectionComboBoxChanged(int index) {
+        updateCurrentConnectionParams();
+        mCurrentConnectionTypeIndex = index;
+        updateConnectionParamsTable();
     }
 
     public ResourcesType getResources() {
@@ -167,78 +261,96 @@ public class DiscoveryResourcePanel extends JPanel {
 
     public void setResources(ResourcesType resources) {
         this.resources = resources;
-        bindFrom(resources);
+        updateResourcesTable(resources);
     }
 
     private void onSelectedResource(int index) {
-        if (currentResourceIndex >= 0){
-            ResourceType currentResource = resources.getResource().get(currentResourceIndex);
-            bindTo(currentResource);
-        }
-        if (index >= 0){
-            ResourceType resource = resources.getResource().get(index);
-            bindFrom(resource);
+        updateCurrentResource();
+        currentResourceIndex = index;
+        mCurrentConnectionTypeIndex = 0;  // the zero is default
+        updateResourceTable();
+
+    }
+
+    private void updateResourceTable() {
+        updateResourceParamsTable();
+        updateConnectionCombo();
+        updateConnectionParamsTable();
+    }
+
+    private void updateResourceParamsTable() {
+        ResourceType resource = getCurrentResource();
+        if (resource != null){
+            List<ParamType> paramsList = resource.getParam();
+            Vector resourceParamsTableModelData = resourceParamsTableModel.getDataVector();
+            resourceParamsTableModelData.removeAllElements();
+            for (ParamType paramType : paramsList) {
+                Vector vec = new Vector();
+                vec.add(paramType.getName());
+                vec.add(paramType.getValue());
+                resourceParamsTableModelData.add(0,vec);
+            }
         } else {
             resourceParamsTableModel.getDataVector().removeAllElements();
+        }
+        resourceParamsTableModel.fireTableDataChanged();
+    }
+
+    private void updateConnectionCombo() {
+        ResourceType resource = getCurrentResource();
+        ActionListener[] listeners = comboBox.getActionListeners();
+        for (ActionListener listener : listeners) {
+            comboBox.removeActionListener(listener);
+        }
+        comboBox.removeAllItems();
+        if (resource != null) {
+            List<ConnectionParamsType> connectionList = resource.getConnectionParams();
+            for (ConnectionParamsType connectionParamsType : connectionList) {
+                comboBox.addItem(connectionParamsType.getConnectionType());
+            }
+            if (connectionList.size() > 0){
+                comboBox.setSelectedIndex(mCurrentConnectionTypeIndex);
+            }
+        }
+        for (ActionListener listener : listeners) {
+            comboBox.addActionListener(listener);
+        }
+    }
+
+    private ResourceType getCurrentResource() {
+        if (currentResourceIndex <0){
+            return null;
+        } else {
+            return resources.getResource().get(currentResourceIndex);
+        }
+    }
+
+
+    private void updateConnectionParamsTable() {
+        ResourceType resource = getCurrentResource();
+        if (resource != null) {
+            List<ConnectionParamsType> connectionList = resource.getConnectionParams();
+            if (connectionList.size() > 0){
+                ConnectionParamsType connectionParamList = connectionList.get(mCurrentConnectionTypeIndex);
+
+                Vector resourceConnectionParamsTableModelData = resourceConnectionParamsTableModel.getDataVector();
+                resourceConnectionParamsTableModelData.removeAllElements();
+                for (ParamType connectionParamsType : connectionParamList.getParam()) {
+                    Vector vec = new Vector();
+                    vec.add(connectionParamsType.getName());
+                    vec.add(connectionParamsType.getValue());
+                    resourceConnectionParamsTableModelData.add(0,vec);
+                }
+            } else {
+                resourceConnectionParamsTableModel.getDataVector().removeAllElements();
+            }
+        } else {
             resourceConnectionParamsTableModel.getDataVector().removeAllElements();
         }
-        currentResourceIndex = index;
-        resourceParamsTableModel.fireTableDataChanged();
         resourceConnectionParamsTableModel.fireTableDataChanged();
     }
 
-    private void bindFrom(ResourceType resource) {
-        List<ParamType> paramsList = resource.getParam();
-        Vector resourceParamsTableModelData = resourceParamsTableModel.getDataVector();
-        resourceParamsTableModelData.removeAllElements();
-        for (ParamType paramType : paramsList) {
-            Vector vec = new Vector();
-            vec.add(paramType.getName());
-            vec.add(paramType.getValue());
-            resourceParamsTableModelData.add(0,vec);
-        }
-
-        List<ConnectionParamsType> connectionList = resource.getConnectionParams();
-        if (connectionList.size() > 0) {
-            ConnectionParamsType connectionParamList = connectionList.get(0);
-            Vector resourceConnectionParamsTableModelData = resourceConnectionParamsTableModel.getDataVector();
-            resourceConnectionParamsTableModelData.removeAllElements();
-            for (ParamType connectionParamsType : connectionParamList.getParam()) {
-                Vector vec = new Vector();
-                vec.add(connectionParamsType.getName());
-                vec.add(connectionParamsType.getValue());
-                resourceConnectionParamsTableModelData.add(0,vec);
-            }
-        }
-    }
-    private void bindTo(ResourceType resource) {
-        List<ParamType> paramsList = resource.getParam();
-        paramsList.clear();
-        for (int i=0; i< resourceParamsTableModel.getDataVector().size(); i++) {
-            ParamType paramType = new ParamType();
-            Vector rows = (Vector) resourceParamsTableModel.getDataVector().get(i);
-            paramType.setName((String) rows.get(0));
-            paramType.setValue((String) rows.get(1));
-            paramsList.add(paramType);
-        }
-
-        List<ConnectionParamsType> connectionParamsList = resource.getConnectionParams();
-        if (connectionParamsList.size() > 0 ) {
-            ConnectionParamsType connectionParam = connectionParamsList.get(0);
-            List<ParamType> paramList = connectionParam.getParam();
-            paramList.clear();
-            for (int i=0; i< resourceConnectionParamsTableModel.getDataVector().size(); i++) {
-                ParamType paramType = new ParamType();
-                Vector rows = (Vector) resourceConnectionParamsTableModel.getDataVector().get(i);
-                paramType.setName((String) rows.get(0));
-                paramType.setValue((String) rows.get(1));
-                paramList.add(paramType);
-            }
-        }
-
-    }
-
-    public void bindFrom(ResourcesType resources) {
+    public void updateResourcesTable(ResourcesType resources) {
         List<ResourceType> resourcesList = resources.getResource();
         Vector resourcesTableModelData = resourcesTableModel.getDataVector();
         resourcesTableModelData.removeAllElements();
@@ -246,6 +358,45 @@ public class DiscoveryResourcePanel extends JPanel {
             Vector vec = new Vector();
             vec.add(resourceType.getName());
             resourcesTableModelData.add(0,vec);
+        }
+    }
+
+    private void updateCurrentResource() {
+        updateCurrentResourceParams();
+        updateCurrentConnectionParams();
+    }
+
+    private void updateCurrentConnectionParams() {
+        ResourceType resource = getCurrentResource();
+        if (resource != null){
+            List<ConnectionParamsType> connectionParamsList = resource.getConnectionParams();
+            if (connectionParamsList.size() > 0 ) {
+                ConnectionParamsType connectionParam = connectionParamsList.get(mCurrentConnectionTypeIndex);
+                List<ParamType> paramList = connectionParam.getParam();
+                paramList.clear();
+                for (int i=0; i< resourceConnectionParamsTableModel.getDataVector().size(); i++) {
+                    ParamType paramType = new ParamType();
+                    Vector rows = (Vector) resourceConnectionParamsTableModel.getDataVector().get(i);
+                    paramType.setName((String) rows.get(0));
+                    paramType.setValue((String) rows.get(1));
+                    paramList.add(0,paramType);
+                }
+            }
+        }
+    }
+
+    private void updateCurrentResourceParams() {
+        ResourceType resource = getCurrentResource();
+        if (resource != null){
+            List<ParamType> paramsList = resource.getParam();
+            paramsList.clear();
+            for (int i=0; i< resourceParamsTableModel.getDataVector().size(); i++) {
+                ParamType paramType = new ParamType();
+                Vector rows = (Vector) resourceParamsTableModel.getDataVector().get(i);
+                paramType.setName((String) rows.get(0));
+                paramType.setValue((String) rows.get(1));
+                paramsList.add(0,paramType);
+            }
         }
     }
 
