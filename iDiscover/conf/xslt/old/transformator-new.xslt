@@ -28,8 +28,8 @@
 	<xsl:param name="community"/>
 	<xsl:param name="community2"/>
 	<xsl:param name="hopsToInitial"/>
-	<xsl:include href="utils.xslt"/>
-	<xsl:include href="discovery-methods.xslt"/>
+	<xsl:include href="../utils.xslt"/>
+	<xsl:include href="../discovery-methods.xslt"/>
 	<xsl:variable name="comm" select="$community"/>
 	<xsl:variable name="comm2" select="$community2"/>
 	<xsl:variable name="deviceIPv4Address" select="$ipAddress"/>
