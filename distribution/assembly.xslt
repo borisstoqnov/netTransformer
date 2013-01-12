@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
@@ -20,16 +19,26 @@
 ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:exslt="http://exslt.org/common" extension-element-prefixes="exslt" xmlns:functx="http://www.functx.com">
-    <xsl:output method="text"  encoding="UTF-8"/>
 
+
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:template match="/">
-
-        <xsl:for-each select="//assembly/moduleSets/moduleSet/sources/fileSets/fileSet/outputDirectory/.">
+        <!--xsl:copy-of select="/assembly/moduleSets/."/-->
+        <xsl:for-each select="//assembly/moduleSets/moduleSet/sources/fileSets/fileSet/outputDirectory">
             <xsl:if test="contains(.,'conf')">
                 <xsl:copy-of select="."/><xsl:text>
 </xsl:text>
             </xsl:if>
         </xsl:for-each>
     </xsl:template>
+    <!--<xsl:template match="assembly">-->
+        <!--&lt;!&ndash;xsl:copy-of select="/assembly/moduleSets/."/&ndash;&gt;-->
+        <!--<xsl:for-each select="moduleSets/moduleSet/sources/fileSets/fileSet/outputDirectory/.">-->
+            <!--<xsl:if test="contains(.,'conf')">-->
+                <!--<xsl:copy-of select="."/><xsl:text>-->
+<!--</xsl:text>-->
+            <!--</xsl:if>-->
+        <!--</xsl:for-each>-->
+    <!--</xsl:template>-->
+
 </xsl:stylesheet>

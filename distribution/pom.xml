@@ -40,7 +40,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <finalName>itransformer</finalName>
+                            <finalName>iTransformer</finalName>
                             <filters>
                                     <filter>distribution/itransformer.properties</filter>
                             </filters>
@@ -67,12 +67,82 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--<plugin>-->
+                <!--<artifactId>maven-antrun-plugin</artifactId>-->
+                <!--<version>1.1</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>generate-sources</phase>-->
+                        <!--<configuration>-->
+                            <!--<tasks>-->
+
+                                <!--<target name="TransformAll">-->
+                                    <!--&lt;!&ndash; Transform all the files in the current directory &ndash;&gt;-->
+                                     <!--<xslt basedir="." destdir="." includes="**/*.ext.xml" style="student_html.xsl"/> </target>-->
+                            <!--</tasks>-->
+                        <!--</configuration>-->
+                        <!--<goals>-->
+                            <!--<goal>run</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>2.2</version>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <transformationSets>
+                        <transformationSet>
+                            <dir>${basedir}</dir>
+                            <includes>
+
+                                <include>itransformer.xml</include>
+
+                            </includes>
+                            <stylesheet>assembly.xslt</stylesheet>
+                            <outputProperties>
+                                <outputProperty>
+                                    <name>method</name>
+                                    <value>text</value>
+                                </outputProperty>
+                            </outputProperties>
+                            <outputDir>assembly</outputDir>
+                            <fileMappers>
+                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+                                    <targetExtension>.txt</targetExtension>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>
+                    </transformationSets>
+                </configuration>
+                <!--dependencies>
+                    <dependency>
+                        <groupId>net.sf.saxon</groupId>
+                        <artifactId>saxon</artifactId>
+                        <version>8.7</version>
+                    </dependency>
+                </dependencies-->
+            </plugin>
         </plugins>
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>/distribution/version-properties</directory>-->
+                <!--<filtering>true</filtering>-->
+            <!--</resource>-->
+        <!--</resources>-->
     </build>
 
 </project>
