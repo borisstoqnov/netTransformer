@@ -108,9 +108,8 @@
                         <transformationSet>
                             <dir>${basedir}</dir>
                             <includes>
-
                                 <include>itransformer.xml</include>
-
+                                <include>imap.xml</include>
                             </includes>
                             <stylesheet>assembly.xslt</stylesheet>
                             <outputProperties>
@@ -119,7 +118,7 @@
                                     <value>text</value>
                                 </outputProperty>
                             </outputProperties>
-                            <outputDir>assembly</outputDir>
+                            <outputDir>../</outputDir>
                             <fileMappers>
                                 <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
                                     <targetExtension>.txt</targetExtension>
@@ -128,13 +127,13 @@
                         </transformationSet>
                     </transformationSets>
                 </configuration>
-                <!--dependencies>
+                <dependencies>
                     <dependency>
                         <groupId>net.sf.saxon</groupId>
                         <artifactId>saxon</artifactId>
                         <version>8.7</version>
                     </dependency>
-                </dependencies-->
+                </dependencies>
             </plugin>
         </plugins>
         <!--<resources>-->
