@@ -1,0 +1,3 @@
+bin/iTopologyManager/rightClick/conf
+bin/iTopologyManager/topologyViewer/conf
+bin/iMap/conf

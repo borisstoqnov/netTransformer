@@ -1,0 +1,14 @@
+bin/iTopologyManager/rightClick/conf
+bin/iTopologyManager/topologyViewer/conf/xml
+bin/iTopologyManager/topologyViewer/conf/xsd
+bin/iTopologyManager/topologyViewer/conf/xslt
+bin/iTopologyManager/parameterFactory/conf/xml
+bin/iTopologyManager/parameterFactory/conf/xsd
+bin/iTopologyManager/fulfilmentFactory/conf/txt
+bin/iTopologyManager/fulfilmentFactory/conf/xml
+bin/iTopologyManager/fulfilmentFactory/conf/xslt
+bin/resourceManager/conf/xml
+bin/resourceManager/conf/xsd
+bin/iDiscover/conf/xml
+bin/iDiscover/conf/xsd
+bin/iDiscover/conf/xslt
