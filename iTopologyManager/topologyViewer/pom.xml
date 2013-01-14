@@ -19,6 +19,11 @@
             <version>0.1-SNAPSHOT</version><!--Change for new version-->
         </dependency>
         <dependency>
+            <groupId>iTransformers.iTransformer</groupId>
+            <artifactId>iDiscover</artifactId>
+            <version>0.1-SNAPSHOT</version><!--Change for new version-->
+        </dependency>
+        <dependency>
             <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
             <artifactId>rightClickAPI</artifactId>
             <version>0.1-SNAPSHOT</version><!--Change for new version-->
@@ -34,6 +39,12 @@
             <artifactId>utils</artifactId>
             <version>0.1-SNAPSHOT</version><!--Change for new version-->
         </dependency>
+        <dependency>
+            <groupId>iTransformers.iTransformer</groupId>
+            <artifactId>resourceManager</artifactId>
+            <version>0.1-SNAPSHOT</version><!--Change for new version-->
+        </dependency>
+
         <dependency>
             <groupId>net.sf.jung</groupId>
             <artifactId>jung-graph-impl</artifactId>

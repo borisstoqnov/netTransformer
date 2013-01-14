@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.idiscover.gui;
+package net.itransformers.topologyviewer.dialogs.discovery;
 
 import net.itransformers.idiscover.discoveryhelpers.xml.discoveryParameters.DeviceType;
 import net.itransformers.idiscover.discoveryhelpers.xml.discoveryParameters.DiscoveryHelperType;
@@ -28,8 +28,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.bind.JAXBException;
 import java.awt.*;

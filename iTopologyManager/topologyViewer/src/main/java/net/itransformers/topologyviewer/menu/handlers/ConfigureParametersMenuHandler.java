@@ -20,6 +20,8 @@
 package net.itransformers.topologyviewer.menu.handlers;
 
 import net.itransformers.topologyviewer.dialogs.NewProjectDialog;
+import net.itransformers.topologyviewer.dialogs.discovery.DiscoveryParametersDialog;
+import net.itransformers.topologyviewer.dialogs.discovery.DiscoveryResourceDialog;
 import net.itransformers.topologyviewer.gui.TopologyViewer;
 import net.itransformers.utils.RecursiveCopy;
 
@@ -31,7 +33,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.util.Scanner;
 
 /**
@@ -40,51 +41,20 @@ import java.util.Scanner;
  * Time: 23:30
  * To change this template use File | Settings | File Templates.
  */
-public class NewProjectMenuHandler implements ActionListener {
+public class ConfigureParametersMenuHandler implements ActionListener {
 
     private TopologyViewer frame;
 
-    public NewProjectMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public ConfigureParametersMenuHandler(TopologyViewer frame) throws HeadlessException {
 
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        NewProjectDialog dialog = new NewProjectDialog(frame);
+        DiscoveryParametersDialog dialog = new DiscoveryParametersDialog(frame);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
-
-        File file = new File("itransformer.txt");
-        Scanner s = null;
-        try {
-            try {
-                s = new Scanner(file);
-            } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
-                JOptionPane.showMessageDialog(this.frame, "Can not find file:"+file.getAbsolutePath());
-                return;
-            }
-            while (s.hasNextLine()) {
-                String text = s.nextLine();
-                if (text.startsWith("#") || text.trim().equals("")) continue;
-                try {
-                    File srcDir = new File(text);
-                    File destDir = new File(dialog.getProjectDir(), text).getParentFile();
-                    destDir.mkdirs();
-                    RecursiveCopy.copyDir(srcDir, destDir);
-                } catch (IOException e1) {
-                    JOptionPane.showMessageDialog(frame, "Unable to create project the reason is:" + e1.getMessage());
-                    e1.printStackTrace();
-                }
-            }
-            frame.setPath(dialog.getProjectDir().toURI().toURL());
-        } catch (MalformedURLException e1) {
-            e1.printStackTrace();
-        } finally {
-            if (s != null) s.close();
-        }
-
     }
 
 

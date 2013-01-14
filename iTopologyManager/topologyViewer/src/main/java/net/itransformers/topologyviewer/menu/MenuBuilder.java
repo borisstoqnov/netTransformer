@@ -19,6 +19,7 @@
 
 package net.itransformers.topologyviewer.menu;
 
+import net.itransformers.topologyviewer.menu.handlers.StartDiscoveryMenuHandler;
 import net.itransformers.topologyviewer.gui.TopologyViewer;
 import net.itransformers.topologyviewer.menu.handlers.*;
 
@@ -47,6 +48,7 @@ public class MenuBuilder {
 
 
         final JMenu file = new JMenu("File");
+        final JMenu discovery = new JMenu("Discovery");
         final JMenu search = new JMenu("Node Search");
         final JMenu shorestpath = new JMenu("Path Preview");
         final JMenu tabs = new JMenu("Tabs");
@@ -54,6 +56,7 @@ public class MenuBuilder {
         final JMenu capture = new JMenu("Capture");
 
         menuBar.add(file);
+        menuBar.add(discovery);
         menuBar.add(tabs);
         menuBar.add(search);
         menuBar.add(shorestpath);
@@ -89,6 +92,17 @@ public class MenuBuilder {
         final JMenuItem exit = new JMenuItem("Exit");
         exit.addActionListener(new ExitMenuHandler(frame));
         file.add(exit);
+
+        final JMenuItem startDiscovery = new JMenuItem("Start Discovery");
+        startDiscovery.addActionListener(new StartDiscoveryMenuHandler(frame));
+        discovery.add(startDiscovery);
+        final JMenuItem configureResource = new JMenuItem("Configure Resource");
+        configureResource.addActionListener(new ConfigureResourceMenuHandler(frame));
+        discovery.add(configureResource);
+        final JMenuItem configureParameters = new JMenuItem("Configure Parameters");
+        configureParameters.addActionListener(new ConfigureParametersMenuHandler(frame));
+        discovery.add(configureParameters);
+
         final JMenuItem ShortestPath = new JMenuItem("ShortestPath");
         ShortestPath.addActionListener(new ShortestPathMenuHandler(frame));
         shorestpath.add(ShortestPath);

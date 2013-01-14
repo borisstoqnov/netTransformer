@@ -37,5 +37,5 @@ import java.util.Map;
         public Map<String, Map<String, GraphMLMetadata<String>>> getVertexMetadatas();
         public Map<String, Map<String, GraphMLMetadata<String>>> getEdgeMetadatas();
         public Map<String, Map<String, GraphMLMetadata<G>>> getGraphMetadatas();
-        public void addGraphLoaderListener(GraphLoaderListener listener);
+//        public void addGraphLoaderListener(GraphLoaderListener listener);
     }

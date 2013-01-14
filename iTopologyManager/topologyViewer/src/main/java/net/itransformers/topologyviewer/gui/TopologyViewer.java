@@ -165,14 +165,14 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
         edgeStrokeMapLoader = new EdgeStrokeMapLoader(viewerConfig);
         edgeColorMapLoader = new EdgeColorMapLoader(viewerConfig);
         neo4jLoader = new Neo4jLoader<G>(entireGraph,factory,"http://localhost:7474/db/data/");
-        String NetworkId=neo4jLoader.getLatestNetwork();
+//        String NetworkId=neo4jLoader.getLatestNetwork();
 
-        try {
-            neo4jLoader.getVertexes(NetworkId);
-            neo4jLoader.getNeighbourVertexes(NetworkId);
-        } catch (ParseException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+//        try {
+//            neo4jLoader.getVertexes(NetworkId);
+//            neo4jLoader.getNeighbourVertexes(NetworkId);
+//        } catch (ParseException e) {
+//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//        }
 
         graphmlLoader = new GraphmlLoader<G>(viewerConfig, entireGraph, factory,neo4jLoader.getVertexMetadatas());
         graphmlLoader.addGraphmlLoaderListener(iconMapLoader);
