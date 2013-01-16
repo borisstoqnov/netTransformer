@@ -21,6 +21,7 @@ package net.itransformers.topologyviewer.dialogs.discovery;
 
 import net.itransformers.resourcemanager.config.ResourcesType;
 import net.itransformers.topologyviewer.gui.TopologyViewer;
+import net.itransformers.topologyviewer.help.HelpOpener;
 import net.itransformers.utils.JaxbMarshalar;
 
 import javax.swing.*;
@@ -92,6 +93,16 @@ public class DiscoveryResourceDialog extends JDialog {
                 });
                 buttonPane.add(cancelButton);
 			}
+			{
+				JButton helpButton = new JButton("?");
+                helpButton.setActionCommand("Cancel");
+                helpButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        HelpOpener.showHelp(frame,"net/itransformers/topologyviewer/dialogs/discovery/DiscoveryResourceDialog.html");
+                    }
+                });
+                buttonPane.add(helpButton);
+			}
 		}
 
 	}
@@ -107,7 +118,8 @@ public class DiscoveryResourceDialog extends JDialog {
         FileOutputStream os = null;
         File file;
         try {
-            file = new File(new File(frame.getPath().toURI()), "iDiscover/conf/xml/discoveryResource.xml");
+            File path = getPath();
+            file = new File(path, "iDiscover/conf/xml/discoveryResource.xml");
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return;
@@ -127,11 +139,18 @@ public class DiscoveryResourceDialog extends JDialog {
         }
     }
 
+    private File getPath() throws URISyntaxException {
+        if (frame == null) {
+            return null;
+        }
+        return new File(frame.getPath().toURI());
+    }
+
     private ResourcesType loadResource(){
         FileInputStream is = null;
         File file;
         try {
-            file = new File(new File(frame.getPath().toURI()), "iDiscover/conf/xml/discoveryResource.xml");
+            file = new File(getPath(), "iDiscover/conf/xml/discoveryResource.xml");
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return null;
