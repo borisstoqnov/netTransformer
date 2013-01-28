@@ -54,7 +54,7 @@ public class DiscoveryManager {
     private List<DiscoveryListener> listeners = new ArrayList<DiscoveryListener>();
     private ResourceManager resourceManager;
     private DiscovererFactory discovererFactory;
-    private DiscoveryResourceManager DiscoveryResource;
+    public DiscoveryResourceManager discoveryResource;
     private boolean isRunning;
     private boolean isPaused;
     private boolean isStopped;
@@ -63,7 +63,7 @@ public class DiscoveryManager {
         this.resourceManager = resourceManager;
         this.discovererFactory = discovererFactory;
         this.discoveryHelperFactory = discoveryHelperFactory;
-        this.DiscoveryResource= new DiscoveryResourceManager("iDiscover/conf/xml/discoveryResource.xml");
+        this.discoveryResource = new DiscoveryResourceManager("iDiscover/conf/xml/discoveryResource.xml");
     }
 
     public NetworkType discoverNetwork(Resource resource, String mode, String[] discoveryTypes) throws Exception {
@@ -169,20 +169,20 @@ public class DiscoveryManager {
         isPaused = false;
         notifyAll();
     }
-    public void stop(){
+    public synchronized void stop(){
         isStopped = true;
         isRunning = false;
     }
 
-    public boolean isStopped(){
+    public synchronized boolean isStopped(){
         return isStopped;
     }
 
-    public boolean isPaused(){
+    public synchronized boolean isPaused(){
         return isPaused;
     }
 
-    public boolean isRunning() {
+    public synchronized boolean isRunning() {
         return isRunning;
     }
 
@@ -231,9 +231,9 @@ public class DiscoveryManager {
                 params.put("DeviceName",hostName);
                 params.put("DeviceType",deviceType);
                 params.put("protocol","SNMP");
-                ResourceType SNMP = this.DiscoveryResource.ReturnResourceByParam(params);
+                ResourceType SNMP = this.discoveryResource.ReturnResourceByParam(params);
                 Map<String, String> SNMPconnParams = new HashMap<String, String>();
-                SNMPconnParams = this.DiscoveryResource.getParamMap(SNMP);
+                SNMPconnParams = this.discoveryResource.getParamMap(SNMP);
 
 
                 Resource resource = new Resource(hostName,ipAddress,deviceType, Integer.parseInt(SNMPconnParams.get("port")), SNMPconnParams);
@@ -272,7 +272,7 @@ public class DiscoveryManager {
         if (fileName == null) {
             printUsage("fileName"); return;
         }
-        DiscoveryManager manager = createDiscoveryManager(fileName);
+        DiscoveryManager manager = createDiscoveryManager(new File(fileName));
 
         String mode = params.get("-d");
         if (mode == null){
@@ -282,19 +282,19 @@ public class DiscoveryManager {
 
         Map<String,String> resourceSelectionParams = new HashMap<String, String>();
         resourceSelectionParams.put("protocol","SNMP");
-        ResourceType SNMP = manager.DiscoveryResource.ReturnResourceByParam(resourceSelectionParams);
+        ResourceType snmp = manager.discoveryResource.ReturnResourceByParam(resourceSelectionParams);
 
-        Map<String, String> SNMPconnParams = new HashMap<String, String>();
-        SNMPconnParams = manager.DiscoveryResource.getParamMap(SNMP);
+        Map<String, String> snmpConnParams = new HashMap<String, String>();
+        snmpConnParams = manager.discoveryResource.getParamMap(snmp);
 
         String host = params.get("-h");
         IPv4Address initialIPaddress= new IPv4Address(host,null);
-        SNMPconnParams.put("status","initial");
+        snmpConnParams.put("status", "initial");
         String mibDir = params.get("-m");
-        SNMPconnParams.put("mibDir", mibDir);
+        snmpConnParams.put("mibDir", mibDir);
 
-       SNMPconnParams.get("port");
-       Resource resource = new Resource(initialIPaddress,null, Integer.parseInt(SNMPconnParams.get("port")), SNMPconnParams);
+       snmpConnParams.get("port");
+       Resource resource = new Resource(initialIPaddress,null, Integer.parseInt(snmpConnParams.get("port")), snmpConnParams);
 
 
         if (resource == null) ;
@@ -308,9 +308,9 @@ public class DiscoveryManager {
         
     }
 
-    public static DiscoveryManager createDiscoveryManager(String fileName) throws JAXBException, IOException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    public static DiscoveryManager createDiscoveryManager(File file) throws JAXBException, IOException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         DiscoveryManagerType discoveryManagerType;
-        FileInputStream is = new FileInputStream(fileName);
+        FileInputStream is = new FileInputStream(file);
         try {
             discoveryManagerType = JaxbMarshalar.unmarshal(DiscoveryManagerType.class, is);
         } finally {

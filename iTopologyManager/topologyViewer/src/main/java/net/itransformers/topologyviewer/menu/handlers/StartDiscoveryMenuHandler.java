@@ -20,8 +20,8 @@
 package net.itransformers.topologyviewer.menu.handlers;
 
 import net.itransformers.topologyviewer.dialogs.NewProjectDialog;
+import net.itransformers.topologyviewer.dialogs.discovery.DiscoveryManagerDialog;
 import net.itransformers.topologyviewer.dialogs.discovery.DiscoveryResourceDialog;
-import net.itransformers.topologyviewer.dialogs.discovery.StartDiscoveryDialog;
 import net.itransformers.topologyviewer.gui.TopologyViewer;
 import net.itransformers.utils.RecursiveCopy;
 
@@ -52,7 +52,7 @@ public class StartDiscoveryMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        StartDiscoveryDialog dialog = new StartDiscoveryDialog(frame);
+        DiscoveryManagerDialog dialog = new DiscoveryManagerDialog(frame);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
 
