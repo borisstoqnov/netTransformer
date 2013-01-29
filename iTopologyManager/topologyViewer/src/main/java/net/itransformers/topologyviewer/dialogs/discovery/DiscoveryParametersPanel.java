@@ -230,6 +230,8 @@ public class DiscoveryParametersPanel extends JPanel {
     }
 
     public DiscoveryHelperType getDiscoveryHelperType() {
+        updateCurrentDiscoveryMethod();
+        updateCurrentOids();
         return discoveryHelperType;
     }
 

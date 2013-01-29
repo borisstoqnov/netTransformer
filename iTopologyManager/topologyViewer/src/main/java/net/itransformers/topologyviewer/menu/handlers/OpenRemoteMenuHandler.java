@@ -45,32 +45,33 @@ public class OpenRemoteMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String remoteURL = JOptionPane.showInputDialog(frame,"Enter Remote Address","Open Remote Address", JOptionPane.QUESTION_MESSAGE);
-        if (remoteURL != null && !remoteURL.trim().equals("")) {
-            System.out.println(remoteURL);
-            try {
-                remoteURL = remoteURL.trim();
-                if (remoteURL.endsWith("/")) {
-                    remoteURL = remoteURL.substring(0,remoteURL.length()-1);
-                }
-                int slashIndex = remoteURL.lastIndexOf("/");
-                URL path = new URL(remoteURL.substring(0,slashIndex+1));
-                frame.setPath(path);
-                String graphmlRelDir = remoteURL.substring(slashIndex+1);
-                frame.setGraphmlRelDir(graphmlRelDir);
-            } catch (MalformedURLException e1) {
-                e1.printStackTrace();
-                JOptionPane.showMessageDialog(frame, "Can not create view. Error: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            try {
-                frame.init();
-            } catch (Exception e1) {
-                e1.printStackTrace();
-                JOptionPane.showMessageDialog(frame, "Can not create view. Error: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            frame.createAndAddViewerPanel();
-        }
+        // TODO obsolete code. remove it
+//        String remoteURL = JOptionPane.showInputDialog(frame,"Enter Remote Address","Open Remote Address", JOptionPane.QUESTION_MESSAGE);
+//        if (remoteURL != null && !remoteURL.trim().equals("")) {
+//            System.out.println(remoteURL);
+//            try {
+//                remoteURL = remoteURL.trim();
+//                if (remoteURL.endsWith("/")) {
+//                    remoteURL = remoteURL.substring(0,remoteURL.length()-1);
+//                }
+//                int slashIndex = remoteURL.lastIndexOf("/");
+//                File path = new URL(remoteURL.substring(0,slashIndex+1));
+//                frame.setPath(path);
+//                String graphmlRelDir = remoteURL.substring(slashIndex+1);
+//                frame.setGraphmlRelDir(graphmlRelDir);
+//            } catch (MalformedURLException e1) {
+//                e1.printStackTrace();
+//                JOptionPane.showMessageDialog(frame, "Can not create view. Error: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
+//            try {
+//                frame.init();
+//            } catch (Exception e1) {
+//                e1.printStackTrace();
+//                JOptionPane.showMessageDialog(frame, "Can not create view. Error: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
+//            frame.createAndAddViewerPanel();
+//        }
     }
 }

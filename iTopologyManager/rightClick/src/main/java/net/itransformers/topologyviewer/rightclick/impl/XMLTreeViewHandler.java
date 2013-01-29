@@ -22,6 +22,7 @@ package net.itransformers.topologyviewer.rightclick.impl;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 
 import javax.swing.*;
+import java.io.File;
 import java.net.URL;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public class XMLTreeViewHandler implements RightClickHandler {
      public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
-                                     URL deviceDataXmlFileName) throws Exception {
+                                     File deviceDataXmlFileName) throws Exception {
 
 //      JOptionPane.showMessageDialog(parent, "deviceDataXmlFileName: " + deviceDataXmlFileName );
 

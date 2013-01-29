@@ -18,10 +18,8 @@
  */
 
 package net.itransformers.topologyviewer.dialogs.discovery;
-import net.itransformers.idiscover.core.DiscoveryManager;
-import net.itransformers.idiscover.core.DiscoveryManagerThread;
-import net.itransformers.idiscover.core.IPv4Address;
-import net.itransformers.idiscover.core.Resource;
+import net.itransformers.idiscover.core.*;
+import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.topologyviewer.gui.TopologyViewer;
 import org.apache.log4j.Appender;
@@ -44,6 +42,8 @@ import java.util.Map;
 
 
 public class DiscoveryManagerDialog extends JDialog {
+    static Logger logger = Logger.getLogger(DiscoveryManagerDialog.class);
+    public static final String DISCOVERED_DEVICES = "Discovered Devices:";
     private JTextField addressTextField;
     private JFrame frame;
     private File projectDir;
@@ -51,6 +51,9 @@ public class DiscoveryManagerDialog extends JDialog {
     private DiscoveryManagerThread managerThread;
     private JTextArea loggerConsole;
     final JButton pauseResumeButton = new JButton("Pause");
+    private int discoveredDevices;
+    private JLabel lblDiscoveredDevices;
+
     /**
      * Launch the application.
      */
@@ -88,7 +91,7 @@ public class DiscoveryManagerDialog extends JDialog {
                     panel.setLayout(null);
                     {
                         modeComboBox = new JComboBox();
-                        modeComboBox.setModel(new DefaultComboBoxModel(new String[]{"Network", "Node"}));
+                        modeComboBox.setModel(new DefaultComboBoxModel(new String[]{"network", "node"}));
                         modeComboBox.setBounds(46, 11, 76, 20);
                         panel.add(modeComboBox);
                     }
@@ -171,7 +174,7 @@ public class DiscoveryManagerDialog extends JDialog {
                 statusPanel.add(panel);
                 panel.setLayout(new BorderLayout(0, 0));
                 {
-                    JLabel lblDiscoveredDevices = new JLabel("Discovered Devices:");
+                    lblDiscoveredDevices = new JLabel(DISCOVERED_DEVICES);
                     panel.add(lblDiscoveredDevices, BorderLayout.WEST);
                 }
             }
@@ -208,15 +211,7 @@ public class DiscoveryManagerDialog extends JDialog {
     }
 
     private static File getProjPath(TopologyViewer viewer){
-        URL projectURL = viewer.getPath();
-        File projectDir = null;
-        try {
-            projectDir = new File(projectURL.toURI().toString());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            JOptionPane.showConfirmDialog(viewer,"Cannot start discovery. See error log for more info");
-            return null;
-        }
+        File projectDir = viewer.getPath();
         return projectDir;
     }
     private void onStopDiscovery() {
@@ -228,14 +223,26 @@ public class DiscoveryManagerDialog extends JDialog {
         try {
             manager = DiscoveryManager.createDiscoveryManager(new File(projectDir, "iDiscover/conf/xml/discoveryManager.xml"));
         } catch (Exception e) {
-            JOptionPane.showConfirmDialog(frame, "Cannot start discovery. See error log for more info");
+            JOptionPane.showMessageDialog(frame, "Cannot start discovery. See error log for more info");
+            e.printStackTrace();
             return;
         }
+        // TODO remove hardcoded discovery parameter groups
         String[] discoveryTypes = new String[]{"PHYSICAL","NEXT_HOP","OSPF","ISIS","BGP","RIP","ADDITIONAL","IPV6"};
+
         Map<String,String> resourceSelectionParams = new HashMap<String, String>();
         resourceSelectionParams.put("protocol","SNMP");
         ResourceType snmp = manager.discoveryResource.ReturnResourceByParam(resourceSelectionParams);
+        discoveredDevices = 0;
+        lblDiscoveredDevices.setText(DISCOVERED_DEVICES+discoveredDevices);
+        manager.addDiscoveryManagerListener(new DiscoveryListener() {
+            @Override
+            public void handleDevice(String deviceName, RawDeviceData rawData, DiscoveredDeviceData discoveredDeviceData, Resource resource) {
+                discoveredDevices++;
+                lblDiscoveredDevices.setText(DISCOVERED_DEVICES+discoveredDevices);
 
+            }
+        });
         Map<String, String> snmpConnParams = new HashMap<String, String>();
         snmpConnParams = manager.discoveryResource.getParamMap(snmp);
 

@@ -37,15 +37,15 @@ public class TopologyViewerApplet extends JApplet {
      * for opening and closing an instance of ParticleFrame.
      **/
     public void init () {
-
-        try {
-            URL dirname = new URL("http://localhost:8081/bg_peering/");
-            String deviceXmlPath = "undirected";
-            URL viewerConfig = new URL("http://localhost:8081/bg_peering/inet-map-conf.xml");
-            fFrame = new TopologyViewer<UndirectedGraph<String, String>>(dirname, deviceXmlPath, UndirectedSparseGraph.<String, String>getFactory(), viewerConfig,null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // TODO
+//        try {
+//            URL dirname = new URL("http://localhost:8081/bg_peering/");
+//            String deviceXmlPath = "undirected";
+//            URL viewerConfig = new URL("http://localhost:8081/bg_peering/inet-map-conf.xml");
+//            fFrame = new TopologyViewer<UndirectedGraph<String, String>>(dirname, deviceXmlPath, UndirectedSparseGraph.<String, String>getFactory(), viewerConfig,null);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     } // init
 

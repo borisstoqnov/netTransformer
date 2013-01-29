@@ -116,12 +116,7 @@ public class DiscoveryParametersDialog extends JDialog {
     private void storeDiscoveryParameters(DiscoveryHelperType discoveryHelperType) {
         FileOutputStream os = null;
         File file;
-        try {
-            file = new File(new File(frame.getPath().toURI()), "iDiscover/conf/xml/discoveryParameters.xml");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return;
-        }
+            file = new File(frame.getPath(), "iDiscover/conf/xml/discoveryParameters.xml");
         try {
             os = new FileOutputStream(file);
             JaxbMarshalar.marshal(discoveryHelperType, os,"discovery-helper");
@@ -141,12 +136,7 @@ public class DiscoveryParametersDialog extends JDialog {
     private DiscoveryHelperType loadDiscoveryParameters(){
         FileInputStream is = null;
         File file;
-        try {
-            file = new File(new File(frame.getPath().toURI()), "iDiscover/conf/xml/discoveryParameters.xml");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return null;
-        }
+        file = new File(frame.getPath(), "iDiscover/conf/xml/discoveryParameters.xml");
         try {
             is = new FileInputStream(file);
 

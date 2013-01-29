@@ -116,14 +116,8 @@ public class DiscoveryResourceDialog extends JDialog {
 
     private void storeResource(ResourcesType resource) {
         FileOutputStream os = null;
-        File file;
-        try {
-            File path = getPath();
-            file = new File(path, "iDiscover/conf/xml/discoveryResource.xml");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return;
-        }
+        File path = getPath();
+        File file = new File(path, "iDiscover/conf/xml/discoveryResource.xml");
         try {
             os = new FileOutputStream(file);
             JaxbMarshalar.marshal(resource, os,"resources");
@@ -139,22 +133,17 @@ public class DiscoveryResourceDialog extends JDialog {
         }
     }
 
-    private File getPath() throws URISyntaxException {
+    private File getPath()  {
         if (frame == null) {
             return null;
         }
-        return new File(frame.getPath().toURI());
+        return frame.getPath();
     }
 
     private ResourcesType loadResource(){
         FileInputStream is = null;
         File file;
-        try {
-            file = new File(getPath(), "iDiscover/conf/xml/discoveryResource.xml");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return null;
-        }
+        file = new File(getPath(), "iDiscover/conf/xml/discoveryResource.xml");
         try {
             is = new FileInputStream(file);
 

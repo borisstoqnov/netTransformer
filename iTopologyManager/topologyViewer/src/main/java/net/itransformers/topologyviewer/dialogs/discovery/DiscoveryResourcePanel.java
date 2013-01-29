@@ -256,6 +256,7 @@ public class DiscoveryResourcePanel extends JPanel {
     }
 
     public ResourcesType getResources() {
+        updateCurrentResource();
         return resources;
     }
 

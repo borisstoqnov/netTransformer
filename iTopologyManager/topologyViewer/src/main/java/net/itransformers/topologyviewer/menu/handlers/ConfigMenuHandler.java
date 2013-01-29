@@ -58,33 +58,21 @@ public class ConfigMenuHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser chooser = null;
-        try {
-            URL configURL = frame.getConfigURI();
-            File configFilePath = null;
-            if (configURL != null) {
-                configFilePath = new File(configURL.toURI()).getParentFile();
-            }
-            chooser = new JFileChooser(configFilePath);
-        } catch (URISyntaxException e1) {
-            e1.printStackTrace();
+        File configURL = frame.getConfigURI();
+        File configFilePath = null;
+        if (configURL != null) {
+            configFilePath = configURL.getParentFile();
         }
+        chooser = new JFileChooser(configFilePath);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.setMultiSelectionEnabled(false);
         chooser.setFileFilter(new XmlFileFilter());
         int result = chooser.showOpenDialog(frame);
         if (result == JFileChooser.APPROVE_OPTION){
 
-            try {
-                URL configURI = chooser.getSelectedFile().toURI().toURL();
-                frame.setConfigUri(configURI);
-            } catch (MalformedURLException e1) {
-                e1.printStackTrace();
-            }
-            try {
-                frame.getPreferences().setProperty(PreferencesKeys.CONFIG_FILE_NAME.name(), frame.getConfigURI().toURI().toString());
-            } catch (URISyntaxException e1) {
-                e1.printStackTrace();
-            }
+            File configURI = chooser.getSelectedFile();
+            frame.setConfigUri(configURI);
+            frame.getPreferences().setProperty(PreferencesKeys.CONFIG_FILE_NAME.name(), frame.getConfigURI().toString());
             try {
                 frame.getPreferences().store(new FileOutputStream(TopologyViewer.VIEWER_PREFERENCES_PROPERTIES),"");
             } catch (IOException e1) {

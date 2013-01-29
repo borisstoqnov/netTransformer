@@ -18,6 +18,7 @@ package net.itransformers.topologyviewer.rightclick;/*
  */
 
 import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
@@ -25,5 +26,5 @@ import java.util.Map;
 public interface RightClickHandler {
     <G> void handleRightClick(JFrame parent, String v, Map<String, String> graphMLParams,
                               Map<String, String> rightClickParams,
-                              URL s) throws Exception, IOException, ClassNotFoundException, IllegalAccessException, InstantiationException;
+                              File s) throws Exception, IOException, ClassNotFoundException, IllegalAccessException, InstantiationException;
 }

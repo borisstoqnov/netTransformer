@@ -64,7 +64,7 @@ public class NewProjectDialog extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JLabel label = new JLabel("Project Name:");
-			label.setBounds(10, 14, 78, 14);
+			label.setBounds(10, 14, 88, 14);
 			contentPanel.add(label);
 		}
 		{
@@ -80,6 +80,7 @@ public class NewProjectDialog extends JDialog {
 		}
 		{
 			baseFilePathTextField = new JTextField();
+            baseFilePathTextField.setText(frame.getPath().getAbsolutePath());
 			baseFilePathTextField.setColumns(10);
 			baseFilePathTextField.setBounds(108, 44, 277, 20);
 			contentPanel.add(baseFilePathTextField);
@@ -90,14 +91,7 @@ public class NewProjectDialog extends JDialog {
 				public void actionPerformed(ActionEvent arg0) {
                     File dir = new File(".");
                     if (frame.getPath() != null){
-                        if (frame.getPath().getProtocol().equals("file")) {
-                            try {
-                                dir = new File(frame.getPath().toURI());
-                            } catch (URISyntaxException e1) {
-                                e1.printStackTrace();
-                                JOptionPane.showMessageDialog(frame, "Invalid uri for path: " + frame.getPath(), "Error", JOptionPane.ERROR_MESSAGE);
-                            }
-                        }
+                            dir = new File(frame.getPath().toURI());
                     }
                     JFileChooser chooser = new JFileChooser(dir);
                     chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -172,5 +166,9 @@ public class NewProjectDialog extends JDialog {
 
     public File getProjectDir() {
         return projectDir;
+    }
+
+    public boolean isOkPressed() {
+        return isOkPressed;
     }
 }

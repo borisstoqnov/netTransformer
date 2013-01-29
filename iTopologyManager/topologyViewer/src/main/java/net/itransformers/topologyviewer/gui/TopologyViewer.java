@@ -58,10 +58,10 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
     private TopologyViewerConfType viewerConfig;
     private GraphmlLoader<G> graphmlLoader;
     private Neo4jLoader<G> neo4jLoader;
-    private URL path;
+    private File path;
     private String initialNode;
     private String graphmlRelDir;
-    private URL configURI;
+    private File configURI;
     private IconMapLoader iconMapLoader;
     private EdgeStrokeMapLoader edgeStrokeMapLoader;
     private EdgeColorMapLoader edgeColorMapLoader;
@@ -99,7 +99,7 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
      * @throws java.io.IOException
      *
      */
-    public TopologyViewer(final URL path, String graphmlRelDir, Factory<G> factory, URL configFileURI, String initialNode) throws Exception {
+    public TopologyViewer(final File path, String graphmlRelDir, Factory<G> factory, File configFileURI, String initialNode) throws Exception {
         super("iTopoManager");
         File prefsFile = new File(VIEWER_PREFERENCES_PROPERTIES);
         try {
@@ -121,7 +121,7 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
         if (this.path == null) { // if path is null try to load from preferences
             final String pref_path = preferences.getProperty(PreferencesKeys.PATH.name());
             if (pref_path != null){
-                this.path = new URL(pref_path);
+                this.path = new File(pref_path);
             }
         }
         if (this.graphmlRelDir == null){ // if graphmlRelDir is null try to load from preferences
@@ -132,7 +132,7 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
             if (fName == null) { // use default
                 fName = new File("iTopologyManager/topologyViewer/conf/xml/undirected.xml").toURI().toString();
             }
-            this.configURI = new URL(fName);
+            this.configURI = new File(fName);
         }
         init();
 
@@ -141,11 +141,11 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
         }
     }
 
-    public URL getPath() {
+    public File getPath() {
         return path;
     }
 
-    public void setPath(URL path) {
+    public void setPath(File path) {
         this.path = path;
     }
 
@@ -178,7 +178,7 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
         graphmlLoader.addGraphmlLoaderListener(iconMapLoader);
         graphmlLoader.addGraphmlLoaderListener(edgeStrokeMapLoader);
         graphmlLoader.addGraphmlLoaderListener(edgeColorMapLoader);
-        graphmlLoader.loadGraphml(new URL(path,graphmlRelDir+"/"));
+        graphmlLoader.loadGraphml(new File(path,graphmlRelDir+"/"));
     }
 
     private void createFrame(){
@@ -212,16 +212,9 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
     }
 
     public void doOpen(File selectedFile) {
-        try {
-            URL path = selectedFile.getParentFile().toURI().toURL();
-            this.setPath(path);
-            String graphmlRelDir = selectedFile.getName();
-            this.setGraphmlRelDir(graphmlRelDir);
-        } catch (MalformedURLException e1) {
-            e1.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Can not create view. Error: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        this.setPath(selectedFile);
+        String graphmlRelDir = selectedFile.getName();
+        this.setGraphmlRelDir(graphmlRelDir);
         this.getPreferences().setProperty(PreferencesKeys.PATH.name(), this.getPath().toString());
         this.getPreferences().setProperty(PreferencesKeys.GRAPHML_REL_DIR.name(),this.getGraphmlRelDir());
         try {
@@ -240,11 +233,11 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
         this.createAndAddViewerPanel();
     }
 
-    public URL getConfigURI() {
+    public File getConfigURI() {
         return configURI;
     }
 
-    public void setConfigUri(URL configURI) {
+    public void setConfigUri(File configURI) {
         this.configURI = configURI;
     }
 

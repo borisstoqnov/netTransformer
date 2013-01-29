@@ -22,12 +22,13 @@ package net.itransformers.topologyviewer.rightclick.impl.discoveryinvoker;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 
 import javax.swing.*;
+import java.io.File;
 import java.net.URL;
 import java.util.Map;
 
 public class DiscoveryInvokerHandler implements RightClickHandler{
     @Override
-    public <G> void handleRightClick(JFrame parent, String v, Map<String, String> graphMLParams, Map<String, String> rightClickParams, URL s) throws Exception{
+    public <G> void handleRightClick(JFrame parent, String v, Map<String, String> graphMLParams, Map<String, String> rightClickParams, File s) throws Exception{
         System.out.println("DiscoveryInvokerHandler: v=" +v);
         System.out.println("DiscoveryInvokerHandler: graphMLParams=" +graphMLParams);
         System.out.println("DiscoveryInvokerHandler: rightClickParams=" +rightClickParams);

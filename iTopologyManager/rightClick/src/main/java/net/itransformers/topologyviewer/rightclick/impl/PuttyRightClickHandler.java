@@ -29,7 +29,7 @@ import java.util.Map;
 public class PuttyRightClickHandler implements RightClickHandler {
     public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
-                                     Map<String, String> rightClickParams, URL s){
+                                     Map<String, String> rightClickParams, java.io.File s){
         Map<String,String> connParams;
         try {
             connParams = ResourceResolver.getResource(graphMLParams, rightClickParams.get("resource"));

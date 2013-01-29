@@ -38,7 +38,7 @@ public class ShortestPath implements RightClickHandler {
     public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
-                                     URL deviceDataXmlFileName) throws Exception {
+                                     java.io.File deviceDataXmlFileName) throws Exception {
 
         TopologyViewer viewer = (TopologyViewer) parent;
         final ViewerPanel viewerPanel = (ViewerPanel) viewer.getTabbedPane().getSelectedComponent();

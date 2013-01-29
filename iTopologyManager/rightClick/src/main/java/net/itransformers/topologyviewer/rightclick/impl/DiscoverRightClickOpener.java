@@ -23,6 +23,7 @@ import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 
 import javax.swing.*;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
@@ -32,7 +33,7 @@ public class DiscoverRightClickOpener implements RightClickHandler {
     public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
-                                     URL deviceDataXmlFileName) throws Exception {
+                                     File deviceDataXmlFileName) throws Exception {
 
         String url = null;
         url = rightClickParams.get("url");

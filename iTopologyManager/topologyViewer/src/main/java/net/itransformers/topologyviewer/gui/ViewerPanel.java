@@ -69,8 +69,8 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
     private G currentGraph;
     private File currentDir;
     private String graphmlRelDir;
-    private URL deviceXmlPath;
-    private URL path;
+    private File deviceXmlPath;
+    private File path;
     private String initialNode;
     private JFrame parent;
 
@@ -79,7 +79,7 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
                        IconMapLoader iconMapLoader,
                        EdgeStrokeMapLoader edgeStrokeMapLoader,
                        EdgeColorMapLoader edgeColorMapLoader,
-                       G entireGraph, URL path, String graphmlRelDir, String initialNode) {
+                       G entireGraph, File path, String graphmlRelDir, String initialNode) {
         super();
         this.parent = parent;
         this.viewerConfig = viewerConfig;
@@ -87,13 +87,7 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
         this.entireGraph = entireGraph;
         this.graphmlRelDir = graphmlRelDir;
         this.initialNode = initialNode;
-        try {
-            this.deviceXmlPath = new URL(path,"device-data");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(parent,"Can not create device-data address. Invalid path: "+path,"Error",JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        this.deviceXmlPath = new File(path,"device-data");
         this.path = path;
         vv = new MyVisualizationViewer(viewerConfig, entireGraph,
             graphmlLoader.getVertexMetadatas(),
@@ -509,7 +503,7 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
         reload.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    graphmlLoader.loadGraphml(new URL(path,graphmlRelDir+"/"));
+                    graphmlLoader.loadGraphml(new File(path,graphmlRelDir+"/"));
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

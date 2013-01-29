@@ -46,11 +46,7 @@ public class RemoteConfigMenuHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String remoteURL = JOptionPane.showInputDialog(frame,"Enter Remote Address","Open Remote Address", JOptionPane.QUESTION_MESSAGE);
-        try {
-            URL configURI = new URL(remoteURL);
-            frame.setConfigUri(configURI);
-        } catch (MalformedURLException e1) {
-            e1.printStackTrace();
-        }
+//            URL configURI = new URL(remoteURL);
+//            frame.setConfigUri(configURI);
     }
 }

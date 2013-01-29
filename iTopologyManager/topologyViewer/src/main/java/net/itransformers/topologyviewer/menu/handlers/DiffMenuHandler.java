@@ -58,11 +58,7 @@ public class DiffMenuHandler implements ActionListener {
 //        System.out.println(wizardDialog.getDiffPath3());
 //        System.out.println(wizardDialog.getResult() == DiffWizardDialog.Result.DONE);
             if (wizardDialog.getResult() == DiffWizardDialog.Result.DONE) {
-                try {
-                    frame.setConfigUri(new File(wizardDialog.getDiffConfigPath()).toURI().toURL());
-                } catch (MalformedURLException e1) {
-                    e1.printStackTrace();
-                }
+                frame.setConfigUri(new File(wizardDialog.getDiffConfigPath()));
                 frame.doOpen(new File(wizardDialog.getDiffPath3()));
             }
     }

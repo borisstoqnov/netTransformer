@@ -54,7 +54,7 @@ public class NewProjectMenuHandler implements ActionListener {
         NewProjectDialog dialog = new NewProjectDialog(frame);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
-
+        if (!dialog.isOkPressed()) return;
         File file = new File("itransformer.txt");
         Scanner s = null;
         try {
@@ -65,22 +65,20 @@ public class NewProjectMenuHandler implements ActionListener {
                 JOptionPane.showMessageDialog(this.frame, "Can not find file:"+file.getAbsolutePath());
                 return;
             }
-            while (s.hasNextLine()) {
+            try {
+                while (s.hasNextLine()) {
                 String text = s.nextLine();
                 if (text.startsWith("#") || text.trim().equals("")) continue;
-                try {
-                    File srcDir = new File(text);
-                    File destDir = new File(dialog.getProjectDir(), text).getParentFile();
-                    destDir.mkdirs();
-                    RecursiveCopy.copyDir(srcDir, destDir);
-                } catch (IOException e1) {
-                    JOptionPane.showMessageDialog(frame, "Unable to create project the reason is:" + e1.getMessage());
-                    e1.printStackTrace();
+                File srcDir = new File(text);
+                File destDir = new File(dialog.getProjectDir(), text).getParentFile();
+                destDir.mkdirs();
+                RecursiveCopy.copyDir(srcDir, destDir);
                 }
+            } catch (IOException e1) {
+                JOptionPane.showMessageDialog(frame, "Unable to create project the reason is:" + e1.getMessage());
+                e1.printStackTrace();
             }
-            frame.setPath(dialog.getProjectDir().toURI().toURL());
-        } catch (MalformedURLException e1) {
-            e1.printStackTrace();
+            frame.setPath(dialog.getProjectDir());
         } finally {
             if (s != null) s.close();
         }

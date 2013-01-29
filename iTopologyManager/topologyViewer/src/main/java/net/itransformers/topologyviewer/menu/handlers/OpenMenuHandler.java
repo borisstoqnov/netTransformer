@@ -52,14 +52,7 @@ public class OpenMenuHandler implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         File dir = new File(".");
         if (frame.getPath() != null){
-            if (frame.getPath().getProtocol().equals("file")) {
-                try {
-                    dir = new File(frame.getPath().toURI());
-                } catch (URISyntaxException e1) {
-                    e1.printStackTrace();
-                    JOptionPane.showMessageDialog(frame,"Invalid uri for path: "+frame.getPath(),"Error",JOptionPane.ERROR_MESSAGE);
-                }
-            }
+            dir = frame.getPath();
         }
         JFileChooser chooser = new JFileChooser(dir);
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);

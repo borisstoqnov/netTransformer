@@ -22,13 +22,14 @@ package net.itransformers.topologyviewer.rightclick.impl;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 
 import javax.swing.*;
+import java.io.File;
 import java.net.URL;
 import java.util.Map;
 
 public class CreateTerminalHandler implements RightClickHandler {
     public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
-                                     Map<String, String> rightClickParams, URL s){
+                                     Map<String, String> rightClickParams, File s){
         Map<String,String> connParams;
         try {
             connParams = ResourceResolver.getResource(graphMLParams, rightClickParams.get("resource"));

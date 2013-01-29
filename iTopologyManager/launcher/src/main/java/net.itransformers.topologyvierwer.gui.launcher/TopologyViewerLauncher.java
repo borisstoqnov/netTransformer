@@ -68,24 +68,23 @@ public class TopologyViewerLauncher {
             printUsage("Can not specify -d or -u options simultaneously");
             return;
         }
-        URL baseUrl = null;
+        File baseUrl = null;
         if (dirStr != null) {
             File dir = new File(dirStr);
             if (!dir.exists()) {
                 System.out.println(String.format("The specified directory '%s' does not exists",dirStr));
                 return;
             }
-            baseUrl = dir.toURI().toURL();
+            baseUrl = dir;
         } else if (urlStr != null) {
-            baseUrl = new URL(urlStr);
+            baseUrl = new File(urlStr);
         } else {
-            baseUrl = new File(".").toURI().toURL();
+            baseUrl = new File(".");
         }
         String viewerConfig = params.get("-f");
-        URL viewerConfigFile = null;
+        File viewerConfigFile = null;
         if (viewerConfig != null) {
-            String fName = new File(viewerConfig).toURI().toString();
-            viewerConfigFile = new URL(fName);
+            viewerConfigFile = new File(viewerConfig);
         }
         if (params.get("-t").equals("undirected")) {
             new TopologyViewer<UndirectedGraph<String, String>>(baseUrl, graphmlRelDir, UndirectedSparseGraph.<String, String>getFactory(), viewerConfigFile, initialNode);

@@ -22,6 +22,7 @@ import net.itransformers.topologyviewer.config.RightClickItemType;
 import edu.uci.ics.jung.io.GraphMLMetadata;
 
 import javax.swing.*;
+import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +30,7 @@ import java.util.Map;
 public class RightClickInvoker {
     public static void invokeRightClickHandler(JFrame frame, String v, final RightClickItemType rcItemType,
                                                Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas,
-                                               URL deviceXmlPath) throws Exception {
+                                               File deviceXmlPath) throws Exception {
         String clazzStr = rcItemType.getHandlerClass();
         Class<?> clazz;
         clazz = Class.forName(clazzStr);
@@ -40,7 +41,7 @@ public class RightClickInvoker {
         for (ParamType param : rcItemType.getParam()) {
             rcParams.put(param.getName(), param.getValue());
         }
-        inst.handleRightClick(frame, v, graphMLParams, rcParams, new URL(deviceXmlPath,"device-data-"+v+".xml")); // todo remove this hardcode
+        inst.handleRightClick(frame, v, graphMLParams, rcParams, new File(deviceXmlPath,"device-data-"+v+".xml")); // todo remove this hardcode
     }
 
     private static <G> Map<String, String> getParams(String v, Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas) {

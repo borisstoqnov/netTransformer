@@ -27,6 +27,8 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -34,10 +36,10 @@ import java.net.URL;
 public class XMLTreeView {
     private SAXTreeBuilder saxTree = null;
     private static String file = "";
-    private static URL url;
+    private static File url;
 
 
-    public XMLTreeView(String deviceName, URL url) throws MalformedURLException {
+    public XMLTreeView(String deviceName, File url) throws MalformedURLException {
               JFrame frame = new JFrame("Object Tree Browser: [ " + deviceName + " ]");
               frame.setSize(400,400);
 //              file = File;
@@ -53,7 +55,7 @@ public class XMLTreeView {
                 SAXParser saxParser = new SAXParser();
                 saxParser.setContentHandler(saxTree);
 //                saxParser.parse(new InputSource(new FileInputStream(file)));
-                saxParser.parse(new InputSource(url.openStream()));
+                saxParser.parse(new InputSource(new FileInputStream(url)));
                 }catch(Exception ex){
                    top.add(new DefaultMutableTreeNode(ex.getMessage()));
                 }

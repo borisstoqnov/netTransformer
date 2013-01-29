@@ -31,16 +31,16 @@ import java.net.URL;
 
 
 public class XsltReport {
-    URL xml = null; //input xml
+    File xml = null; //input xml
     String xsl = null; //input xsl
     String tableXSL = null; //input xsl
 
-    public XsltReport(String pathToXSL, URL pathToXML) {
+    public XsltReport(String pathToXSL, File pathToXML) {
            xml=pathToXML;
            xsl=pathToXSL;
 
     }
-     public XsltReport(String pathToXSL, String pathToTableXSL, URL pathToXML) {
+     public XsltReport(String pathToXSL, String pathToTableXSL, File pathToXML) {
            xml=pathToXML;
            xsl=pathToXSL;
            tableXSL = pathToTableXSL;
@@ -60,7 +60,7 @@ public class XsltReport {
 //         String result;
     StreamResult    result = new StreamResult(baos);
 //           transformer.transform(new StreamSource(new URL(this.xml).openStream()),new StreamResult(result));
-        transformer.transform(new StreamSource(this.xml.openStream()),result);
+        transformer.transform(new StreamSource(new FileInputStream(this.xml)),result);
         if (tableXSL!=null){
             ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
             StreamResult    result1 = new StreamResult(baos1);
@@ -83,7 +83,7 @@ public class XsltReport {
         // set the TransformFactory to use the Saxon TransformerFactoryImpl method
 //         System.setProperty("javax.xml.transform.TransformerFactory",
 //         "net.sf.saxon.TransformerFactoryImpl");
-          XsltReport testReport = new XsltReport("rightclick/conf/xslt/table_creator.xslt", new URL("file:///device-data-R111.xml"));
+          XsltReport testReport = new XsltReport("rightclick/conf/xslt/table_creator.xslt", new File("device-data-R111.xml"));
          try {
                  System.out.print(testReport.myTransformer().toString());
          } catch (Exception ex) {

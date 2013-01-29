@@ -55,9 +55,9 @@ public class GraphmlLoader<G extends Graph<String,String>> {
         this.vertexMetadatas = vertexMetadatas;
     }
 
-    List<String> readGraphmlFileNames(URL nodeListUrl) throws IOException {
+    List<String> readGraphmlFileNames(File nodeListUrl) throws IOException {
         List<String> result = new ArrayList<String>();
-        BufferedReader in = new BufferedReader(new InputStreamReader(nodeListUrl.openStream()));
+        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(nodeListUrl)));
         try {
         String s;
         while ((s = in.readLine()) != null){
@@ -69,16 +69,16 @@ public class GraphmlLoader<G extends Graph<String,String>> {
         return result;
     }
 
-    public void loadGraphml(URL urlPath) throws ParserConfigurationException, SAXException, IOException {
+    public void loadGraphml(File urlPath) throws ParserConfigurationException, SAXException, IOException {
 //        File file = new File(dir + File.separator + "nodes-file-list.txt");
-        URL url2 = new URL(urlPath,"nodes-file-list.txt");
+        File url2 = new File(urlPath,"nodes-file-list.txt");
         List<String> allFiles = readGraphmlFileNames(url2);//FileUtils.readLines(file);
         List<String> files = allFiles.subList(loadedFiles.size(),allFiles.size());
         for (String fileName : files){
             if (fileName.startsWith("#")) continue;
             boolean forUpdate = !loadedFiles.add(fileName);
             final G graph = factory.create();
-            URL grahmlUrl = new URL(urlPath,fileName);
+            File grahmlUrl = new File(urlPath,fileName);
             GraphMLReader gmlr = loadGraphmlInGraph(grahmlUrl, graph);
             Collection<String> verteces = graph.getVertices();
             for (String vertex :verteces){
@@ -108,10 +108,10 @@ public class GraphmlLoader<G extends Graph<String,String>> {
         gmlr.load(in, graph);
         return gmlr;
     }
-    static <G extends Graph<String,String>> GraphMLReader loadGraphmlInGraph(URL grahmlUrl, G graph) throws ParserConfigurationException, SAXException, IOException {
+    static <G extends Graph<String,String>> GraphMLReader loadGraphmlInGraph(File grahmlUrl, G graph) throws ParserConfigurationException, SAXException, IOException {
         InputStream is = null;
         try {
-            is = grahmlUrl.openStream();
+            is = new FileInputStream(grahmlUrl);
             return loadGraphmlInGraph(is,graph);
         } catch (IOException e) {
             System.out.println("Can not load graphml from url :"+grahmlUrl);

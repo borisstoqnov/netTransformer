@@ -263,6 +263,7 @@ public class DiscoveryManager {
         System.out.print("Example UX: java -h X.X.X.X  -d network -m snmptoolkit/mibs -f iDiscover/conf/xml/discoveryManager.xml");
         System.out.println("Missing parameter: "+param);
     }
+
     public static void main(String[] args) throws Exception, IllegalAccessException, JAXBException {
         Map<String,String> params = CmdLineParser.parseCmdLine(args);
         if (params == null) {
