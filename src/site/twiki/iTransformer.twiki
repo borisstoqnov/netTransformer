@@ -1,0 +1,18 @@
+---+++iTransformer
+*iTransformer*  is an open framework that combines a number of software products for automation of activities in IP based networks.   iTransformer is available under GPL software license. If you have any further questions about the licensing please consult with the GPL FAQ.
+
+*iTransformer* is able to:
+
+* Discover your network infrastructure
+
+* Capture its current State
+
+* Build inventory data model out of it
+
+* Give you an ability to reason about many kinds of topologies present in your network (L2, L3, OSPF, ISIS, BGP) or any combination between those
+
+* Place it on a Geo-location map
+
+* Create Reports for it
+
+* Automate device configuration process through simplified template interface

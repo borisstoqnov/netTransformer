@@ -1,0 +1,161 @@
+---+ iWelcome
+
+Congratulation on the decision to use [[iTransformer][iTransformer]] . It will move your network experience to a new level. [[iTransformer][iTransformer]] is the tool that will transform your network infrastructure to your current business needs. Read this chapter to help setting up your [[iTransformer][iTransformer]].
+
+---++ What is [[iTransformer][iTransformer]]?
+
+Each network at each moment is in certain state. That state could be formally described. The network consists of network devices that have certain hardware and software, configured in certain way. Actually nowadays almost everything is hooked up to a network. The devices are linked to each other and support certain network services. All that could be captured and uploaded in certain data model. Once captured the network state could be previewed so you can reason abou it. If there is a need, you can even change it. The change is actually a transformation to another state. After the change, happens you might want again to review your current network state, to rason about it and so on. The network lifecyle is nothing else but a transformation from one state to another. The transformation could happen in many different ways. For example, something might happen and the network could transform itself into another state. An example for such transformation is link to go down and the routing protocol to reroute the network traffic. Another example for network transofrmation is a network configuraiton to be modified and that to triger a change into device behavior and performance. The preconfiguration could result in simply changing the state of a particulat interface, introduction of a new customer or something more general as application of mechanism part of a network strategy for IPv4 to IPv6 migration.
+
+[[iTransformer][iTransformer]] is simple but powerful framework for network transformation. It is able to discover, model, preview and finally transform the network from one state to another.
+
+The framework consists of two major modules:
+
+---+++ [[iDiscover][iDiscover]]
+
+Discovers IP network infrastructure and uploads it into an network inventory model. The data in the model is captured automatically and dynamically through a flow of several information (document) xslt transformations.
+
+---+++[[iTopologyManager][iTopologyManager]]
+
+Provides an GUI interface that will help you reason about your network and take decisions what to do with it. Once you have the knowledge about what has to be done [[iTransformer][iTransformer]] will help you to apply the change. That process is supported through several sub products:
+
+---++Runtime Environment
+
+[[iTransformer][iTransformer]] needs you to have java. That’s all folks. The java you can get by clicking here.
+
+---++Ready, Set and Go
+
+[[iTtransformer][iTransformer]] is designed to setup quickly and without almost any effort. The next couple of pages will show you how to do this in a couple of easy steps.
+
+---+++Prerequirements
+
+You need java (JRE 1.6.x or newer)
+There have to be a network. The network has to speak IP protocol. Into the network, there has to be some interconnected devices that speak SNMP. The devices have to have common SNMP read community. If you do not know what that is… Hmm read here first…
+The [[iTransformer][iTransformer]] node has to have full connectivity to the network and the ip subnets inside it. Partial will also work but the you obviously won’t be able to manage those parts of your network that are hidden from the iTransformer host.
+You have to count to three and to cross your fingers :)
+First run
+
+1. Step 1 Fire up iDiscover
+
+First and most important step is to fire up the [[iDiscover][iDiscover]]. It will discover your network and will populate your inventory data model. Depending from your opreation system go to [[iTtransformer][iTransformer]]\bin and execute from the command line the following:
+
+!On Windows
+cd bin
+
+iDiscover.bat -h 10.10.10.10 -d network
+
+
+! On Linux/Unix
+cd bin
+./iDiscover.sh -h 10.10.10.10 -d network
+
+
+On both note that you have to set the following initial parameters
+-h initial IP address
+-m path to MIB files folder (already configured in iDiscover.bat)
+-f path to discoveryManager configuration file (already configured in iDiscover.bat)
+-d mode {network - discover the whole network][ node - discover only the current node}
+And to configure your snmp network community in discoveryResource.xml into the resource with name SNMP.
+ <verbatim>
+<resource name="SNMP">
+        <param name="protocol">SNMP</param>
+        <connection-params connection-type="snmp">
+            <param name="version">1</param>
+            <param name="community-ro">public</param>
+            <param name="community-rw">private</param>
+            <param name="timeout">500</param>
+            <param name="retries">1</param>
+            <param name="port">161</param>
+            <param name="max-repetitions">65535</param>
+        </connection-params>
+</resource>
+ </verbatim>
+The discovery will fire up. You will notice that from output in your console window. Once you got something discovered you can proceed to the next step.
+
+2. Step 2 Fire up iTopoManager
+
+It is time to see some network, right. Otherwise what kind of network engineers are we. Go again to iTransformer\bin and execute the following from the command line. If you are lazy, you can always just double click the icons. Note that iTopoManager is just a tool that display graphs. Graphs could be directed or undirected. Both representations of your network are worthy to be seen.
+
+On Windows
+
+Undirected view
+
+u_topoManager.bat
+
+Directed view
+
+d_topoManager.bat
+
+On Linux/Unix
+
+
+
+Undirected view
+
+u_topoManager.sh
+
+Directed view
+
+d_topoManager.sh
+
+Straight away the discovered network will be displayed.
+
+
+
+Figure 1 TopologyViewer (undirected view)
+
+  TopologyViewer allows users to open the network in different tabs and to apply different filters in each of the tabs. Filters allow you to reason about the network based on particual information inside it. For example you would like to review only OSPF or only BGP network topologies or for example only physical links. Filters are located directly under the graph in the middle of the screen. As per the example it shows a filter that selects all Data+IPLinkLayer links and all the nodes that has responded to iDiscover requests.  Bellow are presented the buttons part of the current iTopoManager main panels.
+
+Upper panel
+
+
+
+Figure 2 Upper panel
+
+File  - Allows you to load [[iTransformer][iTransformer]] inventory from file location or from URL. You may also load different config files and to enter an initial node. The initial node is important when you deal with large network. The size on your screen is limited and if the number of nodes is too large you are doomed to be not able to see them very clearly. Therefore iTransformer allows you to redraw network topology around certain (initial) node.
+
+Tabs  - [[iTransformer][iTransformer]] supports multiple tabs so if you want to reason about your physical topology in tab 1 for OSPF routing topology in tab 2 and for BGP neighborships in tab 3 that’s not a problem.
+
+Node Search – Allows you to find certain node in the network. Once found the topology will be redrawn around that particular node.
+
+Path Preview – Performs a shortest path search between node A and node B in your network.
+
+Capture – You may capture the network diagram to PNG or IPS.
+
+Help – will get you straight to itransformers.net so you may have a look on our help guides or ask a question.
+
+Lower panel
+
+
+
+Figure 3 Lower panel
+
+Save – saves the topology graph layout to a file.
+
+Load – loads the saved layout
+
+Move graph – allows the user to move of the whole topology
+
+Filters Selection – allows selection of different topology filters.  Filters give you the possibility to reason about the network as per certain topology view. For example there are filters that will allow you reason about your Layer 2 topology or about your OSPF or BGP topologies.
+
+Refresh - Redraws the current topology picture
+
+Reload – Reloads the network inventory information. If there are newly discovered devices they will be picked up and displayed on your screen next to the current one.
+
+Plus/Minus - Zoom in/Zoom out
+
+Redraw Around – redraws the network to a certain number of hops around one or more selected nodes. The feature is usefull when you want to reason only about a particular set of nodes.
+
+
+*Device RightClicks
+
+The third major group of functionalists that iTransformer provides to you are the so called device “RightClicks”. If you click with the right mouse button on any of the devices in your network you will notice that a menu will appear. From here, you may open a new tab, to review various device reports to remove the device and so on.
+
+
+
+Figure 4 Device Rightclick options
+
+Getting additional information
+
+[[iTransformer][iTransformer]] comes with a number of ready to use features. It is distributed under an open (GPL v3) and also under a commercial license. In order to request the software please go to our Downloads page and fill the request form. If you want to understand more please review the guides for the separate products. If [[iDiscover][iDiscover]] is particularly interesting for you please go to iDiscover guide. If you want to understand how iTopoManager really works and what are the advanced features it provides please review the iTopoManager guide. If you are a developer and you and not happy with the current functionality and want to do something about it please go first to the developer’s guide and then ask us questions.
+
+If you still feel uncomfortable about something and something or have any other questions please visit our web page http://itransformers.net and do not hesitate to contact us on info@itransformers.net.
