@@ -92,7 +92,7 @@ public class DiscoveryManagerDialog extends JDialog {
                     {
                         modeComboBox = new JComboBox();
                         modeComboBox.setModel(new DefaultComboBoxModel(new String[]{"network", "node"}));
-                        modeComboBox.setBounds(46, 11, 76, 20);
+                        modeComboBox.setBounds(46, 11, 120, 20);
                         panel.add(modeComboBox);
                     }
 
@@ -101,11 +101,11 @@ public class DiscoveryManagerDialog extends JDialog {
                     panel.add(lblMode);
 
                     JLabel lblAddress = new JLabel("Address:");
-                    lblAddress.setBounds(132, 14, 56, 14);
+                    lblAddress.setBounds(172, 14, 56, 14);
                     panel.add(lblAddress);
 
                     addressTextField = new JTextField();
-                    addressTextField.setBounds(188, 11, 113, 20);
+                    addressTextField.setBounds(230, 11, 113, 20);
                     panel.add(addressTextField);
                     addressTextField.setColumns(10);
                 }

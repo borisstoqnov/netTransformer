@@ -36,7 +36,7 @@
                 <fileSets>
                     <fileSet>
                         <directory>conf</directory>
-                        <outputDirectory>bin/iTopologyManager/rightClick/conf</outputDirectory>
+                        <outputDirectory>iTopologyManager/rightClick/conf</outputDirectory>
                     </fileSet>
                 </fileSets>
             </sources>
@@ -55,15 +55,15 @@
                 <fileSets>
                     <fileSet>
                         <directory>conf/xml</directory>
-                        <outputDirectory>bin/iTopologyManager/topologyViewer/conf/xml</outputDirectory>
+                        <outputDirectory>iTopologyManager/topologyViewer/conf/xml</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/xsd</directory>
-                        <outputDirectory>bin/iTopologyManager/topologyViewer/conf/xsd</outputDirectory>
+                        <outputDirectory>iTopologyManager/topologyViewer/conf/xsd</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/xslt</directory>
-                        <outputDirectory>bin/iTopologyManager/topologyViewer/conf/xslt</outputDirectory>
+                        <outputDirectory>iTopologyManager/topologyViewer/conf/xslt</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>src/main/resources/images</directory>
@@ -90,11 +90,11 @@
                 <fileSets>
                     <fileSet>
                         <directory>conf/xml</directory>
-                        <outputDirectory>bin/iTopologyManager/parameterFactory/conf/xml</outputDirectory>
+                        <outputDirectory>iTopologyManager/parameterFactory/conf/xml</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/xsd</directory>
-                        <outputDirectory>bin/iTopologyManager/parameterFactory/conf/xsd</outputDirectory>
+                        <outputDirectory>iTopologyManager/parameterFactory/conf/xsd</outputDirectory>
                     </fileSet>
                 </fileSets>
             </sources>
@@ -113,19 +113,19 @@
                 <fileSets>
                     <fileSet>
                         <directory>conf/txt</directory>
-                        <outputDirectory>bin/iTopologyManager/fulfilmentFactory/conf/txt</outputDirectory>
+                        <outputDirectory>iTopologyManager/fulfilmentFactory/conf/txt</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/xml</directory>
-                        <outputDirectory>bin/iTopologyManager/fulfilmentFactory/conf/xml</outputDirectory>
+                        <outputDirectory>iTopologyManager/fulfilmentFactory/conf/xml</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/xsd</directory>
-                        <outputDirectory>bin/iTopologyManager/fulfilmentFactory/xsd</outputDirectory>
+                        <outputDirectory>iTopologyManager/fulfilmentFactory/xsd</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/xslt</directory>
-                        <outputDirectory>bin/iTopologyManager/fulfilmentFactory/conf/xslt</outputDirectory>
+                        <outputDirectory>iTopologyManager/fulfilmentFactory/conf/xslt</outputDirectory>
                     </fileSet>
                 </fileSets>
             </sources>
@@ -143,11 +143,11 @@
                 <fileSets>
                     <fileSet>
                         <directory>conf/xml</directory>
-                        <outputDirectory>bin/resourceManager/conf/xml</outputDirectory>
+                        <outputDirectory>resourceManager/conf/xml</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/xsd</directory>
-                        <outputDirectory>bin/resourceManager/conf/xsd</outputDirectory>
+                        <outputDirectory>resourceManager/conf/xsd</outputDirectory>
                     </fileSet>
                 </fileSets>
             </sources>
@@ -166,15 +166,15 @@
                 <fileSets>
                     <fileSet>
                         <directory>conf/xml</directory>
-                        <outputDirectory>bin/iDiscover/conf/xml</outputDirectory>
+                        <outputDirectory>iDiscover/conf/xml</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/xsd</directory>
-                        <outputDirectory>bin/iDiscover/conf/xsd</outputDirectory>
+                        <outputDirectory>iDiscover/conf/xsd</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/xslt</directory>
-                        <outputDirectory>bin/iDiscover/conf/xslt</outputDirectory>
+                        <outputDirectory>iDiscover/conf/xslt</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/bat</directory>

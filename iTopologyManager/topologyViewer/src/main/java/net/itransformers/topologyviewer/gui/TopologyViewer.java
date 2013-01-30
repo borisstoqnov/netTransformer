@@ -130,7 +130,7 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
         if (configFileURI == null) {
             String fName = preferences.getProperty(PreferencesKeys.CONFIG_FILE_NAME.name());
             if (fName == null) { // use default
-                fName = new File("iTopologyManager/topologyViewer/conf/xml/undirected.xml").toURI().toString();
+                fName = new File("iTopologyManager/topologyViewer/conf/xml/undirected.xml").toString();
             }
             this.configURI = new File(fName);
         }
@@ -178,7 +178,7 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
         graphmlLoader.addGraphmlLoaderListener(iconMapLoader);
         graphmlLoader.addGraphmlLoaderListener(edgeStrokeMapLoader);
         graphmlLoader.addGraphmlLoaderListener(edgeColorMapLoader);
-        graphmlLoader.loadGraphml(new File(path,graphmlRelDir+"/"));
+//        graphmlLoader.loadGraphml(new File(path,graphmlRelDir+"/"));
     }
 
     private void createFrame(){
