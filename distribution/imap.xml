@@ -75,7 +75,7 @@
                 <fileSets>
                     <fileSet>
                         <directory>conf</directory>
-                        <outputDirectory>bin/iMap/conf</outputDirectory>
+                        <outputDirectory>iMap/conf</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/bat</directory>
