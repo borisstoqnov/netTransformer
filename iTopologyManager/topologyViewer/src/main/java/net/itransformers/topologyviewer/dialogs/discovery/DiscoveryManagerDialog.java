@@ -44,6 +44,7 @@ import java.util.Map;
 public class DiscoveryManagerDialog extends JDialog {
     static Logger logger = Logger.getLogger(DiscoveryManagerDialog.class);
     public static final String DISCOVERED_DEVICES = "Discovered Devices:";
+    public static final String VERSION_LABEL = "version";
     private JTextField addressTextField;
     private JFrame frame;
     private File projectDir;
@@ -53,6 +54,8 @@ public class DiscoveryManagerDialog extends JDialog {
     final JButton pauseResumeButton = new JButton("Pause");
     private int discoveredDevices;
     private JLabel lblDiscoveredDevices;
+    private JTextField labelTextField;
+    private JCheckBox autoLabelCheckBox;
 
     /**
      * Launch the application.
@@ -76,9 +79,8 @@ public class DiscoveryManagerDialog extends JDialog {
     public DiscoveryManagerDialog(JFrame frame, File projectDir) {
         this.frame = frame;
         this.projectDir = projectDir;
-        if (projectDir == null) return;
         setTitle("Discovery Manager");
-        setBounds(100, 100, 528, 364);
+        setBounds(100, 100, 760, 364);
         getContentPane().setLayout(new BorderLayout());
         {
             JPanel buttonPane = new JPanel();
@@ -108,6 +110,20 @@ public class DiscoveryManagerDialog extends JDialog {
                     addressTextField.setBounds(230, 11, 113, 20);
                     panel.add(addressTextField);
                     addressTextField.setColumns(10);
+
+                    JLabel lblLabel = new JLabel("Label:");
+                    lblLabel.setBounds(360, 14, 56, 14);
+                    panel.add(lblLabel);
+
+                    labelTextField = new JTextField();
+                    labelTextField.setBounds(400, 11, 113, 20);
+                    panel.add(labelTextField);
+                    labelTextField.setColumns(10);
+
+                    autoLabelCheckBox = new JCheckBox("auto-label");
+                    autoLabelCheckBox.setBounds(520, 11, 113, 20);
+                    panel.add(autoLabelCheckBox);
+
                 }
             }
             {
@@ -118,21 +134,13 @@ public class DiscoveryManagerDialog extends JDialog {
                 stopStartButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
                         if ("Start".equals(stopStartButton.getText())) {
-                            stopStartButton.setEnabled(false);
-                            modeComboBox.setEditable(false);
-                            addressTextField.setEditable(false);
+                            onStartDiscoveryPre(stopStartButton);
                             onStartDiscovery();
-                            stopStartButton.setText("Stop");
-                            pauseResumeButton.setEnabled(true);
-                            stopStartButton.setEnabled(true);
+                            onStartDiscoveryPost(stopStartButton);
                         } else {
-                            stopStartButton.setEnabled(false);
+                            onStopDiscoveryPre(stopStartButton);
                             onStopDiscovery();
-                            modeComboBox.setEditable(true);
-                            addressTextField.setEditable(true);
-                            stopStartButton.setText("Start");
-                            pauseResumeButton.setEnabled(false);
-                            stopStartButton.setEnabled(true);
+                            onStopDiscoveryPost(stopStartButton);
 
                         }
                     }
@@ -202,6 +210,30 @@ public class DiscoveryManagerDialog extends JDialog {
         }
     }
 
+    private void onStopDiscoveryPost(JButton stopStartButton) {
+        modeComboBox.setEditable(true);
+        addressTextField.setEditable(true);
+        stopStartButton.setText("Start");
+        pauseResumeButton.setEnabled(false);
+        stopStartButton.setEnabled(true);
+    }
+
+    private void onStopDiscoveryPre(JButton stopStartButton) {
+        stopStartButton.setEnabled(false);
+    }
+
+    private void onStartDiscoveryPost(JButton stopStartButton) {
+        stopStartButton.setText("Stop");
+        pauseResumeButton.setEnabled(true);
+        stopStartButton.setEnabled(true);
+    }
+
+    private void onStartDiscoveryPre(JButton stopStartButton) {
+        stopStartButton.setEnabled(false);
+        modeComboBox.setEditable(false);
+        addressTextField.setEditable(false);
+    }
+
     private void onResumeDiscovery() {
         managerThread.resumeDiscovery();
     }
@@ -218,14 +250,22 @@ public class DiscoveryManagerDialog extends JDialog {
         managerThread.stopDiscovery();
     }
 
-    private void onStartDiscovery() {
+    private boolean onStartDiscovery() {
         DiscoveryManager manager;
         try {
-            manager = DiscoveryManager.createDiscoveryManager(new File(projectDir, "iDiscover/conf/xml/discoveryManager.xml"));
+            String label = labelTextField.getText().trim();
+            if (autoLabelCheckBox.isSelected()) {
+                label = createAutoLabel();
+                labelTextField.setText(label);
+            } else {
+                if (!isValidLabel(label)) return false;
+            }
+
+            manager = DiscoveryManager.createDiscoveryManager(projectDir, "iDiscover/conf/xml/discoveryManager.xml",label);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(frame, "Cannot start discovery. See error log for more info");
+            JOptionPane.showMessageDialog(this, "Cannot start discovery. See error log for more info");
             e.printStackTrace();
-            return;
+            return false;
         }
         // TODO remove hardcoded discovery parameter groups
         String[] discoveryTypes = new String[]{"PHYSICAL","NEXT_HOP","OSPF","ISIS","BGP","RIP","ADDITIONAL","IPV6"};
@@ -255,6 +295,30 @@ public class DiscoveryManagerDialog extends JDialog {
 
         managerThread = new DiscoveryManagerThread(manager,resource, modeComboBox.getSelectedItem().toString(),discoveryTypes);
         managerThread.start();
+        return true;
+    }
+
+    private String createAutoLabel() {
+        if (!new File(projectDir,"network").exists()) {
+            return "version1";
+        }
+        String[] fileList = new File(projectDir,"network").list();
+        int max = 0;
+        for (String fName : fileList) {
+            if (fName.matches(VERSION_LABEL+"\\d+")){
+                int curr = Integer.parseInt(fName.substring(VERSION_LABEL.length()));
+                if (max < curr ) max = curr;
+            }
+        }
+        return VERSION_LABEL +(max+1);
+    }
+
+    private boolean isValidLabel(String label) {
+        if (new File(new File(projectDir,"network"),label).exists()){
+            JOptionPane.showMessageDialog(this,"The specified label already exists");
+            return false;
+        }
+        return true;
     }
 
 }

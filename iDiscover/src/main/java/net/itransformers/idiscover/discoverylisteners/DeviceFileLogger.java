@@ -33,21 +33,26 @@ import java.util.Map;
 
 public class DeviceFileLogger implements DiscoveryListener{
     static Logger logger = Logger.getLogger(DeviceFileLogger.class);
-    private String path;
+    private File path;
 
-    public DeviceFileLogger(Map<String, String> params) {
-        this.path = params.get("path");
-        this.path = path;
+    public DeviceFileLogger(Map<String, String> params, File baseDir, String label) {
+        File base1 = new File(baseDir, params.get("path"));
+        if (!base1.exists()) {
+            base1.mkdir();
+        }
+        this.path = new File(base1,label);
+        if (!this.path.exists()) {
+            this.path.mkdir();
+        }
+
     }
-//    public DeviceFileLogger(String path) {
-//        this.path = path;
-//    }
 
     public void handleDevice(String deviceName, RawDeviceData rawData, DiscoveredDeviceData discoveredDeviceData, Resource resource) {
-        final String deviceFileName = path + File.separator + "device-data-" + deviceName + ".xml";
+//        final String deviceFileName = path + File.separator + "device-data-" + deviceName + ".xml";
+        final String deviceFileName = "device-data-" + deviceName + ".xml";
         OutputStream os = null;
         try {
-            os = new FileOutputStream(new File(System.getProperty("base.dir"),deviceFileName));
+            os = new FileOutputStream(new File(path,deviceFileName));
             JaxbMarshalar.marshal(discoveredDeviceData, os, "DiscoveredDevice");
         } catch (FileNotFoundException e) {
             logger.error(e.getMessage(),e);
@@ -57,9 +62,10 @@ public class DeviceFileLogger implements DiscoveryListener{
             if (os != null) try {os.close();} catch (IOException e) {}
         }
         byte[] data = rawData.getData();
-        final String rawDeviceName = path + File.separator + "raw-data-" + deviceName + ".xml";
+//        final String rawDeviceName = path + File.separator + "raw-data-" + deviceName + ".xml";
+        final String rawDeviceName = "raw-data-" + deviceName + ".xml";
         try {
-            FileUtils.writeStringToFile(new File(System.getProperty("base.dir"),rawDeviceName), new String(data));
+            FileUtils.writeStringToFile(new File(path,rawDeviceName), new String(data));
         } catch (IOException e) {
             logger.error("Can not log raw data file: " + rawDeviceName, e);
         }

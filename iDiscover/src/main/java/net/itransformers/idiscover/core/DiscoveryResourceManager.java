@@ -37,10 +37,10 @@ import java.util.Map;
 public class DiscoveryResourceManager {
   private ResourceManager resourceManager;
 
-    public DiscoveryResourceManager(String PathToXML) {
+    public DiscoveryResourceManager(File projectDir, String label, String PathToXML) {
         String xml = null;
         try {
-            xml = FileUtils.readFileToString(new File(System.getProperty("base.dir"),PathToXML));
+            xml = FileUtils.readFileToString(new File(projectDir,PathToXML));
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -80,7 +80,7 @@ public class DiscoveryResourceManager {
 
     public static void main(String[] args){
         System.setProperty("base.dir", System.getProperty("user.dir"));
-        DiscoveryResourceManager Discover = new DiscoveryResourceManager("iDiscover/conf/xml/discoveryResource.xml");
+        DiscoveryResourceManager Discover = new DiscoveryResourceManager(null,null, "iDiscover/conf/xml/discoveryResource.xml");
         ResourceManager Test = Discover.getResourceManager();
 //        Get CLI parameters
         ResourceType CLI = Discover.ReturnResourceByName("CLI");

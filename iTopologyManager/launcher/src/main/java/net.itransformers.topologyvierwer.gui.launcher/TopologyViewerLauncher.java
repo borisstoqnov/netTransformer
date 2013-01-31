@@ -79,7 +79,7 @@ public class TopologyViewerLauncher {
         } else if (urlStr != null) {
             baseUrl = new File(urlStr);
         } else {
-            baseUrl = new File(".");
+            baseUrl = null;
         }
         String viewerConfig = params.get("-f");
         File viewerConfigFile = null;

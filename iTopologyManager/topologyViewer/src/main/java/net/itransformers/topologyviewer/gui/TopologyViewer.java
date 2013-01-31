@@ -118,12 +118,12 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
         this.initialNode = initialNode;
         createFrame();
         this.factory = factory;
-        if (this.path == null) { // if path is null try to load from preferences
-            final String pref_path = preferences.getProperty(PreferencesKeys.PATH.name());
-            if (pref_path != null){
-                this.path = new File(pref_path);
-            }
-        }
+//        if (this.path == null) { // if path is null try to load from preferences
+//            final String pref_path = preferences.getProperty(PreferencesKeys.PATH.name());
+//            if (pref_path != null){
+//                this.path = new File(pref_path);
+//            }
+//        }
         if (this.graphmlRelDir == null){ // if graphmlRelDir is null try to load from preferences
             this.graphmlRelDir = preferences.getProperty(PreferencesKeys.GRAPHML_REL_DIR.name());
         }

@@ -59,11 +59,11 @@ public class DiscoveryManager {
     private boolean isPaused;
     private boolean isStopped;
 
-    public DiscoveryManager(ResourceManager resourceManager, DiscovererFactory discovererFactory, DiscoveryHelperFactory discoveryHelperFactory) throws IllegalAccessException, InstantiationException {
+    public DiscoveryManager(File projectDir, String label, ResourceManager resourceManager, DiscovererFactory discovererFactory, DiscoveryHelperFactory discoveryHelperFactory) throws IllegalAccessException, InstantiationException {
         this.resourceManager = resourceManager;
         this.discovererFactory = discovererFactory;
         this.discoveryHelperFactory = discoveryHelperFactory;
-        this.discoveryResource = new DiscoveryResourceManager("iDiscover/conf/xml/discoveryResource.xml");
+        this.discoveryResource = new DiscoveryResourceManager(projectDir,label,"iDiscover/conf/xml/discoveryResource.xml");
     }
 
     public NetworkType discoverNetwork(Resource resource, String mode, String[] discoveryTypes) throws Exception {
@@ -273,7 +273,9 @@ public class DiscoveryManager {
         if (fileName == null) {
             printUsage("fileName"); return;
         }
-        DiscoveryManager manager = createDiscoveryManager(new File(fileName));
+        File file = new File(fileName);
+
+        DiscoveryManager manager = createDiscoveryManager(file.getParentFile(),file.getName(),"network");
 
         String mode = params.get("-d");
         if (mode == null){
@@ -309,7 +311,8 @@ public class DiscoveryManager {
         
     }
 
-    public static DiscoveryManager createDiscoveryManager(File file) throws JAXBException, IOException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    public static DiscoveryManager createDiscoveryManager(File projectDir, String discoveryManagerXmlRelPath, String label) throws JAXBException, IOException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        File file = new File(projectDir,discoveryManagerXmlRelPath);
         DiscoveryManagerType discoveryManagerType;
         FileInputStream is = new FileInputStream(file);
         try {
@@ -321,7 +324,7 @@ public class DiscoveryManager {
         DiscoveryHelperFactory discoveryHelperFactory = createDiscoveryHelperFactory(discoveryManagerType);
         ResourceManager resourceManager;
         {
-        String xml = FileUtils.readFileToString(new File("iDiscover/conf/xml/discoveryResource.xml"));
+        String xml = FileUtils.readFileToString(new File(projectDir,"iDiscover/conf/xml/discoveryResource.xml"));
         InputStream is1 = new ByteArrayInputStream(xml.getBytes());
         ResourcesType deviceGroupsType = net.itransformers.resourcemanager.util.JaxbMarshalar.unmarshal(ResourcesType.class, is1);
         resourceManager = new ResourceManager(deviceGroupsType);
@@ -329,20 +332,20 @@ public class DiscoveryManager {
 //        params.put("geoloc","Moscow");
         }
         DiscovererFactory discovererFactory = new DefaultDiscovererFactory();
-        DiscoveryManager manager = new DiscoveryManager(resourceManager,discovererFactory, discoveryHelperFactory);
+        DiscoveryManager manager = new DiscoveryManager(projectDir, label, resourceManager,discovererFactory, discoveryHelperFactory);
 
 
         List<DiscoveryManagerListenerType> listenerTypes = discoveryManagerType.getDiscoveryManagerListeners().getDiscoveryManagerListener();
         for (DiscoveryManagerListenerType listenerType : listenerTypes) {
             String classStr = listenerType.getClazz();
             Class clazz1 = Class.forName(classStr);
-            Constructor constructor1 = clazz1.getConstructor(Map.class);
+            Constructor constructor1 = clazz1.getConstructor(Map.class,File.class,String.class);
             Map<String, String> listenerParams = new HashMap<String, String>();
             List<ParamType> paramType = listenerType.getParam();
             for (ParamType type : paramType) {
                 listenerParams.put(type.getName(),type.getValue());
             }
-            DiscoveryListener discoveryManagerListener = (DiscoveryListener) constructor1.newInstance(listenerParams);
+            DiscoveryListener discoveryManagerListener = (DiscoveryListener) constructor1.newInstance(listenerParams, projectDir, label);
             manager.addDiscoveryManagerListener(discoveryManagerListener);
         }
 //        List<ParamType> vlanList = discoveryManagerType.getManagementVlans().getParam();

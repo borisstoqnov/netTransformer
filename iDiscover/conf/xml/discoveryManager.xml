@@ -30,11 +30,13 @@
         </discovery-manager-listener>
         <discovery-manager-listener class="net.itransformers.idiscover.discoverylisteners.XmlTopologyDeviceLogger">
             <param name="xslt">iDiscover/conf/xslt/transformator-undirected2.xslt</param>
-            <param name="path">network/undirected</param>
+            <param name="path">network</param>
+            <param name="type">undirected</param>
         </discovery-manager-listener>
         <discovery-manager-listener class="net.itransformers.idiscover.discoverylisteners.XmlTopologyDeviceLogger">
             <param name="xslt">iDiscover/conf/xslt/transformator-directed.xslt</param>
-            <param name="path">network/directed</param>
+            <param name="path">network</param>
+            <param name="type">directed</param>
         </discovery-manager-listener>
         <!--discovery-manager-listener class="com.discovery.discoverylisteners.KMLtransformator">
             <param name="xslt">discovery-manager/conf/xslt/kml_transformator.xslt</param>

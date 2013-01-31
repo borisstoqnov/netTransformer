@@ -80,7 +80,9 @@ public class NewProjectDialog extends JDialog {
 		}
 		{
 			baseFilePathTextField = new JTextField();
-            baseFilePathTextField.setText(frame.getPath().getAbsolutePath());
+            if (frame.getPath() == null) {
+                baseFilePathTextField.setText(System.getProperty("user.home"));
+            }
 			baseFilePathTextField.setColumns(10);
 			baseFilePathTextField.setBounds(108, 44, 277, 20);
 			contentPanel.add(baseFilePathTextField);
@@ -147,7 +149,8 @@ public class NewProjectDialog extends JDialog {
         if (parentDir.exists()){
             File projectDir = new File(parentDir, projetNameTextField.getText());
             if (projectDir.exists()){
-                JOptionPane.showMessageDialog(this,"Can not create project. Directory already exists: "+projectDir.getAbsolutePath());
+                JOptionPane.showMessageDialog(this,
+                        String.format("Can not create project '%s'. The project already exists in dir: %s", projectDir.getName(),parentDir.getAbsolutePath()));
                 return;
             }
             if (!projectDir.mkdir()){

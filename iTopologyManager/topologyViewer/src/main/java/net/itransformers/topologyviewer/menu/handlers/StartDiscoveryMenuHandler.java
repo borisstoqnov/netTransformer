@@ -52,6 +52,10 @@ public class StartDiscoveryMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (frame.getPath() == null){
+            JOptionPane.showMessageDialog(frame,"Please open or create new project before to start discovery");
+            return;
+        }
         DiscoveryManagerDialog dialog = new DiscoveryManagerDialog(frame);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);

@@ -35,18 +35,24 @@ import java.util.Map;
 
 public class XmlTopologyDeviceLogger implements DiscoveryListener{
     static Logger logger = Logger.getLogger(XmlTopologyDeviceLogger.class);
-    private String path;
+    private File path;
     private File xsltFileName;
 
-    public XmlTopologyDeviceLogger(Map<String, String> params) {
-        this.path = params.get("path");
-        this.xsltFileName = new File(System.getProperty("base.dir"),params.get("xslt"));
+    public XmlTopologyDeviceLogger(Map<String, String> params, File baseDir, String label) {
+        File base1 = new File(baseDir,params.get("path"));
+        if (!base1.exists()){
+            base1.mkdir();
+        }
+        File labelPath = new File(base1,label);
+        if (!labelPath.exists()) {
+            labelPath.mkdir();
+        }
+        this.path = new File(labelPath,params.get("type"));
+        if (!this.path.exists()) {
+            this.path.mkdir();
+        }
+        this.xsltFileName = new File(path,params.get("xslt"));
     }
-
-    //    public XmlTopologyDeviceLogger(String path, File xsltFileName) {
-//        this.path = path;
-//        this.xsltFileName = xsltFileName;
-//    }
 
     public void handleDevice(String deviceName, RawDeviceData rawData, DiscoveredDeviceData discoveredDeviceData, Resource resource) {
         ByteArrayOutputStream graphMLOutputStream = new ByteArrayOutputStream();
@@ -65,10 +71,10 @@ public class XmlTopologyDeviceLogger implements DiscoveryListener{
 
         try {
             final String fileName = "node-" + deviceName + ".graphml";
-            String fullFileName = path + File.separator + fileName;
-            final File nodeFile = new File(System.getProperty("base.dir"),fullFileName);
+//            String fullFileName = path + File.separator + fileName;
+            final File nodeFile = new File(path,fileName);
             FileUtils.writeStringToFile(nodeFile, new String(graphMLOutputStream.toByteArray()));
-            FileWriter writer = new FileWriter(new File(System.getProperty("base.dir"),path + File.separator +"nodes-file-list.txt"),true);
+            FileWriter writer = new FileWriter(new File(path,"nodes-file-list.txt"),true);
             writer.append(String.valueOf(fileName)).append("\n");
             writer.close();
         } catch (IOException e) {
@@ -87,7 +93,7 @@ public class XmlTopologyDeviceLogger implements DiscoveryListener{
         Map<String, String> params = new HashMap<String, String >();
         params.put("path", path);
         params.put("conf/xslt", "iDiscover\\conf\\xslt\\transformator3.xslt");
-        XmlTopologyDeviceLogger logger = new XmlTopologyDeviceLogger(params);
+        XmlTopologyDeviceLogger logger = new XmlTopologyDeviceLogger(params,null,null);
 
         for (String fileName: files){
             FileInputStream is = new FileInputStream(path + File.separator + fileName);
