@@ -230,7 +230,7 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
             JOptionPane.showMessageDialog(this, "Can not create view. Error: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        this.createAndAddViewerPanel();
+        //this.createAndAddViewerPanel();
     }
 
     public File getConfigURI() {

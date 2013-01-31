@@ -51,7 +51,7 @@ public class XmlTopologyDeviceLogger implements DiscoveryListener{
         if (!this.path.exists()) {
             this.path.mkdir();
         }
-        this.xsltFileName = new File(path,params.get("xslt"));
+        this.xsltFileName = new File(baseDir,params.get("xslt"));
     }
 
     public void handleDevice(String deviceName, RawDeviceData rawData, DiscoveredDeviceData discoveredDeviceData, Resource resource) {

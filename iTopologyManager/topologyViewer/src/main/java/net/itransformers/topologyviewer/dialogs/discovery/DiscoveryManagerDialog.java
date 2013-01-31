@@ -122,6 +122,7 @@ public class DiscoveryManagerDialog extends JDialog {
 
                     autoLabelCheckBox = new JCheckBox("auto-label");
                     autoLabelCheckBox.setBounds(520, 11, 113, 20);
+                    autoLabelCheckBox.setSelected(true);
                     panel.add(autoLabelCheckBox);
 
                 }
