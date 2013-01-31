@@ -21,6 +21,7 @@ package net.itransformers.topologyviewer.menu.handlers;
 
 import net.itransformers.topologyviewer.gui.TopologyViewer;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,17 +32,23 @@ import java.awt.event.ActionListener;
  * Time: 23:30
  * To change this template use File | Settings | File Templates.
  */
-public class CloseMenuHandler implements ActionListener {
+public class CloseOthersMenuHandler implements ActionListener {
 
     private TopologyViewer frame;
 
-    public CloseMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public CloseOthersMenuHandler(TopologyViewer frame) throws HeadlessException {
 
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        frame.getTabbedPane().remove(frame.getTabbedPane().getSelectedIndex());
+        JTabbedPane tabbedPane = frame.getTabbedPane();
+        int i = tabbedPane.getSelectedIndex() ;
+        int count = tabbedPane.getTabCount() ;
+        for (int j = count-1 ; j >= 0 ; j--) {
+            if (j!=i) tabbedPane.remove(j) ;
+        }
+//        tabbedPane.repaint() ;
     }
 }

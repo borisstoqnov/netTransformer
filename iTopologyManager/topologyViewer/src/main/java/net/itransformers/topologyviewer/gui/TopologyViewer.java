@@ -211,7 +211,7 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
         tabbedPane.addTab("Network", panel);
     }
 
-    public void doOpen(File selectedFile) {
+    public void doOpenGraph(File selectedFile) {
         this.setPath(selectedFile);
         String graphmlRelDir = selectedFile.getName();
         this.setGraphmlRelDir(graphmlRelDir);
@@ -230,7 +230,28 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
             JOptionPane.showMessageDialog(this, "Can not create view. Error: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        //this.createAndAddViewerPanel();
+        this.createAndAddViewerPanel();
+    }
+
+    public void doOpenProject(File selectedFile) {
+        this.setPath(selectedFile);
+        String graphmlRelDir = selectedFile.getName();
+        this.setGraphmlRelDir(graphmlRelDir);
+        this.getPreferences().setProperty(PreferencesKeys.PATH.name(), this.getPath().toString());
+        this.getPreferences().setProperty(PreferencesKeys.GRAPHML_REL_DIR.name(),this.getGraphmlRelDir());
+        try {
+            this.getPreferences().store(new FileOutputStream(TopologyViewer.VIEWER_PREFERENCES_PROPERTIES),"");
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Can not Store preferences: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            this.init();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Can not create view. Error: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }
 
     public File getConfigURI() {
@@ -265,5 +286,9 @@ public class TopologyViewer<G extends Graph<String,String>> extends JFrame{
 //        vv.setGraphLayout(createLayout(currentGraph));
 //    }
 
+    public void doCloseProject() {
+        setPath(null);
+        getTabbedPane().removeAll();
+    }
 }
 
