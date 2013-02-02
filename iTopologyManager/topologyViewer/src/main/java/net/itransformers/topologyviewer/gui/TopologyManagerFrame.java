@@ -53,7 +53,7 @@ public class TopologyManagerFrame extends JFrame{
         try {
             if (!prefsFile.exists()) {
                 if (!prefsFile.createNewFile()){
-                    logger.error("Can not create prefs file");
+                    logger.error("Can not create preferences file");
                 }
             }
             preferences.load(new FileInputStream(prefsFile));
@@ -102,23 +102,37 @@ public class TopologyManagerFrame extends JFrame{
 
     public void doOpenGraph(File selectedFile) {
         try {
-            if ("undirected".equals(selectedFile.getName())){
+            if ("undirected".equals(selectedFile.getName()) || "diff-undirected".equals(selectedFile.getName())){
                 GraphViewerPanelManager<UndirectedGraph<String, String>> viewerPanelManager = new GraphViewerPanelManager<UndirectedGraph<String, String>>(this, path, selectedFile, UndirectedSparseGraph.<String, String>getFactory(), tabbedPane);
                 viewerPanelManagerMap.put(selectedFile.getAbsolutePath(),viewerPanelManager);
                 viewerPanelManager.createAndAddViewerPanel();
-            } else if ("directed".equals(selectedFile.getName())){
+            } else if ("directed".equals(selectedFile.getName()) || "diff-directed".equals(selectedFile.getName())){
                 GraphViewerPanelManager<DirectedGraph<String, String>> viewerPanelManager = new GraphViewerPanelManager<DirectedGraph<String, String>>(this, path ,selectedFile, DirectedSparseMultigraph.<String, String>getFactory(), tabbedPane);
                 viewerPanelManagerMap.put(selectedFile.getAbsolutePath(),viewerPanelManager);
                 viewerPanelManager.createAndAddViewerPanel();
             } else {
-                JOptionPane.showMessageDialog(this,String.format("Unknown graph type %s. Expected types are (directed, undirected)",selectedFile.getName()));
+                JOptionPane.showMessageDialog(this,String.format("Unknown graph type %s. Expected types are (directed, undirected, diff-undirected, diff-directed)",selectedFile.getName()));
             }
         } catch (Exception e){
             e.printStackTrace();
             JOptionPane.showMessageDialog(this,"Unknown create graph: "+e.getMessage());
         }
     }
+    public void doCloseGraph() {
+        GraphViewerPanel viewerPanel = (GraphViewerPanel)getTabbedPane().getSelectedComponent();
+        if (viewerPanel == null){
+            return;
+        }
+        String absolutePath = viewerPanel.getGraphmlDir().getAbsolutePath();
+        viewerPanelManagerMap.remove(absolutePath);
+        JTabbedPane tabbedPane = this.getTabbedPane();
+        int count = tabbedPane.getTabCount() ;
+        for (int j = count-1 ; j >= 0 ; j--) {
+            GraphViewerPanel currentViewerPanel = (GraphViewerPanel) tabbedPane.getComponent(j);
+            if (currentViewerPanel.getGraphmlDir().getAbsolutePath().equals(absolutePath)) tabbedPane.remove(j) ;
+        }
 
+    }
 
     public void doOpenProject(File selectedFile) {
         this.setPath(selectedFile);
@@ -151,6 +165,16 @@ public class TopologyManagerFrame extends JFrame{
     public void doCloseProject() {
         setPath(null);
         getTabbedPane().removeAll();
+        viewerPanelManagerMap.clear();
+    }
+
+    public GraphViewerPanelManager getCurrentGraphViewerManager(){
+        GraphViewerPanel viewerPanel = (GraphViewerPanel)getTabbedPane().getSelectedComponent();
+        if (viewerPanel != null){
+            return viewerPanelManagerMap.get(viewerPanel.getGraphmlDir().getAbsolutePath());
+        } else {
+            return null;
+        }
     }
 }
 

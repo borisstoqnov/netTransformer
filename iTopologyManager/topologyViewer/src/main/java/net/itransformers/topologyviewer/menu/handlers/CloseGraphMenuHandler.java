@@ -33,29 +33,18 @@ import java.io.File;
  * Time: 23:30
  * To change this template use File | Settings | File Templates.
  */
-public class OpenProjectMenuHandler implements ActionListener {
+public class CloseGraphMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
 
-    public OpenProjectMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
+    public CloseGraphMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        File dir = new File(System.getProperty("user.home"));
-        if (frame.getPath() != null){
-            dir = frame.getPath();
-        }
-        JFileChooser chooser = new JFileChooser(dir);
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        chooser.setMultiSelectionEnabled(false);
-        int result = chooser.showOpenDialog(frame);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            frame.doOpenProject(chooser.getSelectedFile());
-        }
-
+        frame.doCloseGraph();
     }
 
 }

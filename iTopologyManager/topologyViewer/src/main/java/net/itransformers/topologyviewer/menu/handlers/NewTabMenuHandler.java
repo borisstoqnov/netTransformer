@@ -19,6 +19,7 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
+import net.itransformers.topologyviewer.gui.GraphViewerPanelManager;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import java.awt.*;
@@ -42,7 +43,9 @@ public class NewTabMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO implement
-//        frame.createAndAddViewerPanel();
+        GraphViewerPanelManager currentGraphViewerManager = frame.getCurrentGraphViewerManager();
+        if (currentGraphViewerManager != null) {
+            currentGraphViewerManager.createAndAddViewerPanel();
+        }
     }
 }

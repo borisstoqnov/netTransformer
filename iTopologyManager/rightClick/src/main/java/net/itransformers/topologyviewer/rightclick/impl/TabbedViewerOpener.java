@@ -32,9 +32,8 @@ public class TabbedViewerOpener implements RightClickHandler {
                                      Map<String, String> rightClickParams,
                                      File deviceDataXmlFileName) throws Exception {
 
-         // TODO
-//         TopologyManagerFrame viewer = (TopologyManagerFrame) parent;
-//         viewer.createAndAddViewerPanel();
+         TopologyManagerFrame viewer = (TopologyManagerFrame) parent;
+         viewer.getCurrentGraphViewerManager().createAndAddViewerPanel();
      }
 
 }

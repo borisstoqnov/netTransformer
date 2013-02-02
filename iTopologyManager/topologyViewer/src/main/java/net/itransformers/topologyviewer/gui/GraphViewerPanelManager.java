@@ -74,10 +74,13 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
         this.tabbedPane = tabbedPane;
         entireGraph = factory.create();
         String fName = null;
-        if (entireGraph instanceof UndirectedGraph) {
+        String graphType = graphmlDir.getName();
+        if ("undirected".equals(graphType)) {
             fName = new File("iTopologyManager/topologyViewer/conf/xml/undirected.xml").toString();
-        } else if (entireGraph instanceof DirectedGraph) {
+        } else if ("directed".equals(graphType)) {
             fName = new File("iTopologyManager/topologyViewer/conf/xml/directed.xml").toString();
+        } else if ("diff-directed".equals(graphType) || "diff-undirected".equals(graphType)) {
+            fName = new File("iTopologyManager/topologyViewer/conf/xml/diff.xml").toString();
         } else {
             JOptionPane.showMessageDialog(frame, "Unable to create graph viewer, unknown graph type type.");
         }
@@ -108,11 +111,10 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     }
 
     private GraphViewerPanel createViewerPanel() {
-        return new GraphViewerPanel<G>(frame, viewerConfig, graphmlLoader, iconMapLoader, edgeStrokeMapLoader, edgeColorMapLoader, entireGraph, projectPath, initialNode);
+        return new GraphViewerPanel<G>(frame, viewerConfig, graphmlLoader, iconMapLoader, edgeStrokeMapLoader, edgeColorMapLoader, entireGraph, projectPath, graphmlDir, initialNode);
     }
 
     public void init() throws JAXBException, ParserConfigurationException, SAXException, IOException {
-        tabbedPane.removeAll();
         iconMapLoader = new IconMapLoader(viewerConfig);
         edgeStrokeMapLoader = new EdgeStrokeMapLoader(viewerConfig);
         edgeColorMapLoader = new EdgeColorMapLoader(viewerConfig);

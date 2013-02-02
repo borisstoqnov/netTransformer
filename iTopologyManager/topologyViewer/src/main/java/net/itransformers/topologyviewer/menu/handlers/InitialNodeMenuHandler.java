@@ -46,8 +46,6 @@ public class InitialNodeMenuHandler implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String initNode = JOptionPane.showInputDialog(frame,"Enter Initial Node","Enter Initial Node", JOptionPane.QUESTION_MESSAGE);
         frame.getPreferences().setProperty(PreferencesKeys.INITIAL_NODE_NAME.name(), initNode);
-        // TODO implement
-//        String initialNode = initNode;
-//        frame.setInitialNode(initialNode);
+        frame.getCurrentGraphViewerManager().setInitialNode(initNode);
     }
 }

@@ -127,7 +127,7 @@ public class MenuBuilder {
         open.addActionListener(new OpenProjectMenuHandler(frame));
         file.add(open);
         final JMenuItem close = new JMenuItem("Close Project");
-        open.addActionListener(new CloseProjectMenuHandler(frame));
+        close.addActionListener(new CloseProjectMenuHandler(frame));
         file.add(close);
 
         file.addSeparator();
@@ -136,7 +136,7 @@ public class MenuBuilder {
         openGraph.addActionListener(new OpenGraphMenuHandler(frame));
         file.add(openGraph);
         final JMenuItem closeGraph = new JMenuItem("Close Graph");
-//        open.addActionListener(new OpenGraphMenuHandler(frame));
+        closeGraph.addActionListener(new CloseGraphMenuHandler(frame));
         file.add(closeGraph);
 
         final JMenuItem diff = new JMenuItem("Diff Graph");

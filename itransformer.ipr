@@ -188,6 +188,9 @@
       </item>
     </group>
   </component>
+  <component name="ProjectDictionaryState">
+    <dictionary name="LYCHO" />
+  </component>
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/distribution/distribution.iml" filepath="$PROJECT_DIR$/distribution/distribution.iml" />
