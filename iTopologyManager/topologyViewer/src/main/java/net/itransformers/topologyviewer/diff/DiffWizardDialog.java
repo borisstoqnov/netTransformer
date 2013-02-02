@@ -20,7 +20,7 @@
 package net.itransformers.topologyviewer.diff;
 
 import net.itransformers.topologyviewer.gui.PreferencesKeys;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -130,7 +130,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
                         new File(file1.getParent()).getName() + "-" + new File(file2.getParent()).getName()).getAbsolutePath());
                 preferences.setProperty(PreferencesKeys.DIFF_PATH3.name(),diffPathTextField3.getText());
                 try {
-                    preferences.store(new FileOutputStream(TopologyViewer.VIEWER_PREFERENCES_PROPERTIES), "");
+                    preferences.store(new FileOutputStream(TopologyManagerFrame.VIEWER_PREFERENCES_PROPERTIES), "");
                 } catch (IOException e1) {
                     e1.printStackTrace();
                     JOptionPane.showMessageDialog(owner, "Can not Store preferences: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -267,7 +267,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
                 diffPathTextField.setText(chooser.getSelectedFile().getAbsolutePath());
                 preferences.setProperty(diffPathKey,diffPathTextField.getText());
                 try {
-                    preferences.store(new FileOutputStream(TopologyViewer.VIEWER_PREFERENCES_PROPERTIES), "");
+                    preferences.store(new FileOutputStream(TopologyManagerFrame.VIEWER_PREFERENCES_PROPERTIES), "");
                 } catch (IOException e1) {
                     e1.printStackTrace();
                     JOptionPane.showMessageDialog(owner, "Can not Store preferences: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

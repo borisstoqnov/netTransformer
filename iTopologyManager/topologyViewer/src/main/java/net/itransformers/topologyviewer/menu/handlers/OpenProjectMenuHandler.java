@@ -19,7 +19,7 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.gui.TopologyViewer;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,9 +35,9 @@ import java.io.File;
  */
 public class OpenProjectMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public OpenProjectMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public OpenProjectMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }

@@ -19,14 +19,11 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.gui.TopologyViewer;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * Created by IntelliJ IDEA.
@@ -36,9 +33,9 @@ import java.net.URL;
  */
 public class OpenRemoteMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public OpenRemoteMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public OpenRemoteMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }

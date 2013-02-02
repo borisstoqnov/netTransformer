@@ -19,9 +19,9 @@
 
 package net.itransformers.topologyviewer.rightclick.impl;
 
+import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
-import net.itransformers.topologyviewer.gui.ViewerPanel;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
@@ -29,7 +29,6 @@ import edu.uci.ics.jung.graph.util.Pair;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
@@ -40,8 +39,8 @@ public class ShortestPath implements RightClickHandler {
                                      Map<String, String> rightClickParams,
                                      java.io.File deviceDataXmlFileName) throws Exception {
 
-        TopologyViewer viewer = (TopologyViewer) parent;
-        final ViewerPanel viewerPanel = (ViewerPanel) viewer.getTabbedPane().getSelectedComponent();
+        TopologyManagerFrame viewer = (TopologyManagerFrame) parent;
+        final GraphViewerPanel viewerPanel = (GraphViewerPanel) viewer.getTabbedPane().getSelectedComponent();
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
         Object [] test = viewerPanel.getCurrentGraph().getVertices().toArray();
         Arrays.sort(test);

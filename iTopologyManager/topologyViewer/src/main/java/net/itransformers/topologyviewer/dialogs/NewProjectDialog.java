@@ -19,7 +19,7 @@
 
 package net.itransformers.topologyviewer.dialogs;
 
-import net.itransformers.topologyviewer.gui.TopologyViewer;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -29,7 +29,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.net.URISyntaxException;
 
 public class NewProjectDialog extends JDialog {
 
@@ -54,7 +53,7 @@ public class NewProjectDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public NewProjectDialog(final TopologyViewer frame) {
+	public NewProjectDialog(final TopologyManagerFrame frame) {
         setModal(true);
 		setTitle("Create New Project");
 		setBounds(100, 100, 564, 165);

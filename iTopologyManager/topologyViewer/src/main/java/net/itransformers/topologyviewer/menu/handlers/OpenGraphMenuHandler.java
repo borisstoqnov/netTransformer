@@ -19,7 +19,7 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.gui.TopologyViewer;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,27 +33,29 @@ import java.io.File;
  * Time: 23:30
  * To change this template use File | Settings | File Templates.
  */
-public class OpenMenuHandler implements ActionListener {
+public class OpenGraphMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public OpenMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public OpenGraphMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        File dir = new File(".");
-        if (frame.getPath() != null){
-            dir = frame.getPath();
+        File path = frame.getPath();
+        if (path == null) {
+            JOptionPane.showMessageDialog(frame, "Can not open graph before project path to be set.");
+            return;
         }
-        JFileChooser chooser = new JFileChooser(dir);
+
+        JFileChooser chooser = new JFileChooser(path);
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setMultiSelectionEnabled(false);
         int result = chooser.showOpenDialog(frame);
         if (result == JFileChooser.APPROVE_OPTION) {
-            frame.doOpenProject(chooser.getSelectedFile());
+            frame.doOpenGraph(chooser.getSelectedFile());
         }
 
     }

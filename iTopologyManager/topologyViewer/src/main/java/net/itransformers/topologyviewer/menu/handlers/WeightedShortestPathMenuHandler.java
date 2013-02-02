@@ -19,7 +19,7 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.gui.TopologyViewer;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,9 +34,9 @@ import java.awt.event.ActionListener;
  */
 public class WeightedShortestPathMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public WeightedShortestPathMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public WeightedShortestPathMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }

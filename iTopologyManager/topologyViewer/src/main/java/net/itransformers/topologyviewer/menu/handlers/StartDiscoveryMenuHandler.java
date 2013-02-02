@@ -19,21 +19,13 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.dialogs.NewProjectDialog;
 import net.itransformers.topologyviewer.dialogs.discovery.DiscoveryManagerDialog;
-import net.itransformers.topologyviewer.dialogs.discovery.DiscoveryResourceDialog;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
-import net.itransformers.utils.RecursiveCopy;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.Scanner;
 
 /**
  * Created by IntelliJ IDEA.
@@ -43,9 +35,9 @@ import java.util.Scanner;
  */
 public class StartDiscoveryMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public StartDiscoveryMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public StartDiscoveryMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }

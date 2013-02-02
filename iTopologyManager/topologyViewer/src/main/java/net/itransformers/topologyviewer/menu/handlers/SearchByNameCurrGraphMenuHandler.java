@@ -19,8 +19,8 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.gui.TopologyViewer;
-import net.itransformers.topologyviewer.gui.ViewerPanel;
+import net.itransformers.topologyviewer.gui.GraphViewerPanel;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 
 import javax.swing.*;
@@ -38,16 +38,16 @@ import java.util.Collection;
  */
 public class SearchByNameCurrGraphMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public SearchByNameCurrGraphMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public SearchByNameCurrGraphMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ViewerPanel viewerPanel = (ViewerPanel) frame.getTabbedPane().getSelectedComponent();
+        GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         final VisualizationViewer vv = viewerPanel.getVisualizationViewer();
         Collection<String> vertices = viewerPanel.getCurrentGraph().getVertices();
         String [] test = vertices.toArray(new String[0]);

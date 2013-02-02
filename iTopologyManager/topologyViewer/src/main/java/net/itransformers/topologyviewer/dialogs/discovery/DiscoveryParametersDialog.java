@@ -20,8 +20,7 @@
 package net.itransformers.topologyviewer.dialogs.discovery;
 
 import net.itransformers.idiscover.discoveryhelpers.xml.discoveryParameters.DiscoveryHelperType;
-import net.itransformers.resourcemanager.config.ResourcesType;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.utils.JaxbMarshalar;
 
 import javax.swing.*;
@@ -31,7 +30,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.net.URISyntaxException;
 
 public class DiscoveryParametersDialog extends JDialog {
 
@@ -40,7 +38,7 @@ public class DiscoveryParametersDialog extends JDialog {
 	private JTextField baseFilePathTextField;
     private boolean isOkPressed;
     private File projectDir;
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
     /**
 	 * Launch the application.
@@ -58,7 +56,7 @@ public class DiscoveryParametersDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DiscoveryParametersDialog(final TopologyViewer frame) {
+	public DiscoveryParametersDialog(final TopologyManagerFrame frame) {
         this.frame = frame;
         setModal(true);
 		setTitle("Configure Discovery Parameters");

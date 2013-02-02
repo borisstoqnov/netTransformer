@@ -19,9 +19,9 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
+import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
-import net.itransformers.topologyviewer.gui.ViewerPanel;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
@@ -42,16 +42,16 @@ import java.util.Set;
  */
 public class ShortestPathMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public ShortestPathMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public ShortestPathMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        final ViewerPanel viewerPanel = (ViewerPanel) frame.getTabbedPane().getSelectedComponent();
+        final GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
         Collection<String> vertices = viewerPanel.getCurrentGraph().getVertices();
         String [] test = vertices.toArray(new String[0]);

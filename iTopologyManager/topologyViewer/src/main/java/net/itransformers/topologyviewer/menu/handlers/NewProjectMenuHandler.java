@@ -20,7 +20,7 @@
 package net.itransformers.topologyviewer.menu.handlers;
 
 import net.itransformers.topologyviewer.dialogs.NewProjectDialog;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.utils.RecursiveCopy;
 
 import javax.swing.*;
@@ -30,8 +30,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.util.Scanner;
 
 /**
@@ -42,9 +40,9 @@ import java.util.Scanner;
  */
 public class NewProjectMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public NewProjectMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public NewProjectMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }

@@ -20,7 +20,7 @@
 package net.itransformers.topologyviewer.dialogs.discovery;
 
 import net.itransformers.resourcemanager.config.ResourcesType;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.help.HelpOpener;
 import net.itransformers.utils.JaxbMarshalar;
 
@@ -31,12 +31,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.net.URISyntaxException;
 
 public class DiscoveryResourceDialog extends JDialog {
 
 	private final DiscoveryResourcePanel contentPanel;
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
     /**
 	 * Launch the application.
@@ -54,7 +53,7 @@ public class DiscoveryResourceDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DiscoveryResourceDialog(final TopologyViewer frame) {
+	public DiscoveryResourceDialog(final TopologyManagerFrame frame) {
         this.frame = frame;
         setModal(true);
 		setTitle("Configure Discovery Resource");

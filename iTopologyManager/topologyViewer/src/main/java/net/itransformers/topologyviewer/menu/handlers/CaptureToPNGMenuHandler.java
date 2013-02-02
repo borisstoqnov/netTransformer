@@ -19,9 +19,9 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
+import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.PngFileFilter;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
-import net.itransformers.topologyviewer.gui.ViewerPanel;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.screencap.Dump;
 import edu.uci.ics.screencap.PNGDump;
@@ -40,16 +40,16 @@ import java.io.File;
  */
 public class CaptureToPNGMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public CaptureToPNGMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public CaptureToPNGMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ViewerPanel viewerPanel = (ViewerPanel) frame.getTabbedPane().getSelectedComponent();
+        GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         final VisualizationViewer vv = viewerPanel.getVisualizationViewer();
         try {
             File dir = new File(".");

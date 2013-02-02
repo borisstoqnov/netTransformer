@@ -77,7 +77,7 @@ public class EdgeStrokeMapLoader implements GraphmlLoaderListener{
                 boolean iconExists = edgesStrokeMap.containsKey(edge);
                 if ((!isDefaultIcon && match) || (isDefaultIcon && !iconExists)) {
 //                    final String name = edgeStrokeType.getName();
-//                    final URL resource = TopologyViewer.class.getResource(name);
+//                    final URL resource = TopologyManagerFrame.class.getResource(name);
 //                    logger.debug("Load icon: "+name);
 //                    final ImageIcon imageIcon = new ImageIcon(resource);
 //                    Icon iconImg = new LayeredIcon(imageIcon.getImage());

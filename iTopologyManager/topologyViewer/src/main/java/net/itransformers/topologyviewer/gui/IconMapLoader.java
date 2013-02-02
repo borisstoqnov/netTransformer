@@ -81,7 +81,7 @@ public class IconMapLoader implements GraphmlLoaderListener{
                     final String name = iconType.getName();
                     String[] iconNames = name.split(",");
                     logger.debug("Load icon: "+iconNames[0].trim());
-                    final URL resource = TopologyViewer.class.getResource(iconNames[0].trim());
+                    final URL resource = TopologyManagerFrame.class.getResource(iconNames[0].trim());
                     if (resource == null) {
                         logger.error("Can not load icon: "+iconNames[0].trim());
                         continue;
@@ -89,7 +89,7 @@ public class IconMapLoader implements GraphmlLoaderListener{
                     final ImageIcon imageIcon = new ImageIcon(resource);
                     LayeredIcon iconImg = new LayeredIcon(imageIcon.getImage());
                     for (int i=1;i<iconNames.length;i++) {
-                        final URL resource1 = TopologyViewer.class.getResource(iconNames[i].trim());
+                        final URL resource1 = TopologyManagerFrame.class.getResource(iconNames[i].trim());
                         logger.debug("Load icon: "+iconNames[i].trim());
                         iconImg.add(new ImageIcon(resource1));
                     }

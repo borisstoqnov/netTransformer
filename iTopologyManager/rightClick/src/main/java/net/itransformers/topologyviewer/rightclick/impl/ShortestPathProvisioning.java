@@ -21,12 +21,12 @@ package net.itransformers.topologyviewer.rightclick.impl;
 
 import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapter;
 import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapterFactory;
+import net.itransformers.topologyviewer.gui.GraphViewerPanel;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.parameterfactory.ParameterFactoryBuilder;
 import net.itransformers.resourcemanager.ResourceManager;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
-import net.itransformers.topologyviewer.gui.ViewerPanel;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
@@ -40,7 +40,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
@@ -52,8 +51,8 @@ public class ShortestPathProvisioning implements RightClickHandler {
                                      Map<String, String> rightClickParams,
                                      java.io.File deviceDataXmlFileName) throws Exception {
 
-        TopologyViewer viewer = (TopologyViewer) parent;
-        final ViewerPanel viewerPanel = (ViewerPanel) viewer.getTabbedPane().getSelectedComponent();
+        TopologyManagerFrame viewer = (TopologyManagerFrame) parent;
+        final GraphViewerPanel viewerPanel = (GraphViewerPanel) viewer.getTabbedPane().getSelectedComponent();
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
         Object [] test = viewerPanel.getCurrentGraph().getVertices().toArray();
         Arrays.sort(test);
@@ -68,46 +67,47 @@ public class ShortestPathProvisioning implements RightClickHandler {
         ParameterFactoryBuilder builder = new ParameterFactoryBuilder(rightClickParams.get("parameterFactoryXml"));
 
         ResourceManager resourceManager = new ResourceManager(rightClickParams.get("resource"));
-        Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = viewer.getVertexMetadatas();
-
-        final Layout<String,String> layout = vv.getGraphLayout();
-//                for all edges, paint edges that are in shortest path
-        for (final String edge : layout.getGraph().getEdges()) {
-            Pair<String> endpoints = mGraph.getEndpoints(edge);
-            String v1= endpoints.getFirst()	;
-
-            String v2= endpoints.getSecond() ;
-            if (!v1.equals(v2) && mPred.contains(v1) && mPred.contains(v2)){
-                vv.setEdgeStroke(edge, new BasicStroke(4f));
-
-            }
-        }
-        viewerPanel.repaint();
-
-        Iterator it = mPred.iterator();
-        while (it.hasNext()){
-            Object element = it.next();
-            viewerPanel.Animator(element.toString());
-            viewerPanel.SetPickedState(element.toString());
-            Map<String, Object> context = new HashMap<String, Object>();
-            Map<String, String> graphMLParams1 = getParams(element.toString(), vertexMetadatas);
-
-            context.put("graphml", graphMLParams1);
-            context.put("rightClickParams", rightClickParams);
-            context.put("xmlFileName", deviceDataXmlFileName.toURI().toString());
-            context.put("parentFrame", parent);
-
-            ResourceType resource = resourceManager.findResource(graphMLParams1);
-            context.put("connection-params", ResourceResolver.getConnectionParams(resource, graphMLParams1));
-            FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(rightClickParams.get("fulfilment-factory"),
-                    builder,resource);
-            String[] factoryNames = factory.getFulfilmentFactoryNamesForResource(resource.getName());
-            createGUI(element.toString(),context, factoryNames, factory);
-
-        }
-
-
-
+        // TODO
+//        Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = viewer.getVertexMetadatas();
+//
+//        final Layout<String,String> layout = vv.getGraphLayout();
+////                for all edges, paint edges that are in shortest path
+//        for (final String edge : layout.getGraph().getEdges()) {
+//            Pair<String> endpoints = mGraph.getEndpoints(edge);
+//            String v1= endpoints.getFirst()	;
+//
+//            String v2= endpoints.getSecond() ;
+//            if (!v1.equals(v2) && mPred.contains(v1) && mPred.contains(v2)){
+//                vv.setEdgeStroke(edge, new BasicStroke(4f));
+//
+//            }
+//        }
+//        viewerPanel.repaint();
+//
+//        Iterator it = mPred.iterator();
+//        while (it.hasNext()){
+//            Object element = it.next();
+//            viewerPanel.Animator(element.toString());
+//            viewerPanel.SetPickedState(element.toString());
+//            Map<String, Object> context = new HashMap<String, Object>();
+//            Map<String, String> graphMLParams1 = getParams(element.toString(), vertexMetadatas);
+//
+//            context.put("graphml", graphMLParams1);
+//            context.put("rightClickParams", rightClickParams);
+//            context.put("xmlFileName", deviceDataXmlFileName.toURI().toString());
+//            context.put("parentFrame", parent);
+//
+//            ResourceType resource = resourceManager.findResource(graphMLParams1);
+//            context.put("connection-params", ResourceResolver.getConnectionParams(resource, graphMLParams1));
+//            FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(rightClickParams.get("fulfilment-factory"),
+//                    builder,resource);
+//            String[] factoryNames = factory.getFulfilmentFactoryNamesForResource(resource.getName());
+//            createGUI(element.toString(),context, factoryNames, factory);
+//
+//        }
+//
+//
+//
 
         }
     private void createGUI(String v, final Map<String, Object> context, String[] factoryNames, final FulfilmentAdapterFactory factory) {

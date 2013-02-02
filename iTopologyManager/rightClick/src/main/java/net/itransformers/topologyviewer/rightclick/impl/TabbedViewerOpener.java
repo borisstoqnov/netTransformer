@@ -24,7 +24,6 @@ import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 
 import javax.swing.*;
 import java.io.File;
-import java.net.URL;
 import java.util.Map;
 
 public class TabbedViewerOpener implements RightClickHandler {
@@ -33,8 +32,9 @@ public class TabbedViewerOpener implements RightClickHandler {
                                      Map<String, String> rightClickParams,
                                      File deviceDataXmlFileName) throws Exception {
 
-         TopologyViewer viewer = (TopologyViewer) parent;
-         viewer.createAndAddViewerPanel();
+         // TODO
+//         TopologyManagerFrame viewer = (TopologyManagerFrame) parent;
+//         viewer.createAndAddViewerPanel();
      }
 
 }

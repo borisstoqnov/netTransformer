@@ -19,8 +19,8 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.gui.TopologyViewer;
-import net.itransformers.topologyviewer.gui.ViewerPanel;
+import net.itransformers.topologyviewer.gui.GraphViewerPanel;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,16 +37,16 @@ import java.util.Collection;
  */
 public class SearchByNameEntireGraphMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public SearchByNameEntireGraphMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public SearchByNameEntireGraphMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ViewerPanel viewerPanel = (ViewerPanel) frame.getTabbedPane().getSelectedComponent();
+        GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         Collection<String> vertices = viewerPanel.getCurrentGraph().getVertices();
         String [] test = vertices.toArray(new String[0]);
         Arrays.sort(test);

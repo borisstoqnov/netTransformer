@@ -20,7 +20,7 @@
 package net.itransformers.topologyviewer.menu.handlers;
 
 import net.itransformers.topologyviewer.diff.DiffWizardDialog;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -36,9 +36,9 @@ import java.net.MalformedURLException;
  */
 public class DiffMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public DiffMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public DiffMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
@@ -57,9 +57,10 @@ public class DiffMenuHandler implements ActionListener {
 //        System.out.println(wizardDialog.getDiffPath2());
 //        System.out.println(wizardDialog.getDiffPath3());
 //        System.out.println(wizardDialog.getResult() == DiffWizardDialog.Result.DONE);
-            if (wizardDialog.getResult() == DiffWizardDialog.Result.DONE) {
-                frame.setConfigUri(new File(wizardDialog.getDiffConfigPath()));
-                frame.doOpenProject(new File(wizardDialog.getDiffPath3()));
-            }
+        // TODO
+//            if (wizardDialog.getResult() == DiffWizardDialog.Result.DONE) {
+//                frame.setConfigUri(new File(wizardDialog.getDiffConfigPath()));
+//                frame.doOpenProject(new File(wizardDialog.getDiffPath3()));
+//            }
     }
 }

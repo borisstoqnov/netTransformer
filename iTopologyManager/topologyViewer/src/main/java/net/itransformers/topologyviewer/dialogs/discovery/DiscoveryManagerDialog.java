@@ -21,22 +21,16 @@ package net.itransformers.topologyviewer.dialogs.discovery;
 import net.itransformers.idiscover.core.*;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.resourcemanager.config.ResourceType;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
-import org.apache.log4j.Appender;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
 
 import javax.swing.*;
-import javax.xml.bind.JAXBException;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,7 +67,7 @@ public class DiscoveryManagerDialog extends JDialog {
     /**
      * Create the dialog.
      */
-    public DiscoveryManagerDialog(TopologyViewer frame) {
+    public DiscoveryManagerDialog(TopologyManagerFrame frame) {
         this(frame, getProjPath(frame));
     }
     public DiscoveryManagerDialog(JFrame frame, File projectDir) {
@@ -243,7 +237,7 @@ public class DiscoveryManagerDialog extends JDialog {
         managerThread.pauseDiscovery();
     }
 
-    private static File getProjPath(TopologyViewer viewer){
+    private static File getProjPath(TopologyManagerFrame viewer){
         File projectDir = viewer.getPath();
         return projectDir;
     }

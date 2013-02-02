@@ -37,10 +37,9 @@ package net.itransformers.topologyvierwer.gui.launcher;/*
  */
 
 import edu.uci.ics.jung.graph.*;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import java.io.File;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,15 +85,16 @@ public class TopologyViewerLauncher {
         if (viewerConfig != null) {
             viewerConfigFile = new File(viewerConfig);
         }
-        if (params.get("-t").equals("undirected")) {
-            new TopologyViewer<UndirectedGraph<String, String>>(baseUrl, graphmlRelDir, UndirectedSparseGraph.<String, String>getFactory(), viewerConfigFile, initialNode);
-        } else if(params.get("-t").equals("multi")){
-            new TopologyViewer<UndirectedGraph<String, String>>(baseUrl, graphmlRelDir, UndirectedSparseMultigraph.<String, String>getFactory(), viewerConfigFile,initialNode);
-        }else if (params.get("-t").equals("directed")) {
-            new TopologyViewer<DirectedGraph<String, String>>(baseUrl, graphmlRelDir, DirectedSparseGraph.<String, String>getFactory(), viewerConfigFile,initialNode);
-        }else{
-
-        }
+        new TopologyManagerFrame(baseUrl);
+//        if (params.get("-t").equals("undirected")) {
+//            new TopologyManagerFrame(baseUrl, graphmlRelDir, UndirectedSparseGraph.<String, String>getFactory(), viewerConfigFile, initialNode);
+//        } else if(params.get("-t").equals("multi")){
+//            new TopologyManagerFrame<UndirectedGraph<String, String>>(baseUrl, graphmlRelDir, UndirectedSparseMultigraph.<String, String>getFactory(), viewerConfigFile,initialNode);
+//        }else if (params.get("-t").equals("directed")) {
+//            new TopologyManagerFrame<DirectedGraph<String, String>>(baseUrl, graphmlRelDir, DirectedSparseGraph.<String, String>getFactory(), viewerConfigFile,initialNode);
+//        }else{
+//
+//        }
     }
 
     private static void printUsage(String msg) {
@@ -102,10 +102,11 @@ public class TopologyViewerLauncher {
         System.out.println("Usage:   topoManager.bat [-t <directed|undirected>] -d <local_dir> -u <remote_url> -g <graphml_dir> -f <viewer_config]");
         System.out.println(
                 "-f <viewer-config>          # viewer configuration file\n" +
-                        "-d <local_dir>              # relative or absolute path to local dir with 'graphml-dir' and 'device-data' dirs.\n" +
-                        "-g <graphml_dir>            # relative path to the 'graphml-dir' (relateive to the 'local_dir' or 'remote_url').\n" +
-                        "-u <remote_url>             # URL to site with 'graphml-dir' and 'device-data' dirs.\n" +
-                        "-t <directed|undirected>    # graph type - directed or undirected\n"+
-                        "-n <Initial Node>           # Initial Node");
+                        "-d <local_dir>              # relative or absolute path to local dir with 'graphml-dir' and 'device-data' dirs.\n"
+//                        "-g <graphml_dir>            # relative path to the 'graphml-dir' (relateive to the 'local_dir' or 'remote_url').\n" +
+//                        "-u <remote_url>             # URL to site with 'graphml-dir' and 'device-data' dirs.\n" +
+//                        "-t <directed|undirected>    # graph type - directed or undirected\n"+
+//                        "-n <Initial Node>           # Initial Node"
+        );
     }
 }

@@ -20,7 +20,7 @@
 package net.itransformers.topologyviewer.menu.handlers;
 
 import net.itransformers.topologyviewer.gui.PreferencesKeys;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,9 +35,9 @@ import java.awt.event.ActionListener;
  */
 public class InitialNodeMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public InitialNodeMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public InitialNodeMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
@@ -46,7 +46,8 @@ public class InitialNodeMenuHandler implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String initNode = JOptionPane.showInputDialog(frame,"Enter Initial Node","Enter Initial Node", JOptionPane.QUESTION_MESSAGE);
         frame.getPreferences().setProperty(PreferencesKeys.INITIAL_NODE_NAME.name(), initNode);
-        String initialNode = initNode;
-        frame.setInitialNode(initialNode);
+        // TODO implement
+//        String initialNode = initNode;
+//        frame.setInitialNode(initialNode);
     }
 }

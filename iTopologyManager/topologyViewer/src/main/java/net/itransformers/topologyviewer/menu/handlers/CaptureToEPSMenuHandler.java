@@ -20,8 +20,8 @@
 package net.itransformers.topologyviewer.menu.handlers;
 
 import net.itransformers.topologyviewer.gui.EpsFileFilter;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
-import net.itransformers.topologyviewer.gui.ViewerPanel;
+import net.itransformers.topologyviewer.gui.GraphViewerPanel;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.screencap.Dump;
 import edu.uci.ics.screencap.EPSDump;
@@ -40,16 +40,16 @@ import java.io.File;
  */
 public class CaptureToEPSMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public CaptureToEPSMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public CaptureToEPSMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ViewerPanel viewerPanel = (ViewerPanel) frame.getTabbedPane().getSelectedComponent();
+        GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         final VisualizationViewer vv = viewerPanel.getVisualizationViewer();
         try {
             File dir = new File(".");

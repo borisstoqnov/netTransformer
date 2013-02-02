@@ -18,10 +18,8 @@ package net.itransformers.topologyviewer.gui;/*
  */
 
 import edu.uci.ics.jung.graph.UndirectedGraph;
-import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 
 import javax.swing.*;
-import java.net.URL;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,8 +27,8 @@ import java.net.URL;
  * Time: 9:37
  * To change this template use File | Settings | File Templates.
  */
-public class TopologyViewerApplet extends JApplet {
-    TopologyViewer<UndirectedGraph<String, String>> fFrame;
+public class TopologyManagerApplet extends JApplet {
+    TopologyManagerFrame fFrame;
 
     /** Build an applet interface with a menubar. A
      * a drop down menu includes Open/Close items
@@ -42,7 +40,7 @@ public class TopologyViewerApplet extends JApplet {
 //            URL dirname = new URL("http://localhost:8081/bg_peering/");
 //            String deviceXmlPath = "undirected";
 //            URL viewerConfig = new URL("http://localhost:8081/bg_peering/inet-map-conf.xml");
-//            fFrame = new TopologyViewer<UndirectedGraph<String, String>>(dirname, deviceXmlPath, UndirectedSparseGraph.<String, String>getFactory(), viewerConfig,null);
+//            fFrame = new TopologyManagerFrame<UndirectedGraph<String, String>>(dirname, deviceXmlPath, UndirectedSparseGraph.<String, String>getFactory(), viewerConfig,null);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }

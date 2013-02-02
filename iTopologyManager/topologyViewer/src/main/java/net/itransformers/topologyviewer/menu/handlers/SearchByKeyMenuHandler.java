@@ -19,14 +19,13 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.gui.TopologyViewer;
-import net.itransformers.topologyviewer.gui.ViewerPanel;
+import net.itransformers.topologyviewer.gui.GraphViewerPanel;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -38,9 +37,9 @@ import java.util.Set;
  */
 public class SearchByKeyMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public SearchByKeyMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public SearchByKeyMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
@@ -53,7 +52,7 @@ public class SearchByKeyMenuHandler implements ActionListener {
         String key = JOptionPane.showInputDialog(frame, "Choose Key Name", JOptionPane.QUESTION_MESSAGE);
         String value = JOptionPane.showInputDialog(frame, "Enter Key Value", "Value", JOptionPane.QUESTION_MESSAGE);
 
-        ViewerPanel viewerPanel = (ViewerPanel) frame.getTabbedPane().getSelectedComponent();
+        GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         Set<String> foundVertexes = viewerPanel.FindNodeByKey(key,value);
         if (!foundVertexes.isEmpty()){
             Iterator it = foundVertexes.iterator();

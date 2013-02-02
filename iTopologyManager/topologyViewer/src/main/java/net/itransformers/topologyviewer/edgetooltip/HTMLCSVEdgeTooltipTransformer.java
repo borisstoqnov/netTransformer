@@ -21,13 +21,17 @@ package net.itransformers.topologyviewer.edgetooltip;
 
 import net.itransformers.topologyviewer.config.TooltipType;
 import edu.uci.ics.jung.io.GraphMLMetadata;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import org.apache.commons.collections15.Transformer;
+import org.apache.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class HTMLCSVEdgeTooltipTransformer extends EdgeTooltipTransformerBase{
+    static Logger logger = Logger.getLogger(HTMLCSVEdgeTooltipTransformer.class);
+
     public HTMLCSVEdgeTooltipTransformer(TooltipType tooltipType, Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas) {
         super(tooltipType, edgeMetadatas);
     }
@@ -39,6 +43,10 @@ public class HTMLCSVEdgeTooltipTransformer extends EdgeTooltipTransformerBase{
              Set<String> valueSet = new HashSet<String>();
              for (Map<String, GraphMLMetadata<String>> edgeMetadata : edgeMetadatas.values()) {
                  GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(tooltipType.getDataKey());
+                 if (stringGraphMLMetadata == null) {
+                    logger.error("Unable find tooltip edgeMetadata for key: "+tooltipType.getDataKey());
+                     return "";
+                 }
                  Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
                  final String value = transformer.transform(edge);
                  if (value != null){

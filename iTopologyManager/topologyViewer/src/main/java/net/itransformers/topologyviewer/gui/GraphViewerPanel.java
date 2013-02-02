@@ -53,13 +53,11 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.*;
 
 
-public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
-    static Logger logger = Logger.getLogger(ViewerPanel.class);
+public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
+    static Logger logger = Logger.getLogger(GraphViewerPanel.class);
     private MyVisualizationViewer vv;
     private TopologyViewerConfType viewerConfig;
     private GraphmlLoader<G> graphmlLoader;
@@ -68,24 +66,22 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
     private Integer currentHops;
     private G currentGraph;
     private File currentDir;
-    private String graphmlRelDir;
     private File deviceXmlPath;
     private File path;
     private String initialNode;
     private JFrame parent;
 
-    public ViewerPanel(JFrame parent, TopologyViewerConfType viewerConfig,
-                       GraphmlLoader<G> graphmlLoader,
-                       IconMapLoader iconMapLoader,
-                       EdgeStrokeMapLoader edgeStrokeMapLoader,
-                       EdgeColorMapLoader edgeColorMapLoader,
-                       G entireGraph, File path, String graphmlRelDir, String initialNode) {
+    public GraphViewerPanel(JFrame parent, TopologyViewerConfType viewerConfig,
+                            GraphmlLoader<G> graphmlLoader,
+                            IconMapLoader iconMapLoader,
+                            EdgeStrokeMapLoader edgeStrokeMapLoader,
+                            EdgeColorMapLoader edgeColorMapLoader,
+                            G entireGraph, File path, String initialNode) {
         super();
         this.parent = parent;
         this.viewerConfig = viewerConfig;
         this.graphmlLoader = graphmlLoader;
         this.entireGraph = entireGraph;
-        this.graphmlRelDir = graphmlRelDir;
         this.initialNode = initialNode;
         this.deviceXmlPath = new File(path,"device-data");
         this.path = path;
@@ -233,7 +229,7 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
                     chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
                     chooser.setMultiSelectionEnabled(false);
                     chooser.setFileFilter(new LayoutFileFilter());
-                    int result = chooser.showOpenDialog(ViewerPanel.this);
+                    int result = chooser.showOpenDialog(GraphViewerPanel.this);
                     if (result == JFileChooser.APPROVE_OPTION){
                         currentDir = chooser.getCurrentDirectory();
                         String absolutePath = chooser.getSelectedFile().getAbsolutePath();
@@ -245,7 +241,7 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
                     }
                 } catch (Exception e1) {
                     e1.printStackTrace();
-                    JOptionPane.showMessageDialog(ViewerPanel.this,"Error restoring layout: "+e1.getMessage());
+                    JOptionPane.showMessageDialog(GraphViewerPanel.this,"Error restoring layout: "+e1.getMessage());
                 }
             }
          });
@@ -356,7 +352,7 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
                     chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
                     chooser.setMultiSelectionEnabled(false);
                     chooser.setFileFilter(new PngFileFilter());
-                    int result = chooser.showSaveDialog(ViewerPanel.this);
+                    int result = chooser.showSaveDialog(GraphViewerPanel.this);
                     if (result == JFileChooser.APPROVE_OPTION){
                         currentDir = chooser.getCurrentDirectory();
                         String absolutePath = chooser.getSelectedFile().getAbsolutePath();
@@ -391,7 +387,7 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
                       chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
                       chooser.setMultiSelectionEnabled(false);
                       chooser.setFileFilter(new LayoutFileFilter());
-                      int result = chooser.showSaveDialog(ViewerPanel.this);
+                      int result = chooser.showSaveDialog(GraphViewerPanel.this);
                       if (result == JFileChooser.APPROVE_OPTION){
                           currentDir = chooser.getCurrentDirectory();
                           String absolutePath = chooser.getSelectedFile().getAbsolutePath();
@@ -402,7 +398,7 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
                       }
                   } catch (IOException e1) {
                       e1.printStackTrace();
-                      JOptionPane.showMessageDialog(ViewerPanel.this,"Error saving layout: "+e1.getMessage());
+                      JOptionPane.showMessageDialog(GraphViewerPanel.this,"Error saving layout: "+e1.getMessage());
                   }
               }
          });
@@ -442,7 +438,7 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
             protected void handlePopup(final MouseEvent e) {
                 GraphElementAccessor<String,String> pickSupport = vv.getPickSupport();
                 final String v = pickSupport.getVertex(vv.getGraphLayout(), e.getX(), e.getY());
-                final java.util.List<RightClickItemType> rightClickItem = ViewerPanel.this.viewerConfig.getRightClickItem();
+                final java.util.List<RightClickItemType> rightClickItem = GraphViewerPanel.this.viewerConfig.getRightClickItem();
                 JPopupMenu popup = new JPopupMenu();
                 fillRightClickMenu(v, rightClickItem, popup);
                 JMenuItem remove = new JMenuItem("remove");
@@ -467,10 +463,10 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
                 public void actionPerformed(ActionEvent e1) {
                     try {
                         final Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = graphmlLoader.getVertexMetadatas();
-                        RightClickInvoker.invokeRightClickHandler(ViewerPanel.this.parent, v, rcItemType, vertexMetadatas, deviceXmlPath);
+                        RightClickInvoker.invokeRightClickHandler(GraphViewerPanel.this.parent, v, rcItemType, vertexMetadatas, deviceXmlPath);
                     } catch (Exception e2) {
                         e2.printStackTrace();
-                        JOptionPane.showMessageDialog(ViewerPanel.this, "Error while calling right click: " + e2.getMessage());
+                        JOptionPane.showMessageDialog(GraphViewerPanel.this, "Error while calling right click: " + e2.getMessage());
                     }
                 }
             });
@@ -503,7 +499,7 @@ public class ViewerPanel<G extends Graph<String,String>> extends JPanel{
         reload.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    graphmlLoader.loadGraphml(new File(path,graphmlRelDir+"/"));
+                    graphmlLoader.loadGraphml(path);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

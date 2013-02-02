@@ -19,8 +19,8 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.gui.TopologyViewer;
-import net.itransformers.topologyviewer.gui.ViewerPanel;
+import net.itransformers.topologyviewer.gui.GraphViewerPanel;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import org.apache.commons.net.util.SubnetUtils;
 import org.apache.log4j.Logger;
 
@@ -28,7 +28,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.InetAddress;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -41,9 +40,9 @@ import java.util.Set;
 public class SearchByIpMenuHandler implements ActionListener {
     static Logger logger = Logger.getLogger(SearchByIpMenuHandler.class);
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public SearchByIpMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public SearchByIpMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
@@ -56,7 +55,7 @@ public class SearchByIpMenuHandler implements ActionListener {
 //        String key = JOptionPane.showInputDialog(frame, "Choose IP", JOptionPane.QUESTION_MESSAGE);
         final String ip = JOptionPane.showInputDialog(frame, "Enter IP", "Value", JOptionPane.QUESTION_MESSAGE);
 
-        ViewerPanel viewerPanel = (ViewerPanel) frame.getTabbedPane().getSelectedComponent();
+        GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         Set<String> foundVertexes;
         foundVertexes = viewerPanel.FindNodeByKey("RoutePrefixes",new Object(){
             @Override

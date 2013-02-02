@@ -19,8 +19,8 @@
 
 package net.itransformers.topologyviewer.menu;
 
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.menu.handlers.StartDiscoveryMenuHandler;
-import net.itransformers.topologyviewer.gui.TopologyViewer;
 import net.itransformers.topologyviewer.menu.handlers.*;
 
 import javax.swing.*;
@@ -35,7 +35,7 @@ import java.lang.reflect.InvocationTargetException;
  * To change this template use File | Settings | File Templates.
  */
 public class MenuBuilder {
-    public JMenuBar createMenuBar(final TopologyViewer frame) {
+    public JMenuBar createMenuBar(final TopologyManagerFrame frame) {
         JMenuBar menuBar = new JMenuBar();
 
         createFileMenu(frame, menuBar);
@@ -47,7 +47,7 @@ public class MenuBuilder {
         return menuBar;
     }
 
-    private void createHelpMenu(TopologyViewer frame, JMenuBar menuBar) {
+    private void createHelpMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu help = new JMenu("Help");
         menuBar.add(help);
 
@@ -59,7 +59,7 @@ public class MenuBuilder {
         help.add(about);
     }
 
-    private void createWindowMenu(TopologyViewer frame, JMenuBar menuBar) {
+    private void createWindowMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu tabs = new JMenu("Window");
         menuBar.add(tabs);
         final JMenuItem newTab = new JMenuItem("New Tab");
@@ -76,7 +76,7 @@ public class MenuBuilder {
         tabs.add(closeAll);
     }
 
-    private void createGraphToolsMenu(TopologyViewer frame, JMenuBar menuBar) {
+    private void createGraphToolsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu graphTools = new JMenu("GraphTools");
         menuBar.add(graphTools);
 
@@ -116,7 +116,7 @@ public class MenuBuilder {
 
     }
 
-    private void createFileMenu(TopologyViewer frame, JMenuBar menuBar) {
+    private void createFileMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu file = new JMenu("File");
         menuBar.add(file);
 
@@ -133,10 +133,10 @@ public class MenuBuilder {
         file.addSeparator();
 
         final JMenuItem openGraph = new JMenuItem("Open Graph");
-        openGraph.addActionListener(new OpenMenuHandler(frame));
+        openGraph.addActionListener(new OpenGraphMenuHandler(frame));
         file.add(openGraph);
         final JMenuItem closeGraph = new JMenuItem("Close Graph");
-//        open.addActionListener(new OpenMenuHandler(frame));
+//        open.addActionListener(new OpenGraphMenuHandler(frame));
         file.add(closeGraph);
 
         final JMenuItem diff = new JMenuItem("Diff Graph");
@@ -172,7 +172,7 @@ public class MenuBuilder {
         file.add(exit);
     }
 
-    private void createDiscoveryMenu(TopologyViewer frame, JMenuBar menuBar) {
+    private void createDiscoveryMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu discovery = new JMenu("Discovery");
         menuBar.add(discovery);
 
@@ -187,11 +187,11 @@ public class MenuBuilder {
         discovery.add(configureParameters);
     }
 
-    private ActionListener createMenuHandler(TopologyViewer frame, String handlerClassName) {
+    private ActionListener createMenuHandler(TopologyManagerFrame frame, String handlerClassName) {
         ActionListener handler = null;
         try {
             Class handlerClass = Class.forName(handlerClassName);
-            Constructor constructor = handlerClass.getConstructor(new Class<?>[]{TopologyViewer.class});
+            Constructor constructor = handlerClass.getConstructor(new Class<?>[]{TopologyManagerFrame.class});
             return (ActionListener) constructor.newInstance(frame);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

@@ -19,7 +19,7 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.gui.TopologyViewer;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,15 +33,16 @@ import java.awt.event.ActionListener;
  */
 public class NewTabMenuHandler implements ActionListener {
 
-    private TopologyViewer frame;
+    private TopologyManagerFrame frame;
 
-    public NewTabMenuHandler(TopologyViewer frame) throws HeadlessException {
+    public NewTabMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        frame.createAndAddViewerPanel();
+        // TODO implement
+//        frame.createAndAddViewerPanel();
     }
 }
