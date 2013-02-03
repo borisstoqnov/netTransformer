@@ -50,7 +50,9 @@ public class OpenGraphMenuHandler implements ActionListener {
             return;
         }
 
-        JFileChooser chooser = new JFileChooser(path);
+        File networkDir = new File(path, "network");
+        if (!networkDir.exists()) networkDir = path;
+        JFileChooser chooser = new JFileChooser(networkDir);
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setMultiSelectionEnabled(false);
         int result = chooser.showOpenDialog(frame);
