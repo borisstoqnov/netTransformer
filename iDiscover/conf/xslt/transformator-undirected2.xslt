@@ -19,7 +19,7 @@
   -->
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:functx="http://www.functx.com">
 	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
-	<!--xsl:include href="utils.xslt"/-->
+	<xsl:include href="utils.xslt"/>
 	<xsl:template match="/">
 		<graphml>
 			<graph edgedefault="undirected">
@@ -311,7 +311,9 @@
 			<data>		
 				<xsl:attribute name="key">edgeTooltip</xsl:attribute>
 				<xsl:text disable-output-escaping="yes">&lt;p&gt;&lt;b&gt;</xsl:text><xsl:value-of select="$nodeID"/><xsl:text disable-output-escaping="yes">&lt;/b&gt; </xsl:text>
-                <xsl:value-of select="$localInterface"/><xsl:text disable-output-escaping="yes">&lt;b&gt;&lt;/b&gt; ( </xsl:text><xsl:value-of select="$localIP"/> ) <xsl:text disable-output-escaping="yes">&lt;/p&gt; </xsl:text>
+                <xsl:value-of select="$localInterface"/><xsl:text disable-output-escaping="yes">&lt;b&gt;&lt;/b&gt; ( </xsl:text><xsl:value-of select="$localIP"/> )
+                <xsl:text>| </xsl:text><xsl:value-of select="functx:substring-before-last-match($methods,',')"/>
+                <xsl:text disable-output-escaping="yes">&lt;/p&gt; </xsl:text>
 			</data>
 			<data>
 				<xsl:attribute name="key">localInterfaceName</xsl:attribute>

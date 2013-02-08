@@ -95,9 +95,9 @@ public class GraphmlLoader<G extends Graph<String,String>> {
                     entireGraph.addEdge(edge,endpoints);
                 }
             }
-        //    graphMetadatas.put(fileName,gmlr.getGraphMetadata());
+            graphMetadatas.put(fileName,gmlr.getGraphMetadata());
             edgeMetadatas.put(fileName,gmlr.getEdgeMetadata());
-       //     vertexMetadatas.put(fileName,gmlr.getVertexMetadata());
+            vertexMetadatas.put(fileName,gmlr.getVertexMetadata());
             notifyListeners(fileName, gmlr.getVertexMetadata(), gmlr.getEdgeMetadata(), graph);
         }
     }

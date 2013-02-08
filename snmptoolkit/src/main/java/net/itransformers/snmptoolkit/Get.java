@@ -133,6 +133,8 @@ public class Get {
                 return result;
             }
         } finally {
+            logger.debug("Error " + snmp.toString());
+
             snmp.close();
         }
     }

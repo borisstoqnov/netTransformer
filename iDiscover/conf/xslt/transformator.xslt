@@ -342,13 +342,13 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <parameter>
                                     <name>ifAdminStatus</name>
                                     <value>
-                                        <xsl:value-of select="ifAdminStatus"/>
+                                        <xsl:value-of select="$ifAdminStatus"/>
                                     </value>
                                 </parameter>
                                 <parameter>
                                     <name>ifOperStatus</name>
                                     <value>
-                                        <xsl:value-of select="ifOperStatus"/>
+                                        <xsl:value-of select="$ifOperStatus"/>
                                     </value>
                                 </parameter>
                                 <parameter>
@@ -424,59 +424,59 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 </xsl:if>
                             </xsl:for-each>
                             <!--Check for  IPv6 IP addresses-->
-                            <!--<xsl:choose>-->
-                                <!--<xsl:when test="$deviceType='CISCO'">-->
-                                    <!--<xsl:for-each-->
-                                            <!--select="/root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIp/cIpAddressTable/cIpAddressEntry[cIpAddressIfIndex=$ifIndex]/instance">-->
-                                        <!--<xsl:variable name="instance" select="substring-after(.,'.')"/>-->
-                                        <!--<xsl:variable name="ipAdEntAddr">-->
-                                            <!--<xsl:for-each select="tokenize($instance,'\.')">-->
-                                                <!--<xsl:value-of select="functx:decimal-to-hex(xs:integer(.))"/>.-->
-                                            <!--</xsl:for-each>-->
-                                        <!--</xsl:variable>-->
-                                        <!--<xsl:variable name="ipv6AddrPfxLength"-->
-                                                      <!--select="substring-after(substring-before(../cIpAddressPrefix,'.'),'.')"/>-->
-                                        <!--<xsl:variable name="ipv6AddrType" select="../cIpAddressType"/>-->
-                                        <!--<xsl:variable name="cIpAddressOrigin" select="../cIpAddressPrefix"/>-->
-                                        <!--<xsl:variable name="ipv6AddrAnycastFlag" select="../ipv6AddrAnycastFlag"/>-->
-                                        <!--<xsl:variable name="ipv6AddrStatus" select="../ipv6AddrStatus"/>-->
-                                        <!--<xsl:call-template name="IPv6">-->
-                                            <!--<xsl:with-param name="ipAdEntAddr" select="$ipAdEntAddr"/>-->
-                                            <!--<xsl:with-param name="ipv6AddrPfxLength"-->
-                                                            <!--select="functx:substring-after-last-match($cIpAddressOrigin,'\.')"/>-->
-                                            <!--<xsl:with-param name="ipv6AddrType" select="$ipv6AddrType"/>-->
-                                            <!--<xsl:with-param name="ipv6AddrAnycastFlag" select="$ipv6AddrAnycastFlag"/>-->
-                                            <!--<xsl:with-param name="ipv6AddrStatus" select="$ipv6AddrStatus"/>-->
-                                        <!--</xsl:call-template>-->
-                                    <!--</xsl:for-each>-->
-                                <!--</xsl:when>-->
-                                <!--<xsl:otherwise>-->
-                                    <!--<xsl:for-each-->
-                                            <!--select="//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6AddrTable/ipv6AddrEntry[index=$ifIndex]/instance">-->
-                                        <!--<xsl:variable name="instance" select="substring-after(.,'.')"/>-->
-                                        <!--<xsl:variable name="ipAdEntAddr">-->
-                                            <!--<xsl:for-each select="tokenize($instance,'\.')">-->
-                                                <!--<xsl:value-of select="functx:decimal-to-hex(xs:integer(.))"/>.-->
-                                            <!--</xsl:for-each>-->
-                                        <!--</xsl:variable>-->
-                                        <!--&lt;!&ndash;<xsl:variable name="fr" select="()"/>&ndash;&gt;-->
-                                        <!--&lt;!&ndash;<xsl:variable name="to" select="(':')"/>&ndash;&gt;-->
-                                        <!--&lt;!&ndash;<xsl:variable name="ipAddr" select="functx:replace-multi($ipAdEntAddr,$fr,$to)" />&ndash;&gt;-->
-                                        <!--<xsl:variable name="ipv6AddrPfxLength" select="../ipv6AddrPfxLength"/>-->
-                                        <!--<xsl:variable name="ipv6AddrType" select="../ipv6AddrType"/>-->
-                                        <!--<xsl:variable name="ipv6AddrAnycastFlag" select="../ipv6AddrAnycastFlag"/>-->
-                                        <!--<xsl:variable name="ipv6AddrStatus" select="../ipv6AddrStatus"/>-->
-                                        <!--<xsl:call-template name="IPv6">-->
-                                            <!--<xsl:with-param name="ipAdEntAddr"-->
-                                                            <!--select="IPv6formatConvertor:IPv6Convertor($ipAdEntAddr)"/>-->
-                                            <!--<xsl:with-param name="ipv6AddrPfxLength" select="$ipv6AddrPfxLength"/>-->
-                                            <!--<xsl:with-param name="ipv6AddrType" select="$ipv6AddrType"/>-->
-                                            <!--<xsl:with-param name="ipv6AddrAnycastFlag" select="$ipv6AddrAnycastFlag"/>-->
-                                            <!--<xsl:with-param name="ipv6AddrStatus" select="$ipv6AddrStatus"/>-->
-                                        <!--</xsl:call-template>-->
-                                    <!--</xsl:for-each>-->
-                                <!--</xsl:otherwise>-->
-                            <!--</xsl:choose>-->
+                            <xsl:choose>
+                                <xsl:when test="$deviceType='CISCO'">
+                                    <xsl:for-each
+                                            select="/root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIp/cIpAddressTable/cIpAddressEntry[cIpAddressIfIndex=$ifIndex]/instance">
+                                        <xsl:variable name="instance" select="substring-after(.,'.')"/>
+                                        <xsl:variable name="ipAdEntAddr">
+                                            <xsl:for-each select="tokenize($instance,'\.')">
+                                                <xsl:value-of select="functx:decimal-to-hex(xs:integer(.))"/>.
+                                            </xsl:for-each>
+                                        </xsl:variable>
+                                        <xsl:variable name="ipv6AddrPfxLength"
+                                                      select="substring-after(substring-before(../cIpAddressPrefix,'.'),'.')"/>
+                                        <xsl:variable name="ipv6AddrType" select="../cIpAddressType"/>
+                                        <xsl:variable name="cIpAddressOrigin" select="../cIpAddressPrefix"/>
+                                        <xsl:variable name="ipv6AddrAnycastFlag" select="../ipv6AddrAnycastFlag"/>
+                                        <xsl:variable name="ipv6AddrStatus" select="../ipv6AddrStatus"/>
+                                        <xsl:call-template name="IPv6">
+                                            <xsl:with-param name="ipAdEntAddr" select="$ipAdEntAddr"/>
+                                            <xsl:with-param name="ipv6AddrPfxLength"
+                                                            select="functx:substring-after-last-match($cIpAddressOrigin,'\.')"/>
+                                            <xsl:with-param name="ipv6AddrType" select="$ipv6AddrType"/>
+                                            <xsl:with-param name="ipv6AddrAnycastFlag" select="$ipv6AddrAnycastFlag"/>
+                                            <xsl:with-param name="ipv6AddrStatus" select="$ipv6AddrStatus"/>
+                                        </xsl:call-template>
+                                    </xsl:for-each>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:for-each
+                                            select="//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6AddrTable/ipv6AddrEntry[index=$ifIndex]/instance">
+                                        <xsl:variable name="instance" select="substring-after(.,'.')"/>
+                                        <xsl:variable name="ipAdEntAddr">
+                                            <xsl:for-each select="tokenize($instance,'\.')">
+                                                <xsl:value-of select="functx:decimal-to-hex(xs:integer(.))"/>.
+                                            </xsl:for-each>
+                                        </xsl:variable>
+                                        <!--<xsl:variable name="fr" select="()"/>-->
+                                        <!--<xsl:variable name="to" select="(':')"/>-->
+                                        <!--<xsl:variable name="ipAddr" select="functx:replace-multi($ipAdEntAddr,$fr,$to)" />-->
+                                        <xsl:variable name="ipv6AddrPfxLength" select="../ipv6AddrPfxLength"/>
+                                        <xsl:variable name="ipv6AddrType" select="../ipv6AddrType"/>
+                                        <xsl:variable name="ipv6AddrAnycastFlag" select="../ipv6AddrAnycastFlag"/>
+                                        <xsl:variable name="ipv6AddrStatus" select="../ipv6AddrStatus"/>
+                                        <xsl:call-template name="IPv6">
+                                            <xsl:with-param name="ipAdEntAddr"
+                                                            select="IPv6formatConvertor:IPv6Convertor($ipAdEntAddr)"/>
+                                            <xsl:with-param name="ipv6AddrPfxLength" select="$ipv6AddrPfxLength"/>
+                                            <xsl:with-param name="ipv6AddrType" select="$ipv6AddrType"/>
+                                            <xsl:with-param name="ipv6AddrAnycastFlag" select="$ipv6AddrAnycastFlag"/>
+                                            <xsl:with-param name="ipv6AddrStatus" select="$ipv6AddrStatus"/>
+                                        </xsl:call-template>
+                                    </xsl:for-each>
+                                </xsl:otherwise>
+                            </xsl:choose>
                             <xsl:variable name="interface-neighbors">
                                 <xsl:for-each select="$ipv4Addresses/ipv4/ipv4addr">
                                     <xsl:variable name="ipAdEntAddr" select="ipAdEntAddr"/>
@@ -495,18 +495,21 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                     <xsl:with-param name="ifNextHops"
                                                     select="//root/iso/org/dod/internet/mgmt/mib-2/ip/ipRouteTable/ipRouteEntry[ipRouteIfIndex=$ifIndex]/ipRouteNextHop"/>
                                     <xsl:with-param name="sysName" select="$sysName"/>
+                                    <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr/ipAdEntAddr"/>
                                 </xsl:call-template>
                                 <!--Check for CIDR-NEXT-HOP neighbors-->
                                 <xsl:call-template name="cnextHop">
                                     <xsl:with-param name="ipCidrRouteTable"
                                                     select="//root/iso/org/dod/internet/mgmt/mib-2/ip/ipForward/ipCidrRouteTable/ipCidrRouteEntry[ipCidrRouteIfIndex=$ifIndex]"/>
                                     <xsl:with-param name="sysName" select="$sysName"/>
+                                    <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr"/>
                                 </xsl:call-template>
                                 <!--Check for ARP neighbors-->
                                 <xsl:call-template name="ARP">
                                     <xsl:with-param name="ipNetToMediaIfNeighbors"
                                                     select="//root/iso/org/dod/internet/mgmt/mib-2/ip/ipNetToMediaTable/ipNetToMediaEntry[ipNetToMediaIfIndex = $ifIndex]"/>
                                     <xsl:with-param name="sysName" select="$sysName"/>
+                                    <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr"/>
                                 </xsl:call-template>
                                 <!--Check for MAC neighbors-->
                                 <xsl:variable name="brdPort">
@@ -521,9 +524,12 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                     <xsl:variable name="neighborIPAddress">
                                         <xsl:value-of
                                                 select="//root/iso/org/dod/internet/mgmt/mib-2/ip/ipNetToMediaTable/ipNetToMediaEntry[ipNetToMediaPhysAddress=$neighborMACAddress][1]/ipNetToMediaNetAddress"/>
+
                                     </xsl:variable>
                                     <xsl:call-template name="MAC">
                                         <xsl:with-param name="neighborMACAddress" select="dot1dTpFdbAddress"/>
+                                        <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr"/>
+
                                         <xsl:with-param name="neighborIPAddress"
                                                         select="//root/iso/org/dod/internet/mgmt/mib-2/ip/ipNetToMediaTable/ipNetToMediaEntry[ipNetToMediaPhysAddress=$neighborMACAddress][1]/ipNetToMediaNetAddress"/>
                                     </xsl:call-template>
@@ -539,29 +545,35 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                     select="//root/iso/std/iso8802/ieee802dot1/ieee802dot1mibs/lldpMIB/lldpObjects/lldpRemoteSystemsData/lldpRemTable/lldpRemEntry/index[@name = 'lldpRemLocalPortNum' and text()=$ifIndex]/../lldpRemSysName"/>
                                 </xsl:call-template>
                                 <!--Check for Spanning Tree neighbors-->
-                                <TEST>brdPort<xsl:value-of select="$brdPort"/>
-                                </TEST>
-                                <xsl:for-each
-                                        select="//root/iso/org/dod/internet/mgmt/mib-2/dot1dBridge/dot1dStp/dot1dStpPortTable/dot1dStpPortEntry[dot1dStpPort=$brdPort]">
-                                    <xsl:variable name="designatedBridge" select="dot1dStpPortDesignatedBridge"/>
-                                    <xsl:choose>
-                                        <xsl:when test="contains($designatedBridge,$baseBridgeAddress)">
-                                            <STP>The other switch is the root <xsl:value-of select="$designatedBridge"/>|<xsl:value-of
-                                                    select="$baseBridgeAddress"/>
-                                            </STP>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <STP>I am the root. The root is <xsl:value-of select="$baseBridgeAddress"/>|
-                                                <xsl:value-of select="$designatedBridge"/>
-                                            </STP>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:for-each>
+                                <!--<TEST>brdPort<xsl:value-of select="$brdPort"/>-->
+                                <!--</TEST>-->
+                                <!--<xsl:for-each-->
+                                        <!--select="//root/iso/org/dod/internet/mgmt/mib-2/dot1dBridge/dot1dStp/dot1dStpPortTable/dot1dStpPortEntry[dot1dStpPort=$brdPort]">-->
+                                    <!--<xsl:variable name="designatedBridge" select="dot1dStpPortDesignatedBridge"/>-->
+                                    <!--<xsl:choose>-->
+                                        <!--<xsl:when test="contains($designatedBridge,$baseBridgeAddress)">-->
+                                            <!--<STP>The other switch is the root <xsl:value-of select="$designatedBridge"/>|<xsl:value-of-->
+                                                    <!--select="$baseBridgeAddress"/>-->
+                                            <!--</STP>-->
+                                        <!--</xsl:when>-->
+                                        <!--<xsl:otherwise>-->
+                                            <!--<STP>I am the root. The root is <xsl:value-of select="$baseBridgeAddress"/>|-->
+                                                <!--<xsl:value-of select="$designatedBridge"/>-->
+                                            <!--</STP>-->
+                                        <!--</xsl:otherwise>-->
+                                    <!--</xsl:choose>-->
+                                <!--</xsl:for-each>-->
                             </xsl:variable>
                             <!--xsl:copy-of select="$interface-neighbors"/-->
+                            <xsl:variable name="neighCount" select="count(distinct-values($interface-neighbors/object/name))"/>
+                            <xsl:if test="$neighCount = 1">
                             <xsl:for-each select="distinct-values($interface-neighbors/object/name)">
+                                <xsl:variable name="name" select="."/>
+
+                                <xsl:if test="$ipv4Addresses/ipv4/ipv4addr[ipAdEntAddr!=$name]">
+
                                 <object>
-                                    <xsl:variable name="name" select="."/>
+                                    <test><xsl:value-of select="$ipv4Addresses/ipv4/ipv4addr/ipAdEntAddr"/></test>
                                     <name>
                                         <xsl:value-of select="$name"/>
                                     </name>
@@ -591,25 +603,19 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                 </parameter>
                                                 <parameter>
                                                     <name>Discovery Method</name>
-                                                    <value>
-                                                        <xsl:for-each
-                                                                select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Discovery Method']/value">
-                                                            <xsl:value-of select="."/>,
-                                                        </xsl:for-each>
-                                                    </value>
+                                                    <xsl:variable name="discoveryMethods"><xsl:for-each select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Discovery Method']/value"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
+                                                    <value><xsl:value-of select="functx:substring-before-last-match($discoveryMethods,',')"/></value>
                                                 </parameter>
                                                 <parameter>
                                                     <name>Neighbor Port</name>
                                                     <value>
-                                                        <xsl:value-of
-                                                                select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Port']/value)"/>
+                                                        <xsl:value-of select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Port']/value)"/>
                                                     </value>
                                                 </parameter>
                                                 <parameter>
                                                     <name>Neighbor IP Address</name>
                                                     <value>
-                                                        <xsl:value-of
-                                                                select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable' and value='YES']/../parameter[name='Neighbor IP Address']/value)"/>
+                                                        <xsl:value-of select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable' and value='YES']/../parameter[name='Neighbor IP Address']/value)"/>
                                                     </value>
                                                 </parameter>
                                                 <parameter>
@@ -654,12 +660,8 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                 </parameter>
                                                 <parameter>
                                                     <name>Discovery Method</name>
-                                                    <value>
-                                                        <xsl:for-each
-                                                                select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Discovery Method']/value">
-                                                            <xsl:value-of select="."/>,
-                                                        </xsl:for-each>
-                                                    </value>
+                                                    <xsl:variable name="discoveryMethods"><xsl:for-each select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Discovery Method']/value"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
+                                                    <value><xsl:value-of select="functx:substring-before-last-match($discoveryMethods,',')"/></value>
                                                 </parameter>
                                                 <parameter>
                                                     <name>Neighbor Port</name>
@@ -700,7 +702,9 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                         </xsl:choose>
                                     </parameters>
                                 </object>
+                                </xsl:if>
                             </xsl:for-each>
+                            </xsl:if>
                         </object>
                     </xsl:when>
                     <xsl:when test="$ifAdminStatus = 'UP' and $ifOperStatus ='DOWN'">

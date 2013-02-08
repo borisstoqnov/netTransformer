@@ -79,6 +79,27 @@
         <data key="deviceModel">ciscoASA5520</data>
     </icon>
     <icon name="/images/medium_router_ipv6.png">
+        <data key="deviceModel">cisco3745</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/medium_router.png">
+        <data key="deviceModel">cisco3745</data>
+    </icon>
+    <icon name="/images/medium_router_ipv6.png">
+        <data key="deviceModel">cisco3725</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/medium_router.png">
+        <data key="deviceModel">cisco3725</data>
+    </icon>
+    <icon name="/images/medium_router_ipv6.png">
+        <data key="deviceModel">cisco3825</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/medium_router.png">
+        <data key="deviceModel">cisco3825</data>
+    </icon>
+    <icon name="/images/medium_router_ipv6.png">
         <data key="deviceModel">cisco3845</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
@@ -283,8 +304,6 @@
         <!--In this case is presented a physical view with devices that respond to SNMP-->
         <filter name="Physical-view - without unreachable neighbors">
             <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <include dataKey="deviceStatus" dataValue="initial" for="node"/>
-            <!--include dataKey="site" dataValue="" for="node"/-->
             <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
             <include dataKey="method" dataValue="CDP" for="edge"/>
             <include dataKey="method" dataValue="LLDP" for="edge"/>
@@ -309,7 +328,8 @@
             <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
             <include dataKey="method" dataValue="c_OSPF" for="edge"/>
             <include dataKey="method" dataValue="c_ISIS" for="edge"/>
-            <tooltip dataKey="deviceInfo" for="node"/>
+            <tooltip dataKey="deviceInfo" for="node"  transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            />
         </filter>
 
         <!--In this case is presented a view only in site with side-id = HP-->

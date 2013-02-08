@@ -133,8 +133,6 @@
     <icon name="/images/medium_switch.png">
             <data key="deviceType">CISCO</data>
     </icon>
-
-
     <icon name="/images/medium_router.png,/images/circle_blue.png">
         <data key="diff">YES</data>
         <data key="deviceType">HUAWEI</data>
@@ -316,7 +314,6 @@
         <param name="resource">resource-manager/conf/xml/resource.xml</param>
         <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans_undo.xml</param>
     </rightClickItem>
-
 </submenu>
     <submenu name="discover">
         <rightClickItem name="node" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">

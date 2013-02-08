@@ -101,12 +101,34 @@
         <data key="deviceModel">ciscoASA5520</data>
     </icon>
     <icon name="/images/medium_router_ipv6.png">
+        <data key="deviceModel">cisco3745</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/medium_router.png">
+        <data key="deviceModel">cisco3745</data>
+    </icon>
+    <icon name="/images/medium_router_ipv6.png">
+        <data key="deviceModel">cisco3725</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/medium_router.png">
+        <data key="deviceModel">cisco3725</data>
+    </icon>
+    <icon name="/images/medium_router_ipv6.png">
+        <data key="deviceModel">cisco3825</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/medium_router.png">
+        <data key="deviceModel">cisco3825</data>
+    </icon>
+    <icon name="/images/medium_router_ipv6.png">
         <data key="deviceModel">cisco3845</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/medium_router.png">
         <data key="deviceModel">cisco3845</data>
     </icon>
+
 
     <!--icon name="/images/wireless_cisco.png">
         <data key="deviceModel">ciscoc851</data>
@@ -125,8 +147,6 @@
         <data key="deviceModel">cisco2851</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-
-
     <icon name="/images/large_router_ipv6.png">
         <data key="deviceModel">cisco7505</data>
         <data key="ipv6Forwarding">YES</data>
@@ -327,6 +347,91 @@
     </icon>
 
 <filters>
+    <!--In this case is presented a physical view with devices that respond to SNMP-->
+    <filter name="Physical-view - without unreachable neighbors">
+        <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+        <!--include dataKey="deviceStatus" dataValue="initial" for="node"/-->
+        <!--include dataKey="site" dataValue="" for="node"/-->
+        <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
+        <include dataKey="method" dataValue="CDP" for="edge"/>
+        <include dataKey="method" dataValue="LLDP" for="edge"/>
+        <include dataKey="method" dataValue="MAC" for="edge"/>
+        <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+        <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+        <include dataKey="method" dataValue="Slash30" for="edge"/>
+        <include dataKey="method" dataValue="Slash31" for="edge"/>
+        <include dataKey="method" dataValue="OSPF" for="edge"/>
+        <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
+
+    </filter>
+    <!--In this case is presented a physical view with all devices-->
+    <filter name="Physical-view - with unreachable">
+        <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
+        <include dataKey="method" dataValue="CDP" for="edge"/>
+        <include dataKey="method" dataValue="LLDP" for="edge"/>
+        <include dataKey="method" dataValue="Slash30" for="edge"/>
+        <include dataKey="method" dataValue="Slash31" for="edge"/>
+        <include dataKey="method" dataValue="MAC" for="edge"/>
+        <include dataKey="method" dataValue="OSPF" for="edge"/>
+        <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
+        <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+        <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+        <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+    </filter>
+
+    <!--In this case is presented a view only in site with side-id = HP-->
+
+    <filter name="Site">
+        <include dataKey="site" dataValue="SF" for="node"/>
+        <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
+        <include dataKey="method" dataValue="CDP" for="edge"/>
+        <include dataKey="method" dataValue="LLDP" for="edge"/>
+        <include dataKey="method" dataValue="Slash30" for="edge"/>
+        <include dataKey="method" dataValue="Slash31" for="edge"/>
+        <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+        <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+        <include dataKey="method" dataValue="MAC" for="edge"/>
+    </filter>
+
+    <!--In this case is presented a view only in site with Cisco and Default type Devices-->
+    <filter name="deviceType=CISCO">
+        <include dataKey="deviceType" dataValue="CISCO" for="node"/>
+        <include dataKey="deviceType" dataValue="CISCO-SW" for="node"/>
+        <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
+        <include dataKey="method" dataValue="CDP" for="edge"/>
+        <include dataKey="method" dataValue="LLDP" for="edge"/>
+        <include dataKey="method" dataValue="Slash30" for="edge"/>
+        <include dataKey="method" dataValue="Slash31" for="edge"/>
+        <include dataKey="method" dataValue="MAC" for="edge"/>
+        <include dataKey="method" dataValue="OSPF" for="edge"/>
+        <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
+        <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+        <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+        <tooltip dataKey="deviceInfo" for="node"/>
+    </filter>
+    <!--In this case is presented a only LLDP view -->
+    <filter name="LLDP">
+        <include dataKey="method" dataValue="LLDP" for="edge"/>
+    </filter>
+    <!--In this case is presented a only CDP view -->
+    <filter name="CDP">
+        <include dataKey="method" dataValue="CDP" for="edge"/>
+    </filter>
+    <!--In this case is presented a only an OSPF view -->
+    <filter name="OSPF">
+        <include dataKey="method" dataValue="OSPF" for="edge"/>
+        <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+    </filter>
+    <!--In this case is presented a only an ISIS view -->
+    <filter name="ISIS">
+        <include dataKey="method" dataValue="ISIS" for="edge"/>
+        <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+    </filter>
+    <!--In this case is presented a only BGP view -->
+    <filter name="BGP">
+        <include dataKey="method" dataValue="BGP" for="edge"/>
+        <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+    </filter>
     <filter name="IPLinkLayer-reachable">
         <include dataKey="ipLink" dataValue="YES" for="edge"/>
         <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
@@ -374,7 +479,7 @@
 
 <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
         <!-- this is also possible it could be used as default value-->
-<tooltip dataKey="deviceInfo" for="node"/>
+<tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
 <rightClickItem name="ShortestPath" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPath"/>
 <rightClickItem name="TabViewerOpener" handlerClass="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener">
 <submenu name="Connect">
@@ -428,7 +533,6 @@
     </rightClickItem>
 </submenu>
 </rightClickItem>
-
     <rightClickItem name="nodeActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
         <param name="parameterFactoryXml">iTopologyManager/parameter-factory/conf/xml/param-factory.xml</param>
         <param name="resource">resource-manager/conf/xml/resource.xml</param>

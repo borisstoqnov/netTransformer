@@ -417,9 +417,10 @@
 	<xsl:template name="nextHop">
 		<xsl:param name="ifNextHops"/>
 		<xsl:param name="sysName"/>
+        <xsl:param name="ipv4addresses"/>
 		<xsl:for-each select="distinct-values($ifNextHops)">
 			<xsl:variable name="next-hop-ip" select="."/>
-			<xsl:if test="$next-hop-ip!='0.0.0.0' and not(contains($next-hop-ip,'127'))">
+			<xsl:if test="$next-hop-ip!='0.0.0.0' and not(contains($next-hop-ip,'127') and count($ipv4addresses[ipAdEntAddr=$next-hop-ip])=0)">
 				<xsl:variable name="neighID-community">
 					<xsl:call-template name="neighIDCommunity">
 						<xsl:with-param name="neighIP" select="$next-hop-ip"/>
@@ -478,7 +479,8 @@
 	<xsl:template name="cnextHop">
 		<xsl:param name="ipCidrRouteTable"/>
 		<xsl:param name="sysName"/>
-		<xsl:variable name="next-hop-ips" select="distinct-values($ipCidrRouteTable/ipCidrRouteNextHop)"/>
+        <xsl:param name="ipv4addresses"/>
+        <xsl:variable name="next-hop-ips" select="distinct-values($ipCidrRouteTable/ipCidrRouteNextHop)"/>
 		<xsl:for-each select="$next-hop-ips">
 			<xsl:variable name="next-hop-ip" select="."/>
 			<xsl:if test="$next-hop-ip!='0.0.0.0' and not(contains($next-hop-ip,'127.0.0'))">
@@ -491,13 +493,16 @@
 				</xsl:variable>
 				<xsl:variable name="neighID" select="substring-before($neighID-community,'+-')"/>
 				<xsl:variable name="snmp-community" select="substring-after($neighID-community,'+-')"/>
-				<xsl:if test="$neighID!=$sysName">
+				<xsl:if test="$neighID!=$sysName and not(contains($ipv4addresses,$next-hop-ip))">
 					<object>
 						<xsl:choose>
 							<xsl:when test="$neighID!=''">
-								<name>
+								<name1>
 									<xsl:value-of select="$neighID"/>
-								</name>
+								</name1>
+                                <name>
+                                    <xsl:value-of select="$ipv4addresses"/>
+                                </name>
 							</xsl:when>
 							<xsl:otherwise>
 								<name>
@@ -551,7 +556,8 @@
 	<xsl:template name="ARP">
 		<xsl:param name="ipNetToMediaIfNeighbors"/>
 		<xsl:param name="sysName"/>
-		<xsl:for-each select="$ipNetToMediaIfNeighbors">
+        <xsl:param name="ipv4addresses"/>
+        <xsl:for-each select="$ipNetToMediaIfNeighbors">
 			<xsl:variable name="ipNetToMediaNetAddress">
 				<xsl:value-of select="ipNetToMediaNetAddress"/>
 			</xsl:variable>
@@ -565,7 +571,7 @@
 				</xsl:variable>
 				<xsl:variable name="neighID" select="substring-before($neighID-community,'+-')"/>
 				<xsl:variable name="snmp-community" select="substring-after($neighID-community,'+-')"/>
-				<xsl:if test="$neighID!=$sysName">
+				<xsl:if test="$neighID!=$sysName and count($ipv4addresses[ipAdEntAddr=$neighID])=0">
 					<object>
 						<xsl:choose>
 							<xsl:when test="$neighID!=''">
@@ -620,7 +626,8 @@
 	<xsl:template name="MAC">
 		<xsl:param name="neighborMACAddress"/>
 		<xsl:param name="neighborIPAddress"/>
-		<xsl:if test="$neighborMACAddress !=''">
+        <xsl:param name="ipv4addresses"/>
+        <xsl:if test="$neighborMACAddress !=''">
 			<xsl:variable name="neighID-community">
 				<xsl:call-template name="neighIDCommunity">
 					<xsl:with-param name="neighIP" select="$neighborIPAddress"/>
@@ -635,7 +642,7 @@
 				<xsl:choose>
 					<xsl:when test="$neighborIPAddress!=''">
 						<xsl:choose>
-							<xsl:when test="$neighID!=''">
+							<xsl:when test="$neighID!='' and count($ipv4addresses[ipAdEntAddr=$neighID])=0">
 								<name>
 									<xsl:value-of select="$neighID"/>
 								</name>

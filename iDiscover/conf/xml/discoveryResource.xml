@@ -24,8 +24,8 @@
         <param name="protocol">SNMP</param>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
-            <param name="community-ro">test-r</param>
-            <param name="community-rw">test-rw</param>
+            <param name="community-ro">iTransformer-r</param>
+            <param name="community-rw">iTransformer-rw</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
 			<param name="port">161</param>
@@ -37,8 +37,8 @@
         <param name="protocol">SNMP</param>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
-            <param name="community-ro">itransformer-r</param>
-            <param name="community-rw">itransformer-rw</param>
+            <param name="community-ro">iTransformer-r</param>
+            <param name="community-rw">iTransformer-rw</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
 			<param name="port">161</param>
@@ -49,8 +49,8 @@
         <param name="protocol">SNMP</param>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
-            <param name="community-ro">itransformer-r</param>
-            <param name="community-rw">itransformer-rw</param>
+            <param name="community-ro">iTransformer-r</param>
+            <param name="community-rw">iTransformer-rw</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
 			<param name="port">161</param>
@@ -61,8 +61,8 @@
         <param name="protocol">SNMP</param>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
-            <param name="community-ro">itransformer-r</param>
-            <param name="community-rw">itransformer-rw</param>
+            <param name="community-ro">iTransformer-r</param>
+            <param name="community-rw">iTransformer-rw</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
 			<param name="port">161</param>
@@ -71,7 +71,7 @@
     <resource name="CLI">
         <param name="protocol">TELNET</param>
         <connection-params connection-type="telnet">
-            <param name="username">itransformer-r</param>
+            <param name="username">iTransformer-r</param>
             <param name="password">itransformerpw</param>
             <param name="system-password">Password</param>
         </connection-params>
@@ -80,8 +80,8 @@
         <param name="protocol">SNMP</param>
         <connection-params connection-type="snmp">
             <param name="version">1</param>
-            <param name="community-ro">test-r</param>
-            <param name="community-rw">test-rw</param>
+            <param name="community-ro">iTransformer-r</param>
+            <param name="community-rw">iTransformer-rw</param>
             <param name="timeout">500</param>
             <param name="retries">1</param>
 			<param name="port">161</param>
@@ -93,8 +93,8 @@
         <param name="DeviceType">HP</param>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
-            <param name="community-ro">itransformer-r</param>
-            <param name="community-rw">itransformer-rw</param>
+            <param name="community-ro">iTransformer-r</param>
+            <param name="community-rw">iTransformer-rw</param>
             <param name="timeout">500</param>
             <param name="retries">1</param>
 			<param name="port">161</param>

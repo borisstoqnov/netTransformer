@@ -4,7 +4,9 @@
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifSpeed, dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
         </general>
-        <discovery-method name="PHYSICAL"></discovery-method>
+        <discovery-method name="PHYSICAL">
+            dot1dBasePort,dot1dBasePortIfIndex,dot1dStpDesignatedRoot, dot1dStpPortEntry,ipNetToMediaTable,lldpRemoteSystemsData,dot1qVlanStaticEntry,mplsInterfaceConfIndex,
+        </discovery-method>
         <discovery-method name="NEXT_HOP">
             ipRouteIfIndex, ipRouteNextHop
             inetCidrRouteType, inetCidrRouteIfIndex, inetCidrRouteNextHop, inetCidrRouteProto, inetCidrRouteNextHopAS
@@ -43,15 +45,35 @@
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="CISCO">
         <general>
-            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifSpeed,sysDescr,sysObjectID,sysName,sysLocation, ipAddrTable
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifSpeed, dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
         </general>
-        <discovery-method name="PHYSICAL">lldpRemoteSystemsData,cdpCacheDevicePort,cdpCacheDevicePlatform,cdpCacheDeviceId,cdpCacheIfIndex,cdpCachePrimaryMgmtAddrType,cdpCachePrimaryMgmtAddr, 
-            vtpVlanIndex,vtpVlanState
+        <discovery-method name="PHYSICAL">
+            dot1dBaseBridgeAddress,dot1dStpDesignatedRoot, dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,
+            dot1dBasePortIfIndex,ipNetToMediaTable,lldpRemoteSystemsData,cdpCacheDevicePort,cdpCacheDevicePlatform,cdpCacheDeviceId,cdpCacheIfIndex,cdpCachePrimaryMgmtAddrType,cdpCachePrimaryMgmtAddr,dot1qVlanStaticEntry,mplsInterfaceConfIndex
         </discovery-method>
-        <discovery-method name="OSPF">ospfRouterId,ospfNbrEntry,ospfAdminStat,ospfAreaBdrRtrStatus,ospfASBdrRtrStatus,ospfAreaTable,ospfIfEntry
+        <discovery-method name="NEXT_HOP">
+            ipRouteEntry,
+            inetCidrRouteType, inetCidrRouteIfIndex, inetCidrRouteNextHop, inetCidrRouteProto, inetCidrRouteNextHopAS
         </discovery-method>
-        <discovery-method name="IPV6">cIpv6Forwarding,cIpv6InterfaceEntry
-         </discovery-method>
+        <discovery-method name="OSPF">
+            ospfRouterId,ospfNbrEntry,ospfAdminStat,ospfVersionNumber,ospfAreaBdrRtrStatus,ospfASBdrRtrStatus,ospfAreaTable,ospfIfEntry
+        </discovery-method>
+        <discovery-method name="BGP">
+            bgpLocalAs,bgpPeerEntry
+        </discovery-method>
+        <discovery-method name="ISIS">
+            isisISAdjIPAddrEntry
+        </discovery-method>
+        <discovery-method name="RIP">
+            rip2IfConfTable,rip2IfStatTable
+        </discovery-method>
+        <discovery-method name="ADDITIONAL">
+            mplsVpnVrfName,mplsVpnVrfRouteDistinguisher,mplsVpnVrfRouteDistinguisher,
+            dot1dBaseNumPorts, dot1qVlanStaticTable
+        </discovery-method>
+        <discovery-method name="IPV6">
+            ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
+        </discovery-method>
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="HUAWEI">
         <general>
