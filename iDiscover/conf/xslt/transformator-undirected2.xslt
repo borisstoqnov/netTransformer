@@ -139,11 +139,22 @@
 						<xsl:variable name="localIPaddress">
 							<xsl:value-of select="distinct-values($root//object[name=$interface]/object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value)"/>
 						</xsl:variable>
+                        <xsl:variable name="neighborIDs">
+                            <xsl:value-of select="distinct-values($root//object[name=$interface]/object[objectType='Discovered Neighbor']/name)"/>
+                        </xsl:variable>
 						<xsl:variable name="methods_all">
 							<xsl:for-each select="distinct-values($root//object[name=$interface]/object[objectType='Discovered Neighbor']/parameters/parameter[name='Discovery Method']/value)">
 								<xsl:value-of select="."/>
 								<xsl:text>,</xsl:text>
 							</xsl:for-each>
+                            <xsl:for-each select="$neighborIDs">
+                            <xsl:variable name="neighID" select="."/>
+                             <xsl:for-each
+                                    select="distinct-values($root//object[objectType='DeviceLogicalData']/object[name=$neighID]/parameters/parameter[name='Discovery Method']/value)">
+                                    <xsl:value-of select="."/>
+                                <xsl:text>,</xsl:text>
+                             </xsl:for-each>
+                            </xsl:for-each>
 						</xsl:variable>
 						<xsl:variable name="cdp_check">
 							<xsl:choose>
@@ -193,7 +204,7 @@
 								<xsl:otherwise>NO</xsl:otherwise>
 							</xsl:choose>
 						</xsl:variable>
-						<!--methods><xsl:value-of select="$methods_all"/></methods-->
+						<methods><xsl:value-of select="$methods_all"/></methods>
 						<!--flags>
 						<cdp><xsl:value-of select="$cdp_check"/></cdp>
 					</flags-->
@@ -270,6 +281,8 @@
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:for-each>
+                    <xsl:for-each select="$root//object[objectType='DeviceLogicalData']">
+                    </xsl:for-each>
 				</xsl:variable>
 				<xsl:for-each select="distinct-values($edges//edge/@id)">
 					<xsl:variable name="edge-id" select="."/>
@@ -354,15 +367,7 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</data>
-			<data>
-				<xsl:attribute name="key">color</xsl:attribute>
-				<xsl:choose>
-					<xsl:when test="$remoteInterface!='' and $localIP!=''">FF0000</xsl:when>
-					<xsl:when test="$remoteInterface!='' and $localIP=''">DC143C</xsl:when>
-					<xsl:when test="$remoteInterface='' and $localIP!=''">00FF00</xsl:when>
-					<xsl:otherwise>0000FF</xsl:otherwise>
-				</xsl:choose>
-			</data>
+
 		</edge>
 	</xsl:template>
 	<xsl:function name="functx:is-node-in-sequence" as="xs:boolean" xmlns:functx="http://www.functx.com">

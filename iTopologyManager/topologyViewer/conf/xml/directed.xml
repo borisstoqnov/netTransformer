@@ -63,7 +63,7 @@
     <icon name="/images/router.png">
         <data key="deviceModel">cisco2801</data>
     </icon>
-    <!--icon name="/images/wireless_cisco.png">
+    <icon name="/images/wireless_cisco.png">
         <data key="deviceModel">cisco1841</data>
     </icon>
     <icon name="/images/wireless_cisco.png">
@@ -74,7 +74,7 @@
     </icon>
     <icon name="/images/wireless_cisco.png">
         <data key="deviceModel">cisco1861Srst2BK9</data>
-    </icon-->
+    </icon>
     <icon name="/images/cisco_asa.png">
         <data key="deviceModel">ciscoASA5520</data>
     </icon>

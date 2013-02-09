@@ -362,7 +362,7 @@
         <include dataKey="method" dataValue="Slash31" for="edge"/>
         <include dataKey="method" dataValue="OSPF" for="edge"/>
         <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
-
+        <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
     </filter>
     <!--In this case is presented a physical view with all devices-->
     <filter name="Physical-view - with unreachable">
@@ -377,6 +377,8 @@
         <include dataKey="method" dataValue="c_OSPF" for="edge"/>
         <include dataKey="method" dataValue="c_ISIS" for="edge"/>
         <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+        <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
     </filter>
 
     <!--In this case is presented a view only in site with side-id = HP-->
@@ -391,12 +393,12 @@
         <include dataKey="method" dataValue="c_OSPF" for="edge"/>
         <include dataKey="method" dataValue="c_ISIS" for="edge"/>
         <include dataKey="method" dataValue="MAC" for="edge"/>
+        <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
     </filter>
 
     <!--In this case is presented a view only in site with Cisco and Default type Devices-->
     <filter name="deviceType=CISCO">
         <include dataKey="deviceType" dataValue="CISCO" for="node"/>
-        <include dataKey="deviceType" dataValue="CISCO-SW" for="node"/>
         <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
         <include dataKey="method" dataValue="CDP" for="edge"/>
         <include dataKey="method" dataValue="LLDP" for="edge"/>
@@ -408,29 +410,41 @@
         <include dataKey="method" dataValue="c_OSPF" for="edge"/>
         <include dataKey="method" dataValue="c_ISIS" for="edge"/>
         <tooltip dataKey="deviceInfo" for="node"/>
+        <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
     </filter>
     <!--In this case is presented a only LLDP view -->
     <filter name="LLDP">
         <include dataKey="method" dataValue="LLDP" for="edge"/>
+        <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
     </filter>
     <!--In this case is presented a only CDP view -->
     <filter name="CDP">
         <include dataKey="method" dataValue="CDP" for="edge"/>
+        <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
     </filter>
     <!--In this case is presented a only an OSPF view -->
     <filter name="OSPF">
         <include dataKey="method" dataValue="OSPF" for="edge"/>
         <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+        <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
     </filter>
     <!--In this case is presented a only an ISIS view -->
     <filter name="ISIS">
         <include dataKey="method" dataValue="ISIS" for="edge"/>
         <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+        <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
     </filter>
     <!--In this case is presented a only BGP view -->
     <filter name="BGP">
         <include dataKey="method" dataValue="BGP" for="edge"/>
         <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+        <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
     </filter>
     <filter name="IPLinkLayer-reachable">
         <include dataKey="ipLink" dataValue="YES" for="edge"/>

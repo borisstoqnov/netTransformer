@@ -76,7 +76,6 @@
     <icon name="/images/large_router.png">
         <data key="deviceModel">cisco7401ASR</data>
     </icon>
-
         <icon name="/images/very_big_router.png,/images/circle_blue.png">
         <data key="deviceModel">cisco12810</data>
         <data key="diff">YES</data>
@@ -194,8 +193,6 @@
     <icon name="/images/very_big_router.png">
         <data key="deviceType">TELLABS</data>
     </icon>
-
-
 
     <icon name="/images/wireless.png">
         <data key="deviceType">WIRELESS</data>

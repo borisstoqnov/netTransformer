@@ -23,14 +23,14 @@
             vtpVlanIndex,vtpVlanState
         </discovery-method>
         <discovery-method name="NEXT_HOP">
-            <!--ipRouteIfIndex,ipRouteNextHop,
-      ipCidrRouteType, ipCidrRouteIfIndex, ipCidrRouteNextHop, ipCidrRouteProto, ipCidrRouteNextHopAS  -->
+            ipRouteIfIndex,ipRouteNextHop,
+      ipCidrRouteType, ipCidrRouteIfIndex, ipCidrRouteNextHop, ipCidrRouteProto, ipCidrRouteNextHopAS
         </discovery-method>
         <discovery-method name="OSPF">
             ospfRouterId,ospfNbrEntry,ospfAdminStat,ospfAreaBdrRtrStatus,ospfASBdrRtrStatus,ospfAreaTable,ospfIfEntry
         </discovery-method>
         <discovery-method name="BGP">
-            <!--bgpLocalAs,bgpPeerEntry,bgp4PathAttrEntry-->
+            bgpLocalAs,bgpPeerEntry,bgp4PathAttrEntry
             bgpLocalAs,bgpPeerEntry
         </discovery-method>
         <discovery-method name="ISIS">
