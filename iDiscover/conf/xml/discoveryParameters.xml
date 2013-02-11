@@ -2,7 +2,7 @@
 <discovery-helper>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="DEFAULT">
         <general>
-            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifSpeed, dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed, dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
         </general>
         <discovery-method name="PHYSICAL">
             dot1dBasePort,dot1dBasePortIfIndex,dot1dStpDesignatedRoot, dot1dStpPortEntry,ipNetToMediaTable,lldpRemoteSystemsData,dot1qVlanStaticEntry,mplsInterfaceConfIndex,
@@ -33,7 +33,7 @@
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="SERVER">
         <general>
-            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifName,ifPhysAddress,ifType,ifSpeed, dot1dTpFdbAddress,system,ipAddrTable
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifName,ifPhysAddress,ifType,ifHighSpeed, dot1dTpFdbAddress,system,ipAddrTable
         </general>
         <discovery-method name="PHYSICAL">
             dot1dBaseBridgeAddress,dot1dStpDesignatedRoot, dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,
@@ -45,7 +45,7 @@
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="CISCO">
         <general>
-            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifSpeed, dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed, dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
         </general>
         <discovery-method name="PHYSICAL">
             dot1dBaseBridgeAddress,dot1dStpDesignatedRoot, dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,
@@ -77,7 +77,7 @@
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="HUAWEI">
         <general>
-            ifIndex,ifDescr,ifOperStatus,dot1dStpDesignatedRoot, dot1dStpPortEntry, ifAdminStatus,ifPhysAddress,ifType,ifSpeed,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
+            ifIndex,ifDescr,ifOperStatus,dot1dStpDesignatedRoot, dot1dStpPortEntry, ifAdminStatus,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
         </general>
         <discovery-method name="PHYSICAL">
             dot1dBasePort,dot1dBasePortIfIndex,dot1dStpDesignatedRoot, dot1dStpPortEntry,ipNetToMediaTable,lldpRemoteSystemsData,dot1qVlanStaticEntry
@@ -108,7 +108,7 @@
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="JUNIPER">
         <general>
-            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifPhysAddress,ifType,ifSpeed,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
         </general>
         <discovery-method name="PHYSICAL">
             dot1dBasePort,dot1dBasePortIfIndex,dot1dStpDesignatedRoot, dot1dStpPortEntry,ipNetToMediaTable,lldpRemoteSystemsData,dot1qVlanStaticEntry,mplsInterfaceConfIndex,
@@ -139,7 +139,7 @@
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="HP">
         <general>
-            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifPhysAddress,ifType,ifSpeed,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
         </general>
         <discovery-method name="PHYSICAL">
             dot1dBaseBridgeAddress,dot1dStpDesignatedRoot, dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,
@@ -155,7 +155,7 @@ dot1dBasePortIfIndex,ipNetToMediaTable,lldpRemoteSystemsData,cdpCacheDevicePort,
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="TELLABS">
         <general>
-            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifSpeed,dot1dTpFdbAddress,system,ipAddrTable
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,ipAddrTable
         </general>
         <discovery-method name="PHYSICAL">
             dot1dBaseBridgeAddress,dot1dStpDesignatedRoot, dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,dot1dBasePortIfIndex,ipNetToMediaTable, dot1qVlanStaticEntry,mplsInterfaceConfIndex
@@ -185,7 +185,7 @@ dot1dBasePortIfIndex,ipNetToMediaTable,lldpRemoteSystemsData,cdpCacheDevicePort,
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="RIVERSTONE">
         <general>
-            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifSpeed,dot1dTpFdbAddress,system,ipAddrTable
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,ipAddrTable
         </general>
         <discovery-method name="PHYSICAL">
             dot1dBaseBridgeAddress,dot1dStpDesignatedRoot, dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,

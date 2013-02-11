@@ -331,10 +331,10 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <parameter>
                                     <name>ifSpeed</name>
                                     <value>
-                                        <xsl:variable name="speed" select="ifSpeed"/>
+                                        <xsl:variable name="speed" select="//root/iso/org/dod/internet/mgmt/mib-2/ifMIB/ifMIBObjects/ifXTable[instance=$ifIndex]/ifHighSpeed"/>
                                         <xsl:choose>
                                             <xsl:when test="$speed = 0">0</xsl:when>
-                                            <xsl:otherwise><xsl:value-of select="number($speed) div number(10000000)"/></xsl:otherwise>
+                                            <xsl:otherwise><xsl:value-of select="$speed"/></xsl:otherwise>
                                         </xsl:choose>
 
                                     </value>
@@ -566,7 +566,6 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                             </xsl:variable>
                             <!--xsl:copy-of select="$interface-neighbors"/-->
                             <xsl:variable name="neighCount" select="count(distinct-values($interface-neighbors/object/name))"/>
-                            <xsl:if test="$neighCount = 1">
                             <xsl:for-each select="distinct-values($interface-neighbors/object/name)">
                                 <xsl:variable name="name" select="."/>
 
@@ -704,7 +703,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 </object>
                                 </xsl:if>
                             </xsl:for-each>
-                            </xsl:if>
+
                         </object>
                     </xsl:when>
                     <xsl:when test="$ifAdminStatus = 'UP' and $ifOperStatus ='DOWN'">

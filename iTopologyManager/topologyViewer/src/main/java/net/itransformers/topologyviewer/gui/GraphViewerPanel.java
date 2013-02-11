@@ -501,7 +501,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
         reload.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    graphmlLoader.loadGraphml(path);
+                    graphmlLoader.loadGraphml(graphmlDir);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
