@@ -85,8 +85,8 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
         this.entireGraph = entireGraph;
         this.graphmlDir = graphmlDir;
         this.initialNode = initialNode;
-        this.deviceXmlPath = new File(path,"device-data");
         this.path = path;
+        this.deviceXmlPath = new File(graphmlDir.getParent());
         vv = new MyVisualizationViewer(viewerConfig, entireGraph,
             graphmlLoader.getVertexMetadatas(),
             graphmlLoader.getEdgeMetadatas(),

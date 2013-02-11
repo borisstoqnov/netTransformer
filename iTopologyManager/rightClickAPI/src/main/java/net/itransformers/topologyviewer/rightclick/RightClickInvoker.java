@@ -41,7 +41,8 @@ public class RightClickInvoker {
         for (ParamType param : rcItemType.getParam()) {
             rcParams.put(param.getName(), param.getValue());
         }
-        inst.handleRightClick(frame, v, graphMLParams, rcParams, new File(deviceXmlPath,"device-data-"+v+".xml")); // todo remove this hardcode
+        inst.handleRightClick(frame, v, graphMLParams, rcParams, new File(deviceXmlPath+File.separator+"device-data"+"-"+v+".xml")); // todo remove this hardcode
+
     }
 
     private static <G> Map<String, String> getParams(String v, Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas) {

@@ -177,112 +177,102 @@
                         </xsl:variable>
                         <xsl:variable name="node">
                             <xsl:choose>
-                            <xsl:when test="$neighborCount>1"><xsl:value-of select="object[objectType='IPv4 Address']/parameters/parameter[name='ipv4Subnet']/value"/></xsl:when>
-                            <xsl:otherwise><xsl:value-of select="$nodeID"/></xsl:otherwise>
+                                <xsl:when test="$neighborCount>1">
+                                    <xsl:value-of
+                                            select="object[objectType='IPv4 Address']/parameters/parameter[name='ipv4Subnet']/value"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$nodeID"/>
+                                </xsl:otherwise>
                             </xsl:choose>
                         </xsl:variable>
-                        <xsl:if test="$neighborCount>1">
-                            <node>
-                            <xsl:attribute name="id">
-                                <xsl:value-of select="$node"/>
-                            </xsl:attribute>
-                            <data key="deviceStatus">discovered</data>
-                            <data key="deviceInfo">PassiveHub</data>
-                            </node>
-                            <xsl:call-template name="neighbor">
-                                <xsl:with-param name="localInterface" select="$interface"/>
-                                <xsl:with-param name="remoteInterface"/>
-                                <xsl:with-param name="nodeID" select="$nodeID"/>
-                                <xsl:with-param name="neighID" select="$node"/>
-                                <xsl:with-param name="localIP"/>
-                                <xsl:with-param name="remoteIP"/>
-                                <xsl:with-param name="methods" select="$methods_all"/>
-                            </xsl:call-template>
-                        </xsl:if>
-
-                        <xsl:variable name="cdp_check">
-                            <xsl:choose>
-                                <xsl:when test="contains($methods_all,'CDP')">YES</xsl:when>
-                                <xsl:otherwise>NO</xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <xsl:variable name="lldp_check">
-                            <xsl:choose>
-                                <xsl:when test="contains($methods_all,'LLDP')">YES</xsl:when>
-                                <xsl:otherwise>NO</xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <xsl:variable name="SLASH30">
-                            <xsl:choose>
-                                <xsl:when test="contains($methods_all,'Slash30')">YES</xsl:when>
-                                <xsl:otherwise>NO</xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <xsl:variable name="SLASH31">
-                            <xsl:choose>
-                                <xsl:when test="contains($methods_all,'Slash31')">YES</xsl:when>
-                                <xsl:otherwise>NO</xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <xsl:variable name="next_hop">
-                            <xsl:choose>
-                                <xsl:when test="contains($methods_all,'NEXT_HOP')">YES</xsl:when>
-                                <xsl:otherwise>NO</xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <xsl:variable name="c_next_hop">
-                            <xsl:choose>
-                                <xsl:when test="contains($methods_all,'c_')">YES</xsl:when>
-                                <xsl:otherwise>NO</xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <xsl:variable name="MAC">
-                            <xsl:choose>
-                                <xsl:when test="contains($methods_all,'MAC')">YES</xsl:when>
-                                <xsl:otherwise>NO</xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <xsl:variable name="ARP">
-                            <xsl:choose>
-                                <xsl:when test="contains($methods_all,'ARP')">YES</xsl:when>
-                                <xsl:otherwise>NO</xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <!--methods>
-                            <xsl:value-of select="$methods_all"/>
-                        </methods-->
-                        <!--flags>
-                            <cdp><xsl:value-of select="$cdp_check"/></cdp>
-                        </flags-->
                         <xsl:choose>
-                            <xsl:when test="$cdp_check='YES' or $lldp_check = 'YES'">
-                                <xsl:for-each select="object[objectType='Discovered Neighbor']/name">
-                                    <xsl:call-template name="neighbor">
-                                        <xsl:with-param name="localInterface" select="$interface"/>
-                                        <xsl:with-param name="remoteInterface"
-                                                        select="../parameters/parameter[name='Neighbor Port']/value"/>
-                                        <xsl:with-param name="nodeID" select="$node"/>
-                                        <xsl:with-param name="neighID" select="."/>
-                                        <xsl:with-param name="localIP"
-                                                        select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
-                                        <xsl:with-param name="remoteIP"
-                                                        select="../parameters/parameter[name='Neighbor IP Address']/value"/>
-                                        <xsl:with-param name="methods" select="$methods_all"/>
-                                    </xsl:call-template>
-                                </xsl:for-each>
+                            <xsl:when test="$neighborCount>1">
+                                <node>
+                                    <xsl:attribute name="id">
+                                        <xsl:value-of select="$node"/>
+                                    </xsl:attribute>
+                                    <data key="deviceStatus">passive</data>
+                                    <data key="deviceInfo">
+                                        <xsl:value-of select="$node"/>
+                                    </data>
+                                    <data key="deviceModel">passiveHub</data>
+
+                                </node>
+                                <xsl:call-template name="neighbor">
+                                    <xsl:with-param name="localInterface" select="$interface"/>
+                                    <xsl:with-param name="remoteInterface"/>
+                                    <xsl:with-param name="nodeID" select="$nodeID"/>
+                                    <xsl:with-param name="neighID" select="$node"/>
+                                    <xsl:with-param name="localIP"></xsl:with-param>
+                                    <xsl:with-param name="remoteIP"></xsl:with-param>
+                                    <xsl:with-param name="methods" select="$methods_all"/>
+                                </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
+                                <xsl:variable name="cdp_check">
+                                    <xsl:choose>
+                                        <xsl:when test="contains($methods_all,'CDP')">YES</xsl:when>
+                                        <xsl:otherwise>NO</xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+                                <xsl:variable name="lldp_check">
+                                    <xsl:choose>
+                                        <xsl:when test="contains($methods_all,'LLDP')">YES</xsl:when>
+                                        <xsl:otherwise>NO</xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+                                <xsl:variable name="SLASH30">
+                                    <xsl:choose>
+                                        <xsl:when test="contains($methods_all,'Slash30')">YES</xsl:when>
+                                        <xsl:otherwise>NO</xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+                                <xsl:variable name="SLASH31">
+                                    <xsl:choose>
+                                        <xsl:when test="contains($methods_all,'Slash31')">YES</xsl:when>
+                                        <xsl:otherwise>NO</xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+                                <xsl:variable name="next_hop">
+                                    <xsl:choose>
+                                        <xsl:when test="contains($methods_all,'NEXT_HOP')">YES</xsl:when>
+                                        <xsl:otherwise>NO</xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+                                <xsl:variable name="c_next_hop">
+                                    <xsl:choose>
+                                        <xsl:when test="contains($methods_all,'c_')">YES</xsl:when>
+                                        <xsl:otherwise>NO</xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+                                <xsl:variable name="MAC">
+                                    <xsl:choose>
+                                        <xsl:when test="contains($methods_all,'MAC')">YES</xsl:when>
+                                        <xsl:otherwise>NO</xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+                                <xsl:variable name="ARP">
+                                    <xsl:choose>
+                                        <xsl:when test="contains($methods_all,'ARP')">YES</xsl:when>
+                                        <xsl:otherwise>NO</xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+                                <!--methods>
+                                    <xsl:value-of select="$methods_all"/>
+                                </methods-->
+                                <!--flags>
+                                    <cdp><xsl:value-of select="$cdp_check"/></cdp>
+                                </flags-->
                                 <xsl:choose>
-                                    <xsl:when test="$SLASH30='YES' or $SLASH31='YES'">
+                                    <xsl:when test="$cdp_check='YES' or $lldp_check = 'YES'">
                                         <xsl:for-each select="object[objectType='Discovered Neighbor']/name">
-                                            <xsl:variable name="neighID">
-                                                <xsl:value-of select="."/>
-                                            </xsl:variable>
                                             <xsl:call-template name="neighbor">
                                                 <xsl:with-param name="localInterface" select="$interface"/>
-                                                <xsl:with-param name="remoteInterface"/>
+                                                <xsl:with-param name="remoteInterface"
+                                                                select="../parameters/parameter[name='Neighbor Port']/value"/>
                                                 <xsl:with-param name="nodeID" select="$node"/>
-                                                <xsl:with-param name="neighID" select="$neighID"/>
+                                                <xsl:with-param name="neighID" select="."/>
                                                 <xsl:with-param name="localIP"
                                                                 select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
                                                 <xsl:with-param name="remoteIP"
@@ -293,38 +283,13 @@
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:choose>
-                                            <xsl:when test="$next_hop='YES' or $c_next_hop ='YES'">
-                                                <!--xsl:for-each select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method' and (contains(value, 'NEXT') or contains(value,'c_NEXT') or contains(value,'ARP') or contains(value,'MAC'))]]/name"-->
-                                                <xsl:for-each
-                                                        select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method' and (contains(value, 'NEXT') or contains(value,'c_'))]]/name">
+                                            <xsl:when test="$SLASH30='YES' or $SLASH31='YES'">
+                                                <xsl:for-each select="object[objectType='Discovered Neighbor']/name">
                                                     <xsl:variable name="neighID">
                                                         <xsl:value-of select="."/>
                                                     </xsl:variable>
                                                     <xsl:call-template name="neighbor">
-                                                        <xsl:with-param name="localInterface"
-                                                                        select="$interface"/>
-                                                        <xsl:with-param name="remoteInterface"/>
-                                                        <xsl:with-param name="nodeID" select="$node"/>
-                                                        <xsl:with-param name="neighID" select="$neighID"/>
-                                                        <xsl:with-param name="localIP">
-                                                            <xsl:value-of
-                                                                    select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
-                                                        </xsl:with-param>
-                                                        <xsl:with-param name="remoteIP"
-                                                                        select="../parameters/parameter[name='Neighbor IP Address']/value"/>
-                                                        <xsl:with-param name="methods" select="$methods_all"/>
-                                                    </xsl:call-template>
-                                                </xsl:for-each>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:for-each
-                                                        select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method'  and contains(value,'MAC')]]/name">
-                                                    <xsl:variable name="neighID">
-                                                        <xsl:value-of select="."/>
-                                                    </xsl:variable>
-                                                    <xsl:call-template name="neighbor">
-                                                        <xsl:with-param name="localInterface"
-                                                                        select="$interface"/>
+                                                        <xsl:with-param name="localInterface" select="$interface"/>
                                                         <xsl:with-param name="remoteInterface"/>
                                                         <xsl:with-param name="nodeID" select="$node"/>
                                                         <xsl:with-param name="neighID" select="$neighID"/>
@@ -335,9 +300,57 @@
                                                         <xsl:with-param name="methods" select="$methods_all"/>
                                                     </xsl:call-template>
                                                 </xsl:for-each>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:choose>
+                                                    <xsl:when test="$next_hop='YES' or $c_next_hop ='YES'">
+                                                        <!--xsl:for-each select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method' and (contains(value, 'NEXT') or contains(value,'c_NEXT') or contains(value,'ARP') or contains(value,'MAC'))]]/name"-->
+                                                        <xsl:for-each
+                                                                select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method' and (contains(value, 'NEXT') or contains(value,'c_'))]]/name">
+                                                            <xsl:variable name="neighID">
+                                                                <xsl:value-of select="."/>
+                                                            </xsl:variable>
+                                                            <xsl:call-template name="neighbor">
+                                                                <xsl:with-param name="localInterface"
+                                                                                select="$interface"/>
+                                                                <xsl:with-param name="remoteInterface"/>
+                                                                <xsl:with-param name="nodeID" select="$node"/>
+                                                                <xsl:with-param name="neighID" select="$neighID"/>
+                                                                <xsl:with-param name="localIP">
+                                                                    <xsl:value-of
+                                                                            select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
+                                                                </xsl:with-param>
+                                                                <xsl:with-param name="remoteIP"
+                                                                                select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                                                                <xsl:with-param name="methods" select="$methods_all"/>
+                                                            </xsl:call-template>
+                                                        </xsl:for-each>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <xsl:for-each
+                                                                select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method'  and contains(value,'MAC')]]/name">
+                                                            <xsl:variable name="neighID">
+                                                                <xsl:value-of select="."/>
+                                                            </xsl:variable>
+                                                            <xsl:call-template name="neighbor">
+                                                                <xsl:with-param name="localInterface"
+                                                                                select="$interface"/>
+                                                                <xsl:with-param name="remoteInterface"/>
+                                                                <xsl:with-param name="nodeID" select="$node"/>
+                                                                <xsl:with-param name="neighID" select="$neighID"/>
+                                                                <xsl:with-param name="localIP"
+                                                                                select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
+                                                                <xsl:with-param name="remoteIP"
+                                                                                select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                                                                <xsl:with-param name="methods" select="$methods_all"/>
+                                                            </xsl:call-template>
+                                                        </xsl:for-each>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
                                             </xsl:otherwise>
                                         </xsl:choose>
                                     </xsl:otherwise>
+
                                 </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>

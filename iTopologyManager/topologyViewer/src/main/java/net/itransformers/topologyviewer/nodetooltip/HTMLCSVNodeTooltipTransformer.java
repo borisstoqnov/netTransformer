@@ -41,7 +41,7 @@ public class HTMLCSVNodeTooltipTransformer extends NodeTooltipTransformerBase{
                  GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(tooltipType.getDataKey());
                  Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
                  final String value = transformer.transform(node);
-                 if (value != null){
+                 if (value != null && !sb.toString().contains(value)){
                      sb.append(value);
                  }
              }

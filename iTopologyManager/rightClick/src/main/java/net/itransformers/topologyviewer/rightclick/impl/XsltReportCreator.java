@@ -42,7 +42,8 @@ public class XsltReportCreator implements RightClickHandler {
         text.setContentType("text/html");
         String xsltFile = rightClickParams.get("xsl_transformator");
         String xsltTableFile = rightClickParams.get("table_transformator");
-        System.out.println("deviceDataXmlFileName: "+ deviceDataXmlFileName +"xsltFile: "+ xsltFile+ "xsltTableFile: "+ xsltTableFile);
+
+        System.out.println("deviceDataXmlFileName: "+ deviceDataXmlFileName +" xsltFile: "+ xsltFile+ "xsltTableFile: "+ xsltTableFile);
         if (!xsltTableFile.equals("")){
             XsltReport testReport = new XsltReport(xsltFile,xsltTableFile,deviceDataXmlFileName);
           try {

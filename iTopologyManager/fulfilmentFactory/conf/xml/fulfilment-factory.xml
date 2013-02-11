@@ -23,27 +23,27 @@
     <fulfilment-factory-types>
         <type name="ConfigureInterface" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="guard">configureInterface</param>
-            <param name="commands">iTopologyManager/fulfilment-factory/conf/txt/configureInterface.txt</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/configureInterface.txt</param>
             <param name="effect"></param>
         </type>
         <type name="MultipleShowCommands" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">ShowCommands</param>
-            <param name="commands">iTopologyManager/fulfilment-factory/conf/txt/multiple_show.txt</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/multiple_show.txt</param>
         </type>
         <type name="CreateVRF" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">VPN_activator</param>
-            <param name="commands">iTopologyManager/fulfilment-factory/conf/txt/create_vrf</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/create_vrf</param>
         </type>
          <type name="ApplyVRF" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">VPN_activator</param>
-            <param name="commands">iTopologyManager/fulfilment-factory/conf/txt/apply_vrf.txt</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/apply_vrf.txt</param>
         </type>
         <type name="AddDefaultToVRF" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">VPN_activator</param>
-            <param name="commands">iTopologyManager/fulfilment-factory/conf/txt/add_default_to_vrf.txt</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/add_default_to_vrf.txt</param>
         </type>
         <type name="setDeviceLocation" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.XslFulfilmentImpl">
-            <param name="xslFileName">iTopologyManager/fulfilment-factory/conf/xslt/setDeviceLocation.xslt</param>
+            <param name="xslFileName">iTopologyManager/fulfilmentFactory/conf/xslt/setDeviceLocation.xslt</param>
         </type>
         <type name="xsl2" class="com.cdsd.Xsl">
             <param name="xslFileName">some2.xsl</param>

@@ -211,5 +211,19 @@ dot1dBasePortIfIndex,ipNetToMediaTable,lldpRemoteSystemsData,cdpCacheDevicePort,
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
          </discovery-method>
     </device>
-    <stop-criteria/>
+    <stop-criteria>
+        <!--match property="ipAddress.ipAddress"></match-->
+
+        <!--match-not property="ipAddress.ipAddress">172.16\.*</match-not-->
+        <match property="ipAddress.ipAddress">10.*</match>
+        <!--<match property="ipAddress.ipAddress">10.121</match>-->
+        <!--<match property="ipAddress.ipAddress">10.122</match>-->
+        <!--match property="host">R11</match-->
+        <!--match property="host">R11</match-->
+        <!--match property="ipAddress.ipAddress">.*</match-->
+
+        <!--match-not property="ipAddress.ipAddress">c82\..*</match-not-->
+        <!--match-not property="ipAddress.ipAddress">c92\.168.*</match-not-->
+
+    </stop-criteria>
 </discovery-helper>

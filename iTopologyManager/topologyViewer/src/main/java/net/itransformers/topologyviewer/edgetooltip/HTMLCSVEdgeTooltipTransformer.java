@@ -49,7 +49,7 @@ public class HTMLCSVEdgeTooltipTransformer extends EdgeTooltipTransformerBase{
                  }
                  Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
                  final String value = transformer.transform(edge);
-                 if (value != null){
+                 if (value != null && !sb.toString().contains(value)){
                      sb.append(value);
                  }
              }

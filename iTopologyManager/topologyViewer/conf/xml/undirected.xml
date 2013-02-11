@@ -351,7 +351,9 @@
      <icon name="/images/house.png">
         <data key="deviceModel">house</data>
     </icon>
-
+    <icon name="/images/cloud.png">
+        <data key="deviceModel">passiveHub</data>
+    </icon>
     <icon name="/images/small2_ipv6.png">
         <data key="deviceModel">homeGateway</data>
         <data key="ipv6Forwarding">YES</data>
@@ -364,7 +366,7 @@
 
 <filters>
     <!--In this case is presented a physical view with devices that respond to SNMP-->
-    <filter name="Physical-view - without unreachable neighbors">
+    <filter name="Physical-view">
         <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
         <!--include dataKey="deviceStatus" dataValue="initial" for="node"/-->
         <!--include dataKey="site" dataValue="" for="node"/-->
@@ -381,7 +383,7 @@
         <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
     </filter>
     <!--In this case is presented a physical view with all devices-->
-    <filter name="Physical-view - with unreachable">
+    <filter name="Physical-view - all">
         <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
         <include dataKey="method" dataValue="CDP" for="edge"/>
         <include dataKey="method" dataValue="LLDP" for="edge"/>
@@ -564,15 +566,15 @@
 </submenu>
 </rightClickItem>
     <rightClickItem name="nodeActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
-        <param name="parameterFactoryXml">iTopologyManager/parameter-factory/conf/xml/param-factory.xml</param>
-        <param name="resource">resource-manager/conf/xml/resource.xml</param>
-        <param name="fulfilment-factory">iTopologyManager/fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
+        <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
+        <param name="resource">resourceManager/conf/xml/resource.xml</param>
+        <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
     </rightClickItem>
 
     <rightClickItem name="pathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
-        <param name="parameterFactoryXml">iTopologyManager/parameter-factory/conf/xml/param-factory.xml</param>
-        <param name="resource">resource-manager/conf/xml/resource.xml</param>
-        <param name="fulfilment-factory">iTopologyManager/fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
+        <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
+        <param name="resource">resourceManager/conf/xml/resource.xml</param>
+        <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
     </rightClickItem>
 <!--submenu name="IPv4toIPv6 Actication">
     <rightClickItem name="IPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
