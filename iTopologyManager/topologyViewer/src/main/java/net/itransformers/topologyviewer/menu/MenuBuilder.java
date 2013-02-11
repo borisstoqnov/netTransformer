@@ -66,10 +66,10 @@ public class MenuBuilder {
         newTab.addActionListener(new NewTabMenuHandler(frame));
         tabs.add(newTab);
         final JMenuItem close = new JMenuItem("Close Tab");
-        close.addActionListener(new CloseOthersMenuHandler(frame));
+        close.addActionListener(new CloseTabMenuHandler(frame));
         tabs.add(close);
         final JMenuItem closeOthers = new JMenuItem("Close Others Tab");
-        closeOthers.addActionListener(new CloseAllMenuHandler(frame));
+        closeOthers.addActionListener(new CloseOthersMenuHandler(frame));
         tabs.add(closeOthers);
         final JMenuItem closeAll = new JMenuItem("Close All Tabs");
         closeAll.addActionListener(new CloseAllMenuHandler(frame));
