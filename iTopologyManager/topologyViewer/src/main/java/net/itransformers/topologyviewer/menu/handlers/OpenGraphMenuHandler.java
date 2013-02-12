@@ -19,6 +19,7 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
+import net.itransformers.topologyviewer.gui.GraphType;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
@@ -36,10 +37,12 @@ import java.io.File;
 public class OpenGraphMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
+    private GraphType graphType;
 
-    public OpenGraphMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
+    public OpenGraphMenuHandler(TopologyManagerFrame frame, GraphType graphType) throws HeadlessException {
 
         this.frame = frame;
+        this.graphType = graphType;
     }
 
     @Override
@@ -53,11 +56,12 @@ public class OpenGraphMenuHandler implements ActionListener {
         File networkDir = new File(path, "network");
         if (!networkDir.exists()) networkDir = path;
         JFileChooser chooser = new JFileChooser(networkDir);
+        chooser.setDialogTitle("Choose Graph version");
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setMultiSelectionEnabled(false);
         int result = chooser.showOpenDialog(frame);
         if (result == JFileChooser.APPROVE_OPTION) {
-            frame.doOpenGraph(chooser.getSelectedFile());
+            frame.doOpenGraph(chooser.getSelectedFile(), graphType);
         }
 
     }

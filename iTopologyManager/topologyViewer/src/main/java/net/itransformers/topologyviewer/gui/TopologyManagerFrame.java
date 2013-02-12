@@ -49,6 +49,8 @@ public class TopologyManagerFrame extends JFrame{
 
     public TopologyManagerFrame(final File path) throws Exception {
         super("iTopoManager");
+
+        //super.setIconImage(Toolkit.getDefaultToolkit().getImage("images/logo3.png"));
         File prefsFile = new File(VIEWER_PREFERENCES_PROPERTIES);
         try {
             if (!prefsFile.exists()) {
@@ -100,14 +102,14 @@ public class TopologyManagerFrame extends JFrame{
         return preferences;
     }
 
-    public void doOpenGraph(File selectedFile) {
+    public void doOpenGraph(File selectedFile, GraphType graphType) {
         try {
-            if ("undirected".equals(selectedFile.getName()) || "diff-undirected".equals(selectedFile.getName())){
-                GraphViewerPanelManager<UndirectedGraph<String, String>> viewerPanelManager = new GraphViewerPanelManager<UndirectedGraph<String, String>>(this, path, selectedFile, UndirectedSparseGraph.<String, String>getFactory(), tabbedPane);
+            if (graphType == GraphType.UNDIRECTED){
+                GraphViewerPanelManager<UndirectedGraph<String, String>> viewerPanelManager = new GraphViewerPanelManager<UndirectedGraph<String, String>>(this, path, selectedFile, UndirectedSparseGraph.<String, String>getFactory(), tabbedPane, GraphType.UNDIRECTED);
                 viewerPanelManagerMap.put(selectedFile.getAbsolutePath(),viewerPanelManager);
                 viewerPanelManager.createAndAddViewerPanel();
-            } else if ("directed".equals(selectedFile.getName()) || "diff-directed".equals(selectedFile.getName())){
-                GraphViewerPanelManager<DirectedGraph<String, String>> viewerPanelManager = new GraphViewerPanelManager<DirectedGraph<String, String>>(this, path ,selectedFile, DirectedSparseMultigraph.<String, String>getFactory(), tabbedPane);
+            } else if (graphType == GraphType.DIRECTED){
+                GraphViewerPanelManager<DirectedGraph<String, String>> viewerPanelManager = new GraphViewerPanelManager<DirectedGraph<String, String>>(this, path ,selectedFile, DirectedSparseMultigraph.<String, String>getFactory(), tabbedPane, GraphType.DIRECTED);
                 viewerPanelManagerMap.put(selectedFile.getAbsolutePath(),viewerPanelManager);
                 viewerPanelManager.createAndAddViewerPanel();
             } else {
@@ -123,13 +125,13 @@ public class TopologyManagerFrame extends JFrame{
         if (viewerPanel == null){
             return;
         }
-        String absolutePath = viewerPanel.getGraphmlDir().getAbsolutePath();
+        String absolutePath = viewerPanel.getVersionDir().getAbsolutePath();
         viewerPanelManagerMap.remove(absolutePath);
         JTabbedPane tabbedPane = this.getTabbedPane();
         int count = tabbedPane.getTabCount() ;
         for (int j = count-1 ; j >= 0 ; j--) {
             GraphViewerPanel currentViewerPanel = (GraphViewerPanel) tabbedPane.getComponent(j);
-            if (currentViewerPanel.getGraphmlDir().getAbsolutePath().equals(absolutePath)) tabbedPane.remove(j) ;
+            if (currentViewerPanel.getVersionDir().getAbsolutePath().equals(absolutePath)) tabbedPane.remove(j) ;
         }
 
     }
@@ -171,7 +173,7 @@ public class TopologyManagerFrame extends JFrame{
     public GraphViewerPanelManager getCurrentGraphViewerManager(){
         GraphViewerPanel viewerPanel = (GraphViewerPanel)getTabbedPane().getSelectedComponent();
         if (viewerPanel != null){
-            return viewerPanelManagerMap.get(viewerPanel.getGraphmlDir().getAbsolutePath());
+            return viewerPanelManagerMap.get(viewerPanel.getVersionDir().getAbsolutePath());
         } else {
             return null;
         }

@@ -68,6 +68,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
     private File currentDir;
     private File deviceXmlPath;
     private File path;
+    private File versionDir;
     private File graphmlDir;
     private String initialNode;
     private JFrame parent;
@@ -77,16 +78,17 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
                             IconMapLoader iconMapLoader,
                             EdgeStrokeMapLoader edgeStrokeMapLoader,
                             EdgeColorMapLoader edgeColorMapLoader,
-                            G entireGraph, File path, File graphmlDir, String initialNode) {
+                            G entireGraph, File path, File versionDir,File graphmlDir, String initialNode) {
         super();
         this.parent = parent;
         this.viewerConfig = viewerConfig;
         this.graphmlLoader = graphmlLoader;
         this.entireGraph = entireGraph;
+        this.versionDir = versionDir;
         this.graphmlDir = graphmlDir;
         this.initialNode = initialNode;
         this.path = path;
-        this.deviceXmlPath = new File(graphmlDir.getParent());
+        this.deviceXmlPath = versionDir;
         vv = new MyVisualizationViewer(viewerConfig, entireGraph,
             graphmlLoader.getVertexMetadatas(),
             graphmlLoader.getEdgeMetadatas(),
@@ -822,5 +824,8 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
 
     public File getGraphmlDir() {
         return graphmlDir;
+    }
+    public File getVersionDir() {
+        return versionDir;
     }
 }

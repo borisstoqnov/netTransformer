@@ -40,6 +40,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private Neo4jLoader<G> neo4jLoader;
     private String initialNode;
     private File projectPath;
+    private GraphType graphType;
     private IconMapLoader iconMapLoader;
     private EdgeStrokeMapLoader edgeStrokeMapLoader;
     private EdgeColorMapLoader edgeColorMapLoader;
@@ -48,25 +49,24 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private JTabbedPane tabbedPane;
     private TopologyViewerConfType viewerConfig;
     private JFrame frame;
+    private File versionDir;
 
-    public GraphViewerPanelManager(JFrame frame, File projectPath, File graphmlDir, Factory<G> factory, JTabbedPane tabbedPane) throws Exception {
+    public GraphViewerPanelManager(JFrame frame, File projectPath, File versionDir, Factory<G> factory, JTabbedPane tabbedPane, GraphType graphType) throws Exception {
         this.frame = frame;
         this.projectPath = projectPath;
-        this.graphmlDir = graphmlDir;
+        this.graphType = graphType;
+        this.versionDir = versionDir;
+        if (graphType==GraphType.DIRECTED){
+            this.graphmlDir = new File(versionDir,"directed");
+        }else{
+            this.graphmlDir = new File(versionDir,"undirected");
+        }
         this.factory = factory;
         this.tabbedPane = tabbedPane;
         entireGraph = factory.create();
-        String fName = null;
-        String graphType = graphmlDir.getName();
-        if ("undirected".equals(graphType)) {
-            fName = new File("iTopologyManager/topologyViewer/conf/xml/undirected.xml").toString();
-        } else if ("directed".equals(graphType)) {
-            fName = new File("iTopologyManager/topologyViewer/conf/xml/directed.xml").toString();
-        } else if ("diff-directed".equals(graphType) || "diff-undirected".equals(graphType)) {
-            fName = new File("iTopologyManager/topologyViewer/conf/xml/diff.xml").toString();
-        } else {
-            JOptionPane.showMessageDialog(frame, "Unable to create graph viewer, unknown graph type type.");
-        }
+        String fName;
+        fName = new File("iTopologyManager/topologyViewer/conf/xml/viewer-config.xml").toString();
+
         viewerConfig = ViewerConfigLoader.loadViewerConfig(new File(this.projectPath, fName));
 
         init();
@@ -94,7 +94,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     }
 
     private GraphViewerPanel createViewerPanel() {
-        return new GraphViewerPanel<G>(frame, viewerConfig, graphmlLoader, iconMapLoader, edgeStrokeMapLoader, edgeColorMapLoader, entireGraph, projectPath, graphmlDir, initialNode);
+        return new GraphViewerPanel<G>(frame, viewerConfig, graphmlLoader, iconMapLoader, edgeStrokeMapLoader, edgeColorMapLoader, entireGraph, projectPath,versionDir, graphmlDir, initialNode);
     }
 
     public void init() throws JAXBException, ParserConfigurationException, SAXException, IOException {

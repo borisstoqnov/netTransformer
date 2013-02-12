@@ -19,6 +19,7 @@
 
 package net.itransformers.topologyviewer.menu;
 
+import net.itransformers.topologyviewer.gui.GraphType;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.menu.handlers.StartDiscoveryMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.*;
@@ -133,8 +134,11 @@ public class MenuBuilder {
         file.addSeparator();
 
         final JMenuItem openGraph = new JMenuItem("Open Graph");
-        openGraph.addActionListener(new OpenGraphMenuHandler(frame));
+        openGraph.addActionListener(new OpenGraphMenuHandler(frame, GraphType.UNDIRECTED));
         file.add(openGraph);
+        final JMenuItem openDirectedGraph = new JMenuItem("Open Directed Graph");
+        openDirectedGraph.addActionListener(new OpenGraphMenuHandler(frame, GraphType.DIRECTED));
+        file.add(openDirectedGraph);
         final JMenuItem closeGraph = new JMenuItem("Close Graph");
         closeGraph.addActionListener(new CloseGraphMenuHandler(frame));
         file.add(closeGraph);
