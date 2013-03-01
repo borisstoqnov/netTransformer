@@ -24,8 +24,8 @@
     <modelVersion>4.0.0</modelVersion>
     <properties>
         <version>0.1-SNAPSHOT</version><!--Change for new version-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
     <groupId>iTransformers</groupId>
     <artifactId>iTransformer</artifactId>
     <version>0.1-SNAPSHOT</version><!--Change for new version-->
@@ -33,12 +33,12 @@
 
     <!--http://mvnrepository.com/artifact/net.sf.jung-->
     <modules>
-        <module>iMap</module>
-        <module>iDiscover</module>
-        <module>iTopologyManager</module>
         <module>resourceManager</module>
         <module>snmptoolkit</module>
         <module>utils</module>
+        <module>iMap</module>
+        <module>iDiscover</module>
+        <module>iTopologyManager</module>
         <module>distribution</module>
         <module>wsitransformer</module>
         <module>ideas</module>

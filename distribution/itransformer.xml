@@ -20,9 +20,29 @@
         <!--</fileSet>-->
     <!--</fileSets>-->
     <moduleSets>
-
         <moduleSet>
+            <!-- Enable access to all projects in the current multimodule build! -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
+                <include>iTransformers.iTransformer:resourceManager</include>
+            </includes>
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+                    <fileSet>
+                        <directory>conf/xml</directory>
+                        <outputDirectory>resourceManager/conf/xml</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>conf/xsd</directory>
+                        <outputDirectory>resourceManager/conf/xsd</outputDirectory>
+                    </fileSet>
+                </fileSets>
+            </sources>
         </moduleSet>
+
         <moduleSet>
             <!-- Enable access to all projects in the current multimodule build! -->
             <useAllReactorProjects>true</useAllReactorProjects>
@@ -130,28 +150,7 @@
                 </fileSets>
             </sources>
         </moduleSet>
-        <moduleSet>
-            <!-- Enable access to all projects in the current multimodule build! -->
-            <useAllReactorProjects>true</useAllReactorProjects>
 
-            <!-- Now, select which projects to include in this module-set. -->
-            <includes>
-                <include>iTransformers.iTransformer:resourceManager</include>
-            </includes>
-            <sources>
-                <includeModuleDirectory>false</includeModuleDirectory>
-                <fileSets>
-                    <fileSet>
-                        <directory>conf/xml</directory>
-                        <outputDirectory>resourceManager/conf/xml</outputDirectory>
-                    </fileSet>
-                    <fileSet>
-                        <directory>conf/xsd</directory>
-                        <outputDirectory>resourceManager/conf/xsd</outputDirectory>
-                    </fileSet>
-                </fileSets>
-            </sources>
-        </moduleSet>
 
         <moduleSet>
             <!-- Enable access to all projects in the current multimodule build! -->
@@ -240,6 +239,7 @@
                 <include>iTransformers.iTransformer:utils</include>
                 <include>iTransformers.iTransformer:snmptoolkit</include>
                 <include>iTransformers.iTransformer:resourceManager</include>
+                <include>iTransformers.iTransformer.iTopologyManager:launcher</include>
                 <include>iTransformers.iTransformer.iTopologyManager:topologyViewer</include>
                 <include>iTransformers.iTransformer.iTopologyManager:topologyManagerConfig</include>
                 <include>iTransformers.iTransformer.iTopologyManager:rightClick</include>
@@ -247,21 +247,20 @@
                 <include>iTransformers.iTransformer.iTopologyManager:parameterFactory</include>
                 <include>iTransformers.iTransformer.iTopologyManager:fulfilmentFactory</include>
                 <include>iTransformers.iTransformer:iDiscover</include>
-                <!--<include>iTransformers.iTransformer:iMap</include>-->
+                <!--include>iTransformers:iMap</include-->
             </includes>
             <binaries>
                 <outputDirectory>lib/</outputDirectory>
                 <unpack>false</unpack>
             </binaries>
         </moduleSet>
-        <moduleSet>
-            <!-- Enable access to all projects in the current multimodule build! -->
+        <!--moduleSet>
             <useAllReactorProjects>true</useAllReactorProjects>
 
-            <!-- Now, select which projects to include in this module-set. -->
             <includes>
                 <include>iTransformers.iTransformer:utils</include>
                 <include>iTransformers.iTransformer:snmptoolkit</include>
+                <include>iTransformers.iTransformer.iTopologyManager:launcher</include>
                 <include>iTransformers.iTransformer:resourceManager</include>
                 <include>iTransformers.iTransformer.iTopologyManager:topologyViewer</include>
                 <include>iTransformers.iTransformer.iTopologyManager:topologyManagerConfig</include>
@@ -270,17 +269,24 @@
                 <include>iTransformers.iTransformer.iTopologyManager:parameterFactory</include>
                 <include>iTransformers.iTransformer.iTopologyManager:fulfilmentFactory</include>
                 <include>iTransformers.iTransformer:iDiscover</include>
-                <!--<include>iTransformers.iTransformer:iMap</include>-->
             </includes>
             <binaries>
                 <outputDirectory>lib/</outputDirectory>
                 <unpack>false</unpack>
             </binaries>
-        </moduleSet>
+        </moduleSet-->
     </moduleSets>
     <files>
         <file>
             <source>../log4j.properties</source>
+            <outputDirectory>bin</outputDirectory>
+        </file>
+        <file>
+            <source>../itransformer.txt</source>
+            <outputDirectory>bin</outputDirectory>
+        </file>
+        <file>
+            <source>../imap.txt</source>
             <outputDirectory>bin</outputDirectory>
         </file>
     </files>

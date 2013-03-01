@@ -130,13 +130,13 @@
             <outputDirectory>bin</outputDirectory>
         </file>
         <file>
-            <source>../iTopologyManager/topologyViewer/conf/bat/u_topoManager.bat</source>
+            <source>../iTopologyManager/topologyViewer/conf/bat/topologyManager.bat</source>
             <outputDirectory>bin</outputDirectory>
             <destName>iMapTopoManager.bat</destName>
             <filtered>true</filtered>
         </file>
         <file>
-            <source>../iTopologyManager/topologyViewer/conf/bat/u_topoManager.sh</source>
+            <source>../iTopologyManager/topologyViewer/conf/bat/topologyManager.sh</source>
             <outputDirectory>bin</outputDirectory>
             <destName>iMapTopoManager.sh</destName>
             <filtered>true</filtered>
