@@ -67,7 +67,9 @@ public class NewProjectMenuHandler implements ActionListener {
                 while (s.hasNextLine()) {
                 String text = s.nextLine();
                 if (text.startsWith("#") || text.trim().equals("")) continue;
-                File srcDir = new File(text);
+                String workDirName = System.getProperty("base.dir");
+                File workDir = new File(workDirName);
+                File srcDir = new File(workDir,text);
                 File destDir = new File(dialog.getProjectDir(), text).getParentFile();
                 destDir.mkdirs();
                 RecursiveCopy.copyDir(srcDir, destDir);
