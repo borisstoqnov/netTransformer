@@ -1,3 +1,5 @@
+resourceManager/conf/xml
+resourceManager/conf/xsd
 iTopologyManager/rightClick/conf
 iTopologyManager/topologyViewer/conf/xml
 iTopologyManager/topologyViewer/conf/xsd
@@ -7,8 +9,6 @@ iTopologyManager/parameterFactory/conf/xsd
 iTopologyManager/fulfilmentFactory/conf/txt
 iTopologyManager/fulfilmentFactory/conf/xml
 iTopologyManager/fulfilmentFactory/conf/xslt
-resourceManager/conf/xml
-resourceManager/conf/xsd
 iDiscover/conf/xml
 iDiscover/conf/xsd
 iDiscover/conf/xslt
