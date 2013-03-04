@@ -16,6 +16,8 @@
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.16" level="project" />
     <orderEntry type="module" module-name="snmptoolkit" />
     <orderEntry type="library" name="Maven: snmp:mibble-parser:2.9.2" level="project" />
+    <orderEntry type="library" name="Maven: snmp:mibble-mibs:2.9.2" level="project" />
+    <orderEntry type="library" name="Maven: snmp:grammatica:1.5" level="project" />
     <orderEntry type="library" name="Maven: org.snmp4j:snmp4j:1.11.2" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.saxon:saxon:9.1.0.8" level="project" />
     <orderEntry type="module" module-name="utils" />

@@ -7,7 +7,10 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
+      <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/annotations" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/target/maven-archiver" />
+      <excludeFolder url="file://$MODULE_DIR$/target/surefire" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -18,6 +21,8 @@
     <orderEntry type="module" module-name="resourceManager" />
     <orderEntry type="module" module-name="snmptoolkit" />
     <orderEntry type="library" name="Maven: snmp:mibble-parser:2.9.2" level="project" />
+    <orderEntry type="library" name="Maven: snmp:mibble-mibs:2.9.2" level="project" />
+    <orderEntry type="library" name="Maven: snmp:grammatica:1.5" level="project" />
     <orderEntry type="library" name="Maven: org.snmp4j:snmp4j:1.11.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: net.sourceforge.saxon:saxon:9.1.0.8" level="project" />
     <orderEntry type="module" module-name="utils" />

@@ -46,6 +46,9 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_STRING" value="-target 1.6" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
@@ -1396,6 +1399,28 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-expression/3.1.2.RELEASE/spring-expression-3.1.2.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: snmp:grammatica:1.5">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/snmp/grammatica/1.5/grammatica-1.5.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/snmp/grammatica/1.5/grammatica-1.5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/snmp/grammatica/1.5/grammatica-1.5-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: snmp:mibble-mibs:2.9.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/snmp/mibble-mibs/2.9.2/mibble-mibs-2.9.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/snmp/mibble-mibs/2.9.2/mibble-mibs-2.9.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/snmp/mibble-mibs/2.9.2/mibble-mibs-2.9.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: snmp:mibble-parser:2.9.2">

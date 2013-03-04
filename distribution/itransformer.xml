@@ -225,7 +225,7 @@
                     </fileSet>
                     <fileSet>
                         <directory>mibs</directory>
-                        <outputDirectory>lib/snmpToolkit/mibs</outputDirectory>
+                        <outputDirectory>snmptoolkit/mibs</outputDirectory>
                     </fileSet>
                 </fileSets>
             </sources>
