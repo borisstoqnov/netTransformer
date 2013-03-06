@@ -67,8 +67,9 @@ public class NewProjectMenuHandler implements ActionListener {
                 while (s.hasNextLine()) {
                 String text = s.nextLine();
                 if (text.startsWith("#") || text.trim().equals("")) continue;
-                String workDirName = System.getProperty("base.dir");
-                File workDir = new File(workDirName);
+                if (System.getProperty("base.dir") == null) System.setProperty("base.dir", ".");
+                    String workDirName = System.getProperty("base.dir");
+                    File workDir = new File(workDirName);
                 File srcDir = new File(workDir,text);
                 File destDir = new File(dialog.getProjectDir(), text).getParentFile();
                 destDir.mkdirs();
