@@ -135,7 +135,8 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
                 if (graphType != null) {
                     diffPathTextField3.setText(
                         new File(new File(new File(file1.getParent()).getParent(),
-                            new File(file1.getParent()).getName() + "-" + new File(file2.getParent()).getName()),"diff-"+graphType).getAbsolutePath());
+                            new File(file1.getParent()).getName() + "-" +
+                                    new File(file2.getParent()).getName()),"diff-"+graphType).getAbsolutePath());
                 }
                 preferences.setProperty(PreferencesKeys.DIFF_PATH3.name(),diffPathTextField3.getText());
                 try {
@@ -218,6 +219,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     private void doDiff() {
         progressMonitor = new ProgressMonitor(this,"Running diff tool","", 0, 1000);
         progressMonitor.setMillisToPopup(0);
+        new File(getDiffPath3()).mkdirs();
         task = new GraphMLDiffTool(getDiffPath1(), getDiffPath2(), getDiffPath3(), getIgnoredKeysPath());
         task.addPropertyChangeListener(this);
         task.execute();
