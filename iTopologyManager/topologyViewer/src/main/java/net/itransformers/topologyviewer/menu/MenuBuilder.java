@@ -134,11 +134,11 @@ public class MenuBuilder {
         file.addSeparator();
 
         final JMenuItem openGraph = new JMenuItem("Open Graph");
-        openGraph.addActionListener(new OpenGraphMenuHandler(frame, GraphType.UNDIRECTED));
+        openGraph.addActionListener(new OpenGraphMenuHandler(frame));
         file.add(openGraph);
-        final JMenuItem openDirectedGraph = new JMenuItem("Open Directed Graph");
-        openDirectedGraph.addActionListener(new OpenGraphMenuHandler(frame, GraphType.DIRECTED));
-        file.add(openDirectedGraph);
+//        final JMenuItem openDirectedGraph = new JMenuItem("Open Directed Graph");
+//        openDirectedGraph.addActionListener(new OpenGraphMenuHandler(frame, GraphType.DIRECTED));
+//        file.add(openDirectedGraph);
         final JMenuItem closeGraph = new JMenuItem("Close Graph");
         closeGraph.addActionListener(new CloseGraphMenuHandler(frame));
         file.add(closeGraph);

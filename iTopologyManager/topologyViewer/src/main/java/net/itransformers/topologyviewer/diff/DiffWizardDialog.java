@@ -25,6 +25,7 @@ import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,6 +44,8 @@ import java.util.Properties;
  * To change this template use File | Settings | File Templates.
  */
 public class DiffWizardDialog extends JDialog implements PropertyChangeListener {
+    private File baseDir;
+
     public enum Result {
         CANCELED,
         DONE
@@ -56,17 +59,13 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     private final JButton openButton2;
     private final JTextField diffPathTextField3;
     private final JButton openButton3;
-//    private final JTextField diffConfigPathTextField;
-//    private final JButton openConfigButton;
-//    private final JButton ignoredKeysButton;
-    private Properties preferences;
     private Result result = Result.CANCELED;
     private ProgressMonitor progressMonitor;
     private GraphMLDiffTool task;
 
-    public DiffWizardDialog(final JFrame owner, final Properties preferences) throws MalformedURLException {
+    public DiffWizardDialog(final JFrame owner, File baseDir) throws MalformedURLException {
         super(owner,"Diff Dialog",true);
-        this.preferences = preferences;
+        this.baseDir = baseDir;
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         Container cp = getContentPane();
         cp.setLayout(new BorderLayout());
@@ -95,10 +94,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         JPanel centralPanel = new JPanel();
         centralPanel.setLayout(new BoxLayout(centralPanel,BoxLayout.Y_AXIS));
 
-        String diffPath1 = (String) preferences.get(PreferencesKeys.DIFF_PATH1.name());
-        if (diffPath1 == null){
-            diffPath1 = (String) preferences.get(PreferencesKeys.PATH.name());
-        }
+        String diffPath1 = baseDir.getAbsolutePath();
         JPanel row1 = new JPanel(new BorderLayout(10,10));
         row1.add(new JLabel("   Graph1"),BorderLayout.WEST);
         diffPathTextField1 = new JTextField(diffPath1);
@@ -106,9 +102,9 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         openButton1 = new JButton("Open");
         row1.add(openButton1,BorderLayout.EAST);
         centralPanel.add(row1);
-        openButton1.addActionListener(new FileSelector(owner,diffPathTextField1,PreferencesKeys.DIFF_PATH1.name()));
+        openButton1.addActionListener(new FileSelector(owner,diffPathTextField1));
 
-        String diffPath2 = (String) preferences.get(PreferencesKeys.DIFF_PATH2.name());
+        String diffPath2 = baseDir.getAbsolutePath();
         JPanel row2 = new JPanel(new BorderLayout(10,10));
         row2.add(new JLabel("   Graph2"),BorderLayout.WEST);
         diffPathTextField2 = new JTextField(diffPath2);
@@ -116,36 +112,24 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         openButton2 = new JButton("Open");
         row2.add(openButton2, BorderLayout.EAST);
         centralPanel.add(row2);
-        openButton2.addActionListener(new FileSelector(owner, diffPathTextField2, PreferencesKeys.DIFF_PATH2.name()));
+        openButton2.addActionListener(new FileSelector(owner, diffPathTextField2));
+        diffPathTextField1.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateDiffPath();
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
         diffPathTextField2.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                System.out.println("INSERT UPDATE");
-                final String path1 = diffPathTextField1.getText();
-                final String path2 = diffPathTextField2.getText();
-//                final String ignoredKeysFile = ignoredKeysTextField.getText();
-                File file1 = new File(path1);
-                File file2 = new File(path2);
-                String graphType = null;
-                if (path1.endsWith("undirected") && path1.endsWith("undirected")){
-                    graphType = "undirected";
-                } else if (path1.endsWith("directed") && path1.endsWith("directed")){
-                    graphType = "directed";
-                }
-                if (graphType != null) {
-                    diffPathTextField3.setText(
-                        new File(new File(new File(file1.getParent()).getParent(),
-                            new File(file1.getParent()).getName() + "-" +
-                                    new File(file2.getParent()).getName()),"diff-"+graphType).getAbsolutePath());
-                }
-                preferences.setProperty(PreferencesKeys.DIFF_PATH3.name(),diffPathTextField3.getText());
-                try {
-                    preferences.store(new FileOutputStream(TopologyManagerFrame.VIEWER_PREFERENCES_PROPERTIES), "");
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                    JOptionPane.showMessageDialog(owner, "Can not Store preferences: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-
+                updateDiffPath();
             }
 
             public void removeUpdate(DocumentEvent e) {
@@ -156,7 +140,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
             }
         });
 
-        String diffPath3 = (String) preferences.get(PreferencesKeys.DIFF_PATH3.name());
+        String diffPath3 = "";
         JPanel row3 = new JPanel(new BorderLayout(10,10));
         JLabel labelGraph3 = new JLabel("   Result  ");
         labelGraph3.setBounds(40,0,100,20);
@@ -168,32 +152,31 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         openButton3.setEnabled(false);
         row3.add(openButton3,BorderLayout.EAST);
         centralPanel.add(row3);
-//        openButton3.addActionListener(new FileSelector(owner, diffPathTextField3, PreferencesKeys.DIFF_PATH3.name()));
-
-//        String diffConfigPath = (String) preferences.get(PreferencesKeys.DIFF_CONFIG.name());
-//        JPanel row4 = new JPanel(new BorderLayout(10, 10));
-//        row4.add(new JLabel("config"),BorderLayout.WEST);
-//        diffConfigPathTextField = new JTextField(diffConfigPath);
-//        row4.add(diffConfigPathTextField,BorderLayout.CENTER);
-//        openConfigButton = new JButton("Open");
-//        row4.add(openConfigButton,BorderLayout.EAST);
-//        centralPanel.add(row4);
-//        openConfigButton.addActionListener(new FileSelector(owner, diffConfigPathTextField, PreferencesKeys.DIFF_CONFIG.name(),false));
-
-//        String ignoredKeysPath = (String) preferences.get(PreferencesKeys.IGNORED_KEYS_PATH.name());
-
-//        JPanel row5 = new JPanel(new BorderLayout(10, 10));
-//        row5.add(new JLabel("ignore"),BorderLayout.WEST);
-//        ignoredKeysTextField = new JTextField(ignoredKeysPath);
-//        row5.add(ignoredKeysTextField,BorderLayout.CENTER);
-//        ignoredKeysButton = new JButton("Open");
-//        row5.add(ignoredKeysButton,BorderLayout.EAST);
-//        centralPanel.add(row5);
-//        ignoredKeysButton.addActionListener(new FileSelector(owner, ignoredKeysTextField, PreferencesKeys.IGNORED_KEYS_PATH.name(),false));
 
         cp.add(centralPanel,BorderLayout.NORTH);
         setPreferredSize(new Dimension(550, 200));
         this.pack();
+    }
+
+    private void updateDiffPath() {
+        System.out.println("INSERT UPDATE");
+        final String path1 = diffPathTextField1.getText();
+        final String path2 = diffPathTextField2.getText();
+//                final String ignoredKeysFile = ignoredKeysTextField.getText();
+        File file1 = new File(path1);
+        File file2 = new File(path2);
+        String graphType = null;
+        if (file1.getName().startsWith("undirected")){
+            graphType = "undirected";
+        } else if (file2.getName().startsWith("directed")){
+            graphType = "directed";
+        }
+        if (graphType != null) {
+            diffPathTextField3.setText(
+                new File(new File(new File(file1.getParent()).getParent(),
+                    new File(file1.getParent()).getName() + "-" +
+                            new File(file2.getParent()).getName()),graphType).getAbsolutePath());
+        }
     }
 
     public String getDiffPath1(){
@@ -205,9 +188,6 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     public String getDiffPath3(){
         return diffPathTextField3.getText();
     }
-//    public String getDiffConfigPath(){
-//        return diffConfigPathTextField.getText();
-//    }
     public String getIgnoredKeysPath(){
         return ignoredKeysTextField.getText();
     }
@@ -220,7 +200,23 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         progressMonitor = new ProgressMonitor(this,"Running diff tool","", 0, 1000);
         progressMonitor.setMillisToPopup(0);
         new File(getDiffPath3()).mkdirs();
-        task = new GraphMLDiffTool(getDiffPath1(), getDiffPath2(), getDiffPath3(), getIgnoredKeysPath());
+        String path1 = getDiffPath1();
+        File path1File = new File(path1);
+        File diffPath1;
+        if (path1File.getName().startsWith("directed")){
+            diffPath1 = new File(path1File.getParent(),"directed");
+        } else {
+            diffPath1 = new File(path1File.getParent(),"undirected");
+        }
+        String path2 = getDiffPath2();
+        File path2File = new File(path2);
+        File diffPath2;
+        if (path2File.getName().startsWith("directed")){
+            diffPath2 = new File(path2File.getParent(),"directed");
+        } else {
+            diffPath2 = new File(path2File.getParent(),"undirected");
+        }
+        task = new GraphMLDiffTool(diffPath1.getAbsolutePath(), diffPath2.getAbsolutePath(), getDiffPath3(), getIgnoredKeysPath());
         task.addPropertyChangeListener(this);
         task.execute();
     }
@@ -231,17 +227,12 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
 
             int progress = (Integer) evt.getNewValue();
             progressMonitor.setProgress(progress);
-//            String message = String.format("Completed %d%%.\n", progress);
-//            progressMonitor.setNote(message);
-//            taskOutput.append(message);
             if (progressMonitor.isCanceled() || task.isDone()) {
                 if (progressMonitor.isCanceled()) {
                     task.cancel(true);
-//                    taskOutput.append("Task canceled.\n");
                     result = Result.CANCELED;
                 } else {
                     JOptionPane.showMessageDialog(this,"Diff completed","Diff tool info",JOptionPane.INFORMATION_MESSAGE);
-//                    taskOutput.append("Task completed.\n");
                     result = Result.DONE;
                     this.dispose();
                 }
@@ -253,41 +244,31 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     class FileSelector implements ActionListener{
         private JFrame owner;
         private JTextField diffPathTextField;
-        private String diffPathKey;
-        private boolean selectDir;
 
-        FileSelector(JFrame owner, JTextField diffPathTextField, String diffPathKey) {
+        FileSelector(JFrame owner, JTextField diffPathTextField) {
             this.owner = owner;
             this.diffPathTextField = diffPathTextField;
-            this.diffPathKey = diffPathKey;
-            this.selectDir = true;
-        }
-        FileSelector(JFrame owner, JTextField diffPathTextField, String diffPathKey, boolean selectDir) {
-            this.owner = owner;
-            this.diffPathTextField = diffPathTextField;
-            this.diffPathKey = diffPathKey;
-            this.selectDir = selectDir;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JFileChooser chooser = new JFileChooser("");
-            if (selectDir) {
-                chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            } else {
-                chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            }
+            JFileChooser chooser = new JFileChooser(baseDir);
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            chooser.setFileFilter(new FileFilter() {
+                @Override
+                public boolean accept(File f) {
+                    return  (f.isFile() && f.getName().endsWith(".graphmls") || f.isDirectory());
+                }
+
+                @Override
+                public String getDescription() {
+                    return "(List of graphml files) *.graphmls";
+                }
+            });
             chooser.setMultiSelectionEnabled(false);
             int result = chooser.showOpenDialog(owner);
             if (result == JFileChooser.APPROVE_OPTION) {
                 diffPathTextField.setText(chooser.getSelectedFile().getAbsolutePath());
-                preferences.setProperty(diffPathKey,diffPathTextField.getText());
-                try {
-                    preferences.store(new FileOutputStream(TopologyManagerFrame.VIEWER_PREFERENCES_PROPERTIES), "");
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                    JOptionPane.showMessageDialog(owner, "Can not Store preferences: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
             }
         }
     }
@@ -295,7 +276,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     public static void main(String[] args) throws MalformedURLException {
         Properties props = new Properties();
         props.put(PreferencesKeys.PATH.name(),new File("C:\\Documents and Settings\\Administrator\\Desktop\\state2\\initial\\undirected").getAbsolutePath());
-        DiffWizardDialog dialog = new DiffWizardDialog(null, props);
+        DiffWizardDialog dialog = new DiffWizardDialog(null, new File("."));
         dialog.setVisible(true);
         System.out.println(dialog.getDiffPath1());
         System.out.println(dialog.getDiffPath2());

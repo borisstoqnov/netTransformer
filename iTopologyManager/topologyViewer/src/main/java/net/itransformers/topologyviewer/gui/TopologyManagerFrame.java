@@ -102,13 +102,13 @@ public class TopologyManagerFrame extends JFrame{
         return preferences;
     }
 
-    public void doOpenGraph(File selectedFile, GraphType graphType) {
+    public void doOpenGraph(File selectedFile) {
         try {
-            if (graphType == GraphType.UNDIRECTED){
+            if (selectedFile.getName().startsWith("undirected")) {
                 GraphViewerPanelManager<UndirectedGraph<String, String>> viewerPanelManager = new GraphViewerPanelManager<UndirectedGraph<String, String>>(this, path, selectedFile, UndirectedSparseGraph.<String, String>getFactory(), tabbedPane, GraphType.UNDIRECTED);
                 viewerPanelManagerMap.put(selectedFile.getAbsolutePath(),viewerPanelManager);
                 viewerPanelManager.createAndAddViewerPanel();
-            } else if (graphType == GraphType.DIRECTED){
+            } else if (selectedFile.getName().startsWith("directed")) {
                 GraphViewerPanelManager<DirectedGraph<String, String>> viewerPanelManager = new GraphViewerPanelManager<DirectedGraph<String, String>>(this, path ,selectedFile, DirectedSparseMultigraph.<String, String>getFactory(), tabbedPane, GraphType.DIRECTED);
                 viewerPanelManagerMap.put(selectedFile.getAbsolutePath(),viewerPanelManager);
                 viewerPanelManager.createAndAddViewerPanel();

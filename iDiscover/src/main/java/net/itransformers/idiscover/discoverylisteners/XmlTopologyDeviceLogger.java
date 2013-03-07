@@ -35,19 +35,22 @@ import java.util.Map;
 
 public class XmlTopologyDeviceLogger implements DiscoveryListener{
     static Logger logger = Logger.getLogger(XmlTopologyDeviceLogger.class);
+    private final String graphtType;
     private File path;
     private File xsltFileName;
+    private final File labelPath;
 
     public XmlTopologyDeviceLogger(Map<String, String> params, File baseDir, String label) {
         File base1 = new File(baseDir,params.get("path"));
         if (!base1.exists()){
             base1.mkdir();
         }
-        File labelPath = new File(base1,label);
+        labelPath = new File(base1, label);
         if (!labelPath.exists()) {
             labelPath.mkdir();
         }
-        this.path = new File(labelPath,params.get("type"));
+        graphtType = params.get("type");
+        this.path = new File(labelPath, graphtType);
         if (!this.path.exists()) {
             this.path.mkdir();
         }
@@ -74,7 +77,7 @@ public class XmlTopologyDeviceLogger implements DiscoveryListener{
 //            String fullFileName = path + File.separator + fileName;
             final File nodeFile = new File(path,fileName);
             FileUtils.writeStringToFile(nodeFile, new String(graphMLOutputStream.toByteArray()));
-            FileWriter writer = new FileWriter(new File(path,"nodes-file-list.txt"),true);
+            FileWriter writer = new FileWriter(new File(labelPath,graphtType+".graphmls"),true);
             writer.append(String.valueOf(fileName)).append("\n");
             writer.close();
         } catch (IOException e) {

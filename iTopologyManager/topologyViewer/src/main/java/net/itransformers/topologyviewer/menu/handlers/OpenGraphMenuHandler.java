@@ -23,6 +23,7 @@ import net.itransformers.topologyviewer.gui.GraphType;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,12 +38,10 @@ import java.io.File;
 public class OpenGraphMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
-    private GraphType graphType;
 
-    public OpenGraphMenuHandler(TopologyManagerFrame frame, GraphType graphType) throws HeadlessException {
+    public OpenGraphMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
-        this.graphType = graphType;
     }
 
     @Override
@@ -57,11 +56,22 @@ public class OpenGraphMenuHandler implements ActionListener {
         if (!networkDir.exists()) networkDir = path;
         JFileChooser chooser = new JFileChooser(networkDir);
         chooser.setDialogTitle("Choose Graph version");
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.setFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                return  (f.isFile() && f.getName().endsWith(".graphmls") || f.isDirectory());
+            }
+
+            @Override
+            public String getDescription() {
+                return "(List of graphml files) *.graphmls";
+            }
+        });
         chooser.setMultiSelectionEnabled(false);
         int result = chooser.showOpenDialog(frame);
         if (result == JFileChooser.APPROVE_OPTION) {
-            frame.doOpenGraph(chooser.getSelectedFile(), graphType);
+            frame.doOpenGraph(chooser.getSelectedFile());
         }
 
     }

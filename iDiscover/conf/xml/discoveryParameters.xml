@@ -215,7 +215,7 @@ dot1dBasePortIfIndex,ipNetToMediaTable,lldpRemoteSystemsData,cdpCacheDevicePort,
         <!--match property="ipAddress.ipAddress"></match-->
 
         <!--match-not property="ipAddress.ipAddress">172.16\.*</match-not-->
-        <match property="ipAddress.ipAddress">10.*</match>
+        <!--match property="ipAddress.ipAddress">10.*</match-->
         <!--<match property="ipAddress.ipAddress">10.121</match>-->
         <!--<match property="ipAddress.ipAddress">10.122</match>-->
         <!--match property="host">R11</match-->

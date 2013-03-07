@@ -71,7 +71,7 @@ public class GraphmlLoader<G extends Graph<String,String>> {
 
     public void loadGraphml(File urlPath) throws ParserConfigurationException, SAXException, IOException {
 //        File file = new File(dir + File.separator + "nodes-file-list.txt");
-        File url2 = new File(urlPath,"nodes-file-list.txt");
+        File url2 = new File(urlPath.getParent(), urlPath.getName()+".graphmls");
         List<String> allFiles = readGraphmlFileNames(url2);//FileUtils.readLines(file);
         List<String> files = allFiles.subList(loadedFiles.size(),allFiles.size());
         for (String fileName : files){

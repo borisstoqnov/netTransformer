@@ -104,7 +104,7 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
             setProgress(1); // dummy to show progress window
             PrintWriter pw = null;
             try {
-                pw = new PrintWriter(new FileOutputStream(new File(dirc, "nodes-file-list.txt")));
+                pw = new PrintWriter(new FileOutputStream(new File(dirc.getParent(), dirc.getName()+".graphmls")));
                 for (String modifiedfile : modifiedfiles) {
                     Thread.sleep(2000);
                     File file1 = new File(dira, modifiedfile);
