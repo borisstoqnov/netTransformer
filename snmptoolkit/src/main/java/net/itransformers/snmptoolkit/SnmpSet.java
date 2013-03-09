@@ -44,12 +44,12 @@ public class SnmpSet {
     String address;
     String community;
     String value;
-    private int retries;
-    private long timeout;
-    private int version;
-    private UdpAddress localAddress;
-    private TransportMappingAbstractFactory transportFactory;
-    private MessageDispatcherAbstractFactory messageDispatcherFactory;
+    int retries;
+    long timeout;
+    int version;
+    UdpAddress localAddress;
+    TransportMappingAbstractFactory transportFactory;
+    MessageDispatcherAbstractFactory messageDispatcherFactory;
 
     public SnmpSet(String oid,
                    String address,
@@ -134,7 +134,79 @@ public class SnmpSet {
         }
     }
 
+    public String createSNMPOID(String oid,
+                                String address,
+                                int port,
+                                int version,
+                                int retries,
+                                long timeout,
+                                String community,
+                                String value
+                                ) throws IOException {
+        this.oid = oid;
+        this.address = address+"/"+port;
+        this.version = version;
+        this.timeout = timeout;
+        this.retries = retries;
+        this.community = community;
+        this.messageDispatcherFactory = new DefaultMessageDispatcherFactory();
+//        localAddress = new UdpAddress(InetAddress.getLocalHost(), 0);
+//        new InetAddress("0.0.0.0");
+        localAddress = new UdpAddress("0.0.0.0/0");
+        this.value=value;
 
+        String result = "";
+        CounterSupport.getInstance().addCounterListener(new DefaultCounterListener());
+        Variable var = new OctetString(value);
+        VariableBinding vb = new VariableBinding(new OID(this.oid),var);
+        Vector vbs = new Vector();
+        vbs.add(vb);
+        TransportMapping transport = transportFactory.createTransportMapping(localAddress);
+        MessageDispatcher dispatcher = messageDispatcherFactory.createMessageDispatcherMapping();
+        Snmp snmp = new Snmp(dispatcher, transport);
+        ((MPv3) snmp.getMessageProcessingModel(MPv3.ID)).setLocalEngineID(new OctetString(MPv3.createLocalEngineID()).getValue());
+
+        CommunityTarget target = new CommunityTarget();
+        target.setCommunity(new OctetString(this.community));
+
+        target.setVersion(version);
+        target.setAddress(new UdpAddress(this.address));
+        target.setRetries(retries);
+        target.setTimeout(timeout);
+        target.setMaxSizeRequestPDU(65535);
+        snmp.listen();
+        logger.debug("SNMP SET TO"+target+" with OID: "+oid+" and value: "+value);
+        try {
+
+            PDU request = new PDU();
+            request.setType(PDU.SET);
+            for (int i = 0; i < vbs.size(); i++) {
+                request.add((VariableBinding) vbs.get(i));
+            }
+
+            long startTime = System.currentTimeMillis();
+            ResponseEvent responseEvent = snmp.set(request, target);
+
+            PDU response = null;
+            if (responseEvent != null) {
+                response = responseEvent.getResponse();
+                logger.debug("Received response after " + (System.currentTimeMillis() - startTime) + " millis");
+            }
+            if (response == null){
+                throw new RuntimeException("SNMP response is null.");
+
+            } else {
+                for (int i = 0; i < response.size(); i++) {
+                    VariableBinding vb1 = response.get(i);
+                    result = vb1.getVariable().toString();
+                }
+                logger.debug("Response value: "+result);
+                return result;
+            }
+        } finally {
+            snmp.close();
+        }
+    }
 
     public static void main(String[] args) throws IOException {
         LogFactory.setLogFactory(new Log4jLogFactory());

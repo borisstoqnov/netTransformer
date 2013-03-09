@@ -1,8 +1,11 @@
-### vars: hostname, username, password, vrfName, rd, rt
+### vars: hostname, username, password,enable-passowrd, vrfName, rd, rt
 ### read_until('(login:|user:|Username:)',3)
 $username
 ### read_until('(Password:|password:)',3)
 $password
+### read_until('.*>',3)
+$enable-passoword
+
 ### start read_until('.*#',3)
 configure terminal
 ### stop read_until

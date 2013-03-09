@@ -120,6 +120,7 @@
                         <xsl:text disable-output-escaping="yes">&lt;br/&gt;</xsl:text>
                         <xsl:text disable-output-escaping="yes">&lt;b&gt;ipv6Forwarding:&lt;/b&gt; </xsl:text>
                         <xsl:value-of select="$ipv6Forwarding"/>
+                        <xsl:text disable-output-escaping="yes">&lt;br/&gt;</xsl:text>
                         <xsl:text disable-output-escaping="yes">&lt;b&gt;BGPLocalASInfo:&lt;/b&gt; </xsl:text>
                         <xsl:value-of select="$BGPLocalASInfo"/>
                         <xsl:text disable-output-escaping="yes">&lt;/html&gt;]]&gt;</xsl:text>

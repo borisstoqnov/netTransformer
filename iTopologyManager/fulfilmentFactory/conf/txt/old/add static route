@@ -1,0 +1,19 @@
+### vars: hostname, username, password, destination, subnet-mask next-hop
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### read_until('.*>',3)
+$enable-passoword
+
+### start read_until('.*#',3)
+configure terminal
+### stop read_until
+
+### start read_until('.*#',3)
+ip route $destination $subnet-mask $next-hop
+end
+### stop read_until
+exit
+### exit
+

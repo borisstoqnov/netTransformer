@@ -21,39 +21,27 @@
 <fulfilment-factories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../xsd/fulfilment-factory.xsd">
     <fulfilment-factory-types>
-        <type name="ConfigureInterface" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
-            <param name="guard">configureInterface</param>
-            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/configureInterface.txt</param>
-            <param name="effect"></param>
+        <type name="configureHostname" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">configure Hostname</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/configure-hostname.txt</param>
         </type>
-        <type name="MultipleShowCommands" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
-            <param name="cmd">ShowCommands</param>
-            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/multiple_show.txt</param>
+        <type name="enableIPv6Routing" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">enable IPv6</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/enable-ipv6.txt</param>
         </type>
-        <type name="CreateVRF" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
-            <param name="cmd">VPN_activator</param>
-            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/create_vrf</param>
+        <type name="setDeviceAdminData" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">set Admin Data</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/snmp-admin.txt</param>
         </type>
-         <type name="ApplyVRF" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
-            <param name="cmd">VPN_activator</param>
-            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/apply_vrf.txt</param>
-        </type>
-        <type name="AddDefaultToVRF" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
-            <param name="cmd">VPN_activator</param>
-            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/add_default_to_vrf.txt</param>
-        </type>
-        <type name="setDeviceLocation" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.XslFulfilmentImpl">
+        <!--type name="setDeviceLocation" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.XslFulfilmentImpl">
             <param name="xslFileName">iTopologyManager/fulfilmentFactory/conf/xslt/setDeviceLocation.xslt</param>
-        </type>
+        </type-->
         <type name="xsl2" class="com.cdsd.Xsl">
             <param name="xslFileName">some2.xsl</param>
         </type>
     </fulfilment-factory-types>
-    <fulfilment-factory name="create_vrf" resourceName="cisco" type="CreateVRF" parameterFactoryName="CreateVRF"/>
-    <fulfilment-factory name="apply_vrf" resourceName="cisco" type="ApplyVRF" parameterFactoryName="ApplyVRF"/>
-    <fulfilment-factory name="add_default_to_vrf" resourceName="cisco" type="AddDefaultToVRF" parameterFactoryName="addDefaultToVRF"/>
-    <fulfilment-factory name="ConfigureInterface" resourceName="cisco" type="ConfigureInterface" parameterFactoryName="ConfigureInterface"/>
-    <fulfilment-factory name="multipleShow" resourceName="cisco" type="MultipleShowCommands" parameterFactoryName="CreateVRF"/>
-    <fulfilment-factory name="setDeviceLocation" resourceName="cisco" type="xsl" parameterFactoryName="setDeviceLocation"/>
+    <fulfilment-factory name="set Hostname" resourceName="cisco" type="configureHostname" parameterFactoryName="configureHostname"/>
+    <fulfilment-factory name="enable IPv6 Routing" resourceName="cisco" type="enableIPv6Routing" parameterFactoryName="enableIPv6Routing"/>
+    <fulfilment-factory name="set Device Admin data" resourceName="cisco" type="setDeviceAdminData" parameterFactoryName="setDeviceAdminData"/>
 
 </fulfilment-factories>

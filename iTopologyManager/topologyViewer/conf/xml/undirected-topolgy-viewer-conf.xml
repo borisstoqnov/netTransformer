@@ -1,285 +1,531 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ iTransformer is an open source tool able to discover IP networks
-  ~ and to perform dynamic data data population into a xml based inventory system.
-  ~ Copyright (C) 2010  http://itransformers.net
+  ~ iTransformer is an open source tool able to discover and transform
+  ~  IP network infrastructures.
+  ~  Copyright (C) 2012  http://itransformers.net
   ~
-  ~ This program is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU General Public License as published by
-  ~ the Free Software Foundation, either version 3 of the License, or
-  ~ any later version.
+  ~  This program is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  any later version.
   ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU General Public License for more details.
+  ~  This program is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
   ~
-  ~ You should have received a copy of the GNU General Public License
-  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
 <topology-viewer-conf>
-    <!--IPv6 Icons-->
-    <icon name="/images/72xx_ipv6.png">
-        <data key="deviceModel">cisco7206VXR</data>
+    <scaling-factor>
+        <data key="0.00001"/>
+    </scaling-factor>
+    <edgeStroke dash="10.0,5.0" width="1.0" dash_phase="0.0" miterlimit="10.0" join="0">
+        <data key="diff">YES</data>
+    </edgeStroke>
+    <edgeStroke dash="15.0,5.0" width="3.0" dash_phase="0.0" miterlimit="10.0" join="0">
+        <data key="diff">ADDED</data>
+    </edgeStroke>
+    <edgeStroke dash="1.0,5.0" width="2.0" dash_phase="0.0" miterlimit="10.0" join="0">
+        <data key="diff">REMOVED</data>
+    </edgeStroke>
+
+    <edgeColor value="448214">
+        <data key="ipLink">YES</data>
+        <data key="dataLink">YES</data>
+    </edgeColor>
+    <edgeColor value="ff0000">
+        <data key="ipLink">YES</data>
+    </edgeColor>
+    <edgeColor value="f00000">
+        <data key="dataLink">YES</data>
+    </edgeColor>
+    <edgeColor value="488214">
+        <data key="diff">ADDED</data>
+    </edgeColor>
+    <edgeColor value="00E100">
+        <data key="diff">REMOVED</data>
+    </edgeColor>
+    <edgeColor value="ff0000">
+        <data key="color">ff0000</data>
+    </edgeColor>
+    <!-- cisco2821 -->
+    <icon name="/images/router.png,/images/circle_red.png">
+        <data key="deviceModel">cisco2821</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/router.png,/images/circle_green.png">
+        <data key="deviceModel">cisco2821</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/router_ipv6.png,/images/circle_blue.png">
+        <data key="deviceModel">cisco2821</data>
+        <data key="diff">YES</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/cisco_broadband_ipv6.png">
-        <data key="deviceModel">cisco7505</data>
+    <icon name="/images/router.png,/images/circle_blue.png">
+        <data key="deviceModel">cisco2821</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/router_ipv6.png">
+        <data key="deviceModel">cisco2821</data>
         <data key="ipv6Forwarding">YES</data>
     </icon>
-     <icon name="/images/huawei_ipv6.png">
-        <data key="deviceType">HUAWEI</data>
-        <data key="ipv6Forwarding">YES</data>
-    </icon>
-     <icon name="/images/riverstone_ipv6.png">
-        <data key="deviceType">RIVERSTONE</data>
-         <data key="ipv6Forwarding">YES</data>
-    </icon>
-    <icon name="/images/76xx_ipv6.png">
-            <data key="deviceType">CISCO</data>
-            <data key="ipv6Forwarding">YES</data>
-    </icon>
-        <icon name="/images/medium_cisco_ipv6.png">
-        <data key="deviceModel">ciscoSC3640</data>
-        <data key="ipv6Forwarding">YES</data>
-    </icon>
-    <icon name="/images/m320_ipv6.png">
-            <data key="deviceType">JUNIPER</data>
-            <data key="ipv6Forwarding">YES</data>
-    </icon>
-    <icon name="/images/server_ipv6.png">
-       <data key="ipv6Forwarding">YES</data>
-        <data key="deviceType">SERVER</data>
-    </icon>
-    <icon name="/images/embeded_ipv6.png">
-       <data key="ipv6Forwarding">YES</data>
-        <data key="deviceType">EMBEDED</data>
-    </icon>
-    <icon name="/images/embeded.png">
-        <data key="deviceType">EMBEDED</data>
-    </icon>
-    <icon name="/images/28xx.png">
-        <data key="deviceModel">cisco2610</data>
-    </icon>
-    <icon name="/images/workgroup_switch.png">
-        <data key="deviceModel">catalyst2924XLv</data>
-    </icon>
-    <icon name="/images/72xx.png">
-        <data key="deviceModel">cisco7206VXR</data>
-    </icon>
-    <icon name="/images/28xx.png">
+    <icon name="/images/router.png">
         <data key="deviceModel">cisco2821</data>
     </icon>
-    <icon name="/images/28xx.png">
-        <data key="deviceModel">cisco2801</data>
+
+    <!-- cisco7606 -->
+    <icon name="/images/big1.png,/images/circle_red_big.png">
+        <data key="deviceModel">cisco7606</data>
+        <data key="diff">REMOVED</data>
     </icon>
-    <icon name="/images/wireless_cisco.png">
-        <data key="deviceModel">cisco1841</data>
+    <icon name="/images/big1.png,/images/circle_green_big.png">
+        <data key="deviceModel">cisco7606</data>
+        <data key="diff">ADDED</data>
     </icon>
-    <icon name="/images/wireless_cisco.png">
-        <data key="deviceModel">cisco1812</data>
+    <icon name="/images/big1_ipv6.png,/images/circle_blue_big.png">
+        <data key="deviceModel">cisco7606</data>
+        <data key="ipv6Forwarding">YES</data>
+        <data key="diff">YES</data>
     </icon>
-    <icon name="/images/wireless_cisco.png">
-        <data key="deviceModel">cisco1861Srst2BK9</data>
+    <icon name="/images/big1.png,/images/circle_blue_big.png">
+        <data key="deviceModel">cisco7606</data>
+        <data key="diff">YES</data>
     </icon>
-    <icon name="/images/wireless_cisco.png">
-        <data key="deviceModel">cisco1861Srst2BK9</data>
+    <icon name="/images/big1_ipv6.png">
+        <data key="deviceModel">cisco7606</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
-    <icon name="/images/cisco_asa.png">
-        <data key="deviceModel">ciscoASA5520</data>
-    </icon>
-    <icon name="/images/medium_cisco.png">
-        <data key="deviceModel">cisco3845</data>
-    </icon>
-    <icon name="/images/28xx.png">
-        <data key="deviceModel">cisco2611</data>
-    </icon>
-    <icon name="/images/wireless_cisco.png">
-        <data key="deviceModel">ciscoc851</data>
-    </icon>
-    <icon name="/images/cisco3750.png">
-        <data key="deviceModel">catalyst4948e10GE</data>
-    </icon>
-    <icon name="/images/wireless_cisco.png">
-        <data key="deviceModel">ciscoc921k9</data>
-    </icon>
-    <icon name="/images/medium_cisco.png">
-        <data key="deviceModel">cisco2851</data>
-    </icon>
-    <icon name="/images/medium_cisco.png">
-        <data key="deviceModel">ciscoSC3640</data>
-    </icon>
-    <icon name="/images/cisco_broadband.png">
-        <data key="deviceModel">cisco7505</data>
-    </icon>
-    <icon name="/images/76xx.png">
-        <data key="deviceModel">CISCO7606-S</data>
-    </icon>
-    <icon name="/images/76xx.png">
-        <data key="deviceModel">cisco7604</data>
-    </icon>
-    <icon name="/images/76xx.png">
-        <data key="deviceModel">cisco7609</data>
-    </icon>
-    <icon name="/images/asr_1000.png">
-        <data key="deviceModel">cisco7401ASR</data>
-    </icon>
-    <icon name="/images/very_big_cisco.png">
-        <data key="deviceModel">cisco12406</data>
-    </icon>
-    <icon name="/images/very_big_cisco.png">
-        <data key="deviceModel">cisco12810</data>
-    </icon>
-    <icon name="/images/cisco_broadband.png">
-        <data key="deviceModel">cisco10008</data>
-    </icon>
-    <icon name="/images/cisco_broadband.png">
-        <data key="deviceModel">cisco10720</data>
-    </icon>
-    <icon name="/images/crs.png">
-        <data key="deviceModel">ciscoCRS8S</data>
-    </icon>
-    <icon name="/images/72xx.png">
-        <data key="deviceModel">cisco7201</data>
-    </icon>
-    <icon name="/images/76xx.png">
-        <data key="deviceModel">ciscoMWRc941DCA</data>
-    </icon>
-    <icon name="/images/metro_switch_small.png">
-        <data key="deviceModel">catalyst295024G</data>
-    </icon>
-    <icon name="/images/metro_switch_small.png">
-        <data key="deviceModel">catalyst2950t24</data>
-    </icon>
-    <icon name="/images/metro_switch_small.png">
-        <data key="deviceModel">catalyst296024TT</data>
-    </icon>
-    <icon name="/images/metro_switch_medium.png">
-        <data key="deviceModel">cisco340024TSD</data>
-    </icon>
-    <icon name="/images/metro_switch_medium.png">
-        <data key="deviceModel">cisco340024TSA</data>
-    </icon>
-    <icon name="/images/metro_switch_medium.png">
-        <data key="deviceModel">ciscoMe3400g12CsD</data>
-    </icon>
-    <icon name="/images/metro_switch_medium.png">
-        <data key="deviceModel">catalyst375024ME</data>
-    </icon>
-    <icon name="/images/metro_switch_medium.png">
-        <data key="deviceModel">catalyst37xxStack</data>
-    </icon>
-    <icon name="/images/metro_switch_small.png">
-        <data key="deviceModel">catalyst35608PC</data>
-    </icon>
-    <icon name="/images/76xx.png">
-        <data key="deviceType">CISCO</data>
-    </icon>
-    <icon name="/images/huawei.png">
-        <data key="deviceType">HUAWEI</data>
-    </icon>
-    <icon name="/images/m320.png">
-        <data key="deviceType">JUNIPER</data>
-    </icon>
-    <icon name="/images/riverstone.png">
-        <data key="deviceType">RIVERSTONE</data>
-    </icon>
-    <icon name="/images/tellabs.png">
-        <data key="deviceType">TELLABS</data>
-    </icon>
-    <icon name="/images/workgroup_switch.png">
-        <data key="deviceType">HP</data>
-    </icon>
-    <icon name="/images/wireless.png">
-        <data key="deviceType">WIRELESS</data>
-    </icon>
-    <icon name="/images/metro_switch_medium.png">
-        <data key="deviceType">CISCO_SW</data>
-    </icon>
-    <icon name="/images/server.png">
-        <data key="deviceType">SERVER</data>
+    <icon name="/images/big1.png">
+        <data key="deviceModel">cisco7606</data>
     </icon>
 
+    <!--cisco7401ASR-->
+    <icon name="/images/large_router.png,/images/circle_red_big.png">
+        <data key="deviceModel">cisco7401ASR</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/large_router.png,/images/circle_green_big.png">
+        <data key="deviceModel">cisco7401ASR</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/large_router_ipv6.png,/images/circle_blue_big.png">
+        <data key="deviceModel">cisco7401ASR</data>
+        <data key="diff">YES</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+
+    <icon name="/images/large_router.png,/images/circle_blue_big.png">
+        <data key="deviceModel">cisco7401ASR</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/large_router_ipv6.png">
+        <data key="deviceModel">cisco7401ASR</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+
+    <icon name="/images/large_router.png">
+        <data key="deviceModel">cisco7401ASR</data>
+    </icon>
+    <!--cisco12810-->
+    <icon name="/images/very_big_router.png,/images/circle_red.png">
+        <data key="deviceModel">cisco12810</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/very_big_router.png,/images/circle_green.png">
+        <data key="deviceModel">cisco12810</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/very_big_router_ipv6.png,/images/circle_blue.png">
+        <data key="deviceModel">cisco12810</data>
+        <data key="diff">YES</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+
+    <icon name="/images/very_big_router.png,/images/circle_blue.png">
+        <data key="deviceModel">cisco12810</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/very_big_router_ipv6.png">
+        <data key="deviceModel">cisco12810</data>
+        <data key="ipv6Forwarding">YES</data>
+
+    </icon>
+
+    <icon name="/images/very_big_router.png">
+        <data key="deviceModel">cisco12810</data>
+    </icon>
+    <!--Cloud-->
+    <icon name="/images/cloud.png,/images/circle_red_big.png">
+        <data key="deviceModel">cloud</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/cloud.png,/images/circle_green_big.png">
+        <data key="deviceModel">cloud</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/cloud.png,/images/ipv6_internet.png">
+        <data key="ipv6Forwarding">YES</data>
+        <data key="deviceModel">cloud</data>
+        <data key="diff">YES</data>
+    </icon>
+
+    <icon name="/images/cloud.png,/images/ipv6_internet.png">
+        <data key="deviceModel">cloud</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+
+    <icon name="/images/cloud.png,/images/ipv4_internet.png">
+        <data key="deviceModel">cloud</data>
+    </icon>
+
+    <!--house-->
+    <icon name="/images/house.png,/images/circle_red_big.png">
+        <data key="deviceModel">house</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/house.png,/images/circle_green_big.png">
+        <data key="deviceModel">house</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/house.png,/images/circle_blue_big.png">
+        <data key="deviceModel">house</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/house.png">
+        <data key="deviceModel">house</data>
+    </icon>
+
+    <!--hpDL340L-->
+    <icon name="/images/medium_switch1.png,/images/circle_red_big.png">
+        <data key="diff">REMOVED</data>
+        <data key="deviceModel">hpDL340L</data>
+    </icon>
+
+    <icon name="/images/medium_switch1.png,/images/circle_green_big.png">
+        <data key="diff">ADDED</data>
+        <data key="deviceModel">hpDL340L</data>
+    </icon>
+
+    <icon name="/images/medium_switch1.png,/images/circle_blue_big.png">
+        <data key="diff">YES</data>
+        <data key="deviceModel">hpDL340L</data>
+    </icon>
+    <icon name="/images/medium_switch1_ipv6.png,/images/circle_blue_big.png">
+        <data key="diff">YES</data>
+        <data key="deviceModel">hpDL340L</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/medium_switch1_ipv6.png">
+        <data key="deviceModel">hpDL340L</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+
+    <icon name="/images/medium_switch1.png">
+        <data key="deviceModel">hpDL340L</data>
+    </icon>
+
+    <!-- homeGateway -->
+    <icon name="/images/small1.png,/images/circle_red.png">
+        <data key="deviceModel">homeGateway</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/small1.png,/images/circle_green.png">
+        <data key="deviceModel">homeGateway</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/small1_ipv6.png,/images/circle_blue.png">
+        <data key="deviceModel">homeGateway</data>
+        <data key="ipv6Forwarding">YES</data>
+        <data key="diff">YES</data>
+    </icon>
+
+    <icon name="/images/small1.png,/images/circle_blue.png">
+        <data key="deviceModel">homeGateway</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/small1_ipv6.png">
+        <data key="deviceModel">homeGateway</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/small1.png">
+        <data key="deviceModel">homeGateway</data>
+    </icon>
+    <!--CISCO-->
+    <icon name="/images/medium_switch.png,/images/circle_red.png">
+        <data key="deviceType">CISCO</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/medium_switch.png,/images/circle_green.png">
+        <data key="deviceType">CISCO</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/medium_switch_ipv6.png,/images/circle_blue.png">
+        <data key="deviceType">CISCO</data>
+        <data key="diff">YES</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+
+    <icon name="/images/medium_switch.png,/images/circle_blue.png">
+        <data key="deviceType">CISCO</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/medium_switch_ipv6.png">
+        <data key="deviceType">CISCO</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+
+    <icon name="/images/medium_switch.png">
+        <data key="deviceType">CISCO</data>
+    </icon>
+    <!--HUAWEI-->
+
+    <icon name="/images/medium_router.png,/images/circle_red.png">
+        <data key="diff">REMOVED</data>
+        <data key="deviceType">HUAWEI</data>
+    </icon>
+
+    <icon name="/images/medium_router.png,/images/circle_green.png">
+        <data key="diff">ADDED</data>
+        <data key="deviceType">HUAWEI</data>
+    </icon>
+    <icon name="/images/medium_router_ipv6.png,/images/circle_blue.png">
+        <data key="diff">YES</data>
+        <data key="deviceType">HUAWEI</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+
+    <icon name="/images/medium_router.png,/images/circle_blue.png">
+        <data key="diff">YES</data>
+        <data key="deviceType">HUAWEI</data>
+    </icon>
+    <icon name="/images/medium_router.png">
+        <data key="deviceType">HUAWEI</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/medium_router.png">
+        <data key="deviceType">HUAWEI</data>
+    </icon>
+    <!--JUNIPER-->
+
+    <icon name="/images/very_big_router.png,/images/circle_red.png">
+        <data key="deviceType">JUNIPER</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+
+    <icon name="/images/very_big_router.png,/images/circle_green.png">
+        <data key="deviceType">JUNIPER</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/very_big_router.png,/images/circle_blue.png">
+        <data key="deviceType">JUNIPER</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/very_big_router_ipv6.png,/images/circle_blue.png">
+        <data key="deviceType">JUNIPER</data>
+        <data key="ipv6Forwarding">YES</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/very_big_router_ipv6.png">
+        <data key="deviceType">JUNIPER</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/very_big_router.png">
+        <data key="deviceType">JUNIPER</data>
+    </icon>
+    <!--HP-->
+
+
+    <icon name="/images/medium_switch1.png,/images/circle_red.png">
+        <data key="deviceType">HP</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+
+    <icon name="/images/medium_switch1.png,/images/circle_green.png">
+        <data key="deviceType">HP</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/medium_switch1_ipv6.png,/images/circle_blue.png">
+        <data key="deviceType">HP</data>
+        <data key="diff">YES</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+
+    <icon name="/images/medium_switch1.png,/images/circle_blue.png">
+        <data key="deviceType">HP</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/medium_switch1_ipv6.png">
+        <data key="deviceType">HP</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+
+    <icon name="/images/medium_switch1.png">
+        <data key="deviceType">HP</data>
+    </icon>
+
+    <!--TELLABS-->
+    <icon name="/images/76xx.png,,/images/circle_red_big.png">
+        <data key="deviceType">TELLABS</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/76xx.png,/images/circle_green_big.png">
+        <data key="deviceType">TELLABS</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/76xx_ipv6.png,/images/circle_blue_big.png">
+        <data key="deviceType">TELLABS</data>
+        <data key="diff">YES</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/76xx.png,/images/circle_blue_big.png">
+        <data key="deviceType">TELLABS</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/76xx_ipv6.png">
+        <data key="deviceType">TELLABS</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/76xx.png">
+        <data key="deviceType">TELLABS</data>
+    </icon>
+
+
+    <!--UNKNOWN-->
+
+    <icon name="/images/unknown_switch.png,/images/circle_red.png">
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/unknown_switch.png,/images/circle_green.png">
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/unknown_switch.png,/images/circle_blue.png">
+        <data key="diff">YES</data>
+    </icon>
     <icon name="/images/unknown_switch.png">
     </icon>
 
-
-     <!--iconsMap dataKey="deviceModel">
-        <icon dataValue="cisco2610">/images/28xx.png</icon>
-        <icon dataValue="catalyst2924XLv">/images/workgroup_switch.png</icon>
-		<icon dataValue="cisco7206VXR">/images/72xx.png</icon>
-        <icon dataValue="cisco2821">/images/28xx.png</icon>
-        <icon dataValue="cisco2801">/images/28xx.png</icon>
-        <icon dataValue="cisco1841">/images/wireless_cisco.png</icon>
-        <icon dataValue="cisco1812">/images/wireless_cisco.png</icon>
-        <icon dataValue="cisco1861Srst2BK9">/images/wireless_cisco.png</icon>
-        <icon dataValue="ciscoASA5520">/images/cisco_asa.png</icon>
-        <icon dataValue="cisco3845">/images/medium_cisco.png</icon>
-        <icon dataValue="cisco2611">/images/28xx.png</icon>
-        <icon dataValue="ciscoc851">/images/wireless_cisco.png</icon>
-        <icon dataValue="catalyst4948e10GE">/images/cisco3750.png</icon>
-        <icon dataValue="ciscoc921k9">/images/wireless_cisco.png</icon>
-        <icon dataValue="cisco2851">/images/medium_cisco.png</icon>
-        <icon dataValue="ciscoSC3640">/images/medium_cisco.png</icon>
-        <icon dataValue="cisco7505">/images/cisco_broadband.png</icon>
-        <icon dataValue="CISCO7606-S">/images/76xx.png</icon>
-        <icon dataValue="cisco7604">/images/76xx.png</icon>
-        <icon dataValue="cisco7609">/images/76xx.png</icon>
-
-        <icon dataValue="cisco7401ASR">/images/asr_1000.png</icon>
-        <icon dataValue="cisco12406">/images/very_big_cisco.png</icon>
-        <icon dataValue="cisco12810">/images/very_big_cisco.png</icon>
-        <icon dataValue="cisco10008">/images/cisco_broadband.png</icon>
-        <icon dataValue="cisco10720">/images/cisco_broadband.png</icon>
-        <icon dataValue="ciscoCRS8S">/images/crs.png</icon>
-        <icon dataValue="cisco7201">/images/72xx.png</icon>
-
-        
-        <icon dataValue="ciscoMWRc941DCA">/images/76xx.png</icon>
-        <icon dataValue="catalyst295024G">/images/metro_switch_small.png</icon>
-		<icon dataValue="catalyst2950t24">/images/metro_switch_small.png</icon>
-		<icon dataValue="catalyst296024TT">/images/metro_switch_small.png</icon>
-		<icon dataValue="cisco340024TSD">/images/metro_switch_medium.png</icon>
-		<icon dataValue="cisco340024TSA">/images/metro_switch_medium.png</icon>
-        <icon dataValue="ciscoMe3400g12CsD">/images/metro_switch_medium.png</icon>
-         <icon dataValue="ciscoMe3400g12CsA">/images/metro_switch_medium.png</icon>
-        <icon dataValue="catalyst375024ME">/images/metro_switch_medium.png</icon>
-
-         <icon dataValue="catalyst37xxStack">/images/metro_switch_medium.png</icon>
-        <icon dataValue="catalyst35608PC">/images/metro_switch_small.png</icon>
-        
-
-    </iconsMap>
-
-    <iconsMap dataKey="deviceType">
-        <icon dataValue="CISCO">/images/76xx.png</icon>
-        <icon dataValue="HUAWEI">/images/huawei.png</icon>
-        <icon dataValue="JUNIPER">/images/m320.png</icon>
-        <icon dataValue="RIVERSTONE">/images/riverstone.png</icon>
-        <icon dataValue="TELLABS">/images/tellabs.png</icon>
-        <icon dataValue="HP">/images/workgroup_switch.png</icon>
-        <icon dataValue="WIRELESS">/images/wireless.png</icon>
-    </iconsMap>
-    <iconsMap dataKey="deviceType">
-        <icon dataValue="CISCO_ipv6">/images/huawei.png</icon>
-        <icon dataValue="HUAWEI">/images/huawei.png</icon>
-        <icon dataValue="JUNIPER">/images/m320.png</icon>
-        <icon dataValue="RIVERSTONE">/images/riverstone.png</icon>
-        <icon dataValue="TELLABS">/images/tellabs.png</icon>
-        <icon dataValue="HP">/images/workgroup_switch.png</icon>
-        <icon dataValue="WIRELESS">/images/wireless.png</icon>
-    </iconsMap>
-    <iconsMap>
-        <icon>/images/unknown_switch.png</icon>
-    </iconsMap-->
-
     <filters>
+        <!--In this case is presented a physical view with devices that respond to SNMP-->
+        <filter name="Physical-view">
+            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+            <!--include dataKey="deviceStatus" dataValue="initial" for="node"/-->
+            <!--include dataKey="site" dataValue="" for="node"/-->
+            <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
+            <include dataKey="method" dataValue="CDP" for="edge"/>
+            <include dataKey="method" dataValue="LLDP" for="edge"/>
+            <include dataKey="method" dataValue="MAC" for="edge"/>
+            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+            <include dataKey="method" dataValue="Slash30" for="edge"/>
+            <include dataKey="method" dataValue="Slash31" for="edge"/>
+            <include dataKey="method" dataValue="OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+        </filter>
+        <!--In this case is presented a physical view with all devices-->
+        <filter name="Physical-view - all">
+            <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
+            <include dataKey="method" dataValue="CDP" for="edge"/>
+            <include dataKey="method" dataValue="LLDP" for="edge"/>
+            <include dataKey="method" dataValue="Slash30" for="edge"/>
+            <include dataKey="method" dataValue="Slash31" for="edge"/>
+            <include dataKey="method" dataValue="MAC" for="edge"/>
+            <include dataKey="method" dataValue="OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
+            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+            <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
 
+        </filter>
+
+        <!--In this case is presented a view only in site with side-id = HP-->
+
+        <filter name="diff-reachable">
+            <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
+            <include dataKey="method" dataValue="CDP" for="edge"/>
+            <include dataKey="method" dataValue="LLDP" for="edge"/>
+            <include dataKey="method" dataValue="MAC" for="edge"/>
+            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+            <include dataKey="method" dataValue="Slash30" for="edge"/>
+            <include dataKey="method" dataValue="Slash31" for="edge"/>
+            <include dataKey="method" dataValue="OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
+            <tooltip dataKey="diffs" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="diffs" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="diff-any">
+            <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
+            <include dataKey="method" dataValue="CDP" for="edge"/>
+            <include dataKey="method" dataValue="LLDP" for="edge"/>
+            <include dataKey="method" dataValue="Slash30" for="edge"/>
+            <include dataKey="method" dataValue="Slash31" for="edge"/>
+            <include dataKey="method" dataValue="MAC" for="edge"/>
+            <include dataKey="method" dataValue="OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
+            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+            <tooltip dataKey="diffs" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="diffs" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+        </filter>
+
+        <!--In this case is presented a view only in site with Cisco and Default type Devices-->
+        <filter name="deviceType=CISCO">
+            <include dataKey="deviceType" dataValue="CISCO" for="node"/>
+            <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
+            <include dataKey="method" dataValue="CDP" for="edge"/>
+            <include dataKey="method" dataValue="LLDP" for="edge"/>
+            <include dataKey="method" dataValue="Slash30" for="edge"/>
+            <include dataKey="method" dataValue="Slash31" for="edge"/>
+            <include dataKey="method" dataValue="MAC" for="edge"/>
+            <include dataKey="method" dataValue="OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
+            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+            <tooltip dataKey="deviceInfo" for="node"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
+        </filter>
+        <!--In this case is presented a only LLDP view -->
+        <filter name="LLDP">
+            <include dataKey="method" dataValue="LLDP" for="edge"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
+        </filter>
+        <!--In this case is presented a only CDP view -->
+        <filter name="CDP">
+            <include dataKey="method" dataValue="CDP" for="edge"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
+        </filter>
+        <!--In this case is presented a only an OSPF view -->
+        <filter name="OSPF">
+            <include dataKey="method" dataValue="OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
+        </filter>
+        <!--In this case is presented a only an ISIS view -->
+        <filter name="ISIS">
+            <include dataKey="method" dataValue="ISIS" for="edge"/>
+            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
+        </filter>
+        <!--In this case is presented a only BGP view -->
+        <filter name="BGP">
+            <include dataKey="method" dataValue="BGP" for="edge"/>
+            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
+        </filter>
         <filter name="IPLinkLayer-reachable">
             <include dataKey="ipLink" dataValue="YES" for="edge"/>
             <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <include dataKey="deviceStatus" dataValue="initial" for="node"/>
             <tooltip dataKey="deviceInfo" for="node"/>
             <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
         </filter>
@@ -292,7 +538,6 @@
 
         <filter name="Data+IPLinkLayer-reachable">
             <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <include dataKey="deviceStatus" dataValue="initial" for="node"/>
             <include dataKey="ipLink" dataValue="YES" for="edge"/>
             <include dataKey="dataLink" dataValue="YES" for="edge"/>
             <tooltip dataKey="deviceInfo" for="node"/>
@@ -306,18 +551,18 @@
         </filter>
         <filter name="Any-link-reachable">
             <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <include dataKey="deviceStatus" dataValue="initial" for="node"/>
             <include dataKey="ipLink" dataValue="YES" for="edge"/>
             <include dataKey="dataLink" dataValue="YES" for="edge"/>
-            <include dataKey="ipLink" dataValue="NO" for="edge"/>
-            <include dataKey="dataLink" dataValue="NO" for="edge"/>
             <tooltip dataKey="deviceInfo" for="node"/>
             <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
         </filter>
         <filter name="Any-link-reachable+unreachable">
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <include dataKey="deviceStatus" dataValue="initial" for="node"/>
+            <tooltip dataKey="diffs" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <include dataKey="ipLink" dataValue="NO" for="edge"/>
+            <include dataKey="dataLink" dataValue="NO" for="edge"/>
+            <include dataKey="ipLink" dataValue="YES" for="edge"/>
+            <include dataKey="dataLink" dataValue="YES" for="edge"/>
+            <tooltip dataKey="diffs" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
         </filter>
     </filters>
 
@@ -325,101 +570,144 @@
 
     <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
     <!-- this is also possible it could be used as default value-->
-    <tooltip dataKey="deviceInfo" for="node"/>
+    <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
     <rightClickItem name="ShortestPath" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPath"/>
-    <rightClickItem name="ShortestPathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
-        <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
-        <param name="resource">resource-manager/conf/xml/resource.xml</param>
-        <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
-    </rightClickItem>
     <rightClickItem name="TabViewerOpener" handlerClass="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener">
-		<submenu name="Connect">
-        <!--rightClickItem name="jconsole" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CreateTerminalHandler">
-            <param name="resource">resource-manager/conf/xml/resource.xml</param>
-        </rightClickItem-->
-		<rightClickItem name="HTTP" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
-             <param name="protocol">http</param>
-             <param name="port">80</param>
-		</rightClickItem>
-        <rightClickItem name="HTTP" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
-             <param name="protocol">http</param>
-             <param name="port">8080</param>
-		</rightClickItem>
-		<rightClickItem name="HTTPS" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
-				 <param name="protocol">https</param>
-				 <param name="port">443</param>
-		</rightClickItem>
-		<rightClickItem name="putty" handlerClass="net.itransformers.topologyviewer.rightclick.impl.PuttyRightClickHandler">
-			<param name="ssh_no_saved_session">../lib/putty/putty.exe -ssh -l %s -pw %s %s</param>
-			<param name="ssh_saved_session">../lib/putty/putty.exe -ssh -l %s -pw %s -load %s %s </param>
-			<param name="telnet_no_saved_session">lib/putty/putty.exe -telnet -l %s %s</param>
-			<param name="telnet_saved_session">../lib/putty/putty.exe -telnet -l %s -load %s %s</param>
-			<param name="resource">resource-manager/conf/xml/resource.xml</param>
-			<param name="saved_session"></param>
-		</rightClickItem>
-		</submenu>
+        <submenu name="Connect">
+            <!--rightClickItem name="jconsole" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CreateTerminalHandler">
+                <param name="resource">resource-manager/conf/xml/resource.xml</param>
+            </rightClickItem-->
+            <rightClickItem name="GoogleMapView" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
+                <param name="url">url</param>
+            </rightClickItem>
+            <rightClickItem name="HTTP" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
+                <param name="protocol">http</param>
+                <param name="port">8080</param>
+            </rightClickItem>
+            <rightClickItem name="HTTPS" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
+                <param name="protocol">https</param>
+                <param name="port">443</param>
+            </rightClickItem>
+
+            <rightClickItem name="putty" handlerClass="net.itransformers.topologyviewerrightclick.impl.PuttyRightClickHandler">
+                <param name="ssh_no_saved_session">../lib/putty/putty.exe -ssh -l %s -pw %s %s</param>
+                <param name="ssh_saved_session">../lib/putty/putty.exe -ssh -l %s -pw %s -load %s %s </param>
+                <param name="telnet_no_saved_session">../lib/putty/putty.exe -telnet -l %s %s</param>
+                <param name="telnet_saved_session">../lib/putty/putty.exe -telnet -l %s -load %s %s</param>
+                <param name="resource">resource-manager/conf/xml/resource.xml</param>
+                <param name="saved_session"></param>
+            </rightClickItem>
+        </submenu>
     </rightClickItem>
 
     <rightClickItem name="Object Tree Browser" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler">
-        <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
-        <param name="resource">resource-manager/conf/xml/resource.xml</param>
-        <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
         <submenu name="Reports">
             <rightClickItem name="Device Neighbors" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
-                    <param name="xsl_transformator">rightclick/conf/xslt/deviceNeighbors.xslt</param>
-                    <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
+                <param name="xsl_transformator">iTopologyManager/rightClick/conf/xslt/deviceNeighbors.xslt</param>
+                <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt</param>
             </rightClickItem>
             <rightClickItem name="Cable Cuts" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
-                    <param name="xsl_transformator">rightclick/conf/xslt/cableCut.xslt</param>
-                    <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
+                <param name="xsl_transformator">iTopologyManager/rightClick/conf/xslt/cableCut.xslt</param>
+                <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt</param>
             </rightClickItem>
             <rightClickItem name="IPv4 Address Space" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
-                    <param name="xsl_transformator">rightclick/conf/xslt/IPv4.xslt</param>
-                    <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
+                <param name="xsl_transformator">iTopologyManager/rightClick/conf/xslt/IPv4.xslt</param>
+                <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt</param>
             </rightClickItem>
             <rightClickItem name="IPv6 Address Space" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
-                    <param name="xsl_transformator">rightclick/conf/xslt/IPv6.xslt</param>
-                    <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
+                <param name="xsl_transformator">iTopologyManager/rightClick/conf/xslt/IPv6.xslt</param>
+                <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt</param>
             </rightClickItem>
             <rightClickItem name="MPLS L3 VPN" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
-                    <param name="xsl_transformator">rightclick/conf/xslt/mplsL3VPN.xslt</param>
-                    <param name="table_transformator">rightclick/conf/xslt/table_creator.xslt</param>
+                <param name="xsl_transformator">iTopologyManager/rightClick/conf/xslt/mplsL3VPN.xslt</param>
+                <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt</param>
             </rightClickItem>
         </submenu>
+    </rightClickItem>
+    <rightClickItem name="nodeActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
+        <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
+        <param name="resource">resourceManager/conf/xml/resource.xml</param>
+        <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
     </rightClickItem>
 
-     <rightClickItem name="ConfigureDevice" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
-        <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
-        <param name="resource">resource-manager/conf/xml/resource.xml</param>
-        <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
-        <submenu name="discover">
-            <rightClickItem name="node" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
-                <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
-                <param name="resource">resource-manager/conf/xml/resource.xml</param>
-                <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
-            </rightClickItem>
-            <rightClickItem name="network" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
-                <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
-                <param name="resource">resource-manager/conf/xml/resource.xml</param>
-                <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-factory.xml</param>
-            </rightClickItem>
-        </submenu>
-        <!--submenu name="4to6trans">
-            <rightClickItem name="CISCO" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
-                <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
-                <param name="resource">resource-manager/conf/xml/resource.xml</param>
-                <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans.xml</param>
-            </rightClickItem>
-            <rightClickItem name="JUNIPER" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
-                <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
-                <param name="resource">resource-manager/conf/xml/resource.xml</param>
-                <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans.xml</param>
-            </rightClickItem>
-            <rightClickItem name="HUAWEI" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
-                <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
-                <param name="resource">resource-manager/conf/xml/resource.xml</param>
-                <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans.xml</param>
-            </rightClickItem>
-        </submenu-->
+    <rightClickItem name="pathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
+        <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
+        <param name="resource">resourceManager/conf/xml/resource.xml</param>
+        <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
     </rightClickItem>
+    <!--submenu name="IPv4toIPv6 Actication">
+      <rightClickItem name="IPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
+          <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
+          <param name="resource">resource-manager/conf/xml/resource.xml</param>
+          <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans.xml</param>
+      </rightClickItem>
+      <rightClickItem name="IPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
+          <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
+          <param name="resource">resource-manager/conf/xml/resource.xml</param>
+          <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans.xml</param>
+      </rightClickItem>
+      <rightClickItem name="undoIPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
+          <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
+          <param name="resource">resource-manager/conf/xml/resource.xml</param>
+          <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans_undo.xml</param>
+      </rightClickItem>
+      <rightClickItem name="undoIPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
+          <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
+          <param name="resource">resource-manager/conf/xml/resource.xml</param>
+          <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans_undo.xml</param>
+      </rightClickItem>
+
+  </submenu>
+
+      <submenu name="discover">
+          <rightClickItem name="node" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">
+              <param name="protocol">http</param>
+              <param name="action">init_and_start</param>
+              <param name="mode">node</param>
+              <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
+              <param name="snmp-community1">public</param>
+              <param name="snmp-community2">publicw</param>
+              <param name="discoveryManager">discovery-manager/conf/xml/discoveryManager.xml</param>
+              <param name="mibs">snmptoolkit/mibs</param>
+          </rightClickItem>
+          <rightClickItem name="network" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">
+              <param name="protocol">http</param>
+              <param name="action">init_and_start</param>
+              <param name="mode">network</param>
+              <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
+              <param name="snmp-community1">public</param>
+              <param name="snmp-community2">publicw</param>
+              <param name="discoveryManager">discovery-manager/conf/xml/discoveryManager.xml</param>
+              <param name="mibs">snmptoolkit/mibs</param>
+          </rightClickItem>
+          <rightClickItem name="status" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">                <param name="protocol">http</param>
+              <param name="protocol">http</param>
+              <param name="port">80</param>
+              <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
+              <param name="action">status</param>
+          </rightClickItem>
+          <rightClickItem name="stop" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">
+              <param name="protocol">http</param>
+              <param name="port">80</param>
+              <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
+              <param name="action">stop</param>
+          </rightClickItem>
+          <rightClickItem name="pause" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">
+              <param name="protocol">http</param>
+              <param name="port">80</param>
+              <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
+              <param name="action">pause</param>
+          </rightClickItem>
+          <rightClickItem name="resume" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">
+              <param name="protocol">http</param>
+              <param name="port">80</param>
+              <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
+              <param name="action">resume</param>
+          </rightClickItem>
+      </submenu>
+  </rightClickItem>
+
+    -->
+
+
 </topology-viewer-conf>

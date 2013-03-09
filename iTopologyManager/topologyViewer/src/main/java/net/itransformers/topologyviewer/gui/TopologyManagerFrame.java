@@ -48,7 +48,7 @@ public class TopologyManagerFrame extends JFrame{
     Map<String, GraphViewerPanelManager> viewerPanelManagerMap = new HashMap<String, GraphViewerPanelManager>();
 
     public TopologyManagerFrame(final File path) throws Exception {
-        super("iTopoManager");
+        super("iTransformer");
 
         //super.setIconImage(Toolkit.getDefaultToolkit().getImage("images/logo3.png"));
         File prefsFile = new File(VIEWER_PREFERENCES_PROPERTIES);

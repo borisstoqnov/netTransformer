@@ -108,24 +108,15 @@ from the one obtained by snmp or other discovery methods.-->
         </xsl:variable>
         <xsl:variable name="IPv6">
             <xsl:choose>
-                <xsl:when test="$deviceType='CISCO'">
-                    <xsl:choose>
-                        <xsl:when
-                                test="//root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIpv6/cIpv6Forwarding = '1'">
-                            YES
-                        </xsl:when>
-                        <xsl:otherwise>NO</xsl:otherwise>
-                    </xsl:choose>
+                <xsl:when
+                        test="//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6Forwarding ='1'">
+                    YES
                 </xsl:when>
-                <xsl:otherwise>
-                    <xsl:choose>
-                        <xsl:when
-                                test="//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6Forwarding ='1'">
-                            YES
-                        </xsl:when>
-                        <xsl:otherwise>NO</xsl:otherwise>
-                    </xsl:choose>
-                </xsl:otherwise>
+                <xsl:when
+                        test="//root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIpv6/cIpv6Forwarding = '1'">
+                    YES
+                </xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="mplsVRF">
@@ -548,20 +539,20 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <!--<TEST>brdPort<xsl:value-of select="$brdPort"/>-->
                                 <!--</TEST>-->
                                 <!--<xsl:for-each-->
-                                        <!--select="//root/iso/org/dod/internet/mgmt/mib-2/dot1dBridge/dot1dStp/dot1dStpPortTable/dot1dStpPortEntry[dot1dStpPort=$brdPort]">-->
-                                    <!--<xsl:variable name="designatedBridge" select="dot1dStpPortDesignatedBridge"/>-->
-                                    <!--<xsl:choose>-->
-                                        <!--<xsl:when test="contains($designatedBridge,$baseBridgeAddress)">-->
-                                            <!--<STP>The other switch is the root <xsl:value-of select="$designatedBridge"/>|<xsl:value-of-->
-                                                    <!--select="$baseBridgeAddress"/>-->
-                                            <!--</STP>-->
-                                        <!--</xsl:when>-->
-                                        <!--<xsl:otherwise>-->
-                                            <!--<STP>I am the root. The root is <xsl:value-of select="$baseBridgeAddress"/>|-->
-                                                <!--<xsl:value-of select="$designatedBridge"/>-->
-                                            <!--</STP>-->
-                                        <!--</xsl:otherwise>-->
-                                    <!--</xsl:choose>-->
+                                <!--select="//root/iso/org/dod/internet/mgmt/mib-2/dot1dBridge/dot1dStp/dot1dStpPortTable/dot1dStpPortEntry[dot1dStpPort=$brdPort]">-->
+                                <!--<xsl:variable name="designatedBridge" select="dot1dStpPortDesignatedBridge"/>-->
+                                <!--<xsl:choose>-->
+                                <!--<xsl:when test="contains($designatedBridge,$baseBridgeAddress)">-->
+                                <!--<STP>The other switch is the root <xsl:value-of select="$designatedBridge"/>|<xsl:value-of-->
+                                <!--select="$baseBridgeAddress"/>-->
+                                <!--</STP>-->
+                                <!--</xsl:when>-->
+                                <!--<xsl:otherwise>-->
+                                <!--<STP>I am the root. The root is <xsl:value-of select="$baseBridgeAddress"/>|-->
+                                <!--<xsl:value-of select="$designatedBridge"/>-->
+                                <!--</STP>-->
+                                <!--</xsl:otherwise>-->
+                                <!--</xsl:choose>-->
                                 <!--</xsl:for-each>-->
                             </xsl:variable>
                             <!--xsl:copy-of select="$interface-neighbors"/-->
@@ -571,136 +562,136 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
 
                                 <xsl:if test="$ipv4Addresses/ipv4/ipv4addr[ipAdEntAddr!=$name]">
 
-                                <object>
-                                    <test><xsl:value-of select="$ipv4Addresses/ipv4/ipv4addr/ipAdEntAddr"/></test>
-                                    <name>
-                                        <xsl:value-of select="$name"/>
-                                    </name>
-                                    <objectType>Discovered Neighbor</objectType>
-                                    <parameters>
-                                        <xsl:variable name="Reachable">
-                                            <xsl:for-each
-                                                    select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable']/value">
-                                                <xsl:value-of select="."/>
-                                            </xsl:for-each>
-                                        </xsl:variable>
-                                        <Reachable>
-                                            <xsl:copy-of select="$Reachable"/>
-                                        </Reachable>
-                                        <xsl:choose>
-                                            <xsl:when test="contains($Reachable,'YES')">
-                                                <parameter>
-                                                    <name>Reachable</name>
-                                                    <value>YES</value>
-                                                </parameter>
-                                                <parameter>
-                                                    <name>SNMP Community</name>
-                                                    <value>
-                                                        <xsl:value-of
-                                                                select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable' and value='YES']/../parameter[name='SNMP Community']/value)"/>
-                                                    </value>
-                                                </parameter>
-                                                <parameter>
-                                                    <name>Discovery Method</name>
-                                                    <xsl:variable name="discoveryMethods"><xsl:for-each select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Discovery Method']/value"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
-                                                    <value><xsl:value-of select="functx:substring-before-last-match($discoveryMethods,',')"/></value>
-                                                </parameter>
-                                                <parameter>
-                                                    <name>Neighbor Port</name>
-                                                    <value>
-                                                        <xsl:value-of select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Port']/value)"/>
-                                                    </value>
-                                                </parameter>
-                                                <parameter>
-                                                    <name>Neighbor IP Address</name>
-                                                    <value>
-                                                        <xsl:value-of select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable' and value='YES']/../parameter[name='Neighbor IP Address']/value)"/>
-                                                    </value>
-                                                </parameter>
-                                                <parameter>
-                                                    <name>Neighbor hostname</name>
-                                                    <value>
-                                                        <xsl:value-of
-                                                                select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor hostname']/value)"/>
-                                                    </value>
-                                                </parameter>
-                                                <parameter>
-                                                    <name>Neighbor Device Type</name>
-                                                    <value>
-                                                        <xsl:variable name="devType">
-                                                            <devtypes>
-                                                                <xsl:for-each
-                                                                        select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Device Type']/value)">
-                                                                    <devtype>
-                                                                        <xsl:value-of select="."/>
-                                                                    </devtype>
-                                                                </xsl:for-each>
-                                                            </devtypes>
-                                                        </xsl:variable>
-                                                        <xsl:choose>
-                                                            <xsl:when test="count($devType/devtypes/devtype)>1">
-                                                                <xsl:value-of select="$devType/devtypes/devtype[1]"/>
-                                                            </xsl:when>
-                                                            <xsl:otherwise>
-                                                                <xsl:value-of select="$devType/devtypes/devtype"/>
-                                                            </xsl:otherwise>
-                                                        </xsl:choose>
-                                                    </value>
-                                                </parameter>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <parameter>
-                                                    <name>Reachable</name>
-                                                    <value>NO</value>
-                                                </parameter>
-                                                <parameter>
-                                                    <name>SNMP Community</name>
-                                                    <value/>
-                                                </parameter>
-                                                <parameter>
-                                                    <name>Discovery Method</name>
-                                                    <xsl:variable name="discoveryMethods"><xsl:for-each select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Discovery Method']/value"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
-                                                    <value><xsl:value-of select="functx:substring-before-last-match($discoveryMethods,',')"/></value>
-                                                </parameter>
-                                                <parameter>
-                                                    <name>Neighbor Port</name>
-                                                    <value>
-                                                        <xsl:value-of
-                                                                select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Port']/value)"/>
-                                                    </value>
-                                                </parameter>
-                                                <parameter>
-                                                    <name>Neighbor Platform</name>
-                                                    <value>
-                                                        <xsl:value-of
-                                                                select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Platform']/value"/>
-                                                    </value>
-                                                </parameter>
-                                                <parameter>
-                                                    <name>Neighbor IP Address</name>
-                                                    <value>
-                                                        <xsl:value-of
-                                                                select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor IP Address']/value)"/>
-                                                    </value>
-                                                </parameter>
-                                                <parameter>
-                                                    <name>Neighbor hostname</name>
-                                                    <value>
-                                                        <xsl:value-of
-                                                                select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor hostname']/value)"/>
-                                                    </value>
-                                                </parameter>
-                                                <parameter>
-                                                    <name>Neighbor Device Type</name>
-                                                    <value>
-                                                        <xsl:value-of
-                                                                select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Device Type']/value)"/>
-                                                    </value>
-                                                </parameter>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </parameters>
-                                </object>
+                                    <object>
+                                        <test><xsl:value-of select="$ipv4Addresses/ipv4/ipv4addr/ipAdEntAddr"/></test>
+                                        <name>
+                                            <xsl:value-of select="$name"/>
+                                        </name>
+                                        <objectType>Discovered Neighbor</objectType>
+                                        <parameters>
+                                            <xsl:variable name="Reachable">
+                                                <xsl:for-each
+                                                        select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable']/value">
+                                                    <xsl:value-of select="."/>
+                                                </xsl:for-each>
+                                            </xsl:variable>
+                                            <Reachable>
+                                                <xsl:copy-of select="$Reachable"/>
+                                            </Reachable>
+                                            <xsl:choose>
+                                                <xsl:when test="contains($Reachable,'YES')">
+                                                    <parameter>
+                                                        <name>Reachable</name>
+                                                        <value>YES</value>
+                                                    </parameter>
+                                                    <parameter>
+                                                        <name>SNMP Community</name>
+                                                        <value>
+                                                            <xsl:value-of
+                                                                    select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable' and value='YES']/../parameter[name='SNMP Community']/value)"/>
+                                                        </value>
+                                                    </parameter>
+                                                    <parameter>
+                                                        <name>Discovery Method</name>
+                                                        <xsl:variable name="discoveryMethods"><xsl:for-each select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Discovery Method']/value"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
+                                                        <value><xsl:value-of select="functx:substring-before-last-match($discoveryMethods,',')"/></value>
+                                                    </parameter>
+                                                    <parameter>
+                                                        <name>Neighbor Port</name>
+                                                        <value>
+                                                            <xsl:value-of select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Port']/value)"/>
+                                                        </value>
+                                                    </parameter>
+                                                    <parameter>
+                                                        <name>Neighbor IP Address</name>
+                                                        <value>
+                                                            <xsl:value-of select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable' and value='YES']/../parameter[name='Neighbor IP Address']/value)"/>
+                                                        </value>
+                                                    </parameter>
+                                                    <parameter>
+                                                        <name>Neighbor hostname</name>
+                                                        <value>
+                                                            <xsl:value-of
+                                                                    select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor hostname']/value)"/>
+                                                        </value>
+                                                    </parameter>
+                                                    <parameter>
+                                                        <name>Neighbor Device Type</name>
+                                                        <value>
+                                                            <xsl:variable name="devType">
+                                                                <devtypes>
+                                                                    <xsl:for-each
+                                                                            select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Device Type']/value)">
+                                                                        <devtype>
+                                                                            <xsl:value-of select="."/>
+                                                                        </devtype>
+                                                                    </xsl:for-each>
+                                                                </devtypes>
+                                                            </xsl:variable>
+                                                            <xsl:choose>
+                                                                <xsl:when test="count($devType/devtypes/devtype)>1">
+                                                                    <xsl:value-of select="$devType/devtypes/devtype[1]"/>
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                    <xsl:value-of select="$devType/devtypes/devtype"/>
+                                                                </xsl:otherwise>
+                                                            </xsl:choose>
+                                                        </value>
+                                                    </parameter>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <parameter>
+                                                        <name>Reachable</name>
+                                                        <value>NO</value>
+                                                    </parameter>
+                                                    <parameter>
+                                                        <name>SNMP Community</name>
+                                                        <value/>
+                                                    </parameter>
+                                                    <parameter>
+                                                        <name>Discovery Method</name>
+                                                        <xsl:variable name="discoveryMethods"><xsl:for-each select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Discovery Method']/value"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
+                                                        <value><xsl:value-of select="functx:substring-before-last-match($discoveryMethods,',')"/></value>
+                                                    </parameter>
+                                                    <parameter>
+                                                        <name>Neighbor Port</name>
+                                                        <value>
+                                                            <xsl:value-of
+                                                                    select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Port']/value)"/>
+                                                        </value>
+                                                    </parameter>
+                                                    <parameter>
+                                                        <name>Neighbor Platform</name>
+                                                        <value>
+                                                            <xsl:value-of
+                                                                    select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Platform']/value"/>
+                                                        </value>
+                                                    </parameter>
+                                                    <parameter>
+                                                        <name>Neighbor IP Address</name>
+                                                        <value>
+                                                            <xsl:value-of
+                                                                    select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor IP Address']/value)"/>
+                                                        </value>
+                                                    </parameter>
+                                                    <parameter>
+                                                        <name>Neighbor hostname</name>
+                                                        <value>
+                                                            <xsl:value-of
+                                                                    select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor hostname']/value)"/>
+                                                        </value>
+                                                    </parameter>
+                                                    <parameter>
+                                                        <name>Neighbor Device Type</name>
+                                                        <value>
+                                                            <xsl:value-of
+                                                                    select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Device Type']/value)"/>
+                                                        </value>
+                                                    </parameter>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </parameters>
+                                    </object>
                                 </xsl:if>
                             </xsl:for-each>
 
@@ -959,49 +950,49 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                 </xsl:for-each>
             </object>
             <object>
-            <name>IPSEC VPNS</name>
-            <objectType>IPSECVPNs</objectType>
-            <parameters/>
-            <xsl:for-each
-                    select="//root/iso/org/dod/internet/private/enterprises/cisco/ciscoMgmt/ciscoIpSecFlowMonitorMIB/cipSecMIBObjects/cipSecPhaseOne/cikeTunnelTable/cikeTunnelEntry">
-                <xsl:variable name="localAddress"><xsl:variable name="temp"><xsl:for-each select="tokenize(cikeTunLocalAddr,':')"><xsl:call-template name="HexToDecimal"><xsl:with-param name="hexNumber"><xsl:value-of select="."/></xsl:with-param></xsl:call-template>.</xsl:for-each>
-                </xsl:variable><xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>
-                </xsl:variable>
-                <xsl:variable name="remoteAddress"><xsl:variable name="temp"><xsl:for-each select="tokenize(cikeTunRemoteAddr,':')"><xsl:call-template name="HexToDecimal"><xsl:with-param name="hexNumber"><xsl:value-of select="."/></xsl:with-param></xsl:call-template>.</xsl:for-each>
-            </xsl:variable>
-                <xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>
-                </xsl:variable>
-                <xsl:variable name="status">
-                    <xsl:choose>
-                        <xsl:when test="cikeTunStatus = '1'">UP</xsl:when>
-                        <xsl:otherwise>DESTROYING</xsl:otherwise>
-                    </xsl:choose>
-                </xsl:variable>
-                <xsl:variable name="cikeTunRemoteValue" select="cikeTunRemoteValue"/>
+                <name>IPSEC VPNS</name>
+                <objectType>IPSECVPNs</objectType>
+                <parameters/>
+                <xsl:for-each
+                        select="//root/iso/org/dod/internet/private/enterprises/cisco/ciscoMgmt/ciscoIpSecFlowMonitorMIB/cipSecMIBObjects/cipSecPhaseOne/cikeTunnelTable/cikeTunnelEntry">
+                    <xsl:variable name="localAddress"><xsl:variable name="temp"><xsl:for-each select="tokenize(cikeTunLocalAddr,':')"><xsl:call-template name="HexToDecimal"><xsl:with-param name="hexNumber"><xsl:value-of select="."/></xsl:with-param></xsl:call-template>.</xsl:for-each>
+                    </xsl:variable><xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>
+                    </xsl:variable>
+                    <xsl:variable name="remoteAddress"><xsl:variable name="temp"><xsl:for-each select="tokenize(cikeTunRemoteAddr,':')"><xsl:call-template name="HexToDecimal"><xsl:with-param name="hexNumber"><xsl:value-of select="."/></xsl:with-param></xsl:call-template>.</xsl:for-each>
+                    </xsl:variable>
+                        <xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>
+                    </xsl:variable>
+                    <xsl:variable name="status">
+                        <xsl:choose>
+                            <xsl:when test="cikeTunStatus = '1'">UP</xsl:when>
+                            <xsl:otherwise>DESTROYING</xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:variable name="cikeTunRemoteValue" select="cikeTunRemoteValue"/>
 
-                <xsl:variable name="instance" select="instance"/>
-                <object>
-                    <name>
-                        <xsl:value-of select="$localAddress"/>-<xsl:value-of select="$remoteAddress"/>
-                    </name>
-                    <objectType>IPSEC Tunnel</objectType>
-                    <parameters>
-                        <parameter>
-                            <name>localPeer</name>
-                            <value><xsl:value-of select="$localAddress"/></value>
-                        </parameter>
-                        <parameter>
-                            <name>remotelPeer</name>
-                            <value><xsl:value-of select="$remoteAddress"/></value>
-                        </parameter>
-                        <parameter>
-                            <name>tunnelStatus</name>
-                            <value><xsl:value-of select="$status"/></value>
-                        </parameter>
-                    </parameters>
+                    <xsl:variable name="instance" select="instance"/>
+                    <object>
+                        <name>
+                            <xsl:value-of select="$localAddress"/>-<xsl:value-of select="$remoteAddress"/>
+                        </name>
+                        <objectType>IPSEC Tunnel</objectType>
+                        <parameters>
+                            <parameter>
+                                <name>localPeer</name>
+                                <value><xsl:value-of select="$localAddress"/></value>
+                            </parameter>
+                            <parameter>
+                                <name>remotelPeer</name>
+                                <value><xsl:value-of select="$remoteAddress"/></value>
+                            </parameter>
+                            <parameter>
+                                <name>tunnelStatus</name>
+                                <value><xsl:value-of select="$status"/></value>
+                            </parameter>
+                        </parameters>
 
-                </object>
-            </xsl:for-each>
+                    </object>
+                </xsl:for-each>
             </object>
         </DiscoveredDevice>
         <!--</network> -->

@@ -36,22 +36,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportNode }
-     * 
-     */
-    public ImportNode createImportNode() {
-        return new ImportNode();
-    }
-
-    /**
-     * Create an instance of {@link Node.Attributes }
-     * 
-     */
-    public Node.Attributes createNodeAttributes() {
-        return new Node.Attributes();
-    }
-
-    /**
      * Create an instance of {@link Node }
      * 
      */
@@ -76,11 +60,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ImportNode }
+     * 
+     */
+    public ImportNode createImportNode() {
+        return new ImportNode();
+    }
+
+    /**
      * Create an instance of {@link ImportNodeResponse }
      * 
      */
     public ImportNodeResponse createImportNodeResponse() {
         return new ImportNodeResponse();
+    }
+
+    /**
+     * Create an instance of {@link Node.Attributes }
+     * 
+     */
+    public Node.Attributes createNodeAttributes() {
+        return new Node.Attributes();
     }
 
     /**

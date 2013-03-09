@@ -33,19 +33,12 @@
             <param name="contextXmlFileNameKey">xmlFileName</param>
         </type>
     </param-factory-element-types>
-    <param-factory name="CISCO">
+    <param-factory name="configureHostname">
         <param-factory-element type="graphml">
             <param name="ManagementIPAddress"/>
-            <param name="site"/>
         </param-factory-element>
         <param-factory-element type="manual">
-            <param name="a"/>
-            <param name="b"/>
-        </param-factory-element>
-        <param-factory-element type="deviceData">
-            <param name="firstFreeInterface">//DiscoveredDevice/object[objectType='Discovery Interface'][1]/parameters/parameter[name='CableCut' and value ='NO']/../../name</param>
-            <param name="InterfaceIPaddress">//DiscoveredDevice/object[objectType='Discovery Interface' and name='$a']/object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value</param>
-            <param name="MgmntInterfaceIPaddress">//DiscoveredDevice/object/object[objectType='IPv4 Address']/parameters/parameter[value='$ManagementIPAddress']/../../../name</param>
+            <param name="Hostname"/>
         </param-factory-element>
         <param-factory-element type="resource">
             <param name="username"/>
@@ -53,16 +46,39 @@
             <param name="enable-password"/>
         </param-factory-element>
     </param-factory>
-     <param-factory name="testXSL">
+     <param-factory name="setDeviceLocation">
+        <param-factory-element type="graphml">
+            <param name="ManagementIPAddress"/>
+        </param-factory-element>
+        <param-factory-element type="manual">
+            <param name="Location"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="community"/>
+        </param-factory-element>
+    </param-factory>
+    <param-factory name="setDeviceAdminData">
         <param-factory-element type="graphml">
             <param name="ManagementIPAddress"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="manual">
-            <param name="a"/>
+            <param name="chassis-id"/>
+            <param name="contact"/>
+            <param name="location"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="community"/>
+        </param-factory-element>
+    </param-factory>
+    <param-factory name="enableIPv6Routing">
+        <param-factory-element type="graphml">
+            <param name="ManagementIPAddress"/>
         </param-factory-element>
         <param-factory-element type="resource">
             <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
         </param-factory-element>
     </param-factory>
     <param-factory name="CreateVRF">

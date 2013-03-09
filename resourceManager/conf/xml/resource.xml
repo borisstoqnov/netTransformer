@@ -27,15 +27,15 @@
             <param name="retries">3</param>
         </connection-params>
           <connection-params connection-type="snmp">
-            <param name="community">public</param>
+            <param name="community">itransformer-rw</param>
         </connection-params>
     </resource>
     <resource name="device-from-Moscow">
    		<param name="geoloc">Moscow</param>
         <connection-params connection-type="ssh">
-            <param name="username">user</param>
-            <param name="password">password</param>
-            <param name="system-password">password</param>
+            <param name="username">lab</param>
+            <param name="password">lab</param>
+            <param name="system-password">lab</param>
         </connection-params>
         <connection-params connection-type="telnet">
             <param name="username">user</param>
@@ -47,15 +47,14 @@
 		<param name="deviceType">CISCO</param>
 		<param name="geoloc">Moscow</param>
         <connection-params connection-type="ssh">
-            <param name="username">user</param>
-            <param name="password">password</param>
-            <param name="enable-password">password</param>
-            <param name="enable-password">password</param>
+            <param name="username">lab</param>
+            <param name="password">lab</param>
+            <param name="enable-password">lab</param>
         </connection-params>
         <connection-params connection-type="telnet">
-			 <param name="username">user</param>
-            <param name="password">password</param>
-            <param name="enable-password">password</param>       
+			 <param name="username">lab</param>
+            <param name="password">lab</param>
+            <param name="enable-password">lab</param>
         </connection-params>
     </resource>
 
@@ -64,16 +63,16 @@
 
         <connection-params connection-type="ssh">
 
-            <param name="username">user</param>
-            <param name="password">password</param>
-            <param name="system-password">password</param>
+            <param name="username">lab</param>
+            <param name="password">lab</param>
+            <param name="system-password">lab</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
         </connection-params>
         <connection-params connection-type="telnet">
-			 <param name="username">user</param>
-            <param name="password">password</param>
-            <param name="enable-password">password</param>
+			 <param name="username">lab</param>
+            <param name="password">lab</param>
+            <param name="enable-password">lab</param>
              <param name="timeout">3000</param>
             <param name="retries">3</param>
         </connection-params>
@@ -81,22 +80,22 @@
     <resource name="cisco">
 		<param name="deviceType">CISCO</param>
         <connection-params connection-type="telnet">
-			<param name="username">user</param>
-            <param name="password">password</param>
-            <param name="enable-password">password</param>
+			<param name="username">lab</param>
+            <param name="password">lab</param>
+            <param name="enable-password">lab</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
         </connection-params>
         <connection-params connection-type="snmp">
-           <param name="community">public</param>
+           <param name="community">itransformer-rw</param>
         </connection-params>
     </resource>
     <resource name="juniper">
 		<param name="deviceType">JUNIPER</param>
         <connection-params connection-type="ssh">
-			<param name="username">user</param>
-            <param name="password">password</param>
-            <param name="enable-password">password</param>
+			<param name="username">lab</param>
+            <param name="password">lab</param>
+            <param name="enable-password">lab</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
         </connection-params>
