@@ -114,7 +114,7 @@ public class DiscoveryParametersDialog extends JDialog {
     private void storeDiscoveryParameters(DiscoveryHelperType discoveryHelperType) {
         FileOutputStream os = null;
         File file;
-            file = new File(frame.getPath(), "iDiscover/conf/xml/discoveryParameters.xml");
+            file = new File(getPath(), "iDiscover/conf/xml/discoveryParameters.xml");
         try {
             os = new FileOutputStream(file);
             JaxbMarshalar.marshal(discoveryHelperType, os,"discovery-helper");
@@ -134,7 +134,7 @@ public class DiscoveryParametersDialog extends JDialog {
     private DiscoveryHelperType loadDiscoveryParameters(){
         FileInputStream is = null;
         File file;
-        file = new File(frame.getPath(), "iDiscover/conf/xml/discoveryParameters.xml");
+        file = new File(getPath(), "iDiscover/conf/xml/discoveryParameters.xml");
         try {
             is = new FileInputStream(file);
 
@@ -150,6 +150,10 @@ public class DiscoveryParametersDialog extends JDialog {
             if (is != null) try { is.close(); } catch (IOException e) {}
         }
         return null;
+    }
+
+    private File getPath() {
+        return frame != null ? frame.getPath() : new File(".");
     }
 
 }

@@ -43,8 +43,8 @@ public class DiscoveryParametersPanel extends JPanel {
     private DefaultTableModel oidsTableModel;
     private DefaultTableModel discoveryMethodTableModel;
     private DefaultTableModel devicesTableModel;
-    private int currentDeviceIndex;
-    private int currentDiscoveryMethodIndex;
+    private int currentDeviceIndex = -1;
+    private int currentDiscoveryMethodIndex = -1;
 
     /**
 	 * Create the panel.
@@ -155,8 +155,10 @@ public class DiscoveryParametersPanel extends JPanel {
     }
 
     private void onSelectedDevice(int index) {
-        updateCurrentDiscoveryMethod();
-        updateCurrentOids();
+        if (currentDeviceIndex != -1) {
+            updateCurrentDiscoveryMethod();
+            updateCurrentOids();
+        }
         currentDeviceIndex = index;
         currentDiscoveryMethodIndex = -1;
         updateDiscoveryMethodTable();
@@ -169,13 +171,13 @@ public class DiscoveryParametersPanel extends JPanel {
             Vector discoveryMethodsRows = discoveryMethodTableModel.getDataVector();
             for (int i=0;i < discoveryMethodsRows.size(); i++) {
                 String discoveryMethodName = (String) ((Vector) discoveryMethodsRows.get(i)).get(0);
-                device.getDiscoveryMethod().get(discoveryMethodsRows.size()-i-1).setName(discoveryMethodName);
+                device.getDiscoveryMethod().get(i).setName(discoveryMethodName);
             }
         }
     }
 
     private void onSelectedDiscoveryMethod(int index) {
-        updateCurrentOids();
+        if (currentDiscoveryMethodIndex != -1) updateCurrentOids();
         currentDiscoveryMethodIndex = index;
         updateOidsTable();
     }
@@ -204,7 +206,7 @@ public class DiscoveryParametersPanel extends JPanel {
             for (String oid : oids) {
                 Vector vec = new Vector();
                 vec.add(oid);
-                oidsTableModelData.add(0,vec);
+                oidsTableModelData.add(vec);
             }
             oidsTableModel.fireTableDataChanged();
         }
@@ -224,7 +226,7 @@ public class DiscoveryParametersPanel extends JPanel {
         for (DiscoveryMethodType discoveryMethodType : discoveryMethodTypeList) {
             Vector vec = new Vector();
             vec.add(discoveryMethodType.getName());
-            discoveryMethodTableModelData.add(0,vec);
+            discoveryMethodTableModelData.add(vec);
         }
         discoveryMethodTableModel.fireTableDataChanged();
     }
@@ -260,10 +262,10 @@ public class DiscoveryParametersPanel extends JPanel {
         if (discoveryMethod != null) {
             StringBuilder sbs = new StringBuilder();
             Vector oidsTableModelData = oidsTableModel.getDataVector();
-            for (int i=oidsTableModelData.size()-1; i >= 0;  i--) {
+            for (int i=0; i< oidsTableModelData.size();  i++) {
                 Vector row = (Vector) oidsTableModelData.get(i);
                 sbs.append(row.get(0));
-                if (i > 0) sbs.append(",");
+                if (i < oidsTableModelData.size()) sbs.append(",");
             }
             discoveryMethod.setValue(sbs.toString());
         }
@@ -276,7 +278,7 @@ public class DiscoveryParametersPanel extends JPanel {
         for (DeviceType deviceType : deviceTypeList) {
             Vector vec = new Vector();
             vec.add(deviceType.getType());
-            devicesTableModelData.add(0, vec);
+            devicesTableModelData.add(vec);
         }
     }
 
