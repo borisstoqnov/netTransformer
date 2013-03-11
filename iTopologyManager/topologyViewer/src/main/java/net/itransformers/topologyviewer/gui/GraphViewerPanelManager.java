@@ -50,16 +50,18 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private TopologyViewerConfType viewerConfig;
     private JFrame frame;
     private File graphmlsFile;
+    private final File versionDir;
 
     public GraphViewerPanelManager(JFrame frame, File projectPath, File graphmlsFile, Factory<G> factory, JTabbedPane tabbedPane, GraphType graphType) throws Exception {
         this.frame = frame;
         this.projectPath = projectPath;
         this.graphType = graphType;
         this.graphmlsFile = graphmlsFile;
+        versionDir = new File(graphmlsFile.getParent());
         if (graphType==GraphType.DIRECTED){
-            this.graphmlDir = new File(graphmlsFile.getParent(),"directed");
+            this.graphmlDir = new File(versionDir,"directed");
         }else{
-            this.graphmlDir = new File(graphmlsFile.getParent(),"undirected");
+            this.graphmlDir = new File(versionDir,"undirected");
         }
         this.factory = factory;
         this.tabbedPane = tabbedPane;
@@ -94,7 +96,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     }
 
     private GraphViewerPanel createViewerPanel() {
-        return new GraphViewerPanel<G>(frame, viewerConfig, graphmlLoader, iconMapLoader, edgeStrokeMapLoader, edgeColorMapLoader, entireGraph, projectPath,graphmlsFile, graphmlDir, initialNode);
+        return new GraphViewerPanel<G>(frame, viewerConfig, graphmlLoader, iconMapLoader, edgeStrokeMapLoader, edgeColorMapLoader, entireGraph, projectPath,versionDir, graphmlDir, initialNode);
     }
 
     public void init() throws JAXBException, ParserConfigurationException, SAXException, IOException {
