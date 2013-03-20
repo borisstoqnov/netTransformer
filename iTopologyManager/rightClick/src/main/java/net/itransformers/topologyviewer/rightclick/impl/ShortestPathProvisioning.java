@@ -39,6 +39,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.Handler;
@@ -49,6 +50,7 @@ public class ShortestPathProvisioning implements RightClickHandler {
     public <G> void  handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
+                                     File projectPath,
                                      java.io.File deviceDataXmlFileName) throws Exception {
 
         TopologyManagerFrame viewer = (TopologyManagerFrame) parent;
@@ -64,9 +66,9 @@ public class ShortestPathProvisioning implements RightClickHandler {
             JOptionPane.showMessageDialog(parent,String.format("Shortest path between %s,%s is not found",v,mTo),"Message",JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        ParameterFactoryBuilder builder = new ParameterFactoryBuilder(rightClickParams.get("parameterFactoryXml"));
+        ParameterFactoryBuilder builder = new ParameterFactoryBuilder(new File(projectPath,rightClickParams.get("parameterFactoryXml")));
 
-        ResourceManager resourceManager = new ResourceManager(rightClickParams.get("resource"));
+        ResourceManager resourceManager = new ResourceManager(new File(projectPath, rightClickParams.get("resource")));
         Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = viewer.getCurrentGraphViewerManager().getVertexMetadatas();
 //
         final Layout<String,String> layout = vv.getGraphLayout();
@@ -98,7 +100,7 @@ public class ShortestPathProvisioning implements RightClickHandler {
 
             ResourceType resource = resourceManager.findResource(graphMLParams1);
             context.put("connection-params", ResourceResolver.getConnectionParams(resource, graphMLParams1));
-            FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(rightClickParams.get("fulfilment-factory"),
+            FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(projectPath, new File (projectPath, rightClickParams.get("fulfilment-factory")),
                     builder,resource);
             String[] factoryNames = factory.getFulfilmentFactoryNamesForResource(resource.getName());
             createGUI(element.toString(),context, factoryNames, factory);

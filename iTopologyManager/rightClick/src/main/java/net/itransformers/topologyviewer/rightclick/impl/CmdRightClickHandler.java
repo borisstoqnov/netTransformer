@@ -65,17 +65,18 @@ public class CmdRightClickHandler implements RightClickHandler {
     public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
+                                     File projectPath,
                                      File deviceDataXmlFileName) throws Exception {
-        ParameterFactoryBuilder builder = new ParameterFactoryBuilder(rightClickParams.get("parameterFactoryXml"));
+        ParameterFactoryBuilder builder = new ParameterFactoryBuilder(new File(projectPath,rightClickParams.get("parameterFactoryXml")));
         Map<String, Object> context = new HashMap<String, Object>();
         context.put("graphml", graphMLParams);
         context.put("rightClickParams", rightClickParams);
         context.put("xmlFileName", deviceDataXmlFileName.toURI().toString());
         context.put("parentFrame", parent);
-        ResourceManager resourceManager = new ResourceManager(rightClickParams.get("resource"));
+        ResourceManager resourceManager = new ResourceManager(new File(projectPath, rightClickParams.get("resource")));
         ResourceType resource = resourceManager.findResource(graphMLParams);
         context.put("connection-params", ResourceResolver.getConnectionParams(resource, graphMLParams));
-        FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(rightClickParams.get("fulfilment-factory"),
+        FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(projectPath, new File(projectPath, rightClickParams.get("fulfilment-factory")),
                 builder,resource);
         String[] factoryNames = factory.getFulfilmentFactoryNamesForResource(resource.getName());
         createGUI(v,context, factoryNames, factory);

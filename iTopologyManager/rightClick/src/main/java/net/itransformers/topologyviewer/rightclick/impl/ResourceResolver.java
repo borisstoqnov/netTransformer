@@ -24,14 +24,15 @@ import net.itransformers.resourcemanager.config.ConnectionParamsType;
 import net.itransformers.resourcemanager.config.ParamType;
 import net.itransformers.resourcemanager.config.ResourceType;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ResourceResolver {
     public static Map<String, String> getResource(Map<String, String> graphMLParams,
-                                                  String resourceFileName) throws Exception {
+                                                  File resourceFile) throws Exception {
         ResourceType resource;
-        ResourceManager rc = new ResourceManager(resourceFileName);
+        ResourceManager rc = new ResourceManager(resourceFile);
         resource = rc.findResource(graphMLParams);
         if (resource == null) {
             throw new RuntimeException("Resource not found");

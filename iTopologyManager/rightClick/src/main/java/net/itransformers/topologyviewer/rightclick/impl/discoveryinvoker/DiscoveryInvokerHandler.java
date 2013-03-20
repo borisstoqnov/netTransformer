@@ -28,7 +28,10 @@ import java.util.Map;
 
 public class DiscoveryInvokerHandler implements RightClickHandler{
     @Override
-    public <G> void handleRightClick(JFrame parent, String v, Map<String, String> graphMLParams, Map<String, String> rightClickParams, File s) throws Exception{
+    public <G> void handleRightClick(JFrame parent, String v, Map<String, String> graphMLParams,
+                                     Map<String, String> rightClickParams,
+                                     File projectPath,
+                                     File s) throws Exception{
         System.out.println("DiscoveryInvokerHandler: v=" +v);
         System.out.println("DiscoveryInvokerHandler: graphMLParams=" +graphMLParams);
         System.out.println("DiscoveryInvokerHandler: rightClickParams=" +rightClickParams);

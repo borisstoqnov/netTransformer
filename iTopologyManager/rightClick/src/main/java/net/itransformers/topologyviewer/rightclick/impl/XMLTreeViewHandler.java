@@ -30,6 +30,7 @@ public class XMLTreeViewHandler implements RightClickHandler {
      public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
+                                     File projectPath,
                                      File deviceDataXmlFileName) throws Exception {
 
 //      JOptionPane.showMessageDialog(parent, "deviceDataXmlFileName: " + deviceDataXmlFileName );

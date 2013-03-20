@@ -23,16 +23,19 @@ import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 import net.itransformers.topologyviewer.rightclick.impl.putty.Putty;
 
 import javax.swing.*;
+import java.io.File;
 import java.net.URL;
 import java.util.Map;
 
 public class PuttyRightClickHandler implements RightClickHandler {
     public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
-                                     Map<String, String> rightClickParams, java.io.File s){
+                                     Map<String, String> rightClickParams,
+                                     File projectPath,
+                                     java.io.File s){
         Map<String,String> connParams;
         try {
-            connParams = ResourceResolver.getResource(graphMLParams, rightClickParams.get("resource"));
+            connParams = ResourceResolver.getResource(graphMLParams, new File(projectPath, rightClickParams.get("resource")));
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(parent, "Can not find resource : "+e.getMessage());

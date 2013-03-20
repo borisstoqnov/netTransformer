@@ -23,6 +23,7 @@ import net.itransformers.topologyviewer.fulfilmentfactory.Fulfilment;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -34,7 +35,7 @@ public class XslFulfilmentImpl implements Fulfilment {
     public XslFulfilmentImpl() {
 
     }
-    public void fulfil(Map<String, String> parameters,
+    public void fulfil(File projectPath, Map<String, String> parameters,
                        Map<String, String> fulfilmentFactoryParams, Logger logger) throws IOException{
 
         this.tranformer = new XsltTransform(fulfilmentFactoryParams.get("xslFileName"));

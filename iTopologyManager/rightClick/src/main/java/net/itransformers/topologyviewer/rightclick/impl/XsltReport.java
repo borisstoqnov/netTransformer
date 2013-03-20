@@ -32,15 +32,15 @@ import java.net.URL;
 
 public class XsltReport {
     File xml = null; //input xml
-    String xsl = null; //input xsl
-    String tableXSL = null; //input xsl
+    File xsl = null; //input xsl
+    File tableXSL = null; //input xsl
 
-    public XsltReport(String pathToXSL, File pathToXML) {
+    public XsltReport(File pathToXSL, File pathToXML) {
            xml=pathToXML;
            xsl=pathToXSL;
 
     }
-     public XsltReport(String pathToXSL, String pathToTableXSL, File pathToXML) {
+     public XsltReport(File pathToXSL, File pathToTableXSL, File pathToXML) {
            xml=pathToXML;
            xsl=pathToXSL;
            tableXSL = pathToTableXSL;
@@ -52,7 +52,7 @@ public class XsltReport {
         TransformerFactory tfactory = TransformerFactory.newInstance();
 
          // Create a transformer for the stylesheet.
-           Transformer transformer = tfactory.newTransformer(new StreamSource(new File(this.xsl)));
+           Transformer transformer = tfactory.newTransformer(new StreamSource(this.xsl));
 
         // Transform the source XML to System.out.
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -64,7 +64,7 @@ public class XsltReport {
         if (tableXSL!=null){
             ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
             StreamResult    result1 = new StreamResult(baos1);
-            Transformer transformer1 = tfactory.newTransformer(new StreamSource(new File(this.tableXSL)));
+            Transformer transformer1 = tfactory.newTransformer(new StreamSource(this.tableXSL));
             StringReader test = new StringReader(result.getOutputStream().toString());
             transformer1.transform(new StreamSource(test),result1);
             return result1.getOutputStream();
@@ -83,7 +83,8 @@ public class XsltReport {
         // set the TransformFactory to use the Saxon TransformerFactoryImpl method
 //         System.setProperty("javax.xml.transform.TransformerFactory",
 //         "net.sf.saxon.TransformerFactoryImpl");
-          XsltReport testReport = new XsltReport("rightclick/conf/xslt/table_creator.xslt", new File("device-data-R111.xml"));
+          XsltReport testReport = new XsltReport(new File ("rightclick/conf/xslt/table_creator.xslt"),
+                  new File("device-data-R111.xml"));
          try {
                  System.out.print(testReport.myTransformer().toString());
          } catch (Exception ex) {

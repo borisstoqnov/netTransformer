@@ -40,7 +40,7 @@ public class GroovyCLIFulfilmentImpl implements Fulfilment {
     }
 
     @Override
-    public void fulfil(Map<String, String> parameters,
+    public void fulfil(File projectPath, Map<String, String> parameters,
                        Map<String, String> fulfilmentFactoryParams, Logger logger) throws IOException {
         cli = new TelnetCLIInterface(parameters.get("ManagementIPAddress"),parameters.get("username"),parameters.get("password"),parameters.get("hostname")+"#",1000, logger);
 //        cli.open();

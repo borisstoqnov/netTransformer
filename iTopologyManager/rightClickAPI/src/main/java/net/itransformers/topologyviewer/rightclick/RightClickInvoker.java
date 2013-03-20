@@ -23,13 +23,13 @@ import edu.uci.ics.jung.io.GraphMLMetadata;
 
 import javax.swing.*;
 import java.io.File;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RightClickInvoker {
     public static void invokeRightClickHandler(JFrame frame, String v, final RightClickItemType rcItemType,
                                                Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas,
+                                               File path,
                                                File deviceXmlPath) throws Exception {
         String clazzStr = rcItemType.getHandlerClass();
         Class<?> clazz;
@@ -41,7 +41,7 @@ public class RightClickInvoker {
         for (ParamType param : rcItemType.getParam()) {
             rcParams.put(param.getName(), param.getValue());
         }
-        inst.handleRightClick(frame, v, graphMLParams, rcParams, new File(deviceXmlPath+File.separator+"device-data"+"-"+v+".xml")); // todo remove this hardcode
+        inst.handleRightClick(frame, v, graphMLParams, rcParams, path, new File(deviceXmlPath+File.separator+"device-data"+"-"+v+".xml")); // todo remove this hardcode
 
     }
 

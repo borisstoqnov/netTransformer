@@ -31,6 +31,7 @@ public class XsltReportCreator implements RightClickHandler {
      public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
+                                     File projectPath,
                                      File deviceDataXmlFileName) throws Exception {
 
 //      JOptionPane.showMessageDialog(parent, "deviceDataXmlFileName: " + deviceDataXmlFileName );
@@ -45,7 +46,7 @@ public class XsltReportCreator implements RightClickHandler {
 
         System.out.println("deviceDataXmlFileName: "+ deviceDataXmlFileName +" xsltFile: "+ xsltFile+ "xsltTableFile: "+ xsltTableFile);
         if (!xsltTableFile.equals("")){
-            XsltReport testReport = new XsltReport(xsltFile,xsltTableFile,deviceDataXmlFileName);
+            XsltReport testReport = new XsltReport(new File (projectPath, xsltFile),new File (projectPath, xsltTableFile),deviceDataXmlFileName);
           try {
                 System.out.println(testReport.myTransformer().toString());
                 text.setText(testReport.myTransformer().toString());
@@ -54,7 +55,7 @@ public class XsltReportCreator implements RightClickHandler {
          }
         }else{
 
-              XsltReport testReport = new XsltReport(xsltFile,deviceDataXmlFileName);
+              XsltReport testReport = new XsltReport(new File(projectPath, xsltFile),deviceDataXmlFileName);
             System.out.println(testReport.myTransformer().toString());
             try {
                 text.setText(testReport.myTransformer().toString());

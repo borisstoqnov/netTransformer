@@ -27,6 +27,7 @@ import net.itransformers.resourcemanager.util.JaxbMarshalar;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -41,13 +42,13 @@ public class ResourceManager {
     public ResourceManager(ResourcesType resource) {
         this.resource = resource;
     }
-    public ResourceManager(String fileName) throws IOException, JAXBException {
+    public ResourceManager(File file) throws IOException, JAXBException {
         FileInputStream is = null;
         try {
-            if (fileName == null) {
+            if (file == null) {
                 throw new RuntimeException("No File Name is specified for loading resources");
             }
-            is = new FileInputStream(fileName);
+            is = new FileInputStream(file);
             ResourcesType resourcesType;
             resourcesType = JaxbMarshalar.unmarshal(ResourcesType.class, is);
             this.resource = resourcesType;

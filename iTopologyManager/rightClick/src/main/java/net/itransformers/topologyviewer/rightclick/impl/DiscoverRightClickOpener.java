@@ -33,6 +33,7 @@ public class DiscoverRightClickOpener implements RightClickHandler {
     public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
+                                     File projectPath,
                                      File deviceDataXmlFileName) throws Exception {
 
         String url = null;

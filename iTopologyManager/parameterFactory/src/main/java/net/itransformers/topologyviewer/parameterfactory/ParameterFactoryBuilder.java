@@ -23,6 +23,7 @@ import net.itransformers.topologyviewer.parameterfactory.config.*;
 import net.itransformers.topologyviewer.parameterfactory.util.JaxbMarshalar;
 
 import javax.xml.bind.JAXBException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,13 +34,13 @@ import java.util.Map;
 public class ParameterFactoryBuilder {
     private Map<String,ParamFactoryType> parameterFactoryTypeMap = new HashMap<String, ParamFactoryType>();
     private Map<String,TypeType> parameterFactoryElementTypesMap = new HashMap<String, TypeType>();
-    private String configFileName;
+    private File configFile;
 
-    public ParameterFactoryBuilder(String configFileName) throws JAXBException, IOException {
-        this.configFileName = configFileName;
+    public ParameterFactoryBuilder(File configFile) throws JAXBException, IOException {
+        this.configFile = configFile;
         FileInputStream is = null;
         try {
-            is = new FileInputStream(configFileName);
+            is = new FileInputStream(configFile);
             ParamFactoriesType factoriesType = JaxbMarshalar.unmarshal(ParamFactoriesType.class, is);
             for (ParamFactoryType paramFactoryType : factoriesType.getParamFactory()){
                 parameterFactoryTypeMap.put(paramFactoryType.getName(),paramFactoryType);
@@ -55,7 +56,7 @@ public class ParameterFactoryBuilder {
     public ParameterFactory buildParameterFactory(String factoryName) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         final ParamFactoryType paramFactoryType = parameterFactoryTypeMap.get(factoryName);
         if (paramFactoryType == null) {
-            throw new RuntimeException(String.format("Can not find parameter factory '%s' in file : %s",factoryName,configFileName));
+            throw new RuntimeException(String.format("Can not find parameter factory '%s' in file : %s",factoryName,configFile.getAbsolutePath()));
         }
         List<ParamFactoryElementType> factoryElements = paramFactoryType.getParamFactoryElement();
         List<ParameterFactoryElement> factoryElementList = new ArrayList<ParameterFactoryElement>();

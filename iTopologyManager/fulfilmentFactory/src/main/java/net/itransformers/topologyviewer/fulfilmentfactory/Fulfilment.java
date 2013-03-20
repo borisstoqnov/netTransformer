@@ -1,5 +1,6 @@
 package net.itransformers.topologyviewer.fulfilmentfactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -12,5 +13,5 @@ import java.util.logging.Logger;
  * Copyright 
  */
 public interface Fulfilment {
-    void fulfil(Map<String, String> parameters, Map<String, String> fulfilmentFactoryParams, Logger logger) throws IOException;
+    void fulfil(File projectPath, Map<String, String> parameters, Map<String, String> fulfilmentFactoryParams, Logger logger) throws IOException;
 }

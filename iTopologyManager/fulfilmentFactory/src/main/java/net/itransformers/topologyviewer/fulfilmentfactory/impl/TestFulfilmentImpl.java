@@ -34,6 +34,7 @@ public class TestFulfilmentImpl implements Fulfilment {
     public static Pattern readUntilArgsRegExp = Pattern.compile("^'(.*)',\\s*([-]?\\d+)\\s*$");
     public static Pattern readUntilRegExp = Pattern.compile("^### (?:start )?read_until\\((.*)\\)$");
     private CLIInterface cli;
+    private File projectPath;
 
     public TestFulfilmentImpl() {
 
@@ -44,8 +45,9 @@ public class TestFulfilmentImpl implements Fulfilment {
     }
 
     @Override
-    public void fulfil(Map<String, String> parameters,
+    public void fulfil(File projectPath, Map<String, String> parameters,
                        Map<String, String> fulfilmentFactoryParams, Logger logger) throws IOException {
+        this.projectPath = projectPath;
         cli = new TelnetCLIInterface(parameters.get("ManagementIPAddress"),parameters.get("username"),parameters.get("password"),parameters.get("hostname")+"#",1000, logger);
         cli.open();
         execute(fulfilmentFactoryParams.get("commands"), parameters);
@@ -53,7 +55,7 @@ public class TestFulfilmentImpl implements Fulfilment {
     }
 
     public void execute(String fileName, Map<String, String> params) throws IOException {
-        List<String> lines = FileUtils.readLines(new File(fileName));
+        List<String> lines = FileUtils.readLines(new File(projectPath, fileName));
         Set<String> vars = new HashSet<String>();
         Map<String, String> readUntilArgs = null;
         for (String line : lines) {

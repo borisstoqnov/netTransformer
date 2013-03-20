@@ -10,6 +10,7 @@ import net.itransformers.topologyviewer.parameterfactory.ParameterFactoryBuilder
 import net.itransformers.resourcemanager.config.ResourceType;
 
 import javax.xml.bind.JAXBException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
@@ -23,20 +24,23 @@ import java.util.logging.Logger;
  * Copyright 
  */
 public class FulfilmentAdapterFactory {
-    private String configFileName;
+    private File projectPath;
+    private File configFile;
     private ParameterFactoryBuilder parameterFactoryBuilder;
     private Map<String,TypeType> fulfilmentFactoryTypesMap = new LinkedHashMap<String, TypeType>();
     private Map<String,FulfilmentFactoryType> fulfilmentFactoryMap = new LinkedHashMap<String, FulfilmentFactoryType>();
 
-    public FulfilmentAdapterFactory(String configFileName,
+    public FulfilmentAdapterFactory(File projectPath,
+                                    File configFile,
                                     ParameterFactoryBuilder parameterFactoryBuilder,
                                     ResourceType resource
     ) throws IOException, JAXBException {
-        this.configFileName = configFileName;
+        this.projectPath = projectPath;
+        this.configFile = configFile;
         this.parameterFactoryBuilder = parameterFactoryBuilder;
         FileInputStream is = null;
         try {
-            is = new FileInputStream(configFileName);
+            is = new FileInputStream(configFile);
             FulfilmentFactoriesType factoriesType = JaxbMarshalar.unmarshal(FulfilmentFactoriesType.class, is);
             for (FulfilmentFactoryType fulfilmentFactoryType : factoriesType.getFulfilmentFactory()){
                 fulfilmentFactoryMap.put(fulfilmentFactoryType.getName(),fulfilmentFactoryType);
@@ -53,7 +57,7 @@ public class FulfilmentAdapterFactory {
     public FulfilmentAdapter createFulfilmentAdapter(String factoryName, Map<String, Object> parameterFactoryContext, Logger logger) throws Exception, IllegalAccessException, InstantiationException {
         FulfilmentFactoryType fulfilmentFactory = fulfilmentFactoryMap.get(factoryName);
         if (fulfilmentFactory == null) {
-            throw new RuntimeException(String.format("Can not find fulfilment factory '%s' in file : %s",factoryName,configFileName));
+            throw new RuntimeException(String.format("Can not find fulfilment factory '%s' in file : %s",factoryName,configFile));
         }
         String paramFactoryName = fulfilmentFactory.getParameterFactoryName();
         ParameterFactory parameterFactory = parameterFactoryBuilder.buildParameterFactory(paramFactoryName);
@@ -74,7 +78,7 @@ public class FulfilmentAdapterFactory {
         String strClass = typeType.getClazz();
         Class<?> clazz = Class.forName(strClass);
         Fulfilment inst = (Fulfilment) clazz.newInstance();
-        FulfilmentAdapter adapter = new FulfilmentAdapter(inst,parameters, fulfilmentFactoryParams, logger);
+        FulfilmentAdapter adapter = new FulfilmentAdapter(projectPath, inst,parameters, fulfilmentFactoryParams, logger);
         return adapter;
     }
 

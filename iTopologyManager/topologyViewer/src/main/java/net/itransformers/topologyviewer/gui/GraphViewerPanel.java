@@ -467,7 +467,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
                 public void actionPerformed(ActionEvent e1) {
                     try {
                         final Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = graphmlLoader.getVertexMetadatas();
-                        RightClickInvoker.invokeRightClickHandler(GraphViewerPanel.this.parent, v, rcItemType, vertexMetadatas, deviceXmlPath);
+                        RightClickInvoker.invokeRightClickHandler(GraphViewerPanel.this.parent, v, rcItemType, vertexMetadatas, path, deviceXmlPath);
                     } catch (Exception e2) {
                         e2.printStackTrace();
                         JOptionPane.showMessageDialog(GraphViewerPanel.this, "Error while calling right click: " + e2.getMessage());

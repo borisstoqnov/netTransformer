@@ -29,6 +29,7 @@ import edu.uci.ics.jung.graph.util.Pair;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
@@ -37,6 +38,7 @@ public class ShortestPath implements RightClickHandler {
     public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
+                                     File projectPath,
                                      java.io.File deviceDataXmlFileName) throws Exception {
 
         TopologyManagerFrame viewer = (TopologyManagerFrame) parent;
