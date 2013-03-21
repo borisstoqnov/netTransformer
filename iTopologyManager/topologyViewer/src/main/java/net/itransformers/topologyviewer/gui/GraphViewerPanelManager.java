@@ -125,5 +125,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
         String tabName = this.graphmlDir.getParentFile().getName();
         tabbedPane.addTab(tabName, null, panel, graphmlDir.getAbsolutePath());
     }
-
+    public File getVersionDir(){
+        return versionDir;
+    }
 }
