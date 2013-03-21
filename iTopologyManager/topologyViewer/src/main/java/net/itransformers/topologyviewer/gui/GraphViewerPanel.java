@@ -19,6 +19,7 @@
 
 package net.itransformers.topologyviewer.gui;
 
+import edu.uci.ics.jung.visualization.renderers.DefaultVertexLabelRenderer;
 import edu.uci.ics.jung.visualization.renderers.VertexLabelRenderer;
 import net.itransformers.topologyviewer.config.*;
 import net.itransformers.topologyviewer.rightclick.RightClickInvoker;
@@ -115,17 +116,17 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
         AbstractModalGraphMouse graphMouse = createModalGraphMouse();
 
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<String>());
-        vv.getRenderContext().setVertexLabelRenderer(new VertexLabelRenderer() {
-            @Override
-            public <T> Component getVertexLabelRendererComponent(JComponent jComponent, Object o, Font font, boolean b, T t) {
-
-                JLabel jLabel = new JLabel(t.toString());
-                //TOOD has to be a prefference setting
-                Font font1 = new Font(font.getName(), font.getStyle()+Font.BOLD, font.getSize()+2);
-                jLabel.setFont(font1);
-                return jLabel;
-            }
-        });
+        vv.getRenderContext().setVertexLabelRenderer(new MyDefaultVertexLaberRenderer(Color.BLACK, Color.RED));
+//
+//            @Override
+//            public <T> Component getVertexLabelRendererComponent(JComponent jComponent, Object o, Font font, boolean b, T t) {
+//                JLabel jLabel = new JLabel(t.toString());
+//                //TOOD has to be a prefference setting
+//                Font font1 = new Font(font.getName(), font.getStyle()+Font.BOLD, font.getSize()+2);
+//                jLabel.setFont(font1);
+//                return jLabel;
+//            }
+//        });
         vv.setGraphMouse(graphMouse);
         vv.setToolTipText("<html><center>Type 'p' for Pick mode<p>Type 't' for Transform mode");
 
@@ -828,5 +829,38 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
     }
     public File getVersionDir() {
         return versionDir;
+    }
+
+    class MyDefaultVertexLaberRenderer extends DefaultVertexLabelRenderer
+    {
+        protected Color unpickedVertexLabelColor = Color.BLACK;
+
+        public MyDefaultVertexLaberRenderer(Color unpickedVertexLabelColor, Color pickedVertexLabelColor)
+        {
+            super(pickedVertexLabelColor);
+            this.unpickedVertexLabelColor = unpickedVertexLabelColor;
+        }
+
+        public <V> Component getVertexLabelRendererComponent(JComponent vv, Object value, Font font, boolean isSelected, V vertex)
+        {
+            super.setForeground(unpickedVertexLabelColor);
+            if (isSelected) setForeground(pickedVertexLabelColor);
+            super.setBackground(vv.getBackground());
+            if (font != null)
+            {
+                Font font1 = new Font(font.getName(), font.getStyle()+Font.BOLD, font.getSize()+2);
+                setFont(font1);
+            }
+            else
+            {
+                Font font1 = new Font(vv.getFont().getName(), vv.getFont().getStyle()+Font.BOLD, vv.getFont().getSize()+2);
+                setFont(font1);
+            }
+            setIcon(null);
+            setBorder(noFocusBorder);
+            setValue(value);
+
+            return this;
+        }
     }
 }
