@@ -444,6 +444,7 @@
         <include dataKey="method" dataValue="Slash31" for="edge"/>
         <include dataKey="method" dataValue="OSPF" for="edge"/>
         <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
+        <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
         <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
     </filter>
     <!--In this case is presented a physical view with all devices-->
@@ -567,12 +568,16 @@
         <include dataKey="dataLink" dataValue="YES" for="edge"/>
         <tooltip dataKey="deviceInfo" for="node"/>
         <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+        <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+
     </filter>
     <filter name="Data+IPLinkLayer-reachable+unreachable">
         <include dataKey="ipLink" dataValue="YES" for="edge"/>
         <include dataKey="dataLink" dataValue="YES" for="edge"/>
         <tooltip dataKey="deviceInfo" for="node"/>
         <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+        <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+
     </filter>
     <filter name="Any-link-reachable">
         <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
@@ -580,6 +585,8 @@
         <include dataKey="dataLink" dataValue="YES" for="edge"/>
         <tooltip dataKey="deviceInfo" for="node"/>
         <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+        <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+
     </filter>
     <filter name="Any-link-reachable+unreachable">
         <tooltip dataKey="diffs" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
@@ -588,6 +595,8 @@
         <include dataKey="ipLink" dataValue="YES" for="edge"/>
         <include dataKey="dataLink" dataValue="YES" for="edge"/>
         <tooltip dataKey="diffs" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+        <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+
     </filter>
 </filters>
 
@@ -602,9 +611,9 @@
     <!--rightClickItem name="jconsole" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CreateTerminalHandler">
         <param name="resource">resource-manager/conf/xml/resource.xml</param>
     </rightClickItem-->
-    <rightClickItem name="GoogleMapView" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
+    <!--rightClickItem name="GoogleMapView" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
         <param name="url">url</param>
-    </rightClickItem>
+    </rightClickItem-->
     <rightClickItem name="HTTP" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
         <param name="protocol">http</param>
         <param name="port">8080</param>
@@ -614,14 +623,14 @@
         <param name="port">443</param>
     </rightClickItem>
 
-    <rightClickItem name="putty" handlerClass="net.itransformers.topologyviewerrightclick.impl.PuttyRightClickHandler">
+    <!--rightClickItem name="putty" handlerClass="net.itransformers.topologyviewerrightclick.impl.PuttyRightClickHandler">
         <param name="ssh_no_saved_session">../lib/putty/putty.exe -ssh -l %s -pw %s %s</param>
         <param name="ssh_saved_session">../lib/putty/putty.exe -ssh -l %s -pw %s -load %s %s </param>
         <param name="telnet_no_saved_session">../lib/putty/putty.exe -telnet -l %s %s</param>
         <param name="telnet_saved_session">../lib/putty/putty.exe -telnet -l %s -load %s %s</param>
         <param name="resource">resource-manager/conf/xml/resource.xml</param>
         <param name="saved_session"></param>
-    </rightClickItem>
+    </rightClickItem-->
 </submenu>
 </rightClickItem>
 

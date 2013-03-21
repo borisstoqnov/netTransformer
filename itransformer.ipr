@@ -66,6 +66,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/distribution/pom.xml" />
         <option value="$PROJECT_DIR$/iTopoManager/pom.xml" />
       </set>
     </option>
@@ -196,7 +197,6 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/distribution/distribution.iml" filepath="$PROJECT_DIR$/distribution/distribution.iml" />
       <module fileurl="file://$PROJECT_DIR$/iTopologyManager/fulfilmentFactory/fulfilmentFactory.iml" filepath="$PROJECT_DIR$/iTopologyManager/fulfilmentFactory/fulfilmentFactory.iml" />
       <module fileurl="file://$PROJECT_DIR$/iDiscover/iDiscover.iml" filepath="$PROJECT_DIR$/iDiscover/iDiscover.iml" />
       <module fileurl="file://$PROJECT_DIR$/iMap/iMap.iml" filepath="$PROJECT_DIR$/iMap/iMap.iml" />
@@ -750,7 +750,7 @@
     </library>
     <library name="Maven: iTransformers.iTransformer:resourceManager:0.1-SNAPSHOT">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/iTransformers/iTransformer/resourceManager/0.1-SNAPSHOT/resourceManager-0.1-SNAPSHOT.jar!/" />
+        <root url="jar://$PROJECT_DIR$/resourceManager/pom.xml!/" />
       </CLASSES>
       <JAVADOC>
         <root url="jar://$PROJECT_DIR$/resourceManager/pom-javadoc.jar!/" />

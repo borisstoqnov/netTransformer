@@ -175,11 +175,11 @@
                         <directory>conf/xslt</directory>
                         <outputDirectory>iDiscover/conf/xslt</outputDirectory>
                     </fileSet>
-                    <fileSet>
+                    <!--fileSet>
                         <directory>conf/bat</directory>
                         <outputDirectory>bin</outputDirectory>
                         <filtered>true</filtered>
-                    </fileSet>
+                    </fileSet-->
                 </fileSets>
             </sources>
         </moduleSet>

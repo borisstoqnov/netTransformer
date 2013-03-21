@@ -36,35 +36,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Node }
+     * Create an instance of {@link Node.Attributes }
      * 
      */
-    public Node createNode() {
-        return new Node();
-    }
-
-    /**
-     * Create an instance of {@link Exception }
-     * 
-     */
-    public Exception createException() {
-        return new Exception();
-    }
-
-    /**
-     * Create an instance of {@link Node.Attributes.Entry }
-     * 
-     */
-    public Node.Attributes.Entry createNodeAttributesEntry() {
-        return new Node.Attributes.Entry();
-    }
-
-    /**
-     * Create an instance of {@link ImportNode }
-     * 
-     */
-    public ImportNode createImportNode() {
-        return new ImportNode();
+    public Node.Attributes createNodeAttributes() {
+        return new Node.Attributes();
     }
 
     /**
@@ -76,11 +52,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Node.Attributes }
+     * Create an instance of {@link ImportNode }
      * 
      */
-    public Node.Attributes createNodeAttributes() {
-        return new Node.Attributes();
+    public ImportNode createImportNode() {
+        return new ImportNode();
+    }
+
+    /**
+     * Create an instance of {@link Node }
+     * 
+     */
+    public Node createNode() {
+        return new Node();
+    }
+
+    /**
+     * Create an instance of {@link Node.Attributes.Entry }
+     * 
+     */
+    public Node.Attributes.Entry createNodeAttributesEntry() {
+        return new Node.Attributes.Entry();
+    }
+
+    /**
+     * Create an instance of {@link Exception }
+     * 
+     */
+    public Exception createException() {
+        return new Exception();
     }
 
     /**
