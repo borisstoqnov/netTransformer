@@ -31,12 +31,14 @@ import java.util.*;
 
 
 public class GraphMLDiffTool extends SwingWorker<Void, Void> {
+    private File baseDir;
     private String dirAPath;
     private String dirBPath;
     private String dirCPath;
     private String ignoredKeysPath;
 
-    public GraphMLDiffTool(String dirAPath, String dirBPath, String dirCPath, String ignoredKeysPath) {
+    public GraphMLDiffTool(File baseDir, String dirAPath, String dirBPath, String dirCPath, String ignoredKeysPath) {
+        this.baseDir = baseDir;
         this.dirAPath = dirAPath;
         this.dirBPath = dirBPath;
         this.dirCPath = dirCPath;
@@ -65,7 +67,7 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
         String dirBPath = params.get("-b");
         String dirCPath = params.get("-c");
         String ignoredKeysPath = params.get("-i");
-        GraphMLDiffTool graphMLDiffTool = new GraphMLDiffTool(dirAPath, dirBPath, dirCPath, ignoredKeysPath);
+        GraphMLDiffTool graphMLDiffTool = new GraphMLDiffTool(null, dirAPath, dirBPath, dirCPath, ignoredKeysPath);
         graphMLDiffTool.execute();
         long time=System.currentTimeMillis();
         graphMLDiffTool.doInBackground();
@@ -145,8 +147,8 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
         return null;
     }
 
-    private static void createDiffGraphml(URI file1, URI file2, File OutputFile, File ignoredKeysFile) throws FileNotFoundException {
-        File transformator = new File("iTopologyManager/topologyViewer/conf/xslt/graphml_diff.xslt");
+    private void createDiffGraphml(URI file1, URI file2, File OutputFile, File ignoredKeysFile) throws FileNotFoundException {
+        File transformator = new File(baseDir,"iTopologyManager/topologyViewer/conf/xslt/graphml_diff.xslt");
         ByteArrayInputStream fileInputStream = null;
         FileOutputStream fileOutputStream = null;
         try {
@@ -203,8 +205,8 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
 
     }
 
-    private static void createNewGraphml(String newfile, String status, URI file, File OutputFile) throws FileNotFoundException {
-        File transformator = new File("iTopologyManager/topologyViewer/conf/xslt/graphml_add_remove.xslt");
+    private void createNewGraphml(String newfile, String status, URI file, File OutputFile) throws FileNotFoundException {
+        File transformator = new File(baseDir, "iTopologyManager/topologyViewer/conf/xslt/graphml_add_remove.xslt");
         ByteArrayInputStream fileInputStream = null;
         FileOutputStream fileOutputStream = null;
 

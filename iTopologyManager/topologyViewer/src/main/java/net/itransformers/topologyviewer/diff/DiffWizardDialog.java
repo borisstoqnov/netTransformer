@@ -216,7 +216,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         } else {
             diffPath2 = new File(path2File.getParent(),"undirected");
         }
-        task = new GraphMLDiffTool(diffPath1.getAbsolutePath(), diffPath2.getAbsolutePath(), getDiffPath3(), getIgnoredKeysPath());
+        task = new GraphMLDiffTool(baseDir, diffPath1.getAbsolutePath(), diffPath2.getAbsolutePath(), getDiffPath3(), getIgnoredKeysPath());
         task.addPropertyChangeListener(this);
         task.execute();
     }
