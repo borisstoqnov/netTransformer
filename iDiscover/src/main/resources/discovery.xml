@@ -22,7 +22,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+    <bean id="projectPath" class="java.lang.String">
+        <constructor-arg value="c:\iTransformer"/>
+      </bean>
+
     <bean id="discovery" class="net.itransformers.idiscover.v2.core.NetworkDiscoverer">
+
         <property name="nodeDiscoverers">
             <map>
                 <entry key="SNMP" value-ref="snmpNodeDiscoverer"/>
@@ -84,6 +89,8 @@
         </property>
     </bean>
     <bean id="discoveryResourceManager" class="net.itransformers.idiscover.core.DiscoveryResourceManager">
+        <constructor-arg ref="projectPath"/>
+        <constructor-arg value="1"/>
         <constructor-arg value="iDiscover/conf/xml/discoveryResource.xml"/>
     </bean>
 </beans>
