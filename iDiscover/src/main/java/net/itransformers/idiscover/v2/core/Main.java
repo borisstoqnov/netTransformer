@@ -63,7 +63,7 @@ public class Main {
         NetworkDiscoverer discoverer = applicationContext.getBean(NetworkDiscoverer.class);
         ConnectionDetails connectionDetails = new ConnectionDetails();
         connectionDetails.setConnectionType("SNMP");
-        connectionDetails.put("ipAddress","172.16.36.10");
+        connectionDetails.put("ipAddress","172.16.13.1");
         connectionDetails.put("version","1");
         connectionDetails.put("community-ro","test-r");
         connectionDetails.put("community-rw","test-rw");

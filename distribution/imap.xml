@@ -48,6 +48,7 @@
                         <directory>conf</directory>
                         <outputDirectory>bin/iTopologyManager/topologyViewer/conf</outputDirectory>
                     </fileSet>
+
                     <fileSet>
                         <directory>src/main/resources/images</directory>
                         <outputDirectory>images</outputDirectory>
@@ -75,7 +76,7 @@
                 <fileSets>
                     <fileSet>
                         <directory>conf</directory>
-                        <outputDirectory>iMap/conf</outputDirectory>
+                        <outputDirectory>bgpPeeringMap/conf</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/bat</directory>
@@ -132,13 +133,13 @@
         <file>
             <source>../iTopologyManager/topologyViewer/conf/bat/old/d_topoManager.bat</source>
             <outputDirectory>bin</outputDirectory>
-            <destName>iMapTopoManager.bat</destName>
+            <destName>bgpTopoManager.bat</destName>
             <filtered>true</filtered>
         </file>
         <file>
             <source>../iTopologyManager/topologyViewer/conf/bat/old/d_topoManager.sh</source>
             <outputDirectory>bin</outputDirectory>
-            <destName>iMapTopoManager.sh</destName>
+            <destName>bgpTopoManager.sh</destName>
             <filtered>true</filtered>
             <fileMode></fileMode>
         </file>

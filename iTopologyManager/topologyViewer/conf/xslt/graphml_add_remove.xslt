@@ -49,7 +49,7 @@
 									<xsl:attribute name="key">diff</xsl:attribute>
 									<xsl:value-of select="$status"/>
 							</data>
-							<data><xsl:attribute name="key">diffs</xsl:attribute>Node: <xsl:value-of select="$status"/></data>
+							<data><xsl:attribute name="key">diffs</xsl:attribute><!--xsl:value-of select="data[@key='nodeInfo']" &lt;br/&gt;--> Node: <xsl:value-of select="$status"/></data>
 					</node>
 				</xsl:for-each>
 				<xsl:for-each select="$fileA/graphml/graph/node[@id!=$id]">
@@ -69,7 +69,7 @@
 								<xsl:attribute name="key">diff</xsl:attribute>
 								<xsl:value-of select="$status"/>
 						</data>
-						<data><xsl:attribute name="key">diffs</xsl:attribute>Edge: <xsl:value-of select="$status"/></data>	
+						<data><xsl:attribute name="key">diffs</xsl:attribute><!--<xsl:value-of select="data[@key='edgeTooltip']"/> &lt;br/&gt;--> Edge: <xsl:value-of select="$status"/></data>
 					</edge>
 				</xsl:for-each>
 			</graph>

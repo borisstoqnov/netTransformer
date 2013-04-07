@@ -23,7 +23,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <bean id="projectPath" class="java.lang.String">
-        <constructor-arg value="c:\iTransformer"/>
+        <constructor-arg value="/Users/niau/trunk"/>
       </bean>
 
     <bean id="discovery" class="net.itransformers.idiscover.v2.core.NetworkDiscoverer">

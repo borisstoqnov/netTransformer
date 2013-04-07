@@ -36,7 +36,7 @@
         <module>resourceManager</module>
         <module>snmptoolkit</module>
         <module>utils</module>
-        <module>iMap</module>
+        <module>bgpPeeringMap</module>
         <module>iDiscover</module>
         <module>iTopologyManager</module>
         <module>distribution</module>

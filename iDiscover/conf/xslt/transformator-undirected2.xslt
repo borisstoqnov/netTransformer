@@ -29,7 +29,7 @@
                 <key id="hostname" for="node" attr.name="hostname" attr.type="string"/>
                 <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string"/>
                 <key id="deviceType" for="node" attr.name="deviceType" attr.type="string"/>
-                <key id="deviceInfo" for="node" attr.name="deviceInfo" attr.type="string"/>
+                <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string"/>
                 <key id="deviceStatus" for="node" attr.name="deviceStatus" attr.type="string"/>
                 <key id="ManagementIPAddress" for="node" attr.name="ManagementIPAddress" attr.type="string"/>
                 <key id="geoCoordinates" for="node" attr.name="geoCoordinates" attr.type="string"/>
@@ -106,7 +106,7 @@
                     <data key="ipv6Forwarding">
                         <xsl:value-of select="$ipv6Forwarding"/>
                     </data>
-                    <data key="deviceInfo" diffignore="YES">
+                    <data key="nodeInfo" diffignore="YES">
                         <xsl:text disable-output-escaping="yes">&lt;![CDATA[ &lt;html&gt;</xsl:text>
                         <xsl:text disable-output-escaping="yes">&lt;b&gt;Type: &lt;/b&gt;</xsl:text>
                         <xsl:value-of select="$deviceType"/>
@@ -194,7 +194,7 @@
                                         <xsl:value-of select="$node"/>
                                     </xsl:attribute>
                                     <data key="deviceStatus">passive</data>
-                                    <data key="deviceInfo">
+                                    <data key="nodeInfo">
                                         <xsl:value-of select="$node"/>
                                     </data>
                                     <data key="deviceModel">passiveHub</data>

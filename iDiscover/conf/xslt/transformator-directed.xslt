@@ -19,7 +19,7 @@
   -->
 
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">
-	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" cdata-section-elements="deviceInfo"/>
+	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" cdata-section-elements="nodeInfo"/>
 	<!--xsl:include href="utils.xslt"/-->
 	<xsl:template match="/">
 		<graphml>
@@ -28,7 +28,7 @@
                 <key id="hostname" for="node" attr.name="hostname" attr.type="string"/>
 				<key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string"/>
 				<key id="deviceType" for="node" attr.name="deviceType" attr.type="string"/>
-				<key id="deviceInfo" for="node" attr.name="deviceInfo" attr.type="string"/>
+				<key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string"/>
 				<key id="deviceStatus" for="node" attr.name="deviceStatus" attr.type="string"/>
 				<key id="ManagementIPAddress" for="node" attr.name="ManagementIPAddress" attr.type="string"/>
 				<key id="BGPLocalASInfo" for="node" attr.name="BGPLocalASInfo" attr.type="string"/>
@@ -92,7 +92,7 @@
 					<data key="site">
 						<xsl:value-of select="$siteID"/>
 					</data>
-					<data key="deviceInfo" diffignore="YES">
+					<data key="nodeInfo" diffignore="YES">
 						<xsl:text disable-output-escaping="yes">&lt;![CDATA[ &lt;html&gt;</xsl:text>
 						<xsl:text disable-output-escaping="yes">&lt;b&gt;Type: &lt;/b&gt;</xsl:text>
 						<xsl:value-of select="$deviceType"/>

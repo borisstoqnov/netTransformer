@@ -56,7 +56,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <finalName>imap</finalName>
+                            <finalName>bgpPeeringMap</finalName>
                             <filters>
                                 <filter>distribution/imap.properties</filter>
                             </filters>

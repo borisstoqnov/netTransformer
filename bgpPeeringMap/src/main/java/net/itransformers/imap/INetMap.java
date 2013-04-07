@@ -28,8 +28,8 @@ public class INetMap {
     static Logger logger = Logger.getLogger(INetMap.class);
     private static void printUsage(String param){
         System.out.println("Usage:   java net.itransformers.imap.INetMap -s <Path to settings.properties>");
-        System.out.println("Example [Windows]: java net.itransformers.imap.INetMap -s iMap\\conf\\imap.properties");
-        System.out.println("Example [Unix]: java net.itransformers.imap.INetMap -s iMap/conf/imap.properties");
+        System.out.println("Example [Windows]: java net.itransformers.imap.INetMap -s iMap\\conf\\bgpPeeringMap.properties");
+        System.out.println("Example [Unix]: java net.itransformers.imap.INetMap -s iMap/conf/bgpPeeringMap.properties");
         System.out.println("Missing parameter: "+param);
     }
     public static void main(String[] args) throws Exception {
@@ -38,7 +38,7 @@ public class INetMap {
         logger.info("input params"+params.toString());
         final String settingsFile = params.get("-s");
         if (settingsFile==null){
-            printUsage("imap.properties"); return;
+            printUsage("bgpPeeringMap.properties"); return;
         }
 
         Map<String, String> settings = loadProperties(new File(System.getProperty("base.dir"),settingsFile));

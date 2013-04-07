@@ -327,6 +327,17 @@
 
                                 <xsl:choose>
                                     <xsl:when test="$diffType='NO'">
+                                        <xsl:variable name="diffs">
+                                            <data>
+                                                <xsl:attribute name="key">diffs</xsl:attribute>
+                                                <!--xsl:value-of select="data[@key='nodeInfo']"/-->
+                                                <xsl:for-each select="data[@key and @diff]">&lt;br&gt;&lt;b&gt;&lt;i&gt;<xsl:value-of select="@key"/>
+                                                    <xsl:text>: </xsl:text>&lt;/i&gt;&lt;/b&gt;<xsl:value-of select="@diff"/>
+                                                    <xsl:text> - </xsl:text>
+                                                    <xsl:value-of select="."/>&lt;/br&gt;</xsl:for-each>
+                                            </data>
+                                        </xsl:variable>
+                                        <xsl:copy-of select="$diffs"/>
                                         <!-- no diffs -->
                                     </xsl:when>
                                     <xsl:otherwise>
@@ -341,6 +352,7 @@
                                         <xsl:variable name="diffs">
                                             <data>
                                                 <xsl:attribute name="key">diffs</xsl:attribute>
+                                                <!--xsl:value-of select="data[@key='nodeInfo']"/-->
                                                 <xsl:for-each select="data[@key and @diff]">&lt;br&gt;&lt;b&gt;&lt;i&gt;<xsl:value-of select="@key"/>
                                                     <xsl:text>: </xsl:text>&lt;/i&gt;&lt;/b&gt;<xsl:value-of select="@diff"/>
                                                     <xsl:text> - </xsl:text>
@@ -373,7 +385,7 @@
 									<xsl:attribute name="key">diff</xsl:attribute>
 									<xsl:value-of select="$diff"/>
 								</data>
-								<data><xsl:attribute name="key">diffs</xsl:attribute>Edge: <xsl:value-of select="$diff"/></data>	
+								<data><xsl:attribute name="key">diffs</xsl:attribute><!--<xsl:value-of select="data[@key='edgeTooltip']/>--> Edge: <xsl:value-of select="$diff"/></data>
 							</xsl:when>
 							<!--for those that has difference-->
 							<xsl:otherwise>
@@ -389,6 +401,7 @@
 										<xsl:variable name="diffs">
 											<data>
 												<xsl:attribute name="key">diffs</xsl:attribute>
+                                                <!--xsl:value-of select="data[@key='edgeTooltip']"/-->
 												<xsl:for-each select="data[@key and @diff]">&lt;br&gt;&lt;b&gt;&lt;i&gt;<xsl:value-of select="@key"/>
 													<xsl:text>: </xsl:text>&lt;/i&gt;&lt;/b&gt;<xsl:value-of select="@diff"/>
 													<xsl:text> - </xsl:text>

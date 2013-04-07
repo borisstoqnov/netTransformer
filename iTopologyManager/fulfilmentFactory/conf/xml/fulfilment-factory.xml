@@ -29,6 +29,11 @@
             <param name="cmd">enable IPv6</param>
             <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/enable-ipv6.txt</param>
         </type>
+        <type name="disableIPv6Routing" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">disable IPv6</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/disable-ipv6.txt</param>
+        </type>
+
         <type name="setDeviceAdminData" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">set Admin Data</param>
             <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/snmp-admin.txt</param>
@@ -42,6 +47,7 @@
     </fulfilment-factory-types>
     <fulfilment-factory name="set Hostname" resourceName="cisco" type="configureHostname" parameterFactoryName="configureHostname"/>
     <fulfilment-factory name="enable IPv6 Routing" resourceName="cisco" type="enableIPv6Routing" parameterFactoryName="enableIPv6Routing"/>
+    <fulfilment-factory name="disable IPv6 Routing" resourceName="cisco" type="disableIPv6Routing" parameterFactoryName="enableIPv6Routing"/>
     <fulfilment-factory name="set Device Admin data" resourceName="cisco" type="setDeviceAdminData" parameterFactoryName="setDeviceAdminData"/>
 
 </fulfilment-factories>

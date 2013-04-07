@@ -22,5 +22,5 @@
     <ignored-key name="countASTransitAppearances"/>
     <ignored-key name="countOriginatedPrefixes"/>
     <ignored-key name="description"/>
-    <ignored-key name="deviceInfo"/>
+    <ignored-key name="nodeInfo"/>
 </ignored-keys>
