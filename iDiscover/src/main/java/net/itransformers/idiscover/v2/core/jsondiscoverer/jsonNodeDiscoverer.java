@@ -36,6 +36,9 @@ package net.itransformers.idiscover.v2.core.jsondiscoverer;/*
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 import net.itransformers.idiscover.core.*;
 import net.itransformers.idiscover.discoverers.DefaultDiscovererFactory;
 import net.itransformers.idiscover.discoverers.SnmpWalker;
@@ -46,86 +49,128 @@ import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.resourcemanager.config.ResourceType;
 import org.apache.log4j.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.ws.rs.core.MediaType;
+import java.util.*;
 
 public class jsonNodeDiscoverer implements NodeDiscoverer {
     static Logger logger = Logger.getLogger(jsonNodeDiscoverer.class);
-    private SnmpWalker walker;
-    private XmlDiscoveryHelperFactory discoveryHelperFactory;
-    private String[] discoveryTypes;
-    private DiscoveryResourceManager discoveryResource;
+    String switchesUrl =null;
+    String devicesUrl =null;
+    String linksUrl=null;
+    public jsonNodeDiscoverer(Map<String, String> attributes) throws Exception {
 
-    public jsonNodeDiscoverer(Map<String, String> attributes, XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource) throws Exception {
-        this.discoveryHelperFactory = discoveryHelperFactory;
-        this.discoveryTypes = discoveryTypes;
-        this.discoveryResource = discoveryResource;
-        Resource resource = new Resource("", "", attributes);
-        walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
+        switchesUrl=attributes.get("switches");
+        devicesUrl=attributes.get("devices");
+        linksUrl=attributes.get("links");
+       // walker = (JsonDiscoverer) new DefaultDiscovererFactory().createDiscoverer(resource);
     }
 
     @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
-        NodeDiscoveryResult result = new NodeDiscoveryResult();
-
-        //esource resource = new Resource(params.get("ipAddress"),params.get("deviceType"),params);
-        String hostName = connectionDetails.getParam("host");
-        IPv4Address ipAddress = new IPv4Address(connectionDetails.getParam("ipAddress"), connectionDetails.getParam("netMask"));
-
-        Map<String,String> params1 = new HashMap<String, String>();
-        params1.put("DeviceName",hostName);
-        //params1.put("DeviceType",params.get("deviceType"));
-        params1.put("protocol","SNMP");
-
-        ResourceType SNMP = this.discoveryResource.ReturnResourceByParam(params1);
-        Map<String, String> SNMPconnParams;
-        SNMPconnParams = this.discoveryResource.getParamMap(SNMP);
-        Resource resource = new Resource(hostName,ipAddress,connectionDetails.getParam("deviceType"), Integer.parseInt(SNMPconnParams.get("port")), SNMPconnParams);
-
-        String devName = walker.getDeviceName(resource);
-        if (devName == null) {
-            logger.info("Device name is null for resource: "+resource);
-            return null;
-        }
-        if  (devName.contains(".")){
-            devName=devName.substring(0,devName.indexOf("."));
-        }
-        result.setNodeId(devName);
-        String deviceType = walker.getDeviceType(resource);
-        resource.setDeviceType(deviceType);
-        DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper(deviceType);
-        String[] requestParamsList = discoveryHelper.getRequestParams(discoveryTypes);
-
-        RawDeviceData rawData = walker.getRawDeviceData(resource, requestParamsList);
-        result.setDiscoveredData("rawData", rawData.getData());
-        DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
-        result.setDiscoveredData("deviceData", discoveredDeviceData);
-        Device device = discoveryHelper.createDevice(discoveredDeviceData);
-
-        List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
-
-        List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
-        result.setNeighboursConnectionDetails(neighboursConnDetails);
-        return result;
+        final String EntryPointUri = connectionDetails.getParam("protocol") +"://" + connectionDetails.getParam("ipAddress")  + ":" + connectionDetails.getParam("port");
+        getSwitchDetails(EntryPointUri);
+        getLinkDetails(EntryPointUri);
+        getDeviceDetails(EntryPointUri);
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    private List<ConnectionDetails> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
-        List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
-        for (DeviceNeighbour neighbour : neighbours) {
-            ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
-            neighbourConnectionDetails.put("deviceType",neighbour.getDeviceType());
-            if (neighbour.getStatus()){ // if reachable
-                neighbourConnectionDetails.put("host",neighbour.getHostName());
-                neighbourConnectionDetails.put("ipAddress",neighbour.getIpAddress().getIpAddress());
-                neighbourConnectionDetails.put("netMask",neighbour.getIpAddress().getNetMask());
-                neighbourConnectionDetails.put("community-ro",""+neighbour.getROCommunity());
-                neighbourConnectionDetails.setConnectionType("SNMP");
-                neighboursConnDetails.add(neighbourConnectionDetails);
-            }
+    private List<ConnectionDetails> getSwitchDetails(String nodeEntryPointUri ) {
+        final String switchesURL=nodeEntryPointUri+switchesUrl;
+        WebResource resource = Client.create()
+                .resource(switchesURL);
+        ClientResponse response = resource.accept("application/json")
+                .get(ClientResponse.class);
+
+        if (response.getStatus() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + response.getStatus());
         }
-        return neighboursConnDetails;
+        String output = response.getEntity(String.class);
+        System.out.println("Output from Server .... \n");
+        //System.out.println(output);
+        response.close();
+        try {
+            JSONArray json = (JSONArray)new JSONParser().parse(output);
+            for (int i=0; i<json.size();i++){
+                JSONObject temp = (JSONObject) json.get(i);
+                for (int j=0; j<temp.size();j++){
+                    System.out.println(json.get(i).toString() +"\n");
+
+                }
+
+
+            }
+
+            return null;
+        } catch (ParseException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            return null;
+        }
+    }
+
+    private List<ConnectionDetails> getLinkDetails(String nodeEntryPointUri ) {
+        final String linksURL=nodeEntryPointUri+ linksUrl;
+
+        WebResource resource = Client.create()
+                .resource(linksURL);
+        ClientResponse response = resource.accept("application/json")
+                .get(ClientResponse.class);
+
+        if (response.getStatus() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + response.getStatus());
+        }
+        String output = response.getEntity(String.class);
+        System.out.println("Output from Server .... \n");
+        System.out.println(output);
+        response.close();
+        try {
+            JSONArray json = (JSONArray)new JSONParser().parse(output);
+            for (int i=0; i<json.size();i++){
+                System.out.println(json.get(i).toString());
+            }
+            //    JSONArray ports = (JSONArray) json.get("ports");
+            //    JSONObject iAddress= (JSONObject)json.get("inetAddress");
+
+            return null;
+        } catch (ParseException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            return null;
+        }
+    }
+    private List<ConnectionDetails> getDeviceDetails(String nodeEntryPointUri ) {
+        final String linksURL=nodeEntryPointUri+ devicesUrl;
+
+        WebResource resource = Client.create()
+                .resource(linksURL);
+        ClientResponse response = resource.accept("application/json")
+                .get(ClientResponse.class);
+
+        if (response.getStatus() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + response.getStatus());
+        }
+        String output = response.getEntity(String.class);
+        System.out.println("Output from Server .... \n");
+        System.out.println(output);
+        response.close();
+        try {
+            JSONArray json = (JSONArray)new JSONParser().parse(output);
+            for (int i=0; i<json.size();i++){
+                System.out.println(json.get(i).toString());
+            }
+            //    JSONArray ports = (JSONArray) json.get("ports");
+            //    JSONObject iAddress= (JSONObject)json.get("inetAddress");
+
+            return null;
+        } catch (ParseException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            return null;
+        }
     }
 }

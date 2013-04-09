@@ -30,8 +30,8 @@
 
         <property name="nodeDiscoverers">
             <map>
-                <entry key="SNMP" value-ref="snmpNodeDiscoverer"/>
-                <!--<entry key="NET_CONF" value-ref="netConfNodeDiscoverer"/>-->
+                <!--entry key="SNMP" value-ref="snmpNodeDiscoverer"/-->
+                <entry key="REST" value-ref="jsonNodeDiscoverer"/>
             </map>
         </property>
         <property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>
@@ -61,6 +61,15 @@
         <constructor-arg ref="discoveryHelperFactory"/>
         <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,BGP,RIP,ADDITIONAL,IPV6"/>
         <constructor-arg ref="discoveryResourceManager"/>
+    </bean>
+    <bean id="jsonNodeDiscoverer" class="net.itransformers.idiscover.v2.core.jsondiscoverer.jsonNodeDiscoverer">
+        <constructor-arg>
+            <map>
+                <entry key="devices" value="/wm/device/"/>
+                <entry key="links" value="/wm/topology/links/json"/>
+                <entry key="switches" value="/wm/core/controller/switches/json"/>
+            </map>
+        </constructor-arg>
     </bean>
 
     <bean id="discoveryHelperFactory" class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">

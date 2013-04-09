@@ -17,13 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-/**
- * Created with IntelliJ IDEA.
- * User: LYCHO
- * Date: 12-6-28
- * Time: 19:57
- * To change this template use File | Settings | File Templates.
- */
 public class INetMap {
     static Logger logger = Logger.getLogger(INetMap.class);
     private static void printUsage(String param){

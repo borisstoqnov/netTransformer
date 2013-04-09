@@ -54,6 +54,7 @@
     <orderEntry type="library" name="Maven: org.apache.lucene:lucene-core:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-client:1.4" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.json.simple:json-simple:1.1.1" level="project" />
   </component>
 </module>
 
