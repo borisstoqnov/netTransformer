@@ -74,7 +74,9 @@ public class NetworkDiscoverer {
             if (initialNode != null) initialNode.addNeighbour(currentNode);
             List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
             logger.debug("Found Neighbours, connection details: "+neighboursConnectionDetails);
-            doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode, level+1, depth);
+            if (neighboursConnectionDetails !=null){
+                doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode, level+1, depth);
+            }
         }
     }
 

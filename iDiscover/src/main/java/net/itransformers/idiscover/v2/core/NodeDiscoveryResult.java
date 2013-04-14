@@ -74,7 +74,7 @@ public class NodeDiscoveryResult {
         return "NodeDiscoveryResult{" +
                 "nodeId='" + nodeId + '\'' +
                 ", neighboursConnectionDetails=" + neighboursConnectionDetails +
-                ", discoveredData=" + discoveredData +
+                ", discoveredData=" + discoveredData.toString() +
                 '}';
     }
 }

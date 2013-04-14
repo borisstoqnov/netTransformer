@@ -26,12 +26,12 @@
         <constructor-arg value="/Users/niau/trunk"/>
       </bean>
 
+
     <bean id="discovery" class="net.itransformers.idiscover.v2.core.NetworkDiscoverer">
 
         <property name="nodeDiscoverers">
             <map>
-                <!--entry key="SNMP" value-ref="snmpNodeDiscoverer"/-->
-                <entry key="REST" value-ref="jsonNodeDiscoverer"/>
+                <entry key="SNMP" value-ref="snmpNodeDiscoverer"/>
             </map>
         </property>
         <property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>
@@ -44,12 +44,45 @@
         </property>
     </bean>
 
+    <bean id="sdnDiscovery" class="net.itransformers.idiscover.v2.core.NetworkDiscoverer">
+
+        <property name="nodeDiscoverers">
+            <map>
+                <!--entry key="SNMP" value-ref="snmpNodeDiscoverer"/-->
+                <entry key="REST" value-ref="jsonNodeDiscoverer"/>
+            </map>
+        </property>
+        <property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>
+        <property name="nodeDiscoveryListeners">
+            <list>
+                <ref bean="sampleNodeDiscoveryListener"/>
+                <ref bean="rawDataFileLogDiscoveryListener"/>
+                <ref bean="sdnDeviceXmlFileLogDiscoveryListener"/>
+                <ref bean="sdnGraphmlFileLogDiscoveryListener"/>
+
+            </list>
+        </property>
+    </bean>
+
     <bean id="sampleNodeDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SampleNodeDiscoveryListener"/>
     <bean id="rawDataFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.RawDataFileLogDiscoveryListener">
-        <property name="baseDirName" value="c:/itransformer/net"/>
+        <property name="baseDirName" value="network"/>
     </bean>
+
+    <bean id="sdnGraphmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.sdnGraphmlFileLogDiscoveryListener">
+        <property name="graphmlDataDirName" value="network/undirected"/>
+        <property name="baseDirName" value="network"/>
+        <property name="floodLighGraphmlXsltTransformator" value="iDiscover/conf/xslt/floodLighGraphmlTransformator.xslt"/>
+    </bean>
+
+    <bean id="sdnDeviceXmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.sdnDeviceXmlFileLogDiscoveryListener">
+        <property name="deviceXmlDataDirName" value="device-data"/>
+        <property name="baseDirName" value="network"/>
+        <property name="deviceXmlXsltTransformator" value="iDiscover/conf/xslt/floodLightDeviceXmlTransformator.xslt"/>
+    </bean>
+
     <bean id="deviceDataFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.DeviceDataFileLogDiscoveryListener">
-        <property name="baseDirName" value="c:/itransformer/net"/>
+        <property name="baseDirName" value="network"/>
     </bean>
 
     <bean id="snmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.snmpdiscoverer.SnmpNodeDiscoverer">
@@ -68,8 +101,11 @@
                 <entry key="devices" value="/wm/device/"/>
                 <entry key="links" value="/wm/topology/links/json"/>
                 <entry key="switches" value="/wm/core/controller/switches/json"/>
+                <entry key="floodlightDeviceXmlXslt" value="iDiscover/conf/xslt/floodLightDeviceXmlTransformator.xslt"/>
+                <entry key="floodlightGraphmlXslt" value="iDiscover/conf/xslt/floodLighGraphmlTransformator.xslt"/>
             </map>
         </constructor-arg>
+
     </bean>
 
     <bean id="discoveryHelperFactory" class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">

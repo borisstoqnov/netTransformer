@@ -391,6 +391,58 @@
     <icon name="/images/76xx.png">
         <data key="deviceType">TELLABS</data>
     </icon>
+
+    <!--Arista-->
+    <icon name="/images/76xx.png,,/images/circle_red_big.png">
+        <data key="deviceType">Nicira Networks, Inc.</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/76xx.png,/images/circle_green_big.png">
+        <data key="deviceType">Nicira Networks, Inc.</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/76xx_ipv6.png,/images/circle_blue_big.png">
+        <data key="deviceType">Nicira Networks, Inc.</data>
+        <data key="diff">YES</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/76xx.png,/images/circle_blue_big.png">
+        <data key="deviceType">Nicira Networks, Inc.</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/76xx_ipv6.png">
+        <data key="deviceType">Nicira Networks, Inc.</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/76xx.png">
+        <data key="deviceType">Nicira Networks, Inc.</data>
+    </icon>
+
+    <!--unknownSDNhost-->
+    <icon name="/images/greendot.png,/images/circle_red.png">
+        <data key="deviceModel">SDN host</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/greendot.png,/images/circle_green.png">
+        <data key="deviceModel">SDN host</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/greendot.png,/images/circle_blue.png">
+        <data key="ipv6Forwarding">YES</data>
+        <data key="deviceModel">SDN host</data>
+        <data key="diff">YES</data>
+    </icon>
+
+    <icon name="/images/red_dot.png">
+        <data key="deviceModel">SDN host</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+
+    <icon name="/images/greendot.png">
+        <data key="deviceModel">unknownSDNhost</data>
+    </icon>
+
+
     <!--passive-hub-->
     <icon name="/images/cloud.png,/images/circle_red_big.png">
         <data key="deviceModel">passiveHub</data>
@@ -432,8 +484,8 @@
     <!--In this case is presented a physical view with devices that respond to SNMP-->
     <filter name="all">
         <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-        <!--include dataKey="deviceStatus" dataValue="initial" for="node"/-->
         <!--include dataKey="site" dataValue="" for="node"/-->
+        <include dataKey="method" dataValue="OpenFlow" for="edge"/>
         <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
         <include dataKey="method" dataValue="CDP" for="edge"/>
         <include dataKey="method" dataValue="LLDP" for="edge"/>
@@ -451,6 +503,7 @@
     <filter name="all+unreachable">
         <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
         <include dataKey="method" dataValue="CDP" for="edge"/>
+        <include dataKey="method" dataValue="OpenFlow" for="edge"/>
         <include dataKey="method" dataValue="LLDP" for="edge"/>
         <include dataKey="method" dataValue="Slash30" for="edge"/>
         <include dataKey="method" dataValue="Slash31" for="edge"/>
@@ -463,7 +516,12 @@
         <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
 
     </filter>
-
+    <filter name="sdn">
+        <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+        <include dataKey="method" dataValue="OpenFlow" for="edge"/>
+        <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+        <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+    </filter>
     <!--In this case is presented a view only in site with side-id = HP-->
 
     <filter name="diff">

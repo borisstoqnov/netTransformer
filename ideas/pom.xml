@@ -246,11 +246,11 @@
             <name>Spring Maven SNAPSHOT Repository</name>
             <url>http://repo.springsource.org/libs-milestone</url>
         </repository>
-        <repository>
+        <!--repository>
             <id>mvn-repo</id>
             <name>MVN repo</name>
             <url>http://mvnrepository.com/artifact/</url>
-        </repository>
+        </repository-->
 
 
     </repositories>

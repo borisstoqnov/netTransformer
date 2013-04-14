@@ -107,10 +107,10 @@
                     <url>http://repo.itransformers.net/repos/</url>
                 </repository>
                 <!--repository>
-                    <id>jung2</id>
+                    <id>json-lib</id>
                     <url>http://mvnrepository.com/artifact</url>
-                </repository>
-                <repository>
+                </repository-->
+                <!--repository>
                     <id>mibble</id>
                     <url>http://maven.cloudhopper.com/repos/third-party/</url>
                 </repository>
