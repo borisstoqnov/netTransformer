@@ -189,17 +189,7 @@ from the one obtained by snmp or other discovery methods.-->
                 </xsl:variable>
                 <parameter>
                     <name>Device Model</name>
-                    <value>
-                        <xsl:choose>
-                            <xsl:when test="$deviceType='CISCO'">
-                                <xsl:value-of select="SnmpForXslt:getSymbolByOid('CISCO-PRODUCTS-MIB', $oid)"/>
-                            </xsl:when>
-                            <xsl:when test="$deviceType='JUNIPER'">
-                                <xsl:value-of select="SnmpForXslt:getSymbolByOid('JUNIPER-CHASSIS-DEFINES-MIB', $oid)"/>
-                            </xsl:when>
-                            <xsl:otherwise>Unknown</xsl:otherwise>
-                        </xsl:choose>
-                    </value>
+                    <value><xsl:choose><xsl:when test="$deviceType='CISCO'"><xsl:value-of select="SnmpForXslt:getSymbolByOid('CISCO-PRODUCTS-MIB', $oid)"/></xsl:when><xsl:when test="$deviceType='JUNIPER'"><xsl:value-of select="SnmpForXslt:getSymbolByOid('JUNIPER-CHASSIS-DEFINES-MIB', $oid)"/></xsl:when><xsl:otherwise>Unknown</xsl:otherwise></xsl:choose></value>
                 </parameter>
                 <parameter>
                     <name>Management IP Address</name>
@@ -215,9 +205,7 @@ from the one obtained by snmp or other discovery methods.-->
                 </parameter>
                 <parameter>
                     <name>Device Model Oid</name>
-                    <value>
-                        <xsl:value-of select="$oid"/>
-                    </value>
+                    <value><xsl:value-of select="$oid"/></value>
                 </parameter>
                 <parameter>
                     <name>BGPLocalASInfo</name>

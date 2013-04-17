@@ -85,6 +85,8 @@ public class MibLoaderHolder {
             logger.error("Can not find symbol by OID, mibName="+mibName + ", oid="+oid);
             return null;
         }
+        logger.info(symbolByOid.getName());
+
         return symbolByOid.getName();
     }
     public static void main(String[] args) throws IOException, MibLoaderException {
