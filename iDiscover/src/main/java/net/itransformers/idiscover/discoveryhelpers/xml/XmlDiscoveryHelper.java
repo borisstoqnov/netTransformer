@@ -140,6 +140,7 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
             }
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
+            logger.error("Unable to parse device raw data xml:"+new String(rawData));
         }
     }
     public boolean checkStopCriteria(Resource host) {
