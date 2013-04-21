@@ -52,6 +52,9 @@ public class SnmpWalkerBase implements Discoverer {
                           MessageDispatcherAbstractFactory messageDispatcherFactory
     ) throws Exception {
         String mibDir = resource.getAttributes().get(MIB_DIR);
+        if (mibDir==null){
+            mibDir="snmptoolkit/mibs";
+        }
         holder = new MibLoaderHolder(new File(System.getProperty("base.dir"),mibDir), false);
         walker = new Walk(holder, transportFactory, messageDispatcherFactory);
         this.transportFactory = transportFactory;

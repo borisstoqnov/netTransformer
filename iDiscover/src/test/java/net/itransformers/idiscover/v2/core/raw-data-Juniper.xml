@@ -1,0 +1,592 @@
+<?xml version="1.0" ?>
+<root>
+<iso>
+	<std>
+		<iso8802>
+			<ieee802dot1>
+				<ieee802dot1mibs>
+					<lldpMIB>
+						<lldpObjects>
+							<lldpRemoteSystemsData>
+								<lldpRemTable>
+								</lldpRemTable>
+								<lldpRemManAddrTable>
+								</lldpRemManAddrTable>
+								<lldpRemUnknownTLVTable>
+								</lldpRemUnknownTLVTable>
+								<lldpRemOrgDefInfoTable>
+								</lldpRemOrgDefInfoTable>
+							</lldpRemoteSystemsData>
+						</lldpObjects>
+					</lldpMIB>
+				</ieee802dot1mibs>
+			</ieee802dot1>
+		</iso8802>
+	</std>
+	<org>
+		<dod>
+			<internet>
+				<mgmt>
+					<mib-2>
+						<system>
+							<sysDescr>Juniper Networks, Inc. olive internet router, kernel JUNOS 10.1R1.8 #0: 2010-02-12 17:15:05 UTC     builder@queth.juniper.net:/volume/build/junos/10.1/release/10.1R1.8/obj-i386/bsd/sys/compile/JUNIPER Build date: 2010-02-12 16:37:34 UTC Copyright (c) 199</sysDescr>
+							<sysObjectID>1.3.6.1.4.1.2636.1.1.1.2.1</sysObjectID>
+							<sysUpTime>
+							</sysUpTime>
+							<sysContact></sysContact>
+							<sysName>Juniper</sysName>
+							<sysLocation></sysLocation>
+							<sysServices>6</sysServices>
+							<sysORLastChange>19</sysORLastChange>
+							<sysORTable>
+							</sysORTable>
+						</system>
+						<interfaces>
+							<ifTable>
+								<ifEntry>
+									<instance>4</instance>
+									<index name="ifIndex">4</index>
+									<ifIndex>4</ifIndex>
+									<ifDescr>lsi</ifDescr>
+									<ifType>150</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>5</instance>
+									<index name="ifIndex">5</index>
+									<ifIndex>5</ifIndex>
+									<ifDescr>dsc</ifDescr>
+									<ifType>1</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>6</instance>
+									<index name="ifIndex">6</index>
+									<ifIndex>6</ifIndex>
+									<ifDescr>lo0</ifDescr>
+									<ifType>24</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>7</instance>
+									<index name="ifIndex">7</index>
+									<ifIndex>7</ifIndex>
+									<ifDescr>tap</ifDescr>
+									<ifType>1</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>8</instance>
+									<index name="ifIndex">8</index>
+									<ifIndex>8</ifIndex>
+									<ifDescr>gre</ifDescr>
+									<ifType>131</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>9</instance>
+									<index name="ifIndex">9</index>
+									<ifIndex>9</ifIndex>
+									<ifDescr>ipip</ifDescr>
+									<ifType>131</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>10</instance>
+									<index name="ifIndex">10</index>
+									<ifIndex>10</ifIndex>
+									<ifDescr>pime</ifDescr>
+									<ifType>131</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>11</instance>
+									<index name="ifIndex">11</index>
+									<ifIndex>11</ifIndex>
+									<ifDescr>pimd</ifDescr>
+									<ifType>131</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>12</instance>
+									<index name="ifIndex">12</index>
+									<ifIndex>12</ifIndex>
+									<ifDescr>mtun</ifDescr>
+									<ifType>131</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>16</instance>
+									<index name="ifIndex">16</index>
+									<ifIndex>16</ifIndex>
+									<ifDescr>lo0.0</ifDescr>
+									<ifType>24</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>17</instance>
+									<index name="ifIndex">17</index>
+									<ifIndex>17</ifIndex>
+									<ifDescr>em0</ifDescr>
+									<ifType>6</ifType>
+									<ifPhysAddress>08:00:27:c1:b7:3b</ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>18</instance>
+									<index name="ifIndex">18</index>
+									<ifIndex>18</ifIndex>
+									<ifDescr>em0.0</ifDescr>
+									<ifType>53</ifType>
+									<ifPhysAddress>08:00:27:c1:b7:3b</ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>21</instance>
+									<index name="ifIndex">21</index>
+									<ifIndex>21</ifIndex>
+									<ifDescr>lo0.16384</ifDescr>
+									<ifType>24</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>22</instance>
+									<index name="ifIndex">22</index>
+									<ifIndex>22</ifIndex>
+									<ifDescr>lo0.16385</ifDescr>
+									<ifType>24</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>501</instance>
+									<index name="ifIndex">501</index>
+									<ifIndex>501</ifIndex>
+									<ifDescr>cbp0</ifDescr>
+									<ifType>1</ifType>
+									<ifPhysAddress>00:05:86:71:0b:11</ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>502</instance>
+									<index name="ifIndex">502</index>
+									<ifIndex>502</ifIndex>
+									<ifDescr>demux0</ifDescr>
+									<ifType>1</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>505</instance>
+									<index name="ifIndex">505</index>
+									<ifIndex>505</ifIndex>
+									<ifDescr>irb</ifDescr>
+									<ifType>1</ifType>
+									<ifPhysAddress>00:05:86:71:0f:20</ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>506</instance>
+									<index name="ifIndex">506</index>
+									<ifIndex>506</ifIndex>
+									<ifDescr>pip0</ifDescr>
+									<ifType>1</ifType>
+									<ifPhysAddress>00:05:86:71:0e:e0</ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<instance>507</instance>
+									<index name="ifIndex">507</index>
+									<ifIndex>507</ifIndex>
+									<ifDescr>pp0</ifDescr>
+									<ifType>1</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+							</ifTable>
+						</interfaces>
+						<ip>
+							<ipAddrTable>
+								<ipAddrEntry>
+									<instance>127.0.0.1</instance>
+									<index name="ipAdEntAddr">127.0.0.1</index>
+									<ipAdEntAddr>127.0.0.1</ipAdEntAddr>
+									<ipAdEntIfIndex>21</ipAdEntIfIndex>
+									<ipAdEntNetMask>255.255.255.255</ipAdEntNetMask>
+									<ipAdEntBcastAddr>1</ipAdEntBcastAddr>
+									<ipAdEntReasmMaxSize>65535</ipAdEntReasmMaxSize>
+								</ipAddrEntry>
+								<ipAddrEntry>
+									<instance>128.0.0.4</instance>
+									<index name="ipAdEntAddr">128.0.0.4</index>
+									<ipAdEntAddr>128.0.0.4</ipAdEntAddr>
+									<ipAdEntIfIndex>22</ipAdEntIfIndex>
+									<ipAdEntNetMask>255.255.255.255</ipAdEntNetMask>
+									<ipAdEntBcastAddr>1</ipAdEntBcastAddr>
+									<ipAdEntReasmMaxSize>65535</ipAdEntReasmMaxSize>
+								</ipAddrEntry>
+								<ipAddrEntry>
+									<instance>192.168.2.10</instance>
+									<index name="ipAdEntAddr">192.168.2.10</index>
+									<ipAdEntAddr>192.168.2.10</ipAdEntAddr>
+									<ipAdEntIfIndex>18</ipAdEntIfIndex>
+									<ipAdEntNetMask>255.255.255.0</ipAdEntNetMask>
+									<ipAdEntBcastAddr>1</ipAdEntBcastAddr>
+									<ipAdEntReasmMaxSize>65535</ipAdEntReasmMaxSize>
+								</ipAddrEntry>
+								<ipAddrEntry>
+									<instance>192.168.10.10</instance>
+									<index name="ipAdEntAddr">192.168.10.10</index>
+									<ipAdEntAddr>192.168.10.10</ipAdEntAddr>
+									<ipAdEntIfIndex>18</ipAdEntIfIndex>
+									<ipAdEntNetMask>255.255.255.0</ipAdEntNetMask>
+									<ipAdEntBcastAddr>1</ipAdEntBcastAddr>
+									<ipAdEntReasmMaxSize>65535</ipAdEntReasmMaxSize>
+								</ipAddrEntry>
+								<ipAddrEntry>
+									<instance>192.168.250.1</instance>
+									<index name="ipAdEntAddr">192.168.250.1</index>
+									<ipAdEntAddr>192.168.250.1</ipAdEntAddr>
+									<ipAdEntIfIndex>16</ipAdEntIfIndex>
+									<ipAdEntNetMask>255.255.255.255</ipAdEntNetMask>
+									<ipAdEntBcastAddr>1</ipAdEntBcastAddr>
+									<ipAdEntReasmMaxSize>65535</ipAdEntReasmMaxSize>
+								</ipAddrEntry>
+							</ipAddrTable>
+							<ipRouteTable>
+							</ipRouteTable>
+							<ipNetToMediaTable>
+								<ipNetToMediaEntry>
+									<instance>18.192.168.2.3</instance>
+									<index name="ipNetToMediaIfIndex">18</index>
+									<index name="ipNetToMediaNetAddress">192.168.2.3</index>
+									<ipNetToMediaIfIndex>18</ipNetToMediaIfIndex>
+									<ipNetToMediaPhysAddress>32:39:33:96:90:76</ipNetToMediaPhysAddress>
+									<ipNetToMediaNetAddress>192.168.2.3</ipNetToMediaNetAddress>
+									<ipNetToMediaType>3</ipNetToMediaType>
+								</ipNetToMediaEntry>
+								<ipNetToMediaEntry>
+									<instance>18.192.168.2.10</instance>
+									<index name="ipNetToMediaIfIndex">18</index>
+									<index name="ipNetToMediaNetAddress">192.168.2.10</index>
+									<ipNetToMediaIfIndex>18</ipNetToMediaIfIndex>
+									<ipNetToMediaPhysAddress>08:00:27:c1:b7:3b</ipNetToMediaPhysAddress>
+									<ipNetToMediaNetAddress>192.168.2.10</ipNetToMediaNetAddress>
+									<ipNetToMediaType>4</ipNetToMediaType>
+								</ipNetToMediaEntry>
+								<ipNetToMediaEntry>
+									<instance>18.192.168.10.10</instance>
+									<index name="ipNetToMediaIfIndex">18</index>
+									<index name="ipNetToMediaNetAddress">192.168.10.10</index>
+									<ipNetToMediaIfIndex>18</ipNetToMediaIfIndex>
+									<ipNetToMediaPhysAddress>08:00:27:c1:b7:3b</ipNetToMediaPhysAddress>
+									<ipNetToMediaNetAddress>192.168.10.10</ipNetToMediaNetAddress>
+									<ipNetToMediaType>4</ipNetToMediaType>
+								</ipNetToMediaEntry>
+							</ipNetToMediaTable>
+							<ipForward>
+								<ipCidrRouteTable>
+									<ipCidrRouteEntry>
+										<instance>192.168.2.0.255.255.255.0.0.0.0.0.0</instance>
+										<index name="ipCidrRouteDest">192.168.2.0</index>
+										<index name="ipCidrRouteMask">255.255.255.0</index>
+										<index name="ipCidrRouteTos">0</index>
+										<index name="ipCidrRouteNextHop">0.0.0.0</index>
+										<ipCidrRouteNextHop>0.0.0.0</ipCidrRouteNextHop>
+										<ipCidrRouteIfIndex>18</ipCidrRouteIfIndex>
+										<ipCidrRouteType>3</ipCidrRouteType>
+										<ipCidrRouteProto>3</ipCidrRouteProto>
+										<ipCidrRouteNextHopAS>0</ipCidrRouteNextHopAS>
+									</ipCidrRouteEntry>
+									<ipCidrRouteEntry>
+										<instance>192.168.2.10.255.255.255.255.0.0.0.0.0</instance>
+										<index name="ipCidrRouteDest">192.168.2.10</index>
+										<index name="ipCidrRouteMask">255.255.255.255</index>
+										<index name="ipCidrRouteTos">0</index>
+										<index name="ipCidrRouteNextHop">0.0.0.0</index>
+										<ipCidrRouteNextHop>0.0.0.0</ipCidrRouteNextHop>
+										<ipCidrRouteIfIndex>0</ipCidrRouteIfIndex>
+										<ipCidrRouteType>3</ipCidrRouteType>
+										<ipCidrRouteProto>2</ipCidrRouteProto>
+										<ipCidrRouteNextHopAS>0</ipCidrRouteNextHopAS>
+									</ipCidrRouteEntry>
+									<ipCidrRouteEntry>
+										<instance>192.168.10.0.255.255.255.0.0.0.0.0.0</instance>
+										<index name="ipCidrRouteDest">192.168.10.0</index>
+										<index name="ipCidrRouteMask">255.255.255.0</index>
+										<index name="ipCidrRouteTos">0</index>
+										<index name="ipCidrRouteNextHop">0.0.0.0</index>
+										<ipCidrRouteNextHop>0.0.0.0</ipCidrRouteNextHop>
+										<ipCidrRouteIfIndex>18</ipCidrRouteIfIndex>
+										<ipCidrRouteType>3</ipCidrRouteType>
+										<ipCidrRouteProto>3</ipCidrRouteProto>
+										<ipCidrRouteNextHopAS>0</ipCidrRouteNextHopAS>
+									</ipCidrRouteEntry>
+									<ipCidrRouteEntry>
+										<instance>192.168.10.10.255.255.255.255.0.0.0.0.0</instance>
+										<index name="ipCidrRouteDest">192.168.10.10</index>
+										<index name="ipCidrRouteMask">255.255.255.255</index>
+										<index name="ipCidrRouteTos">0</index>
+										<index name="ipCidrRouteNextHop">0.0.0.0</index>
+										<ipCidrRouteNextHop>0.0.0.0</ipCidrRouteNextHop>
+										<ipCidrRouteIfIndex>0</ipCidrRouteIfIndex>
+										<ipCidrRouteType>3</ipCidrRouteType>
+										<ipCidrRouteProto>2</ipCidrRouteProto>
+										<ipCidrRouteNextHopAS>0</ipCidrRouteNextHopAS>
+									</ipCidrRouteEntry>
+									<ipCidrRouteEntry>
+										<instance>192.168.250.1.255.255.255.255.0.0.0.0.0</instance>
+										<index name="ipCidrRouteDest">192.168.250.1</index>
+										<index name="ipCidrRouteMask">255.255.255.255</index>
+										<index name="ipCidrRouteTos">0</index>
+										<index name="ipCidrRouteNextHop">0.0.0.0</index>
+										<ipCidrRouteNextHop>0.0.0.0</ipCidrRouteNextHop>
+										<ipCidrRouteIfIndex>16</ipCidrRouteIfIndex>
+										<ipCidrRouteType>3</ipCidrRouteType>
+										<ipCidrRouteProto>3</ipCidrRouteProto>
+										<ipCidrRouteNextHopAS>0</ipCidrRouteNextHopAS>
+									</ipCidrRouteEntry>
+									<ipCidrRouteEntry>
+										<instance>224.0.0.5.255.255.255.255.0.0.0.0.0</instance>
+										<index name="ipCidrRouteDest">224.0.0.5</index>
+										<index name="ipCidrRouteMask">255.255.255.255</index>
+										<index name="ipCidrRouteTos">0</index>
+										<index name="ipCidrRouteNextHop">0.0.0.0</index>
+										<ipCidrRouteNextHop>0.0.0.0</ipCidrRouteNextHop>
+										<ipCidrRouteIfIndex>0</ipCidrRouteIfIndex>
+										<ipCidrRouteType>1</ipCidrRouteType>
+										<ipCidrRouteProto>13</ipCidrRouteProto>
+										<ipCidrRouteNextHopAS>0</ipCidrRouteNextHopAS>
+									</ipCidrRouteEntry>
+								</ipCidrRouteTable>
+							</ipForward>
+						</ip>
+						<ospf>
+							<ospfGeneralGroup>
+								<ospfRouterId>192.168.250.1</ospfRouterId>
+								<ospfAdminStat>1</ospfAdminStat>
+								<ospfVersionNumber>2</ospfVersionNumber>
+								<ospfAreaBdrRtrStatus>2</ospfAreaBdrRtrStatus>
+								<ospfASBdrRtrStatus>2</ospfASBdrRtrStatus>
+							</ospfGeneralGroup>
+							<ospfAreaTable>
+								<ospfAreaEntry>
+									<instance>0.0.0.0</instance>
+									<index name="ospfAreaId">0.0.0.0</index>
+									<ospfAreaId>0.0.0.0</ospfAreaId>
+									<ospfAuthType>0</ospfAuthType>
+									<ospfImportAsExtern>1</ospfImportAsExtern>
+									<ospfSpfRuns>3</ospfSpfRuns>
+									<ospfAreaBdrRtrCount>0</ospfAreaBdrRtrCount>
+									<ospfAsBdrRtrCount>0</ospfAsBdrRtrCount>
+									<ospfAreaLsaCount>1</ospfAreaLsaCount>
+									<ospfAreaLsaCksumSum>6375</ospfAreaLsaCksumSum>
+									<ospfAreaSummary>2</ospfAreaSummary>
+									<ospfAreaStatus>1</ospfAreaStatus>
+								</ospfAreaEntry>
+							</ospfAreaTable>
+							<ospfIfTable>
+							</ospfIfTable>
+							<ospfNbrTable>
+							</ospfNbrTable>
+						</ospf>
+						<bgp>
+							<bgpLocalAs>0</bgpLocalAs>
+							<bgpPeerTable>
+							</bgpPeerTable>
+						</bgp>
+						<dot1dBridge>
+							<dot1dBase>
+								<dot1dBaseNumPorts>0</dot1dBaseNumPorts>
+								<dot1dBasePortTable>
+								</dot1dBasePortTable>
+							</dot1dBase>
+							<dot1dStp>
+								<dot1dStpDesignatedRoot>0</dot1dStpDesignatedRoot>
+								<dot1dStpPortTable>
+								</dot1dStpPortTable>
+							</dot1dStp>
+							<dot1dTp>
+								<dot1dTpFdbTable>
+								</dot1dTpFdbTable>
+							</dot1dTp>
+							<qBridgeMIB>
+								<qBridgeMIBObjects>
+									<dot1qVlan>
+										<dot1qVlanStaticTable>
+										</dot1qVlanStaticTable>
+									</dot1qVlan>
+								</qBridgeMIBObjects>
+							</qBridgeMIB>
+						</dot1dBridge>
+						<rip2>
+							<rip2IfStatTable>
+							</rip2IfStatTable>
+							<rip2IfConfTable>
+							</rip2IfConfTable>
+						</rip2>
+						<ifMIB>
+							<ifMIBObjects>
+								<ifXTable>
+									<ifXEntry>
+										<instance>4</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>5</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>6</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>7</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>8</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>9</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>10</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>11</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>12</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>16</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>17</instance>
+										<ifHighSpeed>1000</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>18</instance>
+										<ifHighSpeed>1000</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>21</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>22</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>501</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>502</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>505</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>506</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance>507</instance>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+								</ifXTable>
+							</ifMIBObjects>
+						</ifMIB>
+						<ipv6MIB>
+							<ipv6MIBObjects>
+								<ipv6Forwarding>1</ipv6Forwarding>
+								<ipv6IfTable>
+								</ipv6IfTable>
+								<ipv6AddrTable>
+									<ipv6AddrEntry>
+										<instance>22.254.128.0.0.0.0.0.0.10.0.39.255.254.193.183.59</instance>
+										<index name="ipv6IfIndex">22</index>
+										<index name="ipv6AddrAddress">22.254.128.0.0.0.0.0.0.10.0.39.255.254.193.183</index>
+										<ipv6AddrPfxLength>128</ipv6AddrPfxLength>
+										<ipv6AddrType>2</ipv6AddrType>
+										<ipv6AddrAnycastFlag>2</ipv6AddrAnycastFlag>
+										<ipv6AddrStatus>1</ipv6AddrStatus>
+									</ipv6AddrEntry>
+								</ipv6AddrTable>
+								<ipv6RouteTable>
+								</ipv6RouteTable>
+								<ipv6NetToMediaTable>
+								</ipv6NetToMediaTable>
+							</ipv6MIBObjects>
+						</ipv6MIB>
+						<isisMIB>
+							<isisObjects>
+								<isisISAdj>
+									<isisISAdjIPAddrTable>
+									</isisISAdjIPAddrTable>
+								</isisISAdj>
+							</isisObjects>
+						</isisMIB>
+					</mib-2>
+				</mgmt>
+				<experimental>
+					<mplsLsrMIB>
+						<mplsLsrObjects>
+							<mplsInterfaceConfTable>
+							</mplsInterfaceConfTable>
+						</mplsLsrObjects>
+					</mplsLsrMIB>
+					<mplsVpnMIB>
+						<mplsVpnObjects>
+							<mplsVpnConf>
+								<mplsVpnVrfTable>
+								</mplsVpnVrfTable>
+							</mplsVpnConf>
+						</mplsVpnObjects>
+					</mplsVpnMIB>
+				</experimental>
+			</internet>
+		</dod>
+	</org>
+</iso>
+</root>

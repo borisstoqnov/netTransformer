@@ -21,8 +21,8 @@ import net.itransformers.topologyviewer.fulfilmentfactory.impl.CLIInterface
 
 def execute(CLIInterface cli, Map<String, String> params){
     println params["username"]
-    //cli.open()
-    //cli.readUntil('(login:|user:|Username:)',3)
-    //cli.sendData(params["username"])
-    //cli.close()
+    cli.open()
+    cli.readUntil('(login:|user:|Username:)',3)
+    cli.sendData(params["username"])
+    cli.close()
 }

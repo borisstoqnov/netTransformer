@@ -90,9 +90,9 @@ public class MibLoaderHolder {
         return symbolByOid.getName();
     }
     public static void main(String[] args) throws IOException, MibLoaderException {
-        String oid = "1.3.6.1.4.1.9.1.574";
+        String oid = "1.3.6.1.4.1.2636.1.1.1.2.1";
         MibLoaderHolder holder = new MibLoaderHolder(new File("snmptoolkit/mibs"), false);
-        System.out.println(holder.getSymbolByOid( "CISCO-PRODUCTS-MIB", oid));
+        System.out.println(holder.getSymbolByOid( "JUNIPER-CHASSIS-DEFINES-MIB", oid));
     }
     public static void main1(String[] args) throws IOException {
         String[] mibFiles = new String[]{"CISCO-CDP-MIB"};

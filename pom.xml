@@ -40,7 +40,7 @@
         <module>iDiscover</module>
         <module>iTopologyManager</module>
         <module>distribution</module>
-        <module>wsitransformer</module>
+        <!--module>wsitransformer</module-->
         <module>ideas</module>
     </modules>
 

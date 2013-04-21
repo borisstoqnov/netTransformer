@@ -290,7 +290,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <parameter>
                                     <name>ifIndex</name>
                                     <value>
-                                        <xsl:value-of select="ifIndex"/>
+                                        <xsl:value-of select="$ifIndex"/>
                                     </value>
                                 </parameter>
                                 <parameter>
@@ -309,14 +309,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 </parameter>
                                 <parameter>
                                     <name>ifSpeed</name>
-                                    <value>
-                                        <xsl:variable name="speed" select="//root/iso/org/dod/internet/mgmt/mib-2/ifMIB/ifMIBObjects/ifXTable[instance=$ifIndex]/ifHighSpeed"/>
-                                        <xsl:choose>
-                                            <xsl:when test="$speed = 0">0</xsl:when>
-                                            <xsl:otherwise><xsl:value-of select="$speed"/></xsl:otherwise>
-                                        </xsl:choose>
-
-                                    </value>
+                                    <value><xsl:value-of select="//root/iso/org/dod/internet/mgmt/mib-2/ifMIB/ifMIBObjects/ifXTable[instance=$ifIndex]/ifHighSpeed"/></value>
                                 </parameter>
                                 <parameter>
                                     <name>ifAdminStatus</name>
@@ -392,6 +385,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                             <parameter>
                                                 <name>ipv4Subnet</name>
                                                 <value>
+
                                                     <xsl:call-template name="get-network-range">
                                                         <xsl:with-param name="ip-address" select="$ipAdEntAddr"/>
                                                         <xsl:with-param name="subnet-mask" select="$ipAdEntNetMask"/>
@@ -433,11 +427,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                     <xsl:for-each
                                             select="//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6AddrTable/ipv6AddrEntry[index=$ifIndex]/instance">
                                         <xsl:variable name="instance" select="substring-after(.,'.')"/>
-                                        <xsl:variable name="ipAdEntAddr">
-                                            <xsl:for-each select="tokenize($instance,'\.')">
-                                                <xsl:value-of select="functx:decimal-to-hex(xs:integer(.))"/>.
-                                            </xsl:for-each>
-                                        </xsl:variable>
+                                        <xsl:variable name="ipAdEntAddr"><xsl:for-each select="tokenize($instance,'\.')"><xsl:value-of select="functx:decimal-to-hex(xs:integer(.))"/>.</xsl:for-each></xsl:variable>
                                         <!--<xsl:variable name="fr" select="()"/>-->
                                         <!--<xsl:variable name="to" select="(':')"/>-->
                                         <!--<xsl:variable name="ipAddr" select="functx:replace-multi($ipAdEntAddr,$fr,$to)" />-->

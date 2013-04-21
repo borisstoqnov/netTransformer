@@ -66,12 +66,12 @@ public class GroovyCLIFulfilmentImpl implements Fulfilment {
 
 
     public static void main(String[] args) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        TelnetCLIInterface cli1 = new TelnetCLIInterface("10.10.10.10", "user", "pass!", "hostname#", 1000, Logger.getAnonymousLogger());
+        TelnetCLIInterface cli1 = new TelnetCLIInterface("10.11.12.100", "user", "pass!", "hostname#", 1000, Logger.getAnonymousLogger());
         //cli1.open();
         GroovyCLIFulfilmentImpl ful = new GroovyCLIFulfilmentImpl(cli1);
         Map<String,String> params = new HashMap<String, String>();
-        params.put("username","user");
-        params.put("password","pass!");
+        params.put("username","itransformer");
+        params.put("password","kuchogon");
         params.put("site","hostname");
         ful.execute("iTopologyManager/fulfilmentFactory/src/main/resources/groovy/test.groovy",params);
         cli1.close();
