@@ -39,7 +39,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.FileInputStream;
@@ -48,7 +47,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class RawDataTransformerTestCase implements NodeDiscoverer{
+public class RawDataTransformerTestCase {
     static Logger logger = Logger.getLogger(SnmpNodeDiscoverer.class);
     private SnmpWalker walker;
     private String[] discoveryTypes = new String[5];
@@ -58,13 +57,9 @@ public class RawDataTransformerTestCase implements NodeDiscoverer{
     @Before
     public void setUp() throws Exception {
         XmlDiscoveryHelperFactory discoveryHelperFactory = null;
-        try {
-            Map<String, String> params1 = new HashMap<String, String>();
-            params1.put("fileName", "iDiscover/conf/xml/discoveryParameters.xml");
-            discoveryHelperFactory = new XmlDiscoveryHelperFactory(params1);
-        } catch (JAXBException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        Map<String, String> params1 = new HashMap<String, String>();
+        params1.put("fileName", "iDiscover/conf/xml/discoveryParameters.xml");
+        discoveryHelperFactory = new XmlDiscoveryHelperFactory(params1);
         discoveryTypes[0] = DiscoveryTypes.ADDITIONAL;
         Map<String, String> resourceParams = new HashMap<String, String>();
         resourceParams.put("community", "itransformer-r");
@@ -83,17 +78,19 @@ public class RawDataTransformerTestCase implements NodeDiscoverer{
     }
     @Test
     public void testDoTransform() throws TransformerException, IOException, SAXException, ParserConfigurationException {
-        discover(null);
+        new NodeDiscoverer(){
+            @Override
+            public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
+                NodeDiscoveryResult result = new NodeDiscoveryResult();
+                //String devName = walker.getDeviceName(resource);
+                result.setNodeId(resource.getHost());
+                result.setDiscoveredData("rawData", rawdata.getData());
+                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource);
+                result.setDiscoveredData("deviceData", discoveredDeviceData);
+                return result;
+            }
+        }.discover(null);
     }
 
-    @Override
-    public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
-        NodeDiscoveryResult result = new NodeDiscoveryResult();
-        //String devName = walker.getDeviceName(resource);
-        result.setNodeId(resource.getHost());
-        result.setDiscoveredData("rawData", rawdata.getData());
-        DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource);
-        result.setDiscoveredData("deviceData", discoveredDeviceData);
-        return result;    }
 }
 

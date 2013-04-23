@@ -46,6 +46,7 @@ public class MibLoaderHolder {
         });
         if (files == null) {
             logger.error("Can not load mib files from dir: "+mibDir);
+            throw new IOException("Can not load mib files from dir: "+mibDir.getAbsolutePath());
         }
         for (File file : files) {
             try {
