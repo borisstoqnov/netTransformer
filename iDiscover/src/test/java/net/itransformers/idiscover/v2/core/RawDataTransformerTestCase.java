@@ -35,10 +35,12 @@ import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.snmpdiscoverer.SnmpNodeDiscoverer;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
+import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.FileInputStream;
@@ -48,7 +50,6 @@ import java.util.Map;
 
 
 public class RawDataTransformerTestCase {
-    static Logger logger = Logger.getLogger(SnmpNodeDiscoverer.class);
     private SnmpWalker walker;
     private String[] discoveryTypes = new String[5];
     private DiscoveryHelper discoveryHelper;
@@ -57,21 +58,26 @@ public class RawDataTransformerTestCase {
     @Before
     public void setUp() throws Exception {
         XmlDiscoveryHelperFactory discoveryHelperFactory = null;
-        Map<String, String> params1 = new HashMap<String, String>();
-        params1.put("fileName", "iDiscover/conf/xml/discoveryParameters.xml");
-        discoveryHelperFactory = new XmlDiscoveryHelperFactory(params1);
+        try {
+            Map<String, String> params1 = new HashMap<String, String>();
+//            String baseDir = (String) System.getProperties().get("basedir");
+            params1.put("fileName", "/Users/niau/trunk/iDiscover/src/test/resources/discoveryParameters.xml");
+            discoveryHelperFactory = new XmlDiscoveryHelperFactory(params1);
+        } catch (JAXBException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
         discoveryTypes[0] = DiscoveryTypes.ADDITIONAL;
         Map<String, String> resourceParams = new HashMap<String, String>();
         resourceParams.put("community", "itransformer-r");
         resourceParams.put("community2", "itransformer-rw");
         resourceParams.put("version", "1");
-        resourceParams.put("mibDir", "snmptoolkit/mibs");
+        resourceParams.put("mibDir", "../snmptoolkit/mibs");
         resource = new Resource("juniper", "1.1.1.1", resourceParams);
         resource.setDeviceType("JUNIPER");
         walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
         discoveryHelper = discoveryHelperFactory.createDiscoveryHelper("JUNIPER");
 
-        FileInputStream is = new FileInputStream("iDiscover/src/test/java/net/itransformers/idiscover/v2/core/raw-data-Juniper.xml");
+        FileInputStream is = new FileInputStream("src/test/resources/raw-data-Juniper.xml");
         byte[] data = new byte[is.available()];
         is.read(data);
         rawdata.setData(data);
@@ -90,6 +96,7 @@ public class RawDataTransformerTestCase {
                 return result;
             }
         }.discover(null);
+        //Assert.assertEquals("a", "a");
     }
 
 }

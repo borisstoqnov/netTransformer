@@ -42,6 +42,6 @@ public class AboutMenuHandler implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(frame,"Topology viewer","About", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frame,"http://itransformers.net","About", JOptionPane.INFORMATION_MESSAGE);
     }
 }

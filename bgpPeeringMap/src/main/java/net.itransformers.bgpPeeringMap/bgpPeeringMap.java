@@ -79,26 +79,30 @@ public class bgpPeeringMap {
         File rawDataFile = new File(outputDir, "raw-data-bgpPeeringMap.xml");
         FileUtils.writeStringToFile(rawDataFile,new String(rawData));
 
-        logger.info("Raw-data written to a file");
-        logger.info("First-transformation has started");
+        logger.info("Raw-data written to a file in folder "+outputDir);
+        logger.info("First-transformation has started with xsltTransformator "+settings.get("xsltFileName1"));
 
         ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
         File xsltFileName1 = new File(System.getProperty("base.dir"), settings.get("xsltFileName1"));
         ByteArrayInputStream inputStream1 = new ByteArrayInputStream(rawData);
         transformer.transformXML(inputStream1, xsltFileName1, outputStream1, settings, null);
         logger.info("First transformation finished");
-        logger.info("Second transformation started");
+        logger.debug("First transformation result");
+        logger.debug(outputStream1.toString());
+        logger.info("Second transformation started with xsltTransformator "+settings.get("xsltFileName2"));
 
         ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
         File xsltFileName2 = new File(System.getProperty("base.dir"), settings.get("xsltFileName2"));
         ByteArrayInputStream inputStream2 = new ByteArrayInputStream(outputStream1.toByteArray());
         transformer.transformXML(inputStream2, xsltFileName2, outputStream2, settings, null);
-        logger.info("Second transformation finished");
+        logger.info("Second transformation info");
+        logger.debug("Second transformation Graphml output");
+        logger.debug(outputStream2.toString());
 
         File outputFile = new File(graphmlDir, "bgpPeeringMap.graphml");
         File nodesFileListFile = new File(graphmlDir, "nodes-file-list.txt");
         FileUtils.writeStringToFile(outputFile, new String(outputStream2.toByteArray()));
-        logger.info("Second transformation finished");
+        logger.info("Output Graphml saved in a file in"+graphmlDir);
 
         FileUtils.writeStringToFile(nodesFileListFile, "bgpPeeringMap.graphml");
 
@@ -131,13 +135,15 @@ public class bgpPeeringMap {
         String version = settings.get("version") == null ? "2c" : settings.get("version");
         int retriesInt = settings.get("retries") == null ? 3 : Integer.parseInt(settings.get("retries"));
         int timeoutInt = settings.get("timeout") == null ? 1200 : Integer.parseInt(settings.get("timeout"));
-        int maxrepetitions = settings.get("max-repetitions") == null ? 65535 : Integer.parseInt(settings.get("timeout"));
+        int maxrepetitions = settings.get("max-repetitions") == null ? 100 : Integer.parseInt(settings.get("max-repetitions"));
+        int nonrepeaters = settings.get("non-repeaters") == null ?  10 : Integer.parseInt(settings.get("max-repetitions"));
+
 
         parameters.put(SnmpConfigurator.O_VERSION, Arrays.asList(version));
         parameters.put(SnmpConfigurator.O_TIMEOUT, Arrays.asList(timeoutInt));
         parameters.put(SnmpConfigurator.O_RETRIES, Arrays.asList(retriesInt));
         parameters.put(SnmpConfigurator.O_MAX_REPETITIONS, Arrays.asList(maxrepetitions));
-
+        parameters.put(SnmpConfigurator.O_NON_REPEATERS,Arrays.asList(nonrepeaters));
         Node root = walker.walk(params, parameters);
         String xml = Walk.printTreeAsXML(root);
         return xml.getBytes();

@@ -54,7 +54,7 @@
                             <configuration>
                                 <descriptors>
                                     <descriptor>distribution/itransformer.xml</descriptor>
-                                    <descriptor>distribution/imap.xml</descriptor>
+                                    <descriptor>distribution/bgpPeeringMap.xml</descriptor>
                                 </descriptors>
                             </configuration>
                             <executions>
@@ -127,7 +127,7 @@
                 <dependency>
                     <groupId>junit</groupId>
                     <artifactId>junit</artifactId>
-                    <version>4.8.2</version>
+                    <version>3.8.1</version>
                 </dependency>
 
                 <dependency>
@@ -150,5 +150,4 @@
                     </exclusions>
                 </dependency>
             </dependencies>
-
 </project>

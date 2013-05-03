@@ -58,10 +58,10 @@
                         <configuration>
                             <finalName>bgpPeeringMap</finalName>
                             <filters>
-                                <filter>distribution/imap.properties</filter>
+                                <filter>distribution/bgpPeeringMap.properties</filter>
                             </filters>
                             <descriptors>
-                                <descriptor>distribution/imap.xml</descriptor>
+                                <descriptor>distribution/bgpPeeringMap.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </execution>
@@ -109,7 +109,7 @@
                             <dir>${basedir}</dir>
                             <includes>
                                 <include>itransformer.xml</include>
-                                <include>imap.xml</include>
+                                <include>bgpPeeringMap.xml</include>
                             </includes>
                             <stylesheet>assembly.xslt</stylesheet>
                             <outputProperties>

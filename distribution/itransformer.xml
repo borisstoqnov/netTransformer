@@ -92,6 +92,7 @@
                     <fileSet>
                         <directory>conf/bat</directory>
                         <outputDirectory>bin</outputDirectory>
+                        <fileMode>0755</fileMode>
                         <filtered>true</filtered>
                     </fileSet>
                 </fileSets>
@@ -222,6 +223,7 @@
                     <fileSet>
                         <directory>conf/bat</directory>
                         <outputDirectory>bin</outputDirectory>
+                        <fileMode>0755</fileMode>
                     </fileSet>
                     <fileSet>
                         <directory>mibs</directory>
@@ -286,7 +288,7 @@
             <outputDirectory>bin</outputDirectory>
         </file>
         <file>
-            <source>../imap.txt</source>
+            <source>../bgpPeeringMap.txt</source>
             <outputDirectory>bin</outputDirectory>
         </file>
     </files>

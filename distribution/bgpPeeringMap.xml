@@ -69,19 +69,20 @@
 
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
-                <include>iTransformers.iTransformer:iMap</include>
+                <include>iTransformers.iTransformer:bgpPeeringMap</include>
             </includes>
             <sources>
                 <includeModuleDirectory>false</includeModuleDirectory>
                 <fileSets>
                     <fileSet>
                         <directory>conf</directory>
-                        <outputDirectory>bgpPeeringMap/conf</outputDirectory>
+                        <outputDirectory>bin/bgpPeeringMap/conf</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/bat</directory>
                         <outputDirectory>bin</outputDirectory>
-                        <filtered>true</filtered>
+                        <filtered>false</filtered>
+                        <fileMode>0755</fileMode>
                     </fileSet>
                 </fileSets>
             </sources>
@@ -117,7 +118,7 @@
                 <include>iTransformers.iTransformer.iTopologyManager:topologyManagerConfig</include>
                 <include>iTransformers.iTransformer.iTopologyManager:rightClick</include>
                 <include>iTransformers.iTransformer.iTopologyManager:rightClickAPI</include>
-                <include>iTransformers.iTransformer:iMap</include>
+                <include>iTransformers.iTransformer:bgpPeeringMap</include>
             </includes>
             <binaries>
                 <outputDirectory>lib/</outputDirectory>

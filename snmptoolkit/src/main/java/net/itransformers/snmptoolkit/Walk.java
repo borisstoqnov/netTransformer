@@ -292,6 +292,7 @@ public class Walk {
         sb.append("<root>\n");
         printTreeAsXML(node, "", sb);
         sb.append("</root>");
+        logger.debug(sb.toString());
         return sb.toString();
     }
 
@@ -311,9 +312,12 @@ public class Walk {
             sb.append(vb);
             sb.append(String.format("</%s>", tagName));
             sb.append('\n');
+            logger.debug(sb.toString());
         } else {
             if (node.getTable() != null) {
                 printNodeTableAsXML(node, tabs, sb);
+                logger.debug(sb.toString());
+
             } else {
                 StringBuilder sb1 = new StringBuilder();
                 for (Node child : node.getChildren()) {
@@ -348,6 +352,7 @@ public class Walk {
             sbTable.append(String.format("%s</%s>", tabs, tagName));
             sbTable.append('\n');
             sb.append(sbTable);
+            logger.debug(sbTable.toString());
         }
     }
 
@@ -438,6 +443,7 @@ public class Walk {
                             }
                         }
                     } catch (RuntimeException e) {
+                        logger.debug(sb.toString());
                         logger.error(e.getMessage(),e);
                     }
                 }
