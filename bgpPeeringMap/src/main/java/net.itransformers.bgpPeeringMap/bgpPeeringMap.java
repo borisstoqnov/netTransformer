@@ -1,4 +1,23 @@
-package net.itransformers.imap;
+/*
+ * iTransformer is an open source tool able to discover and transform
+ *  IP network infrastructures.
+ *  Copyright (C) 2012  http://itransformers.net
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package net.itransformers.bgpPeeringMap;
 
 import net.itransformers.snmptoolkit.MibLoaderHolder;
 import net.itransformers.snmptoolkit.Node;
@@ -17,11 +36,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class INetMap {
-    static Logger logger = Logger.getLogger(INetMap.class);
+public class bgpPeeringMap {
+    static Logger logger = Logger.getLogger(bgpPeeringMap.class);
     private static void printUsage(String param){
-        System.out.println("Usage:   java net.itransformers.imap.INetMap -s <Path to settings.properties>");
-        System.out.println("Example [Windows]: java net.itransformers.imap.INetMap -s iMap\\conf\\bgpPeeringMap.properties");
+        System.out.println("Usage:   java net.itransformers.bgpPeeringMap.bgpPeeringMap -s <Path to bgpPeeringMap.properties>");
+        System.out.println("Example [Windows]: java net.itransformers.bgpPeeringMap.bgpPeeringMap -s bgpPeeringMap\\conf\\bgpPeeringMap.properties");
         System.out.println("Example [Unix]: java net.itransformers.imap.INetMap -s iMap/conf/bgpPeeringMap.properties");
         System.out.println("Missing parameter: "+param);
     }
@@ -54,26 +73,34 @@ public class INetMap {
 //        }
 
         XsltTransformer transformer = new XsltTransformer();
+        logger.info("SNMP walk start");
         byte[] rawData = snmpWalk(settings);
-        File rawDataFile = new File(outputDir, "raw-data.xml");
+        logger.info("SNMP walk end");
+        File rawDataFile = new File(outputDir, "raw-data-bgpPeeringMap.xml");
         FileUtils.writeStringToFile(rawDataFile,new String(rawData));
 
+        logger.info("Raw-data written to a file");
+        logger.info("First-transformation has started");
 
         ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
         File xsltFileName1 = new File(System.getProperty("base.dir"), settings.get("xsltFileName1"));
         ByteArrayInputStream inputStream1 = new ByteArrayInputStream(rawData);
         transformer.transformXML(inputStream1, xsltFileName1, outputStream1, settings, null);
+        logger.info("First transformation finished");
+        logger.info("Second transformation started");
 
         ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
         File xsltFileName2 = new File(System.getProperty("base.dir"), settings.get("xsltFileName2"));
         ByteArrayInputStream inputStream2 = new ByteArrayInputStream(outputStream1.toByteArray());
         transformer.transformXML(inputStream2, xsltFileName2, outputStream2, settings, null);
+        logger.info("Second transformation finished");
 
-        File outputFile = new File(graphmlDir, "imap.graphml");
+        File outputFile = new File(graphmlDir, "bgpPeeringMap.graphml");
         File nodesFileListFile = new File(graphmlDir, "nodes-file-list.txt");
         FileUtils.writeStringToFile(outputFile, new String(outputStream2.toByteArray()));
+        logger.info("Second transformation finished");
 
-        FileUtils.writeStringToFile(nodesFileListFile, "imap.graphml");
+        FileUtils.writeStringToFile(nodesFileListFile, "bgpPeeringMap.graphml");
 
     }
 
