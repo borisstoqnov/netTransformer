@@ -45,13 +45,15 @@
 				<key id="prefix" for="edge" attr.name="prefix" attr.type="string"/>
 				<key id="color" for="edge" attr.name="color" attr.type="string"/>
 				<key id="weigth" for="edge" attr.name="weigth" attr.type="string"/>
-				
+				<xsl:variable name="asNumberess" select="document($as-numbers)/root/AS"/>
+
 				<xsl:for-each select="distinct-values($root//prefix/ASes/AS)">
 					<xsl:variable name="AS" select="."/>
 					<xsl:variable name="asCount" select="count($root//prefix/ASes[AS=$AS])"/>
-					<xsl:variable name="description" select="document($as-numbers)/root/AS[number=concat('AS',$AS)]/description"/>
+					<xsl:variable name="description" select="$asNumberess[number=concat('AS',$AS)]/description"/>
 					<xsl:variable name="countOriginatedPrefixes" select="count($root//prefix[lastAS=$AS])"/>
 					<xsl:variable name="countASTransitAppearances" select="count($root//prefix/ASes[AS=$AS]/..[lastAS!=$AS])"/>
+                    <xsl:variable name="node">
 					<node>
 						<xsl:attribute name="id"><xsl:value-of select="$AS"/></xsl:attribute>
 						<data key="AS">YES</data>
@@ -94,38 +96,77 @@
 						</data>
                         <data key="RoutePrefixes"><xsl:copy-of select="$RoutePrefixes"/></data>
 					</node>
-				</xsl:for-each>
-				<xsl:for-each select="distinct-values(/root//prefix/ASes/AS)">
-					<xsl:variable name="AS" select="."/>
-					<xsl:variable name="nextASes" select="$root//prefix/ASes/AS[.=$AS]/following-sibling::AS[1]"/>
-					<xsl:for-each select="distinct-values($nextASes)">
-						<xsl:variable name="nextAS" select="."/>					
-						<xsl:variable name="weigth"><xsl:value-of select="distinct-values($nextASes[. = $nextAS]/@weigth)[1]"/></xsl:variable>
-						<edge>
-							<xsl:attribute name="id"><xsl:value-of select="$AS"/><xsl:text>-</xsl:text><xsl:value-of select="$nextAS"/></xsl:attribute>
-							<xsl:attribute name="source"><xsl:value-of select="$AS"/></xsl:attribute>
-							<xsl:attribute name="target"><xsl:value-of select="$nextAS"/></xsl:attribute>
-							<data key="weigth">
-								<xsl:value-of select="$weigth"/>
-							</data>
-							<data key="edgeID">
-								<xsl:value-of select="$AS"/>
-								<xsl:text>-</xsl:text>
-								<xsl:value-of select="."/>
-							</data>
-							<data key="edge">YES</data>
-							<data key="color">
-							<xsl:choose>
-								<xsl:when test="$weigth=2">FF0000</xsl:when>
-								<xsl:when test="$weigth=1">0000FF</xsl:when>
-								<xsl:when test="$weigth=3">FFFFFF</xsl:when>
-								<xsl:otherwise>000000</xsl:otherwise>
-							</xsl:choose>
-							
-							</data>
-						</edge>
-					</xsl:for-each>
-				</xsl:for-each>
+                    </xsl:variable>
+                    <xsl:message><xsl:copy-of select="$node"/></xsl:message>
+                    <!--xsl:message>Done! <xsl:value-of  select="current-dateTime()"/></xsl:message-->
+                    <xsl:copy-of select="$node"/>
+
+                    <xsl:variable name="nextASes" select="$root//prefix/ASes/AS[.=$AS]/following-sibling::AS[1]"/>
+                    <xsl:for-each select="distinct-values($nextASes)">
+                        <xsl:variable name="nextAS" select="."/>
+                        <xsl:variable name="weigth"><xsl:value-of select="distinct-values($nextASes[. = $nextAS]/@weigth)[1]"/></xsl:variable>
+                        <xsl:variable name="edge">
+                        <edge>
+                            <xsl:attribute name="id"><xsl:value-of select="$AS"/><xsl:text>-</xsl:text><xsl:value-of select="$nextAS"/></xsl:attribute>
+                            <xsl:attribute name="source"><xsl:value-of select="$AS"/></xsl:attribute>
+                            <xsl:attribute name="target"><xsl:value-of select="$nextAS"/></xsl:attribute>
+                            <data key="weigth">
+                                <xsl:value-of select="$weigth"/>
+                            </data>
+                            <data key="edgeID">
+                                <xsl:value-of select="$AS"/>
+                                <xsl:text>-</xsl:text>
+                                <xsl:value-of select="."/>
+                            </data>
+                            <data key="edge">YES</data>
+                            <data key="color">
+                                <xsl:choose>
+                                    <xsl:when test="$weigth=2">FF0000</xsl:when>
+                                    <xsl:when test="$weigth=1">0000FF</xsl:when>
+                                    <xsl:when test="$weigth=3">FFFFFF</xsl:when>
+                                    <xsl:otherwise>000000</xsl:otherwise>
+                                </xsl:choose>
+
+                            </data>
+                        </edge>
+                        </xsl:variable>
+                        <xsl:message><xsl:copy-of select="$edge"/></xsl:message>
+                        <!--xsl:message>Done <xsl:value-of  select="current-dateTime()"/> </xsl:message-->
+                        <xsl:copy-of select="$edge"/>
+                    </xsl:for-each>
+                </xsl:for-each>
+				<!--<xsl:for-each select="distinct-values(/root//prefix/ASes/AS)">-->
+					<!--<xsl:variable name="AS" select="."/>-->
+					<!--<xsl:variable name="nextASes" select="$root//prefix/ASes/AS[.=$AS]/following-sibling::AS[1]"/>-->
+					<!--<xsl:for-each select="distinct-values($nextASes)">-->
+						<!--<xsl:variable name="nextAS" select="."/>-->
+						<!--<xsl:variable name="weigth"><xsl:value-of select="distinct-values($nextASes[. = $nextAS]/@weigth)[1]"/></xsl:variable>-->
+						<!--<edge>-->
+							<!--<xsl:attribute name="id"><xsl:value-of select="$AS"/><xsl:text>-</xsl:text><xsl:value-of select="$nextAS"/></xsl:attribute>-->
+							<!--<xsl:attribute name="source"><xsl:value-of select="$AS"/></xsl:attribute>-->
+							<!--<xsl:attribute name="target"><xsl:value-of select="$nextAS"/></xsl:attribute>-->
+							<!--<data key="weigth">-->
+								<!--<xsl:value-of select="$weigth"/>-->
+							<!--</data>-->
+							<!--<data key="edgeID">-->
+								<!--<xsl:value-of select="$AS"/>-->
+								<!--<xsl:text>-</xsl:text>-->
+								<!--<xsl:value-of select="."/>-->
+							<!--</data>-->
+							<!--<data key="edge">YES</data>-->
+							<!--<data key="color">-->
+							<!--<xsl:choose>-->
+								<!--<xsl:when test="$weigth=2">FF0000</xsl:when>-->
+								<!--<xsl:when test="$weigth=1">0000FF</xsl:when>-->
+								<!--<xsl:when test="$weigth=3">FFFFFF</xsl:when>-->
+								<!--<xsl:otherwise>000000</xsl:otherwise>-->
+							<!--</xsl:choose>-->
+
+							<!--</data>-->
+						<!--</edge>-->
+                        <!--<xsl:message>Edge id: <xsl:value-of select="$AS"/><xsl:text>-</xsl:text><xsl:value-of select="$nextAS"/> done! </xsl:message>-->
+					<!--</xsl:for-each>-->
+				<!--</xsl:for-each>-->
 			</graph>
 		</graphml>
 	</xsl:template>
