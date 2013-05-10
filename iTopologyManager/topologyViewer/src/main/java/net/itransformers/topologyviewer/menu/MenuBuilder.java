@@ -43,8 +43,8 @@ public class MenuBuilder {
         createDiscoveryMenu(frame, menuBar);
         createGraphToolsMenu(frame, menuBar);
         createWindowMenu(frame, menuBar);
+        createLayoutsMenu(frame,menuBar);
         createHelpMenu(frame, menuBar);
-
         return menuBar;
     }
 
@@ -76,8 +76,31 @@ public class MenuBuilder {
         closeAll.addActionListener(new CloseAllMenuHandler(frame));
         tabs.add(closeAll);
     }
+    private void createLayoutsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
+        final JMenu layoutMenu = new JMenu("Layout");
+        menuBar.add(layoutMenu);
+        final JMenuItem FRLayout = new JMenuItem("FR Layout");
+        FRLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"FRLayout"));
+        layoutMenu.add(FRLayout);
+        final JMenuItem KKLayout = new JMenuItem("KK Layout");
+        KKLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"KKLayout"));
+        layoutMenu.add(KKLayout);
+        final JMenuItem CircleLayout = new JMenuItem("Circle Layout");
+        CircleLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"CircleLayout"));
+        layoutMenu.add(CircleLayout);
+        final JMenuItem SpringLayout = new JMenuItem("Spring Layout");
+        SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"SpringLayout"));
+        layoutMenu.add(SpringLayout);
+        final JMenuItem ISOMLayout = new JMenuItem("ISOM Layout");
+        SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"ISOMLayout"));
+        layoutMenu.add(ISOMLayout);
 
-    private void createGraphToolsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
+
+
+
+
+    }
+        private void createGraphToolsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu graphTools = new JMenu("GraphTools");
         menuBar.add(graphTools);
 
@@ -88,6 +111,10 @@ public class MenuBuilder {
 
         final JMenu search = new JMenu("Node Search");
         graphTools.add(search);
+
+        final JMenu rank = new JMenu("Ranking Algorithms");
+        graphTools.add(rank);
+
 
         final JMenuItem searchByNameCurrent = new JMenuItem("Search by Name CurrentGraph");
         searchByNameCurrent.addActionListener(new SearchByNameCurrGraphMenuHandler(frame));

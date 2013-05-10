@@ -19,6 +19,9 @@
 
 package net.itransformers.topologyviewer.gui;
 
+import edu.uci.ics.jung.algorithms.layout.*;
+import edu.uci.ics.jung.algorithms.layout.SpringLayout;
+import edu.uci.ics.jung.algorithms.scoring.PageRank;
 import edu.uci.ics.jung.visualization.renderers.DefaultVertexLabelRenderer;
 import edu.uci.ics.jung.visualization.renderers.VertexLabelRenderer;
 import net.itransformers.topologyviewer.config.*;
@@ -26,9 +29,6 @@ import net.itransformers.topologyviewer.rightclick.RightClickInvoker;
 import edu.uci.ics.jung.algorithms.filters.EdgePredicateFilter;
 import edu.uci.ics.jung.algorithms.filters.KNeighborhoodFilter;
 import edu.uci.ics.jung.algorithms.filters.VertexPredicateFilter;
-import edu.uci.ics.jung.algorithms.layout.FRLayout;
-import edu.uci.ics.jung.algorithms.layout.GraphElementAccessor;
-import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.algorithms.shortestpath.BFSDistanceLabeler;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.io.GraphMLMetadata;
@@ -73,13 +73,15 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
     private File graphmlDir;
     private String initialNode;
     private JFrame parent;
+    private String layout;
+
 
     public GraphViewerPanel(JFrame parent, TopologyViewerConfType viewerConfig,
                             GraphmlLoader<G> graphmlLoader,
                             IconMapLoader iconMapLoader,
                             EdgeStrokeMapLoader edgeStrokeMapLoader,
                             EdgeColorMapLoader edgeColorMapLoader,
-                            G entireGraph, File path, File versionDir,File graphmlDir, String initialNode) {
+                            G entireGraph, File path, File versionDir,File graphmlDir, String initialNode, String layout) {
         super();
         this.parent = parent;
         this.viewerConfig = viewerConfig;
@@ -90,6 +92,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
         this.initialNode = initialNode;
         this.path = path;
         this.deviceXmlPath = versionDir;
+        this.layout=layout;
         vv = new MyVisualizationViewer(viewerConfig, entireGraph,
             graphmlLoader.getVertexMetadatas(),
             graphmlLoader.getEdgeMetadatas(),
@@ -624,7 +627,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
         KNeighborhoodFilter<String, String> f = new KNeighborhoodFilter<String,String>(set, hops == null ? 0 : hops, KNeighborhoodFilter.EdgeType.IN_OUT);
         currentGraph = (G) f.transform(graph2);
 
-        vv.setGraphLayout(createLayout(currentGraph));
+        vv.setGraphLayout(createLayout(currentGraph,layout));
 
     }
 
@@ -642,13 +645,31 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
         KNeighborhoodFilter<String, String> f = new KNeighborhoodFilter<String,String>(set,hops, KNeighborhoodFilter.EdgeType.IN_OUT);
         currentGraph = (G) f.transform(graph2);
 
-        vv.setGraphLayout(createLayout(currentGraph));
+        vv.setGraphLayout(createLayout(currentGraph,layout));
         vv.repaint();
         vv.setDoubleBuffered(true);
     }
+    public void changeLayout(){
+        vv.setGraphLayout(createLayout(currentGraph,layout));
+        vv.repaint();
 
-    private Layout createLayout(G graph){
-        PersistentLayoutImpl test =  new PersistentLayoutImpl(new FRLayout<String,String>(graph));
+    }
+    private Layout createLayout(G graph, String layout){
+        PersistentLayout test = null;
+        if (layout.equals("CircleLayout")){
+            test =  new PersistentLayoutImpl(new CircleLayout<String,String>(graph));
+        }  else if (layout.equals("KKLayout")){
+            test =  new PersistentLayoutImpl(new KKLayout<String,String>(graph));
+        }  else if (layout.equals("SpringLayout")){
+            test =  new PersistentLayoutImpl(new SpringLayout<String,String>(graph));
+        }  else if (layout.equals("SpringLayout2")){
+            test =  new PersistentLayoutImpl(new SpringLayout2<String,String>(graph));
+        }  else if (layout.equals("ISOMLayout")){
+            test =  new PersistentLayoutImpl(new ISOMLayout<String,String>(graph));
+        }  else {
+            test =  new PersistentLayoutImpl(new FRLayout<String,String>(graph));
+        }
+//        PersistentLayoutImpl test =  new PersistentLayoutImpl(new DAGLayout<String,String>(graph));
         int vertexCount = currentGraph.getVertexCount();
 //        final ScalingControl scaler = new CrossoverScalingControl();
         final double nodeDensity = 0.0001;
@@ -829,6 +850,10 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
     }
     public File getVersionDir() {
         return versionDir;
+    }
+    public void setLayout(String layout){
+        this.layout=layout;
+
     }
 
     class MyDefaultVertexLaberRenderer extends DefaultVertexLabelRenderer

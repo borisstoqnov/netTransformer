@@ -51,6 +51,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private JFrame frame;
     private File graphmlsFile;
     private final File versionDir;
+    private String layout;
 
     public GraphViewerPanelManager(JFrame frame, File projectPath, File graphmlsFile, Factory<G> factory, JTabbedPane tabbedPane, GraphType graphType) throws Exception {
         this.frame = frame;
@@ -68,9 +69,8 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
         entireGraph = factory.create();
         String fName;
         fName = new File("iTopologyManager/topologyViewer/conf/xml/viewer-config.xml").toString();
-
         viewerConfig = ViewerConfigLoader.loadViewerConfig(new File(this.projectPath, fName));
-
+        this.layout="FRLayout";
         init();
 
 //        this.configFile = configFile;
@@ -96,7 +96,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     }
 
     private GraphViewerPanel createViewerPanel() {
-        return new GraphViewerPanel<G>(frame, viewerConfig, graphmlLoader, iconMapLoader, edgeStrokeMapLoader, edgeColorMapLoader, entireGraph, projectPath,versionDir, graphmlDir, initialNode);
+        return new GraphViewerPanel<G>(frame, viewerConfig, graphmlLoader, iconMapLoader, edgeStrokeMapLoader, edgeColorMapLoader, entireGraph, projectPath,versionDir, graphmlDir, initialNode,layout);
     }
 
     public void init() throws JAXBException, ParserConfigurationException, SAXException, IOException {
