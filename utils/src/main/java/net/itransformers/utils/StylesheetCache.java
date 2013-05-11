@@ -19,6 +19,8 @@
 
 package net.itransformers.utils;
 
+import net.sf.saxon.TransformerFactoryImpl;
+
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
@@ -85,6 +87,7 @@ public class StylesheetCache {
             Source xslSource = new StreamSource(xsltFile);
 
             TransformerFactory transFact = TransformerFactory.newInstance();
+            ((TransformerFactoryImpl) transFact).getConfiguration().setMessageEmitterClass(Log4jEmitter.class.getName());
             Templates templates = transFact.newTemplates(xslSource);
 
             entry = new MapEntry(xslLastModified, templates);
