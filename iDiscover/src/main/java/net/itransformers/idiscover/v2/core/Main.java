@@ -48,7 +48,8 @@ public class Main {
     public static void main(String[] args) {
         Map<String, String> params = CmdLineParser.parseCmdLine(args);
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("discovery.xml","connectionsDetails.xml");
-        NetworkDiscoverer discoverer = applicationContext.getBean("sdnDiscovery", NetworkDiscoverer.class);
+     //   NetworkDiscoverer discoverer = applicationContext.getBean("sdnDiscovery", NetworkDiscoverer.class);
+        NetworkDiscoverer discoverer = applicationContext.getBean("bgpPeeringMapDiscovery", NetworkDiscoverer.class);
         String connectionDetailsFileName = params.get("-f");
         List connectionList = (List) applicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
         String depthCmdArg = params.get("-d");

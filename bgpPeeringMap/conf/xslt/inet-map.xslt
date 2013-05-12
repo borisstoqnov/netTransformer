@@ -97,7 +97,8 @@
                         <data key="RoutePrefixes"><xsl:copy-of select="$RoutePrefixes"/></data>
 					</node>
                     </xsl:variable>
-                    <xsl:message><xsl:copy-of select="$node"/></xsl:message>
+                    <xsl:message>DEBUG:<xsl:value-of select="$AS"/></xsl:message>
+                    <xsl:message>TRACE:<xsl:copy-of select="$node"/></xsl:message>
                     <!--xsl:message>Done! <xsl:value-of  select="current-dateTime()"/></xsl:message-->
                     <xsl:copy-of select="$node"/>
 
@@ -130,7 +131,8 @@
                             </data>
                         </edge>
                         </xsl:variable>
-                        <xsl:message><xsl:copy-of select="$edge"/></xsl:message>
+                        <xsl:message>DEBUG:<xsl:value-of select="$AS"/><xsl:text>-</xsl:text><xsl:value-of select="$nextAS"/>/></xsl:message>
+                        <xsl:message>TRACE:<xsl:copy-of select="$edge"/></xsl:message>
                         <!--xsl:message>Done <xsl:value-of  select="current-dateTime()"/> </xsl:message-->
                         <xsl:copy-of select="$edge"/>
                     </xsl:for-each>

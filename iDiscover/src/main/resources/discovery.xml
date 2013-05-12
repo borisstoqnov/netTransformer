@@ -44,6 +44,22 @@
         </property>
     </bean>
 
+    <bean id="bgpPeeringMapDiscovery" class="net.itransformers.idiscover.v2.core.NetworkDiscoverer">
+
+        <property name="nodeDiscoverers">
+            <map>
+                <entry key="SNMP" value-ref="bgpSnmpNodeDiscoverer"/>
+            </map>
+        </property>
+        <property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>
+        <property name="nodeDiscoveryListeners">
+            <list>
+                <ref bean="sampleNodeDiscoveryListener"/>
+                <ref bean="rawDataFileLogDiscoveryListener"/>
+            </list>
+        </property>
+    </bean>
+
     <bean id="sdnDiscovery" class="net.itransformers.idiscover.v2.core.NetworkDiscoverer">
 
         <property name="nodeDiscoverers">
@@ -93,6 +109,16 @@
         </constructor-arg>
         <constructor-arg ref="discoveryHelperFactory"/>
         <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,BGP,RIP,ADDITIONAL,IPV6"/>
+        <constructor-arg ref="discoveryResourceManager"/>
+    </bean>
+    <bean id="bgpSnmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.snmpdiscoverer.SnmpNodeDiscoverer">
+        <constructor-arg>
+            <map>
+                <entry key="mibDir" value="snmptoolkit/mibs"/>
+            </map>
+        </constructor-arg>
+        <constructor-arg ref="discoveryHelperFactory"/>
+        <constructor-arg value="sysName,bgpLocalAs,bgpPeerEntry,bgp4PathAttrEntry"/>
         <constructor-arg ref="discoveryResourceManager"/>
     </bean>
     <bean id="jsonNodeDiscoverer" class="net.itransformers.idiscover.v2.core.jsondiscoverer.jsonNodeDiscoverer">

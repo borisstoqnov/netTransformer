@@ -666,7 +666,9 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
             test =  new PersistentLayoutImpl(new SpringLayout2<String,String>(graph));
         }  else if (layout.equals("ISOMLayout")){
             test =  new PersistentLayoutImpl(new ISOMLayout<String,String>(graph));
-        }  else {
+        }  else if (layout.equals("FRLayout2")){
+            test =  new PersistentLayoutImpl(new FRLayout2<String,String>(graph));
+        }   else{
             test =  new PersistentLayoutImpl(new FRLayout<String,String>(graph));
         }
 //        PersistentLayoutImpl test =  new PersistentLayoutImpl(new DAGLayout<String,String>(graph));

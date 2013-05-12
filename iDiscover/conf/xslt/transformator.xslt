@@ -98,6 +98,7 @@ from the one obtained by snmp or other discovery methods.-->
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
+        <xsl:message>DEBUG:<xsl:value-of select="$hostname"/></xsl:message>
         <xsl:variable name="sysDescr">
             <xsl:value-of select="//root/iso/org/dod/internet/mgmt/mib-2/system/sysDescr"/>
         </xsl:variable>
@@ -277,6 +278,7 @@ from the one obtained by snmp or other discovery methods.-->
                 <xsl:variable name="ifType">
                     <xsl:value-of select="ifType"/>
                 </xsl:variable>
+                <xsl:message>TRACE:>ifDescr<xsl:value-of select="$ifDescr"/> ifIndex<xsl:value-of select="$ifIndex"/> ifType <xsl:value-of select="$ifType"/></xsl:message>
                 <!-- Neighbors and IP addresses are obtained only for the interfaces that are up and running.
 If the Admin status is UP and Operational is down the interface is marked as Cable CUT !-->
                 <xsl:choose>
@@ -357,7 +359,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                     </xsl:for-each>
                                 </ipv4>
                             </xsl:variable>
-
+                            <xsl:message>TRACE:ipv4Addresses<xsl:value-of select="$ipv4Addresses"/>/<xsl:value-of select="ipAdEntNetMask"/></xsl:message>
                             <xsl:for-each select="$ipv4Addresses/ipv4/ipv4addr">
                                 <xsl:variable name="ipAdEntAddr" select="ipAdEntAddr"/>
                                 <xsl:variable name="ipAdEntNetMask" select="ipAdEntNetMask"/>
@@ -421,6 +423,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                             <xsl:with-param name="ipv6AddrAnycastFlag" select="$ipv6AddrAnycastFlag"/>
                                             <xsl:with-param name="ipv6AddrStatus" select="$ipv6AddrStatus"/>
                                         </xsl:call-template>
+                                        <xsl:message>TRACE:ipAdEntAddr<xsl:value-of select="$ipAdEntAddr"/>/<xsl:value-of select="$ipv6AddrPfxLength"/> </xsl:message>
                                     </xsl:for-each>
                                 </xsl:when>
                                 <xsl:otherwise>

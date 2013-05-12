@@ -82,6 +82,10 @@ public class MenuBuilder {
         final JMenuItem FRLayout = new JMenuItem("FR Layout");
         FRLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"FRLayout"));
         layoutMenu.add(FRLayout);
+        final JMenuItem FRLayout2 = new JMenuItem("FR Layout2");
+        FRLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"FRLayout2"));
+        layoutMenu.add(FRLayout2);
+
         final JMenuItem KKLayout = new JMenuItem("KK Layout");
         KKLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"KKLayout"));
         layoutMenu.add(KKLayout);
