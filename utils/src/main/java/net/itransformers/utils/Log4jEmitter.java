@@ -81,6 +81,12 @@ public class Log4jEmitter extends Emitter {
                 logger.debug(msg);
             } else if (levelStr.equals("ERROR")) {
                 logger.error(msg);
+            } else if (levelStr.equals("WARN")) {
+                logger.warn(msg);
+            } else if (levelStr.equals("TRACE")) {
+                logger.trace(msg);
+            } else if (levelStr.equals("FATAL")) {
+                logger.fatal(msg);
             } else {
                 logger.debug(msg);
             }
