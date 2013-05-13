@@ -496,6 +496,10 @@
         <include dataKey="method" dataValue="Slash31" for="edge"/>
         <include dataKey="method" dataValue="OSPF" for="edge"/>
         <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
+        <include dataKey="method" dataValue="r_ISIS" for="edge"/>
+        <include dataKey="method" dataValue="r_OSPF" for="edge"/>
+        <include dataKey="method" dataValue="r_STATIC_ROUTE" for="edge"/>
+
         <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
         <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
     </filter>
@@ -512,6 +516,10 @@
         <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
         <include dataKey="method" dataValue="c_OSPF" for="edge"/>
         <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+        <include dataKey="method" dataValue="r_ISIS" for="edge"/>
+        <include dataKey="method" dataValue="r_OSPF" for="edge"/>
+        <include dataKey="method" dataValue="r_STATIC_ROUTE" for="edge"/>
+
         <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
         <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
 
@@ -530,12 +538,16 @@
         <include dataKey="method" dataValue="CDP" for="edge"/>
         <include dataKey="method" dataValue="LLDP" for="edge"/>
         <include dataKey="method" dataValue="MAC" for="edge"/>
-        <include dataKey="method" dataValue="c_OSPF" for="edge"/>
-        <include dataKey="method" dataValue="c_ISIS" for="edge"/>
         <include dataKey="method" dataValue="Slash30" for="edge"/>
         <include dataKey="method" dataValue="Slash31" for="edge"/>
         <include dataKey="method" dataValue="OSPF" for="edge"/>
         <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
+        <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+        <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+        <include dataKey="method" dataValue="r_ISIS" for="edge"/>
+        <include dataKey="method" dataValue="r_OSPF" for="edge"/>
+        <include dataKey="method" dataValue="r_STATIC_ROUTE" for="edge"/>
+
         <tooltip dataKey="diffs" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
         <tooltip dataKey="diffs" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
 
@@ -551,6 +563,10 @@
         <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
         <include dataKey="method" dataValue="c_OSPF" for="edge"/>
         <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+        <include dataKey="method" dataValue="r_ISIS" for="edge"/>
+        <include dataKey="method" dataValue="r_OSPF" for="edge"/>
+        <include dataKey="method" dataValue="r_STATIC_ROUTE" for="edge"/>
+
         <tooltip dataKey="diffs" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
         <tooltip dataKey="diffs" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
     </filter>
@@ -566,8 +582,15 @@
         <include dataKey="method" dataValue="MAC" for="edge"/>
         <include dataKey="method" dataValue="OSPF" for="edge"/>
         <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
+
         <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+
         <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+        <include dataKey="method" dataValue="r_ISIS" for="edge"/>
+        <include dataKey="method" dataValue="r_OSPF" for="edge"/>
+        <include dataKey="method" dataValue="r_STATIC_ROUTE" for="edge"/>
+
+
         <tooltip dataKey="nodeInfo" for="node"/>
         <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
 

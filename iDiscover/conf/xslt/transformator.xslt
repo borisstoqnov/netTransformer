@@ -464,8 +464,8 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 </xsl:for-each>
                                 <!--Check for NEXT-HOP neighbors-->
                                 <xsl:call-template name="nextHop">
-                                    <xsl:with-param name="ifNextHops"
-                                                    select="//root/iso/org/dod/internet/mgmt/mib-2/ip/ipRouteTable/ipRouteEntry[ipRouteIfIndex=$ifIndex]/ipRouteNextHop"/>
+                                    <xsl:with-param name="ipRouteTable"
+                                                    select="//root/iso/org/dod/internet/mgmt/mib-2/ip/ipRouteTable/ipRouteEntry[ipRouteIfIndex=$ifIndex]"/>
                                     <xsl:with-param name="sysName" select="$sysName"/>
                                     <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr/ipAdEntAddr"/>
                                 </xsl:call-template>
@@ -536,6 +536,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <!--</xsl:choose>-->
                                 <!--</xsl:for-each>-->
                             </xsl:variable>
+                            <xsl:message>TRACE: <xsl:value-of select="$interface-neighbors"/> </xsl:message>
                             <!--xsl:copy-of select="$interface-neighbors"/-->
                             <xsl:variable name="neighCount" select="count(distinct-values($interface-neighbors/object/name))"/>
                             <xsl:for-each select="distinct-values($interface-neighbors/object/name)">

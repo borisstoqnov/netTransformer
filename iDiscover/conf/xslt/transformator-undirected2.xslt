@@ -237,7 +237,7 @@
                                 </xsl:variable>
                                 <xsl:variable name="next_hop">
                                     <xsl:choose>
-                                        <xsl:when test="contains($methods_all,'NEXT_HOP')">YES</xsl:when>
+                                        <xsl:when test="contains($methods_all,'r_')">YES</xsl:when>
                                         <xsl:otherwise>NO</xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:variable>

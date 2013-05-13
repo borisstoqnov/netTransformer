@@ -415,10 +415,10 @@
 		</xsl:if>
 	</xsl:template>
 	<xsl:template name="nextHop">
-		<xsl:param name="ifNextHops"/>
+		<xsl:param name="ipRouteTable"/>
 		<xsl:param name="sysName"/>
         <xsl:param name="ipv4addresses"/>
-		<xsl:for-each select="distinct-values($ifNextHops)">
+		<xsl:for-each select="distinct-values(ipRouteTable/ipRouteNextHop)">
 			<xsl:variable name="next-hop-ip" select="."/>
 			<xsl:if test="$next-hop-ip!='0.0.0.0' and not(contains($next-hop-ip,'127') and count($ipv4addresses[ipAdEntAddr=$next-hop-ip])=0)">
 				<xsl:variable name="neighID-community">
@@ -461,10 +461,21 @@
 									<xsl:value-of select="$snmp-community"/>
 								</value>
 							</parameter>
-							<parameter>
-								<name>Discovery Method</name>
-								<value>NEXT_HOP</value>
-							</parameter>
+                            <parameter>
+                                <name>Discovery Method</name>
+                                <xsl:variable name="test">
+                                    <xsl:for-each select="distinct-values(ipRouteTable/../ipRouteEntry[ipRouteNextHop = $next-hop-ip]/ipRouteProto)">
+                                        <xsl:call-template name="ipCidrProtocolResolver">
+                                            <xsl:with-param name="number">
+                                                <xsl:value-of select="."/>
+                                            </xsl:with-param>
+                                        </xsl:call-template>
+                                        <xsl:text>,</xsl:text>
+                                    </xsl:for-each>
+                                </xsl:variable>
+                                <value>r_<xsl:value-of select="functx:substring-before-last-match($test,'.')"/>
+                                </value>
+                            </parameter>
 							<xsl:call-template name="return-neighbor-params">
 								<xsl:with-param name="neighborIP" select="$next-hop-ip"/>
 								<xsl:with-param name="neighborHostname" select="$neighID"/>
