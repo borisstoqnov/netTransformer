@@ -497,11 +497,11 @@
 					<object>
 						<xsl:choose>
 							<xsl:when test="$neighID!=''">
-								<name1>
-									<xsl:value-of select="$neighID"/>
-								</name1>
+								<!--<name1>-->
+									<!--<xsl:value-of select="$neighID"/>-->
+								<!--</name1>-->
                                 <name>
-                                    <xsl:value-of select="$ipv4addresses"/>
+                                    <xsl:value-of select="$neighID"/>
                                 </name>
 							</xsl:when>
 							<xsl:otherwise>
