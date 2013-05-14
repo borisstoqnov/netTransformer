@@ -418,7 +418,7 @@
 		<xsl:param name="ipRouteTable"/>
 		<xsl:param name="sysName"/>
         <xsl:param name="ipv4addresses"/>
-		<xsl:for-each select="distinct-values(ipRouteTable/ipRouteNextHop)">
+		<xsl:for-each select="distinct-values($ipRouteTable/ipRouteNextHop)">
 			<xsl:variable name="next-hop-ip" select="."/>
 			<xsl:if test="$next-hop-ip!='0.0.0.0' and not(contains($next-hop-ip,'127') and count($ipv4addresses[ipAdEntAddr=$next-hop-ip])=0)">
 				<xsl:variable name="neighID-community">
@@ -464,7 +464,7 @@
                             <parameter>
                                 <name>Discovery Method</name>
                                 <xsl:variable name="test">
-                                    <xsl:for-each select="distinct-values(ipRouteTable/../ipRouteEntry[ipRouteNextHop = $next-hop-ip]/ipRouteProto)">
+                                    <xsl:for-each select="distinct-values($ipRouteTable/../ipRouteEntry[ipRouteNextHop = $next-hop-ip]/ipRouteProto)">
                                         <xsl:call-template name="ipCidrProtocolResolver">
                                             <xsl:with-param name="number">
                                                 <xsl:value-of select="."/>
