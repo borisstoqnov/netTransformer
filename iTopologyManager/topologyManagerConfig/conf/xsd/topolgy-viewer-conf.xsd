@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ iTransformer is an open source tool able to discover IP networks
-  ~ and to perform dynamic data data population into a xml based inventory system.
-  ~ Copyright (C) 2010  http://itransformers.net
+  ~ iTransformer is an open source tool able to discover and transform
+  ~  IP network infrastructures.
+  ~  Copyright (C) 2012  http://itransformers.net
   ~
-  ~ This program is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU General Public License as published by
-  ~ the Free Software Foundation, either version 3 of the License, or
-  ~ any later version.
+  ~  This program is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  any later version.
   ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU General Public License for more details.
+  ~  This program is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
   ~
-  ~ You should have received a copy of the GNU General Public License
-  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="topology-viewer-conf" type="topology-viewer-confType"/>
-  <xs:complexType name="scaling-factorType">
+    <xs:complexType name="dataMatcherType">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="class" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="scaling-factorType">
     <xs:sequence>
       <xs:element type="dataType" name="data"/>
     </xs:sequence>
@@ -32,6 +36,7 @@
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute type="xs:string" name="key" use="required"/>
+              <xs:attribute type="xs:string" name="matcher" use="optional"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -152,6 +157,7 @@
 
   <xs:complexType name="topology-viewer-confType">
     <xs:sequence>
+      <xs:element type="dataMatcherType" name="dataMatcher" maxOccurs="unbounded"/>
       <xs:element type="iconType" name="icon" maxOccurs="unbounded"/>
       <xs:element type="edgeStrokeType" name="edgeStroke" maxOccurs="unbounded"/>
       <xs:element type="edgeColorType" name="edgeColor" maxOccurs="unbounded"/>

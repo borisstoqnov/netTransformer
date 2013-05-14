@@ -14,12 +14,30 @@
     <version>0.1-SNAPSHOT</version><!--Change for new version-->
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.2</version>
-            </plugin>
-        </plugins>
-    </build>
+            <!-- It's advised not to checkin the generated classes. By default they are generated in target/generated-sources with xmlns namespace provided
+                        in xsd. If you need the sources to be generated uncomment the below.-->
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>jaxb2-maven-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <goals>
+                                        <goal>xjc</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                            <configuration>
+                                <packageName>net.itransformers.topologyviewer.config</packageName>
+                                <schemaDirectory>${basedir}/conf/xsd</schemaDirectory>
+                                <outputDirectory>${basedir}/src/main/java</outputDirectory>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-dependency-plugin</artifactId>
+                            <version>2.2</version>
+                        </plugin>
+                    </plugins>
+                </build>
 
-</project>
+            </project>

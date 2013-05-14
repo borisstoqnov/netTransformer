@@ -19,11 +19,13 @@
 
 package net.itransformers.topologyviewer.gui;
 
+import net.itransformers.topologyviewer.config.DataMatcherType;
 import net.itransformers.topologyviewer.config.IconType;
 import net.itransformers.topologyviewer.config.TopologyViewerConfType;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.io.GraphMLMetadata;
 import edu.uci.ics.jung.visualization.LayeredIcon;
+import net.itransformers.topologyviewer.config.datamatcher.DataMatcher;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -44,9 +46,29 @@ public class IconMapLoader implements GraphmlLoaderListener{
 
     private Map<String, Icon> iconMap = new HashMap<String, Icon>();
     private TopologyViewerConfType viewerConfig;
-
+    private Map<String, DataMatcher> matcherMap = new HashMap<String, DataMatcher>();
     public IconMapLoader(TopologyViewerConfType viewerConfig) {
         this.viewerConfig = viewerConfig;
+        List<DataMatcherType> matcherList = viewerConfig.getDataMatcher();
+        for (DataMatcherType dataMatcherType : matcherList) {
+            String className = dataMatcherType.getClazz();
+            Class clazz = null;
+            try {
+                clazz = Class.forName(className);
+            } catch (ClassNotFoundException e) {
+                logger.error("Can not find class: "+className, e);
+            }
+            try {
+                DataMatcher dataMatcher = (DataMatcher) clazz.newInstance();
+                matcherMap.put(dataMatcherType.getName(), dataMatcher);
+            } catch (InstantiationException e) {
+                logger.error("Can not instantiate class: " + className, e);
+            } catch (IllegalAccessException e) {
+                logger.error("Can not access constructor class: " + className, e);
+            }
+        }
+
+
     }
 
     public Map<String, Icon> getIconMap() {
@@ -71,7 +93,12 @@ public class IconMapLoader implements GraphmlLoaderListener{
 //                        throw new RuntimeException(String.format("Can not find vertex metadata key '%s' in file '%s'.",data.getKey(), fileName));
                     }
                     final String value = stringGraphMLMetadata.transformer.transform(vertice);
-                    if (value == null || !value.equals(data.getValue())) {
+                    String matcher = data.getMatcher();
+                    if (matcher == null) {
+                        matcher = "default";
+                    }
+                    DataMatcher matcherInstance = matcherMap.get(matcher);
+                    if (matcherInstance.compareData(value, data.getValue())) {
                         match = false;
                         break;
                     }

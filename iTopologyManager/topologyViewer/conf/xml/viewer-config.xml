@@ -18,6 +18,12 @@
   -->
 
 <topology-viewer-conf>
+    <dataMatcher name="default" class="net.itransformers.topologyviewer.config.datamatcher.impl.StringEquals"/>
+    <dataMatcher name="gt" class="net.itransformers.topologyviewer.config.datamatcher.impl.GreaterThen"/>
+    <dataMatcher name="lt" class="net.itransformers.topologyviewer.config.datamatcher.impl.LessThen"/>
+    <dataMatcher name="ge" class="net.itransformers.topologyviewer.config.datamatcher.impl.GreaterOrEqual"/>
+    <dataMatcher name="le" class="net.itransformers.topologyviewer.config.datamatcher.impl.LessOrEqual"/>
+
     <scaling-factor>
         <data key="0.00001"/>
     </scaling-factor>
