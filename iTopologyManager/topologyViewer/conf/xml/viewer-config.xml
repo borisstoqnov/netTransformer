@@ -23,6 +23,8 @@
     <dataMatcher name="lt" class="net.itransformers.topologyviewer.config.datamatcher.impl.LessThen"/>
     <dataMatcher name="ge" class="net.itransformers.topologyviewer.config.datamatcher.impl.GreaterOrEqual"/>
     <dataMatcher name="le" class="net.itransformers.topologyviewer.config.datamatcher.impl.LessOrEqual"/>
+    <dataMatcher name="between" class="net.itransformers.topologyviewer.config.datamatcher.impl.BetweenInterval"/>
+
 
     <scaling-factor>
         <data key="0.00001"/>

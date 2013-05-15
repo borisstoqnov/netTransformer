@@ -2,7 +2,6 @@ resourceManager/conf/xml
 resourceManager/conf/xsd
 iTopologyManager/rightClick/conf
 iTopologyManager/topologyViewer/conf/xml
-iTopologyManager/topologyViewer/conf/xsd
 iTopologyManager/topologyViewer/conf/xslt
 iTopologyManager/parameterFactory/conf/xml
 iTopologyManager/parameterFactory/conf/xsd

@@ -77,10 +77,10 @@
                         <directory>conf/xml</directory>
                         <outputDirectory>iTopologyManager/topologyViewer/conf/xml</outputDirectory>
                     </fileSet>
-                    <fileSet>
-                        <directory>conf/xsd</directory>
-                        <outputDirectory>iTopologyManager/topologyViewer/conf/xsd</outputDirectory>
-                    </fileSet>
+                    <!--<fileSet>-->
+                        <!--<directory>conf/xsd</directory>-->
+                        <!--<outputDirectory>iTopologyManager/topologyViewer/conf/xsd</outputDirectory>-->
+                    <!--</fileSet>-->
                     <fileSet>
                         <directory>conf/xslt</directory>
                         <outputDirectory>iTopologyManager/topologyViewer/conf/xslt</outputDirectory>

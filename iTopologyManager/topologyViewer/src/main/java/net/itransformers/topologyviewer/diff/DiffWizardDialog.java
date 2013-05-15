@@ -55,7 +55,9 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     private JTextField diffPathTextField1;
     private JButton openButton1;
     private final JTextField diffPathTextField2;
-    private final JTextField ignoredKeysTextField = new JTextField("iTopologyManager/topologyViewer/conf/xml/ignored-keys.xml");
+    private final JTextField ignoredNodeKeysTextField = new JTextField("iTopologyManager/topologyViewer/conf/xml/ignored_node_keys.xml");
+    private final JTextField ignoredEdgeKeysTextField = new JTextField("iTopologyManager/topologyViewer/conf/xml/ignored_edge_keys.xml");
+
     private final JButton openButton2;
     private final JTextField diffPathTextField3;
     private final JButton openButton3;
@@ -188,8 +190,11 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     public String getDiffPath3(){
         return diffPathTextField3.getText();
     }
-    public String getIgnoredKeysPath(){
-        return ignoredKeysTextField.getText();
+    public String getNodeIgnoredKeysPath(){
+        return ignoredNodeKeysTextField.getText();
+    }
+    public String getEdgeIgnoredKeysPath(){
+        return ignoredEdgeKeysTextField.getText();
     }
 
     public Result getResult() {
@@ -216,7 +221,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         } else {
             diffPath2 = new File(path2File.getParent(),"undirected");
         }
-        task = new GraphMLDiffTool(baseDir, diffPath1.getAbsolutePath(), diffPath2.getAbsolutePath(), getDiffPath3(), getIgnoredKeysPath());
+        task = new GraphMLDiffTool(baseDir, diffPath1.getAbsolutePath(), diffPath2.getAbsolutePath(), getDiffPath3(), getNodeIgnoredKeysPath(),getEdgeIgnoredKeysPath());
         task.addPropertyChangeListener(this);
         task.execute();
     }

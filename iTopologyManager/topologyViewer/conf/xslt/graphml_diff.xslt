@@ -21,13 +21,17 @@
 	<xsl:output omit-xml-declaration="yes" indent="yes"/>
 	<xsl:param name="file1"/>
 	<xsl:param name="file2"/>
-	<xsl:param name="ignored_keys_file"/>
-	<xsl:strip-space elements="*"/>
+	<xsl:param name="ignored_node_keys_file"/>
+    <xsl:param name="ignored_edge_keys_file"/>
+
+    <xsl:strip-space elements="*"/>
 	<xsl:variable name="fileA" select="document($file1)"/>
 	<xsl:variable name="fileB" select="document($file2)"/>
-	<xsl:variable name="ignoredKeysFile" select="document($ignored_keys_file)"/>
-	<!--Compares 2 graphml files. If something is present in A is marked with diff A. If something is present in B is marked with diff B.
-	If there is a difference in the data key values an additional diff attribute is added with value = value A - value B. The tag itself takes the value of node B-->
+	<xsl:variable name="ignoredNodeKeysFile" select="document($ignored_node_keys_file)"/>
+    <xsl:variable name="ignoredEdgeKeysFile" select="document($ignored_edge_keys_file)"/>
+
+    <!--Compares 2 graphml files. If something is present in A is marked with diff A. If something is present in B is marked with diff B.
+     If there is a difference in the data key values an additional diff attribute is added with value = value A - value B. The tag itself takes the value of node B-->
 	<xsl:template match="/">
 		<xsl:variable name="temp">
 			<graphml>
@@ -95,7 +99,7 @@
 														<xsl:otherwise>
 															<!--data key pair the same but the values are different-->
                                                             <xsl:choose>
-                                                                <xsl:when test="count($ignoredKeysFile/ignored-keys/ignored-key/@name[.=$keyA])>0">
+                                                                <xsl:when test="count($ignoredNodeKeysFile/ignored-keys/ignored-key/@name[.=$keyA])>0">
                                                                     <xsl:variable name="valueB" select="$fileB/graphml/graph/node[@id=$id]/data/@key[.=$keyA]/.."/>
                                                                     <data>
                                                                         <xsl:attribute name="key"><xsl:value-of select="$keyA"/></xsl:attribute>
@@ -199,12 +203,33 @@
 														</xsl:when>
 														<xsl:otherwise>
 															<!--data key pair the same but the values are different-->
+
 															<xsl:variable name="valueB" select="$fileB/graphml/graph/edge[@id=$id]/data/@key[.=$keyA]/.."/>
 															<data>
 																<xsl:attribute name="key"><xsl:value-of select="$keyA"/></xsl:attribute>
                                                                 <xsl:attribute name="diff"><xsl:value-of select="$valueA"/>-<xsl:value-of select="$valueB"/></xsl:attribute>
 																<xsl:value-of select="$valueB"/>
 															</data>
+
+                                                            <!--data key pair the same but the values are different-->
+                                                            <xsl:choose>
+                                                                <xsl:when test="count($ignoredEdgeKeysFile/ignored-keys/ignored-key/@name[.=$keyA])>0">
+                                                                    <xsl:variable name="valueB" select="$fileB/graphml/graph/edge[@id=$id]/data/@key[.=$keyA]/.."/>
+                                                                    <data>
+                                                                        <xsl:attribute name="key"><xsl:value-of select="$keyA"/></xsl:attribute>
+                                                                        <xsl:attribute name="diff.ignored"><xsl:value-of select="$valueA"/>-<xsl:value-of select="$valueB"/></xsl:attribute>
+                                                                        <xsl:value-of select="$valueB"/>
+                                                                    </data>
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                    <xsl:variable name="valueB" select="$fileB/graphml/graph/node[@id=$id]/data/@key[.=$keyA]/.."/>
+                                                                    <data>
+                                                                        <xsl:attribute name="key"><xsl:value-of select="$keyA"/></xsl:attribute>
+                                                                        <xsl:attribute name="diff"><xsl:value-of select="$valueA"/>-<xsl:value-of select="$valueB"/></xsl:attribute>
+                                                                        <xsl:value-of select="$valueB"/>
+                                                                    </data>
+                                                                </xsl:otherwise>
+                                                            </xsl:choose>
 														</xsl:otherwise>
 													</xsl:choose>
 												</xsl:when>
@@ -389,8 +414,26 @@
 							</xsl:when>
 							<!--for those that has difference-->
 							<xsl:otherwise>
+                                <xsl:variable name="diffType">
+                                    <xsl:choose>
+                                        <xsl:when test="count(data[@key and @diff])>0">
+                                            <xsl:text>YES</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:choose>
+                                                <xsl:when test="count(data[@key and @diff.ignored])>0">
+                                                    <xsl:text>IGNORED</xsl:text>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:text>NO</xsl:text>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+
 								<xsl:choose>
-									<xsl:when test="count(data[@key and @diff])>0">
+									<xsl:when test="$diffType='NO'">
 										<data><xsl:attribute name="key">diff</xsl:attribute>YES</data>
 										<xsl:for-each select="data[@key and @diff]">
 											<data>
@@ -411,7 +454,24 @@
 										<xsl:copy-of select="$diffs"/>
 									</xsl:when>
 									<xsl:otherwise>
-										<!--no diffs-->
+                                        <xsl:for-each select="data[@key and (@diff or @diff.ignored)]">
+                                            <data>
+                                                <xsl:attribute name="key"><xsl:value-of select="@key"/></xsl:attribute>
+                                                <xsl:value-of select="."/>
+                                            </data>
+                                        </xsl:for-each>
+                                        <data><xsl:attribute name="key">diff</xsl:attribute><xsl:value-of select="$diffType"/></data>
+                                        <xsl:variable name="diffs">
+                                            <data>
+                                                <xsl:attribute name="key">diffs</xsl:attribute>
+                                                <!--xsl:value-of select="data[@key='nodeInfo']"/-->
+                                                <xsl:for-each select="data[@key and @diff]">&lt;br&gt;&lt;b&gt;&lt;i&gt;<xsl:value-of select="@key"/>
+                                                    <xsl:text>: </xsl:text>&lt;/i&gt;&lt;/b&gt;<xsl:value-of select="@diff"/>
+                                                    <xsl:text> - </xsl:text>
+                                                    <xsl:value-of select="."/>&lt;/br&gt;</xsl:for-each>
+                                            </data>
+                                        </xsl:variable>
+                                        <xsl:copy-of select="$diffs"/>
 									</xsl:otherwise>
 								</xsl:choose>
 							</xsl:otherwise>
