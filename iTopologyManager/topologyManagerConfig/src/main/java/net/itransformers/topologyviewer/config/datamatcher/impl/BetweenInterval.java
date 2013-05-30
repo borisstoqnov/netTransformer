@@ -44,15 +44,17 @@ public class BetweenInterval implements DataMatcher{
     @Override
     public boolean compareData(String data1, String data2) {
         try {
-            String[] limits = data1.split(",");
+            String[] limits = data2.split(",");
             if (limits.length != 2){
-                logger.error("Unable to parse input limits: "+data1);
+                logger.error("Unable to parse input limits: "+data2);
                 return false;
             }
             Integer i11 = Integer.parseInt(limits[0]);
             Integer i12 = Integer.parseInt(limits[1]);
-            Integer i2 = Integer.parseInt(data2);
-            return (i11 >= i2 && i2 < i12);
+            Integer i2 = Integer.parseInt(data1);
+            logger.debug("between: "+i11+":"+i2+":"+i12);
+
+            return (i2 > i11 && i2 < i12);
         }catch (RuntimeException rte) {
             logger.error("Unable to compare " + data1 + " and " + data2 +". Reason: "+rte.getMessage(),rte);
             return false;

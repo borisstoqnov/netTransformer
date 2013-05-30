@@ -46,6 +46,7 @@ public class LessThen implements DataMatcher{
         try {
             Integer i1 = Integer.parseInt(data1);
             Integer i2 = Integer.parseInt(data2);
+            logger.debug("LT: "+i1+"<"+i2);
             return i1 < i2;
         }catch (RuntimeException rte) {
             logger.error("Unable to compare " + data1 + " and " + data2 +". Reason: "+rte.getMessage(),rte);

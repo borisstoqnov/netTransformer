@@ -44,8 +44,11 @@ public class GreaterOrEqual implements DataMatcher{
     @Override
     public boolean compareData(String data1, String data2) {
         try {
+
             Integer i1 = Integer.parseInt(data1);
             Integer i2 = Integer.parseInt(data2);
+            logger.debug("GorE: "+i1+">="+i2);
+
             return i1 >= i2;
         }catch (RuntimeException rte) {
             logger.error("Unable to compare " + data1 + " and " + data2 +". Reason: "+rte.getMessage(),rte);

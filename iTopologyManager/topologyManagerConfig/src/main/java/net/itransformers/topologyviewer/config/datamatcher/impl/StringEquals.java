@@ -37,11 +37,16 @@ package net.itransformers.topologyviewer.config.datamatcher.impl;/*
  */
 
 import net.itransformers.topologyviewer.config.datamatcher.DataMatcher;
+import org.apache.log4j.Logger;
 
 public class StringEquals implements DataMatcher {
+    static Logger logger = Logger.getLogger(StringEquals.class);
+
     @Override
     public boolean compareData(String data1, String data2) {
         if (data1 != null) {
+            logger.debug("EQ: "+data1+"="+data2);
+
             return data1.equals(data2);
         } else {
             return false;
