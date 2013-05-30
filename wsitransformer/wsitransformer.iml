@@ -83,7 +83,7 @@
     <orderEntry type="library" name="Maven: org.apache.servicemix.bundles:org.apache.servicemix.bundles.jline:0.9.94_1" level="project" />
     <orderEntry type="library" name="Maven: bouncycastle:bcprov-jdk16:140" level="project" />
     <orderEntry type="library" name="Maven: org.neo4j.app:neo4j-server:static-web:1.8.M07" level="project" />
-    <orderEntry type="library" name="Maven: junit:junit:4.8.2" level="project" />
+    <orderEntry type="library" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.16" level="project" />
   </component>
 </module>

@@ -280,7 +280,7 @@
     </moduleSets>
     <files>
         <file>
-            <source>../log4j.properties</source>
+            <source>../iTopologyManager/launcher/src/main/resources/log4j.properties</source>
             <outputDirectory>bin</outputDirectory>
         </file>
         <file>

@@ -799,7 +799,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
                 if (graphMLMetadata != null) {
                     String nodeDataValue = graphMLMetadata.transformer.transform(element);
                     logger.info("value: " + value + " Value: " + nodeDataValue);
-                    if (value.equals(nodeDataValue)) {
+                    if (nodeDataValue.toUpperCase().contains(value.toString().toUpperCase())) {
                         foundVertexes.add(element);
                         continue outer;
                     }

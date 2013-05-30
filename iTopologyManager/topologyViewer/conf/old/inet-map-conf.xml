@@ -19,116 +19,72 @@
   -->
 
 <topology-viewer-conf>
-   
+    <dataMatcher name="default" class="net.itransformers.topologyviewer.config.datamatcher.impl.StringEquals"/>
+    <dataMatcher name="gt" class="net.itransformers.topologyviewer.config.datamatcher.impl.GreaterThen"/>
+    <dataMatcher name="lt" class="net.itransformers.topologyviewer.config.datamatcher.impl.LessThen"/>
+    <dataMatcher name="ge" class="net.itransformers.topologyviewer.config.datamatcher.impl.GreaterOrEqual"/>
+    <dataMatcher name="le" class="net.itransformers.topologyviewer.config.datamatcher.impl.LessOrEqual"/>
+    <dataMatcher name="be" class="net.itransformers.topologyviewer.config.datamatcher.impl.BetweenInterval"/>
+    <dataMatcher name="beoq" class="net.itransformers.topologyviewer.config.datamatcher.impl.BetweenOrEqualInterval"/>
+
     <icon name="/images/small_greendot.png">
-        <data key="transit">NO</data>
+        <data key="transit">NO</data>>
+        <data key="countOriginatedPrefixes" matcher="le">5</data>
     </icon>
+    <icon name="/images/greendot.png">
+        <data key="transit">NO</data>
+        <data key="countOriginatedPrefixes" matcher="be">5,50</data>
+    </icon>
+    <icon name="/images/large_greendot.png">
+        <data key="transit">NO</data>
+        <data key="countOriginatedPrefixes" matcher="beoq">51,150</data>
+    </icon>
+    <icon name="/images/very_large_greendot.png">
+        <data key="transit">NO</data>
+        <data key="countOriginatedPrefixes" matcher="gt">150</data>
+    </icon>
+
     <icon name="/images/small_red_dot.png">
+        <data key="countOriginatedPrefixes" matcher="le">5</data>
+        <data key="transit">YES</data>
+
+    </icon>
+    <icon name="/images/red_dot.png">
+        <data key="countOriginatedPrefixes" matcher="be">5,50</data>
         <data key="transit">YES</data>
     </icon>
 
+    <icon name="/images/large_red_dot.png">
+        <data key="countOriginatedPrefixes" matcher="beoq">51,150</data>
+        <data key="transit">YES</data>
+    </icon>
 
-     <!--iconsMap dataKey="deviceModel">
-        <icon dataValue="cisco2610">/images/28xx.png</icon>
-        <icon dataValue="catalyst2924XLv">/images/workgroup_switch.png</icon>
-		<icon dataValue="cisco7206VXR">/images/72xx.png</icon>
-        <icon dataValue="cisco2821">/images/28xx.png</icon>
-        <icon dataValue="cisco2801">/images/28xx.png</icon>
-        <icon dataValue="cisco1841">/images/wireless_cisco.png</icon>
-        <icon dataValue="cisco1812">/images/wireless_cisco.png</icon>
-        <icon dataValue="cisco1861Srst2BK9">/images/wireless_cisco.png</icon>
-        <icon dataValue="ciscoASA5520">/images/cisco_asa.png</icon>
-        <icon dataValue="cisco3845">/images/medium_cisco.png</icon>
-        <icon dataValue="cisco2611">/images/28xx.png</icon>
-        <icon dataValue="ciscoc851">/images/wireless_cisco.png</icon>
-        <icon dataValue="catalyst4948e10GE">/images/cisco3750.png</icon>
-        <icon dataValue="ciscoc921k9">/images/wireless_cisco.png</icon>
-        <icon dataValue="cisco2851">/images/medium_cisco.png</icon>
-        <icon dataValue="ciscoSC3640">/images/medium_cisco.png</icon>
-        <icon dataValue="cisco7505">/images/cisco_broadband.png</icon>
-        <icon dataValue="CISCO7606-S">/images/76xx.png</icon>
-        <icon dataValue="cisco7604">/images/76xx.png</icon>
-        <icon dataValue="cisco7609">/images/76xx.png</icon>
-
-        <icon dataValue="cisco7401ASR">/images/asr_1000.png</icon>
-        <icon dataValue="cisco12406">/images/very_big_cisco.png</icon>
-        <icon dataValue="cisco12810">/images/very_big_cisco.png</icon>
-        <icon dataValue="cisco10008">/images/cisco_broadband.png</icon>
-        <icon dataValue="cisco10720">/images/cisco_broadband.png</icon>
-        <icon dataValue="ciscoCRS8S">/images/crs.png</icon>
-        <icon dataValue="cisco7201">/images/72xx.png</icon>
-
-        
-        <icon dataValue="ciscoMWRc941DCA">/images/76xx.png</icon>
-        <icon dataValue="catalyst295024G">/images/metro_switch_small.png</icon>
-		<icon dataValue="catalyst2950t24">/images/metro_switch_small.png</icon>
-		<icon dataValue="catalyst296024TT">/images/metro_switch_small.png</icon>
-		<icon dataValue="cisco340024TSD">/images/metro_switch_medium.png</icon>
-		<icon dataValue="cisco340024TSA">/images/metro_switch_medium.png</icon>
-        <icon dataValue="ciscoMe3400g12CsD">/images/metro_switch_medium.png</icon>
-         <icon dataValue="ciscoMe3400g12CsA">/images/metro_switch_medium.png</icon>
-        <icon dataValue="catalyst375024ME">/images/metro_switch_medium.png</icon>
-
-         <icon dataValue="catalyst37xxStack">/images/metro_switch_medium.png</icon>
-        <icon dataValue="catalyst35608PC">/images/metro_switch_small.png</icon>
-        
-
-    </iconsMap>
-
-    <iconsMap dataKey="deviceType">
-        <icon dataValue="CISCO">/images/76xx.png</icon>
-        <icon dataValue="HUAWEI">/images/huawei.png</icon>
-        <icon dataValue="JUNIPER">/images/m320.png</icon>
-        <icon dataValue="RIVERSTONE">/images/riverstone.png</icon>
-        <icon dataValue="TELLABS">/images/tellabs.png</icon>
-        <icon dataValue="HP">/images/workgroup_switch.png</icon>
-        <icon dataValue="WIRELESS">/images/wireless.png</icon>
-    </iconsMap>
-    <iconsMap dataKey="deviceType">
-        <icon dataValue="CISCO_ipv6">/images/huawei.png</icon>
-        <icon dataValue="HUAWEI">/images/huawei.png</icon>
-        <icon dataValue="JUNIPER">/images/m320.png</icon>
-        <icon dataValue="RIVERSTONE">/images/riverstone.png</icon>
-        <icon dataValue="TELLABS">/images/tellabs.png</icon>
-        <icon dataValue="HP">/images/workgroup_switch.png</icon>
-        <icon dataValue="WIRELESS">/images/wireless.png</icon>
-    </iconsMap>
-    <iconsMap>
-        <icon>/images/unknown_switch.png</icon>
-    </iconsMap-->
+    <icon name="/images/very_large_red_dot.png">
+        <data key="countOriginatedPrefixes" matcher="gt">150</data>
+        <data key="transit">YES</data>
+    </icon>
 
     <filters>
-        <!--In this case is presented a datalink view with devices that respond to SNMP-->
-        <!--filter name="DataLinkLayer-reachable">
-            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <include dataKey="deviceStatus" dataValue="initial" for="node"/>
-            <include dataKey="dataLink" dataValue="YES" for="edge"/>
-            <tooltip dataKey="deviceInfo" for="node"/>
-            <tooltip dataKey="localInterfaceName" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
-        </filter-->
-        <!--filter name="DataLinkLayer-reachable+unreachable">
-            <include dataKey="dataLink" dataValue="YES" for="edge"/>
-            <tooltip dataKey="deviceInfo" for="node"/>
-            <tooltip dataKey="localInterfaceName" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
-        </filter-->
-        <!--In this case is presented an iplink view with devices that respond to SNMP-->
+
         <filter name="INTET">
             <include dataKey="AS" dataValue="YES" for="node"/>
             <include dataKey="edge" dataValue="YES" for="edge"/>
-            <tooltip dataKey="ASInfo" for="node"/>
+            <tooltip dataKey="ASInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
             <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
         </filter>
+        <!--In this case is presented an iplink view with devices that respond to SNMP-->
+
         <filter name="INTET-weigth 1">
             <include dataKey="edge" dataValue="YES" for="edge"/>
             <include dataKey="weigth" dataValue="1" for="edge"/>
-            <tooltip dataKey="ASInfo" for="node"/>
+            <tooltip dataKey="ASInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
             <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
         </filter>
         <filter name="INTET-weigth 1+2">
             <include dataKey="edge" dataValue="YES" for="edge"/>
             <include dataKey="weigth" dataValue="1" for="edge"/>
             <include dataKey="weigth" dataValue="2" for="edge"/>
-            <tooltip dataKey="ASInfo" for="node"/>
+            <tooltip dataKey="ASInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
             <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
         </filter>
         <filter name="INTET-weigth 1+2+3">
@@ -136,7 +92,7 @@
             <include dataKey="weigth" dataValue="1" for="edge"/>
             <include dataKey="weigth" dataValue="2" for="edge"/>
             <include dataKey="weigth" dataValue="3" for="edge"/>
-            <tooltip dataKey="ASInfo" for="node"/>
+            <tooltip dataKey="ASInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
             <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
         </filter>
         <filter name="TRANSIT">
@@ -145,29 +101,35 @@
             <tooltip dataKey="ASInfo" for="node"/>
             <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
         </filter>
+
+
+
+
+
+
     </filters>
 
     <hops selected="1">1,2,3,4,5,6,7,8,9,10</hops>
 
     <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
     <!-- this is also possible it could be used as default value-->
-    <tooltip dataKey="ASInfo" for="node"/>
+    <tooltip dataKey="ASInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
     <rightClickItem name="TabViewerOpener" handlerClass="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener">
-		
-    </rightClickItem>
-	<rightClickItem name="RIPE" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ASNRightClickOpener">
 
-             <param name="protocol">http</param>
-             <param name="org">ripe</param>
-			 <param name="url">http://apps.db.ripe.net/whois/lookup/RIPE/aut-num/</param>
-             <param name="port">80</param>
-	</rightClickItem>
+    </rightClickItem>
+    <rightClickItem name="RIPE" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ASNRightClickOpener">
+
+        <param name="protocol">http</param>
+        <param name="org">ripe</param>
+        <param name="url">http://apps.db.ripe.net/whois/lookup/RIPE/aut-num/</param>
+        <param name="port">80</param>
+    </rightClickItem>
     <rightClickItem name="ARIN" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ASNRightClickOpener">
-             <param name="protocol">http</param>
-             <param name="org">arin</param>
-			 <param name="url">http://whois.arin.net/rest/asn/</param>
-             <param name="port">80</param>
-	</rightClickItem>
-   
+        <param name="protocol">http</param>
+        <param name="org">arin</param>
+        <param name="url">http://whois.arin.net/rest/asn/</param>
+        <param name="port">80</param>
+    </rightClickItem>
+
 
 </topology-viewer-conf>

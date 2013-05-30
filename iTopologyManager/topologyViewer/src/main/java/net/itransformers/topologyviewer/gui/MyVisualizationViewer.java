@@ -104,6 +104,7 @@ public class MyVisualizationViewer extends VisualizationViewer<String,String> {
 
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<String>());
         vv.getRenderer().getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.AUTO);
+
         // Set up a new stroke Transformer for the edges
 //        float dash[] = {10.0f};
 //        final Stroke edgeStroke = new BasicStroke(1.0f, BasicStroke.CAP_BUTT,

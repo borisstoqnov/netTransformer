@@ -19,12 +19,12 @@
 
 package net.itransformers.topologyviewer.gui;
 
-import net.itransformers.topologyviewer.config.DataMatcherType;
-import net.itransformers.topologyviewer.config.IconType;
-import net.itransformers.topologyviewer.config.TopologyViewerConfType;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.io.GraphMLMetadata;
 import edu.uci.ics.jung.visualization.LayeredIcon;
+import net.itransformers.topologyviewer.config.DataMatcherType;
+import net.itransformers.topologyviewer.config.IconType;
+import net.itransformers.topologyviewer.config.TopologyViewerConfType;
 import net.itransformers.topologyviewer.config.datamatcher.DataMatcher;
 import org.apache.log4j.Logger;
 
@@ -35,12 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by IntelliJ IDEA.
- * Date: 11-11-8
- * Time: 11:27
- * To change this template use File | Settings | File Templates.
- */
+
 public class IconMapLoader implements GraphmlLoaderListener{
     static Logger logger = Logger.getLogger(IconMapLoader.class);
 
@@ -85,12 +80,12 @@ public class IconMapLoader implements GraphmlLoaderListener{
                 boolean match = true;
                 datas = iconType.getData();
                 boolean isDefaultIcon = datas.isEmpty();
+
                 for (IconType.Data data : datas) {
                     final GraphMLMetadata<String> stringGraphMLMetadata = vertexMetadata.get(data.getKey());
                     if (stringGraphMLMetadata == null){
                         logger.error(String.format("Can not find vertex metadata key '%s' in file '%s'.",data.getKey(), fileName));
                         continue;
-//                        throw new RuntimeException(String.format("Can not find vertex metadata key '%s' in file '%s'.",data.getKey(), fileName));
                     }
                     final String value = stringGraphMLMetadata.transformer.transform(vertice);
                     String matcher = data.getMatcher();
@@ -98,7 +93,8 @@ public class IconMapLoader implements GraphmlLoaderListener{
                         matcher = "default";
                     }
                     DataMatcher matcherInstance = matcherMap.get(matcher);
-                    if (matcherInstance.compareData(value, data.getValue())) {
+                    boolean matchResult = matcherInstance.compareData(value, data.getValue());
+                    if (value == null || !matchResult) {
                         match = false;
                         break;
                     }
