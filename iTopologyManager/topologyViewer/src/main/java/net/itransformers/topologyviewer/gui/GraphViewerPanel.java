@@ -446,15 +446,19 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
             @Override
             protected void handlePopup(final MouseEvent e) {
                 GraphElementAccessor<String,String> pickSupport = vv.getPickSupport();
-                final String v = pickSupport.getVertex(vv.getGraphLayout(), e.getX(), e.getY());
+//                final String v = pickSupport.getVertex(vv.getGraphLayout(), e.getX(), e.getY());
+                Collection<String> picked = new HashSet(vv.getPickedVertexState().getPicked());
+                final String[] varr = picked.toArray(new String[picked.size()]);
                 final java.util.List<RightClickItemType> rightClickItem = GraphViewerPanel.this.viewerConfig.getRightClickItem();
                 JPopupMenu popup = new JPopupMenu();
-                fillRightClickMenu(v, rightClickItem, popup);
+                fillRightClickMenu(varr, rightClickItem, popup);
                 JMenuItem remove = new JMenuItem("remove");
                 popup.add(remove);
                 remove.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-                        currentGraph.removeVertex(v);
+                        for (String v : varr) {
+                            currentGraph.removeVertex(v);
+                        }
                         vv.repaint();
                     }
                 });
@@ -465,7 +469,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
 
     }
 
-    private<T extends JComponent>  void fillRightClickMenu(final String v, java.util.List<RightClickItemType> rightClickItem, T popup) {
+    private<T extends JComponent>  void fillRightClickMenu(final String[] v, java.util.List<RightClickItemType> rightClickItem, T popup) {
         for (final RightClickItemType rcItemType : rightClickItem) {
             JMenuItem sendCmd = new JMenuItem(rcItemType.getName());
             sendCmd.addActionListener(new ActionListener() {
@@ -710,7 +714,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
     }
     public void SetPickedState(String vertex){
           PickedState<String> ps = new MultiPickedState<String>();
-          ps.pick(vertex,true);
+          ps.pick(vertex, true);
           vv.setPickedVertexState(ps);
     }
      public void SetPickedStates(Set<String> vertexes){
