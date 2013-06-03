@@ -469,14 +469,17 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
 
     }
 
-    private<T extends JComponent>  void fillRightClickMenu(final String[] v, java.util.List<RightClickItemType> rightClickItem, T popup) {
+    private<T extends JComponent>  void fillRightClickMenu(final String[] varr, java.util.List<RightClickItemType> rightClickItem, T popup) {
         for (final RightClickItemType rcItemType : rightClickItem) {
             JMenuItem sendCmd = new JMenuItem(rcItemType.getName());
             sendCmd.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e1) {
                     try {
                         final Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = graphmlLoader.getVertexMetadatas();
-                        RightClickInvoker.invokeRightClickHandler(GraphViewerPanel.this.parent, v, rcItemType, vertexMetadatas, path, deviceXmlPath);
+                        for (String v : varr) {
+                            GraphViewerPanel.this.Animator(v.toString());
+                            RightClickInvoker.invokeRightClickHandler(GraphViewerPanel.this.parent, v, rcItemType, vertexMetadatas, path, deviceXmlPath);
+                        }
                     } catch (Exception e2) {
                         e2.printStackTrace();
                         JOptionPane.showMessageDialog(GraphViewerPanel.this, "Error while calling right click: " + e2.getMessage());
@@ -489,7 +492,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
                 JMenu submenu = new JMenu(subMenuType.getName());
                 java.util.List<RightClickItemType> submenuItems = subMenuType.getRightClickItem();
                 popup.add(submenu);
-                fillRightClickMenu(v, submenuItems, submenu);
+                fillRightClickMenu(varr, submenuItems, submenu);
             }
         }
     }

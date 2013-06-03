@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RightClickInvoker {
-    public static void invokeRightClickHandler(JFrame frame, String[] varr, final RightClickItemType rcItemType,
+    public static void invokeRightClickHandler(JFrame frame, String v, final RightClickItemType rcItemType,
                                                Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas,
                                                File path,
                                                File deviceXmlPath) throws Exception {
@@ -36,14 +36,13 @@ public class RightClickInvoker {
         clazz = Class.forName(clazzStr);
         RightClickHandler inst;
         inst = (RightClickHandler) clazz.newInstance();
-        for (String v : varr) {
-            Map<String, String> graphMLParams = getParams(v, vertexMetadatas);
-            Map<String, String> rcParams = new HashMap<String, String>();
-            for (ParamType param : rcItemType.getParam()) {
-                rcParams.put(param.getName(), param.getValue());
-            }
-            inst.handleRightClick(frame, v, graphMLParams, rcParams, path, new File(deviceXmlPath+File.separator+"device-data"+"-"+v+".xml")); // todo remove this hardcode
+        Map<String, String> graphMLParams = getParams(v, vertexMetadatas);
+        Map<String, String> rcParams = new HashMap<String, String>();
+        for (ParamType param : rcItemType.getParam()) {
+            rcParams.put(param.getName(), param.getValue());
         }
+        inst.handleRightClick(frame, v, graphMLParams, rcParams, path, new File(deviceXmlPath+File.separator+"device-data"+"-"+v+".xml")); // todo remove this hardcode
+
     }
 
     private static <G> Map<String, String> getParams(String v, Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas) {
