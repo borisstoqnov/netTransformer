@@ -116,7 +116,9 @@ public class DiscoveryResourceDialog extends JDialog {
     private void storeResource(ResourcesType resource) {
         FileOutputStream os = null;
         File path = getPath();
-        File file = new File(path, "iDiscover/conf/xml/discoveryResource.xml");
+       // File file = new File(path, "iDiscover/conf/xml/discoveryResource.xml");
+        File file = new File(path, "resourceManager/conf/xml/resource.xml");
+
         try {
             os = new FileOutputStream(file);
             JaxbMarshalar.marshal(resource, os,"resources");
@@ -142,7 +144,7 @@ public class DiscoveryResourceDialog extends JDialog {
     private ResourcesType loadResource(){
         FileInputStream is = null;
         File file;
-        file = new File(getPath(), "iDiscover/conf/xml/discoveryResource.xml");
+        file = new File(getPath(), "resourceManager/conf/xml/resource.xml");
         try {
             is = new FileInputStream(file);
 

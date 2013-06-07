@@ -1,0 +1,22 @@
+### vars: username, password, enable-password, Interfaces, prefix
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### read_until('.*>',3)
+enable
+### read_until('Password:',3)
+$enable-password
+
+### start read_until('.*#',3)
+configure terminal
+foreach i in $Interfaces
+
+interface $i
+ipv6 address {Enter manually IPv6 prefix : $prefix} eui-64
+
+}
+end
+### stop read_until
+exit
+### exit

@@ -19,16 +19,11 @@
 
 package net.itransformers.topologyviewer.gui;
 
-import edu.uci.ics.jung.algorithms.layout.*;
-import edu.uci.ics.jung.algorithms.layout.SpringLayout;
-import edu.uci.ics.jung.algorithms.scoring.PageRank;
-import edu.uci.ics.jung.visualization.renderers.DefaultVertexLabelRenderer;
-import edu.uci.ics.jung.visualization.renderers.VertexLabelRenderer;
-import net.itransformers.topologyviewer.config.*;
-import net.itransformers.topologyviewer.rightclick.RightClickInvoker;
 import edu.uci.ics.jung.algorithms.filters.EdgePredicateFilter;
 import edu.uci.ics.jung.algorithms.filters.KNeighborhoodFilter;
 import edu.uci.ics.jung.algorithms.filters.VertexPredicateFilter;
+import edu.uci.ics.jung.algorithms.layout.*;
+import edu.uci.ics.jung.algorithms.layout.SpringLayout;
 import edu.uci.ics.jung.algorithms.shortestpath.BFSDistanceLabeler;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.io.GraphMLMetadata;
@@ -41,6 +36,9 @@ import edu.uci.ics.jung.visualization.layout.PersistentLayout;
 import edu.uci.ics.jung.visualization.layout.PersistentLayoutImpl;
 import edu.uci.ics.jung.visualization.picking.MultiPickedState;
 import edu.uci.ics.jung.visualization.picking.PickedState;
+import edu.uci.ics.jung.visualization.renderers.DefaultVertexLabelRenderer;
+import net.itransformers.topologyviewer.config.*;
+import net.itransformers.topologyviewer.rightclick.RightClickInvoker;
 import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
@@ -74,6 +72,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
     private String initialNode;
     private JFrame parent;
     private String layout;
+     DefaultModalGraphMouse graphMouse;
 
 
     public GraphViewerPanel(JFrame parent, TopologyViewerConfType viewerConfig,
@@ -93,13 +92,15 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
         this.path = path;
         this.deviceXmlPath = versionDir;
         this.layout=layout;
+        this.graphMouse = new DefaultModalGraphMouse();
+
         vv = new MyVisualizationViewer(viewerConfig, entireGraph,
             graphmlLoader.getVertexMetadatas(),
             graphmlLoader.getEdgeMetadatas(),
             iconMapLoader.getIconMap(),
             edgeStrokeMapLoader.getEdgesStrokeMap(),
                 edgeColorMapLoader.getEdgesColorMap());
-
+       //   vv.setGraphMouse(graphMouse);
 //       vv.setPreferredSize(new Dimension(parentSize.width-50,parentSize.height-150));
 //        int vertexCount = entireGraph.getVertexCount();
 //        if (vertexCount >= 2000){

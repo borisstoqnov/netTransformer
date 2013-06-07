@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ iTransformer is an open source tool able to discover and transform
+  ~  IP network infrastructures.
+  ~  Copyright (C) 2012  http://itransformers.net
+  ~
+  ~  This program is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  any later version.
+  ~
+  ~  This program is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<topology-viewer-conf>
+    <dataMatcher name="default" class="net.itransformers.topologyviewer.config.datamatcher.impl.StringEquals"/>
+    <dataMatcher name="gt" class="net.itransformers.topologyviewer.config.datamatcher.impl.GreaterThen"/>
+    <dataMatcher name="lt" class="net.itransformers.topologyviewer.config.datamatcher.impl.LessThen"/>
+    <dataMatcher name="ge" class="net.itransformers.topologyviewer.config.datamatcher.impl.GreaterOrEqual"/>
+    <dataMatcher name="le" class="net.itransformers.topologyviewer.config.datamatcher.impl.LessOrEqual"/>
+    <dataMatcher name="be" class="net.itransformers.topologyviewer.config.datamatcher.impl.BetweenInterval"/>
+    <dataMatcher name="beoq" class="net.itransformers.topologyviewer.config.datamatcher.impl.BetweenOrEqualInterval"/>
+
+
+
+
+    <icon name="/images/small_greendot.png">
+        <data key="transit">NO</data>>
+        <data key="countOriginatedPrefixes" matcher="le">5</data>
+    </icon>
+    <icon name="/images/greendot.png">
+        <data key="transit">NO</data>
+        <data key="countOriginatedPrefixes" matcher="be">5,50</data>
+    </icon>
+    <icon name="/images/large_greendot.png">
+        <data key="transit">NO</data>
+        <data key="countOriginatedPrefixes" matcher="beoq">51,150</data>
+    </icon>
+    <icon name="/images/very_large_greendot.png">
+        <data key="transit">NO</data>
+        <data key="countOriginatedPrefixes" matcher="gt">150</data>
+    </icon>
+
+    <icon name="/images/small_red_dot.png">
+        <data key="countOriginatedPrefixes" matcher="le">5</data>
+        <data key="transit">YES</data>
+
+    </icon>
+    <icon name="/images/red_dot.png">
+        <data key="countOriginatedPrefixes" matcher="be">5,50</data>
+        <data key="transit">YES</data>
+    </icon>
+
+    <icon name="/images/large_red_dot.png">
+        <data key="countOriginatedPrefixes" matcher="beoq">51,150</data>
+        <data key="transit">YES</data>
+    </icon>
+
+    <icon name="/images/reddot.png">
+        <data key="countOriginatedPrefixes" matcher="gt">150</data>
+        <data key="transit">YES</data>
+    </icon>
+
+
+
+
+    <filters>
+
+        <filter name="INTET">
+            <include dataKey="AS" dataValue="YES" for="node"/>
+            <include dataKey="edge" dataValue="YES" for="edge"/>
+            <tooltip dataKey="ASInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+        </filter>
+        <!--In this case is presented an iplink view with devices that respond to SNMP-->
+
+        <filter name="INTET-weigth 1">
+            <include dataKey="edge" dataValue="YES" for="edge"/>
+            <include dataKey="weigth" dataValue="1" for="edge"/>
+            <tooltip dataKey="ASInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="INTET-weigth 1+2">
+            <include dataKey="edge" dataValue="YES" for="edge"/>
+            <include dataKey="weigth" dataValue="1" for="edge"/>
+            <include dataKey="weigth" dataValue="2" for="edge"/>
+            <tooltip dataKey="ASInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="INTET-weigth 1+2+3">
+            <include dataKey="AS" dataValue="YES" for="node"/>
+            <include dataKey="weigth" dataValue="1" for="edge"/>
+            <include dataKey="weigth" dataValue="2" for="edge"/>
+            <include dataKey="weigth" dataValue="3" for="edge"/>
+            <tooltip dataKey="ASInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="TRANSIT">
+            <include dataKey="edge" dataValue="YES" for="edge"/>
+            <include dataKey="transit" dataValue="YES" for="node"/>
+            <tooltip dataKey="ASInfo" for="node"/>
+            <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
+        </filter>
+
+
+        <filter name="diff">
+            <include dataKey="AS" dataValue="YES" for="node"/>
+            <include dataKey="edge" dataValue="YES" for="edge"/>
+
+            <tooltip dataKey="diffs" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="diffs" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
+        </filter>
+
+
+
+
+    </filters>
+
+    <hops selected="1">1,2,3,4,5,6,7,8,9,10</hops>
+
+    <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+    <!-- this is also possible it could be used as default value-->
+    <tooltip dataKey="ASInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+    <rightClickItem name="TabViewerOpener" handlerClass="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener">
+
+    </rightClickItem>
+    <rightClickItem name="RIPE" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ASNRightClickOpener">
+
+        <param name="protocol">http</param>
+        <param name="org">ripe</param>
+        <param name="url">http://apps.db.ripe.net/whois/lookup/RIPE/aut-num/</param>
+        <param name="port">80</param>
+    </rightClickItem>
+    <rightClickItem name="ARIN" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ASNRightClickOpener">
+        <param name="protocol">http</param>
+        <param name="org">arin</param>
+        <param name="url">http://whois.arin.net/rest/asn/</param>
+        <param name="port">80</param>
+    </rightClickItem>
+
+
+</topology-viewer-conf>

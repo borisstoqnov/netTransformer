@@ -81,8 +81,8 @@
 		<param name="deviceType">CISCO</param>
         <connection-params connection-type="telnet">
 			<param name="username">lab</param>
-            <param name="password">lab</param>
-            <param name="enable-password">lab</param>
+            <param name="password">lab123</param>
+            <param name="enable-password">lab123</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
         </connection-params>
@@ -100,6 +100,5 @@
             <param name="retries">3</param>
         </connection-params>
     </resource>
-
 
 </resources>

@@ -54,6 +54,7 @@ public class NewProjectMenuHandler implements ActionListener {
         dialog.setVisible(true);
         if (!dialog.isOkPressed()) return;
         File file = new File("itransformer.txt");
+      //  File file = new File("bgpPeeringMap.txt");
         Scanner s = null;
         try {
             try {

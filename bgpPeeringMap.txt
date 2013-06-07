@@ -1,3 +1,5 @@
-bin/iTopologyManager/rightClick/conf
-bin/iTopologyManager/topologyViewer/conf
-bin/bgpPeeringMap/conf
+iTopologyManager/rightClick/conf
+iTopologyManager/topologyViewer/conf/xml/
+iTopologyManager/topologyViewer/conf/xslt
+bgpPeeringMap/conf/xml
+bgpPeeringMap/conf/xslt

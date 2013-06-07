@@ -23,7 +23,9 @@
     <dataMatcher name="lt" class="net.itransformers.topologyviewer.config.datamatcher.impl.LessThen"/>
     <dataMatcher name="ge" class="net.itransformers.topologyviewer.config.datamatcher.impl.GreaterOrEqual"/>
     <dataMatcher name="le" class="net.itransformers.topologyviewer.config.datamatcher.impl.LessOrEqual"/>
-    <dataMatcher name="between" class="net.itransformers.topologyviewer.config.datamatcher.impl.BetweenInterval"/>
+    <dataMatcher name="be" class="net.itransformers.topologyviewer.config.datamatcher.impl.BetweenInterval"/>
+    <dataMatcher name="beoq" class="net.itransformers.topologyviewer.config.datamatcher.impl.BetweenOrEqualInterval"/>
+
 
 
     <scaling-factor>
@@ -494,7 +496,6 @@
         <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
         <!--include dataKey="site" dataValue="" for="node"/-->
         <include dataKey="method" dataValue="OpenFlow" for="edge"/>
-        <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
         <include dataKey="method" dataValue="CDP" for="edge"/>
         <include dataKey="method" dataValue="LLDP" for="edge"/>
         <include dataKey="method" dataValue="MAC" for="edge"/>
@@ -513,7 +514,6 @@
     </filter>
     <!--In this case is presented a physical view with all devices-->
     <filter name="all+unreachable">
-        <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
         <include dataKey="method" dataValue="CDP" for="edge"/>
         <include dataKey="method" dataValue="OpenFlow" for="edge"/>
         <include dataKey="method" dataValue="LLDP" for="edge"/>
@@ -743,6 +743,30 @@
         <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt</param>
     </rightClickItem>
 </submenu>
+<submenu name="IPv4toIPv6 Actication">
+    <rightClickItem name="IPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
+        <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
+        <param name="resource">resourceManager/conf/xml/resource.xml</param>
+        <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6.xml</param>
+    </rightClickItem>
+    <rightClickItem name="IPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
+        <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
+        <param name="resource">resourceManager/conf/xml/resource.xml</param>
+        <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6.xml</param>
+    </rightClickItem>
+    <rightClickItem name="undoIPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
+        <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
+        <param name="resource">resourceManager/conf/xml/resource.xml</param>
+        <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6_undo.xml</param>
+    </rightClickItem>
+    <rightClickItem name="undoIPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
+        <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
+        <param name="resource">resourceManager/conf/xml/resource.xml</param>
+        <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6_undo.xml</param>
+    </rightClickItem>
+
+</submenu>
+
 </rightClickItem>
     <rightClickItem name="nodeActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
         <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
@@ -755,31 +779,8 @@
         <param name="resource">resourceManager/conf/xml/resource.xml</param>
         <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
     </rightClickItem>
-<!--submenu name="IPv4toIPv6 Actication">
-    <rightClickItem name="IPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
-        <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
-        <param name="resource">resource-manager/conf/xml/resource.xml</param>
-        <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans.xml</param>
-    </rightClickItem>
-    <rightClickItem name="IPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
-        <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
-        <param name="resource">resource-manager/conf/xml/resource.xml</param>
-        <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans.xml</param>
-    </rightClickItem>
-    <rightClickItem name="undoIPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
-        <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
-        <param name="resource">resource-manager/conf/xml/resource.xml</param>
-        <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans_undo.xml</param>
-    </rightClickItem>
-    <rightClickItem name="undoIPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
-        <param name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
-        <param name="resource">resource-manager/conf/xml/resource.xml</param>
-        <param name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-4to6trans_undo.xml</param>
-    </rightClickItem>
 
-</submenu>
-
-    <submenu name="discover">
+    <!--submenu name="discover">
         <rightClickItem name="node" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">
             <param name="protocol">http</param>
             <param name="action">init_and_start</param>
@@ -824,10 +825,9 @@
             <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
             <param name="action">resume</param>
         </rightClickItem>
-    </submenu>
-</rightClickItem>
+    </submenu-->
 
-  -->
+
 
 
 </topology-viewer-conf>

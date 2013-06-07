@@ -352,7 +352,7 @@ public class Walk {
             sbTable.append(String.format("%s</%s>", tabs, tagName));
             sbTable.append('\n');
             sb.append(sbTable);
-            logger.debug(sbTable.toString());
+           // logger.debug(sbTable.toString());
         }
     }
 

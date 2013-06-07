@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ iTransformer is an open source tool able to discover and transform
+  ~  IP network infrastructures.
+  ~  Copyright (C) 2012  http://itransformers.net
+  ~
+  ~  This program is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  any later version.
+  ~
+  ~  This program is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<fulfilment-factories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../xsd/fulfilment-factory.xsd">
+    <fulfilment-factory-types>
+        <!--cisco fulfillment-->
+        <type name="c_ipv6Forwarding" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">ipv6Forwarding</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/cisco/ipv6Forwarding.txt</param>
+        </type>
+        <type name="c_ipv6Interface" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">ipv6Interface</param>
+            <param name="commands">fiTopologyManager/fulfilmentFactory/conf/txt/cisco/ipv6Interface.txt</param>
+        </type>
+        <type name="c_IPv6Verify" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">IPv6Verify</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/cisco/IPv6Verify.txt</param>
+        </type>
+        <type name="c_IPv6OSPF" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">IPv6OSPF</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/cisco/IPv6OSPF.txt</param>
+        </type>
+       <!--Huawei Fulfillment-->
+        <type name="h_IPv6OSPF_interface" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">IPv6OSPF_interface</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/huawei/IPv6OSPF_interface.txt</param>
+        </type>
+        <type name="h_ipv6Forwarding" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">huawei_ipv6Forwarding</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/huawei/ipv6Forwarding.txt</param>
+        </type>
+        <type name="h_ipv6Interface" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">huawei_ipv6Interface</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/huawei/ipv6Interface.txt</param>
+        </type>
+        <type name="h_IPv6Verify" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">huawei_IPv6Verify</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/huawei/IPv6Verify.txt</param>
+        </type>
+        <type name="h_IPv6OSPF" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">huawei_IPv6OSPF</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/huawei/IPv6OSPF.txt</param>
+        </type>
+        <type name="h_IPv6OSPF_interface" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">huawei_IPv6OSPF_interface</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/huawei/IPv6OSPF_interface.txt</param>
+        </type>
+        <!--Juniper Fulfillment-->
+
+        <!--type name="j_ipv6Forwarding" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">huawei_ipv6Forwarding</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/juniper/ipv6Forwarding.txt</param>
+        </type-->
+        <type name="j_ipv6Interface" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">huawei_ipv6Interface</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/juniper/ipv6Interface.txt</param>
+        </type>
+        <type name="j_IPv6Verify" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">huawei_IPv6Verify</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/juniper/IPv6Verify.txt</param>
+        </type>
+        <type name="j_IPv6OSPF_14" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">huawei_IPv6OSPF</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/juniper/IPv6OSPF_14.txt</param>
+        </type>
+        <type name="j_IPv6OSPF_16_" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">huawei_IPv6OSPF</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/juniper/IPv6OSPF_16.txt</param>
+        </type>
+
+        <type name="xsl" class="com.cdsd.Xsl">
+            <param name="xslFileName">some.xsl</param>
+            <param name="xslFileName">some.xsl</param>
+        </type>
+        <type name="xsl2" class="com.cdsd.Xsl">
+            <param name="xslFileName">some2.xsl</param>
+        </type>
+    </fulfilment-factory-types>
+    <fulfilment-factory name="cIPv6Forwarding" resourceName="cisco" type="c_ipv6Forwarding" parameterFactoryName="ipv6Forwarding"/>
+    <fulfilment-factory name="cIPv6Interface" resourceName="cisco" type="c_ipv6Interface" parameterFactoryName="ipv6Interface"/>
+    <fulfilment-factory name="cIPv6OSPF" resourceName="cisco" type="c_IPv6OSPF" parameterFactoryName="IPv6OSPF"/>
+    <fulfilment-factory name="cIPv6OSPF_interface" resourceName="cisco" type="c_IPv6OSPF_interface" parameterFactoryName="IPv6OSPF_interface"/>
+    <fulfilment-factory name="cIPv6Verify" resourceName="cisco" type="c_IPv6Verify" parameterFactoryName="IPv6Verify"/>
+
+    <fulfilment-factory name="hIPv6Forwarding" resourceName="huawei" type="h_ipv6Forwarding" parameterFactoryName="ipv6Forwarding"/>
+    <fulfilment-factory name="hIPv6Interface" resourceName="huawei" type="h_ipv6Interface" parameterFactoryName="ipv6Interface"/>
+    <fulfilment-factory name="hIPv6OSPF" resourceName="huawei" type="h_IPv6OSPF" parameterFactoryName="IPv6OSPF"/>
+    <fulfilment-factory name="hIPv6OSPF_interface" resourceName="huawei" type="h_IPv6OSPF_interface" parameterFactoryName="IPv6OSPF_interface"/>
+    <fulfilment-factory name="hIPv6Verify" resourceName="huawei" type="h_IPv6Verify" parameterFactoryName="IPv6Verify"/>
+
+    <fulfilment-factory name="jIPv6Interface" resourceName="juniper" type="j_ipv6Interface" parameterFactoryName="ipv6Interface"/>
+    <fulfilment-factory name="jIPv6OSPF_14" resourceName="juniper" type="j_IPv6OSPF_14" parameterFactoryName="basic"/>
+    <fulfilment-factory name="jIPv6OSPF_16" resourceName="juniper" type="j_IPv6OSPF_16" parameterFactoryName="basic"/>
+    <fulfilment-factory name="jIPv6Verify" resourceName="juniper" type="j_IPv6Verify" parameterFactoryName="IPv6Verify"/>
+
+</fulfilment-factories>
