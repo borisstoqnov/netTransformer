@@ -22,15 +22,15 @@
         <declareNamespace name="SOAP" uri="http://schemas.xmlsoap.org/soap/envelope/"/>
         <declareNamespace name="ns1" uri="xmlapi"/>
         <xpath>count(//ns1:childDistinguishedName)</xpath>
-        <option name="allowWildCard" value="true"/>
-        <option name="IgnoreNamespacePrefixes" value="true"/>
-        <option name="IgnoreXmlComments" value="true"/>
+        <option name="allowWildCard">true</option>
+        <option name="IgnoreNamespacePrefixes">true</option>
+        <option name="IgnoreXmlComments">true</option>
         <expectedValue>1</expectedValue>
     </assert>
     <assert type="contains">
-        <option name="IgnoreCase" value="true"/>
-        <option name="UseRegExp" value="true"/>
-        <option name="notContains" value="false"/>
+        <option name="IgnoreCase">true</option>
+        <option name="UseRegExp">true</option>
+        <option name="notContains">false</option>
         <expectedValue>1</expectedValue>
     </assert>
     <assert type="script">
