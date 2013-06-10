@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="assertions" type="assertionsType">
+    <xs:annotation>
+      <xs:documentation>~ iTransformer is an open source tool able to discover and transform
+  ~  IP network infrastructures.
+  ~  Copyright (C) 2012  http://itransformers.net
+  ~
+  ~  This program is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  any later version.
+  ~
+  ~  This program is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with this program.  If not, see &lt;http://www.gnu.org/licenses/>.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="assertTypeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+        <xs:attribute type="xs:string" name="class" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="assertionsType">
+    <xs:sequence>
+      <xs:element type="assertType" name="assert" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="assertTypesType" name="assertTypes"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="declareNamespaceType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+        <xs:attribute type="xs:string" name="uri" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="assertType">
+    <xs:sequence>
+      <xs:element type="declareNamespaceType" name="declareNamespace" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="xs:string" name="xpath" minOccurs="0"/>
+      <xs:element type="optionType" name="option" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="xs:string" name="expectedValue" minOccurs="0"/>
+      <xs:element type="xs:string" name="script" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="type" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="assertTypesType">
+    <xs:sequence>
+      <xs:element type="assertTypeType" name="assertType" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="optionType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+        <xs:attribute type="xs:string" name="value" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>
