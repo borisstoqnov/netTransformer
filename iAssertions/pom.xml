@@ -58,9 +58,10 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <packageName>net.itransformers.iassertions.config</packageName>
+                    <packageName>net.itransformers.assertions.config</packageName>
                     <schemaDirectory>${basedir}/conf/xsd</schemaDirectory>
                     <outputDirectory>${basedir}/src/main/java</outputDirectory>
+                    <clearOutputDir>false</clearOutputDir>
                 </configuration>
             </plugin>
             <plugin>
