@@ -42,11 +42,11 @@ public class AssertionExecutor {
     }
 
     public static void main(String[] args) {
-//        Map<String, String> params = CmdLineParser.parseCmdLine(args);
-//        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("assertions-config.xml");
-//           NetworkDiscoverer discoverer = applicationContext.getBean("sdnDiscovery", NetworkDiscoverer.class);
-//        AssertionExecutor assertionExecutor = applicationContext.getBean("assertionExecutor", AssertionExecutor.class);
-//        assertionExecutor.execute()
+        Map<String, String> params = CmdLineParser.parseCmdLine(args);
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("assertions-config.xml");
+           NetworkDiscoverer discoverer = applicationContext.getBean("sdnDiscovery", NetworkDiscoverer.class);
+        AssertionExecutor assertionExecutor = applicationContext.getBean("assertionExecutor", AssertionExecutor.class);
+        assertionExecutor.execute()   ;
 
     }
 }

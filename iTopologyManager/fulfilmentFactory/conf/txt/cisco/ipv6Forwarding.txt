@@ -13,6 +13,7 @@ configure terminal
 
 ### start read_until('.*#',3)
 ipv6 unicast-routing
+ ipv6 cef
 end
 ### stop read_until
 exit

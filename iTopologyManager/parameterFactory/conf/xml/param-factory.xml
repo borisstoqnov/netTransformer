@@ -53,9 +53,11 @@
         <param-factory-element type="manual">
             <param name="Location"/>
         </param-factory-element>
-        <param-factory-element type="resource">
-            <param name="community"/>
-        </param-factory-element>
+         <param-factory-element type="resource">
+             <param name="username"/>
+             <param name="password"/>
+             <param name="enable-password"/>
+         </param-factory-element>
     </param-factory>
     <param-factory name="setDeviceAdminData">
         <param-factory-element type="graphml">
@@ -68,9 +70,12 @@
             <param name="location"/>
         </param-factory-element>
         <param-factory-element type="resource">
-            <param name="community"/>
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
         </param-factory-element>
     </param-factory>
+
     <param-factory name="enableIPv6Routing">
         <param-factory-element type="graphml">
             <param name="ManagementIPAddress"/>
@@ -81,6 +86,42 @@
             <param name="enable-password"/>
         </param-factory-element>
     </param-factory>
+
+    <param-factory name="IPv6Tunnel">
+        <param-factory-element type="graphml">
+            <param name="ManagementIPAddress"/>
+            <param name="hostname"/>
+        </param-factory-element>
+        <param-factory-element type="manual">
+            <param name="interface"/>
+            <param name="prefix"/>
+            <param name="source"/>
+            <param name="source"/>
+            <param name="destination"/>
+
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+    <param-factory name="IPv6Default">
+        <param-factory-element type="graphml">
+            <param name="ManagementIPAddress"/>
+            <param name="hostname"/>
+        </param-factory-element>
+        <param-factory-element type="manual">
+            <param name="interface"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+
+
     <param-factory name="CreateVRF">
         <param-factory-element type="graphml">
             <param name="ManagementIPAddress"/>

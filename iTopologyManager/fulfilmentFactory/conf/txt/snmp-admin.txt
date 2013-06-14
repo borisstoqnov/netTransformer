@@ -1,4 +1,4 @@
-### vars: Hostname, username, password, enable-password, chassis-id, contact, location
+### vars: username, password, enable-password, chassis-id, contact, location
 ### read_until('(login:|user:|Username:)',3)
 $username
 ### read_until('(Password:|password:)',3)

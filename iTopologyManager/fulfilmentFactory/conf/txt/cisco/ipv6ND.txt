@@ -1,4 +1,4 @@
-### vars: username, password, enable-password, Interface, prefix
+### vars: username, password, enable-password, $limit, $prefix
 ### read_until('(login:|user:|Username:)',3)
 $username
 ### read_until('(Password:|password:)',3)
@@ -10,9 +10,8 @@ $enable-password
 
 ### start read_until('.*#',3)
 configure terminal
-interface $Interface
-  ipv6 address $prefix eui-64
-  ipv6 enable
+ipv6 nd cache interface-limit $limit
+ipv6 general-prefix my-prefix $prefix
 end
 ### stop read_until
 exit

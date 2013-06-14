@@ -38,6 +38,14 @@
             <param name="cmd">IPv6OSPF</param>
             <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/cisco/IPv6OSPF.txt</param>
         </type>
+        <type name="c_IPv6Tunnel" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">IPv6Tunnel</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/cisco/IPv6Tunnel.txt</param>
+        </type>
+        <type name="c_IPv6DefaultRoute" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">IPv6DefaultRoute</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/cisco/IPv6Default.txt</param>
+        </type>
        <!--Huawei Fulfillment-->
         <type name="h_IPv6OSPF_interface" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">IPv6OSPF_interface</param>
@@ -99,6 +107,8 @@
     <fulfilment-factory name="cIPv6OSPF" resourceName="cisco" type="c_IPv6OSPF" parameterFactoryName="IPv6OSPF"/>
     <fulfilment-factory name="cIPv6OSPF_interface" resourceName="cisco" type="c_IPv6OSPF_interface" parameterFactoryName="IPv6OSPF_interface"/>
     <fulfilment-factory name="cIPv6Verify" resourceName="cisco" type="c_IPv6Verify" parameterFactoryName="IPv6Verify"/>
+    <fulfilment-factory name="cIP6to4Tunnel" resourceName="cisco" type="c_IPv6Tunnel" parameterFactoryName="IPv6Tunnel"/>
+    <fulfilment-factory name="cIPv6Default" resourceName="cisco" type="c_IPv6DefaultRoute" parameterFactoryName="IPv6Default"/>
 
     <fulfilment-factory name="hIPv6Forwarding" resourceName="huawei" type="h_ipv6Forwarding" parameterFactoryName="ipv6Forwarding"/>
     <fulfilment-factory name="hIPv6Interface" resourceName="huawei" type="h_ipv6Interface" parameterFactoryName="ipv6Interface"/>
