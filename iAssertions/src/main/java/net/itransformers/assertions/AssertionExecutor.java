@@ -34,7 +34,7 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class AssertionExecutor {
-    public AssertionResult[] execute(File assertionsConfig, AssertionLevel level) {
+    public AssertionResult[] execute(File[] inputFiles, File assertionsConfig, AssertionLevel level) {
         return null;
     }
     public AssertionResult[] execute(Assertion[] assertions, AssertionLevel level){
