@@ -24,6 +24,7 @@ import net.sf.saxon.event.Receiver;
 import net.sf.saxon.trans.XPathException;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
