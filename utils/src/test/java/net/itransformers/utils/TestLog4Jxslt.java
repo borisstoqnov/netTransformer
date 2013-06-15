@@ -39,19 +39,19 @@ public class TestLog4Jxslt {
     @Test
     public void test() throws TransformerException, IOException, SAXException, ParserConfigurationException {
 
-        XsltTransformer transformer = new XsltTransformer();
-        System.out.println(transformer.getClass());
-        logger.info("Starting...");
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        Map<String, String> settings = new HashMap<String, String>();
-        File xsltFileName = new File(System.getProperty("base.dir"), "utils/src/test/java/test.xslt");
-        InputStream inputStream = new FileInputStream(new File(System.getProperty("base.dir"), "utils/src/test/java/test.xml"));
-
-        transformer.transformXML(inputStream, xsltFileName, outputStream, settings, null);
-        logger.info("Transformation finished");
-
-        System.out.println(new String(outputStream.toByteArray()));
+//        XsltTransformer transformer = new XsltTransformer();
+//        System.out.println(transformer.getClass());
+//        logger.info("Starting...");
+//
+//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//        Map<String, String> settings = new HashMap<String, String>();
+//        File xsltFileName = new File(System.getProperty("base.dir"), "utils/src/test/java/test.xslt");
+//        InputStream inputStream = new FileInputStream(new File(System.getProperty("base.dir"), "utils/src/test/java/test.xml"));
+//
+//        transformer.transformXML(inputStream, xsltFileName, outputStream, settings, null);
+//        logger.info("Transformation finished");
+//
+//        System.out.println(new String(outputStream.toByteArray()));
 
     }
 
