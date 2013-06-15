@@ -30,6 +30,7 @@
                                 <packageName>net.itransformers.topologyviewer.config</packageName>
                                 <schemaDirectory>${basedir}/conf/xsd</schemaDirectory>
                                 <outputDirectory>${basedir}/src/main/java</outputDirectory>
+                                <clearOutputDir>false</clearOutputDir>
                             </configuration>
                         </plugin>
                         <plugin>
