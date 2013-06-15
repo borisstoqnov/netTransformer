@@ -24,6 +24,9 @@ import net.itransformers.assertions.AssertionLevel;
 import net.itransformers.assertions.AssertionResult;
 import org.xml.sax.InputSource;
 
+import java.lang.IllegalArgumentException;
+import java.lang.String;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -34,8 +37,21 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class XPathAssertion implements Assertion {
-    public XPathAssertion(String xPath, String[] declareNamespaces, Map<String, String> options, String expectedValue){
+    private final String xPath;
+    private final Map<String, String> declareNamespaces = new HashMap<String, String>();
+    private final String expectedValue;
+    private final Map<String, String> options = new HashMap<String, String>();
 
+    public XPathAssertion(Map<String, String> params){
+        this.xPath = params.get("xPath");
+        String paramNamespaces = params.get("declareNamespaces");
+        String[] nameSpacesArr = paramNamespaces.split(",");
+        for (String nameSpace : nameSpacesArr) {
+            String[] entries = nameSpace.split(",");
+            if (entries.length != 2) throw new IllegalArgumentException("Invalid parameter declareNamespaces:"+declareNamespaces);
+            this.declareNamespaces.put(entries[0], entries[1]);
+        }
+        this.expectedValue = params.get("expectedValue");
     }
 
     @Override
@@ -43,8 +59,4 @@ public class XPathAssertion implements Assertion {
         return null;
     }
 
-    @Override
-    public AssertionLevel getLevel() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
 }

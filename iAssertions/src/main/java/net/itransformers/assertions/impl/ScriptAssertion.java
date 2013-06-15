@@ -24,6 +24,9 @@ import net.itransformers.assertions.AssertionLevel;
 import net.itransformers.assertions.AssertionResult;
 import org.xml.sax.InputSource;
 
+import java.lang.String;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: VasilYordanov
@@ -32,7 +35,12 @@ import org.xml.sax.InputSource;
  * To change this template use File | Settings | File Templates.
  */
 public class ScriptAssertion implements Assertion {
-    public ScriptAssertion(String script, String language) {
+    private String script;
+    private String language;
+
+    public ScriptAssertion(Map<String, String> params) {
+        this.script = params.get("script");
+        this.language = params.get("language");
     }
 
     @Override
@@ -40,8 +48,4 @@ public class ScriptAssertion implements Assertion {
         return null;
     }
 
-    @Override
-    public AssertionLevel getLevel() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
 }

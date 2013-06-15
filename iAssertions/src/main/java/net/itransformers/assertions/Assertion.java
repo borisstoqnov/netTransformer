@@ -30,5 +30,4 @@ import org.xml.sax.InputSource;
  */
 public interface Assertion {
     AssertionResult doAssert(InputSource source);
-    AssertionLevel getLevel();
 }

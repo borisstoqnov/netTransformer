@@ -18,23 +18,23 @@
   -->
 
 <assertions>
-    <assert type="xpath">
-        <declareNamespace name="SOAP" uri="http://schemas.xmlsoap.org/soap/envelope/"/>
-        <declareNamespace name="ns1" uri="xmlapi"/>
-        <xpath>count(//ns1:childDistinguishedName)</xpath>
-        <option name="allowWildCard">true</option>
-        <option name="IgnoreNamespacePrefixes">true</option>
-        <option name="IgnoreXmlComments">true</option>
-        <expectedValue>1</expectedValue>
+    <assert type="xpath" name="check IP Address">
+        <parameter name="declareNamespaces">SOAP::http://schemas.xmlsoap.org/soap/envelope/,ns1::xmlapi</parameter>
+        <parameter name="xpath">count(//ns1:childDistinguishedName)</parameter>
+        <parameter name="allowWildCard">true</parameter>
+        <parameter name="IgnoreNamespacePrefixes">true</parameter>
+        <parameter name="IgnoreXmlComments">true</parameter>
+        <parameter name="IgnoreXmlComments">true</parameter>
+        <parameter name="expectedValue">1</parameter>
     </assert>
     <assert type="contains">
-        <option name="IgnoreCase">true</option>
-        <option name="UseRegExp">true</option>
-        <option name="notContains">false</option>
-        <expectedValue>1</expectedValue>
+        <parameter name="IgnoreCase">true</parameter>
+        <parameter name="UseRegExp">true</parameter>
+        <parameter name="notContains">false</parameter>
+        <parameter name="expectedValue">1</parameter>
     </assert>
     <assert type="script">
-        <script>dddd</script>
+        <parameter name="script">dddd</parameter>
     </assert>
     <assertTypes>
         <assertType name="xpath" class="net.itransformers.assertions.impl.XPathAssertion"/>

@@ -19,10 +19,20 @@
 
 package net.itransformers.assertions;
 
+import net.itransformers.assertions.config.AssertType;
+import net.itransformers.assertions.config.AssertTypeType;
+import net.itransformers.assertions.config.AssertTypesType;
+import net.itransformers.assertions.config.AssertionsType;
 import net.itransformers.utils.CmdLineParser;
+import net.itransformers.utils.JaxbMarshalar;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.xml.bind.JAXBException;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,19 +44,34 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class AssertionExecutor {
-    public AssertionResult[] execute(File[] inputFiles, File assertionsConfig, AssertionLevel level) {
-        return null;
+    public AssertionResult[] execute(File[] inputFiles, File assertionsConfig, AssertionLevel level) throws Exception {
+        AssertionsType assertionsType = JaxbMarshalar.unmarshal(AssertionsType.class,new FileInputStream(assertionsConfig));
+        List<AssertType> asserts = assertionsType.getAssert();
+        List<AssertionResult> result = new ArrayList<AssertionResult>();
+        List<AssertTypeType> assertTypes = assertionsType.getAssertTypes().getAssertType();
+        Map<String, Class> assertTypeMapping = new HashMap<String, Class>();
+        for (AssertTypeType assertType : assertTypes) {
+            assertTypeMapping.put(assertType.getName(),Class.forName(assertType.getClazz()));
+        }
+
+        for (AssertType anAssert : asserts) {
+            Class assertClazz = assertTypeMapping.get(anAssert.getType());
+            AssertionResult assertionResult = execute(inputFiles, anAssert, assertClazz, level);
+            result.add(assertionResult);
+        }
+        return result.toArray(new AssertionResult[result.size()]);
     }
-    public AssertionResult[] execute(Assertion[] assertions, AssertionLevel level){
+
+    private AssertionResult execute(File[] inputFiles, AssertType assertion, Class assertClazz, AssertionLevel level){
+//        assertClazz.getConstructor()
+        for (File inputFile : inputFiles) {
+            assertion.getType();
+        }
         return null;
+
     }
 
     public static void main(String[] args) {
-        Map<String, String> params = CmdLineParser.parseCmdLine(args);
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("assertions-config.xml");
-           NetworkDiscoverer discoverer = applicationContext.getBean("sdnDiscovery", NetworkDiscoverer.class);
-        AssertionExecutor assertionExecutor = applicationContext.getBean("assertionExecutor", AssertionExecutor.class);
-        assertionExecutor.execute()   ;
 
     }
 }

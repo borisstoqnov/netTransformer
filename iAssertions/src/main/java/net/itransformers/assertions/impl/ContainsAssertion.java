@@ -24,6 +24,8 @@ import net.itransformers.assertions.AssertionLevel;
 import net.itransformers.assertions.AssertionResult;
 import org.xml.sax.InputSource;
 
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: VasilYordanov
@@ -36,10 +38,10 @@ public class ContainsAssertion implements Assertion {
     private boolean useRegExp;
     private boolean notContains;
 
-    public ContainsAssertion(boolean ignoreCase, boolean useRegExp, boolean notContains) {
-        this.ignoreCase = ignoreCase;
-        this.useRegExp = useRegExp;
-        this.notContains = notContains;
+    public ContainsAssertion(Map<String, String> params) {
+        this.ignoreCase = Boolean.parseBoolean(params.get("ignoreCase"));
+        this.useRegExp = Boolean.parseBoolean(params.get("useRegExp"));
+        this.notContains = Boolean.parseBoolean(params.get("notContains"));
     }
 
     @Override
@@ -47,8 +49,4 @@ public class ContainsAssertion implements Assertion {
         return null;
     }
 
-    @Override
-    public AssertionLevel getLevel() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
 }
