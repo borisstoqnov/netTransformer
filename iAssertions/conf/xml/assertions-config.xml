@@ -18,15 +18,15 @@
   -->
 
 <assertions>
-    <assert type="xpath" name="check IP Address">
-        <parameter name="declareNamespaces">SOAP::http://schemas.xmlsoap.org/soap/envelope/,ns1::xmlapi</parameter>
-        <parameter name="xpath">count(//ns1:childDistinguishedName)</parameter>
-        <parameter name="allowWildCard">true</parameter>
-        <parameter name="IgnoreNamespacePrefixes">true</parameter>
-        <parameter name="IgnoreXmlComments">true</parameter>
-        <parameter name="IgnoreXmlComments">true</parameter>
-        <parameter name="expectedValue">1</parameter>
-    </assert>
+    <!--<assert type="xpath" name="check IP Address">-->
+        <!--<parameter name="declareNamespaces">SOAP::http://schemas.xmlsoap.org/soap/envelope/,ns1::xmlapi</parameter>-->
+        <!--<parameter name="xpath">count(//ns1:childDistinguishedName)</parameter>-->
+        <!--<parameter name="allowWildCard">true</parameter>-->
+        <!--<parameter name="IgnoreNamespacePrefixes">true</parameter>-->
+        <!--<parameter name="IgnoreXmlComments">true</parameter>-->
+        <!--<parameter name="IgnoreXmlComments">true</parameter>-->
+        <!--<parameter name="expectedValue">1</parameter>-->
+    <!--</assert>-->
     <assert type="xpath" name="check_ipv6Forwarding_YES">
         <parameter name="declareNamespaces"></parameter>
         <parameter name="xpath">//DiscoveredDevice/parameters/parameter[name='ipv6Forwarding']/value</parameter>

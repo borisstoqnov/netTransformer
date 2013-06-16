@@ -5,19 +5,11 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created with IntelliJ IDEA.
- * User: VasilYordanov
- * Date: 6/16/13
- * Time: 2:02 PM
- * To change this template use File | Settings | File Templates.
- */
+
 public class AssertionExecutorTestCase {
-    private String versionDir = "iAssertions/src/main/resources/network/version3";
     @Test
     public void testExecute() throws Exception {
         AssertionExecutor executor = new AssertionExecutor();
@@ -34,14 +26,15 @@ public class AssertionExecutorTestCase {
         }
     }
     @Test
-    public void testExecute1() throws Exception {
+    public void testExecuteIPv4_IPv6_version3() throws Exception {
+        String versionDir = "iAssertions/src/main/resources/network/version3";
         AssertionExecutor executor = new AssertionExecutor();
-        File assertionsConfig = new File("iAssertions/src/test/java/net/itransformers/assertions/test-assertions-config.xml");
+        File assertionsConfig = new File("iAssertions/src/test/java/net/itransformers/assertions/IPv4_IPv6.xml");
         final File folder = new File(versionDir);
         File[] inputFiles =folder.listFiles(new FileFilter() {
             @Override
             public boolean accept(File pathname) {
-                return pathname.isFile() && pathname.getName().endsWith(".xml") ;
+                return pathname.isFile() && pathname.getName().endsWith(".xml") &&pathname.getName().contains("device-data") ;
             }
         });
 
@@ -52,10 +45,28 @@ public class AssertionExecutorTestCase {
                 System.out.println("Assert Result for '" + fileAssertionResultEntry.getKey().getName()+"': "+fileAssertionResultEntry.getValue());
             }
         }
-//        Assert.assertEquals(3,result.length);
-//        for (AssertionResult assertionResult : result) {
-//            Assert.assertEquals(assertionResult.getType(),AssertionType.SUCCESS);
-//        }
+
+    }
+    @Test
+    public void testExecuteIPv4_IPv6_version4() throws Exception {
+        String versionDir = "iAssertions/src/main/resources/network/version4";
+        AssertionExecutor executor = new AssertionExecutor();
+        File assertionsConfig = new File("iAssertions/src/test/java/net/itransformers/assertions/IPv4_IPv6.xml");
+        final File folder = new File(versionDir);
+        File[] inputFiles =folder.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return pathname.isFile() && pathname.getName().endsWith(".xml") &&pathname.getName().contains("device-data") ;
+            }
+        });
+
+        // File[] inputFiles = new File[]{new File("iAssertions/src/test/java/net/itransformers/assertions/impl/xpath-test.xml")};
+        List<Map<File, AssertionResult>> result = executor.execute(inputFiles, assertionsConfig, AssertionLevel.CRITICAL);
+        for (Map<File, AssertionResult> fileAssertionResultMap : result) {
+            for (Map.Entry<File, AssertionResult> fileAssertionResultEntry : fileAssertionResultMap.entrySet()) {
+                System.out.println("Assert Result for '" + fileAssertionResultEntry.getKey().getName()+"': "+fileAssertionResultEntry.getValue());
+            }
+        }
 
     }
 }

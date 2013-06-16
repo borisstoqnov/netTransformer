@@ -30,17 +30,17 @@
         <parameter name="xpath">//LIBRARY//BOOKS//BOOK[@isbn='DFGH09093232']//NAME</parameter>
         <parameter name="expectedValue">XPATH for Dummies</parameter>
     </assert>
-    <assert type="contains">
+    <assert type="contains" name="checkMac">
         <parameter name="IgnoreCase">true</parameter>
         <parameter name="UseRegExp">false</parameter>
         <parameter name="notContains">false</parameter>
-        <parameter name="expectedValue">Java Programing</parameter>
+        <parameter name="expectedValue">c2:00:02:39:00:01</parameter>
     </assert>
-    <assert type="script">
+    <assert type="script" name ="checkScript">
         <parameter name="script"><![CDATA[
-                def books = document.getElementsByTagName("neighbor")
+                def objects = document.getElementsByTagName("objectType")
                 def found = false;
-                books.each{ if (it.getAttribute("isbn") == "DFGH09093232") found = true}
+                objects.each{ if (it.getNodeValue() == "Discovered Neighbor") found = true}
                 return found
                 ]]></parameter>
     </assert>
