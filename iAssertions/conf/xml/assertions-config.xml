@@ -27,6 +27,24 @@
         <parameter name="IgnoreXmlComments">true</parameter>
         <parameter name="expectedValue">1</parameter>
     </assert>
+    <assert type="xpath" name="check_ipv6Forwarding_YES">
+        <parameter name="declareNamespaces"></parameter>
+        <parameter name="xpath">//DiscoveredDevice/parameters/parameter[name='ipv6Forwarding']/value</parameter>
+        <parameter name="allowWildCard">true</parameter>
+        <parameter name="IgnoreNamespacePrefixes">true</parameter>
+        <parameter name="IgnoreXmlComments">true</parameter>
+        <parameter name="IgnoreXmlComments">true</parameter>
+        <parameter name="expectedValue">YES</parameter>
+    </assert>
+    <assert type="xpath" name="check_ipv6Forwarding_NO">
+        <parameter name="declareNamespaces"></parameter>
+        <parameter name="xpath">//DiscoveredDevice/parameters/parameter[name='ipv6Forwarding']/value</parameter>
+        <parameter name="allowWildCard">true</parameter>
+        <parameter name="IgnoreNamespacePrefixes">true</parameter>
+        <parameter name="IgnoreXmlComments">true</parameter>
+        <parameter name="IgnoreXmlComments">true</parameter>
+        <parameter name="expectedValue">NO</parameter>
+    </assert>
     <assert type="contains">
         <parameter name="IgnoreCase">true</parameter>
         <parameter name="UseRegExp">true</parameter>

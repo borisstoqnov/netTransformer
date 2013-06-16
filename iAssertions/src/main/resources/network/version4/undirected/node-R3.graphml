@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:fn="http://www.w3.org/2005/xpath-functions"
+         xmlns:functx="http://www.functx.com">
+   <graph edgedefault="undirected">
+      <key id="hostname" for="node" attr.name="hostname" attr.type="string"/>
+      <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string"/>
+      <key id="deviceType" for="node" attr.name="deviceType" attr.type="string"/>
+      <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string"/>
+      <key id="deviceStatus" for="node" attr.name="deviceStatus" attr.type="string"/>
+      <key id="ManagementIPAddress" for="node" attr.name="ManagementIPAddress"
+           attr.type="string"/>
+      <key id="geoCoordinates" for="node" attr.name="geoCoordinates" attr.type="string"/>
+      <key id="site" for="node" attr.name="site" attr.type="string"/>
+      <key id="diff" for="node" attr.name="diff" attr.type="string"/>
+      <key id="diffs" for="node" attr.name="diffs" attr.type="string"/>
+      <key id="ipv6Forwarding" for="node" attr.name="ipv6Forwarding" attr.type="string"/>
+      <key id="name" for="edge" attr.name="name" attr.type="string"/>
+      <key id="method" for="edge" attr.name="method" attr.type="string"/>
+      <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string"/>
+      <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string"/>
+      <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string"/>
+      <key id="ipv6Forwarding" for="edge" attr.name="ipv6Forwarding" attr.type="string"/>
+      <key id="localInterfaceName" for="edge" attr.name="localInterfaceName"
+           attr.type="string"/>
+      <key id="remoteInterfaceName" for="edge" attr.name="remoteInterfaceName"
+           attr.type="string"/>
+      <key id="localIPAddress" for="edge" attr.name="localIPAddress" attr.type="string"/>
+      <key id="remoteIPAddress" for="edge" attr.name="remoteIPAddress" attr.type="string"/>
+      <key id="edgeTooltip" for="edge" attr.name="edgeTooltip" attr.type="string"/>
+      <key id="diff" for="edge" attr.name="diff" attr.type="string"/>
+      <key id="diffs" for="edge" attr.name="diffs" attr.type="string"/>
+      <node id="R3">
+         <data key="hostname">R3</data>
+         <data key="deviceModel">cisco3620</data>
+         <data key="deviceType">CISCO</data>
+         <data key="deviceStatus">discovered</data>
+         <data key="ManagementIPAddress">172.16.13.3</data>
+         <data key="site">R3</data>
+         <data key="geoCoordinates">,</data>
+         <data key="ipv6Forwarding">NO</data>
+         <data key="nodeInfo" diffignore="YES"><![CDATA[ <html><b>Type: </b>CISCO <b>Model:</b> cisco3620 <b>Site:</b> R3<br><b>Mgmt IP address:</b> 172.16.13.3<br/><b>ipv6Forwarding:</b> NO<br/><b>BGPLocalASInfo:</b> 0</html>]]></data>
+      </node>
+      <node id="R1"/>
+      <node id="10.10.10.1"/>
+      <node id="R2"/>
+      <node id="R8"/>
+      <node id="R5"/>
+      <node id="R4"/>
+      <node id="R6"/>
+      <node id="R7"/>
+      <node id="10.10.10.0/24">
+         <data key="deviceStatus">passive</data>
+         <data key="nodeInfo">10.10.10.0/24</data>
+         <data key="deviceModel">passiveHub</data>
+      </node>
+      <edge id="R1 R3 &#xA;                        -&#xA;                        FastEthernet0/0 FastEthernet0/0 "
+            source="R3"
+            target="R1">
+         <data key="edgeTooltip">&lt;p&gt;&lt;b&gt;R3&lt;/b&gt; FastEthernet0/0&lt;b&gt;&lt;/b&gt; ( 172.16.13.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p&gt; </data>
+         <data key="localInterfaceName">FastEthernet0/0</data>
+         <data key="remoteInterfaceName">FastEthernet0/0</data>
+         <data key="localIPAddress">172.16.13.3</data>
+         <data key="remoteIPAddress">172.16.13.1</data>
+         <data key="method">r_OSPF,ARP,CDP,OSPF,</data>
+         <data key="ipLink">YES</data>
+         <data key="dataLink">YES</data>
+      </edge>
+      <edge id="10.10.10.0/24 R3 " source="R3" target="10.10.10.0/24">
+         <data key="edgeTooltip">&lt;p&gt;&lt;b&gt;R3&lt;/b&gt; FastEthernet0/1&lt;b&gt;&lt;/b&gt; (  )
+                | ARP,CDP&lt;/p&gt; </data>
+         <data key="localInterfaceName">FastEthernet0/1</data>
+         <data key="remoteInterfaceName"/>
+         <data key="localIPAddress"/>
+         <data key="remoteIPAddress"/>
+         <data key="method">ARP,CDP,</data>
+         <data key="ipLink">NO</data>
+         <data key="dataLink">NO</data>
+      </edge>
+      <edge id="R3 R5 &#xA;                        -&#xA;                        Serial1/0 Serial1/0 "
+            source="R3"
+            target="R5">
+         <data key="edgeTooltip">&lt;p&gt;&lt;b&gt;R3&lt;/b&gt; Serial1/0&lt;b&gt;&lt;/b&gt; ( 172.16.35.3 )
+                | r_OSPF,CDP,OSPF&lt;/p&gt; </data>
+         <data key="localInterfaceName">Serial1/0</data>
+         <data key="remoteInterfaceName">Serial1/0</data>
+         <data key="localIPAddress">172.16.35.3</data>
+         <data key="remoteIPAddress">172.16.35.5</data>
+         <data key="method">r_OSPF,CDP,OSPF,</data>
+         <data key="ipLink">YES</data>
+         <data key="dataLink">YES</data>
+      </edge>
+      <edge id="R3 R6 &#xA;                        -&#xA;                        Serial1/2 Serial1/2 "
+            source="R3"
+            target="R6">
+         <data key="edgeTooltip">&lt;p&gt;&lt;b&gt;R3&lt;/b&gt; Serial1/2&lt;b&gt;&lt;/b&gt; ( 172.16.36.3 )
+                | r_OSPF,CDP,OSPF&lt;/p&gt; </data>
+         <data key="localInterfaceName">Serial1/2</data>
+         <data key="remoteInterfaceName">Serial1/2</data>
+         <data key="localIPAddress">172.16.36.3</data>
+         <data key="remoteIPAddress">172.16.36.6</data>
+         <data key="method">r_OSPF,CDP,OSPF,</data>
+         <data key="ipLink">YES</data>
+         <data key="dataLink">YES</data>
+      </edge>
+      <edge id="R2 R3 &#xA;                        -&#xA;                        FastEthernet0/0 FastEthernet2/0 "
+            source="R3"
+            target="R2">
+         <data key="edgeTooltip">&lt;p&gt;&lt;b&gt;R3&lt;/b&gt; FastEthernet2/0&lt;b&gt;&lt;/b&gt; ( 172.16.23.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p&gt; </data>
+         <data key="localInterfaceName">FastEthernet2/0</data>
+         <data key="remoteInterfaceName">FastEthernet0/0</data>
+         <data key="localIPAddress">172.16.23.3</data>
+         <data key="remoteIPAddress">172.16.23.2</data>
+         <data key="method">r_OSPF,ARP,CDP,OSPF,</data>
+         <data key="ipLink">YES</data>
+         <data key="dataLink">YES</data>
+      </edge>
+   </graph>
+</graphml>

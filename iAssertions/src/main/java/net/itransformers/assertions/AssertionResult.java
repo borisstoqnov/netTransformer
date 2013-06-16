@@ -19,13 +19,7 @@
 
 package net.itransformers.assertions;
 
-/**
- * Created with IntelliJ IDEA.
- * User: VasilYordanov
- * Date: 6/7/13
- * Time: 11:17 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public class AssertionResult {
     private AssertionType type;
     private String description;

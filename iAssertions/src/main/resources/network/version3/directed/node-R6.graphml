@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:fn="http://www.w3.org/2005/xpath-functions">
+   <graph edgedefault="directed">
+      <key id="hostname" for="node" attr.name="hostname" attr.type="string"/>
+      <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string"/>
+      <key id="deviceType" for="node" attr.name="deviceType" attr.type="string"/>
+      <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string"/>
+      <key id="deviceStatus" for="node" attr.name="deviceStatus" attr.type="string"/>
+      <key id="ManagementIPAddress" for="node" attr.name="ManagementIPAddress"
+           attr.type="string"/>
+      <key id="BGPLocalASInfo" for="node" attr.name="BGPLocalASInfo" attr.type="string"/>
+      <key id="ipv6Forwarding" for="node" attr.name="ipv6Forwarding" attr.type="string"/>
+      <key id="ipv6Forwarding" for="edge" attr.name="ipv6Forwarding" attr.type="string"/>
+      <key id="site" for="node" attr.name="site" attr.type="string"/>
+      <key id="name" for="edge" attr.name="name" attr.type="string"/>
+      <key id="method" for="edge" attr.name="method" attr.type="string"/>
+      <key id="BGPRemoteASInfo" for="edge" attr.name="BGPRemoteASInfo" attr.type="string"/>
+      <key id="OSPFAreaInfo" for="edge" attr.name="OSPFAreaInfo" attr.type="string"/>
+      <key id="physical" for="edge" attr.name="physical" attr.type="string"/>
+      <key id="color" for="edge" attr.name="color" attr.type="string"/>
+      <key id="diff" for="node" attr.name="diff" attr.type="string"/>
+      <key id="diff" for="edge" attr.name="diff" attr.type="string"/>
+      <key id="diffs" for="node" attr.name="diffs" attr.type="string"/>
+      <key id="diffs" for="edge" attr.name="diffs" attr.type="string"/>
+      <node id="R6">
+         <data key="hostname">R6</data>
+         <data key="deviceModel">cisco3620</data>
+         <data key="deviceType">CISCO</data>
+         <data key="deviceStatus">discovered</data>
+         <data key="BGPLocalASInfo">0</data>
+         <data key="ipv6Forwarding">NO</data>
+         <data key="ManagementIPAddress">172.16.64.6</data>
+         <data key="site">R6</data>
+         <data key="nodeInfo" diffignore="YES"><![CDATA[ <html><b>Type: </b>CISCO <b>Model:</b> cisco3620 <b>Site:</b> R6 <br><b>Mgmt IP address:</b> 172.16.64.6<br/> <b>ipv6Forwarding:</b> NO <b>BGPLocalASInfo:</b> 0</html>]]></data>
+      </node>
+      <node id="10.10.10.1"/>
+      <edge id="R6 10.10.10.1" source="R6" target="10.10.10.1">
+         <data key="method">ARP,</data>
+      </edge>
+      <node id="10.10.10.12"/>
+      <edge id="R6 10.10.10.12" source="R6" target="10.10.10.12">
+         <data key="method">ARP,</data>
+      </edge>
+      <node id="10.10.10.13"/>
+      <edge id="R6 10.10.10.13" source="R6" target="10.10.10.13">
+         <data key="method">ARP,</data>
+      </edge>
+      <node id="R7"/>
+      <edge id="R6 R7" source="R6" target="R7">
+         <data key="method">CDP,</data>
+      </edge>
+      <node id="R8"/>
+      <edge id="R6 R8" source="R6" target="R8">
+         <data key="method">CDP,</data>
+      </edge>
+      <node id="R5"/>
+      <edge id="R6 R5" source="R6" target="R5">
+         <data key="method">CDP,r_OSPF,CDP,OSPF,</data>
+         <data key="OSPFAreaInfo">
+									AREA UNKNOWN</data>
+      </edge>
+      <node id="R4"/>
+      <edge id="R6 R4" source="R6" target="R4">
+         <data key="method">CDP,r_OSPF,CDP,OSPF,</data>
+         <data key="OSPFAreaInfo">
+									AREA UNKNOWN</data>
+      </edge>
+      <node id="R1"/>
+      <edge id="R6 R1" source="R6" target="R1">
+         <data key="method">CDP,</data>
+      </edge>
+      <node id="R3"/>
+      <edge id="R6 R3" source="R6" target="R3">
+         <data key="method">CDP,r_OSPF,CDP,OSPF,</data>
+         <data key="OSPFAreaInfo">
+									AREA UNKNOWN</data>
+      </edge>
+      <node id="R2"/>
+      <edge id="R6 R2" source="R6" target="R2">
+         <data key="method">CDP,</data>
+      </edge>
+   </graph>
+</graphml>

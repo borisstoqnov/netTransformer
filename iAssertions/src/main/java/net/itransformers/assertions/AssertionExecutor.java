@@ -19,13 +19,13 @@
 
 package net.itransformers.assertions;
 
-import net.itransformers.assertions.config.*;
-import net.itransformers.utils.CmdLineParser;
+import net.itransformers.assertions.config.AssertType;
+import net.itransformers.assertions.config.AssertTypeType;
+import net.itransformers.assertions.config.AssertionsType;
+import net.itransformers.assertions.config.ParameterType;
 import net.itransformers.utils.JaxbMarshalar;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.xml.sax.InputSource;
 
-import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -37,13 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created with IntelliJ IDEA.
- * User: VasilYordanov
- * Date: 6/7/13
- * Time: 11:35 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public class AssertionExecutor {
     public AssertionResult[] execute(File[] inputFiles, File assertionsConfig, AssertionLevel level) throws Exception {
         AssertionsType assertionsType = JaxbMarshalar.unmarshal(AssertionsType.class,new FileInputStream(assertionsConfig));
@@ -78,6 +72,11 @@ public class AssertionExecutor {
             result.add(assertionResult);
         }
         return result;
+
+    }
+
+    public static void main(String[] args) {
+        AssertionExecutor    assertResult    = new AssertionExecutor();
 
     }
 }

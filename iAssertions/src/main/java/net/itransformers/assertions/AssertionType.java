@@ -19,13 +19,7 @@
 
 package net.itransformers.assertions;
 
-/**
- * Created with IntelliJ IDEA.
- * User: VasilYordanov
- * Date: 6/7/13
- * Time: 11:18 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public enum AssertionType {
     SUCCESS,
     FAILED,

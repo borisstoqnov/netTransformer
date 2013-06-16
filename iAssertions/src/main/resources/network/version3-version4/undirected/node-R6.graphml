@@ -1,0 +1,163 @@
+<graphml xmlns:cmp="http://xsltsl.org/cmp">
+   <graph edgedefault="undirected">
+      <key id="hostname" diff="NO" for="node" attr.name="hostname" attr.type="string"/>
+      <key id="deviceModel" diff="NO" for="node" attr.name="deviceModel"
+           attr.type="string"/>
+      <key id="deviceType" diff="NO" for="node" attr.name="deviceType" attr.type="string"/>
+      <key id="nodeInfo" diff="NO" for="node" attr.name="nodeInfo" attr.type="string"/>
+      <key id="deviceStatus" diff="NO" for="node" attr.name="deviceStatus"
+           attr.type="string"/>
+      <key id="ManagementIPAddress" diff="NO" for="node" attr.name="ManagementIPAddress"
+           attr.type="string"/>
+      <key id="geoCoordinates" diff="NO" for="node" attr.name="geoCoordinates"
+           attr.type="string"/>
+      <key id="site" diff="NO" for="node" attr.name="site" attr.type="string"/>
+      <key id="diff" diff="NO" for="node" attr.name="diff" attr.type="string"/>
+      <key id="diffs" diff="NO" for="node" attr.name="diffs" attr.type="string"/>
+      <key id="ipv6Forwarding" diff="NO" for="node" attr.name="ipv6Forwarding"
+           attr.type="string"/>
+      <key id="name" diff="NO" for="edge" attr.name="name" attr.type="string"/>
+      <key id="method" diff="NO" for="edge" attr.name="method" attr.type="string"/>
+      <key id="dataLink" diff="NO" for="edge" attr.name="dataLink" attr.type="string"/>
+      <key id="ipLink" diff="NO" for="edge" attr.name="ipLink" attr.type="string"/>
+      <key id="MPLS" diff="NO" for="edge" attr.name="MPLS" attr.type="string"/>
+      <key id="ipv6Forwarding" diff="NO" for="edge" attr.name="ipv6Forwarding"
+           attr.type="string"/>
+      <key id="localInterfaceName" diff="NO" for="edge" attr.name="localInterfaceName"
+           attr.type="string"/>
+      <key id="remoteInterfaceName" diff="NO" for="edge" attr.name="remoteInterfaceName"
+           attr.type="string"/>
+      <key id="localIPAddress" diff="NO" for="edge" attr.name="localIPAddress"
+           attr.type="string"/>
+      <key id="remoteIPAddress" diff="NO" for="edge" attr.name="remoteIPAddress"
+           attr.type="string"/>
+      <key id="edgeTooltip" diff="NO" for="edge" attr.name="edgeTooltip"
+           attr.type="string"/>
+      <key id="diff" diff="NO" for="edge" attr.name="diff" attr.type="string"/>
+      <key id="diffs" diff="NO" for="edge" attr.name="diffs" attr.type="string"/>
+      <node id="R6">
+         <data key="hostname">R6</data>
+         <data key="deviceModel">cisco3620</data>
+         <data key="deviceType">CISCO</data>
+         <data key="deviceStatus">discovered</data>
+         <data key="ManagementIPAddress">172.16.64.6</data>
+         <data key="site">R6</data>
+         <data key="geoCoordinates">,</data>
+         <data key="ipv6Forwarding">NO</data>
+         <data key="nodeInfo"> &lt;html&gt;&lt;b&gt;Type: &lt;/b&gt;CISCO &lt;b&gt;Model:&lt;/b&gt; cisco3620 &lt;b&gt;Site:&lt;/b&gt; R6&lt;br&gt;&lt;b&gt;Mgmt IP address:&lt;/b&gt; 172.16.64.6&lt;br/&gt;&lt;b&gt;ipv6Forwarding:&lt;/b&gt; NO&lt;br/&gt;&lt;b&gt;BGPLocalASInfo:&lt;/b&gt; &lt;/html&gt;</data>
+         <data key="diff">YES</data>
+         <data key="diffs">&lt;br&gt;&lt;b&gt;&lt;i&gt;nodeInfo: &lt;/i&gt;&lt;/b&gt; &lt;html&gt;&lt;b&gt;Type: &lt;/b&gt;CISCO &lt;b&gt;Model:&lt;/b&gt; cisco3620 &lt;b&gt;Site:&lt;/b&gt; R6&lt;br&gt;&lt;b&gt;Mgmt IP address:&lt;/b&gt; 172.16.64.6&lt;br/&gt;&lt;b&gt;ipv6Forwarding:&lt;/b&gt; NO&lt;br/&gt;&lt;b&gt;BGPLocalASInfo:&lt;/b&gt; 0&lt;/html&gt;- &lt;html&gt;&lt;b&gt;Type: &lt;/b&gt;CISCO &lt;b&gt;Model:&lt;/b&gt; cisco3620 &lt;b&gt;Site:&lt;/b&gt; R6&lt;br&gt;&lt;b&gt;Mgmt IP address:&lt;/b&gt; 172.16.64.6&lt;br/&gt;&lt;b&gt;ipv6Forwarding:&lt;/b&gt; NO&lt;br/&gt;&lt;b&gt;BGPLocalASInfo:&lt;/b&gt; &lt;/html&gt; -  &lt;html&gt;&lt;b&gt;Type: &lt;/b&gt;CISCO &lt;b&gt;Model:&lt;/b&gt; cisco3620 &lt;b&gt;Site:&lt;/b&gt; R6&lt;br&gt;&lt;b&gt;Mgmt IP address:&lt;/b&gt; 172.16.64.6&lt;br/&gt;&lt;b&gt;ipv6Forwarding:&lt;/b&gt; NO&lt;br/&gt;&lt;b&gt;BGPLocalASInfo:&lt;/b&gt; &lt;/html&gt;&lt;/br&gt;</data>
+      </node>
+      <node id="10.10.10.1">
+         <data key="diffs"/>
+      </node>
+      <node id="10.10.10.12">
+         <data key="diffs"/>
+      </node>
+      <node id="10.10.10.13">
+         <data key="diffs"/>
+      </node>
+      <node id="R7">
+         <data key="diffs"/>
+      </node>
+      <node id="R8">
+         <data key="diffs"/>
+      </node>
+      <node id="R5">
+         <data key="diffs"/>
+      </node>
+      <node id="R4">
+         <data key="diffs"/>
+      </node>
+      <node id="R1">
+         <data key="diffs"/>
+      </node>
+      <node id="R3">
+         <data key="diffs"/>
+      </node>
+      <node id="R2">
+         <data key="diffs"/>
+      </node>
+      <node id="10.10.10.0/24">
+         <data key="deviceStatus">passive</data>
+         <data key="nodeInfo">10.10.10.0/24</data>
+         <data key="deviceModel">passiveHub</data>
+         <data key="diffs"/>
+      </node>
+      <edge id="10.10.10.0/24 R6 " source="R6" target="10.10.10.0/24">
+         <data key="edgeTooltip">&lt;p&gt;&lt;b&gt;R6&lt;/b&gt; FastEthernet0/1&lt;b&gt;&lt;/b&gt; (  )
+                | ARP,CDP&lt;/p&gt; </data>
+         <data key="localInterfaceName">FastEthernet0/1</data>
+         <data key="remoteInterfaceName"/>
+         <data key="localIPAddress"/>
+         <data key="remoteIPAddress"/>
+         <data key="method">ARP,CDP,</data>
+         <data key="ipLink">NO</data>
+         <data key="dataLink">NO</data>
+         <data key="diffs"/>
+      </edge>
+      <edge id="R4 R6 &#xA;                        -&#xA;                        Serial1/0 Serial1/0 "
+            source="R6"
+            target="R4">
+         <data key="localInterfaceName">Serial1/0</data>
+         <data key="remoteInterfaceName">Serial1/0</data>
+         <data key="localIPAddress">172.16.64.6</data>
+         <data key="remoteIPAddress">172.16.64.4</data>
+         <data key="ipLink">YES</data>
+         <data key="dataLink">YES</data>
+         <data key="edgeTooltip">&lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/0&lt;b&gt;&lt;/b&gt; ( 172.16.64.6 )
+                | r_OSPF,CDP&lt;/p&gt; </data>
+         <data key="edgeTooltip"/>
+         <data key="method">r_OSPF,CDP,</data>
+         <data key="method"/>
+         <data key="diff">YES</data>
+         <data key="diffs">&lt;br&gt;&lt;b&gt;&lt;i&gt;edgeTooltip: &lt;/i&gt;&lt;/b&gt;&lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/0&lt;b&gt;&lt;/b&gt; ( 172.16.64.6 )
+                | r_OSPF,CDP,OSPF&lt;/p&gt; -&lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/0&lt;b&gt;&lt;/b&gt; ( 172.16.64.6 )
+                | r_OSPF,CDP&lt;/p&gt;  - &lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/0&lt;b&gt;&lt;/b&gt; ( 172.16.64.6 )
+                | r_OSPF,CDP&lt;/p&gt; &lt;/br&gt;&lt;br&gt;&lt;b&gt;&lt;i&gt;edgeTooltip: &lt;/i&gt;&lt;/b&gt;&lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/0&lt;b&gt;&lt;/b&gt; ( 172.16.64.6 )
+                | r_OSPF,CDP,OSPF&lt;/p&gt; - - &lt;/br&gt;&lt;br&gt;&lt;b&gt;&lt;i&gt;method: &lt;/i&gt;&lt;/b&gt;r_OSPF,CDP,OSPF,-r_OSPF,CDP, - r_OSPF,CDP,&lt;/br&gt;&lt;br&gt;&lt;b&gt;&lt;i&gt;method: &lt;/i&gt;&lt;/b&gt;r_OSPF,CDP,OSPF,- - &lt;/br&gt;</data>
+      </edge>
+      <edge id="R5 R6 &#xA;                        -&#xA;                        Serial1/1 Serial1/2 "
+            source="R6"
+            target="R5">
+         <data key="localInterfaceName">Serial1/1</data>
+         <data key="remoteInterfaceName">Serial1/2</data>
+         <data key="localIPAddress">172.16.56.6</data>
+         <data key="remoteIPAddress">172.16.56.5</data>
+         <data key="ipLink">YES</data>
+         <data key="dataLink">YES</data>
+         <data key="edgeTooltip">&lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/1&lt;b&gt;&lt;/b&gt; ( 172.16.56.6 )
+                | r_OSPF,CDP&lt;/p&gt; </data>
+         <data key="edgeTooltip"/>
+         <data key="method">r_OSPF,CDP,</data>
+         <data key="method"/>
+         <data key="diff">YES</data>
+         <data key="diffs">&lt;br&gt;&lt;b&gt;&lt;i&gt;edgeTooltip: &lt;/i&gt;&lt;/b&gt;&lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/1&lt;b&gt;&lt;/b&gt; ( 172.16.56.6 )
+                | r_OSPF,CDP,OSPF&lt;/p&gt; -&lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/1&lt;b&gt;&lt;/b&gt; ( 172.16.56.6 )
+                | r_OSPF,CDP&lt;/p&gt;  - &lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/1&lt;b&gt;&lt;/b&gt; ( 172.16.56.6 )
+                | r_OSPF,CDP&lt;/p&gt; &lt;/br&gt;&lt;br&gt;&lt;b&gt;&lt;i&gt;edgeTooltip: &lt;/i&gt;&lt;/b&gt;&lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/1&lt;b&gt;&lt;/b&gt; ( 172.16.56.6 )
+                | r_OSPF,CDP,OSPF&lt;/p&gt; - - &lt;/br&gt;&lt;br&gt;&lt;b&gt;&lt;i&gt;method: &lt;/i&gt;&lt;/b&gt;r_OSPF,CDP,OSPF,-r_OSPF,CDP, - r_OSPF,CDP,&lt;/br&gt;&lt;br&gt;&lt;b&gt;&lt;i&gt;method: &lt;/i&gt;&lt;/b&gt;r_OSPF,CDP,OSPF,- - &lt;/br&gt;</data>
+      </edge>
+      <edge id="R3 R6 &#xA;                        -&#xA;                        Serial1/2 Serial1/2 "
+            source="R6"
+            target="R3">
+         <data key="localInterfaceName">Serial1/2</data>
+         <data key="remoteInterfaceName">Serial1/2</data>
+         <data key="localIPAddress">172.16.36.6</data>
+         <data key="remoteIPAddress">172.16.36.3</data>
+         <data key="ipLink">YES</data>
+         <data key="dataLink">YES</data>
+         <data key="edgeTooltip">&lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/2&lt;b&gt;&lt;/b&gt; ( 172.16.36.6 )
+                | r_OSPF,CDP&lt;/p&gt; </data>
+         <data key="edgeTooltip"/>
+         <data key="method">r_OSPF,CDP,</data>
+         <data key="method"/>
+         <data key="diff">YES</data>
+         <data key="diffs">&lt;br&gt;&lt;b&gt;&lt;i&gt;edgeTooltip: &lt;/i&gt;&lt;/b&gt;&lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/2&lt;b&gt;&lt;/b&gt; ( 172.16.36.6 )
+                | r_OSPF,CDP,OSPF&lt;/p&gt; -&lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/2&lt;b&gt;&lt;/b&gt; ( 172.16.36.6 )
+                | r_OSPF,CDP&lt;/p&gt;  - &lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/2&lt;b&gt;&lt;/b&gt; ( 172.16.36.6 )
+                | r_OSPF,CDP&lt;/p&gt; &lt;/br&gt;&lt;br&gt;&lt;b&gt;&lt;i&gt;edgeTooltip: &lt;/i&gt;&lt;/b&gt;&lt;p&gt;&lt;b&gt;R6&lt;/b&gt; Serial1/2&lt;b&gt;&lt;/b&gt; ( 172.16.36.6 )
+                | r_OSPF,CDP,OSPF&lt;/p&gt; - - &lt;/br&gt;&lt;br&gt;&lt;b&gt;&lt;i&gt;method: &lt;/i&gt;&lt;/b&gt;r_OSPF,CDP,OSPF,-r_OSPF,CDP, - r_OSPF,CDP,&lt;/br&gt;&lt;br&gt;&lt;b&gt;&lt;i&gt;method: &lt;/i&gt;&lt;/b&gt;r_OSPF,CDP,OSPF,- - &lt;/br&gt;</data>
+      </edge>
+   </graph>
+</graphml>

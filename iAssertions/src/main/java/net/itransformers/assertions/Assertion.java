@@ -21,13 +21,7 @@ package net.itransformers.assertions;
 
 import org.xml.sax.InputSource;
 
-/**
- * Created with IntelliJ IDEA.
- * User: VasilYordanov
- * Date: 6/7/13
- * Time: 11:13 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public interface Assertion {
     AssertionResult doAssert(InputSource source);
 }

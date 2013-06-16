@@ -1,0 +1,111 @@
+<graphml xmlns:cmp="http://xsltsl.org/cmp">
+   <graph edgedefault="undirected">
+      <key id="hostname" diff="NO" for="node" attr.name="hostname" attr.type="string"/>
+      <key id="deviceModel" diff="NO" for="node" attr.name="deviceModel"
+           attr.type="string"/>
+      <key id="deviceType" diff="NO" for="node" attr.name="deviceType" attr.type="string"/>
+      <key id="nodeInfo" diff="NO" for="node" attr.name="nodeInfo" attr.type="string"/>
+      <key id="deviceStatus" diff="NO" for="node" attr.name="deviceStatus"
+           attr.type="string"/>
+      <key id="ManagementIPAddress" diff="NO" for="node" attr.name="ManagementIPAddress"
+           attr.type="string"/>
+      <key id="geoCoordinates" diff="NO" for="node" attr.name="geoCoordinates"
+           attr.type="string"/>
+      <key id="site" diff="NO" for="node" attr.name="site" attr.type="string"/>
+      <key id="diff" diff="NO" for="node" attr.name="diff" attr.type="string"/>
+      <key id="diffs" diff="NO" for="node" attr.name="diffs" attr.type="string"/>
+      <key id="ipv6Forwarding" diff="NO" for="node" attr.name="ipv6Forwarding"
+           attr.type="string"/>
+      <key id="name" diff="NO" for="edge" attr.name="name" attr.type="string"/>
+      <key id="method" diff="NO" for="edge" attr.name="method" attr.type="string"/>
+      <key id="dataLink" diff="NO" for="edge" attr.name="dataLink" attr.type="string"/>
+      <key id="ipLink" diff="NO" for="edge" attr.name="ipLink" attr.type="string"/>
+      <key id="MPLS" diff="NO" for="edge" attr.name="MPLS" attr.type="string"/>
+      <key id="ipv6Forwarding" diff="NO" for="edge" attr.name="ipv6Forwarding"
+           attr.type="string"/>
+      <key id="localInterfaceName" diff="NO" for="edge" attr.name="localInterfaceName"
+           attr.type="string"/>
+      <key id="remoteInterfaceName" diff="NO" for="edge" attr.name="remoteInterfaceName"
+           attr.type="string"/>
+      <key id="localIPAddress" diff="NO" for="edge" attr.name="localIPAddress"
+           attr.type="string"/>
+      <key id="remoteIPAddress" diff="NO" for="edge" attr.name="remoteIPAddress"
+           attr.type="string"/>
+      <key id="edgeTooltip" diff="NO" for="edge" attr.name="edgeTooltip"
+           attr.type="string"/>
+      <key id="diff" diff="NO" for="edge" attr.name="diff" attr.type="string"/>
+      <key id="diffs" diff="NO" for="edge" attr.name="diffs" attr.type="string"/>
+      <node id="R7">
+         <data key="hostname">R7</data>
+         <data key="deviceModel">cisco3620</data>
+         <data key="deviceType">CISCO</data>
+         <data key="deviceStatus">discovered</data>
+         <data key="ManagementIPAddress">172.16.47.7</data>
+         <data key="site">R7</data>
+         <data key="geoCoordinates">,</data>
+         <data key="ipv6Forwarding">
+                    YES
+                </data>
+         <data key="nodeInfo" diffignore="YES"> &lt;html&gt;&lt;b&gt;Type: &lt;/b&gt;CISCO &lt;b&gt;Model:&lt;/b&gt; cisco3620 &lt;b&gt;Site:&lt;/b&gt; R7&lt;br&gt;&lt;b&gt;Mgmt IP address:&lt;/b&gt; 172.16.47.7&lt;br/&gt;&lt;b&gt;ipv6Forwarding:&lt;/b&gt; 
+                    YES
+                &lt;br/&gt;&lt;b&gt;BGPLocalASInfo:&lt;/b&gt; 478&lt;/html&gt;</data>
+         <data key="diffs"/>
+      </node>
+      <node id="R4">
+         <data key="diffs"/>
+      </node>
+      <node id="10.10.10.1">
+         <data key="diffs"/>
+      </node>
+      <node id="R6">
+         <data key="diffs"/>
+      </node>
+      <node id="R8">
+         <data key="diffs"/>
+      </node>
+      <node id="R5">
+         <data key="diffs"/>
+      </node>
+      <node id="R1">
+         <data key="diffs"/>
+      </node>
+      <node id="R3">
+         <data key="diffs"/>
+      </node>
+      <node id="R2">
+         <data key="diffs"/>
+      </node>
+      <node id="10.10.10.0/24">
+         <data key="deviceStatus">passive</data>
+         <data key="nodeInfo">10.10.10.0/24</data>
+         <data key="deviceModel">passiveHub</data>
+         <data key="diffs"/>
+      </node>
+      <edge id="R4 R7 &#xA;                        -&#xA;                        FastEthernet0/0 FastEthernet0/0 "
+            source="R7"
+            target="R4">
+         <data key="edgeTooltip">&lt;p&gt;&lt;b&gt;R7&lt;/b&gt; FastEthernet0/0&lt;b&gt;&lt;/b&gt; ( 172.16.47.7 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p&gt; </data>
+         <data key="localInterfaceName">FastEthernet0/0</data>
+         <data key="remoteInterfaceName">FastEthernet0/0</data>
+         <data key="localIPAddress">172.16.47.7</data>
+         <data key="remoteIPAddress">172.16.47.4</data>
+         <data key="method">r_OSPF,ARP,CDP,OSPF,</data>
+         <data key="ipLink">YES</data>
+         <data key="dataLink">YES</data>
+         <data key="diffs"/>
+      </edge>
+      <edge id="10.10.10.0/24 R7 " source="R7" target="10.10.10.0/24">
+         <data key="edgeTooltip">&lt;p&gt;&lt;b&gt;R7&lt;/b&gt; FastEthernet0/1&lt;b&gt;&lt;/b&gt; (  )
+                | ARP,CDP&lt;/p&gt; </data>
+         <data key="localInterfaceName">FastEthernet0/1</data>
+         <data key="remoteInterfaceName"/>
+         <data key="localIPAddress"/>
+         <data key="remoteIPAddress"/>
+         <data key="method">ARP,CDP,</data>
+         <data key="ipLink">NO</data>
+         <data key="dataLink">NO</data>
+         <data key="diffs"/>
+      </edge>
+   </graph>
+</graphml>
