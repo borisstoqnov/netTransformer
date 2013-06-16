@@ -68,8 +68,12 @@ public class AssertionExecutor {
         Assertion inst = constructor.newInstance(params);
         for (File inputFile : inputFiles) {
             InputStream fileInputStream = new FileInputStream(inputFile);
-            AssertionResult assertionResult = inst.doAssert(new InputSource(fileInputStream));
-            result.add(assertionResult);
+            try {
+                AssertionResult assertionResult = inst.doAssert(new InputSource(fileInputStream));
+                result.add(assertionResult);
+            } catch (RuntimeException rte) {
+                throw new RuntimeException("Can not assert file: "+inputFile.getAbsolutePath(), rte);
+            }
         }
         return result;
 
