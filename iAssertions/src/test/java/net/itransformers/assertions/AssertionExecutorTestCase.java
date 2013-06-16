@@ -25,11 +25,13 @@ public class AssertionExecutorTestCase {
         File[] inputFiles = new File[]{new File("iAssertions/src/test/java/net/itransformers/assertions/impl/xpath-test.xml")};
         File folder = new File(".");
 
-//        AssertionResult[] result = executor.execute(inputFiles, assertionsConfig, AssertionLevel.CRITICAL);
-//        Assert.assertEquals(3,result.length);
-//        for (AssertionResult assertionResult : result) {
-//            Assert.assertEquals(assertionResult.getType(),AssertionType.SUCCESS);
-//        }
+        List<Map<File, AssertionResult>> result = executor.execute(inputFiles, assertionsConfig, AssertionLevel.CRITICAL);
+        for (Map<File, AssertionResult> fileAssertionResultMap : result) {
+            for (File file : fileAssertionResultMap.keySet()) {
+                AssertionResult assertionResult = fileAssertionResultMap.get(file);
+                Assert.assertEquals(assertionResult.getType(),AssertionType.SUCCESS);
+            }
+        }
     }
     @Test
     public void testExecute1() throws Exception {
