@@ -22,8 +22,10 @@ package net.itransformers.assertions.impl;
 import net.itransformers.assertions.Assertion;
 import net.itransformers.assertions.AssertionLevel;
 import net.itransformers.assertions.AssertionResult;
+import net.itransformers.assertions.AssertionType;
 import org.xml.sax.InputSource;
 
+import java.io.*;
 import java.util.Map;
 
 /**
@@ -34,6 +36,7 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class ContainsAssertion implements Assertion {
+    private final String expectedValue;
     private boolean ignoreCase;
     private boolean useRegExp;
     private boolean notContains;
@@ -42,11 +45,47 @@ public class ContainsAssertion implements Assertion {
         this.ignoreCase = Boolean.parseBoolean(params.get("ignoreCase"));
         this.useRegExp = Boolean.parseBoolean(params.get("useRegExp"));
         this.notContains = Boolean.parseBoolean(params.get("notContains"));
+        this.expectedValue = params.get("expectedValue");
     }
 
     @Override
     public AssertionResult doAssert(InputSource source) {
-        return null;
+        InputStream is = source.getByteStream();
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            byte[] buff = new byte[1024];
+            int len;
+            while ((len = is.read(buff)) > 0 ){
+                bos.write(buff,0,len);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String str = new String(bos.toByteArray());
+        boolean contains = contains(str);
+        if (notContains){
+            if (contains) {
+                return new AssertionResult(AssertionType.FAILED);
+            } else {
+                return new AssertionResult(AssertionType.SUCCESS);
+            }
+        } else {
+            if (contains){
+                return new AssertionResult(AssertionType.SUCCESS);
+            } else {
+                return new AssertionResult(AssertionType.FAILED);
+            }
+        }
+    }
+
+    private boolean contains(String str) {
+        if (useRegExp) {
+            return str.matches(expectedValue);
+        } else if (ignoreCase){
+            return str.toLowerCase().contains(expectedValue.toLowerCase());
+        } else {
+            return str.contains(expectedValue);
+        }
     }
 
 }

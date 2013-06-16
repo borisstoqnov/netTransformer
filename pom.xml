@@ -25,6 +25,7 @@
     <properties>
         <version>0.1-SNAPSHOT</version><!--Change for new version-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <groovy.version>1.8.3</groovy.version>
     </properties>
     <groupId>iTransformers</groupId>
     <artifactId>iTransformer</artifactId>
@@ -44,7 +45,6 @@
         <!--module>wsitransformer</module-->
         <module>ideas</module>
     </modules>
-
             <build>
                 <pluginManagement>
                     <plugins>

@@ -30,6 +30,15 @@ public class AssertionResult {
     private AssertionType type;
     private String description;
 
+    public AssertionResult(AssertionType type) {
+        this.type = type;
+    }
+
+    public AssertionResult(AssertionType type, String description) {
+        this.type = type;
+        this.description = description;
+    }
+
     public AssertionType getType() {
         return type;
     }

@@ -18,23 +18,23 @@
   -->
 
 <assertions>
-    <assert type="xpath" name="check IP Address">
-        <parameter name="declareNamespaces">SOAP::http://schemas.xmlsoap.org/soap/envelope/,ns1::xmlapi</parameter>
-        <parameter name="xpath">count(//ns1:childDistinguishedName)</parameter>
-        <parameter name="allowWildCard">true</parameter>
-        <parameter name="IgnoreNamespacePrefixes">true</parameter>
-        <parameter name="IgnoreXmlComments">true</parameter>
-        <parameter name="IgnoreXmlComments">true</parameter>
-        <parameter name="expectedValue">1</parameter>
+    <assert type="xpath" name="Check Books">
+        <parameter name="xpath">//LIBRARY//BOOKS//BOOK[@isbn='DFGH09093232']//NAME</parameter>
+        <parameter name="expectedValue">XPATH for Dummies</parameter>
     </assert>
     <assert type="contains">
         <parameter name="IgnoreCase">true</parameter>
-        <parameter name="UseRegExp">true</parameter>
+        <parameter name="UseRegExp">false</parameter>
         <parameter name="notContains">false</parameter>
-        <parameter name="expectedValue">1</parameter>
+        <parameter name="expectedValue">Java Programing</parameter>
     </assert>
     <assert type="script">
-        <parameter name="script">dddd</parameter>
+        <parameter name="script"><![CDATA[
+                def books = document.getElementsByTagName("BOOK")
+                def found = false;
+                books.each{ if (it.getAttribute("isbn") == "DFGH09093232") found = true}
+                return found
+                ]]></parameter>
     </assert>
     <assertTypes>
         <assertType name="xpath" class="net.itransformers.assertions.impl.XPathAssertion"/>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LIBRARY>
+    <BOOKS>
+        <BOOK isbn="ABCD7327923">
+            <NAME>Java Programing</NAME>
+            <SUBJECT>Java J2EE</SUBJECT>
+            <AUTHORS>
+                <AUTHOR>Tuna TORE</AUTHOR>
+                <AUTHOR>Linus Torvalds</AUTHOR>
+                <AUTHOR>James Gosling</AUTHOR>
+            </AUTHORS>
+        </BOOK>
+        <BOOK isbn="DFGH09093232">
+            <NAME>XPATH for Dummies</NAME>
+            <SUBJECT> XPATH development</SUBJECT>
+            <AUTHORS>
+                <AUTHOR>Linus Torvalds</AUTHOR>
+                <AUTHOR>John Hawking</AUTHOR>
+            </AUTHORS>
+        </BOOK>
+        <BOOK isbn="DSKL2393A">
+            <NAME>J2EE Patterns</NAME>
+            <SUBJECT>Design Patterns</SUBJECT>
+            <AUTHORS>
+                <AUTHOR>Aka Tuna</AUTHOR>
+            </AUTHORS>
+        </BOOK>
+    </BOOKS>
+    <DVDS>
+        <DVD id="123456">
+            <NAME>Music DVD</NAME>
+            <CONTENT>Music</CONTENT>
+            <AUTHORS>
+                <AUTHOR>James Gosling</AUTHOR>
+                <AUTHOR>Bill Gates</AUTHOR>
+            </AUTHORS>
+        </DVD>
+        <DVD id="3213324">
+            <NAME>Natural Science</NAME>
+            <CONTENT>Science</CONTENT>
+            <AUTHORS>
+                <AUTHOR>John Green</AUTHOR>
+                <AUTHOR>Bill Gates</AUTHOR>
+            </AUTHORS>
+        </DVD>
+        <DVD id="4353534">
+            <NAME>Rally</NAME>
+            <CONTENT>Race</CONTENT>
+            <AUTHORS>
+                <AUTHOR>Tuna</AUTHOR>
+            </AUTHORS>
+        </DVD>
+    </DVDS>
+</LIBRARY>

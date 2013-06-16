@@ -19,18 +19,19 @@
 
 package net.itransformers.assertions;
 
-import net.itransformers.assertions.config.AssertType;
-import net.itransformers.assertions.config.AssertTypeType;
-import net.itransformers.assertions.config.AssertTypesType;
-import net.itransformers.assertions.config.AssertionsType;
+import net.itransformers.assertions.config.*;
 import net.itransformers.utils.CmdLineParser;
 import net.itransformers.utils.JaxbMarshalar;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.xml.sax.InputSource;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -56,22 +57,27 @@ public class AssertionExecutor {
 
         for (AssertType anAssert : asserts) {
             Class assertClazz = assertTypeMapping.get(anAssert.getType());
-            AssertionResult assertionResult = execute(inputFiles, anAssert, assertClazz, level);
-            result.add(assertionResult);
+            List<AssertionResult> assertionResult = execute(inputFiles, anAssert, assertClazz, level);
+            result.addAll(assertionResult);
         }
         return result.toArray(new AssertionResult[result.size()]);
     }
 
-    private AssertionResult execute(File[] inputFiles, AssertType assertion, Class assertClazz, AssertionLevel level){
-//        assertClazz.getConstructor()
-        for (File inputFile : inputFiles) {
-            assertion.getType();
+    private List<AssertionResult> execute(File[] inputFiles, AssertType assertion, Class assertClazz, AssertionLevel level) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, FileNotFoundException {
+        List<AssertionResult> result = new ArrayList<AssertionResult>();
+        Constructor<Assertion> constructor = assertClazz.getConstructor(Map.class);
+        List<ParameterType> paramsList = assertion.getParameter();
+        Map<String, String> params = new HashMap<String, String>();
+        for (ParameterType param : paramsList) {
+            params.put(param.getName(),param.getValue());
         }
-        return null;
-
-    }
-
-    public static void main(String[] args) {
+        Assertion inst = constructor.newInstance(params);
+        for (File inputFile : inputFiles) {
+            InputStream fileInputStream = new FileInputStream(inputFile);
+            AssertionResult assertionResult = inst.doAssert(new InputSource(fileInputStream));
+            result.add(assertionResult);
+        }
+        return result;
 
     }
 }
