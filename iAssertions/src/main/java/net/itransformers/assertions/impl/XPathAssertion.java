@@ -20,18 +20,15 @@
 package net.itransformers.assertions.impl;
 
 import net.itransformers.assertions.Assertion;
-import net.itransformers.assertions.AssertionLevel;
 import net.itransformers.assertions.AssertionResult;
 import net.itransformers.assertions.AssertionType;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.*;
-import java.io.IOException;
 import java.lang.IllegalArgumentException;
 import java.lang.String;
 import java.util.HashMap;
@@ -50,8 +47,10 @@ public class XPathAssertion implements Assertion {
     private final Map<String, String> options = new HashMap<String, String>();
     private final XPathExpression xPathExpression;
     private final DocumentBuilder builder;
+    private final String assertionName;
 
-    public XPathAssertion(Map<String, String> params) {
+    public XPathAssertion(String assertionName, Map<String, String> params) {
+        this.assertionName = assertionName;
         String paramNamespaces = params.get("declareNamespaces");
         if (paramNamespaces != null){
             String[] nameSpacesArr = paramNamespaces.split(",");
@@ -90,14 +89,14 @@ public class XPathAssertion implements Assertion {
             Document xmlDocument = builder.parse(source);
             String actualValue = xPathExpression.evaluate(xmlDocument, XPathConstants.STRING).toString();
             if (expectedValue == null && actualValue == null) {
-                return new AssertionResult(AssertionType.SUCCESS);
+                return new AssertionResult(assertionName, AssertionType.SUCCESS);
             } else if (expectedValue == null){
-                return new AssertionResult(AssertionType.FAILED);
+                return new AssertionResult(assertionName, AssertionType.FAILED);
             }
             if (expectedValue.equals(actualValue)){
-                return new AssertionResult(AssertionType.SUCCESS);
+                return new AssertionResult(assertionName, AssertionType.SUCCESS);
             } else {
-                return new AssertionResult(AssertionType.FAILED);
+                return new AssertionResult(assertionName, AssertionType.FAILED);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

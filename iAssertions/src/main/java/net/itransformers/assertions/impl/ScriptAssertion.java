@@ -23,18 +23,14 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import groovy.util.GroovyScriptEngine;
 import net.itransformers.assertions.Assertion;
-import net.itransformers.assertions.AssertionLevel;
 import net.itransformers.assertions.AssertionResult;
 import net.itransformers.assertions.AssertionType;
-import org.junit.Assert;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.lang.String;
 import java.util.Map;
 
@@ -47,10 +43,12 @@ import java.util.Map;
  */
 public class ScriptAssertion implements Assertion {
     private final DocumentBuilder builder;
+    private final String assertionName;
     private String script;
     private GroovyScriptEngine gse;
 
-    public ScriptAssertion(Map<String, String> params) {
+    public ScriptAssertion(String assertionName, Map<String, String> params) {
+        this.assertionName = assertionName;
         this.script = params.get("script");
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
@@ -75,9 +73,9 @@ public class ScriptAssertion implements Assertion {
         Object value = shell.evaluate(script);
         if (value instanceof Boolean){
             if ((Boolean)value){
-                return new AssertionResult(AssertionType.SUCCESS);
+                return new AssertionResult(assertionName, AssertionType.SUCCESS);
             } else {
-                return new AssertionResult(AssertionType.FAILED);
+                return new AssertionResult(assertionName, AssertionType.FAILED);
             }
         } else {
             throw new RuntimeException("value of type "+value.getClass()+" is returned from groovy script");

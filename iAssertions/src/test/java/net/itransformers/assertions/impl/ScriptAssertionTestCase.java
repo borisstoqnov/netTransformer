@@ -28,7 +28,7 @@ public class ScriptAssertionTestCase {
                 "records.BOOKS.BOOK.findAll{ it.'@isbn' == 'DFGH09093232'}; \n" +
                 "return true\n" +
                 "}\n");
-        ScriptAssertion assertion = new ScriptAssertion(params);
+        ScriptAssertion assertion = new ScriptAssertion("test",params);
         FileInputStream is = new FileInputStream("iAssertions/src/test/java/net/itransformers/assertions/impl/xpath-test.xml");
         InputSource inputSource = new InputSource(is);
         AssertionResult assertionResult = assertion.doAssert(inputSource);

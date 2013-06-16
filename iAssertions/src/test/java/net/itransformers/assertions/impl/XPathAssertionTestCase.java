@@ -24,7 +24,7 @@ public class XPathAssertionTestCase {
         Map<String, String> params = new HashMap<String, String>();
         params.put("xpath","//LIBRARY//BOOKS//BOOK[@isbn='DFGH09093232']//NAME");
         params.put("expectedValue","XPATH for Dummies");
-        XPathAssertion assertion = new XPathAssertion(params);
+        XPathAssertion assertion = new XPathAssertion("test",params);
         FileInputStream is = new FileInputStream("iAssertions/src/test/java/net/itransformers/assertions/impl/xpath-test.xml");
         InputSource inputSource = new InputSource(is);
         AssertionResult assertionResult = assertion.doAssert(inputSource);

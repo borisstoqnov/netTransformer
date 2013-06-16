@@ -21,14 +21,17 @@ package net.itransformers.assertions;
 
 
 public class AssertionResult {
+    private String assertionName;
     private AssertionType type;
     private String description;
 
-    public AssertionResult(AssertionType type) {
+    public AssertionResult(String assertionName, AssertionType type) {
+        this.assertionName = assertionName;
         this.type = type;
     }
 
-    public AssertionResult(AssertionType type, String description) {
+    public AssertionResult(String assertionName, AssertionType type, String description) {
+        this.assertionName = assertionName;
         this.type = type;
         this.description = description;
     }
@@ -47,5 +50,22 @@ public class AssertionResult {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAssertionName() {
+        return assertionName;
+    }
+
+    public void setAssertionName(String assertionName) {
+        this.assertionName = assertionName;
+    }
+
+    @Override
+    public String toString() {
+        return "AssertionResult{" +
+                "assertionName='" + assertionName + '\'' +
+                ", type=" + type +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

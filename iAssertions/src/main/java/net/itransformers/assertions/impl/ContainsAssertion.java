@@ -20,7 +20,6 @@
 package net.itransformers.assertions.impl;
 
 import net.itransformers.assertions.Assertion;
-import net.itransformers.assertions.AssertionLevel;
 import net.itransformers.assertions.AssertionResult;
 import net.itransformers.assertions.AssertionType;
 import org.xml.sax.InputSource;
@@ -37,11 +36,13 @@ import java.util.Map;
  */
 public class ContainsAssertion implements Assertion {
     private final String expectedValue;
+    private final String assertionName;
     private boolean ignoreCase;
     private boolean useRegExp;
     private boolean notContains;
 
-    public ContainsAssertion(Map<String, String> params) {
+    public ContainsAssertion(String assertionName, Map<String, String> params) {
+        this.assertionName = assertionName;
         this.ignoreCase = Boolean.parseBoolean(params.get("ignoreCase"));
         this.useRegExp = Boolean.parseBoolean(params.get("useRegExp"));
         this.notContains = Boolean.parseBoolean(params.get("notContains"));
@@ -65,15 +66,15 @@ public class ContainsAssertion implements Assertion {
         boolean contains = contains(str);
         if (notContains){
             if (contains) {
-                return new AssertionResult(AssertionType.FAILED);
+                return new AssertionResult(assertionName, AssertionType.FAILED);
             } else {
-                return new AssertionResult(AssertionType.SUCCESS);
+                return new AssertionResult(assertionName, AssertionType.SUCCESS);
             }
         } else {
             if (contains){
-                return new AssertionResult(AssertionType.SUCCESS);
+                return new AssertionResult(assertionName, AssertionType.SUCCESS);
             } else {
-                return new AssertionResult(AssertionType.FAILED);
+                return new AssertionResult(assertionName, AssertionType.FAILED);
             }
         }
     }

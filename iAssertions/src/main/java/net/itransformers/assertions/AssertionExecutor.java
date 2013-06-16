@@ -32,17 +32,14 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class AssertionExecutor {
-    public AssertionResult[] execute(File[] inputFiles, File assertionsConfig, AssertionLevel level) throws Exception {
+    public List<Map<File, AssertionResult>> execute(File[] inputFiles, File assertionsConfig, AssertionLevel level) throws Exception {
         AssertionsType assertionsType = JaxbMarshalar.unmarshal(AssertionsType.class,new FileInputStream(assertionsConfig));
         List<AssertType> asserts = assertionsType.getAssert();
-        List<AssertionResult> result = new ArrayList<AssertionResult>();
+        List<Map<File, AssertionResult>> result = new ArrayList<Map<File, AssertionResult>>();
         List<AssertTypeType> assertTypes = assertionsType.getAssertTypes().getAssertType();
         Map<String, Class> assertTypeMapping = new HashMap<String, Class>();
         for (AssertTypeType assertType : assertTypes) {
@@ -51,26 +48,26 @@ public class AssertionExecutor {
 
         for (AssertType anAssert : asserts) {
             Class assertClazz = assertTypeMapping.get(anAssert.getType());
-            List<AssertionResult> assertionResult = execute(inputFiles, anAssert, assertClazz, level);
-            result.addAll(assertionResult);
+            Map<File, AssertionResult> assertionResult = execute(inputFiles, anAssert, assertClazz, level);
+            result.add(assertionResult);
         }
-        return result.toArray(new AssertionResult[result.size()]);
+        return result;
     }
 
-    private List<AssertionResult> execute(File[] inputFiles, AssertType assertion, Class assertClazz, AssertionLevel level) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, FileNotFoundException {
-        List<AssertionResult> result = new ArrayList<AssertionResult>();
-        Constructor<Assertion> constructor = assertClazz.getConstructor(Map.class);
+    private Map<File, AssertionResult> execute(File[] inputFiles, AssertType assertion, Class assertClazz, AssertionLevel level) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, FileNotFoundException {
+        Map<File, AssertionResult> result = new LinkedHashMap<File, AssertionResult>();
+        Constructor<Assertion> constructor = assertClazz.getConstructor(String.class, Map.class);
         List<ParameterType> paramsList = assertion.getParameter();
         Map<String, String> params = new HashMap<String, String>();
         for (ParameterType param : paramsList) {
             params.put(param.getName(),param.getValue());
         }
-        Assertion inst = constructor.newInstance(params);
+        Assertion inst = constructor.newInstance(assertion.getName(),params);
         for (File inputFile : inputFiles) {
             InputStream fileInputStream = new FileInputStream(inputFile);
             try {
                 AssertionResult assertionResult = inst.doAssert(new InputSource(fileInputStream));
-                result.add(assertionResult);
+                result.put(inputFile, assertionResult);
             } catch (RuntimeException rte) {
                 throw new RuntimeException("Can not assert file: "+inputFile.getAbsolutePath(), rte);
             }
