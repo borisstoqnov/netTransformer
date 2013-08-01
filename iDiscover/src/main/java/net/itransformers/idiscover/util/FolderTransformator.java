@@ -19,9 +19,10 @@
 
 package net.itransformers.idiscover.util;
 
+import net.itransformers.utils.XsltTransformer;
+
 import javax.xml.bind.JAXBException;
 import java.io.*;
-import net.itransformers.utils.XsltTransformer;
 
 public class FolderTransformator {
     public static void main(String[] args) throws IOException, JAXBException {
@@ -43,7 +44,8 @@ public class FolderTransformator {
 
         File[] files = in_dir.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
-                return (name.startsWith("device") && name.endsWith(".xml"));
+                return (name.endsWith(".graphml"));
+                // return (name.startsWith("device") && name.endsWith(".xml"));
             }
         });
         PrintWriter writer = null;

@@ -19,9 +19,7 @@
 
 package net.itransformers.topologyviewer.menu;
 
-import net.itransformers.topologyviewer.gui.GraphType;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
-import net.itransformers.topologyviewer.menu.handlers.StartDiscoveryMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.*;
 
 import javax.swing.*;
@@ -43,7 +41,6 @@ public class MenuBuilder {
         createDiscoveryMenu(frame, menuBar);
         createGraphToolsMenu(frame, menuBar);
         createWindowMenu(frame, menuBar);
-        createLayoutsMenu(frame,menuBar);
         createHelpMenu(frame, menuBar);
         return menuBar;
     }
@@ -76,37 +73,33 @@ public class MenuBuilder {
         closeAll.addActionListener(new CloseAllMenuHandler(frame));
         tabs.add(closeAll);
     }
-    private void createLayoutsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
-        final JMenu layoutMenu = new JMenu("Layout");
-        menuBar.add(layoutMenu);
+
+    private void createGraphToolsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
+        final JMenu graphTools = new JMenu("Graph Tools");
+        menuBar.add(graphTools);
+
+        final JMenu layouts = new JMenu("Graph Layouts");
+        graphTools.add(layouts);
+
         final JMenuItem FRLayout = new JMenuItem("FR Layout");
         FRLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"FRLayout"));
-        layoutMenu.add(FRLayout);
+        layouts.add(FRLayout);
         final JMenuItem FRLayout2 = new JMenuItem("FR Layout2");
         FRLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"FRLayout2"));
-        layoutMenu.add(FRLayout2);
+        layouts.add(FRLayout2);
 
         final JMenuItem KKLayout = new JMenuItem("KK Layout");
         KKLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"KKLayout"));
-        layoutMenu.add(KKLayout);
+        layouts.add(KKLayout);
         final JMenuItem CircleLayout = new JMenuItem("Circle Layout");
         CircleLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"CircleLayout"));
-        layoutMenu.add(CircleLayout);
+        layouts.add(CircleLayout);
         final JMenuItem SpringLayout = new JMenuItem("Spring Layout");
         SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"SpringLayout"));
-        layoutMenu.add(SpringLayout);
+        layouts.add(SpringLayout);
         final JMenuItem ISOMLayout = new JMenuItem("ISOM Layout");
         SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"ISOMLayout"));
-        layoutMenu.add(ISOMLayout);
-
-
-
-
-
-    }
-        private void createGraphToolsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
-        final JMenu graphTools = new JMenu("GraphTools");
-        menuBar.add(graphTools);
+        layouts.add(ISOMLayout);
 
         final JMenuItem iNode = new JMenuItem("Initial Node");
         iNode.addActionListener(new InitialNodeMenuHandler(frame));
@@ -118,7 +111,21 @@ public class MenuBuilder {
 
         final JMenu rank = new JMenu("Ranking Algorithms");
         graphTools.add(rank);
-
+        final JMenuItem BetweennessCentrality = new JMenuItem("BetweennessCentrality");
+        BetweennessCentrality.addActionListener(new BetweennessCentralityMenuHandler(frame));
+        rank.add(BetweennessCentrality);
+        final JMenuItem DegreeRanker = new JMenuItem("PageRank");
+        DegreeRanker.addActionListener(new DegreeRankerMenuHandler(frame));
+        rank.add(DegreeRanker);
+        final JMenuItem PageRankWithPriors = new JMenuItem("PageRankWithPriors");
+        PageRankWithPriors.addActionListener(new ChangeLayoutMenuHandler(frame,"PageRankWithPriors"));
+        rank.add(PageRankWithPriors);
+        final JMenuItem KStepMarkov = new JMenuItem("KStepMarkov");
+        KStepMarkov.addActionListener(new ChangeLayoutMenuHandler(frame,"KStepMarkov"));
+        rank.add(KStepMarkov);
+        final JMenuItem VoltageRanker = new JMenuItem("VoltageRanker");
+        VoltageRanker.addActionListener(new ChangeLayoutMenuHandler(frame,"VoltageRanker"));
+        rank.add(VoltageRanker);
 
         final JMenuItem searchByNameCurrent = new JMenuItem("Search by Name CurrentGraph");
         searchByNameCurrent.addActionListener(new SearchByNameCurrGraphMenuHandler(frame));
@@ -141,9 +148,13 @@ public class MenuBuilder {
         final JMenuItem ShortestPath = new JMenuItem("ShortestPath");
         ShortestPath.addActionListener(new ShortestPathMenuHandler(frame));
         shorestpath.add(ShortestPath);
-        final JMenuItem WeightedShortestPath = new JMenuItem("Weighted Shortest Path");
-        WeightedShortestPath.addActionListener(new WeightedShortestPathMenuHandler(frame));
-        shorestpath.add(WeightedShortestPath);
+        final JMenuItem DijkstraShortestPath = new JMenuItem("Dijkstra Shortest Path");
+        DijkstraShortestPath.addActionListener(new DijkstraShortestPathMenuHandler(frame));
+        shorestpath.add(DijkstraShortestPath);
+        final JMenuItem DijkstraWeightedShortestPath = new JMenuItem("Dijkstra Shortest Path");
+        DijkstraShortestPath.addActionListener(new DijkstraWeightedShortestPathMenuHandler(frame));
+        shorestpath.add(DijkstraWeightedShortestPath);
+
 
 
     }

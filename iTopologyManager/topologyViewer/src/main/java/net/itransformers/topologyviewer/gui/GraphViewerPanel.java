@@ -795,6 +795,13 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
         }
         return mOrderedPred;
     }
+
+    public Object getEdgeKeyValue(String key, String edgeId){
+       Map<String,String> edgeParams =           new HashMap<String, String>();
+       edgeParams= getEdgeParams(edgeId,graphmlLoader.getEdgeMetadatas());
+
+        return edgeParams.get(key);
+    }
     public Set<String> FindNodeByKey(String key, Object value){
         Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = graphmlLoader.getVertexMetadatas();
         Set<String> foundVertexes = new HashSet<String>();
@@ -821,6 +828,22 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
         for (Map<String,GraphMLMetadata<String>> vertexMetadata : vertexMetadatas.values()) {
             for (String key : vertexMetadata.keySet()){
                 String value = vertexMetadata.get(key).transformer.transform(v);
+                if (value == null) continue;
+                if (!params.containsKey(key)){
+                    params.put(key,value);
+                } else{
+                    value = value.concat(", ").concat(params.get(key));
+                    params.put(key,value);
+                }
+            }
+        }
+        return params;
+    }
+    private static <G> Map<String, String> getEdgeParams(String v, Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas) {
+        HashMap<String, String> params = new HashMap<String, String>();
+        for (Map<String,GraphMLMetadata<String>> edgeMetadata : edgeMetadatas.values()) {
+            for (String key : edgeMetadata.keySet()){
+                String value = edgeMetadata.get(key).transformer.transform(v);
                 if (value == null) continue;
                 if (!params.containsKey(key)){
                     params.put(key,value);
