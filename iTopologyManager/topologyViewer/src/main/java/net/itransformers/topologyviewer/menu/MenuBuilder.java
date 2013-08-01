@@ -114,9 +114,9 @@ public class MenuBuilder {
         final JMenuItem BetweennessCentrality = new JMenuItem("BetweennessCentrality");
         BetweennessCentrality.addActionListener(new BetweennessCentralityMenuHandler(frame));
         rank.add(BetweennessCentrality);
-        final JMenuItem DegreeRanker = new JMenuItem("PageRank");
-        DegreeRanker.addActionListener(new DegreeRankerMenuHandler(frame));
-        rank.add(DegreeRanker);
+        final JMenuItem PageRank = new JMenuItem("PageRank");
+        PageRank.addActionListener(new PageRankerMenuHandler(frame));
+        rank.add(PageRank);
         final JMenuItem PageRankWithPriors = new JMenuItem("PageRankWithPriors");
         PageRankWithPriors.addActionListener(new ChangeLayoutMenuHandler(frame,"PageRankWithPriors"));
         rank.add(PageRankWithPriors);

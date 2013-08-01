@@ -37,12 +37,12 @@ import java.util.Collection;
  * Time: 23:30
  * To change this template use File | Settings | File Templates.
  */
-public class DegreeRankerMenuHandler implements ActionListener {
+public class PageRankerMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
 
 
-    public DegreeRankerMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
+    public PageRankerMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
 
