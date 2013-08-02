@@ -121,7 +121,7 @@ public class MenuBuilder {
         PageRankWithPriors.addActionListener(new ChangeLayoutMenuHandler(frame,"PageRankWithPriors"));
         rank.add(PageRankWithPriors);
         final JMenuItem KStepMarkov = new JMenuItem("KStepMarkov");
-        KStepMarkov.addActionListener(new ChangeLayoutMenuHandler(frame,"KStepMarkov"));
+        KStepMarkov.addActionListener(new KMarkovMenuHandler(frame));
         rank.add(KStepMarkov);
         final JMenuItem VoltageRanker = new JMenuItem("VoltageRanker");
         VoltageRanker.addActionListener(new ChangeLayoutMenuHandler(frame,"VoltageRanker"));
