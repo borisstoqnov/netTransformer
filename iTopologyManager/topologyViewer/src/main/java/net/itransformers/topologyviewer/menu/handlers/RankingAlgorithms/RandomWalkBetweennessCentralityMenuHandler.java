@@ -17,10 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.topologyviewer.menu.handlers;
+package net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms;
 
-import edu.uci.ics.jung.algorithms.importance.BetweennessCentrality;
+import edu.uci.ics.jung.algorithms.importance.RandomWalkBetweenness;
 import edu.uci.ics.jung.algorithms.importance.Ranking;
+import edu.uci.ics.jung.graph.UndirectedGraph;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
@@ -37,12 +38,12 @@ import java.util.List;
  * Time: 23:30
  * To change this template use File | Settings | File Templates.
  */
-public class BetweennessCentralityMenuHandler implements ActionListener {
+public class RandomWalkBetweennessCentralityMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
 
 
-    public BetweennessCentralityMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
+    public RandomWalkBetweennessCentralityMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
 
@@ -54,14 +55,14 @@ public class BetweennessCentralityMenuHandler implements ActionListener {
         final GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
 
-        JFrame frame1 = new JFrame(" BetweennessCentrality Rankings ");
+        JFrame frame1 = new JFrame(" Random Walk Betweenness Centrality Rankings ");
         frame1.setSize(600,400);
         frame1.getContentPane().setLayout(new BorderLayout());
         JTextPane  text   = new JTextPane();
         text.setEditable(true);
 
 
-        BetweennessCentrality ranker = new BetweennessCentrality(viewerPanel.getCurrentGraph(),true,false);
+        RandomWalkBetweenness ranker = new RandomWalkBetweenness((UndirectedGraph) viewerPanel.getCurrentGraph());
 
         ranker.setRemoveRankScoresOnFinalize(false);
         ranker.evaluate();

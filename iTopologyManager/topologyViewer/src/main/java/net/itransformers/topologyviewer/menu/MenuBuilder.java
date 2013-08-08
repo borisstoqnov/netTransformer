@@ -21,6 +21,9 @@ package net.itransformers.topologyviewer.menu;
 
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.menu.handlers.*;
+import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.BetweennessCentralityMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.KMarkovMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.RandomWalkBetweennessCentralityMenuHandler;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -123,9 +126,9 @@ public class MenuBuilder {
         final JMenuItem KStepMarkov = new JMenuItem("KStepMarkov");
         KStepMarkov.addActionListener(new KMarkovMenuHandler(frame));
         rank.add(KStepMarkov);
-        final JMenuItem VoltageRanker = new JMenuItem("VoltageRanker");
-        VoltageRanker.addActionListener(new ChangeLayoutMenuHandler(frame,"VoltageRanker"));
-        rank.add(VoltageRanker);
+        final JMenuItem RandomWalkBetweennessCentralityRanker = new JMenuItem("Random Walk Betweenness");
+        RandomWalkBetweennessCentralityRanker.addActionListener(new RandomWalkBetweennessCentralityMenuHandler(frame));
+        rank.add(RandomWalkBetweennessCentralityRanker);
 
         final JMenuItem searchByNameCurrent = new JMenuItem("Search by Name CurrentGraph");
         searchByNameCurrent.addActionListener(new SearchByNameCurrGraphMenuHandler(frame));
@@ -152,8 +155,17 @@ public class MenuBuilder {
         DijkstraShortestPath.addActionListener(new DijkstraShortestPathMenuHandler(frame));
         shorestpath.add(DijkstraShortestPath);
         final JMenuItem DijkstraWeightedShortestPath = new JMenuItem("Dijkstra Shortest Path");
-        DijkstraShortestPath.addActionListener(new DijkstraWeightedShortestPathMenuHandler(frame));
+        DijkstraWeightedShortestPath.addActionListener(new DijkstraWeightedShortestPathMenuHandler(frame));
         shorestpath.add(DijkstraWeightedShortestPath);
+
+        final JMenu graphInfo = new JMenu("Graph Distance Statistics");
+        menuBar.add(graphInfo);
+        graphTools.add(graphInfo);
+
+        final JMenuItem test = new JMenuItem("Diameter");
+        test.addActionListener(new GraphDistanceStatisticsMenuHandler(frame));
+        graphInfo.add(test);
+      //  graphTools.add(graphInfo);
 
 
 
