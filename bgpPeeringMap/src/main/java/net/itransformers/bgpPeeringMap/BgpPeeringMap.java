@@ -37,6 +37,14 @@ import java.util.Map;
 import java.util.Properties;
 
 public class BgpPeeringMap {
+    private static String settingsFile;
+    private static String ipAddress;
+    private boolean isRunning;
+    private boolean isPaused;
+    private boolean isStopped;
+    private static File projectDir;
+    private static String label;
+
     static Logger logger = Logger.getLogger(BgpPeeringMap.class);
     private static void printUsage(String param){
         System.out.println("Usage:   java net.itransformers.bgpPeeringMap.bgpPeeringMap -s <Path to bgpPeeringMap.properties>");
@@ -44,34 +52,24 @@ public class BgpPeeringMap {
         System.out.println("Example [Unix]: java net.itransformers.imap.INetMap -s iMap/conf/bgpPeeringMap.properties");
         System.out.println("Missing parameter: "+param);
     }
-    public static void main(String[] args) throws Exception {
 
-        Map<String,String> params = CmdLineParser.parseCmdLine(args);
-        logger.info("input params"+params.toString());
-        final String settingsFile = params.get("-s");
-        if (settingsFile==null){
-            printUsage("bgpPeeringMap.properties"); return;
-        }
-
-        Map<String, String> settings = loadProperties(new File(System.getProperty("base.dir"),settingsFile));
+    public BgpPeeringMap(File projectDir, String ipAddress, String settingsFile,String label) {
+        this.projectDir = projectDir;
+        this.ipAddress = ipAddress;
+        this.settingsFile=settingsFile;
+        this.label = label;
+    }
+    public static  void discover() throws Exception {
+        Map<String, String> settings = loadProperties(new File(settingsFile));
         logger.info("Settings"+settings.toString());
 
-        File outputDir = new File(System.getProperty("base.dir"), settings.get("output.dir"));
+        File outputDir = new File(projectDir, label);
+
         System.out.println(outputDir.getAbsolutePath());
         boolean result = outputDir.mkdir();
-//        if (!result) {
-//            System.out.println("result:"+result);
-//            System.out.println("Unable to create dir: "+outputDir);
-//            return;
-//        }
+        File graphmlDir = new File(outputDir, "undirected");
 
-        File graphmlDir = new File(outputDir, settings.get("output.dir.graphml"));
         result = outputDir.mkdir();
-//        if (!result) {
-//            System.out.println("Unable to create dir: "+graphmlDir);
-//            return;
-//        }
-
         XsltTransformer transformer = new XsltTransformer();
         logger.info("SNMP walk start");
         byte[] rawData = snmpWalk(settings);
@@ -83,7 +81,7 @@ public class BgpPeeringMap {
         logger.info("First-transformation has started with xsltTransformator "+settings.get("xsltFileName1"));
 
         ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
-        File xsltFileName1 = new File(System.getProperty("base.dir"), settings.get("xsltFileName1"));
+        File xsltFileName1 = new File(projectDir, settings.get("xsltFileName1"));
         ByteArrayInputStream inputStream1 = new ByteArrayInputStream(rawData);
         transformer.transformXML(inputStream1, xsltFileName1, outputStream1, settings, null);
         logger.info("First transformation finished");
@@ -96,21 +94,47 @@ public class BgpPeeringMap {
         logger.info("Second transformation started with xsltTransformator "+settings.get("xsltFileName2"));
 
         ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
-        File xsltFileName2 = new File(System.getProperty("base.dir"), settings.get("xsltFileName2"));
+        File xsltFileName2 = new File(projectDir, settings.get("xsltFileName2"));
         ByteArrayInputStream inputStream2 = new ByteArrayInputStream(outputStream1.toByteArray());
         transformer.transformXML(inputStream2, xsltFileName2, outputStream2, settings, null);
         logger.info("Second transformation info");
         logger.trace("Second transformation Graphml output");
         logger.trace(outputStream2.toString());
 
+
+        ByteArrayInputStream inputStream3 = new ByteArrayInputStream(outputStream2.toByteArray());
+        ByteArrayOutputStream outputStream3 = new ByteArrayOutputStream();
+        File xsltFileName3 = new File(System.getProperty("base.dir"), settings.get("xsltFileName3"));
+        transformer.transformXML(inputStream3, xsltFileName3, outputStream3, null, null);
+
+
         File outputFile = new File(graphmlDir, "bgpPeeringMap.graphml");
-        File nodesFileListFile = new File(graphmlDir, "nodes-file-list.txt");
-        FileUtils.writeStringToFile(outputFile, new String(outputStream2.toByteArray()));
+        FileUtils.writeStringToFile(outputFile, new String(outputStream3.toByteArray()));
         logger.info("Output Graphml saved in a file in"+graphmlDir);
 
-        FileUtils.writeStringToFile(nodesFileListFile, "bgpPeeringMap.graphml");
+
+        //FileUtils.writeStringToFile(nodesFileListFile, "bgpPeeringMap.graphml");
+        FileWriter writer = new FileWriter(new File(outputDir,"undirected"+".graphmls"),true);
+        writer.append("bgpPeeringMap.graphml").append("\n");
+        writer.close();
+
 
     }
+    public static void main(String[] args) throws Exception {
+
+        Map<String,String> params = CmdLineParser.parseCmdLine(args);
+        logger.info("input params"+params.toString());
+        final String settingsFile = params.get("-s");
+        if (settingsFile==null){
+            printUsage("bgpPeeringMap.properties"); return;
+        }
+
+        discover() ;
+
+
+
+    }
+
 
     private static Map<String, String> loadProperties(File file) throws IOException {
         Properties props = new Properties();
@@ -128,13 +152,11 @@ public class BgpPeeringMap {
         String mibDir = settings.get("mibDir");
         MibLoaderHolder holder = new MibLoaderHolder(new File(System.getProperty("base.dir"), mibDir), false);
         Walk walker = new Walk(holder,new UdpTransportMappingFactory(), new DefaultMessageDispatcherFactory());
-        String address = settings.get("address");
+        String address = ipAddress;
         if (address == null) throw new RuntimeException("Resource Address is null");
         Properties parameters = new Properties();
         parameters.put(SnmpConfigurator.O_ADDRESS, Arrays.asList(address));
-//        parameters.put(SnmpConfigurator.O_PORT, Arrays.asList(resource.getAddress()));
         parameters.put(SnmpConfigurator.O_COMMUNITY, Arrays.asList(settings.get("community-ro")));
-        //parameters.put(SnmpConfigurator.O_VERSION, Arrays.asList("2c"));// TODO
 
         String version = settings.get("version") == null ? "2c" : settings.get("version");
         int retriesInt = settings.get("retries") == null ? 3 : Integer.parseInt(settings.get("retries"));
@@ -152,5 +174,36 @@ public class BgpPeeringMap {
         String xml = Walk.printTreeAsXML(root);
         return xml.getBytes();
     }
+    private synchronized void doPause() {
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public synchronized void pause(){
+        isPaused = true;
+    }
+
+    public synchronized void resume(){
+        isPaused = false;
+        notifyAll();
+    }
+    public synchronized void stop(){
+        isStopped = true;
+        isRunning = false;
+    }
+
+    public synchronized boolean isStopped(){
+        return isStopped;
+    }
+
+    public synchronized boolean isPaused(){
+        return isPaused;
+    }
+
+    public synchronized boolean isRunning() {
+        return isRunning;
+    }
 }

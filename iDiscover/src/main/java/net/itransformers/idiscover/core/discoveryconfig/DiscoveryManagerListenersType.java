@@ -36,16 +36,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for discovery-manager-listenersType complex type.
+ * <p>Java class for snmpDiscovery-manager-listenersType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="discovery-manager-listenersType">
+ * &lt;complexType name="snmpDiscovery-manager-listenersType">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="discovery-manager-listener" type="{}discovery-manager-listenerType" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="snmpDiscovery-manager-listener" type="{}snmpDiscovery-manager-listenerType" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>

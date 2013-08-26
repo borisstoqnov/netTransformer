@@ -21,139 +21,159 @@ package net.itransformers.topologyviewer.dialogs;
 
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 public class NewProjectDialog extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
-	private JTextField projetNameTextField;
-	private JTextField baseFilePathTextField;
+    private final JPanel contentPanel = new JPanel();
+    private JTextField projetNameTextField;
+    private JTextField baseFilePathTextField;
     private boolean isOkPressed;
     private File projectDir;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			NewProjectDialog dialog = new NewProjectDialog(null);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    private String projectType = "iTransformer";
 
-	/**
-	 * Create the dialog.
-	 */
-	public NewProjectDialog(final TopologyManagerFrame frame) {
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        try {
+            NewProjectDialog dialog = new NewProjectDialog(null);
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            dialog.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public NewProjectDialog(final TopologyManagerFrame frame) {
         setModal(true);
-		setTitle("Create New Project");
-		setBounds(100, 100, 564, 165);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
-		{
-			JLabel label = new JLabel("Project Name:");
-			label.setBounds(10, 14, 88, 14);
-			contentPanel.add(label);
-		}
-		{
-			projetNameTextField = new JTextField();
-			projetNameTextField.setColumns(10);
-			projetNameTextField.setBounds(108, 11, 277, 20);
-			contentPanel.add(projetNameTextField);
-		}
-		{
-			JLabel label = new JLabel("Project Base Dir:");
-			label.setBounds(10, 47, 98, 14);
-			contentPanel.add(label);
-		}
-		{
-			baseFilePathTextField = new JTextField();
+        setTitle("Create New Project");
+        setBounds(100, 100, 564, 165);
+        getContentPane().setLayout(new BorderLayout());
+        contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        getContentPane().add(contentPanel, BorderLayout.CENTER);
+        contentPanel.setLayout(null);
+        {
+            JLabel label = new JLabel("Project Name:");
+            label.setBounds(10, 14, 88, 14);
+            contentPanel.add(label);
+        }
+        {
+            projetNameTextField = new JTextField();
+            projetNameTextField.setColumns(10);
+            projetNameTextField.setBounds(108, 14, 277, 20);
+            contentPanel.add(projetNameTextField);
+        }
+        {
+            JLabel label = new JLabel("Project Base:");
+            label.setBounds(10, 82, 98, 14);
+            contentPanel.add(label);
+        }
+
+        {
+            baseFilePathTextField = new JTextField();
             if (frame.getPath() == null) {
                 baseFilePathTextField.setText(System.getProperty("user.home"));
             }
-			baseFilePathTextField.setColumns(10);
-			baseFilePathTextField.setBounds(108, 44, 277, 20);
-			contentPanel.add(baseFilePathTextField);
-		}
-		{
-			JButton button = new JButton("Choose");
-			button.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-                    File dir = new File(".");
-                    if (frame.getPath() != null){
-                            dir = new File(frame.getPath().toURI());
-                    }
-                    JFileChooser chooser = new JFileChooser(dir);
-                    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                    chooser.setMultiSelectionEnabled(false);
-                    int result = chooser.showOpenDialog(NewProjectDialog.this);
-                    if (result == JFileChooser.APPROVE_OPTION) {
-                        baseFilePathTextField.setText(chooser.getSelectedFile().getAbsolutePath());
-                    }
+            baseFilePathTextField.setColumns(10);
+            baseFilePathTextField.setBounds(108, 82, 277, 20);
+            contentPanel.add(baseFilePathTextField);
+        }
+        {
+            JLabel label = new JLabel("Project Type:");
+            label.setBounds(10, 47, 98, 14);
+            contentPanel.add(label);
+        }
+        {
+            String[] projectTypes = {"iTransformer", "bgpPeeringMap", "iTransformerv2", "sdnTransformer"};
+            final JComboBox comboBox = new JComboBox(projectTypes);
+            comboBox.setBounds(108, 47, 277, 22);
+            comboBox.setSelectedItem(projectTypes[0]);
+            contentPanel.add(comboBox);
+            comboBox.addActionListener(new ActionListener() {
 
+                public void actionPerformed(ActionEvent arg0) {
+                    JComboBox cb = (JComboBox)arg0.getSource();
+                    projectType = (String)cb.getSelectedItem();
                 }
-			});
-			button.setBounds(395, 43, 89, 23);
-			contentPanel.add(button);
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-                okButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        onOK();
-                    }
-                });
-                buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-                cancelButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        projectDir = null;
-                        isOkPressed = false;
-                        setVisible(false);
-                        dispose();
-                    }
-                });
-                buttonPane.add(cancelButton);
-			}
-		}
 
-	}
+                });
+            }
+
+            {
+                JButton button = new JButton("Choose");
+                button.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+                        File dir = new File(".");
+                        if (frame.getPath() != null) {
+                            dir = new File(frame.getPath().toURI());
+                        }
+                        JFileChooser chooser = new JFileChooser(dir);
+                        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                        chooser.setMultiSelectionEnabled(false);
+                        int result = chooser.showOpenDialog(NewProjectDialog.this);
+                        if (result == JFileChooser.APPROVE_OPTION) {
+                            baseFilePathTextField.setText(chooser.getSelectedFile().getAbsolutePath());
+                        }
+
+                    }
+                });
+                button.setBounds(395, 82, 89, 23);
+                contentPanel.add(button);
+            }
+            {
+                JPanel buttonPane = new JPanel();
+                buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+                getContentPane().add(buttonPane, BorderLayout.SOUTH);
+                {
+                    JButton okButton = new JButton("OK");
+                    okButton.setActionCommand("OK");
+                    okButton.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            onOK();
+                        }
+                    });
+                    buttonPane.add(okButton);
+                    getRootPane().setDefaultButton(okButton);
+                }
+                {
+                    JButton cancelButton = new JButton("Cancel");
+                    cancelButton.setActionCommand("Cancel");
+                    cancelButton.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            projectDir = null;
+                            isOkPressed = false;
+                            setVisible(false);
+                            dispose();
+                        }
+                    });
+                    buttonPane.add(cancelButton);
+                }
+            }
+
+        }
 
     private void onOK() {
-        if (baseFilePathTextField.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(this,"Can not create project. Parent directory is not specified");
+        if (baseFilePathTextField.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Can not create project. Parent directory is not specified");
             return;
         }
         File parentDir = new File(baseFilePathTextField.getText());
-        if (parentDir.exists()){
+        if (parentDir.exists()) {
             File projectDir = new File(parentDir, projetNameTextField.getText());
-            if (projectDir.exists()){
+            if (projectDir.exists()) {
                 JOptionPane.showMessageDialog(this,
-                        String.format("Can not create project '%s'. The project already exists in dir: %s", projectDir.getName(),parentDir.getAbsolutePath()));
+                        String.format("Can not create project '%s'. The project already exists in dir: %s", projectDir.getName(), parentDir.getAbsolutePath()));
                 return;
             }
-            if (!projectDir.mkdir()){
-                JOptionPane.showMessageDialog(this,"Can not create project. Unable to create directory: "+projectDir.getAbsolutePath());
+            if (!projectDir.mkdir()) {
+                JOptionPane.showMessageDialog(this, "Can not create project. Unable to create directory: " + projectDir.getAbsolutePath());
                 return;
             }
             this.projectDir = projectDir;
@@ -169,7 +189,9 @@ public class NewProjectDialog extends JDialog {
     public File getProjectDir() {
         return projectDir;
     }
-
+    public String getProjectType() {
+        return projectType;
+    }
     public boolean isOkPressed() {
         return isOkPressed;
     }

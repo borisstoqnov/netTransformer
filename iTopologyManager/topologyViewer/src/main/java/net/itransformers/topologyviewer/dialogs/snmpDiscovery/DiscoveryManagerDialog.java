@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.topologyviewer.dialogs.discovery;
+package net.itransformers.topologyviewer.dialogs.snmpDiscovery;
 import net.itransformers.idiscover.core.*;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.resourcemanager.config.ResourceType;
@@ -258,11 +258,11 @@ public class DiscoveryManagerDialog extends JDialog {
 
             manager = DiscoveryManager.createDiscoveryManager(projectDir, "iDiscover/conf/xml/discoveryManager.xml",label);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Cannot start discovery. See error log for more info");
+            JOptionPane.showMessageDialog(this, "Cannot start snmpDiscovery. See error log for more info");
             e.printStackTrace();
             return false;
         }
-        // TODO remove hardcoded discovery parameter groups
+        // TODO remove hardcoded snmpDiscovery parameter groups
         String[] discoveryTypes = new String[]{"PHYSICAL","NEXT_HOP","OSPF","ISIS","BGP","RIP","ADDITIONAL","IPV6"};
 
         Map<String,String> resourceSelectionParams = new HashMap<String, String>();

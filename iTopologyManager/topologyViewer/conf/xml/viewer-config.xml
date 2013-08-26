@@ -785,44 +785,44 @@
             <param name="protocol">http</param>
             <param name="action">init_and_start</param>
             <param name="mode">node</param>
-            <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
+            <param name="url">localhost:8080/web-snmpDiscovery/discoveryManager?action=</param>
             <param name="snmp-community1">public</param>
             <param name="snmp-community2">publicw</param>
-            <param name="discoveryManager">discovery-manager/conf/xml/discoveryManager.xml</param>
+            <param name="discoveryManager">snmpDiscovery-manager/conf/xml/discoveryManager.xml</param>
             <param name="mibs">snmptoolkit/mibs</param>
         </rightClickItem>
         <rightClickItem name="network" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">
             <param name="protocol">http</param>
             <param name="action">init_and_start</param>
             <param name="mode">network</param>
-            <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
+            <param name="url">localhost:8080/web-snmpDiscovery/discoveryManager?action=</param>
             <param name="snmp-community1">public</param>
             <param name="snmp-community2">publicw</param>
-            <param name="discoveryManager">discovery-manager/conf/xml/discoveryManager.xml</param>
+            <param name="discoveryManager">snmpDiscovery-manager/conf/xml/discoveryManager.xml</param>
             <param name="mibs">snmptoolkit/mibs</param>
         </rightClickItem>
         <rightClickItem name="status" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">                <param name="protocol">http</param>
             <param name="protocol">http</param>
             <param name="port">80</param>
-            <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
+            <param name="url">localhost:8080/web-snmpDiscovery/discoveryManager?action=</param>
             <param name="action">status</param>
         </rightClickItem>
         <rightClickItem name="stop" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">
             <param name="protocol">http</param>
             <param name="port">80</param>
-            <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
+            <param name="url">localhost:8080/web-snmpDiscovery/discoveryManager?action=</param>
             <param name="action">stop</param>
         </rightClickItem>
         <rightClickItem name="pause" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">
             <param name="protocol">http</param>
             <param name="port">80</param>
-            <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
+            <param name="url">localhost:8080/web-snmpDiscovery/discoveryManager?action=</param>
             <param name="action">pause</param>
         </rightClickItem>
         <rightClickItem name="resume" handlerClass="net.itransformers.topologyviewer.rightclick.impl.DiscoverRightClickOpener">
             <param name="protocol">http</param>
             <param name="port">80</param>
-            <param name="url">localhost:8080/web-discovery/discoveryManager?action=</param>
+            <param name="url">localhost:8080/web-snmpDiscovery/discoveryManager?action=</param>
             <param name="action">resume</param>
         </rightClickItem>
     </submenu-->

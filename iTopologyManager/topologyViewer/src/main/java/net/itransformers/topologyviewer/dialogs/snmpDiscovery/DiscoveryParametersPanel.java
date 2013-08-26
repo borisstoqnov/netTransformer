@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.topologyviewer.dialogs.discovery;
+package net.itransformers.topologyviewer.dialogs.snmpDiscovery;
 
 import net.itransformers.idiscover.discoveryhelpers.xml.discoveryParameters.DeviceType;
 import net.itransformers.idiscover.discoveryhelpers.xml.discoveryParameters.DiscoveryHelperType;

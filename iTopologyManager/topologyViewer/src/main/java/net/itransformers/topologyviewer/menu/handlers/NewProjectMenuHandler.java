@@ -52,8 +52,16 @@ public class NewProjectMenuHandler implements ActionListener {
         NewProjectDialog dialog = new NewProjectDialog(frame);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
-        if (!dialog.isOkPressed()) return;
-        File file = new File("itransformer.txt");
+        File file;
+        if (!dialog.isOkPressed()){ return;
+        }else if (dialog.getProjectType().equals("bgpPeeringMap")){
+            file = new File("bgpPeeringMap.pfl");
+        frame.setProjectType("bgpPeeringMap");
+         }
+         else {
+        file = new File("itransformer.pfl");
+        frame.setProjectType("iTransformer");
+         }
       //  File file = new File("bgpPeeringMap.txt");
         Scanner s = null;
         try {
@@ -65,6 +73,7 @@ public class NewProjectMenuHandler implements ActionListener {
                 return;
             }
             try {
+                RecursiveCopy.copyFile(file, dialog.getProjectDir());
                 while (s.hasNextLine()) {
                 String text = s.nextLine();
                 if (text.startsWith("#") || text.trim().equals("")) continue;
@@ -75,7 +84,9 @@ public class NewProjectMenuHandler implements ActionListener {
                 File destDir = new File(dialog.getProjectDir(), text).getParentFile();
                 destDir.mkdirs();
                 RecursiveCopy.copyDir(srcDir, destDir);
+
                 }
+
             } catch (IOException e1) {
                 JOptionPane.showMessageDialog(frame, "Unable to create project the reason is:" + e1.getMessage());
                 e1.printStackTrace();

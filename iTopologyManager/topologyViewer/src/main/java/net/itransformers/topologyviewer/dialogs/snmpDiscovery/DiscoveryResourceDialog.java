@@ -17,10 +17,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.topologyviewer.dialogs.discovery;
+package net.itransformers.topologyviewer.dialogs.snmpDiscovery;
 
-import net.itransformers.idiscover.discoveryhelpers.xml.discoveryParameters.DiscoveryHelperType;
+import net.itransformers.resourcemanager.config.ResourcesType;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.topologyviewer.help.HelpOpener;
 import net.itransformers.utils.JaxbMarshalar;
 
 import javax.swing.*;
@@ -31,13 +32,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-public class DiscoveryParametersDialog extends JDialog {
+public class DiscoveryResourceDialog extends JDialog {
 
-	private final DiscoveryParametersPanel contentPanel;
-	private JTextField projetNameTextField;
-	private JTextField baseFilePathTextField;
-    private boolean isOkPressed;
-    private File projectDir;
+	private final DiscoveryResourcePanel contentPanel;
     private TopologyManagerFrame frame;
 
     /**
@@ -45,7 +42,7 @@ public class DiscoveryParametersDialog extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			DiscoveryParametersDialog dialog = new DiscoveryParametersDialog(null);
+			DiscoveryResourceDialog dialog = new DiscoveryResourceDialog(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -56,17 +53,16 @@ public class DiscoveryParametersDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DiscoveryParametersDialog(final TopologyManagerFrame frame) {
+	public DiscoveryResourceDialog(final TopologyManagerFrame frame) {
         this.frame = frame;
         setModal(true);
-		setTitle("Configure Discovery Parameters");
-		setBounds(100, 100, 564, 565);
+		setTitle("Configure Discovery Resource");
+		setBounds(100, 100, 580, 500);
 		getContentPane().setLayout(new BorderLayout());
-        loadDiscoveryParameters();
-        contentPanel = new DiscoveryParametersPanel();
-        DiscoveryHelperType discoveryParameters = loadDiscoveryParameters();
-        if (discoveryParameters == null) return;
-        contentPanel.setDiscoveryHelperType(discoveryParameters);
+        contentPanel = new DiscoveryResourcePanel();
+        ResourcesType resource = loadResource();
+        if (resource == null) return;
+        contentPanel.setResources(resource);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -90,35 +86,43 @@ public class DiscoveryParametersDialog extends JDialog {
 				cancelButton.setActionCommand("Cancel");
                 cancelButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        projectDir = null;
-                        isOkPressed = false;
                         setVisible(false);
                         dispose();
                     }
                 });
                 buttonPane.add(cancelButton);
 			}
+			{
+				JButton helpButton = new JButton("?");
+                helpButton.setActionCommand("Cancel");
+                helpButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        HelpOpener.showHelp(frame, "net/itransformers/topologyviewer/dialogs/snmpDiscovery/DiscoveryResourceDialog.html");
+                    }
+                });
+                buttonPane.add(helpButton);
+			}
 		}
 
 	}
 
-
     private void onOK() {
-        DiscoveryHelperType discoveryHelperType = contentPanel.getDiscoveryHelperType();
-        storeDiscoveryParameters(discoveryHelperType);
+        ResourcesType resource = contentPanel.getResources();
+        storeResource(resource);
         setVisible(false);
         dispose();
-
     }
 
-    private void storeDiscoveryParameters(DiscoveryHelperType discoveryHelperType) {
+    private void storeResource(ResourcesType resource) {
         FileOutputStream os = null;
-        File file;
-            file = new File(getPath(), "iDiscover/conf/xml/discoveryParameters.xml");
+        File path = getPath();
+       // File file = new File(path, "iDiscover/conf/xml/discoveryResource.xml");
+        File file = new File(path, "resourceManager/conf/xml/resource.xml");
+
         try {
             os = new FileOutputStream(file);
-            JaxbMarshalar.marshal(discoveryHelperType, os,"discovery-helper");
-            JOptionPane.showMessageDialog(this.frame, "Discovery parameters stored successful.");
+            JaxbMarshalar.marshal(resource, os,"resources");
+            JOptionPane.showMessageDialog(this.frame, "Configuration Resource stored successful.");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this.frame,"Can not open file: "+file.getAbsolutePath());
@@ -128,18 +132,24 @@ public class DiscoveryParametersDialog extends JDialog {
         } finally {
             if (os != null) try { os.close(); } catch (IOException e) {}
         }
-
     }
 
-    private DiscoveryHelperType loadDiscoveryParameters(){
+    private File getPath()  {
+        if (frame == null) {
+            return null;
+        }
+        return frame.getPath();
+    }
+
+    private ResourcesType loadResource(){
         FileInputStream is = null;
         File file;
-        file = new File(getPath(), "iDiscover/conf/xml/discoveryParameters.xml");
+        file = new File(getPath(), "resourceManager/conf/xml/resource.xml");
         try {
             is = new FileInputStream(file);
 
-            DiscoveryHelperType discoveryHelperType = JaxbMarshalar.unmarshal(DiscoveryHelperType.class, is);
-            return discoveryHelperType;
+            ResourcesType resources = JaxbMarshalar.unmarshal(ResourcesType.class, is);
+            return resources;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this.frame,"Can not open file: "+file.getAbsolutePath());
@@ -151,9 +161,4 @@ public class DiscoveryParametersDialog extends JDialog {
         }
         return null;
     }
-
-    private File getPath() {
-        return frame != null ? frame.getPath() : new File(".");
-    }
-
 }

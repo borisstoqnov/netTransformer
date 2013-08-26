@@ -47,12 +47,12 @@ public class NetworkDiscoverer {
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
             String connectionType = connectionDetails.getConnectionType();
             NodeDiscoverer nodeDiscoverer = nodeDiscoverers.get(connectionType);
-            // Limit discovery by depth
+            // Limit snmpDiscovery by depth
             if (level == depth) return;
-            // Limit discovery by Filter
+            // Limit snmpDiscovery by Filter
             if (nodeDiscoverFilter != null && nodeDiscoverFilter.match(connectionDetails)) return;
             NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
-            if (discoveryResult == null) return; // in case some error during discovery
+            if (discoveryResult == null) return; // in case some error during snmpDiscovery
             fireNodeDiscoveredEvent(discoveryResult);
 
             String nodeId = discoveryResult.getNodeId();

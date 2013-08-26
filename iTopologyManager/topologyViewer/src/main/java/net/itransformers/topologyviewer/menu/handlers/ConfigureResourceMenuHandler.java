@@ -19,7 +19,7 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.dialogs.discovery.DiscoveryResourceDialog;
+import net.itransformers.topologyviewer.dialogs.snmpDiscovery.DiscoveryResourceDialog;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;

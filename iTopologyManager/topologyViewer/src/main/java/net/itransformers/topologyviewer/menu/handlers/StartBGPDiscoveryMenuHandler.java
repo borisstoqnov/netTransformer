@@ -19,7 +19,7 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.dialogs.snmpDiscovery.DiscoveryParametersDialog;
+import net.itransformers.topologyviewer.dialogs.bgpSnmpDiscovery.BGPDiscoveryManagerDialog;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
@@ -33,20 +33,25 @@ import java.awt.event.ActionListener;
  * Time: 23:30
  * To change this template use File | Settings | File Templates.
  */
-public class ConfigureParametersMenuHandler implements ActionListener {
+public class StartBGPDiscoveryMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
 
-    public ConfigureParametersMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
+    public StartBGPDiscoveryMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        DiscoveryParametersDialog dialog = new DiscoveryParametersDialog(frame);
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dialog.setVisible(true);
+        if (frame.getProjectType() != "bgpPeeringMap"){
+            JOptionPane.showMessageDialog(frame,"Please open or create new bgpPeeringMap project prior starting the discovery process!");
+            return;
+        }
+        BGPDiscoveryManagerDialog dialogBGP = new BGPDiscoveryManagerDialog(frame);
+        dialogBGP.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialogBGP.setVisible(true);
+
     }
 
 

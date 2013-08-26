@@ -1,37 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ iTransformer is an open source tool able to discover and transform
-  ~  IP network infrastructures.
-  ~  Copyright (C) 2012  http://itransformers.net
-  ~
-  ~  This program is free software: you can redistribute it and/or modify
-  ~  it under the terms of the GNU General Public License as published by
-  ~  the Free Software Foundation, either version 3 of the License, or
-  ~  any later version.
-  ~
-  ~  This program is distributed in the hope that it will be useful,
-  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  GNU General Public License for more details.
-  ~
-  ~  You should have received a copy of the GNU General Public License
-  ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  -->
-
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resources>
     <resource name="default">
-        <connection-params connection-type="ssh">
-            <param name="username">user</param>
-            <param name="password">pass</param>
-            <param name="timeout">3000</param>
-            <param name="retries">3</param>
-        </connection-params>
-          <connection-params connection-type="snmp">
+        <connection-params connection-type="ssh"/>
+        <connection-params connection-type="snmp">
             <param name="community">itransformer-rw</param>
         </connection-params>
     </resource>
     <resource name="device-from-Moscow">
-   		<param name="geoloc">Moscow</param>
+        <param name="geoloc">Moscow</param>
         <connection-params connection-type="ssh">
             <param name="username">lab</param>
             <param name="password">lab</param>
@@ -44,25 +20,22 @@
         </connection-params>
     </resource>
     <resource name="cisco-devices-from-Moscow">
-		<param name="deviceType">CISCO</param>
-		<param name="geoloc">Moscow</param>
+        <param name="deviceType">CISCO</param>
+        <param name="geoloc">Moscow</param>
         <connection-params connection-type="ssh">
             <param name="username">lab</param>
             <param name="password">lab</param>
             <param name="enable-password">lab</param>
         </connection-params>
         <connection-params connection-type="telnet">
-			 <param name="username">lab</param>
+            <param name="username">lab</param>
             <param name="password">lab</param>
             <param name="enable-password">lab</param>
         </connection-params>
     </resource>
-
     <resource name="huawei">
-		<param name="deviceType">HUAWEI</param>
-
+        <param name="deviceType">HUAWEI</param>
         <connection-params connection-type="ssh">
-
             <param name="username">lab</param>
             <param name="password">lab</param>
             <param name="system-password">lab</param>
@@ -70,35 +43,34 @@
             <param name="retries">3</param>
         </connection-params>
         <connection-params connection-type="telnet">
-			 <param name="username">lab</param>
+            <param name="username">lab</param>
             <param name="password">lab</param>
             <param name="enable-password">lab</param>
-             <param name="timeout">3000</param>
+            <param name="timeout">3000</param>
             <param name="retries">3</param>
         </connection-params>
     </resource>
     <resource name="cisco">
-		<param name="deviceType">CISCO</param>
+        <param name="deviceType">CISCO</param>
         <connection-params connection-type="telnet">
-			<param name="username">lab</param>
+            <param name="username">lab</param>
             <param name="password">lab123</param>
             <param name="enable-password">lab123</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
         </connection-params>
         <connection-params connection-type="snmp">
-           <param name="community">itransformer-rw</param>
+            <param name="community">itransformer-rw</param>
         </connection-params>
     </resource>
     <resource name="juniper">
-		<param name="deviceType">JUNIPER</param>
+        <param name="deviceType">JUNIPER</param>
         <connection-params connection-type="ssh">
-			<param name="username">lab</param>
+            <param name="username">lab</param>
             <param name="password">lab</param>
             <param name="enable-password">lab</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
         </connection-params>
     </resource>
-
 </resources>

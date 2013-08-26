@@ -36,12 +36,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for discovery-helperType complex type.
+ * <p>Java class for snmpDiscovery-helperType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="discovery-helperType">
+ * &lt;complexType name="snmpDiscovery-helperType">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>

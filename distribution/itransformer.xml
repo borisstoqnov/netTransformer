@@ -284,11 +284,11 @@
             <outputDirectory>bin</outputDirectory>
         </file>
         <file>
-            <source>../itransformer.txt</source>
+            <source>../itransformer.pfl</source>
             <outputDirectory>bin</outputDirectory>
         </file>
         <file>
-            <source>../bgpPeeringMap.txt</source>
+            <source>../bgpPeeringMap.pfl</source>
             <outputDirectory>bin</outputDirectory>
         </file>
     </files>

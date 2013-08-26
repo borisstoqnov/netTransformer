@@ -19,9 +19,7 @@
 
 package net.itransformers.topologyviewer.gui;
 
-import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.io.GraphMLMetadata;
 import net.itransformers.topologyviewer.config.TopologyViewerConfType;
 import org.apache.commons.collections15.Factory;

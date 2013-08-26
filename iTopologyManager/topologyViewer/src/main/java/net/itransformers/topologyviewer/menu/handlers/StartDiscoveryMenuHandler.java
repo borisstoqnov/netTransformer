@@ -19,7 +19,7 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.dialogs.discovery.DiscoveryManagerDialog;
+import net.itransformers.topologyviewer.dialogs.snmpDiscovery.DiscoveryManagerDialog;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
@@ -44,8 +44,8 @@ public class StartDiscoveryMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (frame.getPath() == null){
-            JOptionPane.showMessageDialog(frame,"Please open or create new project before to start discovery");
+        if (frame.getProjectType()!="iTransformer"){
+            JOptionPane.showMessageDialog(frame,"Please open or create new iTransformer project prior starting the discovery process!");
             return;
         }
         DiscoveryManagerDialog dialog = new DiscoveryManagerDialog(frame);

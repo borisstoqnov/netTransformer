@@ -22,17 +22,12 @@ package net.itransformers.topologyviewer.menu.handlers;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-/**
- * Created by IntelliJ IDEA.
- * Date: 12-4-27
- * Time: 23:30
- * To change this template use File | Settings | File Templates.
- */
 public class OpenProjectMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
@@ -48,12 +43,33 @@ public class OpenProjectMenuHandler implements ActionListener {
         if (frame.getPath() != null){
             dir = frame.getPath();
         }
+
         JFileChooser chooser = new JFileChooser(dir);
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.setFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                return  (f.isFile() && f.getName().endsWith(".pfl") || f.isDirectory());
+            }
+
+            @Override
+            public String getDescription() {
+                return "(Project Files) *.pfl";
+            }
+        });
+
         chooser.setMultiSelectionEnabled(false);
         int result = chooser.showOpenDialog(frame);
         if (result == JFileChooser.APPROVE_OPTION) {
-            frame.doOpenProject(chooser.getSelectedFile());
+            if(chooser.getSelectedFile().getName().equals("bgpPeeringMap.pfl")){
+                frame.setProjectType("bgpPeeringMap");
+            } else if(chooser.getSelectedFile().getName().equals("iTransformer.pfl"))    {
+                frame.setProjectType("iTransformer");
+            }  else{
+                JOptionPane.showMessageDialog(frame, "Unknown project type");
+                return;
+            }
+            frame.doOpenProject(chooser.getSelectedFile().getParentFile());
         }
 
     }

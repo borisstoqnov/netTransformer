@@ -38,10 +38,10 @@
             <param name="path">network</param>
             <param name="type">directed</param>
         </discovery-manager-listener>
-        <!--discovery-manager-listener class="com.discovery.discoverylisteners.KMLtransformator">
+        <!--snmpDiscovery-manager-listener class="com.snmpDiscovery.discoverylisteners.KMLtransformator">
             <param name="xslt">iDiscover/conf/xslt/kml_transformator.xslt</param>
             <param name="path">devices_and_models/lab/undirected</param>
-        </discovery-manager-listener-->
+        </snmpDiscovery-manager-listener-->
     </discovery-manager-listeners>
 
 </discovery-manager>

@@ -34,17 +34,17 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for discovery-managerType complex type.
+ * <p>Java class for snmpDiscovery-managerType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="discovery-managerType">
+ * &lt;complexType name="snmpDiscovery-managerType">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="discovery-helper" type="{}discovery-helperType"/>
- *         &lt;element name="discovery-manager-listeners" type="{}discovery-manager-listenersType"/>
+ *         &lt;element name="snmpDiscovery-helper" type="{}snmpDiscovery-helperType"/>
+ *         &lt;element name="snmpDiscovery-manager-listeners" type="{}snmpDiscovery-manager-listenersType"/>
  *         &lt;element name="management-vlans" type="{}management-vlansType"/>
  *       &lt;/sequence>
  *     &lt;/restriction>

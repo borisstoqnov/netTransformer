@@ -45,7 +45,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/*Discovery Manager Class implemnts the core discovery manager algorithm */
+/*Discovery Manager Class implemnts the core snmpDiscovery manager algorithm */
 
 public class DiscoveryManager {
     static Logger logger = Logger.getLogger(DiscoveryManager.class);
@@ -95,7 +95,7 @@ public class DiscoveryManager {
         if (deviceStatus !=null&&deviceStatus.equals("initial")){
            //get it's hostname
            deviceName=discoverer.getDeviceName(resource);
-           //If we can't obtain the name of the initial device so there is something wrong so discovery will stop.
+           //If we can't obtain the name of the initial device so there is something wrong so snmpDiscovery will stop.
            if (deviceName == null) return;
            //Strip domain string from hostname
            if  (deviceName.indexOf(".") != -1){
@@ -279,7 +279,7 @@ public class DiscoveryManager {
 
         String mode = params.get("-d");
         if (mode == null){
-            //Set default discovery mode to discover network!!!
+            //Set default snmpDiscovery mode to discover network!!!
             mode = "network";
         }
 

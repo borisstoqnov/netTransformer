@@ -121,7 +121,7 @@
                             <outputDir>../</outputDir>
                             <fileMappers>
                                 <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
-                                    <targetExtension>.txt</targetExtension>
+                                    <targetExtension>.pfl</targetExtension>
                                 </fileMapper>
                             </fileMappers>
                         </transformationSet>

@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.topologyviewer.dialogs.discovery;
+package net.itransformers.topologyviewer.dialogs.snmpDiscovery;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

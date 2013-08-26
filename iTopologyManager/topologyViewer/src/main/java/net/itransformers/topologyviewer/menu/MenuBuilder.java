@@ -231,18 +231,33 @@ public class MenuBuilder {
     }
 
     private void createDiscoveryMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
-        final JMenu discovery = new JMenu("Discovery");
+        final JMenu discovery = new JMenu("Discoverers");
         menuBar.add(discovery);
+        final JMenu snmpNetworkDiscovery = new JMenu("SNMP Network Discovery");
+        final JMenu bgpPeeringNetworkDiscovery = new JMenu("BGP Peering Network Discovery");
 
         final JMenuItem startDiscovery = new JMenuItem("Start Discovery");
         startDiscovery.addActionListener(new StartDiscoveryMenuHandler(frame));
-        discovery.add(startDiscovery);
+        snmpNetworkDiscovery.add(startDiscovery);
         final JMenuItem configureResource = new JMenuItem("Configure Resource");
         configureResource.addActionListener(new ConfigureResourceMenuHandler(frame));
-        discovery.add(configureResource);
+        snmpNetworkDiscovery.add(configureResource);
         final JMenuItem configureParameters = new JMenuItem("Configure Parameters");
         configureParameters.addActionListener(new ConfigureParametersMenuHandler(frame));
-        discovery.add(configureParameters);
+        snmpNetworkDiscovery.add(configureParameters);
+
+
+        final JMenuItem startBGPDiscovery = new JMenuItem("Start Discovery");
+        startBGPDiscovery.addActionListener(new StartBGPDiscoveryMenuHandler(frame));
+        bgpPeeringNetworkDiscovery.add(startBGPDiscovery);
+        final JMenuItem configureBGPParameters = new JMenuItem("Configure Resource");
+        configureParameters.addActionListener(new ConfigureBGPParametersMenuHandler(frame));
+        bgpPeeringNetworkDiscovery.add(configureBGPParameters);
+
+        discovery.add(snmpNetworkDiscovery);
+        discovery.add(bgpPeeringNetworkDiscovery);
+
+
     }
 
     private ActionListener createMenuHandler(TopologyManagerFrame frame, String handlerClassName) {

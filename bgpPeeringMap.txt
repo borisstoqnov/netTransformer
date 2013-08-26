@@ -1,5 +1,6 @@
 iTopologyManager/rightClick/conf
-iTopologyManager/topologyViewer/conf/xml/
+iTopologyManager/topologyViewer/conf/xml
 iTopologyManager/topologyViewer/conf/xslt
 bgpPeeringMap/conf/xml
 bgpPeeringMap/conf/xslt
+bgpPeeringMap/conf/txt

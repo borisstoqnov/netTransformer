@@ -38,15 +38,15 @@
     <xsl:template match="/">
         <!--
     <xsl:output method="xml" omit-xml-declaration="yes"/>
-    This file transforms the raw-device data to the common object oriented model used by discovery manager for representing
+    This file transforms the raw-device data to the common object oriented model used by snmpDiscovery manager for representing
     different devices architecture.
     The current model consist of a device that has:
      1. Several common device parameters
      2. Several device objects including:
         2.1 Objects that represent device interfaces
         2.1.1 Under some of the interfaces there are objects that represent one or more addresses connfigured under the interface.
-        2.2.2 Neighbors found by the discovery methods under the particular interface. Each time the neighbor address is identified
-         a snmp-get is perform in order to obtain neighbor hostname. Currently the following discovery methods are supported:
+        2.2.2 Neighbors found by the snmpDiscovery methods under the particular interface. Each time the neighbor address is identified
+         a snmp-get is perform in order to obtain neighbor hostname. Currently the following snmpDiscovery methods are supported:
 
         2.2.2.1 MAC address table neighbors. This table represent L2 Neighbors in Ethernet network. Those neighbors are identified by
         MAC address and physical interface index. Unfortunately it does not contain neighbor IP address. So to find it a cross check
@@ -55,11 +55,11 @@
         2.2.2.2 ARP address table neighbors - Neighbors here are identified by a MAC, IP and interface index. It is important to note
         that those indexes represent in many cases represent device logical interfaces (e.g vlan interfaces).
 
-        2.2.2.3 Cisco Discovery Protocol neighbors - Cisco proprietary discovery protocol - one of the most reliable methods for physical
-        network topology discovery. Supported by most of the Cisco devices but also by some others e.g HP Procurve switches. Note that HP is
+        2.2.2.3 Cisco Discovery Protocol neighbors - Cisco proprietary snmpDiscovery protocol - one of the most reliable methods for physical
+        network topology snmpDiscovery. Supported by most of the Cisco devices but also by some others e.g HP Procurve switches. Note that HP is
         able to see Cisco but Cisco is not able to see HP. The good stuff of that protocol is that it provide information about neighbor
         platform and current device interface pointing to the neighbor.
-        2.2.2.4 Local Link Discovery Protocol - IEEE standardized discovery protocol. Pretty much same as CDP.Note that LLDP MIB is still
+        2.2.2.4 Local Link Discovery Protocol - IEEE standardized snmpDiscovery protocol. Pretty much same as CDP.Note that LLDP MIB is still
          a draft and therefore might cause some problems.
         2.2.2.5 SLASH30/31- This method use Interface IP address to calculate the IP address on the other side of the point to point link.
         2.2.2.6 Next Hops from routing Table
@@ -75,7 +75,7 @@
                       select="//root/iso/org/dod/internet/mgmt/mib-2/dot1dBridge/dot1dBase/dot1dBaseBridgeAddress"/>
         <!--Format hostname. For example if we have R1.test.com it will strip .test.com and will return only R1. This comes form the issue
 that there is a bug in CDP and on some Cisco routers we might see the neighbor hostname as R1.test.co so those hostname will mismatch
-from the one obtained by snmp or other discovery methods.-->
+from the one obtained by snmp or other snmpDiscovery methods.-->
         <xsl:variable name="sysName">
             <xsl:call-template name="return-hostname">
                 <xsl:with-param name="hostname-unformated"

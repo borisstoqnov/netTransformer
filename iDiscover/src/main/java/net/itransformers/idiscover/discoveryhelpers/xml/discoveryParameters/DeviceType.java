@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="general" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="discovery-method" type="{}discovery-methodType" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="snmpDiscovery-method" type="{}snmpDiscovery-methodType" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attribute name="type" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="xslt" type="{http://www.w3.org/2001/XMLSchema}string" />

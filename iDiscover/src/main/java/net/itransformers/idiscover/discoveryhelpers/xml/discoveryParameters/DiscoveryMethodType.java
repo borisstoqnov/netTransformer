@@ -35,12 +35,12 @@ import javax.xml.bind.annotation.XmlValue;
 
 
 /**
- * <p>Java class for discovery-methodType complex type.
+ * <p>Java class for snmpDiscovery-methodType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="discovery-methodType">
+ * &lt;complexType name="snmpDiscovery-methodType">
  *   &lt;simpleContent>
  *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
  *       &lt;attribute name="name" type="{http://www.w3.org/2001/XMLSchema}string" />

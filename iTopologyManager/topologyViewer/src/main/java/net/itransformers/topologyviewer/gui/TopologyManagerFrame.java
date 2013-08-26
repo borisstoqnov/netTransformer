@@ -19,8 +19,11 @@
 
 package net.itransformers.topologyviewer.gui;
 
+import edu.uci.ics.jung.graph.DirectedGraph;
+import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import edu.uci.ics.jung.graph.UndirectedGraph;
+import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 import net.itransformers.topologyviewer.menu.MenuBuilder;
-import edu.uci.ics.jung.graph.*;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -43,6 +46,7 @@ public class TopologyManagerFrame extends JFrame{
     static Logger logger = Logger.getLogger(TopologyManagerFrame.class);
     public static final String VIEWER_PREFERENCES_PROPERTIES = "viewer-preferences.properties";
     private File path;
+    private String projectType;
     private JTabbedPane tabbedPane;
     private Properties preferences = new Properties();
     Map<String, GraphViewerPanelManager> viewerPanelManagerMap = new HashMap<String, GraphViewerPanelManager>();
@@ -72,6 +76,12 @@ public class TopologyManagerFrame extends JFrame{
 
     public void setPath(File path) {
         this.path = path;
+    }
+    public void setProjectType(String projectType) {
+        this.projectType = projectType;
+    }
+    public String getProjectType() {
+        return projectType;
     }
 
     private void createFrame(){
@@ -140,8 +150,12 @@ public class TopologyManagerFrame extends JFrame{
     public void doOpenProject(File selectedFile) {
         this.setPath(selectedFile);
         this.getPreferences().setProperty(PreferencesKeys.PATH.name(), this.getPath().toString());
+
+
         try {
             this.getPreferences().store(new FileOutputStream(TopologyManagerFrame.VIEWER_PREFERENCES_PROPERTIES), "");
+
+
         } catch (IOException e1) {
             e1.printStackTrace();
             JOptionPane.showMessageDialog(this, "Can not Store preferences: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
