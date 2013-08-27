@@ -30,12 +30,7 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-/**
- * Created by IntelliJ IDEA.
- * Date: 12-4-27
- * Time: 23:11
- * To change this template use File | Settings | File Templates.
- */
+
 public class MenuBuilder {
     public JMenuBar createMenuBar(final TopologyManagerFrame frame) {
         JMenuBar menuBar = new JMenuBar();
@@ -120,9 +115,9 @@ public class MenuBuilder {
         final JMenuItem PageRank = new JMenuItem("PageRank");
         PageRank.addActionListener(new PageRankerMenuHandler(frame));
         rank.add(PageRank);
-        final JMenuItem PageRankWithPriors = new JMenuItem("PageRankWithPriors");
-        PageRankWithPriors.addActionListener(new ChangeLayoutMenuHandler(frame,"PageRankWithPriors"));
-        rank.add(PageRankWithPriors);
+//        final JMenuItem PageRankWithPriors = new JMenuItem("PageRankWithPriors");
+//        PageRankWithPriors.addActionListener(new PageRankWithPriorsMenuHandler(frame,"PageRankWithPriors"));
+//        rank.add(PageRankWithPriors);
         final JMenuItem KStepMarkov = new JMenuItem("KStepMarkov");
         KStepMarkov.addActionListener(new KMarkovMenuHandler(frame));
         rank.add(KStepMarkov);
@@ -203,15 +198,9 @@ public class MenuBuilder {
 
         file.addSeparator();
 
-//        final JMenuItem openRemote = new JMenuItem("Open Remote");
-//        openRemote.addActionListener(new OpenRemoteMenuHandler(frame));
-//        file.add(openRemote);
         final JMenuItem config = new JMenuItem("Settings");
         config.addActionListener(new ConfigMenuHandler(frame));
         file.add(config);
-//        final JMenuItem remoteConfig = new JMenuItem("RemoteConfig");
-//        remoteConfig.addActionListener(new RemoteConfigMenuHandler(frame));
-//        file.add(remoteConfig);
 
         final JMenu capture = new JMenu("Export to ...");
         file.add(capture);
@@ -251,7 +240,7 @@ public class MenuBuilder {
         startBGPDiscovery.addActionListener(new StartBGPDiscoveryMenuHandler(frame));
         bgpPeeringNetworkDiscovery.add(startBGPDiscovery);
         final JMenuItem configureBGPParameters = new JMenuItem("Configure Resource");
-        configureParameters.addActionListener(new ConfigureBGPParametersMenuHandler(frame));
+        configureBGPParameters.addActionListener(new ConfigureBGPParametersMenuHandler(frame));
         bgpPeeringNetworkDiscovery.add(configureBGPParameters);
 
         discovery.add(snmpNetworkDiscovery);

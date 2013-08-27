@@ -19,23 +19,16 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.gui.PreferencesKeys;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.utils.JEditorPaneSave;
 
-import javax.swing.*;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
-/**
- * Created by IntelliJ IDEA.
- * Date: 12-4-27
- * Time: 23:30
- * To change this template use File | Settings | File Templates.
- */
 public class ConfigMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
@@ -45,37 +38,18 @@ public class ConfigMenuHandler implements ActionListener {
         this.frame = frame;
     }
 
-    class XmlFileFilter extends javax.swing.filechooser.FileFilter {
-        @Override
-        public boolean accept(File f) { return f.isFile() && f.getName().endsWith(".xml") || f.isDirectory(); }
-        @Override
-        public String getDescription() { return "*.xml"; }
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        JFileChooser chooser = null;
-//        File configURL = frame.getConfigURI();
-//        File configFilePath = null;
-//        if (configURL != null) {
-//            configFilePath = configURL.getParentFile();
-//        }
-//        chooser = new JFileChooser(configFilePath);
-//        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-//        chooser.setMultiSelectionEnabled(false);
-//        chooser.setFileFilter(new XmlFileFilter());
-//        int result = chooser.showOpenDialog(frame);
-//        if (result == JFileChooser.APPROVE_OPTION){
-//
-//            File configURI = chooser.getSelectedFile();
-//            frame.setConfigUri(configURI);
-//            frame.getPreferences().setProperty(PreferencesKeys.CONFIG_FILE_NAME.name(), frame.getConfigURI().toString());
-//            try {
-//                frame.getPreferences().store(new FileOutputStream(TopologyManagerFrame.VIEWER_PREFERENCES_PROPERTIES),"");
-//            } catch (IOException e1) {
-//                e1.printStackTrace();
-//                JOptionPane.showMessageDialog(frame,"Can not store preferences. Error: "+e1.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
-//            }
-//        }
-    }
+            JEditorPaneSave settingsEditor = new JEditorPaneSave(frame.getPath()+ File.separator+ "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml");
+            try {
+                settingsEditor.init();
+            } catch (IOException e1) {
+                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (BadLocationException e1) {
+                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+
+        }
+
 }

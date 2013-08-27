@@ -63,7 +63,7 @@ public class OpenProjectMenuHandler implements ActionListener {
         if (result == JFileChooser.APPROVE_OPTION) {
             if(chooser.getSelectedFile().getName().equals("bgpPeeringMap.pfl")){
                 frame.setProjectType("bgpPeeringMap");
-            } else if(chooser.getSelectedFile().getName().equals("iTransformer.pfl"))    {
+            } else if(chooser.getSelectedFile().getName().equals("itransformer.pfl"))    {
                 frame.setProjectType("iTransformer");
             }  else{
                 JOptionPane.showMessageDialog(frame, "Unknown project type");

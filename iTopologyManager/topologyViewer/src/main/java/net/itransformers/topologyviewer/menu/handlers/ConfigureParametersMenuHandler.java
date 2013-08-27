@@ -19,20 +19,17 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.dialogs.snmpDiscovery.DiscoveryParametersDialog;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.utils.JEditorPaneSave;
 
-import javax.swing.*;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
-/**
- * Created by IntelliJ IDEA.
- * Date: 12-4-27
- * Time: 23:30
- * To change this template use File | Settings | File Templates.
- */
+
 public class ConfigureParametersMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
@@ -44,9 +41,15 @@ public class ConfigureParametersMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        DiscoveryParametersDialog dialog = new DiscoveryParametersDialog(frame);
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dialog.setVisible(true);
+        JEditorPaneSave discoveryParametersEditor = new JEditorPaneSave(frame.getPath()+ File.separator+"iDiscover/conf/xml/discoveryParameters.xml");
+        try {
+            discoveryParametersEditor.init();
+        } catch (IOException e1) {
+            e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (BadLocationException e1) {
+            e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
     }
 
 

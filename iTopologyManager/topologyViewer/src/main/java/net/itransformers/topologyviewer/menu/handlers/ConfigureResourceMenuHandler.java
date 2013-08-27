@@ -19,13 +19,15 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.dialogs.snmpDiscovery.DiscoveryResourceDialog;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.utils.JEditorPaneSave;
 
-import javax.swing.*;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -44,9 +46,14 @@ public class ConfigureResourceMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        DiscoveryResourceDialog dialog = new DiscoveryResourceDialog(frame);
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dialog.setVisible(true);
+        JEditorPaneSave resourceEditor = new JEditorPaneSave(frame.getPath()+ File.separator+ "iDiscover/conf/xml/discoveryResource.xml");
+        try {
+            resourceEditor.init();
+        } catch (IOException e1) {
+            e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (BadLocationException e1) {
+            e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
 
     }
 
