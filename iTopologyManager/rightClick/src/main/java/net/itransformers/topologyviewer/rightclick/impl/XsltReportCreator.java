@@ -20,52 +20,59 @@
 package net.itransformers.topologyviewer.rightclick.impl;
 
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
+import net.itransformers.utils.XsltReport;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.net.URL;
 import java.util.Map;
 
 public class XsltReportCreator implements RightClickHandler {
-     public <G> void handleRightClick(JFrame parent, String v,
+    public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
                                      File projectPath,
                                      File deviceDataXmlFileName) throws Exception {
 
 //      JOptionPane.showMessageDialog(parent, "deviceDataXmlFileName: " + deviceDataXmlFileName );
-      JFrame frame = new JFrame(" report for " + v + " ");
-              frame.setSize(600,400);
-      frame.getContentPane().setLayout(new BorderLayout());
-        JTextPane  text   = new JTextPane();
+        JFrame frame = new JFrame(" report for " + v + " ");
+        frame.setSize(600, 400);
+        frame.getContentPane().setLayout(new BorderLayout());
+        JTextPane text = new JTextPane();
         text.setEditable(true);
         text.setContentType("text/html");
         String xsltFile = rightClickParams.get("xsl_transformator");
         String xsltTableFile = rightClickParams.get("table_transformator");
+        Logger logger = Logger.getLogger(XsltReportCreator.class);
 
-        System.out.println("deviceDataXmlFileName: "+ deviceDataXmlFileName +" xsltFile: "+ xsltFile+ "xsltTableFile: "+ xsltTableFile);
-        if (!xsltTableFile.equals("")){
-            XsltReport testReport = new XsltReport(new File (projectPath, xsltFile),new File (projectPath, xsltTableFile),deviceDataXmlFileName);
-          try {
-                System.out.println(testReport.myTransformer().toString());
-                text.setText(testReport.myTransformer().toString());
-         } catch (Exception ex) {
-              testReport.handleException(ex);
-         }
-        }else{
-
-              XsltReport testReport = new XsltReport(new File(projectPath, xsltFile),deviceDataXmlFileName);
-            System.out.println(testReport.myTransformer().toString());
+        logger.info("deviceDataXmlFileName: " + deviceDataXmlFileName + " xsltFile: " + xsltFile + "xsltTableFile: " + xsltTableFile);
+        if (!xsltTableFile.equals("")) {
+            XsltReport testReport = new XsltReport(new File(projectPath, xsltFile), new File(projectPath, xsltTableFile), deviceDataXmlFileName);
             try {
-                text.setText(testReport.myTransformer().toString());
-         } catch (Exception ex) {
-              testReport.handleException(ex);
-         }
+
+                String report = testReport.doubleTransformer().toString();
+                text.setText(report);
+                logger.debug(report);
+
+            } catch (Exception ex) {
+                testReport.handleException(ex);
+            }
+        } else {
+
+            XsltReport testReport = new XsltReport(new File(projectPath, xsltFile), deviceDataXmlFileName);
+            String report = testReport.doubleTransformer().toString() ;
+
+            logger.debug(report);
+            try {
+                text.setText(report);
+            } catch (Exception ex) {
+                testReport.handleException(ex);
+            }
         }
-         JScrollPane scrollPane = new JScrollPane(text);
-         frame.getContentPane().add("Center",scrollPane);
-         frame.setVisible(true);
-     }
+        JScrollPane scrollPane = new JScrollPane(text);
+        frame.getContentPane().add("Center", scrollPane);
+        frame.setVisible(true);
+    }
 
 }

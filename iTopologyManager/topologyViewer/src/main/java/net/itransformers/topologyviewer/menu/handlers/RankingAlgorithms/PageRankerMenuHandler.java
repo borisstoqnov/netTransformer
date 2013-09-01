@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.topologyviewer.menu.handlers;
+package net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms;
 
 import edu.uci.ics.jung.algorithms.scoring.PageRank;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;

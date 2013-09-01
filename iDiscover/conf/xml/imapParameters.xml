@@ -18,11 +18,10 @@
   -->
 
 
-
 <discovery-helper>
     <device type="DEFAULT" xslt="iDiscover/conf/xslt/bgp_as_path.xslt">
         <general>
-           system
+            system
         </general>
         <discovery-method name="BGP">
             bgpLocalAs,bgpPeerEntry, bgp4PathAttrEntry
@@ -59,7 +58,6 @@
         <param name="ipRange">10.1.3.0/24</param>
         <param name="vlan">10.1.2.0/24</param>
     </managementIPRange>
-
 
 
 </discovery-helper>

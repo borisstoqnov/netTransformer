@@ -23,6 +23,15 @@ import edu.uci.ics.jung.algorithms.scoring.KStepMarkov;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import org.apache.commons.collections15.Transformer;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,28 +64,65 @@ public class KMarkovMenuHandler implements ActionListener {
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
 
         JFrame frame1 = new JFrame(" KStep Markov Rankings ");
-        frame1.setSize(600,400);
+        frame1.setSize(800,600);
         frame1.getContentPane().setLayout(new BorderLayout());
-        JTextPane  text   = new JTextPane();
+        JTextArea  text   = new JTextArea();
         text.setEditable(true);
 
 
         KStepMarkov ranker = new KStepMarkov(viewerPanel.getCurrentGraph(),8);
         ranker.evaluate();
+        Transformer<String,Integer> test =  ranker.getVertexPriors();
         StringBuffer sb = new StringBuffer();
         sb.append("Position, Node Name, Node Rank \n");
         Collection<String> vertices = viewerPanel.getCurrentGraph().getVertices();
         ArrayList<String> list = new ArrayList<String>(vertices);
 
+        final XYSeriesCollection dataset = new XYSeriesCollection();
+        final XYSeries s1 = new XYSeries("KStep Markov Rankings");
+        ArrayList<Double> scores = new ArrayList<Double>();
+
         for (int i = 0; i < list.size(); i++) {
             String vertex = list.get(i);
-            sb.append(String.format("%d, %s, %s\n", i, vertex, ranker.getVertexScore(vertex)));
+            Double score = (Double) ranker.getVertexScore(vertex);
+            scores.add(score);
+            sb.append(String.format("%d, %s, %s\n", i, vertex, score));
 
         }
+        s1.getAutoSort();
+        dataset.addSeries(s1);
+
         text.setText(sb.toString());
+        final JFreeChart chart = ChartFactory.createXYLineChart(
+                " KStep Markow Rankings",
+                        "Category",               // domain axis label
+                        "Value",                  // range axis label
+                        dataset,                  // data
+                        PlotOrientation.VERTICAL,
+                        false,                     // include legend
+                        true,
+                        true
+                );
+//
+        final XYPlot plot = chart.getXYPlot();
+        final NumberAxis domainAxis = new NumberAxis("Nodes");
+        final NumberAxis rangeAxis = new NumberAxis("Node Rankings");
+        plot.setDomainAxis(domainAxis);
+        plot.setRangeAxis(rangeAxis);
+        chart.setBackgroundPaint(Color.white);
+        plot.setOutlinePaint(Color.black);
+        final ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new java.awt.Dimension(400, 300));
+        chartPanel.setMouseWheelEnabled(true);
+
+
+        Container container = frame1.getContentPane();
+        container.setLayout(new BorderLayout());
 
         JScrollPane scrollPane = new JScrollPane(text);
-        frame1.getContentPane().add("Center",scrollPane);
+        scrollPane.setPreferredSize(new java.awt.Dimension(400, 300));
+        container.add(chartPanel,BorderLayout.NORTH);
+        container.add(scrollPane,BorderLayout.SOUTH);
 
         frame1.setVisible(true);
 

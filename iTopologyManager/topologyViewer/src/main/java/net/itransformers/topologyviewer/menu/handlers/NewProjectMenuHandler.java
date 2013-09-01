@@ -62,7 +62,6 @@ public class NewProjectMenuHandler implements ActionListener {
         file = new File("itransformer.pfl");
         frame.setProjectType("iTransformer");
          }
-      //  File file = new File("bgpPeeringMap.txt");
         Scanner s = null;
         try {
             try {

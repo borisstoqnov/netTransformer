@@ -35,6 +35,7 @@ public class OpenProjectMenuHandler implements ActionListener {
     public OpenProjectMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
+
     }
 
     @Override
@@ -63,6 +64,7 @@ public class OpenProjectMenuHandler implements ActionListener {
         if (result == JFileChooser.APPROVE_OPTION) {
             if(chooser.getSelectedFile().getName().equals("bgpPeeringMap.pfl")){
                 frame.setProjectType("bgpPeeringMap");
+               // frame.getMenuBar().getMenu(1).setEnabled(false);
             } else if(chooser.getSelectedFile().getName().equals("itransformer.pfl"))    {
                 frame.setProjectType("iTransformer");
             }  else{

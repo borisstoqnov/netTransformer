@@ -2,10 +2,12 @@
 <discovery-helper>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="DEFAULT">
         <general>
-            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed, dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,
+            dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
         </general>
         <discovery-method name="PHYSICAL">
-            dot1dBasePort,dot1dBasePortIfIndex,dot1dStpDesignatedRoot, dot1dStpPortEntry,ipNetToMediaTable,lldpRemoteSystemsData,dot1qVlanStaticEntry,mplsInterfaceConfIndex,
+            dot1dBasePort,dot1dBasePortIfIndex,dot1dStpDesignatedRoot,
+            dot1dStpPortEntry,ipNetToMediaTable,lldpRemoteSystemsData,dot1qVlanStaticEntry,mplsInterfaceConfIndex,
         </discovery-method>
         <discovery-method name="NEXT_HOP">
             ipRouteIfIndex, ipRouteNextHop
@@ -29,14 +31,16 @@
         </discovery-method>
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
-         </discovery-method>
+        </discovery-method>
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="SERVER">
         <general>
-            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifName,ifPhysAddress,ifType,ifHighSpeed, dot1dTpFdbAddress,system,ipAddrTable
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifName,ifPhysAddress,ifType,ifHighSpeed,
+            dot1dTpFdbAddress,system,ipAddrTable
         </general>
         <discovery-method name="PHYSICAL">
-            dot1dBaseBridgeAddress,dot1dStpDesignatedRoot, dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,
+            dot1dBaseBridgeAddress,dot1dStpDesignatedRoot,
+            dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,
             dot1dBasePortIfIndex,ipNetToMediaTable,lldpRemoteSystemsData
         </discovery-method>
         <discovery-method name="NEXT_HOP">
@@ -45,10 +49,12 @@
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="CISCO">
         <general>
-            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed, dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,
+            dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
         </general>
         <discovery-method name="PHYSICAL">
-            dot1dBaseBridgeAddress,dot1dStpDesignatedRoot, dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,
+            dot1dBaseBridgeAddress,dot1dStpDesignatedRoot,
+            dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,
             dot1dBasePortIfIndex,ipNetToMediaTable,lldpRemoteSystemsData,cdpCacheDevicePort,cdpCacheDevicePlatform,cdpCacheDeviceId,cdpCacheIfIndex,cdpCachePrimaryMgmtAddrType,cdpCachePrimaryMgmtAddr,dot1qVlanStaticEntry,mplsInterfaceConfIndex
         </discovery-method>
         <discovery-method name="NEXT_HOP">
@@ -77,10 +83,12 @@
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="HUAWEI">
         <general>
-            ifIndex,ifDescr,ifOperStatus,dot1dStpDesignatedRoot, dot1dStpPortEntry, ifAdminStatus,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
+            ifIndex,ifDescr,ifOperStatus,dot1dStpDesignatedRoot, dot1dStpPortEntry,
+            ifAdminStatus,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
         </general>
         <discovery-method name="PHYSICAL">
-            dot1dBasePort,dot1dBasePortIfIndex,dot1dStpDesignatedRoot, dot1dStpPortEntry,ipNetToMediaTable,lldpRemoteSystemsData,dot1qVlanStaticEntry
+            dot1dBasePort,dot1dBasePortIfIndex,dot1dStpDesignatedRoot,
+            dot1dStpPortEntry,ipNetToMediaTable,lldpRemoteSystemsData,dot1qVlanStaticEntry
         </discovery-method>
         <discovery-method name="NEXT_HOP">
             ipRouteIfIndex,ipRouteNextHop
@@ -99,19 +107,20 @@
             rip2IfConfTable,rip2IfStatTable
         </discovery-method>
         <discovery-method name="ADDITIONAL">
-             mplsVpnVrfEntry,mplsVpnVrfRouteTargetEntry,mplsVpnInterfaceConfEntry,mplsInterfaceConfIndex,
-             dot1dBaseNumPorts, dot1qVlanStaticTable
+            mplsVpnVrfEntry,mplsVpnVrfRouteTargetEntry,mplsVpnInterfaceConfEntry,mplsInterfaceConfIndex,
+            dot1dBaseNumPorts, dot1qVlanStaticTable
         </discovery-method>
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
-         </discovery-method>
+        </discovery-method>
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="JUNIPER">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
         </general>
         <discovery-method name="PHYSICAL">
-            dot1dBasePort,dot1dBasePortIfIndex,dot1dStpDesignatedRoot, dot1dStpPortEntry,ipNetToMediaTable,lldpRemoteSystemsData,dot1qVlanStaticEntry,mplsInterfaceConfIndex,
+            dot1dBasePort,dot1dBasePortIfIndex,dot1dStpDesignatedRoot,
+            dot1dStpPortEntry,ipNetToMediaTable,lldpRemoteSystemsData,dot1qVlanStaticEntry,mplsInterfaceConfIndex,
         </discovery-method>
         <discovery-method name="NEXT_HOP">
             ipRouteIfIndex,ipRouteNextHop,
@@ -130,27 +139,28 @@
             rip2IfConfTable,rip2IfStatTable
         </discovery-method>
         <discovery-method name="ADDITIONAL">
-              mplsVpnVrfName,mplsVpnVrfRouteDistinguisher,mplsVpnVrfRouteDistinguisher,
-             dot1dBaseNumPorts, dot1qVlanStaticTable
+            mplsVpnVrfName,mplsVpnVrfRouteDistinguisher,mplsVpnVrfRouteDistinguisher,
+            dot1dBaseNumPorts, dot1qVlanStaticTable
         </discovery-method>
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
-         </discovery-method>
+        </discovery-method>
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="HP">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
         </general>
         <discovery-method name="PHYSICAL">
-            dot1dBaseBridgeAddress,dot1dStpDesignatedRoot, dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,
-dot1dBasePortIfIndex,ipNetToMediaTable,lldpRemoteSystemsData,cdpCacheDevicePort,cdpCacheDevicePlatform,cdpCacheDeviceId,cdpCacheIfIndex,cdpCachePrimaryMgmtAddrType,cdpCachePrimaryMgmtAddr,dot1qVlanStaticEntry,mplsInterfaceConfIndex
+            dot1dBaseBridgeAddress,dot1dStpDesignatedRoot,
+            dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,
+            dot1dBasePortIfIndex,ipNetToMediaTable,lldpRemoteSystemsData,cdpCacheDevicePort,cdpCacheDevicePlatform,cdpCacheDeviceId,cdpCacheIfIndex,cdpCachePrimaryMgmtAddrType,cdpCachePrimaryMgmtAddr,dot1qVlanStaticEntry,mplsInterfaceConfIndex
         </discovery-method>
         <discovery-method name="NEXT_HOP">
             ipRouteIfIndex,ipRouteNextHop,
             ipCidrRouteType, ipCidrRouteIfIndex, ipCidrRouteNextHop, ipCidrRouteProto, ipCidrRouteNextHopAS
         </discovery-method>
         <discovery-method name="ADDITIONAL">
-             dot1dBaseNumPorts, dot1qVlanStaticTable
+            dot1dBaseNumPorts, dot1qVlanStaticTable
         </discovery-method>
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="TELLABS">
@@ -158,7 +168,9 @@ dot1dBasePortIfIndex,ipNetToMediaTable,lldpRemoteSystemsData,cdpCacheDevicePort,
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,ipAddrTable
         </general>
         <discovery-method name="PHYSICAL">
-            dot1dBaseBridgeAddress,dot1dStpDesignatedRoot, dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,dot1dBasePortIfIndex,ipNetToMediaTable, dot1qVlanStaticEntry,mplsInterfaceConfIndex
+            dot1dBaseBridgeAddress,dot1dStpDesignatedRoot,
+            dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,dot1dBasePortIfIndex,ipNetToMediaTable,
+            dot1qVlanStaticEntry,mplsInterfaceConfIndex
         </discovery-method>
         <discovery-method name="NEXT_HOP">
             ipRouteIfIndex,ipRouteNextHop,ipCidrRouteEntry
@@ -176,19 +188,20 @@ dot1dBasePortIfIndex,ipNetToMediaTable,lldpRemoteSystemsData,cdpCacheDevicePort,
             rip2IfConfTable,rip2IfStatTable
         </discovery-method>
         <discovery-method name="ADDITIONAL">
-              mplsVpnVrfName,mplsVpnVrfRouteDistinguisher,mplsVpnVrfRouteDistinguisher,
-             dot1dBaseNumPorts, dot1qVlanStaticTable
+            mplsVpnVrfName,mplsVpnVrfRouteDistinguisher,mplsVpnVrfRouteDistinguisher,
+            dot1dBaseNumPorts, dot1qVlanStaticTable
         </discovery-method>
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
-         </discovery-method>
+        </discovery-method>
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="RIVERSTONE">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,ipAddrTable
         </general>
         <discovery-method name="PHYSICAL">
-            dot1dBaseBridgeAddress,dot1dStpDesignatedRoot, dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,
+            dot1dBaseBridgeAddress,dot1dStpDesignatedRoot,
+            dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,
             dot1dBasePortIfIndex,ipNetToMediaTable
         </discovery-method>
         <discovery-method name="NEXT_HOP">
@@ -204,12 +217,12 @@ dot1dBasePortIfIndex,ipNetToMediaTable,lldpRemoteSystemsData,cdpCacheDevicePort,
             rip2IfConfTable,rip2IfStatTable
         </discovery-method>
         <discovery-method name="ADDITIONAL">
-              mplsVpnVrfName,mplsVpnVrfRouteDistinguisher,mplsVpnVrfRouteDistinguisher,
-             dot1dBaseNumPorts, dot1qVlanStaticTable
+            mplsVpnVrfName,mplsVpnVrfRouteDistinguisher,mplsVpnVrfRouteDistinguisher,
+            dot1dBaseNumPorts, dot1qVlanStaticTable
         </discovery-method>
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
-         </discovery-method>
+        </discovery-method>
     </device>
     <stop-criteria>
         <!--match property="ipAddress.ipAddress"></match-->

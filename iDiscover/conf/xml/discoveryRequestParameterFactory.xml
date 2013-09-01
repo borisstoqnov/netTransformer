@@ -24,7 +24,7 @@
         </discovery-method>
         <discovery-method name="NEXT_HOP">
             ipRouteIfIndex,ipRouteNextHop,
-      ipCidrRouteType, ipCidrRouteIfIndex, ipCidrRouteNextHop, ipCidrRouteProto, ipCidrRouteNextHopAS
+            ipCidrRouteType, ipCidrRouteIfIndex, ipCidrRouteNextHop, ipCidrRouteProto, ipCidrRouteNextHopAS
         </discovery-method>
         <discovery-method name="OSPF">
             ospfRouterId,ospfNbrEntry,ospfAdminStat,ospfAreaBdrRtrStatus,ospfASBdrRtrStatus,ospfAreaTable,ospfIfEntry

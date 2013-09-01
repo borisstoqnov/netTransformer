@@ -798,7 +798,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
 
     public Object getEdgeKeyValue(String key, String edgeId){
        Map<String,String> edgeParams =           new HashMap<String, String>();
-       edgeParams= getEdgeParams(edgeId,graphmlLoader.getEdgeMetadatas());
+       edgeParams= getEdgeParams(edgeId);
 
         return edgeParams.get(key);
     }
@@ -823,7 +823,8 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
         }
         return foundVertexes;
     }
-    private static <G> Map<String, String> getVertexParams(String v, Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas) {
+    public <G> Map<String, String> getVertexParams(String v ) {
+        Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = graphmlLoader.getVertexMetadatas();
         HashMap<String, String> params = new HashMap<String, String>();
         for (Map<String,GraphMLMetadata<String>> vertexMetadata : vertexMetadatas.values()) {
             for (String key : vertexMetadata.keySet()){
@@ -839,8 +840,9 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
         }
         return params;
     }
-    private static <G> Map<String, String> getEdgeParams(String v, Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas) {
+    public <G> Map<String, String> getEdgeParams(String v) {
         HashMap<String, String> params = new HashMap<String, String>();
+        Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas = graphmlLoader.getEdgeMetadatas();
         for (Map<String,GraphMLMetadata<String>> edgeMetadata : edgeMetadatas.values()) {
             for (String key : edgeMetadata.keySet()){
                 String value = edgeMetadata.get(key).transformer.transform(v);

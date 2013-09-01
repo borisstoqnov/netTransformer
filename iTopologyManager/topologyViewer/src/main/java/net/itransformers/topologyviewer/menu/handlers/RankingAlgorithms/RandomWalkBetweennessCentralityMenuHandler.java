@@ -25,6 +25,14 @@ import edu.uci.ics.jung.graph.UndirectedGraph;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,33 +64,73 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
 
         JFrame frame1 = new JFrame(" Random Walk Betweenness Centrality Rankings ");
-        frame1.setSize(600,400);
+        frame1.setSize(800,600);
         frame1.getContentPane().setLayout(new BorderLayout());
         JTextPane  text   = new JTextPane();
-        text.setEditable(true);
-
-
+        text.setEditable(false);
+        text.setContentType("text/html");
         RandomWalkBetweenness ranker = new RandomWalkBetweenness((UndirectedGraph) viewerPanel.getCurrentGraph());
 
         ranker.setRemoveRankScoresOnFinalize(false);
         ranker.evaluate();
         StringBuffer sb = new StringBuffer();
         List<Ranking> rankingList  = ranker.getRankings();
-        sb.append("Position, Node Name, Node Rank \n");
+        //sb.append("Position, Node Name, Node Rank \n");
+        final XYSeriesCollection dataset = new XYSeriesCollection();
+        final XYSeries s1 = new XYSeries("Random Walk Betweenness Centrality Rankings");
 
+        sb.append("\n<html>");
         for(int i = 0; i<rankingList.size(); i++){
-            sb.append(String.format("%d, %s, %s\n", i, rankingList.get(i).getRanked(), rankingList.get(i)));
+            // sb.append(String.format("<%d, %s, %s\n/>", i, rankingList.get(i).getRanked(), rankingList.get(i)));
+            sb.append("\n<entry>\n");
+            sb.append("\t<position>"+i+1+"</position>\n");
+            sb.append("\t<node>"+rankingList.get(i).getRanked()+"</node>\n");
+            sb.append("\t<rank>"+rankingList.get(i)+"</rank>\n");
+            sb.append("</entry>");
+            s1.add(i,Double.parseDouble(rankingList.get(i).toString()));
 
         }
+        sb.append("\n</html>");
+        dataset.addSeries(s1);
         text.setText(sb.toString());
         Ranking betwennessMax = (Ranking) rankingList.get(0);
         Ranking betwennessMin = (Ranking) rankingList.get(rankingList.size() - 1);
 
+        final JFreeChart chart = ChartFactory.createXYLineChart(
+                " Random Walk Betweenness Centrality Rankings",
+                "Category",               // domain axis label
+                "Value",                  // range axis label
+                dataset,                  // data
+                PlotOrientation.VERTICAL,
+                false,                     // include legend
+                true,
+                true
+        );
+//
+        final XYPlot plot = chart.getXYPlot();
+        final NumberAxis domainAxis = new NumberAxis("Nodes");
+        final NumberAxis rangeAxis = new NumberAxis("Node Rankings");
+        plot.setDomainAxis(domainAxis);
+        plot.setRangeAxis(rangeAxis);
+        chart.setBackgroundPaint(Color.white);
+        plot.setOutlinePaint(Color.black);
+        final ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new java.awt.Dimension(400, 300));
+        chartPanel.setMouseWheelEnabled(true);
+
+
+        Container container = frame1.getContentPane();
+        container.setLayout(new BorderLayout());
 
         JScrollPane scrollPane = new JScrollPane(text);
-        frame1.getContentPane().add("Center",scrollPane);
+        scrollPane.setPreferredSize(new java.awt.Dimension(400, 300));
+        container.add(chartPanel,BorderLayout.NORTH);
+        container.add(scrollPane,BorderLayout.SOUTH);
+
 
         frame1.setVisible(true);
 
     }
+
+
 }

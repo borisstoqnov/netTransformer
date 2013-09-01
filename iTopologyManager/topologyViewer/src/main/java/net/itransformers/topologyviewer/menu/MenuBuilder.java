@@ -23,6 +23,7 @@ import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.menu.handlers.*;
 import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.BetweennessCentralityMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.KMarkovMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.PageRankerMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.RandomWalkBetweennessCentralityMenuHandler;
 
 import javax.swing.*;
@@ -198,8 +199,8 @@ public class MenuBuilder {
 
         file.addSeparator();
 
-        final JMenuItem config = new JMenuItem("Settings");
-        config.addActionListener(new ConfigMenuHandler(frame));
+        final JMenuItem config = new JMenuItem("Viewer Settings");
+        config.addActionListener(new ConfigMenuHandler(frame, "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
         file.add(config);
 
         final JMenu capture = new JMenu("Export to ...");

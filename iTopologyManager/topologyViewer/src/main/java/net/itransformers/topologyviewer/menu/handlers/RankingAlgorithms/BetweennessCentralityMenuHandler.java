@@ -24,19 +24,25 @@ import edu.uci.ics.jung.algorithms.importance.Ranking;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.utils.XsltReport;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
+import javax.xml.transform.stream.StreamSource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * Date: 12-4-27
- * Time: 23:30
- * To change this template use File | Settings | File Templates.
- */
 public class BetweennessCentralityMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
@@ -54,32 +60,81 @@ public class BetweennessCentralityMenuHandler implements ActionListener {
         final GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
 
-        JFrame frame1 = new JFrame(" BetweennessCentrality Rankings ");
-        frame1.setSize(600,400);
+        JFrame frame1 = new JFrame(" Betweenness Centrality Rankings ");
+        frame1.setSize(800,600);
         frame1.getContentPane().setLayout(new BorderLayout());
         JTextPane  text   = new JTextPane();
-        text.setEditable(true);
+        text.setEditable(false);
+        text.setContentType("text/html");
 
-
+        frame1.dispose();
         BetweennessCentrality ranker = new BetweennessCentrality(viewerPanel.getCurrentGraph(),true,false);
 
         ranker.setRemoveRankScoresOnFinalize(false);
         ranker.evaluate();
         StringBuffer sb = new StringBuffer();
         List<Ranking> rankingList  = ranker.getRankings();
-        sb.append("Position, Node Name, Node Rank \n");
+       // sb.append("Position, Node Name, Node Rank \n");
 
+        final XYSeriesCollection dataset = new XYSeriesCollection();
+        final XYSeries s1 = new XYSeries(" Betweenness Centrality Rankings");
+        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+        sb.append("<BetweennessCentralityRankings>");
         for(int i = 0; i<rankingList.size(); i++){
-            sb.append(String.format("%d, %s, %s\n", i, rankingList.get(i).getRanked(), rankingList.get(i)));
+           // sb.append(String.format("<%d, %s, %s\n/>", i, rankingList.get(i).getRanked(), rankingList.get(i)));
+            sb.append("\n<entry>\n");
+            sb.append("\t<position>"+i+1+"</position>\n");
+            sb.append("\t<node>"+rankingList.get(i).getRanked()+"</node>\n");
+            sb.append("\t<rank>"+rankingList.get(i)+"</rank>\n");
+            sb.append("</entry>");
+            s1.add(i, Double.parseDouble(rankingList.get(i).toString()));
 
         }
-        text.setText(sb.toString());
-        Ranking betwennessMax = (Ranking) rankingList.get(0);
-        Ranking betwennessMin = (Ranking) rankingList.get(rankingList.size() - 1);
+        sb.append("</BetweennessCentralityRankings>");
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(sb.toString().getBytes());
 
+        XsltReport testReport = new XsltReport(new File(frame.getPath(), "iTopologyManager/rightClick/conf/xslt/table_creator.xslt"), new StreamSource(inputStream));
+        try {
+
+            String report = testReport.singleTransformer().toString();
+            text.setText(report);
+
+        } catch (Exception ex) {
+            testReport.handleException(ex);
+        }
+
+        dataset.addSeries(s1);
+
+        final JFreeChart chart = ChartFactory.createXYLineChart(
+                "Betweenness Centrality Rankings",
+                "Category",               // domain axis label
+                "Value",                  // range axis label
+                dataset,                  // data
+                PlotOrientation.VERTICAL,
+                false,                     // include legend
+                true,
+                true
+        );
+//
+        final XYPlot plot = chart.getXYPlot();
+        final NumberAxis domainAxis = new NumberAxis("Nodes");
+        final NumberAxis rangeAxis = new NumberAxis("Node Rankings");
+        plot.setDomainAxis(domainAxis);
+        plot.setRangeAxis(rangeAxis);
+        chart.setBackgroundPaint(Color.white);
+        plot.setOutlinePaint(Color.black);
+        final ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new java.awt.Dimension(400, 300));
+        chartPanel.setMouseWheelEnabled(true);
+
+        Container container = frame1.getContentPane();
+        container.setLayout(new BorderLayout());
 
         JScrollPane scrollPane = new JScrollPane(text);
-        frame1.getContentPane().add("Center",scrollPane);
+        scrollPane.setPreferredSize(new java.awt.Dimension(400, 300));
+        container.add(chartPanel,BorderLayout.NORTH);
+        container.add(scrollPane,BorderLayout.SOUTH);
+
 
         frame1.setVisible(true);
 

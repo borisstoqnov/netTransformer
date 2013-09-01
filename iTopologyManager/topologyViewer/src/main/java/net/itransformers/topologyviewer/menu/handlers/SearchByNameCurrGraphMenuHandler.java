@@ -19,9 +19,9 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
+import edu.uci.ics.jung.visualization.VisualizationViewer;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
-import edu.uci.ics.jung.visualization.VisualizationViewer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -47,18 +48,51 @@ public class SearchByNameCurrGraphMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
+        final GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         final VisualizationViewer vv = viewerPanel.getVisualizationViewer();
         Collection<String> vertices = viewerPanel.getCurrentGraph().getVertices();
         String [] test = vertices.toArray(new String[0]);
-        Arrays.sort(test);
-        String vertex = (String) JOptionPane.showInputDialog(frame, "Choose Node Name", "Node", JOptionPane.PLAIN_MESSAGE, null, test, test[0]);
+        JFrame frame1 = new JFrame("Find Node");
 
-        if (viewerPanel.FindNodeByIDCurrentGraph(vertex)){
-            viewerPanel.SetPickedState(vertex);
-            viewerPanel.Animator(vertex);
-        }   else {
-            JOptionPane.showMessageDialog(frame, "Can not find node:" + vertex, "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        Container contentPane = frame1.getContentPane();
+
+        Arrays.sort(test);
+        final JComboBox jcb = new JComboBox(test);
+        jcb.setEditable(true);
+        jcb.setVisible(true);
+        contentPane.add(jcb, BorderLayout.NORTH);
+        final String[] vertex = {null};
+
+
+        final JTextArea textArea = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        contentPane.add(scrollPane, BorderLayout.CENTER);
+
+        ActionListener actionListener = new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                vertex[0] = (String) jcb.getSelectedItem();
+                textArea.append("Selected: " + vertex[0]+"\n");
+                if (viewerPanel.FindNodeByIDCurrentGraph(vertex[0])){
+                    viewerPanel.SetPickedState(vertex[0]);
+                    viewerPanel.Animator(vertex[0]);
+                }   else {
+                    JOptionPane.showMessageDialog(frame, "Can not find node:" + vertex[0], "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                Map<String, String> graphMLParams =  viewerPanel.getVertexParams(vertex[0]);
+                for (Map.Entry<String, String> entry : graphMLParams.entrySet()) {
+                    textArea.append("Key: "+entry.getKey()+", "+"Value: "+entry.getValue()+"\n");
+                }
+
+            }
+        };
+        jcb.addActionListener(actionListener);
+
+      //  frame1.add(jcb);
+        frame1.setSize(300, 200);
+        frame1.setVisible(true);
+
+      //  String vertex = (String) JOptionPane.showInputDialog(frame,jcb, "Choose Node Name", JOptionPane.QUESTION_MESSAGE);
+
+
     }
 }

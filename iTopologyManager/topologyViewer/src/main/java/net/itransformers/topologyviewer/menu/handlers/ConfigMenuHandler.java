@@ -32,16 +32,18 @@ import java.io.IOException;
 public class ConfigMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
+    String path;
 
-    public ConfigMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
+    public ConfigMenuHandler(TopologyManagerFrame frame, String path) throws HeadlessException {
 
         this.frame = frame;
+        this.path = path;
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-            JEditorPaneSave settingsEditor = new JEditorPaneSave(frame.getPath()+ File.separator+ "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml");
+            JEditorPaneSave settingsEditor = new JEditorPaneSave(frame.getPath()+ File.separator+path );
             try {
                 settingsEditor.init();
             } catch (IOException e1) {
