@@ -26,7 +26,6 @@ import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 
 public class ConfigMenuHandler implements ActionListener {
@@ -34,16 +33,15 @@ public class ConfigMenuHandler implements ActionListener {
     private TopologyManagerFrame frame;
     String path;
 
-    public ConfigMenuHandler(TopologyManagerFrame frame, String path) throws HeadlessException {
+    public ConfigMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
-        this.path = path;
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-            JEditorPaneSave settingsEditor = new JEditorPaneSave(frame.getPath()+ File.separator+path );
+            JEditorPaneSave settingsEditor = new JEditorPaneSave(frame.getViewerConfig().getAbsolutePath());
             try {
                 settingsEditor.init();
             } catch (IOException e1) {

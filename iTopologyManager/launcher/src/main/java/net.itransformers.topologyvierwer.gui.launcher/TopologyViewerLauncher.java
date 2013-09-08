@@ -19,56 +19,51 @@
 
 package net.itransformers.topologyvierwer.gui.launcher;
 
-import edu.uci.ics.jung.graph.*;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 public class TopologyViewerLauncher {
     public static void main(String[] args) throws Exception {
-        Map<String, String > params = new HashMap<String, String>();
-        String key = null;
-        for (String arg : args) {
-            if (key == null && arg.startsWith("-")) {
-                key = arg;
-            } else {
-                params.put(key, arg);
-                key = null;
-            }
-        }
-        if (!params.containsKey("-t")) {
-            params.put("-t", "directed");
-        }
-        String initialNode = params.get("-n");
-
-        String graphmlRelDir = params.get("-g");
-        String dirStr = params.get("-d");
-        String urlStr = params.get("-u");
-        if (dirStr != null && urlStr != null) {
-            printUsage("Can not specify -d or -u options simultaneously");
-            return;
-        }
-        File baseUrl = null;
-        if (dirStr != null) {
-            File dir = new File(dirStr);
-            if (!dir.exists()) {
-                System.out.println(String.format("The specified directory '%s' does not exists",dirStr));
-                return;
-            }
-            baseUrl = dir;
-        } else if (urlStr != null) {
-            baseUrl = new File(urlStr);
-        } else {
-            baseUrl = null;
-        }
-        String viewerConfig = params.get("-f");
-        File viewerConfigFile = null;
-        if (viewerConfig != null) {
-            viewerConfigFile = new File(viewerConfig);
-        }
-        new TopologyManagerFrame(baseUrl);
+//        Map<String, String > params = new HashMap<String, String>();
+//        String key = null;
+//        for (String arg : args) {
+//            if (key == null && arg.startsWith("-")) {
+//                key = arg;
+//            } else {
+//                params.put(key, arg);
+//                key = null;
+//            }
+//        }
+//        if (!params.containsKey("-t")) {
+//            params.put("-t", "directed");
+//        }
+//        String initialNode = params.get("-n");
+//
+//        String graphmlRelDir = params.get("-g");
+//        String dirStr = params.get("-d");
+//        String urlStr = params.get("-u");
+//        if (dirStr != null && urlStr != null) {
+//            printUsage("Can not specify -d or -u options simultaneously");
+//            return;
+//        }
+//        File baseUrl = null;
+//        if (dirStr != null) {
+//            File dir = new File(dirStr);
+//            if (!dir.exists()) {
+//                System.out.println(String.format("The specified directory '%s' does not exists",dirStr));
+//                return;
+//            }
+//            baseUrl = dir;
+//        } else if (urlStr != null) {
+//            baseUrl = new File(urlStr);
+//        } else {
+//            baseUrl = null;
+//        }
+//        String viewerConfig = params.get("-f");
+//        File viewerConfigFile = null;
+//        if (viewerConfig != null) {
+//            viewerConfigFile = new File(viewerConfig);
+//        }
+        new TopologyManagerFrame(null);
 //        if (params.get("-t").equals("undirected")) {
 //            new TopologyManagerFrame(baseUrl, graphmlRelDir, UndirectedSparseGraph.<String, String>getFactory(), viewerConfigFile, initialNode);
 //        } else if(params.get("-t").equals("multi")){

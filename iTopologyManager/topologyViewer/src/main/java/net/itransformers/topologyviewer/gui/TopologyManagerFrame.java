@@ -47,6 +47,7 @@ public class TopologyManagerFrame extends JFrame{
     public static final String VIEWER_PREFERENCES_PROPERTIES = "viewer-preferences.properties";
     private File path;
     private String projectType;
+    private File viewerConfig;
     private JTabbedPane tabbedPane;
     private Properties preferences = new Properties();
     Map<String, GraphViewerPanelManager> viewerPanelManagerMap = new HashMap<String, GraphViewerPanelManager>();
@@ -77,6 +78,14 @@ public class TopologyManagerFrame extends JFrame{
     public void setPath(File path) {
         this.path = path;
     }
+
+    public File getViewerConfig() {
+        return viewerConfig;
+    }
+
+    public void setViewerConfig(File viewerConfig) {
+        this.viewerConfig = viewerConfig;
+    }
     public void setProjectType(String projectType) {
         this.projectType = projectType;
     }
@@ -101,6 +110,7 @@ public class TopologyManagerFrame extends JFrame{
         this.setJMenuBar(menuBar);
         this.setMinimumSize(new Dimension(640, 480));
         this.setVisible(true);
+
     }
 
 
@@ -116,11 +126,12 @@ public class TopologyManagerFrame extends JFrame{
         try {
             if (selectedFile.getName().startsWith("undirected")) {
                 GraphViewerPanelManager<UndirectedGraph<String, String>> viewerPanelManager =
-                        new GraphViewerPanelManager<UndirectedGraph<String, String>>(this, path, selectedFile, UndirectedSparseGraph.<String, String>getFactory(), tabbedPane, GraphType.UNDIRECTED);
+                        new GraphViewerPanelManager<UndirectedGraph<String, String>>(this, projectType, path, viewerConfig, selectedFile, UndirectedSparseGraph.<String, String>getFactory(), tabbedPane, GraphType.UNDIRECTED);
                 viewerPanelManagerMap.put(viewerPanelManager.getVersionDir().getAbsolutePath(),viewerPanelManager);
                 viewerPanelManager.createAndAddViewerPanel();
             } else if (selectedFile.getName().startsWith("directed")) {
-                GraphViewerPanelManager<DirectedGraph<String, String>> viewerPanelManager = new GraphViewerPanelManager<DirectedGraph<String, String>>(this, path ,selectedFile, DirectedSparseMultigraph.<String, String>getFactory(), tabbedPane, GraphType.DIRECTED);
+
+                GraphViewerPanelManager<DirectedGraph<String, String>> viewerPanelManager = new GraphViewerPanelManager<DirectedGraph<String, String>>(this, projectType, path,viewerConfig ,selectedFile, DirectedSparseMultigraph.<String, String>getFactory(), tabbedPane, GraphType.DIRECTED);
                 viewerPanelManagerMap.put(viewerPanelManager.getVersionDir().getAbsolutePath(),viewerPanelManager);
                 viewerPanelManager.createAndAddViewerPanel();
             } else {

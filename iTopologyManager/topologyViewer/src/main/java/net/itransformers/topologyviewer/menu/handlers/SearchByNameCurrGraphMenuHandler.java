@@ -22,11 +22,15 @@ package net.itransformers.topologyviewer.menu.handlers;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.utils.XsltReport;
 
 import javax.swing.*;
+import javax.xml.transform.stream.StreamSource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
@@ -51,8 +55,8 @@ public class SearchByNameCurrGraphMenuHandler implements ActionListener {
         final GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         final VisualizationViewer vv = viewerPanel.getVisualizationViewer();
         Collection<String> vertices = viewerPanel.getCurrentGraph().getVertices();
-        String [] test = vertices.toArray(new String[0]);
-        JFrame frame1 = new JFrame("Find Node");
+        String[] test = vertices.toArray(new String[0]);
+        final JFrame frame1 = new JFrame("Find Node");
 
         Container contentPane = frame1.getContentPane();
 
@@ -64,34 +68,61 @@ public class SearchByNameCurrGraphMenuHandler implements ActionListener {
         final String[] vertex = {null};
 
 
-        final JTextArea textArea = new JTextArea();
+        //final JTextArea textArea = new JTextArea();
+        final JTextPane textArea = new JTextPane();
+        textArea.setEditable(false);
+        textArea.setContentType("text/html");
+
         JScrollPane scrollPane = new JScrollPane(textArea);
         contentPane.add(scrollPane, BorderLayout.CENTER);
 
-        ActionListener actionListener = new ActionListener() {
+        final ActionListener actionListener = new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 vertex[0] = (String) jcb.getSelectedItem();
-                textArea.append("Selected: " + vertex[0]+"\n");
-                if (viewerPanel.FindNodeByIDCurrentGraph(vertex[0])){
+                if (viewerPanel.FindNodeByIDCurrentGraph(vertex[0])) {
                     viewerPanel.SetPickedState(vertex[0]);
                     viewerPanel.Animator(vertex[0]);
-                }   else {
-                    JOptionPane.showMessageDialog(frame, "Can not find node:" + vertex[0], "Error", JOptionPane.ERROR_MESSAGE);
+
+                    Map<String, String> graphMLParams = viewerPanel.getVertexParams(vertex[0]);
+                    final StringBuffer sb = new StringBuffer();
+                    sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+
+                    sb.append("<findNodeinCurrentGraph>");
+
+                    for (Map.Entry<String, String> entry : graphMLParams.entrySet()) {
+                        //    textArea.append("Key: "+entry.getKey()+", "+"Value: "+entry.getValue()+"\n");
+                        sb.append("\n<entry>\n");
+                        sb.append("\t<key>" + entry.getKey() + "</key>" + "\n");
+                        sb.append("\t<value><![CDATA[" + entry.getValue() + "]]></value>" + "\n");
+
+                        sb.append("</entry>");
+
+
+                    }
+                    sb.append("</findNodeinCurrentGraph>");
+                  //  System.out.println(sb.toString());
+                    ByteArrayInputStream inputStream = new ByteArrayInputStream(sb.toString().getBytes());
+
+                    XsltReport testReport = new XsltReport(new File(frame.getPath(), "iTopologyManager/rightClick/conf/xslt/table_creator.xslt"), new StreamSource(inputStream));
+                    try {
+
+                        String report = testReport.singleTransformer().toString();
+                        textArea.setText(report);
+
+                    } catch (Exception ex) {
+                        testReport.handleException(ex);
+                    }
+                } else {
+                         textArea.setText("Node with id " +vertex[0]+ " can't be found in the current graph!");
                 }
-                Map<String, String> graphMLParams =  viewerPanel.getVertexParams(vertex[0]);
-                for (Map.Entry<String, String> entry : graphMLParams.entrySet()) {
-                    textArea.append("Key: "+entry.getKey()+", "+"Value: "+entry.getValue()+"\n");
-                }
+
 
             }
         };
         jcb.addActionListener(actionListener);
 
-      //  frame1.add(jcb);
-        frame1.setSize(300, 200);
+        frame1.setSize(400, 300);
         frame1.setVisible(true);
-
-      //  String vertex = (String) JOptionPane.showInputDialog(frame,jcb, "Choose Node Name", JOptionPane.QUESTION_MESSAGE);
 
 
     }

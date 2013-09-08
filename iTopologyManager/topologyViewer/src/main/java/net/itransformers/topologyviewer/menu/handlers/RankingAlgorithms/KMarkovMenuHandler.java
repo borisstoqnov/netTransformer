@@ -23,7 +23,6 @@ import edu.uci.ics.jung.algorithms.scoring.KStepMarkov;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
-import org.apache.commons.collections15.Transformer;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -39,6 +38,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Created by IntelliJ IDEA.
@@ -72,21 +72,25 @@ public class KMarkovMenuHandler implements ActionListener {
 
         KStepMarkov ranker = new KStepMarkov(viewerPanel.getCurrentGraph(),8);
         ranker.evaluate();
-        Transformer<String,Integer> test =  ranker.getVertexPriors();
         StringBuffer sb = new StringBuffer();
         sb.append("Position, Node Name, Node Rank \n");
         Collection<String> vertices = viewerPanel.getCurrentGraph().getVertices();
         ArrayList<String> list = new ArrayList<String>(vertices);
+        ArrayList<Double> scores = new ArrayList<Double>();
 
         final XYSeriesCollection dataset = new XYSeriesCollection();
         final XYSeries s1 = new XYSeries("KStep Markov Rankings");
-        ArrayList<Double> scores = new ArrayList<Double>();
+       // Map<String,Double> scores = new HashMap<String, Double>();
 
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < vertices.size(); i++) {
             String vertex = list.get(i);
             Double score = (Double) ranker.getVertexScore(vertex);
             scores.add(score);
-            sb.append(String.format("%d, %s, %s\n", i, vertex, score));
+        }
+        Collections.sort(scores);
+        for (int i = 0; i < vertices.size(); i++) {
+            s1.add(i,scores.get(i));
+            //sb.append(String.format("%d, %s, %s\n", i, vertex, score));
 
         }
         s1.getAutoSort();
@@ -95,14 +99,14 @@ public class KMarkovMenuHandler implements ActionListener {
         text.setText(sb.toString());
         final JFreeChart chart = ChartFactory.createXYLineChart(
                 " KStep Markow Rankings",
-                        "Category",               // domain axis label
-                        "Value",                  // range axis label
-                        dataset,                  // data
-                        PlotOrientation.VERTICAL,
-                        false,                     // include legend
-                        true,
-                        true
-                );
+                "Category",               // domain axis label
+                "Value",                  // range axis label
+                dataset,                  // data
+                PlotOrientation.VERTICAL,
+                false,                     // include legend
+                true,
+                true
+        );
 //
         final XYPlot plot = chart.getXYPlot();
         final NumberAxis domainAxis = new NumberAxis("Nodes");

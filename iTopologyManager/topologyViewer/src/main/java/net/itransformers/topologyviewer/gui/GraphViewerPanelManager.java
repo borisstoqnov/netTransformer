@@ -38,6 +38,8 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private Neo4jLoader<G> neo4jLoader;
     private String initialNode;
     private File projectPath;
+    private String projectType;
+    private File viewerConfigFile;
     private GraphType graphType;
     private IconMapLoader iconMapLoader;
     private EdgeStrokeMapLoader edgeStrokeMapLoader;
@@ -51,10 +53,12 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private final File versionDir;
     private String layout;
 
-    public GraphViewerPanelManager(JFrame frame, File projectPath, File graphmlsFile, Factory<G> factory, JTabbedPane tabbedPane, GraphType graphType) throws Exception {
+    public GraphViewerPanelManager(JFrame frame, String projectType, File projectPath, File viewerConfigFile, File graphmlsFile, Factory<G> factory, JTabbedPane tabbedPane, GraphType graphType) throws Exception {
         this.frame = frame;
         this.projectPath = projectPath;
+        this.projectType = projectType;
         this.graphType = graphType;
+        this.viewerConfigFile = viewerConfigFile;
         this.graphmlsFile = graphmlsFile;
         versionDir = new File(graphmlsFile.getParent());
         if (graphType==GraphType.DIRECTED){
@@ -66,8 +70,8 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
         this.tabbedPane = tabbedPane;
         entireGraph = factory.create();
         String fName;
-        fName = new File("iTopologyManager/topologyViewer/conf/xml/viewer-config.xml").toString();
-        viewerConfig = ViewerConfigLoader.loadViewerConfig(new File(this.projectPath, fName));
+
+        viewerConfig = ViewerConfigLoader.loadViewerConfig(this.viewerConfigFile);
         this.layout="FRLayout";
         init();
 

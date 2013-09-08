@@ -25,6 +25,7 @@ import edu.uci.ics.jung.graph.UndirectedGraph;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.utils.XsltReport;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -35,9 +36,12 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
+import javax.xml.transform.stream.StreamSource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -64,7 +68,7 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
 
         JFrame frame1 = new JFrame(" Random Walk Betweenness Centrality Rankings ");
-        frame1.setSize(800,600);
+        frame1.setSize(800,800);
         frame1.getContentPane().setLayout(new BorderLayout());
         JTextPane  text   = new JTextPane();
         text.setEditable(false);
@@ -79,20 +83,36 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
         final XYSeriesCollection dataset = new XYSeriesCollection();
         final XYSeries s1 = new XYSeries("Random Walk Betweenness Centrality Rankings");
 
-        sb.append("\n<html>");
+        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+        sb.append("<RandomWalkBetweennessCentralityRankings>");
         for(int i = 0; i<rankingList.size(); i++){
-            // sb.append(String.format("<%d, %s, %s\n/>", i, rankingList.get(i).getRanked(), rankingList.get(i)));
             sb.append("\n<entry>\n");
-            sb.append("\t<position>"+i+1+"</position>\n");
+            sb.append("\t<position>"+i+"</position>\n");
             sb.append("\t<node>"+rankingList.get(i).getRanked()+"</node>\n");
             sb.append("\t<rank>"+rankingList.get(i)+"</rank>\n");
             sb.append("</entry>");
             s1.add(i,Double.parseDouble(rankingList.get(i).toString()));
 
         }
-        sb.append("\n</html>");
+        sb.append("\n</RandomWalkBetweennessCentralityRankings>");
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(sb.toString().getBytes());
+
+        XsltReport testReport = new XsltReport(new File(frame.getPath(), "iTopologyManager/rightClick/conf/xslt/table_creator.xslt"), new StreamSource(inputStream));
+        try {
+
+            String report = testReport.singleTransformer().toString();
+            text.setText(report);
+
+        } catch (Exception ex) {
+            testReport.handleException(ex);
+        }
+
         dataset.addSeries(s1);
-        text.setText(sb.toString());
+
+
+
+        dataset.addSeries(s1);
+      //  text.setText(sb.toString());
         Ranking betwennessMax = (Ranking) rankingList.get(0);
         Ranking betwennessMin = (Ranking) rankingList.get(rankingList.size() - 1);
 
@@ -103,8 +123,8 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
                 dataset,                  // data
                 PlotOrientation.VERTICAL,
                 false,                     // include legend
-                true,
-                true
+                false,
+                false
         );
 //
         final XYPlot plot = chart.getXYPlot();
@@ -114,9 +134,11 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
         plot.setRangeAxis(rangeAxis);
         chart.setBackgroundPaint(Color.white);
         plot.setOutlinePaint(Color.black);
+
         final ChartPanel chartPanel = new ChartPanel(chart);
+
         chartPanel.setPreferredSize(new java.awt.Dimension(400, 300));
-        chartPanel.setMouseWheelEnabled(true);
+        chartPanel.setMouseWheelEnabled(false);
 
 
         Container container = frame1.getContentPane();
@@ -124,7 +146,10 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
 
         JScrollPane scrollPane = new JScrollPane(text);
         scrollPane.setPreferredSize(new java.awt.Dimension(400, 300));
-        container.add(chartPanel,BorderLayout.NORTH);
+
+        JScrollPane scrollPane2 = new JScrollPane(chartPanel);
+
+        container.add(scrollPane2,BorderLayout.NORTH);
         container.add(scrollPane,BorderLayout.SOUTH);
 
 

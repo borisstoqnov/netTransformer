@@ -61,7 +61,7 @@ public class PageRankerMenuHandler implements ActionListener {
         text.setEditable(true);
 
 
-        PageRank ranker = new PageRank(viewerPanel.getCurrentGraph(),0.1);
+        PageRank ranker = new PageRank(viewerPanel.getCurrentGraph(),0.2);
         ranker.evaluate();
         StringBuffer sb = new StringBuffer();
         sb.append("Position, Node Name, Node Rank \n");

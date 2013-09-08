@@ -53,36 +53,43 @@ public class NewProjectMenuHandler implements ActionListener {
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
         File file;
-        if (!dialog.isOkPressed()){ return;
-        }else if (dialog.getProjectType().equals("bgpPeeringMap")){
+        if (!dialog.isOkPressed()) {
+            return;
+        } else if (dialog.getProjectType().equals("bgpPeeringMap")) {
             file = new File("bgpPeeringMap.pfl");
-        frame.setProjectType("bgpPeeringMap");
-         }
-         else {
-        file = new File("itransformer.pfl");
-        frame.setProjectType("iTransformer");
-         }
+            frame.setProjectType("bgpPeeringMap");
+            frame.setViewerConfig(new File(dialog.getProjectDir() +File.separator +"iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
+            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
+            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
+
+        } else {
+            file = new File("itransformer.pfl");
+            frame.setProjectType("iTransformer");
+            frame.setViewerConfig(new File(dialog.getProjectDir() +File.separator +"iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
+            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
+            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
+        }
         Scanner s = null;
         try {
             try {
                 s = new Scanner(file);
             } catch (FileNotFoundException e1) {
                 e1.printStackTrace();
-                JOptionPane.showMessageDialog(this.frame, "Can not find file:"+file.getAbsolutePath());
+                JOptionPane.showMessageDialog(this.frame, "Can not find file:" + file.getAbsolutePath());
                 return;
             }
             try {
                 RecursiveCopy.copyFile(file, dialog.getProjectDir());
                 while (s.hasNextLine()) {
-                String text = s.nextLine();
-                if (text.startsWith("#") || text.trim().equals("")) continue;
-                if (System.getProperty("base.dir") == null) System.setProperty("base.dir", ".");
+                    String text = s.nextLine();
+                    if (text.startsWith("#") || text.trim().equals("")) continue;
+                    if (System.getProperty("base.dir") == null) System.setProperty("base.dir", ".");
                     String workDirName = System.getProperty("base.dir");
                     File workDir = new File(workDirName);
-                File srcDir = new File(workDir,text);
-                File destDir = new File(dialog.getProjectDir(), text).getParentFile();
-                destDir.mkdirs();
-                RecursiveCopy.copyDir(srcDir, destDir);
+                    File srcDir = new File(workDir, text);
+                    File destDir = new File(dialog.getProjectDir(), text).getParentFile();
+                    destDir.mkdirs();
+                    RecursiveCopy.copyDir(srcDir, destDir);
 
                 }
 
@@ -91,6 +98,10 @@ public class NewProjectMenuHandler implements ActionListener {
                 e1.printStackTrace();
             }
             frame.setPath(dialog.getProjectDir());
+            frame.getRootPane().getJMenuBar().getMenu(1).setEnabled(true);
+            frame.getRootPane().getJMenuBar().getMenu(2).setEnabled(true);
+            frame.getRootPane().getJMenuBar().getMenu(3).setEnabled(true);
+            frame.getRootPane().getJMenuBar().getMenu(4).setEnabled(true);
         } finally {
             if (s != null) s.close();
         }

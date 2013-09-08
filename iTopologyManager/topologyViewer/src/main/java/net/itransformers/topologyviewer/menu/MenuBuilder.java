@@ -58,6 +58,7 @@ public class MenuBuilder {
 
     private void createWindowMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu tabs = new JMenu("Window");
+        tabs.setEnabled(false);
         menuBar.add(tabs);
         final JMenuItem newTab = new JMenuItem("New Tab");
         newTab.addActionListener(new NewTabMenuHandler(frame));
@@ -75,6 +76,7 @@ public class MenuBuilder {
 
     private void createGraphToolsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu graphTools = new JMenu("Graph Tools");
+        graphTools.setEnabled(false);
         menuBar.add(graphTools);
 
         final JMenu layouts = new JMenu("Graph Layouts");
@@ -200,7 +202,7 @@ public class MenuBuilder {
         file.addSeparator();
 
         final JMenuItem config = new JMenuItem("Viewer Settings");
-        config.addActionListener(new ConfigMenuHandler(frame, "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
+        config.addActionListener(new ConfigMenuHandler(frame));
         file.add(config);
 
         final JMenu capture = new JMenu("Export to ...");
@@ -222,6 +224,7 @@ public class MenuBuilder {
 
     private void createDiscoveryMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu discovery = new JMenu("Discoverers");
+        discovery.setEnabled(false);
         menuBar.add(discovery);
         final JMenu snmpNetworkDiscovery = new JMenu("SNMP Network Discovery");
         final JMenu bgpPeeringNetworkDiscovery = new JMenu("BGP Peering Network Discovery");
