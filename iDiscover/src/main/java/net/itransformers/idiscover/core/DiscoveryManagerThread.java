@@ -22,12 +22,7 @@ package net.itransformers.idiscover.core;
 import net.itransformers.idiscover.networkmodel.NetworkType;
 import org.apache.log4j.Logger;
 
-/**
- * Created by IntelliJ IDEA.
- * Date: 12-1-26
- * Time: 13:12
- * To change this template use File | Settings | File Templates.
- */
+
 public class DiscoveryManagerThread extends Thread {
     static Logger logger = Logger.getLogger(DiscoveryManagerThread.class);
 

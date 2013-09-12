@@ -194,6 +194,23 @@ public class TopologyManagerFrame extends JFrame{
         setPath(null);
         getTabbedPane().removeAll();
         viewerPanelManagerMap.clear();
+        setProjectType("");
+
+        this.getRootPane().getJMenuBar().getMenu(1).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(2).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(3).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(4).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(5).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(6).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(7).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(8).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(9).setEnabled(false);
+
+
+        // frame.getRootPane().getJMenuBar().getMenu(4).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
+
     }
 
     public GraphViewerPanelManager getCurrentGraphViewerManager(){

@@ -17,36 +17,33 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.topologyviewer.dialogs.snmpDiscovery;
-import net.itransformers.idiscover.core.*;
-import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
-import net.itransformers.resourcemanager.config.ResourceType;
+package net.itransformers.topologyviewer.dialogs.bgpSnmpDiscovery;
+
+import net.itransformers.bgpPeeringMap.BgpPeeringMap;
+import net.itransformers.bgpPeeringMap.BgpPeeringMapManagerThread;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
 
 import javax.swing.*;
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 
-public class DiscoveryManagerDialog extends JDialog {
-    static Logger logger = Logger.getLogger(DiscoveryManagerDialog.class);
+public class BGPDiscoveryManagerDialog extends JDialog {
+    static Logger logger = Logger.getLogger(BGPDiscoveryManagerDialog.class);
     public static final String DISCOVERED_DEVICES = "Discovered Devices:";
     public static final String VERSION_LABEL = "version";
     private JTextField addressTextField;
     private JFrame frame;
     private File projectDir;
-    private JComboBox modeComboBox;
-    private DiscoveryManagerThread managerThread;
+    private BgpPeeringMapManagerThread managerThread;
+
     private JTextArea loggerConsole;
     final JButton pauseResumeButton = new JButton("Pause");
-    private int discoveredDevices;
     private JLabel lblDiscoveredDevices;
     private JTextField labelTextField;
     private JCheckBox autoLabelCheckBox;
@@ -56,9 +53,9 @@ public class DiscoveryManagerDialog extends JDialog {
      */
     public static void main(String[] args) {
         try {
-            DiscoveryManagerDialog dialog = new DiscoveryManagerDialog(null, new File("."));
-            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-            dialog.setVisible(true);
+            BGPDiscoveryManagerDialog dialogBGP = new BGPDiscoveryManagerDialog(null, new File("."));
+            dialogBGP.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            dialogBGP.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,13 +64,13 @@ public class DiscoveryManagerDialog extends JDialog {
     /**
      * Create the dialog.
      */
-    public DiscoveryManagerDialog(TopologyManagerFrame frame) {
+    public BGPDiscoveryManagerDialog(TopologyManagerFrame frame) {
         this(frame, getProjPath(frame));
     }
-    public DiscoveryManagerDialog(JFrame frame, File projectDir) {
+    public BGPDiscoveryManagerDialog(JFrame frame, File projectDir) {
         this.frame = frame;
         this.projectDir = projectDir;
-        setTitle("Discovery Manager");
+        setTitle("Internet BGP Peering Map Manager");
         setBounds(100, 100, 860, 364);
         getContentPane().setLayout(new BorderLayout());
         {
@@ -85,28 +82,20 @@ public class DiscoveryManagerDialog extends JDialog {
                     JPanel panel = new JPanel();
                     buttonPane.add(panel);
                     panel.setLayout(null);
-                    {
-                        modeComboBox = new JComboBox();
-                        modeComboBox.setModel(new DefaultComboBoxModel(new String[]{"network", "node"}));
-                        modeComboBox.setBounds(46, 11, 120, 20);
-                        panel.add(modeComboBox);
-                    }
 
-                    JLabel lblMode = new JLabel("Mode:");
-                    lblMode.setBounds(6, 14, 46, 14);
-                    panel.add(lblMode);
 
-                    JLabel lblAddress = new JLabel("Address:");
-                    lblAddress.setBounds(172, 14, 56, 14);
+
+                    JLabel lblAddress = new JLabel("Initial Discovery IP Address:");
+                    lblAddress.setBounds(10, 14, 220, 14);
                     panel.add(lblAddress);
 
                     addressTextField = new JTextField();
-                    addressTextField.setBounds(230, 11, 113, 20);
+                    addressTextField.setBounds(220, 11, 113, 20);
                     panel.add(addressTextField);
                     addressTextField.setColumns(10);
 
                     JLabel lblLabel = new JLabel("Label:");
-                    lblLabel.setBounds(360, 14, 56, 14);
+                    lblLabel.setBounds(350, 14, 56, 14);
                     panel.add(lblLabel);
 
                     labelTextField = new JTextField();
@@ -206,7 +195,7 @@ public class DiscoveryManagerDialog extends JDialog {
     }
 
     private void onStopDiscoveryPost(JButton stopStartButton) {
-        modeComboBox.setEditable(true);
+//        modeComboBox.setEditable(true);
         addressTextField.setEditable(true);
         stopStartButton.setText("Start");
         pauseResumeButton.setEnabled(false);
@@ -225,7 +214,6 @@ public class DiscoveryManagerDialog extends JDialog {
 
     private void onStartDiscoveryPre(JButton stopStartButton) {
         stopStartButton.setEnabled(false);
-        modeComboBox.setEditable(false);
         addressTextField.setEditable(false);
     }
 
@@ -246,7 +234,8 @@ public class DiscoveryManagerDialog extends JDialog {
     }
 
     private boolean onStartDiscovery() {
-        DiscoveryManager manager;
+
+        BgpPeeringMap manager;
         try {
             String label = labelTextField.getText().trim();
             if (autoLabelCheckBox.isSelected()) {
@@ -255,40 +244,16 @@ public class DiscoveryManagerDialog extends JDialog {
             } else {
                 if (!isValidLabel(label)) return false;
             }
-
-            manager = DiscoveryManager.createDiscoveryManager(projectDir, "iDiscover/conf/xml/discoveryManager.xml",label);
+            manager = new BgpPeeringMap(projectDir, addressTextField.getText(),projectDir +"/" +"bgpPeeringMap/conf/txt/bgpPeeringMap.properties",labelTextField.getText());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Cannot start snmpDiscovery. See error log for more info");
+            JOptionPane.showMessageDialog(this, "Cannot start BGP Discovery. See error log for more info");
             e.printStackTrace();
             return false;
         }
-        // TODO remove hardcoded snmpDiscovery parameter groups
-        String[] discoveryTypes = new String[]{"PHYSICAL","NEXT_HOP","OSPF","ISIS","BGP","RIP","ADDITIONAL","IPV6"};
 
-        Map<String,String> resourceSelectionParams = new HashMap<String, String>();
-        resourceSelectionParams.put("protocol","SNMP");
-        ResourceType snmp = manager.discoveryResource.ReturnResourceByParam(resourceSelectionParams);
-        discoveredDevices = 0;
-        lblDiscoveredDevices.setText(DISCOVERED_DEVICES+discoveredDevices);
-        manager.addDiscoveryManagerListener(new DiscoveryListener() {
-            @Override
-            public void handleDevice(String deviceName, RawDeviceData rawData, DiscoveredDeviceData discoveredDeviceData, Resource resource) {
-                discoveredDevices++;
-                lblDiscoveredDevices.setText(DISCOVERED_DEVICES+discoveredDevices);
 
-            }
-        });
-        Map<String, String> snmpConnParams = new HashMap<String, String>();
-        snmpConnParams = manager.discoveryResource.getParamMap(snmp);
+        managerThread = new BgpPeeringMapManagerThread(manager);
 
-        IPv4Address initialIPaddress= new IPv4Address(addressTextField.getText(),null);
-        snmpConnParams.put("status", "initial");
-        snmpConnParams.put("mibDir", "snmptoolkit/mibs");
-
-        snmpConnParams.get("port");
-        Resource resource = new Resource(initialIPaddress,null, Integer.parseInt(snmpConnParams.get("port")), snmpConnParams);
-
-        managerThread = new DiscoveryManagerThread(manager,resource, modeComboBox.getSelectedItem().toString(),discoveryTypes);
         managerThread.start();
         return true;
     }

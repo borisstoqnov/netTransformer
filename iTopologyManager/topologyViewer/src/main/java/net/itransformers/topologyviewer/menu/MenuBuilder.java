@@ -25,6 +25,26 @@ import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.Betweenn
 import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.KMarkovMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.PageRankerMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.RandomWalkBetweennessCentralityMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.CloseGraphMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.ConfigMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.DiffMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.OpenGraphMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.ChangeLayoutMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.GraphDistanceStatisticsMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.InitialNodeMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.SearchByIpMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.SearchByKeyMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.SearchByNameCurrGraphMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.SearchByNameEntireGraphMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.shortherstPathMenuHandlers.DijkstraShortestPathMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.shortherstPathMenuHandlers.DijkstraWeightedShortestPathMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.shortherstPathMenuHandlers.ShortestPathMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.CloseProjectMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.NewProjectMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.OpenProjectMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureBGPParametersMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureParametersMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureResourceMenuHandler;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -43,7 +63,9 @@ public class MenuBuilder {
         createHelpMenu(frame, menuBar);
         return menuBar;
     }
-
+    public JMenuBar getMenubar(final TopologyManagerFrame frame){
+        return frame.getJMenuBar();
+    }
     private void createHelpMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu help = new JMenu("Help");
         menuBar.add(help);
@@ -187,26 +209,32 @@ public class MenuBuilder {
 
         final JMenuItem openGraph = new JMenuItem("Open Graph");
         openGraph.addActionListener(new OpenGraphMenuHandler(frame));
+        openGraph.setEnabled(false);
         file.add(openGraph);
 //        final JMenuItem openDirectedGraph = new JMenuItem("Open Directed Graph");
 //        openDirectedGraph.addActionListener(new OpenGraphMenuHandler(frame, GraphType.DIRECTED));
 //        file.add(openDirectedGraph);
         final JMenuItem closeGraph = new JMenuItem("Close Graph");
         closeGraph.addActionListener(new CloseGraphMenuHandler(frame));
+        closeGraph.setEnabled(false);
+
         file.add(closeGraph);
 
         final JMenuItem diff = new JMenuItem("Diff Graph");
         diff.addActionListener(new DiffMenuHandler(frame));
+        diff.setEnabled(false);
         file.add(diff);
 
         file.addSeparator();
 
         final JMenuItem config = new JMenuItem("Viewer Settings");
         config.addActionListener(new ConfigMenuHandler(frame));
+        config.setEnabled(false);
         file.add(config);
 
         final JMenu capture = new JMenu("Export to ...");
-        file.add(capture);
+        capture.setEnabled(false);
+        //file.add(capture);
 
         JMenuItem captureTpPNGMenuItem = new JMenuItem("Export to PNG");
         captureTpPNGMenuItem.addActionListener(new CaptureToPNGMenuHandler(frame));
@@ -214,6 +242,7 @@ public class MenuBuilder {
         JMenuItem captureTpEPSMenuItem = new JMenuItem("Export to EPS");
         captureTpEPSMenuItem.addActionListener(new CaptureToEPSMenuHandler(frame));
         capture.add(captureTpEPSMenuItem);
+        file.add(capture);
 
         file.addSeparator();
 
