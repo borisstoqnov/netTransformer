@@ -21,10 +21,10 @@ package net.itransformers.topologyviewer.menu;
 
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.menu.handlers.*;
-import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.BetweennessCentralityMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.KMarkovMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.PageRankerMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.RankingAlgorithms.RandomWalkBetweennessCentralityMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.BetweennessCentralityMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.KMarkovMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.PageRankerMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.RandomWalkBetweennessCentralityMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.CloseGraphMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.ConfigMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.DiffMenuHandler;
@@ -43,6 +43,7 @@ import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.CloseP
 import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.NewProjectMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.OpenProjectMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureBGPParametersMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureBGPResourceMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureParametersMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureResourceMenuHandler;
 
@@ -272,9 +273,14 @@ public class MenuBuilder {
         final JMenuItem startBGPDiscovery = new JMenuItem("Start Discovery");
         startBGPDiscovery.addActionListener(new StartBGPDiscoveryMenuHandler(frame));
         bgpPeeringNetworkDiscovery.add(startBGPDiscovery);
-        final JMenuItem configureBGPParameters = new JMenuItem("Configure Resource");
+        final JMenuItem configureBGPParameters = new JMenuItem("Configure Parameters");
         configureBGPParameters.addActionListener(new ConfigureBGPParametersMenuHandler(frame));
         bgpPeeringNetworkDiscovery.add(configureBGPParameters);
+
+        final JMenuItem configureBGPResources = new JMenuItem("Configure Resources");
+        configureBGPResources.addActionListener(new ConfigureBGPResourceMenuHandler(frame));
+        bgpPeeringNetworkDiscovery.add(configureBGPResources);
+
 
         discovery.add(snmpNetworkDiscovery);
         discovery.add(bgpPeeringNetworkDiscovery);

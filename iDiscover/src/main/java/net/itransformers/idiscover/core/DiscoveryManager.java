@@ -63,7 +63,7 @@ public class DiscoveryManager {
         this.resourceManager = resourceManager;
         this.discovererFactory = discovererFactory;
         this.discoveryHelperFactory = discoveryHelperFactory;
-        this.discoveryResource = new DiscoveryResourceManager(projectDir,label,"iDiscover/conf/xml/discoveryResource.xml");
+        this.discoveryResource = new DiscoveryResourceManager(resourceManager);
     }
 
     public NetworkType discoverNetwork(Resource resource, String mode, String[] discoveryTypes) throws Exception {
@@ -302,7 +302,7 @@ public class DiscoveryManager {
 
         if (resource == null) ;
 
-        String[] discoveryTypes = new String[]{"PHYSICAL","NEXT_HOP","OSPF","ISIS","BGP","RIP","ADDITIONAL","IPV6"};
+        String[] discoveryTypes = new String[]{"BGPPeering","PHYSICAL","NEXT_HOP","OSPF","ISIS","BGP","RIP","ADDITIONAL","IPV6"};
 
 //        DiscovererFactory.init(new SimulSnmpWalker(resource, new File("logs.log")));
 //        DiscovererFactory.init();
@@ -321,10 +321,20 @@ public class DiscoveryManager {
             is.close();
         }
 
+        String pathToResouceDefinitions = null;
+        List<ParamType> discoveryHelperParams = discoveryManagerType.getDiscoveryHelper().getParameters().getParam();
+        for (ParamType paramType : discoveryHelperParams) {
+            String name = paramType.getName();
+            if (name.equals("resourceXML")){
+                pathToResouceDefinitions = paramType.getValue();
+            }
+
+        }
         DiscoveryHelperFactory discoveryHelperFactory = createDiscoveryHelperFactory(discoveryManagerType);
         ResourceManager resourceManager;
+
         {
-        String xml = FileUtils.readFileToString(new File(projectDir,"iDiscover/conf/xml/discoveryResource.xml"));
+        String xml = FileUtils.readFileToString(new File(projectDir,pathToResouceDefinitions));
         InputStream is1 = new ByteArrayInputStream(xml.getBytes());
         ResourcesType deviceGroupsType = net.itransformers.resourcemanager.util.JaxbMarshalar.unmarshal(ResourcesType.class, is1);
         resourceManager = new ResourceManager(deviceGroupsType);

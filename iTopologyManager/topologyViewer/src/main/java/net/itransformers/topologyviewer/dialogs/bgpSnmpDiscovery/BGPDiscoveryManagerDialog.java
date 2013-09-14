@@ -19,8 +19,9 @@
 
 package net.itransformers.topologyviewer.dialogs.bgpSnmpDiscovery;
 
-import net.itransformers.bgpPeeringMap.BgpPeeringMap;
-import net.itransformers.bgpPeeringMap.BgpPeeringMapManagerThread;
+import net.itransformers.idiscover.core.*;
+import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
+import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Logger;
@@ -31,6 +32,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class BGPDiscoveryManagerDialog extends JDialog {
@@ -40,10 +43,11 @@ public class BGPDiscoveryManagerDialog extends JDialog {
     private JTextField addressTextField;
     private JFrame frame;
     private File projectDir;
-    private BgpPeeringMapManagerThread managerThread;
-
+    private JComboBox modeComboBox;
+    private DiscoveryManagerThread managerThread;
     private JTextArea loggerConsole;
     final JButton pauseResumeButton = new JButton("Pause");
+    private int discoveredDevices;
     private JLabel lblDiscoveredDevices;
     private JTextField labelTextField;
     private JCheckBox autoLabelCheckBox;
@@ -235,25 +239,52 @@ public class BGPDiscoveryManagerDialog extends JDialog {
 
     private boolean onStartDiscovery() {
 
-        BgpPeeringMap manager;
+        DiscoveryManager manager;
+        String label = null;
         try {
-            String label = labelTextField.getText().trim();
+            label = labelTextField.getText().trim();
             if (autoLabelCheckBox.isSelected()) {
                 label = createAutoLabel();
                 labelTextField.setText(label);
             } else {
                 if (!isValidLabel(label)) return false;
             }
-            manager = new BgpPeeringMap(projectDir, addressTextField.getText(),projectDir +"/" +"bgpPeeringMap/conf/txt/bgpPeeringMap.properties",labelTextField.getText());
+            manager = DiscoveryManager.createDiscoveryManager(projectDir, "bgpPeeringMap/conf/xml/iMapManager.xml", label);
+
+           // manager = new BgpPeeringMap(projectDir, addressTextField.getText(),projectDir +"/" +"bgpPeeringMap/conf/txt/bgpPeeringMap.properties",label);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Cannot start BGP Discovery. See error log for more info");
             e.printStackTrace();
             return false;
         }
 
+        String[] discoveryTypes = new String[]{"BGPPeering"};
 
-        managerThread = new BgpPeeringMapManagerThread(manager);
 
+        Map<String,String> resourceSelectionParams = new HashMap<String, String>();
+        resourceSelectionParams.put("protocol","SNMP");
+        ResourceType snmp = manager.discoveryResource.ReturnResourceByParam(resourceSelectionParams);
+        discoveredDevices = 0;
+        lblDiscoveredDevices.setText(DISCOVERED_DEVICES+discoveredDevices);
+        manager.addDiscoveryManagerListener(new DiscoveryListener() {
+            @Override
+            public void handleDevice(String deviceName, RawDeviceData rawData, DiscoveredDeviceData discoveredDeviceData, Resource resource) {
+                discoveredDevices++;
+                lblDiscoveredDevices.setText(DISCOVERED_DEVICES+discoveredDevices);
+
+            }
+        });
+        Map<String, String> snmpConnParams = new HashMap<String, String>();
+        snmpConnParams = manager.discoveryResource.getParamMap(snmp);
+
+        IPv4Address initialIPaddress= new IPv4Address(addressTextField.getText(),null);
+        snmpConnParams.put("status", "initial");
+        snmpConnParams.put("mibDir", "snmptoolkit/mibs");
+
+        snmpConnParams.get("port");
+        Resource resource = new Resource(initialIPaddress,null, Integer.parseInt(snmpConnParams.get("port")), snmpConnParams);
+
+        managerThread = new DiscoveryManagerThread(manager,resource, "node",discoveryTypes);
         managerThread.start();
         return true;
     }

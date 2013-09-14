@@ -36,7 +36,9 @@ import java.util.Map;
 
 public class DiscoveryResourceManager {
   private ResourceManager resourceManager;
-
+   public  DiscoveryResourceManager  (ResourceManager resourceManager){
+       this.resourceManager = resourceManager;
+   }
     public DiscoveryResourceManager(File projectDir, String label, String PathToXML) {
         String xml = null;
         try {

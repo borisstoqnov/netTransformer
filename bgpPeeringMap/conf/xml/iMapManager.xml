@@ -20,8 +20,8 @@
 <discovery-manager>
     <discovery-helper class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">
         <parameters>
-            <param name="fileName">iDiscover/conf/xml/imapParameters.xml</param>
-            <param name="resourceXML">iDiscover/conf/xml/discoveryResource.xml</param>
+            <param name="fileName">bgpPeeringMap/conf/xml/imapParameters.xml</param>
+            <param name="resourceXML">bgpPeeringMap/conf/xml/discoveryResource.xml</param>
         </parameters>
     </discovery-helper>
     <discovery-manager-listeners>
@@ -29,9 +29,11 @@
             <param name="path">imap</param>
         </discovery-manager-listener>
         <discovery-manager-listener class="net.itransformers.idiscover.discoverylisteners.XmlTopologyDeviceLogger">
-            <param name="xslt">iDiscover/conf/xslt/inet-map.xslt</param>
+            <param name="xslt">bgpPeeringMap/conf/xslt/bgp_as_path.xslt</param>
             <param name="path">imap</param>
+            <param name="type">temp</param>
         </discovery-manager-listener>
+
         <!--snmpDiscovery-manager-listener class="com.snmpDiscovery.discoverylisteners.KMLtransformator">
             <param name="xslt">iDiscover/conf/xslt/kml_transformator.xslt</param>
             <param name="path">devices_and_models/lab/undirected</param>

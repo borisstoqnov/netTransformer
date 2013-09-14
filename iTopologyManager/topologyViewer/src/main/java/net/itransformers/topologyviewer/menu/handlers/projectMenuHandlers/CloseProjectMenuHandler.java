@@ -1,5 +1,3 @@
-
-
 /*
  * iTransformer is an open source tool able to discover and transform
  *  IP network infrastructures.
@@ -19,17 +17,34 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.idiscover.core;
+package net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers;
 
-public interface DiscoveryTypes {
-    String PHYSICAL = "PHYSICAL";
-    String OSPF = "OSPF";
-    String ISIS = "ISIS";
-    String BGP = "BGP";
-    String RIP = "RIP";
-    String NEXT_HOP="NEXT_HOP";
-    String ADDITIONAL="ADDITIONAL";
-    String IPV6="IPV6";
-    String BGPPeering = "BGPPeering";
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Date: 12-4-27
+ * Time: 23:30
+ * To change this template use File | Settings | File Templates.
+ */
+public class CloseProjectMenuHandler implements ActionListener {
+
+    private TopologyManagerFrame frame;
+
+    public CloseProjectMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
+
+        this.frame = frame;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        frame.doCloseProject();
+
+
+    }
 
 }
