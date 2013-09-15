@@ -6,7 +6,7 @@
             <param name="community">itransformer-rw</param>
         </connection-params>
     </resource>
-    <resource name="device-from-Moscow">
+    <resource name="node-from-Moscow">
         <param name="geoloc">Moscow</param>
         <connection-params connection-type="ssh">
             <param name="username">lab</param>

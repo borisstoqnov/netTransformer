@@ -43,7 +43,6 @@ import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.CloseP
 import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.NewProjectMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.OpenProjectMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureBGPParametersMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureBGPResourceMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureParametersMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureResourceMenuHandler;
 
@@ -276,10 +275,6 @@ public class MenuBuilder {
         final JMenuItem configureBGPParameters = new JMenuItem("Configure Parameters");
         configureBGPParameters.addActionListener(new ConfigureBGPParametersMenuHandler(frame));
         bgpPeeringNetworkDiscovery.add(configureBGPParameters);
-
-        final JMenuItem configureBGPResources = new JMenuItem("Configure Resources");
-        configureBGPResources.addActionListener(new ConfigureBGPResourceMenuHandler(frame));
-        bgpPeeringNetworkDiscovery.add(configureBGPResources);
 
 
         discovery.add(snmpNetworkDiscovery);

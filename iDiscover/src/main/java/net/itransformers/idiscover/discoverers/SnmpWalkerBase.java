@@ -31,6 +31,7 @@ import net.itransformers.snmptoolkit.transport.TransportMappingAbstractFactory;
 import org.apache.log4j.Logger;
 import org.snmp4j.log.Log4jLogFactory;
 import org.snmp4j.log.LogFactory;
+import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.util.SnmpConfigurator;
 
 import java.io.File;
@@ -133,7 +134,18 @@ public class SnmpWalkerBase implements Discoverer {
     }
 
     private String snmpGet(Resource resource, String oid) {
-        int versionInt = resource.getAttributes().get("version") == null ? 2 : Integer.parseInt(resource.getAttributes().get("version"));
+        String version =resource.getAttributes().get("version");
+        int versionInt;
+        if (version.equals("1")){
+            versionInt = SnmpConstants.version1;
+        } else if (version.equals("2c")){
+            versionInt = SnmpConstants.version2c;
+        }  else if(version.equals("3")){
+            versionInt=  SnmpConstants.version3;
+        } else {
+            versionInt = SnmpConstants.version2c;
+        }
+     //    version = resource.getAttributes().get("version") == null ? SnmpConstants.version2c : Integer.parseInt(resource.getAttributes().get("version"));
         int retriesInt = resource.getAttributes().get("retries") == null ? 1 : Integer.parseInt(resource.getAttributes().get("retries"));
         int timeoutInt = resource.getAttributes().get("timeout") == null ? 1500 : Integer.parseInt(resource.getAttributes().get("timeout"));
         String community = resource.getAttributes().get("community-ro");
@@ -157,7 +169,19 @@ public class SnmpWalkerBase implements Discoverer {
         return value;
     }
     private String snmpSet(Resource resource, String oid, String value) {
-        int versionInt = resource.getAttributes().get("version") == null ? 2 : Integer.parseInt(resource.getAttributes().get("version"));
+
+        String version =resource.getAttributes().get("version");
+        int versionInt;
+        if (version.equals("1")){
+            versionInt = SnmpConstants.version1;
+        } else if (version.equals("2c")){
+            versionInt = SnmpConstants.version2c;
+        }  else if(version.equals("3")){
+            versionInt=  SnmpConstants.version3;
+        } else {
+            versionInt = SnmpConstants.version2c;
+        }
+
         int retriesInt = resource.getAttributes().get("retries") == null ? 3 : Integer.parseInt(resource.getAttributes().get("retries"));
         int timeoutInt = resource.getAttributes().get("timeout") == null ? 1200 : Integer.parseInt(resource.getAttributes().get("timeout"));
         String community = resource.getAttributes().get("community-ro");

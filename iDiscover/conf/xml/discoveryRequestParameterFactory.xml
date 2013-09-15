@@ -1,5 +1,5 @@
 <discovery-request-parameter-factory>
-    <device type="SERVER">
+    <node type="SERVER">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifName,ifPhysAddress,ifType,dot1dTpFdbAddress,system,ipAddrTable
         </general>
@@ -11,9 +11,9 @@
         <discovery-method name="NEXT_HOP">
             ipRouteIfIndex,ipRouteNextHop
         </discovery-method>
-    </device>
+    </node>
 
-    <device type="CISCO">
+    <node type="CISCO">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,system,sysObjectID,ipAddrTable
         </general>
@@ -46,8 +46,8 @@
         <discovery-method name="IPV6">
             cIpv6Forwarding,cIpv6InterfaceEntry
         </discovery-method>
-    </device>
-    <device type="HUAWEI">
+    </node>
+    <node type="HUAWEI">
         <general>
             ifIndex,ifDescr,ifOperStatus,dot1dStpDesignatedRoot, dot1dStpPortEntry,
             ifAdminStatus,ifPhysAddress,ifType,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
@@ -79,8 +79,8 @@
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
         </discovery-method>
-    </device>
-    <device type="JUNIPER">
+    </node>
+    <node type="JUNIPER">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifPhysAddress,ifType,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
         </general>
@@ -111,8 +111,8 @@
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
         </discovery-method>
-    </device>
-    <device type="HP">
+    </node>
+    <node type="HP">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifPhysAddress,ifType,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
         </general>
@@ -128,8 +128,8 @@
         <discovery-method name="ADDITIONAL">
             dot1dBaseNumPorts, dot1qVlanStaticTable
         </discovery-method>
-    </device>
-    <device type="TELLABS">
+    </node>
+    <node type="TELLABS">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,dot1dTpFdbAddress,system,ipAddrTable
         </general>
@@ -160,8 +160,8 @@
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
         </discovery-method>
-    </device>
-    <device type="RIVERSTONE">
+    </node>
+    <node type="RIVERSTONE">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,dot1dTpFdbAddress,system,ipAddrTable
         </general>
@@ -189,5 +189,5 @@
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
         </discovery-method>
-    </device>
+    </node>
 </discovery-request-parameter-factory>

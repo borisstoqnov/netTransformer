@@ -186,7 +186,7 @@ org.neo4j.rest.logging_filter=false (set to true if verbose request/response log
 //        System.out.println("Created node id= "+node.getId());
         System.out.println("Created node count= "+nodeCounter);
         node.setProperty("name",discoveryManagerType.getName());
-        node.setProperty("objectType","Device"); // Hardcoded because the DiscoveredDeviceData is not natural data type
+        node.setProperty("objectType","Node"); // Hardcoded because the DiscoveredDeviceData is not natural data type
         ParametersType parameters = discoveryManagerType.getParameters();
         for (ParameterType param : parameters.getParameter()) {
             String nameURI = UriBuilder.fromPath(param.getName()).build("").toString();

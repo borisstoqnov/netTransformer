@@ -37,12 +37,12 @@
 	<xsl:template match="/">
 		<!--
 		<xsl:output method="xml" omit-xml-declaration="yes"/>
-        This file transforms the raw-device data to the common object oriented model used by snmpDiscovery manager for representing
+        This file transforms the raw-node data to the common object oriented model used by snmpDiscovery manager for representing
         different devices architecture.
-        The current model consist of a device that has:
-         1. Several common device parameters
-         2. Several device objects including:
-            2.1 Objects that represent device interfaces
+        The current model consist of a node that has:
+         1. Several common node parameters
+         2. Several node objects including:
+            2.1 Objects that represent node interfaces
             2.1.1 Under some of the interfaces there are objects that represent one or more addresses connfigured under the interface.
             2.2.2 Neighbors found by the snmpDiscovery methods under the particular interface. Each time the neighbor address is identified
              a snmp-get is perform in order to obtain neighbor hostname. Currently the following snmpDiscovery methods are supported:
@@ -52,19 +52,19 @@
             is performed against the IPv4 ARP table. Neighbors that could not be obtained are marked with the name "Unknown - MAC addreess".
 
             2.2.2.2 ARP address table neighbors - Neighbors here are identified by a MAC, IP and interface index. It is important to note
-            that those indexes represent in many cases represent device logical interfaces (e.g vlan interfaces).
+            that those indexes represent in many cases represent node logical interfaces (e.g vlan interfaces).
 
             2.2.2.3 Cisco Discovery Protocol neighbors - Cisco proprietary snmpDiscovery protocol - one of the most reliable methods for physical
             network topology snmpDiscovery. Supported by most of the Cisco devices but also by some others e.g HP Procurve switches. Note that HP is
             able to see Cisco but Cisco is not able to see HP. The good stuff of that protocol is that it provide information about neighbor
-            platform and current device interface pointing to the neighbor.
+            platform and current node interface pointing to the neighbor.
             2.2.2.4 Local Link Discovery Protocol - IEEE standardized snmpDiscovery protocol. Pretty much same as CDP.Note that LLDP MIB is still
              a draft and therefore might cause some problems.
             2.2.2.5 SLASH30/31- This method use Interface IP address to calculate the IP address on the other side of the point to point link.
 			2.2.2.6 Next Hops from routing Table 
 			2.2.2.7  Next Hops from ipCidrRouteTable 
-            2.3 Device Logical Data - section that represent data related to the current device unrelated to the physical setup of the device.
-            Such might be routing protocol neighbors or device configuration or something else.
+            2.3 Node Logical Data - section that represent data related to the current node unrelated to the physical setup of the node.
+            Such might be routing protocol neighbors or node configuration or something else.
             2.3.1 OSPF Neighbors - Neighbors found by OSPF routing protocol.
             2.3.2 BGP Neighbors - Neighbors found by BGP routing protocol.
             -->
@@ -97,7 +97,7 @@
 			<xsl:value-of select="//root/iso/org/dod/internet/mgmt/mib-2/system/sysDescr"/>
 		</xsl:variable>
 		<xsl:variable name="deviceType">
-			<xsl:call-template name="determine-device-Type">
+			<xsl:call-template name="determine-node-Type">
 				<xsl:with-param name="sysDescr" select="$sysDescr"/>
 			</xsl:call-template>
 		</xsl:variable>
@@ -154,13 +154,13 @@
 			</root1>
 		</xsl:variable>
 		<object> <xsl:attribute name="name" select="$hostname"/><xsl:attribute name="type">DiscoveredDevice</xsl:attribute>
-			<!-- Device specific parameters-->
+			<!-- Node specific parameters-->
 			<parameters>
 				<parameter>
                     <xsl:attribute name="name">Device State</xsl:attribute>
                     <xsl:attribute name="value"><xsl:value-of select="$dev_state"/></xsl:attribute>
                 </parameter>
-				<!--Parameter that contain device sysDescr e.g info about device OS and particular image-->
+				<!--Parameter that contain node sysDescr e.g info about node OS and particular image-->
 				<parameter>
 					<name>sysDescr</name>
 					<value>
@@ -174,7 +174,7 @@
 					</value>
 				</parameter>
 				<!--
-                OID that represents exact device model for most of the devices. Once identified the OID shall be identified in the
+                OID that represents exact node model for most of the devices. Once identified the OID shall be identified in the
                 VENDOR-PRODUCTS-MIB.
                 TODO: Currently only CISCO and Juniper are supported!!!
                 -->

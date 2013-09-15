@@ -92,7 +92,7 @@
     </bean>
 
     <bean id="sdnDeviceXmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.sdnDeviceXmlFileLogDiscoveryListener">
-        <property name="deviceXmlDataDirName" value="device-data"/>
+        <property name="deviceXmlDataDirName" value="node-data"/>
         <property name="baseDirName" value="network"/>
         <property name="deviceXmlXsltTransformator" value="iDiscover/conf/xslt/floodLightDeviceXmlTransformator.xslt"/>
     </bean>
@@ -124,7 +124,7 @@
     <bean id="jsonNodeDiscoverer" class="net.itransformers.idiscover.v2.core.jsondiscoverer.jsonNodeDiscoverer">
         <constructor-arg>
             <map>
-                <entry key="devices" value="/wm/device/"/>
+                <entry key="devices" value="/wm/node/"/>
                 <entry key="links" value="/wm/topology/links/json"/>
                 <entry key="switches" value="/wm/core/controller/switches/json"/>
                 <entry key="floodlightDeviceXmlXslt" value="iDiscover/conf/xslt/floodLightDeviceXmlTransformator.xslt"/>

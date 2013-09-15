@@ -75,17 +75,17 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
         }
     }
 
-    public Device createDevice(DiscoveredDeviceData discoveredDeviceData) {
-        Device device = new Device(discoveredDeviceData.getName());
-        List<DeviceNeighbour> deviceNeighbours = createDeviceNeighbours(discoveredDeviceData);
-        device.setDeviceNeighbours(deviceNeighbours);
-        return device;
+    public Node createDevice(DiscoveredDeviceData discoveredDeviceData) {
+        Node node = new Node(discoveredDeviceData.getName());
+        List<NodeNeighbour> nodeNeighbours = createDeviceNeighbours(discoveredDeviceData);
+        node.setNodeNeighbours(nodeNeighbours);
+        return node;
     }
 
-    private List<DeviceNeighbour> createDeviceNeighbours(DiscoveredDeviceData discoveredDeviceData) {
+    private List<NodeNeighbour> createDeviceNeighbours(DiscoveredDeviceData discoveredDeviceData) {
         //DiscoveredDevice/object/object[objectType='Discovered Neighbor']/name
         List<ObjectType> objList1 = discoveredDeviceData.getObject();
-        List<DeviceNeighbour> result = new ArrayList<DeviceNeighbour>();
+        List<NodeNeighbour> result = new ArrayList<NodeNeighbour>();
         for (ObjectType objectType1: objList1) {
             List<ObjectType> objList2 = objectType1.getObject();
 
@@ -95,7 +95,7 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
 
             }
 
-//            TODO Check for Device Logical Data and for the neighbors bellow it
+//            TODO Check for Node Logical Data and for the neighbors bellow it
 
             for (ObjectType objectType2 : objList2) {
                 if (objectType2.getObjectType().equals("Discovered Neighbor")) {
@@ -107,21 +107,21 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
                     String Reachable = params2Map.get("Reachable");
                     String ipAddress = params2Map.get("Neighbor IP Address");
                     String hostName = params2Map.get("Neighbor hostname");
-                    String deviceType = params2Map.get("Neighbor Device Type");
+                    String deviceType = params2Map.get("Neighbor Node Type");
                     String snmpCommunity = params2Map.get("SNMP Community");
-                    DeviceNeighbour deviceNeighbour;
+                    NodeNeighbour nodeNeighbour;
                     if (Reachable.equals("YES")){
-                       deviceNeighbour = new DeviceNeighbour(hostName, new IPv4Address(ipAddress,null),deviceType,snmpCommunity,true);
+                       nodeNeighbour = new NodeNeighbour(hostName, new IPv4Address(ipAddress,null),deviceType,snmpCommunity,true);
                     }else{
                        if (hostName != null){
-                        deviceNeighbour = new DeviceNeighbour(hostName,deviceType,snmpCommunity,false);
+                        nodeNeighbour = new NodeNeighbour(hostName,deviceType,snmpCommunity,false);
                         }else if (ipAddress != null){
-                        deviceNeighbour = new DeviceNeighbour(ipAddress,deviceType,snmpCommunity,false);
+                        nodeNeighbour = new NodeNeighbour(ipAddress,deviceType,snmpCommunity,false);
                         } else {
-                            deviceNeighbour = new DeviceNeighbour(objectType2.getName(),deviceType,snmpCommunity,false);
+                            nodeNeighbour = new NodeNeighbour(objectType2.getName(),deviceType,snmpCommunity,false);
                         }
                     }
-                    result.add(deviceNeighbour);
+                    result.add(nodeNeighbour);
                 }
 
             }

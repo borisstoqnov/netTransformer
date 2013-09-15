@@ -152,7 +152,7 @@
 							<value>
 								<xsl:choose>
 									<xsl:when test="$neighborIP!='' and $neighID!=''">
-										<xsl:call-template name="determine-device-Type">
+										<xsl:call-template name="determine-node-Type">
 											<xsl:with-param name="sysDescr" select="SnmpForXslt:getByOid($neighborIP,'1.3.6.1.2.1.1.1', $comm)"/>
 										</xsl:call-template>
 									</xsl:when>

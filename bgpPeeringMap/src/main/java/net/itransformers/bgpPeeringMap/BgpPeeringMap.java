@@ -63,7 +63,9 @@ public class BgpPeeringMap {
         Map<String, String> settings = loadProperties(new File(settingsFile));
         logger.info("Settings"+settings.toString());
 
-        File outputDir = new File(projectDir, label);
+        String folderPlaceholder = settings.get("output.dir");
+
+        File outputDir = new File(projectDir+File.separator+folderPlaceholder, label);
 
         System.out.println(outputDir.getAbsolutePath());
         boolean result = outputDir.mkdir();

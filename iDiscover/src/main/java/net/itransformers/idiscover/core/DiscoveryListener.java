@@ -24,4 +24,6 @@ import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 public interface DiscoveryListener {
 
     void handleDevice(String deviceName, RawDeviceData rawData, DiscoveredDeviceData discoveredDeviceData, Resource resource);
+  //  void handleDevice(String deviceName, RawDeviceData rawData, ByteOutputStream discoveredDeviceData, Resource resource);
+
 }

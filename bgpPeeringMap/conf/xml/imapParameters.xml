@@ -19,14 +19,14 @@
 
 
 <discovery-helper>
-    <device type="DEFAULT" xslt="bgpPeeringMap/conf/xslt/bgp_as_path.xslt">
+    <node type="DEFAULT" xslt="bgpPeeringMap/conf/xslt/bgp_as_path.xslt">
         <general>
-            system
+            sysName
         </general>
         <discovery-method name="BGPPeering">
-            bgpLocalAs,bgpPeerEntry, bgp4PathAttrEntry
+            bgpLocalAs,bgpPeerEntry,bgp4PathAttrEntry
         </discovery-method>
-    </device>
+    </node>
 
     <stop-criteria>
         <!--match property="ipAddress.ipAddress"></match-->

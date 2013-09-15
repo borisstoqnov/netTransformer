@@ -21,7 +21,7 @@
 
 package net.itransformers.idiscover.core;
 
-public class DeviceNeighbour {
+public class NodeNeighbour {
     private String hostName;
     private IPv4Address neighbourIpAddress;
     private String roCommunity;
@@ -29,20 +29,20 @@ public class DeviceNeighbour {
     private String deviceType;
     private boolean Reachable;
 
-    public DeviceNeighbour(String hostName, String deviceType,String snmpCommunity,boolean Reachable) {
+    public NodeNeighbour(String hostName, String deviceType, String snmpCommunity, boolean Reachable) {
         this.hostName = hostName;
         this.deviceType = deviceType;
         this.roCommunity =  snmpCommunity;
         this.Reachable = Reachable;
     }
-    public DeviceNeighbour(String hostName,IPv4Address neighbourIpAddress,String deviceType, String snmpCommunity,boolean Reachable) {
+    public NodeNeighbour(String hostName, IPv4Address neighbourIpAddress, String deviceType, String snmpCommunity, boolean Reachable) {
         this.hostName = hostName;
         this.neighbourIpAddress = neighbourIpAddress;
         this.deviceType = deviceType;
         this.roCommunity = snmpCommunity;
         this.Reachable = Reachable;
     }
-    public DeviceNeighbour(IPv4Address neighbourIpAddress,String deviceType,String snmpCommunity,boolean Reachable) {
+    public NodeNeighbour(IPv4Address neighbourIpAddress, String deviceType, String snmpCommunity, boolean Reachable) {
         this.neighbourIpAddress = neighbourIpAddress;
         this.deviceType = deviceType;
         this.roCommunity =  snmpCommunity;
@@ -88,7 +88,7 @@ public class DeviceNeighbour {
 
     @Override
     public String toString() {
-        return "DeviceNeighbour{" +
+        return "NodeNeighbour{" +
                 "hostName='" + hostName + '\'' +
                 ", neighbourIpAddress='" + neighbourIpAddress + '\'' +
                 ", known=" + known +

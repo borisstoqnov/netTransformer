@@ -25,13 +25,13 @@ import java.util.List;
 /*
 * 
 */
-public class Device {
+public class Node {
 
     private String name;
 
-    private List<DeviceNeighbour> deviceNeighbours;
+    private List<NodeNeighbour> nodeNeighbours;
 
-    public Device(String name) {
+    public Node(String name) {
         this.name  = name;
     }
 
@@ -44,12 +44,12 @@ public class Device {
         this.name = name;
     }
 
-    public List<DeviceNeighbour> getDeviceNeighbours() {
-        return deviceNeighbours;
+    public List<NodeNeighbour> getNodeNeighbours() {
+        return nodeNeighbours;
     }
 
-    public void setDeviceNeighbours(List<DeviceNeighbour> deviceNeighbours) {
-        this.deviceNeighbours = deviceNeighbours;
+    public void setNodeNeighbours(List<NodeNeighbour> nodeNeighbours) {
+        this.nodeNeighbours = nodeNeighbours;
     }
 
 }

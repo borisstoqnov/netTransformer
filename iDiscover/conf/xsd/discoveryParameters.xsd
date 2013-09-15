@@ -22,7 +22,7 @@
   <xs:element name="discovery-helper" type="discovery-helperType"/>
   <xs:complexType name="discovery-helperType">
     <xs:sequence>
-      <xs:element type="deviceType" name="device" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="deviceType" name="node" maxOccurs="unbounded" minOccurs="0"/>
       <xs:element type="stop-criteriaType" name="stop-criteria"/>
     </xs:sequence>
   </xs:complexType>

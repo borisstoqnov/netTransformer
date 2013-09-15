@@ -25,7 +25,9 @@
 
 
 		<xsl:variable name="root" select="/root"/>
-		<graphml>
+        <xsl:message>DEBUG:<xsl:value-of select="$as-numbers"/></xsl:message>
+
+        <graphml>
 			<graph edgedefault="undirected">
 				<key id="diffs" for="edge" attr.name="diffs" attr.type="string"/>
 				<key id="diffs" for="node" attr.name="diffs" attr.type="string"/>      

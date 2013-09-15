@@ -84,7 +84,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
         String devName = walker.getDeviceName(resource);
         if (devName == null) {
-            logger.info("Device name is null for resource: "+resource);
+            logger.info("Node name is null for resource: "+resource);
             return null;
         }
         if  (devName.contains(".")){
@@ -100,18 +100,18 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         result.setDiscoveredData("rawData", rawData.getData());
         DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
         result.setDiscoveredData("deviceData", discoveredDeviceData);
-        Device device = discoveryHelper.createDevice(discoveredDeviceData);
+        Node node = discoveryHelper.createDevice(discoveredDeviceData);
 
-        List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
+        List<NodeNeighbour> neighbours = node.getNodeNeighbours();
 
         List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
         result.setNeighboursConnectionDetails(neighboursConnDetails);
         return result;
     }
 
-    private List<ConnectionDetails> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
+    private List<ConnectionDetails> createNeighbourConnectionDetails(List<NodeNeighbour> neighbours) {
         List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
-        for (DeviceNeighbour neighbour : neighbours) {
+        for (NodeNeighbour neighbour : neighbours) {
             ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
             neighbourConnectionDetails.put("deviceType",neighbour.getDeviceType());
             if (neighbour.getStatus()){ // if reachable

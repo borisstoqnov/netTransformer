@@ -94,7 +94,7 @@ public class DiscoveryParametersPanel extends JPanel {
 		scrollPane_2.setViewportView(deviceTable);
 		devicesTableModel = new DefaultTableModel(
 				new Object[][] {},
-				new String[] {"Device"}
+				new String[] {"Node"}
 			);
 		deviceTable.setModel(devicesTableModel);
         deviceTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

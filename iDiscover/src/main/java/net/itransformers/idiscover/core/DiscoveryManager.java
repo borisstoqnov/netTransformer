@@ -68,7 +68,7 @@ public class DiscoveryManager {
 
     public NetworkType discoverNetwork(Resource resource, String mode, String[] discoveryTypes) throws Exception {
         isRunning = true;
-        Map<String, Device> foundDevices = new HashMap<String, Device>();
+        Map<String, Node> foundDevices = new HashMap<String, Node>();
         NetworkType network = new NetworkType();
         Discoverer discoverer = discovererFactory.createDiscoverer(resource);
         this.discoverDevice(resource, discoveryTypes, mode, network, foundDevices, discoverer);
@@ -77,7 +77,7 @@ public class DiscoveryManager {
     }
 
     private void discoverDevice(Resource resource, String[] discoveryTypes, String mode,
-                                NetworkType network, Map<String,Device> foundDevices,
+                                NetworkType network, Map<String,Node> foundDevices,
                                 Discoverer discoverer) {
         if (isStopped) return;
         if (isPaused) doPause();
@@ -86,7 +86,7 @@ public class DiscoveryManager {
         Map<String, String> attributes = resource.getAttributes();
         String deviceType=resource.getDeviceType();
         String deviceStatus=null;
-        //Obtain device status. Device status is set to "initial" for the first device and to discovered to any other. Topology viewer use device status to draw
+        //Obtain device status. Node status is set to "initial" for the first device and to discovered to any other. Topology viewer use device status to draw
         //initial picture around initial device.
         if (attributes.containsKey("status")){
             deviceStatus=attributes.get("status");
@@ -115,7 +115,7 @@ public class DiscoveryManager {
             //Check if device is not already discovered if it is not so discover it.
             boolean deviceExists = foundDevices.containsKey(deviceName);
             if (!deviceExists) {
-                logger.info("Device with "+deviceName+" is still undiscovered. So discover it!!!");
+                logger.info("Node with "+deviceName+" is still undiscovered. So discover it!!!");
 
                 DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper(deviceType);
                 //Check if device comply to stop criteria.
@@ -128,18 +128,18 @@ public class DiscoveryManager {
                 //If device comply so discover it.
 
                 if (!stopCriteriaReached && mode.equals("network")) {
-                    Device device = createDevice(resource, discoveryTypes, network, foundDevices, discoverer, deviceName, discoveryHelper);
+                    Node node = createDevice(resource, discoveryTypes, network, foundDevices, discoverer, deviceName, discoveryHelper);
                     //TODO Why is that???
                     discoveryHelper = null;
                     deviceName = null;
-                    this.findNeighbours(device, discoveryTypes, mode, network, foundDevices, discoverer);
+                    this.findNeighbours(node, discoveryTypes, mode, network, foundDevices, discoverer);
                 } else if (!stopCriteriaReached && mode.equals("node")){
-                    Device device;
-                    device = createDevice(resource, discoveryTypes, network, foundDevices, discoverer, deviceName, discoveryHelper);
+                    Node node;
+                    node = createDevice(resource, discoveryTypes, network, foundDevices, discoverer, deviceName, discoveryHelper);
 
                }
 // else if (!stopCriteriaReached && mode.equals("neighbors")){
-//                    Device device = createDevice(resource, discoveryTypes, network, foundDevices, discoverer, deviceName, discoveryHelper);
+//                    Node device = createDevice(resource, discoveryTypes, network, foundDevices, discoverer, deviceName, discoveryHelper);
 //                    //TODO Why is that???
 //                    discoveryHelper = null;
 //                    deviceName = null;
@@ -147,7 +147,7 @@ public class DiscoveryManager {
 //
 //                }
          }else{
-              logger.info("Device with "+deviceName+" is already discovered. So skip it!!!");
+              logger.info("Node with "+deviceName+" is already discovered. So skip it!!!");
          }
         }
 
@@ -186,14 +186,14 @@ public class DiscoveryManager {
         return isRunning;
     }
 
-    private Device createDevice(Resource resource, String[] discoveryTypes, NetworkType network, Map<String, Device> foundDevices, Discoverer discoverer, String deviceName, DiscoveryHelper discoveryHelper) {
-        Device device;
+    private Node createDevice(Resource resource, String[] discoveryTypes, NetworkType network, Map<String, Node> foundDevices, Discoverer discoverer, String deviceName, DiscoveryHelper discoveryHelper) {
+        Node node;
         String[] requestParamsList = discoveryHelper.getRequestParams(discoveryTypes);
         RawDeviceData rawData = discoverer.getRawDeviceData(resource, requestParamsList);
         DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawData,discoveryTypes, resource);
-        device = discoveryHelper.createDevice(discoveredDeviceData);
-        assert device.getName().equals(deviceName);
-        foundDevices.put(deviceName, device);
+        node = discoveryHelper.createDevice(discoveredDeviceData);
+        assert node.getName().equals(deviceName);
+        foundDevices.put(deviceName, node);
 
         //Update resource attribute discovered status to discovered!
         Map<String, String> attributes = resource.getAttributes();
@@ -201,28 +201,28 @@ public class DiscoveryManager {
 
         network.getDiscoveredDevice().add(discoveredDeviceData);
         fireNewDeviceEvent(deviceName, rawData, discoveredDeviceData, resource);
-        return device;
+        return node;
     }
 
-    private void findNeighbours(Device device, String[] discoveryTypes, String mode,
-                                NetworkType network, Map<String, Device> foundDevices,
+    private void findNeighbours(Node node, String[] discoveryTypes, String mode,
+                                NetworkType network, Map<String, Node> foundDevices,
                                 Discoverer discoverer) {
-        List<DeviceNeighbour> deviceNeighbours = device.getDeviceNeighbours();
-        if (deviceNeighbours == null) {
-            logger.info("No neighbours found for device: "+device.getName());
+        List<NodeNeighbour> nodeNeighbours = node.getNodeNeighbours();
+        if (nodeNeighbours == null) {
+            logger.info("No neighbours found for node: "+ node.getName());
             return;
         } else {
-            logger.info("Found Neighbours: "+deviceNeighbours);
+            logger.info("Found Neighbours: "+ nodeNeighbours);
         }
-        for (DeviceNeighbour deviceNeighbour : deviceNeighbours) {
+        for (NodeNeighbour nodeNeighbour : nodeNeighbours) {
             if (isStopped) return;
             if (isPaused) doPause();
             //Get IP address and Hostname of the discovered Neighbor
-            IPv4Address ipAddress = deviceNeighbour.getIpAddress();
-            String hostName = deviceNeighbour.getHostName();
-            String deviceType = deviceNeighbour.getDeviceType();
-            boolean Reachable =  deviceNeighbour.getStatus();
-            //String SnmpCommunity =  deviceNeighbour.getROCommunity();
+            IPv4Address ipAddress = nodeNeighbour.getIpAddress();
+            String hostName = nodeNeighbour.getHostName();
+            String deviceType = nodeNeighbour.getDeviceType();
+            boolean Reachable =  nodeNeighbour.getStatus();
+            //String SnmpCommunity =  nodeNeighbour.getROCommunity();
             //Discover only the neighbors that are reachable
              if (Reachable){
 

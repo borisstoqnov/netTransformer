@@ -72,7 +72,7 @@ public class Neo4jLoader<G extends Graph> {
 
     }
     public void getNeighbourVertexes(String networkNodeId) {
-        String query = "start network=node(" + networkNodeId + ") match network-->device-->interface-->neighbor where device.objectType='Device' and neighbor.objectType='DiscoveredNeighbor' return device.name, interface.name, neighbor.name, neighbor.Reachable?, neighbor.SNMPCommunity?,neighbor.DiscoveryMethod?,neighbor.LocalIPAddress?,neighbor.NeighborIPAddress?,neighbor.NeighborHostname?,neighbor.NeighborDeviceType?";
+        String query = "start network=node(" + networkNodeId + ") match network-->device-->interface-->neighbor where device.objectType='Node' and neighbor.objectType='DiscoveredNeighbor' return device.name, interface.name, neighbor.name, neighbor.Reachable?, neighbor.SNMPCommunity?,neighbor.DiscoveryMethod?,neighbor.LocalIPAddress?,neighbor.NeighborIPAddress?,neighbor.NeighborHostname?,neighbor.NeighborDeviceType?";
         String params = "";
         String output = executeCypherQuery(query, params);
         JSONObject json = null;
@@ -190,7 +190,7 @@ public class Neo4jLoader<G extends Graph> {
     }
 
     public void  getVertexes(String NetworkId) throws ParseException {
-        String query = "start network=node(" + NetworkId + ") match network-->device where device.objectType='Device' return device.name, device.DeviceType,device.DeviceModel,device.ManagementIPAddress,device.YCoordinate,device.XCoordinate,device.siteID,device.ipv6Forwarding,device.BGPLocalASInfo,device.DeviceState";
+        String query = "start network=node(" + NetworkId + ") match network-->device where device.objectType='Node' return device.name, device.DeviceType,device.DeviceModel,device.ManagementIPAddress,device.YCoordinate,device.XCoordinate,device.siteID,device.ipv6Forwarding,device.BGPLocalASInfo,device.DeviceState";
         String params = "";
         String output = executeCypherQuery(query, params);
         JSONObject json = (JSONObject) new JSONParser().parse(output);

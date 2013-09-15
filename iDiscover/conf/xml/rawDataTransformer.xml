@@ -1,4 +1,4 @@
 <raw-data-transformer>
-    <device type="DEFAULT" xslt="iDiscover/conf/xslt/transformator.xslt"/>
-    <device type="SERVER" xslt="iDiscover/conf/xslt/transformator.xslt"/>
+    <node type="DEFAULT" xslt="iDiscover/conf/xslt/transformator.xslt"/>
+    <node type="SERVER" xslt="iDiscover/conf/xslt/transformator.xslt"/>
 </raw-data-transformer>

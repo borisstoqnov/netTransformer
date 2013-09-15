@@ -93,7 +93,7 @@ public class sdnDeviceXmlFileLogDiscoveryListener implements NodeDiscoveryListen
             FileUtils.writeStringToFile(deviceXmlFile, outputStream1.toString());
             logger.info("Raw-data transformed to device-xml for "+deviceName);
 
-            logger.debug("Device Data \n" + outputStream1.toString());
+            logger.debug("Node Data \n" + outputStream1.toString());
 
         } catch (IOException e) {
             logger.error(e);

@@ -34,7 +34,7 @@
                 <name>
                     <xsl:value-of select="dpid"/>
                 </name>
-                <!-- Device specific parameters-->
+                <!-- Node specific parameters-->
                 <parameters>
                     <parameter>
                         <name>Device State</name>
@@ -116,7 +116,7 @@
 
 
         <!--xsl:for-each-group select="$Devices/DiscoveredDevices/DiscoveredDevice" group-by="name">
-            <xsl:result-document href="network/device-data-{name}.xml">
+            <xsl:result-document href="network/node-data-{name}.xml">
                     <xsl:copy-of select="current-group()"/>
             </xsl:result-document>
         </xsl:for-each-group-->

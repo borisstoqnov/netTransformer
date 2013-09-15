@@ -22,16 +22,19 @@
         <parameters>
             <param name="fileName">bgpPeeringMap/conf/xml/imapParameters.xml</param>
             <param name="resourceXML">bgpPeeringMap/conf/xml/discoveryResource.xml</param>
+            <param name="as-numbers">bgpPeeringMap/conf/xml/autnums.xml</param>
         </parameters>
     </discovery-helper>
     <discovery-manager-listeners>
         <discovery-manager-listener class="net.itransformers.idiscover.discoverylisteners.DeviceFileLogger">
             <param name="path">imap</param>
         </discovery-manager-listener>
-        <discovery-manager-listener class="net.itransformers.idiscover.discoverylisteners.XmlTopologyDeviceLogger">
-            <param name="xslt">bgpPeeringMap/conf/xslt/bgp_as_path.xslt</param>
+        <discovery-manager-listener class="net.itransformers.idiscover.discoverylisteners.BgpXmlTopologyDeviceLogger">
+            <param name="xslt1">bgpPeeringMap/conf/xslt/inet-map.xslt</param>
+            <param name="xslt2">bgpPeeringMap/conf/xslt/inet-map.xslt</param>
             <param name="path">imap</param>
             <param name="type">temp</param>
+            <param name="as-numbers">bgpPeeringMap/conf/xml/autnums.xml</param>
         </discovery-manager-listener>
 
         <!--snmpDiscovery-manager-listener class="com.snmpDiscovery.discoverylisteners.KMLtransformator">

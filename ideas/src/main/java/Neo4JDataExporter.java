@@ -46,7 +46,7 @@ public class Neo4JDataExporter {
 //                    "{ \"from\" : \"1976\", \"until\" : \"1986\" }");
 //            addMetadataToProperty(relationshipUri, "stars", "5");
 
-            String query = "start device=node:node_auto_index(objectType='Device') match device - [parent] -> interface --> neighbour where device.objectType='Device' and interface.objectType='Discovery Interface' and neighbour.objectType = 'Discovered Neighbor' return device.name, interface.name, neighbour.name";
+            String query = "start device=node:node_auto_index(objectType='Node') match device - [parent] -> interface --> neighbour where device.objectType='Node' and interface.objectType='Discovery Interface' and neighbour.objectType = 'Discovered Neighbor' return device.name, interface.name, neighbour.name";
             String params = "";
             String output = executeCypherQuery(query, params);
             JSONObject json = (JSONObject)new JSONParser().parse(output);

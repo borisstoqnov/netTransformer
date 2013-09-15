@@ -1,5 +1,5 @@
 ### vars: username, password, Interfaces, prefix
-$Interfaces = \\device\object[ObjectType='Interface' and parameters\status[value!='DOWN']]\name
+$Interfaces = \\node\object[ObjectType='Interface' and parameters\status[value!='DOWN']]\name
 ### read_until('(login:|user:|Username:)',3)
 $username
 ### read_until('(Password:|password:)',3)

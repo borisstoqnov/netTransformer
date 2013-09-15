@@ -5,10 +5,10 @@ bgpPeeringMap is the direct ancestor of iMap able to discover bgpPeeringTopology
 Prerequirements:
 
 iMap needs JRE  "1.6.0_25" or later.
-In order to work properly you have to have IP& SNMP connectivity to a device with BGP routing table containg certain number of preferably Internet BGP routes. However with bgpPeeringMap you can discover the peering topology of any kind of BGP connectivity (Internet, GRX or something else)
+In order to work properly you have to have IP& SNMP connectivity to a node with BGP routing table containg certain number of preferably Internet BGP routes. However with bgpPeeringMap you can discover the peering topology of any kind of BGP connectivity (Internet, GRX or something else)
 
 How to create an Internet BGP peering map?
-Edit bgpPeeringMap/bin/bgpPeeringMap/conf/bgpPeeringMap.properties and add there your snmp communities and the IP address of the BGP enabled device .
+Edit bgpPeeringMap/bin/bgpPeeringMap/conf/bgpPeeringMap.properties and add there your snmp communities and the IP address of the BGP enabled node .
 With other words change X.X.X.X and test-r, test-rw with your values.
 -------------------------------------------------------------------------------
 

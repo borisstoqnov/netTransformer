@@ -19,9 +19,8 @@
 
 package net.itransformers.topologyviewer.dialogs.bgpSnmpDiscovery;
 
-import net.itransformers.idiscover.core.*;
-import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
-import net.itransformers.resourcemanager.config.ResourceType;
+import net.itransformers.bgpPeeringMap.BgpPeeringMap;
+import net.itransformers.bgpPeeringMap.BgpPeeringMapManagerThread;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Logger;
@@ -32,8 +31,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class BGPDiscoveryManagerDialog extends JDialog {
@@ -44,7 +41,7 @@ public class BGPDiscoveryManagerDialog extends JDialog {
     private JFrame frame;
     private File projectDir;
     private JComboBox modeComboBox;
-    private DiscoveryManagerThread managerThread;
+    private BgpPeeringMapManagerThread managerThread;
     private JTextArea loggerConsole;
     final JButton pauseResumeButton = new JButton("Pause");
     private int discoveredDevices;
@@ -239,7 +236,7 @@ public class BGPDiscoveryManagerDialog extends JDialog {
 
     private boolean onStartDiscovery() {
 
-        DiscoveryManager manager;
+        BgpPeeringMap manager;
         String label = null;
         try {
             label = labelTextField.getText().trim();
@@ -249,51 +246,53 @@ public class BGPDiscoveryManagerDialog extends JDialog {
             } else {
                 if (!isValidLabel(label)) return false;
             }
-            manager = DiscoveryManager.createDiscoveryManager(projectDir, "bgpPeeringMap/conf/xml/iMapManager.xml", label);
+            //manager = DiscoveryManager.createDiscoveryManager(projectDir, "bgpPeeringMap/conf/xml/iMapManager.xml", label);
 
-           // manager = new BgpPeeringMap(projectDir, addressTextField.getText(),projectDir +"/" +"bgpPeeringMap/conf/txt/bgpPeeringMap.properties",label);
+            manager = new BgpPeeringMap(projectDir, addressTextField.getText(),projectDir +"/" +"bgpPeeringMap/conf/txt/bgpPeeringMap.properties",label);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Cannot start BGP Discovery. See error log for more info");
             e.printStackTrace();
             return false;
         }
 
-        String[] discoveryTypes = new String[]{"BGPPeering"};
+//        String[] discoveryTypes = new String[]{"BGPPeering"};
 
 
-        Map<String,String> resourceSelectionParams = new HashMap<String, String>();
-        resourceSelectionParams.put("protocol","SNMP");
-        ResourceType snmp = manager.discoveryResource.ReturnResourceByParam(resourceSelectionParams);
+//        Map<String,String> resourceSelectionParams = new HashMap<String, String>();
+//        resourceSelectionParams.put("protocol","SNMP");
         discoveredDevices = 0;
         lblDiscoveredDevices.setText(DISCOVERED_DEVICES+discoveredDevices);
-        manager.addDiscoveryManagerListener(new DiscoveryListener() {
-            @Override
-            public void handleDevice(String deviceName, RawDeviceData rawData, DiscoveredDeviceData discoveredDeviceData, Resource resource) {
-                discoveredDevices++;
-                lblDiscoveredDevices.setText(DISCOVERED_DEVICES+discoveredDevices);
+//        manager.addDiscoveryManagerListener(new DiscoveryListener() {
+//            @Override
+//            public void handleDevice(String deviceName, RawDeviceData rawData, DiscoveredDeviceData discoveredDeviceData, Resource resource) {
+//                discoveredDevices++;
+//                lblDiscoveredDevices.setText(DISCOVERED_DEVICES+discoveredDevices);
+//
+//            }
+//        });
+//        Map<String, String> snmpConnParams = new HashMap<String, String>();
+//        snmpConnParams = manager.discoveryResource.getParamMap(snmp);
 
-            }
-        });
-        Map<String, String> snmpConnParams = new HashMap<String, String>();
-        snmpConnParams = manager.discoveryResource.getParamMap(snmp);
+//        IPv4Address initialIPaddress= new IPv4Address(addressTextField.getText(),null);
+//        snmpConnParams.put("status", "initial");
+//        snmpConnParams.put("mibDir", "snmptoolkit/mibs");
 
-        IPv4Address initialIPaddress= new IPv4Address(addressTextField.getText(),null);
-        snmpConnParams.put("status", "initial");
-        snmpConnParams.put("mibDir", "snmptoolkit/mibs");
+        //snmpConnParams.get("port");
+        //Resource resource = new Resource(initialIPaddress,null, Integer.parseInt(snmpConnParams.get("port")), snmpConnParams);
 
-        snmpConnParams.get("port");
-        Resource resource = new Resource(initialIPaddress,null, Integer.parseInt(snmpConnParams.get("port")), snmpConnParams);
-
-        managerThread = new DiscoveryManagerThread(manager,resource, "node",discoveryTypes);
+        managerThread = new BgpPeeringMapManagerThread(manager);
+                //(manager,resource, "node",discoveryTypes);
         managerThread.start();
         return true;
     }
 
     private String createAutoLabel() {
-        if (!new File(projectDir,"network").exists()) {
-            return "version1";
+        File base1 = new File(projectDir, "imap");
+
+        if (!base1.exists()) {
+                base1.mkdir();
         }
-        String[] fileList = new File(projectDir,"network").list();
+        String[] fileList = new File(projectDir,"imap").list();
         int max = 0;
         for (String fName : fileList) {
             if (fName.matches(VERSION_LABEL+"\\d+")){
@@ -305,7 +304,7 @@ public class BGPDiscoveryManagerDialog extends JDialog {
     }
 
     private boolean isValidLabel(String label) {
-        if (new File(new File(projectDir,"network"),label).exists()){
+        if (new File(new File(projectDir,"imap"),label).exists()){
             JOptionPane.showMessageDialog(this,"The specified label already exists");
             return false;
         }

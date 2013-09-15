@@ -111,7 +111,7 @@ public class Neo4JWsDataImporter {
 
             entry = new Node.Attributes.Entry();
             entry.setKey("objectType");
-            entry.setValue("Device");// Hardcoded because the DiscoveredDeviceData is not natural data type
+            entry.setValue("Node");// Hardcoded because the DiscoveredDeviceData is not natural data type
             node.getAttributes().getEntry().add(entry);
 
             ParametersType parameters = discoveryManagerType.getParameters();

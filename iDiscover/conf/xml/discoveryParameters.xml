@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <discovery-helper>
-    <device xslt="iDiscover/conf/xslt/transformator.xslt" type="DEFAULT">
+    <node xslt="iDiscover/conf/xslt/transformator.xslt" type="DEFAULT">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,
             dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
@@ -32,8 +32,8 @@
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
         </discovery-method>
-    </device>
-    <device xslt="iDiscover/conf/xslt/transformator.xslt" type="SERVER">
+    </node>
+    <node xslt="iDiscover/conf/xslt/transformator.xslt" type="SERVER">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifName,ifPhysAddress,ifType,ifHighSpeed,
             dot1dTpFdbAddress,system,ipAddrTable
@@ -46,8 +46,8 @@
         <discovery-method name="NEXT_HOP">
             ipRouteIfIndex,ipRouteNextHop
         </discovery-method>
-    </device>
-    <device xslt="iDiscover/conf/xslt/transformator.xslt" type="CISCO">
+    </node>
+    <node xslt="iDiscover/conf/xslt/transformator.xslt" type="CISCO">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,
             dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
@@ -80,8 +80,8 @@
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry,cIpv6
         </discovery-method>
-    </device>
-    <device xslt="iDiscover/conf/xslt/transformator.xslt" type="HUAWEI">
+    </node>
+    <node xslt="iDiscover/conf/xslt/transformator.xslt" type="HUAWEI">
         <general>
             ifIndex,ifDescr,ifOperStatus,dot1dStpDesignatedRoot, dot1dStpPortEntry,
             ifAdminStatus,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
@@ -113,8 +113,8 @@
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
         </discovery-method>
-    </device>
-    <device xslt="iDiscover/conf/xslt/transformator.xslt" type="JUNIPER">
+    </node>
+    <node xslt="iDiscover/conf/xslt/transformator.xslt" type="JUNIPER">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
         </general>
@@ -145,8 +145,8 @@
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
         </discovery-method>
-    </device>
-    <device xslt="iDiscover/conf/xslt/transformator.xslt" type="HP">
+    </node>
+    <node xslt="iDiscover/conf/xslt/transformator.xslt" type="HP">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,sysObjectID,ipAddrTable
         </general>
@@ -162,8 +162,8 @@
         <discovery-method name="ADDITIONAL">
             dot1dBaseNumPorts, dot1qVlanStaticTable
         </discovery-method>
-    </device>
-    <device xslt="iDiscover/conf/xslt/transformator.xslt" type="TELLABS">
+    </node>
+    <node xslt="iDiscover/conf/xslt/transformator.xslt" type="TELLABS">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,ipAddrTable
         </general>
@@ -194,8 +194,8 @@
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
         </discovery-method>
-    </device>
-    <device xslt="iDiscover/conf/xslt/transformator.xslt" type="RIVERSTONE">
+    </node>
+    <node xslt="iDiscover/conf/xslt/transformator.xslt" type="RIVERSTONE">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,dot1dTpFdbAddress,system,ipAddrTable
         </general>
@@ -223,7 +223,7 @@
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
         </discovery-method>
-    </device>
+    </node>
     <stop-criteria>
         <!--match property="ipAddress.ipAddress"></match-->
 
