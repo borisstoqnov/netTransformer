@@ -25,9 +25,6 @@
     <dataMatcher name="le" class="net.itransformers.topologyviewer.config.datamatcher.impl.LessOrEqual"/>
     <dataMatcher name="be" class="net.itransformers.topologyviewer.config.datamatcher.impl.BetweenInterval"/>
     <dataMatcher name="beoq" class="net.itransformers.topologyviewer.config.datamatcher.impl.BetweenOrEqualInterval"/>
-
-
-
     <scaling-factor>
         <data key="0.00001"/>
     </scaling-factor>
@@ -718,9 +715,19 @@
                 <param name="saved_session"></param>
             </rightClickItem-->
         </submenu>
-    </rightClickItem>
 
-    <rightClickItem name="Object Tree Browser" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler">
+
+        <submenu name="Graph Data Management">
+            <rightClickItem name="Object Tree Browser" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler"/>
+
+            <rightClickItem name="GraphmlEditor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
+                <param name="type">graphml</param>
+            </rightClickItem>
+            <rightClickItem name="DeviceXmlEditor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
+                <param name="type">deviceXml</param>
+            </rightClickItem>
+        </submenu>
+
         <submenu name="Reports">
             <rightClickItem name="Device Neighbors" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
                 <param name="xsl_transformator">iTopologyManager/rightClick/conf/xslt/deviceNeighbors.xslt</param>

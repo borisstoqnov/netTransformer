@@ -19,7 +19,6 @@
 
 package net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers;
 
-import net.itransformers.topologyviewer.gui.GraphType;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
@@ -51,7 +50,7 @@ public class OpenGraphMenuHandler implements ActionListener {
             JOptionPane.showMessageDialog(frame, "Can not open graph before project path to be set.");
             return;
         }
-
+        //TODO remove that hardcode through viewr configuration!
         File networkDir = new File(path, "network");
         if (!networkDir.exists()) networkDir = path;
         JFileChooser chooser = new JFileChooser(networkDir);

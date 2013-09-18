@@ -130,4 +130,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     public File getVersionDir(){
         return versionDir;
     }
+    public GraphType getGraphType(){
+        return graphType;
+    }
 }

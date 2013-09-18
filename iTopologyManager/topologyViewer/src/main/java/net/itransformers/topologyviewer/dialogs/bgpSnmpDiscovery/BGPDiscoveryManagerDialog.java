@@ -287,12 +287,12 @@ public class BGPDiscoveryManagerDialog extends JDialog {
     }
 
     private String createAutoLabel() {
-        File base1 = new File(projectDir, "imap");
+        File base1 = new File(projectDir, "network");
 
         if (!base1.exists()) {
                 base1.mkdir();
         }
-        String[] fileList = new File(projectDir,"imap").list();
+        String[] fileList = new File(projectDir,"network").list();
         int max = 0;
         for (String fName : fileList) {
             if (fName.matches(VERSION_LABEL+"\\d+")){
@@ -304,7 +304,7 @@ public class BGPDiscoveryManagerDialog extends JDialog {
     }
 
     private boolean isValidLabel(String label) {
-        if (new File(new File(projectDir,"imap"),label).exists()){
+        if (new File(new File(projectDir,"network"),label).exists()){
             JOptionPane.showMessageDialog(this,"The specified label already exists");
             return false;
         }

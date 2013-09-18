@@ -1,5 +1,3 @@
-
-
 /*
  * iTransformer is an open source tool able to discover and transform
  *  IP network infrastructures.
@@ -30,6 +28,5 @@ public interface DiscoveryTypes {
     String NEXT_HOP="NEXT_HOP";
     String ADDITIONAL="ADDITIONAL";
     String IPV6="IPV6";
-    String BGPPeering = "BGPPeering";
 
 }

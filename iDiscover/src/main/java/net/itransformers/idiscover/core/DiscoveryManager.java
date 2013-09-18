@@ -1,6 +1,3 @@
-
-
-
 /*
  * iTransformer is an open source tool able to discover and transform
  *  IP network infrastructures.
@@ -63,12 +60,12 @@ public class DiscoveryManager {
         this.resourceManager = resourceManager;
         this.discovererFactory = discovererFactory;
         this.discoveryHelperFactory = discoveryHelperFactory;
-        this.discoveryResource = new DiscoveryResourceManager(resourceManager);
+        this.discoveryResource = new DiscoveryResourceManager(projectDir,label,"iDiscover/conf/xml/discoveryResource.xml");
     }
 
     public NetworkType discoverNetwork(Resource resource, String mode, String[] discoveryTypes) throws Exception {
         isRunning = true;
-        Map<String, Node> foundDevices = new HashMap<String, Node>();
+        Map<String, Device> foundDevices = new HashMap<String, Device>();
         NetworkType network = new NetworkType();
         Discoverer discoverer = discovererFactory.createDiscoverer(resource);
         this.discoverDevice(resource, discoveryTypes, mode, network, foundDevices, discoverer);
@@ -77,7 +74,7 @@ public class DiscoveryManager {
     }
 
     private void discoverDevice(Resource resource, String[] discoveryTypes, String mode,
-                                NetworkType network, Map<String,Node> foundDevices,
+                                NetworkType network, Map<String,Device> foundDevices,
                                 Discoverer discoverer) {
         if (isStopped) return;
         if (isPaused) doPause();
@@ -86,7 +83,7 @@ public class DiscoveryManager {
         Map<String, String> attributes = resource.getAttributes();
         String deviceType=resource.getDeviceType();
         String deviceStatus=null;
-        //Obtain device status. Node status is set to "initial" for the first device and to discovered to any other. Topology viewer use device status to draw
+        //Obtain device status. Device status is set to "initial" for the first device and to discovered to any other. Topology viewer use device status to draw
         //initial picture around initial device.
         if (attributes.containsKey("status")){
             deviceStatus=attributes.get("status");
@@ -115,7 +112,7 @@ public class DiscoveryManager {
             //Check if device is not already discovered if it is not so discover it.
             boolean deviceExists = foundDevices.containsKey(deviceName);
             if (!deviceExists) {
-                logger.info("Node with "+deviceName+" is still undiscovered. So discover it!!!");
+                logger.info("Device with "+deviceName+" is still undiscovered. So discover it!!!");
 
                 DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper(deviceType);
                 //Check if device comply to stop criteria.
@@ -128,18 +125,18 @@ public class DiscoveryManager {
                 //If device comply so discover it.
 
                 if (!stopCriteriaReached && mode.equals("network")) {
-                    Node node = createDevice(resource, discoveryTypes, network, foundDevices, discoverer, deviceName, discoveryHelper);
+                    Device device = createDevice(resource, discoveryTypes, network, foundDevices, discoverer, deviceName, discoveryHelper);
                     //TODO Why is that???
                     discoveryHelper = null;
                     deviceName = null;
-                    this.findNeighbours(node, discoveryTypes, mode, network, foundDevices, discoverer);
+                    this.findNeighbours(device, discoveryTypes, mode, network, foundDevices, discoverer);
                 } else if (!stopCriteriaReached && mode.equals("node")){
-                    Node node;
-                    node = createDevice(resource, discoveryTypes, network, foundDevices, discoverer, deviceName, discoveryHelper);
+                    Device device;
+                    device = createDevice(resource, discoveryTypes, network, foundDevices, discoverer, deviceName, discoveryHelper);
 
                }
 // else if (!stopCriteriaReached && mode.equals("neighbors")){
-//                    Node device = createDevice(resource, discoveryTypes, network, foundDevices, discoverer, deviceName, discoveryHelper);
+//                    Device device = createDevice(resource, discoveryTypes, network, foundDevices, discoverer, deviceName, discoveryHelper);
 //                    //TODO Why is that???
 //                    discoveryHelper = null;
 //                    deviceName = null;
@@ -147,7 +144,7 @@ public class DiscoveryManager {
 //
 //                }
          }else{
-              logger.info("Node with "+deviceName+" is already discovered. So skip it!!!");
+              logger.info("Device with "+deviceName+" is already discovered. So skip it!!!");
          }
         }
 
@@ -186,14 +183,14 @@ public class DiscoveryManager {
         return isRunning;
     }
 
-    private Node createDevice(Resource resource, String[] discoveryTypes, NetworkType network, Map<String, Node> foundDevices, Discoverer discoverer, String deviceName, DiscoveryHelper discoveryHelper) {
-        Node node;
+    private Device createDevice(Resource resource, String[] discoveryTypes, NetworkType network, Map<String, Device> foundDevices, Discoverer discoverer, String deviceName, DiscoveryHelper discoveryHelper) {
+        Device device;
         String[] requestParamsList = discoveryHelper.getRequestParams(discoveryTypes);
         RawDeviceData rawData = discoverer.getRawDeviceData(resource, requestParamsList);
         DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawData,discoveryTypes, resource);
-        node = discoveryHelper.createDevice(discoveredDeviceData);
-        assert node.getName().equals(deviceName);
-        foundDevices.put(deviceName, node);
+        device = discoveryHelper.createDevice(discoveredDeviceData);
+        assert device.getName().equals(deviceName);
+        foundDevices.put(deviceName, device);
 
         //Update resource attribute discovered status to discovered!
         Map<String, String> attributes = resource.getAttributes();
@@ -201,35 +198,39 @@ public class DiscoveryManager {
 
         network.getDiscoveredDevice().add(discoveredDeviceData);
         fireNewDeviceEvent(deviceName, rawData, discoveredDeviceData, resource);
-        return node;
+        return device;
     }
 
-    private void findNeighbours(Node node, String[] discoveryTypes, String mode,
-                                NetworkType network, Map<String, Node> foundDevices,
+    private void findNeighbours(Device device, String[] discoveryTypes, String mode,
+                                NetworkType network, Map<String, Device> foundDevices,
                                 Discoverer discoverer) {
-        List<NodeNeighbour> nodeNeighbours = node.getNodeNeighbours();
-        if (nodeNeighbours == null) {
-            logger.info("No neighbours found for node: "+ node.getName());
+        List<DeviceNeighbour> deviceNeighbours = device.getDeviceNeighbours();
+        if (deviceNeighbours == null) {
+            logger.info("No neighbours found for device: "+device.getName());
             return;
         } else {
-            logger.info("Found Neighbours: "+ nodeNeighbours);
+            logger.info("Found Neighbours: "+deviceNeighbours);
         }
-        for (NodeNeighbour nodeNeighbour : nodeNeighbours) {
+        for (DeviceNeighbour deviceNeighbour : deviceNeighbours) {
             if (isStopped) return;
             if (isPaused) doPause();
             //Get IP address and Hostname of the discovered Neighbor
-            IPv4Address ipAddress = nodeNeighbour.getIpAddress();
-            String hostName = nodeNeighbour.getHostName();
-            String deviceType = nodeNeighbour.getDeviceType();
-            boolean Reachable =  nodeNeighbour.getStatus();
-            //String SnmpCommunity =  nodeNeighbour.getROCommunity();
+            IPv4Address ipAddress = deviceNeighbour.getIpAddress();
+            String hostName = deviceNeighbour.getHostName();
+            String deviceType = deviceNeighbour.getDeviceType();
+            boolean Reachable =  deviceNeighbour.getStatus();
+            //String SnmpCommunity =  deviceNeighbour.getROCommunity();
             //Discover only the neighbors that are reachable
              if (Reachable){
 
 
                 Map<String,String> params = new HashMap<String, String>();
-                params.put("DeviceName",hostName);
-                params.put("DeviceType",deviceType);
+                if(hostName!=null){
+                    params.put("DeviceName",hostName);
+                }
+                if (deviceType!=null){
+                    params.put("DeviceType",deviceType);
+                }
                 params.put("protocol","SNMP");
                 ResourceType SNMP = this.discoveryResource.ReturnResourceByParam(params);
                 Map<String, String> SNMPconnParams = new HashMap<String, String>();
@@ -302,7 +303,7 @@ public class DiscoveryManager {
 
         if (resource == null) ;
 
-        String[] discoveryTypes = new String[]{"BGPPeering","PHYSICAL","NEXT_HOP","OSPF","ISIS","BGP","RIP","ADDITIONAL","IPV6"};
+        String[] discoveryTypes = new String[]{"PHYSICAL","NEXT_HOP","OSPF","ISIS","BGP","RIP","ADDITIONAL","IPV6"};
 
 //        DiscovererFactory.init(new SimulSnmpWalker(resource, new File("logs.log")));
 //        DiscovererFactory.init();
@@ -321,20 +322,10 @@ public class DiscoveryManager {
             is.close();
         }
 
-        String pathToResouceDefinitions = null;
-        List<ParamType> discoveryHelperParams = discoveryManagerType.getDiscoveryHelper().getParameters().getParam();
-        for (ParamType paramType : discoveryHelperParams) {
-            String name = paramType.getName();
-            if (name.equals("resourceXML")){
-                pathToResouceDefinitions = paramType.getValue();
-            }
-
-        }
         DiscoveryHelperFactory discoveryHelperFactory = createDiscoveryHelperFactory(discoveryManagerType);
         ResourceManager resourceManager;
-
         {
-        String xml = FileUtils.readFileToString(new File(projectDir,pathToResouceDefinitions));
+        String xml = FileUtils.readFileToString(new File(projectDir,"iDiscover/conf/xml/discoveryResource.xml"));
         InputStream is1 = new ByteArrayInputStream(xml.getBytes());
         ResourcesType deviceGroupsType = net.itransformers.resourcemanager.util.JaxbMarshalar.unmarshal(ResourcesType.class, is1);
         resourceManager = new ResourceManager(deviceGroupsType);

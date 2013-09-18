@@ -26,7 +26,7 @@ import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 public interface DiscoveryHelper {
     DiscoveredDeviceData parseDeviceRawData(RawDeviceData rawData, String[] discoveryTypes, Resource resource);
 
-    Node createDevice(DiscoveredDeviceData discoveredDeviceData);
+    Device createDevice(DiscoveredDeviceData discoveredDeviceData);
 
     String[] getRequestParams(String[] discoveryType);
 

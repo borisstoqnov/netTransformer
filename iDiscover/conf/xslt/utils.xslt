@@ -313,7 +313,7 @@
 		<xsl:variable name="neighborDeviceType">
 			<xsl:choose>
 			<xsl:when test="$neighborHostname!='' and $comm!=''">
-				<xsl:call-template name="determine-node-Type">
+				<xsl:call-template name="determine-device-Type">
 					<xsl:with-param name="sysDescr" select="SnmpForXslt:getByOid($neighborIP,'1.3.6.1.2.1.1.1', $comm)"/>
 				</xsl:call-template>
 			</xsl:when>
@@ -327,7 +327,7 @@
 			</value>
 		</parameter>
 	</xsl:template>
-	<xsl:template name="determine-node-Type">
+	<xsl:template name="determine-device-Type">
 		<xsl:param name="sysDescr"/>
 		<xsl:choose>
 			<xsl:when test="contains($sysDescr, 'Cisco')">CISCO</xsl:when>
