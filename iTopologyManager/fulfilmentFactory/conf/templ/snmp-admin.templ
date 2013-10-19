@@ -1,0 +1,22 @@
+### vars: username, password, enable-password, chassis-id, contact, location
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### read_until('.*>',3)
+enable
+### read_until('Password:',3)
+$enable-password
+
+### start read_until('.*#',3)
+configure terminal
+### stop read_until
+
+### start read_until('.*#',3)
+snmp-server chassis-id $chassis-id
+snmp-server contact $contact
+snmp-server location $location
+end
+### stop read_until
+exit
+### exit

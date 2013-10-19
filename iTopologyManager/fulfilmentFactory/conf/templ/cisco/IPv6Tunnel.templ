@@ -1,0 +1,23 @@
+### vars: username, password, enable-password, interface, prefix, source, destination
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### read_until('.*>',3)
+enable
+### read_until('Password:',3)
+$enable-password
+### start read_until('.*#',3)
+configure terminal
+### stop read_until
+
+### start read_until('.*#',3)
+interface $interface
+ipv6 address $prefix
+tunnel source $source
+tunnel destination $destination
+tunnel mode ipv6ip
+end
+### stop read_until
+exit
+### exit

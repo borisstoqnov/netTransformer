@@ -1,0 +1,20 @@
+### vars: username, password, enable-password
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### read_until('.*>',3)
+enable
+### read_until('Password:',3)
+$enable-password
+
+### start read_until('.*#',3)
+configure terminal
+### stop read_until
+
+### start read_until('.*#',3)
+no ipv6 unicast-routing
+no ipv6 multicast-routing
+### stop read_until
+exit
+### exit

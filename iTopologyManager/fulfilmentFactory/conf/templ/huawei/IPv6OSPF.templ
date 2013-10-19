@@ -1,0 +1,15 @@
+### vars: username, password, process
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### start read_until('.*#',3)
+configure terminal
+### stop read_until
+
+### start read_until('.*#',3)
+ipv6 router ospf $process
+end
+### stop read_until
+exit
+### exit
