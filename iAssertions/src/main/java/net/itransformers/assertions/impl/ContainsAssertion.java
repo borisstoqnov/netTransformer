@@ -27,13 +27,7 @@ import org.xml.sax.InputSource;
 import java.io.*;
 import java.util.Map;
 
-/**
- * Created with IntelliJ IDEA.
- * User: VasilYordanov
- * Date: 6/7/13
- * Time: 11:22 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public class ContainsAssertion implements Assertion {
     private final String expectedValue;
     private final String assertionName;

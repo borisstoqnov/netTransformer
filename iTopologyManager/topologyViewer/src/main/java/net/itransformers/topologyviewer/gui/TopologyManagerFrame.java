@@ -199,6 +199,8 @@ public class TopologyManagerFrame extends JFrame{
         this.getRootPane().getJMenuBar().getMenu(1).setEnabled(false);
         this.getRootPane().getJMenuBar().getMenu(2).setEnabled(false);
         this.getRootPane().getJMenuBar().getMenu(3).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(4).setEnabled(false);
+
         this.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(4).setEnabled(false);
         this.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(5).setEnabled(false);
         this.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(6).setEnabled(false);

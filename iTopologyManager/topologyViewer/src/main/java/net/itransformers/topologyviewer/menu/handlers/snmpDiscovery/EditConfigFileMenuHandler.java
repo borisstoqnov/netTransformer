@@ -29,23 +29,29 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-
-public class ConfigureBGPParametersMenuHandler implements ActionListener {
+/**
+ * Created by IntelliJ IDEA.
+ * Date: 12-4-27
+ * Time: 23:30
+ * To change this template use File | Settings | File Templates.
+ */
+public class EditConfigFileMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
-
-    public ConfigureBGPParametersMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
+    String pathToResource;
+    public EditConfigFileMenuHandler(TopologyManagerFrame frame, String path) throws HeadlessException {
 
         this.frame = frame;
+        this.pathToResource = path;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String filePath =    frame.getPath()+ File.separator+"bgpPeeringMap/conf/txt/bgpPeeringMap.properties";
-        String dir =  frame.getPath()+ File.separator+"bgpPeeringMap/conf/txt";
-        JEditorPane discoveryParametersEditor = new JEditorPane(filePath,dir,".properties");
+        String filePath = frame.getPath()+ File.separator+ pathToResource;
+        String dir = new File(frame.getPath()+ File.separator+ pathToResource).getParent();
+        JEditorPane resourceEditor = new JEditorPane(filePath,dir,"xml");
         try {
-            discoveryParametersEditor.init();
+            resourceEditor.init();
         } catch (IOException e1) {
             e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (BadLocationException e1) {

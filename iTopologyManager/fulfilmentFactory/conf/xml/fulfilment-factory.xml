@@ -23,20 +23,20 @@
     <fulfilment-factory-types>
         <type name="configureHostname" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">configure Hostname</param>
-            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/configure-hostname.txt</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/configure-hostname.templ</param>
         </type>
         <type name="enableIPv6Routing" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">enable IPv6</param>
-            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/enable-ipv6.txt</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/enable-ipv6.templ</param>
         </type>
         <type name="disableIPv6Routing" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">disable IPv6</param>
-            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/disable-ipv6.txt</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/disable-ipv6.templ</param>
         </type>
 
         <type name="setDeviceAdminData" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">set Admin Data</param>
-            <param name="commands">iTopologyManager/fulfilmentFactory/conf/txt/snmp-admin.txt</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/snmp-admin.templ</param>
         </type>
         <!--type name="setDeviceLocation" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.XslFulfilmentImpl">
             <param name="xslFileName">iTopologyManager/fulfilmentFactory/conf/xslt/setDeviceLocation.xslt</param>

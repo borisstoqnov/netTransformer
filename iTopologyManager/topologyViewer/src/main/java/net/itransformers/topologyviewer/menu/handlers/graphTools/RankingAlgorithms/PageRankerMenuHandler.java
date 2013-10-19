@@ -58,7 +58,7 @@ public class PageRankerMenuHandler implements ActionListener {
         frame1.setSize(600,400);
         frame1.getContentPane().setLayout(new BorderLayout());
         JTextPane  text   = new JTextPane();
-        text.setEditable(true);
+        text.setEditable(false);
 
 
         PageRank ranker = new PageRank(viewerPanel.getCurrentGraph(),0.2);

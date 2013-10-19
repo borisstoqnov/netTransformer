@@ -153,9 +153,9 @@ public class Terminal {
 		Logger.getRootLogger().setLevel(Level.INFO);
         Terminal term = new Terminal();
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("ManagementIPAddress","10.10.10.10");
-        params.put("username","user");
-        params.put("password","pass123!");
+        params.put("ManagementIPAddress","172.16.13.1");
+        params.put("username","lab");
+        params.put("password","lab123");
         term.openSession(params);
 
 	}

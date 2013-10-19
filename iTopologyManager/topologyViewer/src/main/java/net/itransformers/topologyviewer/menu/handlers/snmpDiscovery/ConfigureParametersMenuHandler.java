@@ -20,7 +20,7 @@
 package net.itransformers.topologyviewer.menu.handlers.snmpDiscovery;
 
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
-import net.itransformers.utils.JEditorPaneSave;
+import net.itransformers.utils.JEditorPane;
 
 import javax.swing.text.BadLocationException;
 import java.awt.*;
@@ -41,7 +41,8 @@ public class ConfigureParametersMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JEditorPaneSave discoveryParametersEditor = new JEditorPaneSave(frame.getPath()+ File.separator+"iDiscover/conf/xml/discoveryParameters.xml");
+        String filePath = frame.getPath()+ File.separator+"iDiscover/conf/xml";
+        JEditorPane discoveryParametersEditor = new JEditorPane(filePath+File.separator+"discoveryParameters.xml",filePath,"xml");
         try {
             discoveryParametersEditor.init();
         } catch (IOException e1) {

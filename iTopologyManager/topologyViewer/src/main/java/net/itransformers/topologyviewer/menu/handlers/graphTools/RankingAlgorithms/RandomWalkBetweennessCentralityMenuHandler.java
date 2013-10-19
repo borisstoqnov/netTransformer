@@ -26,14 +26,6 @@ import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.utils.XsltReport;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import javax.xml.transform.stream.StreamSource;
@@ -68,7 +60,7 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
 
         JFrame frame1 = new JFrame(" Random Walk Betweenness Centrality Rankings ");
-        frame1.setSize(800,800);
+        frame1.setSize(400,300);
         frame1.getContentPane().setLayout(new BorderLayout());
         JTextPane  text   = new JTextPane();
         text.setEditable(false);
@@ -80,8 +72,8 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
         StringBuffer sb = new StringBuffer();
         List<Ranking> rankingList  = ranker.getRankings();
         //sb.append("Position, Node Name, Node Rank \n");
-        final XYSeriesCollection dataset = new XYSeriesCollection();
-        final XYSeries s1 = new XYSeries("Random Walk Betweenness Centrality Rankings");
+//        final XYSeriesCollection dataset = new XYSeriesCollection();
+//        final XYSeries s1 = new XYSeries("Random Walk Betweenness Centrality Rankings");
 
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         sb.append("<RandomWalkBetweennessCentralityRankings>");
@@ -91,7 +83,7 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
             sb.append("\t<node>"+rankingList.get(i).getRanked()+"</node>\n");
             sb.append("\t<rank>"+rankingList.get(i)+"</rank>\n");
             sb.append("</entry>");
-            s1.add(i,Double.parseDouble(rankingList.get(i).toString()));
+         //   s1.add(i,Double.parseDouble(rankingList.get(i).toString()));
 
         }
         sb.append("\n</RandomWalkBetweennessCentralityRankings>");
@@ -107,38 +99,38 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
             testReport.handleException(ex);
         }
 
-        dataset.addSeries(s1);
+      //  dataset.addSeries(s1);
 
 
 
-        dataset.addSeries(s1);
+    //    dataset.addSeries(s1);
       //  text.setText(sb.toString());
-        Ranking betwennessMax = (Ranking) rankingList.get(0);
-        Ranking betwennessMin = (Ranking) rankingList.get(rankingList.size() - 1);
-
-        final JFreeChart chart = ChartFactory.createXYLineChart(
-                " Random Walk Betweenness Centrality Rankings",
-                "Category",               // domain axis label
-                "Value",                  // range axis label
-                dataset,                  // data
-                PlotOrientation.VERTICAL,
-                false,                     // include legend
-                false,
-                false
-        );
+//        Ranking betwennessMax = (Ranking) rankingList.get(0);
+//        Ranking betwennessMin = (Ranking) rankingList.get(rankingList.size() - 1);
 //
-        final XYPlot plot = chart.getXYPlot();
-        final NumberAxis domainAxis = new NumberAxis("Nodes");
-        final NumberAxis rangeAxis = new NumberAxis("Node Rankings");
-        plot.setDomainAxis(domainAxis);
-        plot.setRangeAxis(rangeAxis);
-        chart.setBackgroundPaint(Color.white);
-        plot.setOutlinePaint(Color.black);
-
-        final ChartPanel chartPanel = new ChartPanel(chart);
-
-        chartPanel.setPreferredSize(new java.awt.Dimension(400, 300));
-        chartPanel.setMouseWheelEnabled(false);
+//        final JFreeChart chart = ChartFactory.createXYLineChart(
+//                " Random Walk Betweenness Centrality Rankings",
+//                "Category",               // domain axis label
+//                "Value",                  // range axis label
+//                dataset,                  // data
+//                PlotOrientation.VERTICAL,
+//                false,                     // include legend
+//                false,
+//                false
+//        );
+////
+//        final XYPlot plot = chart.getXYPlot();
+//        final NumberAxis domainAxis = new NumberAxis("Nodes");
+//        final NumberAxis rangeAxis = new NumberAxis("Node Rankings");
+//        plot.setDomainAxis(domainAxis);
+//        plot.setRangeAxis(rangeAxis);
+//        chart.setBackgroundPaint(Color.white);
+//        plot.setOutlinePaint(Color.black);
+//
+//        final ChartPanel chartPanel = new ChartPanel(chart);
+//
+//        chartPanel.setPreferredSize(new java.awt.Dimension(400, 300));
+//        chartPanel.setMouseWheelEnabled(false);
 
 
         Container container = frame1.getContentPane();
@@ -147,10 +139,10 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
         JScrollPane scrollPane = new JScrollPane(text);
         scrollPane.setPreferredSize(new java.awt.Dimension(400, 300));
 
-        JScrollPane scrollPane2 = new JScrollPane(chartPanel);
+//        JScrollPane scrollPane2 = new JScrollPane(chartPanel);
 
-        container.add(scrollPane2,BorderLayout.NORTH);
-        container.add(scrollPane,BorderLayout.SOUTH);
+//        container.add(scrollPane2,BorderLayout.NORTH);
+        container.add(scrollPane);
 
 
         frame1.setVisible(true);

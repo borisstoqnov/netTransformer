@@ -69,12 +69,17 @@ public class OpenProjectMenuHandler implements ActionListener {
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
 
+
             } else if(chooser.getSelectedFile().getName().equals("itransformer.pfl"))    {
                 frame.setProjectType("iTransformer");
                 frame.setViewerConfig(new File(chooser.getSelectedFile().getParentFile()+File.separator+ "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
                 //
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
+                frame.getRootPane().getJMenuBar().getMenu(5).setEnabled(true);
+                frame.getRootPane().getJMenuBar().getMenu(3).setEnabled(true);
+
+
 
             }  else{
                 JOptionPane.showMessageDialog(frame, "Unknown project type");
@@ -83,7 +88,6 @@ public class OpenProjectMenuHandler implements ActionListener {
             frame.doOpenProject(chooser.getSelectedFile().getParentFile());
             frame.getRootPane().getJMenuBar().getMenu(1).setEnabled(true);
             frame.getRootPane().getJMenuBar().getMenu(2).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(3).setEnabled(true);
             frame.getRootPane().getJMenuBar().getMenu(4).setEnabled(true);
             frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(4).setEnabled(true);
             frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(5).setEnabled(true);

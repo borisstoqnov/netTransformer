@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <!--The default resource is used for the execution of all SNMP GET requests towards the network devices-->
+    <!--If the devices in your network have the same snmp communities you can discover it just by using the default resources.-->
+    <!--If this is the case you can delete the rest of the resources-->
+    <!--They are used for the execution of the heavy SNMP walk requests-->
+    <!--They support different community values, retries and timeout settings-->
+    <!--Each resource could be matched by a combination of parameters such as DeviceType, DeviceName or DeviceLocation.-->
+
     <resource name="CISCOR11">
         <param name="DeviceName">R11</param>
         <param name="DeviceType">CISCO</param>
@@ -58,8 +65,10 @@
             <param name="system-password">Password</param>
         </connection-params>
     </resource>
-    <resource name="SNMP">
+
+    <resource name="HP">
         <param name="protocol">SNMP</param>
+        <param name="DeviceType">HP</param>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
             <param name="community-ro">iTransformer-r</param>
@@ -70,9 +79,8 @@
             <param name="max-repetitions">65535</param>
         </connection-params>
     </resource>
-    <resource name="HP">
+    <resource name="DEFAULT">
         <param name="protocol">SNMP</param>
-        <param name="DeviceType">HP</param>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
             <param name="community-ro">iTransformer-r</param>

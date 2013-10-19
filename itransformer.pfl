@@ -5,7 +5,7 @@ iTopologyManager/topologyViewer/conf/xml
 iTopologyManager/topologyViewer/conf/xslt
 iTopologyManager/parameterFactory/conf/xml
 iTopologyManager/parameterFactory/conf/xsd
-iTopologyManager/fulfilmentFactory/conf/txt
+iTopologyManager/fulfilmentFactory/conf/templ
 iTopologyManager/fulfilmentFactory/conf/xml
 iTopologyManager/fulfilmentFactory/conf/xslt
 iDiscover/conf/xml

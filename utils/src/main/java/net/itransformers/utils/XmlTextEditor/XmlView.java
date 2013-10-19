@@ -18,10 +18,15 @@ public class XmlView extends PlainView {
     private static String TAG_ATTRIBUTE_VALUE = "\\w*\\=\\w*(\"[^\"]*\")";
     private static String TAG_COMMENT = "(<\\!--[\\w ]*-->)";
     private static String TAG_CDATA = "(<\\!\\[CDATA\\[.*\\]\\]>)";
+    //private static String TAG_TEMPLATE = "###";
+
 
     static {
         // NOTE: the order is important!
         patternColors = new LinkedHashMap<Pattern, Color>();
+//        patternColors
+//                .put(Pattern.compile(TAG_TEMPLATE), new Color(63, 127, 127));
+
         patternColors
                 .put(Pattern.compile(TAG_PATTERN), new Color(63, 127, 127));
         patternColors.put(Pattern.compile(TAG_CDATA), Color.GRAY);

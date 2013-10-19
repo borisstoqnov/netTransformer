@@ -133,8 +133,8 @@
                 <includeModuleDirectory>false</includeModuleDirectory>
                 <fileSets>
                     <fileSet>
-                        <directory>conf/txt</directory>
-                        <outputDirectory>iTopologyManager/fulfilmentFactory/conf/txt</outputDirectory>
+                        <directory>conf/templ</directory>
+                        <outputDirectory>iTopologyManager/fulfilmentFactory/conf/templ</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/xml</directory>

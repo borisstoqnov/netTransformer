@@ -25,14 +25,6 @@ import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.utils.XsltReport;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import javax.xml.transform.stream.StreamSource;
@@ -61,7 +53,7 @@ public class BetweennessCentralityMenuHandler implements ActionListener {
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
 
         JFrame frame1 = new JFrame("Betweenness Centrality Rankings ");
-        frame1.setSize(new java.awt.Dimension(800, 800));
+        frame1.setSize(new java.awt.Dimension(400, 300));
         frame1.getContentPane().setLayout(new BorderLayout());
 
         JTextPane  text   = new JTextPane();
@@ -76,8 +68,7 @@ public class BetweennessCentralityMenuHandler implements ActionListener {
         StringBuffer sb = new StringBuffer();
         List<Ranking> rankingList  = ranker.getRankings();
 
-        final XYSeriesCollection dataset = new XYSeriesCollection();
-        final XYSeries s1 = new XYSeries(" Betweenness Centrality Rankings");
+//        final XYSeries s1 = new XYSeries(" Betweenness Centrality Rankings");
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         sb.append("<BetweennessCentralityRankings>");
         for(int i = 0; i<rankingList.size(); i++){
@@ -87,7 +78,7 @@ public class BetweennessCentralityMenuHandler implements ActionListener {
             sb.append("\t<node>"+rankingList.get(i).getRanked()+"</node>\n");
             sb.append("\t<rank>"+rankingList.get(i)+"</rank>\n");
             sb.append("</entry>");
-            s1.add(i, Double.parseDouble(rankingList.get(i).toString()));
+//            s1.add(i, Double.parseDouble(rankingList.get(i).toString()));
 
         }
         sb.append("</BetweennessCentralityRankings>");
@@ -103,42 +94,42 @@ public class BetweennessCentralityMenuHandler implements ActionListener {
             testReport.handleException(ex);
         }
 
-        dataset.addSeries(s1);
+  //      dataset.addSeries(s1);
 
-        final JFreeChart chart = ChartFactory.createXYLineChart(
-                null,
-                "Category",               // domain axis label
-                "Value",                  // range axis label
-                dataset,                  // data
-                PlotOrientation.VERTICAL,
-                false,                     // include legend
-                true,
-                false
-        );
+//        final JFreeChart chart = ChartFactory.createBarChart(
+//                null,
+//                "Category",               // domain axis label
+//                "Value",                  // range axis label
+//                (CategoryDataset) dataset,                  // data
+//                PlotOrientation.VERTICAL,
+//                false,                     // include legend
+//                true,
+//                false
+//        );
 //
-        final XYPlot plot = chart.getXYPlot();
-        final NumberAxis domainAxis = new NumberAxis("Node Ids");
-        final NumberAxis rangeAxis = new NumberAxis("Ranking Scores");
-        plot.setDomainAxis(domainAxis);
-        plot.setRangeAxis(rangeAxis);
-        chart.setBackgroundPaint(Color.white);
+//        final XYPlot plot = chart.getXYPlot();
+//        final NumberAxis domainAxis = new NumberAxis("Node Ids");
+//        final NumberAxis rangeAxis = new NumberAxis("Ranking Scores");
+//        plot.setDomainAxis(domainAxis);
+//        plot.setRangeAxis(rangeAxis);
+//        chart.setBackgroundPaint(Color.white);
+//
+//        plot.setOutlinePaint(Color.black);
+//        final ChartPanel chartPanel = new ChartPanel(chart);
+//        chartPanel.setPreferredSize(new java.awt.Dimension(400, 300));
+//        chartPanel.setMouseWheelEnabled(true);
 
-        plot.setOutlinePaint(Color.black);
-        final ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(400, 300));
-        chartPanel.setMouseWheelEnabled(true);
+//        Container container = frame1.getContentPane();
+//        container.setLayout(new BorderLayout());
 
-        Container container = frame1.getContentPane();
-        container.setLayout(new BorderLayout());
+        JScrollPane scrollPane = new JScrollPane(text);
+        frame1.getContentPane().add("Center",scrollPane);
 
-        JScrollPane scrollPane1 = new JScrollPane(text);
-        scrollPane1.setPreferredSize(new java.awt.Dimension(400, 300));
-
-        JScrollPane scrollPane2 = new JScrollPane(chartPanel);
+//        JScrollPane scrollPane2 = new JScrollPane(chartPanel);
        // scrollPane1.setPreferredSize(new java.awt.Dimension(400, 300));
 
-        container.add(scrollPane2,BorderLayout.NORTH);
-        container.add(scrollPane1,BorderLayout.SOUTH);
+//        container.add(scrollPane2,BorderLayout.NORTH);
+//        container.add(scrollPane1,BorderLayout.SOUTH);
 
 
         frame1.setVisible(true);

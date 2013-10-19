@@ -17,7 +17,7 @@ import java.awt.*;
 
      public XmlEditor() {
 
-         super("XML Text Editor Demo");
+         super(" Text Editor Demo");
          setSize(800, 600);
 
          JPanel panel = new JPanel();

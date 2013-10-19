@@ -26,10 +26,10 @@
         <parameter name="xpath">//DiscoveredDevice/parameters/parameter[name='ipv6Forwarding']/value</parameter>
         <parameter name="expectedValue">NO</parameter>
     </assert>
-    <assert type="xpath" name="Check Books">
+    <!--assert type="xpath" name="Check Books">
         <parameter name="xpath">//LIBRARY//BOOKS//BOOK[@isbn='DFGH09093232']//NAME</parameter>
         <parameter name="expectedValue">XPATH for Dummies</parameter>
-    </assert>
+    </assert-->
     <assert type="contains">
         <parameter name="IgnoreCase">true</parameter>
         <parameter name="UseRegExp">false</parameter>

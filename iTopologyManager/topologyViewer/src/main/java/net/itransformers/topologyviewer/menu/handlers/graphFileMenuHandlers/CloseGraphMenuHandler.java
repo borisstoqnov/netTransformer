@@ -44,6 +44,11 @@ public class CloseGraphMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        File path = frame.getPath();
+        if (path == null) {
+            JOptionPane.showMessageDialog(frame, "Can not close a graph before project has been opened.");
+            return;
+        }
         frame.doCloseGraph();
     }
 

@@ -21,10 +21,6 @@ package net.itransformers.topologyviewer.menu;
 
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.menu.handlers.*;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.BetweennessCentralityMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.KMarkovMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.PageRankerMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.RandomWalkBetweennessCentralityMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.CloseGraphMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.ConfigMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.DiffMenuHandler;
@@ -32,19 +28,22 @@ import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.Open
 import net.itransformers.topologyviewer.menu.handlers.graphTools.ChangeLayoutMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.GraphDistanceStatisticsMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.InitialNodeMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.BetweennessCentralityMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.KMarkovMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.RandomWalkBetweennessCentralityMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.SearchByIpMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.SearchByKeyMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.SearchByNameCurrGraphMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.SearchByNameEntireGraphMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.shortherstPathMenuHandlers.DijkstraShortestPathMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.shortherstPathMenuHandlers.DijkstraWeightedShortestPathMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.shortherstPathMenuHandlers.ShortestPathMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.networkActivation.TemplateEditorMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.CloseProjectMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.NewProjectMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.OpenProjectMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureBGPParametersMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureParametersMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureResourceMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.EditConfigFileMenuHandler;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -59,6 +58,7 @@ public class MenuBuilder {
         createFileMenu(frame, menuBar);
         createDiscoveryMenu(frame, menuBar);
         createGraphToolsMenu(frame, menuBar);
+        createNetworkActivationMenu(frame,menuBar);
         createWindowMenu(frame, menuBar);
         createHelpMenu(frame, menuBar);
         return menuBar;
@@ -137,9 +137,9 @@ public class MenuBuilder {
         final JMenuItem BetweennessCentrality = new JMenuItem("BetweennessCentrality");
         BetweennessCentrality.addActionListener(new BetweennessCentralityMenuHandler(frame));
         rank.add(BetweennessCentrality);
-        final JMenuItem PageRank = new JMenuItem("PageRank");
-        PageRank.addActionListener(new PageRankerMenuHandler(frame));
-        rank.add(PageRank);
+//        final JMenuItem PageRank = new JMenuItem("PageRank");
+//        PageRank.addActionListener(new PageRankerMenuHandler(frame));
+//        rank.add(PageRank);
 //        final JMenuItem PageRankWithPriors = new JMenuItem("PageRankWithPriors");
 //        PageRankWithPriors.addActionListener(new PageRankWithPriorsMenuHandler(frame,"PageRankWithPriors"));
 //        rank.add(PageRankWithPriors);
@@ -174,9 +174,9 @@ public class MenuBuilder {
         final JMenuItem DijkstraShortestPath = new JMenuItem("Dijkstra Shortest Path");
         DijkstraShortestPath.addActionListener(new DijkstraShortestPathMenuHandler(frame));
         shorestpath.add(DijkstraShortestPath);
-        final JMenuItem DijkstraWeightedShortestPath = new JMenuItem("Dijkstra Shortest Path");
-        DijkstraWeightedShortestPath.addActionListener(new DijkstraWeightedShortestPathMenuHandler(frame));
-        shorestpath.add(DijkstraWeightedShortestPath);
+//        final JMenuItem DijkstraWeightedShortestPath = new JMenuItem("Dijkstra Shortest Path");
+//        DijkstraWeightedShortestPath.addActionListener(new DijkstraWeightedShortestPathMenuHandler(frame));
+//        shorestpath.add(DijkstraWeightedShortestPath);
 
         final JMenu graphInfo = new JMenu("Graph Distance Statistics");
         menuBar.add(graphInfo);
@@ -190,6 +190,8 @@ public class MenuBuilder {
 
 
     }
+
+
 
     private void createFileMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu file = new JMenu("File");
@@ -262,7 +264,7 @@ public class MenuBuilder {
         startDiscovery.addActionListener(new StartDiscoveryMenuHandler(frame));
         snmpNetworkDiscovery.add(startDiscovery);
         final JMenuItem configureResource = new JMenuItem("Configure Resource");
-        configureResource.addActionListener(new ConfigureResourceMenuHandler(frame));
+        configureResource.addActionListener(new EditConfigFileMenuHandler(frame, "iDiscover/conf/xml/discoveryResource.xml"));
         snmpNetworkDiscovery.add(configureResource);
         final JMenuItem configureParameters = new JMenuItem("Configure Parameters");
         configureParameters.addActionListener(new ConfigureParametersMenuHandler(frame));
@@ -282,6 +284,29 @@ public class MenuBuilder {
 
 
     }
+
+    private void createNetworkActivationMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
+        final JMenu networkActvation = new JMenu("Network Activation");
+        menuBar.add(networkActvation);
+        networkActvation.setEnabled(false);
+        final JMenuItem ConfigureParamFactoryParameters = new JMenuItem("Configure Parameters");
+        ConfigureParamFactoryParameters.addActionListener(new EditConfigFileMenuHandler(frame, "iTopologyManager/parameterFactory/conf/xml/param-factory.xml"));
+        networkActvation.add(ConfigureParamFactoryParameters);
+        final JMenuItem configureResources = new JMenuItem("Configure Resources");
+        configureResources.addActionListener(new EditConfigFileMenuHandler(frame, "resourceManager/conf/xml/resource.xml"));
+        networkActvation.add(configureResources);
+
+        final JMenuItem configureFulfillmentFactory = new JMenuItem("Configure Bindings");
+        configureFulfillmentFactory.addActionListener(new EditConfigFileMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml"));
+        networkActvation.add(configureFulfillmentFactory);
+
+        final JMenuItem configureTemplates = new JMenuItem("Configure Templates");
+        configureTemplates.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/templ"));
+        networkActvation.add(configureTemplates);
+
+    }
+
+
 
     private ActionListener createMenuHandler(TopologyManagerFrame frame, String handlerClassName) {
         ActionListener handler = null;

@@ -121,11 +121,11 @@
             <artifactId>jfreechart</artifactId>
             <version>1.0.15</version>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.birt.runtime</groupId>
-            <artifactId>org.eclipse.birt.runtime</artifactId>
-            <version>4.2.2</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.eclipse.birt.runtime</groupId>-->
+            <!--<artifactId>org.eclipse.birt.runtime</artifactId>-->
+            <!--<version>4.2.2</version>-->
+        <!--</dependency>-->
 
     </dependencies>
 

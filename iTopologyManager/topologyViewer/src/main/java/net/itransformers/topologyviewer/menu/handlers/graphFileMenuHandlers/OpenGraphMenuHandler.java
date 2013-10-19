@@ -47,10 +47,10 @@ public class OpenGraphMenuHandler implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         File path = frame.getPath();
         if (path == null) {
-            JOptionPane.showMessageDialog(frame, "Can not open graph before project path to be set.");
+            JOptionPane.showMessageDialog(frame, "Can not open graph before project has been opened.");
             return;
         }
-        //TODO remove that hardcode through viewr configuration!
+        //TODO remove that hardcode through viewer configuration!
         File networkDir = new File(path, "network");
         if (!networkDir.exists()) networkDir = path;
         JFileChooser chooser = new JFileChooser(networkDir);
