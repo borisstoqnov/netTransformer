@@ -48,7 +48,7 @@
 
         <!--type name="j_ipv6Forwarding" class="com.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">huawei_ipv6Forwarding</param>
-            <param name="commands">fulfilment-factory/conf/txt/4to6trans/juniper/ipv6Forwarding.txt</param>
+            <param name="commands">fulfilment-factory/conf/txt/4to6trans/juniper/ipv6Forwarding.templ</param>
         </type-->
         <type name="j_ipv6Interface" class="com.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">huawei_ipv6Interface</param>
