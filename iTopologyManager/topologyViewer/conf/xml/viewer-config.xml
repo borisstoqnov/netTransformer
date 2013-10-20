@@ -691,9 +691,9 @@
     <rightClickItem name="ShortestPath" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPath"/>
     <rightClickItem name="TabViewerOpener" handlerClass="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener">
         <submenu name="Connect">
-            <!--rightClickItem name="jconsole" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CreateTerminalHandler">
-                <param name="resource">resource-manager/conf/xml/resource.xml</param>
-            </rightClickItem-->
+            <rightClickItem name="Console_SSHv2" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CreateTerminalHandler">
+                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+            </rightClickItem>
             <!--rightClickItem name="GoogleMapView" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
                 <param name="url">url</param>
             </rightClickItem-->
@@ -706,14 +706,15 @@
                 <param name="port">443</param>
             </rightClickItem>
 
-            <!--rightClickItem name="putty" handlerClass="net.itransformers.topologyviewerrightclick.impl.PuttyRightClickHandler">
-                <param name="ssh_no_saved_session">../lib/putty/putty.exe -ssh -l %s -pw %s %s</param>
-                <param name="ssh_saved_session">../lib/putty/putty.exe -ssh -l %s -pw %s -load %s %s </param>
-                <param name="telnet_no_saved_session">../lib/putty/putty.exe -telnet -l %s %s</param>
-                <param name="telnet_saved_session">../lib/putty/putty.exe -telnet -l %s -load %s %s</param>
-                <param name="resource">resource-manager/conf/xml/resource.xml</param>
+            <rightClickItem name="putty" handlerClass="net.itransformers.topologyviewer.rightclick.impl.PuttyRightClickHandler">
+                <param name="puttyRelativePath">../lib/putty/putty.exe</param>
+                <param name="ssh_no_saved_session">-ssh -l %s -pw %s %s</param>
+                <param name="ssh_saved_session">-ssh -l %s -pw %s -load %s %s </param>
+                <param name="telnet_no_saved_session">-telnet -l %s %s</param>
+                <param name="telnet_saved_session">-telnet -l %s -load %s %s</param>
+                <param name="resource">resourceManager/conf/xml/resource.xml</param>
                 <param name="saved_session"></param>
-            </rightClickItem-->
+            </rightClickItem>
         </submenu>
 
 

@@ -27,7 +27,6 @@ import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.Diff
 import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.OpenGraphMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.ChangeLayoutMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.GraphDistanceStatisticsMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.InitialNodeMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.BetweennessCentralityMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.KMarkovMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.RandomWalkBetweennessCentralityMenuHandler;
@@ -43,7 +42,7 @@ import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.NewPro
 import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.OpenProjectMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureBGPParametersMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureParametersMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.EditConfigFileMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.EditConfigMenuHandler;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -124,9 +123,9 @@ public class MenuBuilder {
         SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"ISOMLayout"));
         layouts.add(ISOMLayout);
 
-        final JMenuItem iNode = new JMenuItem("Initial Node");
-        iNode.addActionListener(new InitialNodeMenuHandler(frame));
-        graphTools.add(iNode);
+//        final JMenuItem iNode = new JMenuItem("Initial Node");
+//        iNode.addActionListener(new InitialNodeMenuHandler(frame));
+//        graphTools.add(iNode);
 
 
         final JMenu search = new JMenu("Node Search");
@@ -264,7 +263,7 @@ public class MenuBuilder {
         startDiscovery.addActionListener(new StartDiscoveryMenuHandler(frame));
         snmpNetworkDiscovery.add(startDiscovery);
         final JMenuItem configureResource = new JMenuItem("Configure Resource");
-        configureResource.addActionListener(new EditConfigFileMenuHandler(frame, "iDiscover/conf/xml/discoveryResource.xml"));
+        configureResource.addActionListener(new EditConfigMenuHandler(frame, "iDiscover/conf/xml/discoveryResource.xml"));
         snmpNetworkDiscovery.add(configureResource);
         final JMenuItem configureParameters = new JMenuItem("Configure Parameters");
         configureParameters.addActionListener(new ConfigureParametersMenuHandler(frame));
@@ -290,14 +289,14 @@ public class MenuBuilder {
         menuBar.add(networkActvation);
         networkActvation.setEnabled(false);
         final JMenuItem ConfigureParamFactoryParameters = new JMenuItem("Configure Parameters");
-        ConfigureParamFactoryParameters.addActionListener(new EditConfigFileMenuHandler(frame, "iTopologyManager/parameterFactory/conf/xml/param-factory.xml"));
+        ConfigureParamFactoryParameters.addActionListener(new EditConfigMenuHandler(frame, "iTopologyManager/parameterFactory/conf/xml/param-factory.xml"));
         networkActvation.add(ConfigureParamFactoryParameters);
         final JMenuItem configureResources = new JMenuItem("Configure Resources");
-        configureResources.addActionListener(new EditConfigFileMenuHandler(frame, "resourceManager/conf/xml/resource.xml"));
+        configureResources.addActionListener(new EditConfigMenuHandler(frame, "resourceManager/conf/xml/resource.xml"));
         networkActvation.add(configureResources);
 
         final JMenuItem configureFulfillmentFactory = new JMenuItem("Configure Bindings");
-        configureFulfillmentFactory.addActionListener(new EditConfigFileMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml"));
+        configureFulfillmentFactory.addActionListener(new EditConfigMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml"));
         networkActvation.add(configureFulfillmentFactory);
 
         final JMenuItem configureTemplates = new JMenuItem("Configure Templates");

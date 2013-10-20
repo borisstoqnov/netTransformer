@@ -52,6 +52,11 @@ public class JTelnetTty implements Tty {
 
 //        this.prompt = "R112>"; // todo config this
     }
+//    public JTelnetTty(String host, int port, int timeout) {
+//        this.host = host;
+//        this.port = port;
+//        this.timeout = timeout;
+//    }
 
     public void close() {
             in = null;

@@ -19,9 +19,9 @@
 
 package net.itransformers.topologyviewer.rightclick.impl;
 
-import net.itransformers.topologyviewer.rightclick.impl.telnet.JTelnetTty;
 import com.wittams.gritty.RequestOrigin;
 import com.wittams.gritty.ResizePanelDelegate;
+import com.wittams.gritty.jsch.JSchTty;
 import com.wittams.gritty.swing.BufferPanel;
 import com.wittams.gritty.swing.GrittyTerminal;
 import com.wittams.gritty.swing.TermPanel;
@@ -93,17 +93,21 @@ public class Terminal {
 
 	public void openSession(Map<String, String> connParams) {
 		if(!terminal.isSessionRunning()){
-//			terminal.setTty(new JSchTty(connParams.get("ManagementIPAddress"), connParams.get("username"), connParams.get("password")));
-            final int timeout = 3000; // todo config default
-            try {
-                Integer.parseInt(connParams.get("timeout"));
-            } catch (RuntimeException rte){
-                logger.info("can not parse timeout:"+connParams.get("timeout"));
-            }
-            terminal.setTty(new JTelnetTty(connParams.get("ManagementIPAddress"),
-                    connParams.get("username"),
-                    connParams.get("password"),
-                    timeout));
+			terminal.setTty(new JSchTty(connParams.get("ManagementIPAddress"), connParams.get("username"), connParams.get("password")));
+            terminal.setBackground(Color.BLACK);
+            terminal.setForeground(Color.GREEN);
+
+//            int timeout = 3000; // todo config default
+//            int port = 23;
+//            try {
+//                timeout = Integer.parseInt(connParams.get("timeout"));
+//                port =    Integer.parseInt(connParams.get("port"));
+//            } catch (RuntimeException rte){
+//                logger.info("can not parse timeout:"+connParams.get("timeout"));
+//            }
+//            terminal.setTty(new JTelnetTty(connParams.get("ManagementIPAddress"),
+//                    port,
+//                    timeout));
 			terminal.start();
 		}
 	}
@@ -111,7 +115,7 @@ public class Terminal {
 	public Terminal() {
 		terminal = new GrittyTerminal();
 		termPanel = terminal.getTermPanel();
-		final JFrame frame = new JFrame("Gritty");
+		final JFrame frame = new JFrame("iTransformer JConsole");
 
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
@@ -154,8 +158,8 @@ public class Terminal {
         Terminal term = new Terminal();
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("ManagementIPAddress","172.16.13.1");
-        params.put("username","lab");
-        params.put("password","lab123");
+        params.put("port","23");
+        params.put("timeout","1000");
         term.openSession(params);
 
 	}

@@ -1,4 +1,4 @@
-### vars: Hostname, username, password, enable-password
+### vars: username, password, enable-password, domain-name
 ### read_until('(login:|user:|Username:)',3)
 $username
 ### read_until('(Password:|password:)',3)
@@ -13,9 +13,14 @@ configure terminal
 ### stop read_until
 
 ### start read_until('.*#',3)
-hostname $Hostname
-no ip domain-lookup
+ip domain-name $domain-name
+crypto key generate rsa modulus 768
+ip ssh version 2
+ line vty 0 4
+ login local
+ transport input telnet ssh
 end
+wr
 ### stop read_until
 exit
 ### exit

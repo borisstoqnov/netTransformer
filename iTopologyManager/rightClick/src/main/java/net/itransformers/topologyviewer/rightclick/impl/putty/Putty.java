@@ -19,6 +19,7 @@
 
 package net.itransformers.topologyviewer.rightclick.impl.putty;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,17 +39,19 @@ public class Putty {
         Runtime r = Runtime.getRuntime();
         Process p = null;
         String s;
+        String pyttyPath = System.getProperty("user.dir")+ File.separator+params.get("puttyRelativePath");
+        System.out.println(pyttyPath);
         if ("ssh".equals(protocol)) {
-            if (session.isEmpty()){
-                s = String.format(params.get("ssh_no_saved_session"),userName,password,host);
+            if (session.isEmpty()|| session==null){
+                s = String.format(pyttyPath+" "+params.get("ssh_no_saved_session"),userName,password,host);
             }   else {
-                s = String.format(params.get("ssh_saved_session"),userName,password,session,host);
+                s = String.format(pyttyPath+" "+params.get("ssh_saved_session"),userName,password,session,host);
             }
         } else if ("telnet".equals(protocol)){
-            if (session.isEmpty()){
-                s = String.format(params.get("telnet_no_saved_session"),userName,host);
+            if (session.isEmpty()|| session==null){
+                s = String.format(pyttyPath+" "+params.get("telnet_no_saved_session"),userName,host);
             }   else{
-                 s = String.format(params.get("telnet_saved_session"),userName,session,host);
+                 s = String.format(pyttyPath+" "+params.get("telnet_saved_session"),userName,session,host);
             }
         } else {
             throw new IllegalArgumentException("Invalid protocol is specified: "+protocol);
@@ -65,9 +68,10 @@ public class Putty {
 
     public static void main(String[] args) {
         Map<String,String> rightClickParams = new HashMap<String, String>();
+        System.getProperty("user.dir");
         rightClickParams.put("ssh_no_saved_session","lib/putty/putty.exe -ssh -l %s -pw %s %s");
 //        rightClickParams.put("ssh_no_saved_session","lib/putty/putty.exe -ssh -l %s -pw %s %s");
         Putty putty = new Putty(rightClickParams);
-        putty.openSession("ssh","user","userpass","host.com",null);
+        putty.openSession("ssh","user","userpass","localhost",null);
     }
 }

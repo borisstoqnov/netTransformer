@@ -302,5 +302,17 @@
             <param name="enable-password"/>
         </param-factory-element>
     </param-factory>
-
+<param-factory name="SSH">
+       <param-factory-element type="manual">
+            <param name="domain-name"/>
+        </param-factory-element>
+        <param-factory-element type="graphml">
+            <param name="ManagementIPAddress"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
 </param-factories>

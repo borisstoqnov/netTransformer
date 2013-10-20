@@ -1,4 +1,4 @@
-### vars: Hostname, username, password, enable-password
+### vars: username, password, enable-password
 ### read_until('(login:|user:|Username:)',3)
 $username
 ### read_until('(Password:|password:)',3)
@@ -9,13 +9,7 @@ enable
 $enable-password
 
 ### start read_until('.*#',3)
-configure terminal
-### stop read_until
-
-### start read_until('.*#',3)
-hostname $Hostname
-no ip domain-lookup
-end
+wr
 ### stop read_until
 exit
 ### exit

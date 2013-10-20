@@ -38,6 +38,15 @@
             <param name="cmd">set Admin Data</param>
             <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/snmp-admin.templ</param>
         </type>
+        <type name="setSSH" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">set SSH</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/configure-ssh.templ</param>
+        </type>
+            
+         <type name="Save Config" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">Save Configuration</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/save-configuration.templ</param>
+        </type>
         <!--type name="setDeviceLocation" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.XslFulfilmentImpl">
             <param name="xslFileName">iTopologyManager/fulfilmentFactory/conf/xslt/setDeviceLocation.xslt</param>
         </type-->
@@ -49,5 +58,7 @@
     <fulfilment-factory name="enable IPv6 Routing" resourceName="cisco" type="enableIPv6Routing" parameterFactoryName="enableIPv6Routing"/>
     <fulfilment-factory name="disable IPv6 Routing" resourceName="cisco" type="disableIPv6Routing" parameterFactoryName="enableIPv6Routing"/>
     <fulfilment-factory name="set Device Admin data" resourceName="cisco" type="setDeviceAdminData" parameterFactoryName="setDeviceAdminData"/>
+    <fulfilment-factory name="set SSH" resourceName="cisco" type="setSSH" parameterFactoryName="SSH"/>
+    <fulfilment-factory name="Save Config" resourceName="cisco" type="Save Config" parameterFactoryName="basic"/>
 
 </fulfilment-factories>

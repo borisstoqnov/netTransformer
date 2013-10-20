@@ -30,7 +30,6 @@
 
     <artifactId>iAssertions</artifactId>
     <version>0.1-SNAPSHOT</version><!--Change for new version-->
-
     <dependencies>
         <dependency>
             <groupId>iTransformers.iTransformer</groupId>
@@ -81,6 +80,14 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>2.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
             </plugin>
         </plugins>
     </build>
