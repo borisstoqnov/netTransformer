@@ -28,7 +28,7 @@
         </type>
         <type name="c_ipv6Interface" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">ipv6Interface</param>
-            <param name="commands">fiTopologyManager/fulfilmentFactory/conf/templ/cisco/ipv6Interface.templ</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/cisco/ipv6Interface.templ</param>
         </type>
         <type name="c_IPv6Verify" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">IPv6Verify</param>

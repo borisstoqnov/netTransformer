@@ -1,5 +1,5 @@
 /*
- * iTransformer is an open source tool able to discover and transform
+ * netTransformer is an open source tool able to discover and transform
  *  IP network infrastructures.
  *  Copyright (C) 2012  http://itransformers.net
  *
@@ -44,10 +44,7 @@ public class StartDiscoveryMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (frame.getProjectType()!="iTransformer"){
-            JOptionPane.showMessageDialog(frame,"Please open or create new iTransformer project prior starting the discovery process!");
-            return;
-        }
+
         DiscoveryManagerDialog dialog = new DiscoveryManagerDialog(frame);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);

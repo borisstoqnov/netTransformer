@@ -1,5 +1,5 @@
 /*
- * iTransformer is an open source tool able to discover and transform
+ * netTransformer is an open source tool able to discover and transform
  *  IP network infrastructures.
  *  Copyright (C) 2012  http://itransformers.net
  *
@@ -53,7 +53,7 @@ public class TopologyManagerFrame extends JFrame{
     Map<String, GraphViewerPanelManager> viewerPanelManagerMap = new HashMap<String, GraphViewerPanelManager>();
 
     public TopologyManagerFrame(final File path) throws Exception {
-        super("iTransformer");
+        super("netTransformer");
 
         //super.setIconImage(Toolkit.getDefaultToolkit().getImage("images/logo3.png"));
         File prefsFile = new File(VIEWER_PREFERENCES_PROPERTIES);

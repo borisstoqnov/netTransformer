@@ -1,5 +1,5 @@
 /*
- * iTransformer is an open source tool able to discover IP networks
+ * netTransformer is an open source tool able to discover IP networks
  * and to perform dynamic data data population into a xml based inventory system.
  * Copyright (C) 2010  http://itransformers.net
  *
@@ -26,7 +26,6 @@ import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.Conf
 import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.DiffMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.OpenGraphMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.ChangeLayoutMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.GraphDistanceStatisticsMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.BetweennessCentralityMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.KMarkovMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.RandomWalkBetweennessCentralityMenuHandler;
@@ -87,7 +86,7 @@ public class MenuBuilder {
         final JMenuItem close = new JMenuItem("Close Tab");
         close.addActionListener(new CloseTabMenuHandler(frame));
         tabs.add(close);
-        final JMenuItem closeOthers = new JMenuItem("Close Others Tab");
+        final JMenuItem closeOthers = new JMenuItem("Close Other Tabs");
         closeOthers.addActionListener(new CloseOthersMenuHandler(frame));
         tabs.add(closeOthers);
         final JMenuItem closeAll = new JMenuItem("Close All Tabs");
@@ -106,10 +105,6 @@ public class MenuBuilder {
         final JMenuItem FRLayout = new JMenuItem("FR Layout");
         FRLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"FRLayout"));
         layouts.add(FRLayout);
-        final JMenuItem FRLayout2 = new JMenuItem("FR Layout2");
-        FRLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"FRLayout2"));
-        layouts.add(FRLayout2);
-
         final JMenuItem KKLayout = new JMenuItem("KK Layout");
         KKLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"KKLayout"));
         layouts.add(KKLayout);
@@ -177,13 +172,13 @@ public class MenuBuilder {
 //        DijkstraWeightedShortestPath.addActionListener(new DijkstraWeightedShortestPathMenuHandler(frame));
 //        shorestpath.add(DijkstraWeightedShortestPath);
 
-        final JMenu graphInfo = new JMenu("Graph Distance Statistics");
-        menuBar.add(graphInfo);
-        graphTools.add(graphInfo);
+//        final JMenu graphInfo = new JMenu("Graph Distance Statistics");
+//        menuBar.add(graphInfo);
+//        graphTools.add(graphInfo);
 
-        final JMenuItem test = new JMenuItem("Diameter");
-        test.addActionListener(new GraphDistanceStatisticsMenuHandler(frame));
-        graphInfo.add(test);
+//        final JMenuItem test = new JMenuItem("Diameter");
+//        test.addActionListener(new GraphDistanceStatisticsMenuHandler(frame));
+//        graphInfo.add(test);
       //  graphTools.add(graphInfo);
 
 

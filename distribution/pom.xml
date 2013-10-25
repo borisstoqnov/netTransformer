@@ -40,12 +40,12 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <finalName>iTransformer</finalName>
+                            <finalName>netTransformer</finalName>
                             <filters>
-                                    <filter>distribution/itransformer.properties</filter>
+                                    <filter>distribution/netTransformer.properties</filter>
                             </filters>
                             <descriptors>
-                                <descriptor>distribution/itransformer.xml</descriptor>
+                                <descriptor>distribution/netTransformer.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </execution>
@@ -108,7 +108,7 @@
                         <transformationSet>
                             <dir>${basedir}</dir>
                             <includes>
-                                <include>itransformer.xml</include>
+                                <include>netTransformer.xml</include>
                                 <include>bgpPeeringMap.xml</include>
                             </includes>
                             <stylesheet>assembly.xslt</stylesheet>

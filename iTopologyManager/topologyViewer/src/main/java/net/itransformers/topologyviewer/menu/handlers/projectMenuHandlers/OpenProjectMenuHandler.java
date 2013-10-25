@@ -1,5 +1,5 @@
 /*
- * iTransformer is an open source tool able to discover and transform
+ * netTransformer is an open source tool able to discover and transform
  *  IP network infrastructures.
  *  Copyright (C) 2012  http://itransformers.net
  *
@@ -64,14 +64,14 @@ public class OpenProjectMenuHandler implements ActionListener {
         if (result == JFileChooser.APPROVE_OPTION) {
             if(chooser.getSelectedFile().getName().equals("bgpPeeringMap.pfl")){
                 frame.setProjectType("bgpPeeringMap");
-                frame.setName("iTransformer - bgpPeeringMap");
+                frame.setName("bgpPeeringMap");
                 frame.setViewerConfig(new File(chooser.getSelectedFile().getParentFile()+ File.separator+"iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
 
 
-            } else if(chooser.getSelectedFile().getName().equals("itransformer.pfl"))    {
-                frame.setProjectType("iTransformer");
+            } else if(chooser.getSelectedFile().getName().equals("netTransformer.pfl"))    {
+                frame.setProjectType("netTransformer");
                 frame.setViewerConfig(new File(chooser.getSelectedFile().getParentFile()+File.separator+ "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
                 //
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);

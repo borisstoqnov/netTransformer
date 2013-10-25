@@ -1,4 +1,4 @@
-iTransformer is a Network Transformation Manager.
+netTransformer is a Network Transformation Manager.
 
 Version 0.5 provides a number of enhancements and critical bug fixes.
 
@@ -16,10 +16,10 @@ Raised issues that have been fixed:
 - Olive v10.1 IPV6 discovery problem http://sourceforge.net/p/itransformer/tickets/8/
 This issue was critical for discovering networks containing newer versions of Juniper network routers. Hopefully now the issue is fixed.
 
-- iTransformer has no capability for integration between xslt and log4j log levels http://sourceforge.net/p/itransformer/tickets/9/
+- netTransformer has no capability for integration between xslt and log4j log levels http://sourceforge.net/p/itransformer/tickets/9/
 Capability has been added and in xslt transformations have been placed a number of xsl:message tags with TRACE log levels.If you want to trace xslt transformations you have to add TRACE log level to your log4j.properties file otherwise TRACE is disabled by default
 
-- Is it possible to have additional layouts in iTransformer  http://sourceforge.net/p/itransformer/tickets/10/
+- Is it possible to have additional layouts in netTransformer  http://sourceforge.net/p/itransformer/tickets/10/
 A new menu has been added called "Layout". Currently the GUI supports FR, KR, Circle, ISOM and Spring layout algorithms
 
 - bug in ipCidrRoutingTable discovery method http://sourceforge.net/p/itransformer/tickets/11/
@@ -30,4 +30,4 @@ A new menu has been added called "Layout". Currently the GUI supports FR, KR, Ci
 
 Find out more on http://www.youtube.com/channel/UCVrXTSM9Hj6d3OFbIdF4Z2w
 
-Enjoy http://iTransformers.net
+Enjoy http://netTransformers.net

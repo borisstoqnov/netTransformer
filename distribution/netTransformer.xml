@@ -58,6 +58,10 @@
                         <directory>conf</directory>
                         <outputDirectory>iTopologyManager/rightClick/conf</outputDirectory>
                     </fileSet>
+		    <fileSet>
+                        <directory>../../lib/putty</directory>
+                        <outputDirectory>../lib/putty</outputDirectory>
+                    </fileSet>
                 </fileSets>
             </sources>
         </moduleSet>
@@ -284,7 +288,7 @@
             <outputDirectory>bin</outputDirectory>
         </file>
         <file>
-            <source>../itransformer.pfl</source>
+            <source>../netTransformer.pfl</source>
             <outputDirectory>bin</outputDirectory>
         </file>
         <file>

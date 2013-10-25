@@ -1,5 +1,5 @@
 /*
- * iTransformer is an open source tool able to discover and transform
+ * netTransformer is an open source tool able to discover and transform
  *  IP network infrastructures.
  *  Copyright (C) 2012  http://itransformers.net
  *
@@ -63,8 +63,8 @@ public class NewProjectMenuHandler implements ActionListener {
             frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
 
         } else {
-            file = new File("itransformer.pfl");
-            frame.setProjectType("iTransformer");
+            file = new File("netTransformer.pfl");
+            frame.setProjectType("snmpDiscoverer");
             frame.setViewerConfig(new File(dialog.getProjectDir() +File.separator +"iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
             frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
             frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);

@@ -1,5 +1,5 @@
 /*
- * iTransformer is an open source tool able to discover and transform
+ * netTransformer is an open source tool able to discover and transform
  *  IP network infrastructures.
  *  Copyright (C) 2012  http://itransformers.net
  *
@@ -35,7 +35,7 @@ public class NewProjectDialog extends JDialog {
     private JTextField baseFilePathTextField;
     private boolean isOkPressed;
     private File projectDir;
-    private String projectType = "iTransformer";
+    private String projectType = "netTransformer";
 
     /**
      * Launch the application.
@@ -91,7 +91,7 @@ public class NewProjectDialog extends JDialog {
             contentPanel.add(label);
         }
         {
-            String[] projectTypes = {"iTransformer", "bgpPeeringMap", "iTransformerv2", "sdnTransformer"};
+            String[] projectTypes = {"snmpDiscoverer", "bgpPeeringMap"};
             final JComboBox comboBox = new JComboBox(projectTypes);
             comboBox.setBounds(108, 47, 277, 22);
             comboBox.setSelectedItem(projectTypes[0]);

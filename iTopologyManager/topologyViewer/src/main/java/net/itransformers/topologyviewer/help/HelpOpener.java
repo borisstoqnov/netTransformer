@@ -1,5 +1,5 @@
 /*
- * iTransformer is an open source tool able to discover and transform
+ * netTransformer is an open source tool able to discover and transform
  *  IP network infrastructures.
  *  Copyright (C) 2012  http://itransformers.net
  *
@@ -18,7 +18,7 @@
  */
 
 package net.itransformers.topologyviewer.help;/*
- * iTransformer is an open source tool able to discover IP networks
+ * netTransformer is an open source tool able to discover IP networks
  * and to perform dynamic data data population into a xml based inventory system.
  * Copyright (C) 2010  http://itransformers.net
  *

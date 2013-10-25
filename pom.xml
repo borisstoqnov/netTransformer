@@ -43,7 +43,9 @@
         <module>distribution</module>
         <module>iAssertions</module>
         <!--module>wsitransformer</module-->
-        <module>ideas</module>
+        <!--module>ideas</module-->
+        <!--<module>distribution</module>-->
+
     </modules>
             <build>
                 <pluginManagement>
@@ -54,7 +56,7 @@
                             <version>2.3</version>
                             <configuration>
                                 <descriptors>
-                                    <descriptor>distribution/itransformer.xml</descriptor>
+                                    <descriptor>distribution/netTransformer.xml</descriptor>
                                     <descriptor>distribution/bgpPeeringMap.xml</descriptor>
                                 </descriptors>
                             </configuration>

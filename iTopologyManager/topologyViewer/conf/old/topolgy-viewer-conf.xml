@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ iTransformer is an open source tool able to discover IP networks
+  ~ netTransformer is an open source tool able to discover IP networks
   ~ and to perform dynamic data data population into a xml based inventory system.
   ~ Copyright (C) 2010  http://itransformers.net
   ~
