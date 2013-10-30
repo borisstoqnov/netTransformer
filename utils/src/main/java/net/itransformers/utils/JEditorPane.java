@@ -27,11 +27,11 @@ public class JEditorPane implements ActionListener {
         (new JEditorPane("/Users/niau/trunk/iDiscover/conf/xml/discoveryResource.xml","/Users/niau/trunk/iDiscover/conf/xml" ,"xml")).init();
     }
     public void init() throws IOException, BadLocationException {
-        myFrame = new JFrame("JEditorPane Save Test");
+        myFrame = new JFrame("netTransformer configuration editor");
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setSize(640,480);
 
-        myPane = new XmlEditorPane();
+        myPane = new XmlEditorPane(fileName);
         JScrollPane editorScrollPane = new JScrollPane(myPane);
         editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         editorScrollPane.setPreferredSize(new Dimension(250, 145));
@@ -62,6 +62,10 @@ public class JEditorPane implements ActionListener {
         myItem.addActionListener(this);
         myMenu.add(myItem);
 
+        myItem = new JMenuItem("Close");
+        myItem.addActionListener(this);
+        myMenu.add(myItem);
+
         myItem = new JMenuItem("Save");
         myItem.addActionListener(this);
         myMenu.add(myItem);
@@ -87,7 +91,13 @@ public class JEditorPane implements ActionListener {
                 myPane.setText("");
 
             }
+            if (cmd.equals("Close")) {
+                fileName = null;
+                myPane.setText("");
+
+            }
             else if (cmd.equals("Open")) {
+
                 JFileChooser chooser = new JFileChooser(dir);
                 chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -106,6 +116,8 @@ public class JEditorPane implements ActionListener {
                 chooser.setMultiSelectionEnabled(false);
                 int result = chooser.showOpenDialog(myFrame);
                 if (result == JFileChooser.APPROVE_OPTION) {
+                    myPane.setText("");
+                    fileName= chooser.getSelectedFile().getAbsolutePath();
                     FileReader in = new FileReader(fileName);
                     myPane.getEditorKit().read(in,myPane.getDocument(),0);
 

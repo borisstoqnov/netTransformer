@@ -36,10 +36,12 @@ public class TemplateEditorMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
     String pathToResource;
-    public TemplateEditorMenuHandler(TopologyManagerFrame frame, String path) throws HeadlessException {
+    String extension;
+    public TemplateEditorMenuHandler(TopologyManagerFrame frame, String path, String extension) throws HeadlessException {
 
         this.frame = frame;
         this.pathToResource = path;
+        this.extension = extension;
     }
 
     @Override
@@ -49,12 +51,12 @@ public class TemplateEditorMenuHandler implements ActionListener {
         chooser.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
-                return  (f.isFile() && f.getName().endsWith(".templ") || f.isDirectory());
+                return  (f.isFile() && f.getName().endsWith(extension) || f.isDirectory());
             }
 
             @Override
             public String getDescription() {
-                return "(Template Files) *.templ";
+                return "(netTransformer Files) *"+extension;
             }
         });
 
@@ -63,7 +65,7 @@ public class TemplateEditorMenuHandler implements ActionListener {
         if (result == JFileChooser.APPROVE_OPTION) {
             chooser.getSelectedFile().getAbsolutePath();
 
-        JEditorPane templateEditor = new net.itransformers.utils.JEditorPane(chooser.getSelectedFile().getAbsolutePath(),chooser.getSelectedFile().getParent(),".templ");
+        JEditorPane templateEditor = new net.itransformers.utils.JEditorPane(chooser.getSelectedFile().getAbsolutePath(),chooser.getSelectedFile().getParent(),extension);
         try {
             templateEditor.init();
         } catch (IOException e1) {

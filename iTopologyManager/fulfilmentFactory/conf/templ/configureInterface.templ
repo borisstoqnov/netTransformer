@@ -1,0 +1,15 @@
+### vars: hostname, username, password, firstFreeInterface, ipAddress, subnetMask
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### start read_until('.*#',3)
+set cli  screen-length 0
+configure terminal
+intrface $firstFreeInterface
+ip address $ipAddress $subnetMask
+no shutdown
+### stop read_until
+exit
+### stop read_until
+### exit

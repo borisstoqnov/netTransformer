@@ -15,13 +15,14 @@ public class XmlEditorPane extends JEditorPane {
     private static final long serialVersionUID = 6270183148379328084L;
     private Logger logger = Logger.getLogger(getClass().getName());
 
-    public XmlEditorPane() {
-        
+    public XmlEditorPane(String fileName) {
+         this.setName(fileName);
         // Set editor kit
         this.setEditorKitForContentType("text/xml", new XmlEditorKit());
         this.setContentType("text/xml");
         
         addKeyListener(new IndentKeyListener());
+
     }
     
 	private class IndentKeyListener implements KeyListener {

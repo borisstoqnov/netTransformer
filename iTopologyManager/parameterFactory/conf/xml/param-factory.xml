@@ -168,6 +168,25 @@
             <param name="enable-password"/>
         </param-factory-element>
     </param-factory>
+
+    <param-factory name="addStaticToVrf">
+        <param-factory-element type="graphml">
+            <param name="ManagementIPAddress"/>
+            <param name="hostname"/>
+        </param-factory-element>
+        <param-factory-element type="manual">
+            <param name="vrf"/>
+            <param name="destination"/>
+            <param name="subnet-mask"/>
+            <param name="next-hop"/>
+
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
      <param-factory name="ipv6Forwarding">
         <param-factory-element type="graphml">
             <param name="ManagementIPAddress"/>

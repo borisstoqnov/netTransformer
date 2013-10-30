@@ -25,6 +25,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 /**
  * Created by IntelliJ IDEA.
@@ -40,8 +41,15 @@ public class AboutMenuHandler implements ActionListener{
         this.frame = frame;
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(frame,"http://itransformers.net","About", JOptionPane.INFORMATION_MESSAGE);
+        final String url = "http://itransformers.net/netTransformer";
+        try {
+            Desktop.getDesktop().browse(new URL(url).toURI());
+        } catch (Exception e1) {
+            e1.printStackTrace();
+            JOptionPane.showMessageDialog(frame, "Can not open url:" + url, "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

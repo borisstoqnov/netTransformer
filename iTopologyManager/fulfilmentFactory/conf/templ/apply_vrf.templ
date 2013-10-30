@@ -1,0 +1,16 @@
+### vars: hostname, username, password, vrfName, interfaceName
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### start read_until('.*#',3)
+configure terminal
+### stop read_until
+
+### start read_until('.*#',3)
+interface $interfaceName
+ip vrf forwarding $vrfName
+end
+### stop read_until
+exit
+### exit

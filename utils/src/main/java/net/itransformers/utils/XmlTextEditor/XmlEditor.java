@@ -23,7 +23,7 @@ import java.awt.*;
          JPanel panel = new JPanel();
          panel.setLayout(new GridLayout());
 
-         XmlEditorPane xmlEditorPane = new XmlEditorPane();
+         XmlEditorPane xmlEditorPane = new XmlEditorPane("File");
          panel.add(xmlEditorPane);
 
          add(panel);

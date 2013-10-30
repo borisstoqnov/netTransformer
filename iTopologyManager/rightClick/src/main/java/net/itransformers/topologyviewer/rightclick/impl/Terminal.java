@@ -1,5 +1,5 @@
 /*
- * iTransformer is an open source tool able to discover IP networks
+ * netTransformer is an open source tool able to discover IP networks
  * and to perform dynamic data data population into a xml based inventory system.
  * Copyright (C) 2010  http://itransformers.net
  *
@@ -115,7 +115,7 @@ public class Terminal {
 	public Terminal() {
 		terminal = new GrittyTerminal();
 		termPanel = terminal.getTermPanel();
-		final JFrame frame = new JFrame("iTransformer JConsole");
+		final JFrame frame = new JFrame("netTransformer JConsole");
 
 		frame.addWindowListener(new WindowAdapter() {
 			@Override

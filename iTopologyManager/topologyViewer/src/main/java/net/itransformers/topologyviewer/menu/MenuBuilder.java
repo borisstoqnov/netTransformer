@@ -67,13 +67,13 @@ public class MenuBuilder {
     private void createHelpMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu help = new JMenu("Help");
         menuBar.add(help);
+        final JMenuItem about = new JMenuItem("About");
+        about.addActionListener(new AboutMenuHandler(frame));
+        help.add(about);
 
         final JMenuItem userGuide = new JMenuItem("Users Guide");
         userGuide.addActionListener(new UsersGuideMenuHandler(frame));
         help.add(userGuide);
-        final JMenuItem about = new JMenuItem("About");
-        about.addActionListener(new AboutMenuHandler(frame));
-        help.add(about);
     }
 
     private void createWindowMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
@@ -284,18 +284,18 @@ public class MenuBuilder {
         menuBar.add(networkActvation);
         networkActvation.setEnabled(false);
         final JMenuItem ConfigureParamFactoryParameters = new JMenuItem("Configure Parameters");
-        ConfigureParamFactoryParameters.addActionListener(new EditConfigMenuHandler(frame, "iTopologyManager/parameterFactory/conf/xml/param-factory.xml"));
+        ConfigureParamFactoryParameters.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/parameterFactory/conf/xml",".xml"));
         networkActvation.add(ConfigureParamFactoryParameters);
         final JMenuItem configureResources = new JMenuItem("Configure Resources");
         configureResources.addActionListener(new EditConfigMenuHandler(frame, "resourceManager/conf/xml/resource.xml"));
         networkActvation.add(configureResources);
 
         final JMenuItem configureFulfillmentFactory = new JMenuItem("Configure Bindings");
-        configureFulfillmentFactory.addActionListener(new EditConfigMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml"));
+        configureFulfillmentFactory.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/xml/",".xml"));
         networkActvation.add(configureFulfillmentFactory);
 
         final JMenuItem configureTemplates = new JMenuItem("Configure Templates");
-        configureTemplates.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/templ"));
+        configureTemplates.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/templ",".templ"));
         networkActvation.add(configureTemplates);
 
     }

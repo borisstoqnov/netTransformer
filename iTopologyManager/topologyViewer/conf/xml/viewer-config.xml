@@ -737,7 +737,7 @@
     <rightClickItem name="ShortestPath" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPath"/>
     <rightClickItem name="TabViewerOpener" handlerClass="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener">
         <submenu name="Connect">
-            <rightClickItem name="Console_SSHv2" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CreateTerminalHandler">
+            <rightClickItem name="JConsole" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CreateTerminalHandler">
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
             </rightClickItem>
             <!--rightClickItem name="GoogleMapView" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
@@ -797,41 +797,43 @@
                 <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt</param>
             </rightClickItem>
         </submenu>
-        <submenu name="IPv4toIPv6 Actication">
-            <rightClickItem name="IPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
+        <submenu name="Network Activation">
+            <rightClickItem name="Generic Node Activation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
-                <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6.xml</param>
+                <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
             </rightClickItem>
-            <rightClickItem name="IPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
+
+            <rightClickItem name="pathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
-                <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6.xml</param>
+                <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
             </rightClickItem>
-            <rightClickItem name="undoIPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
-                <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
-                <param name="resource">resourceManager/conf/xml/resource.xml</param>
-                <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6_undo.xml</param>
-            </rightClickItem>
-            <rightClickItem name="undoIPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
-                <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
-                <param name="resource">resourceManager/conf/xml/resource.xml</param>
-                <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6_undo.xml</param>
-            </rightClickItem>
+
+
+            <!--<rightClickItem name="IPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">-->
+                <!--<param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>-->
+                <!--<param name="resource">resourceManager/conf/xml/resource.xml</param>-->
+                <!--<param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6.xml</param>-->
+            <!--</rightClickItem>-->
+            <!--<rightClickItem name="IPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">-->
+                <!--<param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>-->
+                <!--<param name="resource">resourceManager/conf/xml/resource.xml</param>-->
+                <!--<param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6.xml</param>-->
+            <!--</rightClickItem>-->
+            <!--<rightClickItem name="undoIPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">-->
+                <!--<param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>-->
+                <!--<param name="resource">resourceManager/conf/xml/resource.xml</param>-->
+                <!--<param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6_undo.xml</param>-->
+            <!--</rightClickItem>-->
+            <!--<rightClickItem name="undoIPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">-->
+                <!--<param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>-->
+                <!--<param name="resource">resourceManager/conf/xml/resource.xml</param>-->
+                <!--<param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6_undo.xml</param>-->
+            <!--</rightClickItem>-->
 
         </submenu>
 
-    </rightClickItem>
-    <rightClickItem name="nodeActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
-        <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
-        <param name="resource">resourceManager/conf/xml/resource.xml</param>
-        <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
-    </rightClickItem>
-
-    <rightClickItem name="pathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
-        <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
-        <param name="resource">resourceManager/conf/xml/resource.xml</param>
-        <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
     </rightClickItem>
 
     <!--submenu name="discover">

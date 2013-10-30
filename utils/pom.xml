@@ -25,6 +25,10 @@
             <artifactId>jfreechart</artifactId>
             <version>1.0.13</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>xerces</groupId>-->
+            <!--<artifactId>xerces</artifactId>-->
+        <!--</dependency>-->
     </dependencies>
     <build>
         <plugins>

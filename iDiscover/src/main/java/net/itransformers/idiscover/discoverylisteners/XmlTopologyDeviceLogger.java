@@ -24,6 +24,7 @@ import net.itransformers.idiscover.core.RawDeviceData;
 import net.itransformers.idiscover.core.Resource;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.util.JaxbMarshalar;
+import net.itransformers.utils.XmlFormatter;
 import net.itransformers.utils.XsltTransformer;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -76,7 +77,8 @@ public class XmlTopologyDeviceLogger implements DiscoveryListener{
             final String fileName = "node-" + deviceName + ".graphml";
 //            String fullFileName = path + File.separator + fileName;
             final File nodeFile = new File(path,fileName);
-            FileUtils.writeStringToFile(nodeFile, new String(graphMLOutputStream.toByteArray()));
+           String graphml = new XmlFormatter().format(new String(graphMLOutputStream.toByteArray()));
+            FileUtils.writeStringToFile(nodeFile,graphml);
             FileWriter writer = new FileWriter(new File(labelPath,graphtType+".graphmls"),true);
             writer.append(String.valueOf(fileName)).append("\n");
             writer.close();
