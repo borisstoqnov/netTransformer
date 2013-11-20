@@ -52,6 +52,13 @@
     </resource>
     <resource name="cisco">
         <param name="deviceType">CISCO</param>
+        <connection-params connection-type="ssh">
+            <param name="username">lab</param>
+            <param name="password">lab123</param>
+            <param name="enable-password">lab123</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+        </connection-params>
         <connection-params connection-type="telnet">
             <param name="username">lab</param>
             <param name="password">lab123</param>
@@ -65,6 +72,13 @@
     </resource>
     <resource name="juniper">
         <param name="deviceType">JUNIPER</param>
+        <connection-params connection-type="telnet">
+            <param name="username">lab</param>
+            <param name="password">lab123</param>
+            <param name="enable-password">lab123</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+        </connection-params>
         <connection-params connection-type="ssh">
             <param name="username">lab</param>
             <param name="password">lab</param>

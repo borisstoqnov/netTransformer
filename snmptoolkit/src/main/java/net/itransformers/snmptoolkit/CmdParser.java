@@ -57,6 +57,7 @@ public class CmdParser {
     }
 
     public static void printGetUsage() {
-        System.out.println("Usage java -classpath=\"%CLASSPATH%\" Get -");
+        System.out.println("Usage bgpPeeringUpdateGrapher.sh -a <IP ADDRESS/PORT> -d <DELTA INTERVAL -c <SNMP-COMMUNITY> -r <RETRY -v <SNMP VERSION - V1 (0), V2C(1), V3(2) -t <SNMP TIMEOUT> -o <SNMP OID> 1.3.6.1.2.1.15.3.1.10.<NEIGHBOUR_IP_ADDRESS" +
+                "-d 3600000 -a 10.10.10.10.10/161 -c test-r -r 2 -v 0 -t 1000 -o 1.3.6.1.2.1.15.3.1.10.10.10.10.11");
     }
 }

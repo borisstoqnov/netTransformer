@@ -19,7 +19,6 @@
 
 package net.itransformers.topologyviewer.menu.handlers.graphTools;
 
-import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
@@ -43,6 +42,7 @@ public class ChangeLayoutMenuHandler implements ActionListener {
         final GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
         viewerPanel.setLayout(layout);
+
         viewerPanel.changeLayout();
     }
 }

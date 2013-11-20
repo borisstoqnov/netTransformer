@@ -189,29 +189,27 @@
             </sources>
         </moduleSet>
 
-        <!--<moduleSet>-->
-            <!--&lt;!&ndash; Enable access to all projects in the current multimodule build! &ndash;&gt;-->
-            <!--<useAllReactorProjects>true</useAllReactorProjects>-->
+        <moduleSet>
+            <!-- Enable access to all projects in the current multimodule build! -->
+            <useAllReactorProjects>true</useAllReactorProjects>
 
-            <!--&lt;!&ndash; Now, select which projects to include in this module-set. &ndash;&gt;-->
-            <!--<includes>-->
-                <!--<include>iTransformers.iTransformer:iMap</include>-->
-            <!--</includes>-->
-            <!--<sources>-->
-                <!--<includeModuleDirectory>false</includeModuleDirectory>-->
-                <!--<fileSets>-->
-                    <!--<fileSet>-->
-                        <!--<directory>conf</directory>-->
-                        <!--<outputDirectory>bin/iMap/conf</outputDirectory>-->
-                    <!--</fileSet>-->
-                    <!--<fileSet>-->
-                        <!--<directory>conf/bat</directory>-->
-                        <!--<outputDirectory>bin</outputDirectory>-->
-                        <!--<filtered>true</filtered>-->
-                    <!--</fileSet>-->
-                <!--</fileSets>-->
-            <!--</sources>-->
-        <!--</moduleSet>-->
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
+                <include>iTransformers.iTransformer:utils</include>
+            </includes>
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+
+                    <fileSet>
+                        <directory>conf/bat</directory>
+                        <outputDirectory>bin</outputDirectory>
+                        <fileMode>0755</fileMode>
+                        <filtered>true</filtered>
+                    </fileSet>
+                </fileSets>
+            </sources>
+        </moduleSet>
 
         <moduleSet>
             <!-- Enable access to all projects in the current multimodule build! -->

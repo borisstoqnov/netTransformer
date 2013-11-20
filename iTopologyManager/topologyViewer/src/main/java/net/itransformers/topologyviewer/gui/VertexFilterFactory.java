@@ -26,6 +26,7 @@ import edu.uci.ics.jung.algorithms.filters.VertexPredicateFilter;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.io.GraphMLMetadata;
 import org.apache.commons.collections15.Predicate;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,8 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class VertexFilterFactory {
+    static Logger logger = Logger.getLogger(VertexFilterFactory.class);
+
     static VertexPredicateFilter<String, String> createVertexFilter(final FilterType filter, final Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas, final Graph<String, String> graph1) {
         return new VertexPredicateFilter<String, String>(new Predicate<String>() {
                 public boolean evaluate(String v) {
@@ -56,10 +59,18 @@ public class VertexFilterFactory {
                                     }
                                     String value = vertexMetadata.get(dataKey).transformer.transform(v);
                                     if (value != null) {
-                                        String dataValue = include.getDataValue();
-                                        if (value.equals(dataValue)) {
-                                            return true;
+                                        String[] dataValues = value.split(",");
+
+                                        String includeDataValue = include.getDataValue();
+
+                                        for (String dataValue : dataValues){
+                                            if (dataValue.equals(includeDataValue)) {
+                                                logger.debug("Node selected: "+v);
+
+                                                return true;
+                                            }
                                         }
+
                                     }
                                 }
                             }

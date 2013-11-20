@@ -107,7 +107,7 @@ public class Get {
         try {
 
             PDU request = new PDU();
-            request.setType(PDU.GETNEXT);
+            request.setType(PDU.GET);
 
             for (int i = 0; i < vbs.size(); i++) {
                 request.add((VariableBinding) vbs.get(i));
@@ -140,6 +140,65 @@ public class Get {
     }
 
 
+    public String getSNMPGetNextValue() throws IOException {
+
+    String result = "";
+    CounterSupport.getInstance().addCounterListener(new DefaultCounterListener());
+    VariableBinding vb = new VariableBinding(new OID(this.oid));
+    //        VariableBinding vb = new VariableBinding(new OID("1.3.6.1.2.1.31.1.1.1"));
+    Vector vbs = new Vector();
+    vbs.add(vb);
+    TransportMapping transport = transportFactory.createTransportMapping(localAddress);
+    MessageDispatcher dispatcher = messageDispatcherFactory.createMessageDispatcherMapping();
+    //        AbstractTransportMapping transport = new DefaultUdpTransportMapping(localAddress);
+    Snmp snmp = new Snmp(dispatcher, transport);
+    ((MPv3) snmp.getMessageProcessingModel(MPv3.ID)).setLocalEngineID(new OctetString(MPv3.createLocalEngineID()).getValue());
+
+    CommunityTarget target = new CommunityTarget();
+    target.setCommunity(new OctetString(this.community));
+
+    target.setVersion(version);
+    target.setAddress(new UdpAddress(this.address));
+//        target.setAddress(new UdpAddress("0.0.0.0/161"));
+    target.setRetries(retries);
+    target.setTimeout(timeout);
+    target.setMaxSizeRequestPDU(65535);
+    snmp.listen();
+
+    try {
+
+        PDU request = new PDU();
+        request.setType(PDU.GETNEXT);
+
+        for (int i = 0; i < vbs.size(); i++) {
+            request.add((VariableBinding) vbs.get(i));
+        }
+
+        long startTime = System.currentTimeMillis();
+        ResponseEvent responseEvent = snmp.send(request, target, transport);
+
+        PDU response = null;
+        if (responseEvent != null) {
+            response = responseEvent.getResponse();
+            logger.debug("Received response after " + (System.currentTimeMillis() - startTime) + " millis");
+        }
+
+        if (response == null){
+            throw new RuntimeException("SNMP response is null.");
+
+        } else {
+            for (int i = 0; i < response.size(); i++) {
+                VariableBinding vb1 = response.get(i);
+                result = vb1.getVariable().toString();
+            }
+            return result;
+        }
+    } finally {
+        logger.debug("Error " + snmp.toString());
+
+        snmp.close();
+    }
+}
     public static void main1(String[] args) throws IOException {
         Map<CmdOptions,String> opts;
         try {
@@ -252,4 +311,5 @@ public class Get {
 
 
     }
+
 }

@@ -66,7 +66,7 @@ public class SnmpWalkerBase implements Discoverer {
         String deviceSysDescrOID = "1.3.6.1.2.1.1.1";
         String sysDescr = null;
         try {
-             sysDescr = snmpGet(resource, deviceSysDescrOID);
+             sysDescr = snmpGetNext(resource, deviceSysDescrOID);
         } catch (Exception e) {
             logger.error("Error getDevice Type (" + resource.getAddress() + "), err msg=" + e.getMessage());
             return null;
@@ -94,7 +94,7 @@ public class SnmpWalkerBase implements Discoverer {
     public String getDeviceName(Resource resource) {
         String deviceNameOID = "1.3.6.1.2.1.1.5";
         try {
-            return snmpGet(resource, deviceNameOID);
+            return snmpGetNext(resource, deviceNameOID);
         } catch (Exception e) {
             logger.error("Error getDevice Name (" + resource.getAddress() + "), err msg=" + e.getMessage());
             return null;
@@ -103,7 +103,7 @@ public class SnmpWalkerBase implements Discoverer {
 
     public String getByOid(Resource resource, String oid) {
         try {
-            return snmpGet(resource, oid);
+            return snmpGetNext(resource, oid);
         } catch (Exception e) {
             logger.error("Error get oid( " +oid.toString()+ " ) ( "+ resource.getAddress() + "), err msg=" + e.getMessage(), e);
             return null;
@@ -124,6 +124,18 @@ public class SnmpWalkerBase implements Discoverer {
     public RawDeviceData getRawDeviceData(Resource resource, String[] requestParamsList) {
         try {
             return snmpWalk(resource, requestParamsList);
+        } catch (Exception e) {
+            logger.error(e.getMessage(),e);
+            return null;
+//        } catch (MibLoaderException e) {
+//            logger.error(e.getMessage(),e);
+//            return null;
+        }
+    }
+
+    public String snmpWalkDevice(Resource resource, String[] requestParamsList) {
+        try {
+            return snmpWalktoString(resource, requestParamsList);
         } catch (Exception e) {
             logger.error(e.getMessage(),e);
             return null;
@@ -168,6 +180,7 @@ public class SnmpWalkerBase implements Discoverer {
         }
         return value;
     }
+
     private String snmpSet(Resource resource, String oid, String value) {
 
         String version =resource.getAttributes().get("version");
@@ -233,6 +246,70 @@ public class SnmpWalkerBase implements Discoverer {
         LogFactory.setLogFactory(new Log4jLogFactory());
     }
 
+    private String snmpGetNext(Resource resource, String oid) {
+        String version =resource.getAttributes().get("version");
+        int versionInt;
+        if (version.equals("1")){
+            versionInt = SnmpConstants.version1;
+        } else if (version.equals("2c")){
+            versionInt = SnmpConstants.version2c;
+        }  else if(version.equals("3")){
+            versionInt=  SnmpConstants.version3;
+        } else {
+            versionInt = SnmpConstants.version2c;
+        }
+        //    version = resource.getAttributes().get("version") == null ? SnmpConstants.version2c : Integer.parseInt(resource.getAttributes().get("version"));
+        int retriesInt = resource.getAttributes().get("retries") == null ? 1 : Integer.parseInt(resource.getAttributes().get("retries"));
+        int timeoutInt = resource.getAttributes().get("timeout") == null ? 1500 : Integer.parseInt(resource.getAttributes().get("timeout"));
+        String community = resource.getAttributes().get("community-ro");
+        String community2 = resource.getAttributes().get("community-rw");
+        if (community == null) throw new IllegalArgumentException("Community is not specifed");
+        if (resource.getAddress() == null) throw new RuntimeException("Resource address is null");
+        Get get = null;
+        try {
+            get = new Get(oid, resource.getAddress(), versionInt, retriesInt, timeoutInt, community, transportFactory, messageDispatcherFactory);
+        } catch (IOException e) {
+            logger.error(e.getMessage(),e);
+            return null;
+        }
+        String value;
+        try {
+            value = get.getSNMPGetNextValue();
+        } catch (IOException e) {
+            logger.error(e.getMessage(),e);
+            return null;
+        }
+        return value;
+    }
 
+
+    private String snmpWalktoString(Resource resource, String[] params) throws Exception {//}, MibLoaderException {
+        Properties parameters = new Properties();
+        if (resource.getAddress() == null) throw new RuntimeException("Resource Address is null");
+        parameters.put(SnmpConfigurator.O_ADDRESS, Arrays.asList(resource.getAddress()));
+//        parameters.put(SnmpConfigurator.O_PORT, Arrays.asList(resource.getAddress()));
+        parameters.put(SnmpConfigurator.O_COMMUNITY, Arrays.asList(resource.getAttributes().get("community-ro")));
+        //parameters.put(SnmpConfigurator.O_VERSION, Arrays.asList("2c"));// TODO
+
+        String version = resource.getAttributes().get("version") == null ? "2c" : resource.getAttributes().get("version");
+        int retriesInt = resource.getAttributes().get("retries") == null ? 3 : Integer.parseInt(resource.getAttributes().get("retries"));
+        int timeoutInt = resource.getAttributes().get("timeout") == null ? 1200 : Integer.parseInt(resource.getAttributes().get("timeout"));
+        int maxrepetitions = resource.getAttributes().get("max-repetitions") == null ? 65535 : Integer.parseInt(resource.getAttributes().get("timeout"));
+
+        parameters.put(SnmpConfigurator.O_VERSION, Arrays.asList(version));
+//        parameters.put(SnmpConfigurator.O_TIMEOUT, Arrays.asList(1200));
+//        parameters.put(SnmpConfigurator.O_RETRIES, Arrays.asList(2));
+//        parameters.put(SnmpConfigurator.O_MAX_REPETITIONS, Arrays.asList(65535));
+        parameters.put(SnmpConfigurator.O_TIMEOUT, Arrays.asList(timeoutInt));
+        parameters.put(SnmpConfigurator.O_RETRIES, Arrays.asList(retriesInt));
+        parameters.put(SnmpConfigurator.O_MAX_REPETITIONS, Arrays.asList(maxrepetitions));
+
+        Node root = walker.walk(params, parameters);
+        String xml = Walk.printTreeAsXML(root);
+        return xml;
+    }
+    static {
+        LogFactory.setLogFactory(new Log4jLogFactory());
+    }
 
 }

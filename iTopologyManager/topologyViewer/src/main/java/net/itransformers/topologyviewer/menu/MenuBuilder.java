@@ -117,6 +117,9 @@ public class MenuBuilder {
         final JMenuItem ISOMLayout = new JMenuItem("ISOM Layout");
         SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"ISOMLayout"));
         layouts.add(ISOMLayout);
+        final JMenuItem DAGLayout = new JMenuItem("DAG Layout");
+        SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"DAGLayout"));
+        layouts.add(DAGLayout);
 
 //        final JMenuItem iNode = new JMenuItem("Initial Node");
 //        iNode.addActionListener(new InitialNodeMenuHandler(frame));

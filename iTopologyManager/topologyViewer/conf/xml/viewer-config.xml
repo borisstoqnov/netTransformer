@@ -798,13 +798,13 @@
             </rightClickItem>
         </submenu>
         <submenu name="Network Activation">
-            <rightClickItem name="Generic Node Activation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
+            <rightClickItem name="Node Activation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
             </rightClickItem>
 
-            <rightClickItem name="pathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
+            <rightClickItem name="Shorthest Path Activation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>

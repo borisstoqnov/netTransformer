@@ -676,10 +676,18 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
             test =  new PersistentLayoutImpl(new ISOMLayout<String,String>(graph));
         }  else if (layout.equals("FRLayout2")){
             test =  new PersistentLayoutImpl(new FRLayout2<String,String>(graph));
-        }   else{
+//        }   else if (layout.equals("DAGLayout")){
+//            DAGLayout<String,String> abx =    new DAGLayout<String,String>(graph);
+//             abx.setRoot("R1");
+//            test =  new PersistentLayoutImpl(abx);
+        }
+//        } else if(layout.equals("TreeLayout")){
+//            TreeLayout<String,String> abx = new TreeLayout<String, String>(graph);
+//        }
+        else{
             test =  new PersistentLayoutImpl(new FRLayout<String,String>(graph));
         }
-//        PersistentLayoutImpl test =  new PersistentLayoutImpl(new DAGLayout<String,String>(graph));
+
         int vertexCount = currentGraph.getVertexCount();
 //        final ScalingControl scaler = new CrossoverScalingControl();
         final double nodeDensity = 0.0001;

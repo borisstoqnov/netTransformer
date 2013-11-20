@@ -55,7 +55,6 @@ public class SnmpForXslt {
         SnmpWalker discoverer = (SnmpWalker) discovererFactory.createDiscoverer(null);
         return discoverer.getSymbolByOid(mibName, oid);
     }
-
     public static String getByOid(String hostName, String oid, String community) throws Exception {
         Map<String, String> resourceParams = new HashMap<String, String>();
         resourceParams.put("community-ro", community);
@@ -78,6 +77,17 @@ public class SnmpForXslt {
         final String result = discoverer.setByOid(resource, oid, value);
         logger.debug("snmpSet for hostname:"+hostName+", community: "+community+", oid "+oid+ ", value "+value +" = "+result);
         return true;
+
+    }
+    public String walkByString(String hostName, String [] params, String community) throws Exception {
+        Map<String, String> resourceParams = new HashMap<String, String>();
+        resourceParams.put("community-rw", community);
+        resourceParams.put("version", "1");
+        Resource resource = new Resource(hostName,null, resourceParams);
+        discovererFactory = new DefaultDiscovererFactory();
+        SnmpWalker discoverer = (SnmpWalker) discovererFactory.createDiscoverer(resource);
+        final String result = discoverer.snmpWalkDevice(resource,params);
+        return result;
 
     }
 

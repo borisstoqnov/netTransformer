@@ -24,16 +24,15 @@ import org.snmp4j.util.SnmpConfigurator;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -69,21 +68,13 @@ public class MainClass {
         Walk walker = new Walk(new File("snmptoolkit/mibs"), false, new UdpTransportMappingFactory(), new DefaultMessageDispatcherFactory());
         Properties parameters = new Properties();
             String[] includes = new String[]{
-                    "ifIndex", "ifDescr", "ifOperStatus", "ifAdminStatus", "ifNumber","ifAlias","ifPhysAddress","ifType",
-                    "dot1dTpFdb","dot1dTpFdbAddress","dot1dTpFdbStatus","dot1dTpFdbPort",
-                    "dot1dBasePort","dot1dBasePortIfIndex",
-                    "system",
-                    "dot1dBaseBridgeAddress","dot1dStpPort",
-                    "ipNetToMediaTable",
-                    "ipAddrTable",
-                    "lldpRemoteSystemsData",
-                    "cdpCacheDevicePort","cdpCacheDevicePlatform","cdpCacheDeviceId","cdpCacheIfIndex"
+                    "bgpPeerTable"
             };
 
 
 //        parameters.put(SnmpConfigurator.O_ADDRESS, Arrays.asList("c82.16.36.1/161"));
-        parameters.put(SnmpConfigurator.O_ADDRESS, Arrays.asList("10.129.3.1/161"));
-        parameters.put(SnmpConfigurator.O_COMMUNITY, Arrays.asList("public"));
+        parameters.put(SnmpConfigurator.O_ADDRESS, Arrays.asList("88.203.203.225/161"));
+        parameters.put(SnmpConfigurator.O_COMMUNITY, Arrays.asList("test-r"));
         parameters.put(SnmpConfigurator.O_VERSION, Arrays.asList("2c"));
 
         parameters.put(SnmpConfigurator.O_TIMEOUT, Arrays.asList(1000));
@@ -92,22 +83,23 @@ public class MainClass {
 
         Node root = walker.walk(includes, parameters);
         String xml = Walk.printTreeAsXML(root);
-        PrintWriter writer = new PrintWriter("out.xml");
-        writer.print(xml);
-        writer.flush();
-        writer.close();
-
-        TransformerFactory tfactory = TransformerFactory.newInstance();
-        StreamSource insource = new StreamSource("out.xml");
-        StreamSource inxsl = new StreamSource("transformator.xslt");
-        StreamResult sresult = new StreamResult(outstream);
-        Transformer transformer = tfactory.newTransformer(inxsl);
-        transformer.transform(insource, sresult);
-        try {
-            XML_parser("device.xml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.println(xml);
+//        PrintWriter writer = new PrintWriter("out.xml");
+//        writer.print(xml);
+//        writer.flush();
+//        writer.close();
+//
+//        TransformerFactory tfactory = TransformerFactory.newInstance();
+//        StreamSource insource = new StreamSource("out.xml");
+//        StreamSource inxsl = new StreamSource("transformator.xslt");
+//        StreamResult sresult = new StreamResult(outstream);
+//        Transformer transformer = tfactory.newTransformer(inxsl);
+//        transformer.transform(insource, sresult);
+//        try {
+//            XML_parser("device.xml");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }
 

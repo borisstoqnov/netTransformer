@@ -91,7 +91,7 @@ public class JEditorPane implements ActionListener {
                 myPane.setText("");
 
             }
-            if (cmd.equals("Close")) {
+           else if (cmd.equals("Close")) {
                 fileName = null;
                 myPane.setText("");
 
@@ -146,8 +146,13 @@ public class JEditorPane implements ActionListener {
             }
 
             else{
+                if(fileName==null){
+                    SaveFileAs();
+                    myFrame.dispose();
+                }else{
+                    myFrame.dispose();
 
-                myFrame.dispose();
+                }
             }
 
         } catch (FileNotFoundException e1) {

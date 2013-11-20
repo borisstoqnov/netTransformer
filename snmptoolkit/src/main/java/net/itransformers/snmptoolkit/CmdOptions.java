@@ -29,6 +29,7 @@ public enum CmdOptions {
     OUTPUT_FILE("f", 1),
     PORT ("p",1),
     OIDS("o", 1),
+    DELTA("d", 1),
     MIBS_DIR("md", 1),
     PRINT_LOADED_MIBS("pm", 0);
 

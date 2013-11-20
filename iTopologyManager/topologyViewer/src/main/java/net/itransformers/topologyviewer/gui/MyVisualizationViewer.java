@@ -19,14 +19,6 @@
 
 package net.itransformers.topologyviewer.gui;
 
-import net.itransformers.topologyviewer.config.FilterType;
-import net.itransformers.topologyviewer.config.ForType;
-import net.itransformers.topologyviewer.config.TooltipType;
-import net.itransformers.topologyviewer.config.TopologyViewerConfType;
-import net.itransformers.topologyviewer.edgetooltip.DefaultEdgeTooltipTransformer;
-import net.itransformers.topologyviewer.edgetooltip.EdgeTooltipTransformerBase;
-import net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer;
-import net.itransformers.topologyviewer.nodetooltip.NodeTooltipTransformerBase;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.io.GraphMLMetadata;
@@ -38,6 +30,14 @@ import edu.uci.ics.jung.visualization.decorators.VertexIconShapeTransformer;
 import edu.uci.ics.jung.visualization.layout.PersistentLayoutImpl;
 import edu.uci.ics.jung.visualization.renderers.DefaultEdgeLabelRenderer;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
+import net.itransformers.topologyviewer.config.FilterType;
+import net.itransformers.topologyviewer.config.ForType;
+import net.itransformers.topologyviewer.config.TooltipType;
+import net.itransformers.topologyviewer.config.TopologyViewerConfType;
+import net.itransformers.topologyviewer.edgetooltip.DefaultEdgeTooltipTransformer;
+import net.itransformers.topologyviewer.edgetooltip.EdgeTooltipTransformerBase;
+import net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer;
+import net.itransformers.topologyviewer.nodetooltip.NodeTooltipTransformerBase;
 import org.apache.commons.collections15.Transformer;
 import org.apache.log4j.Logger;
 
@@ -63,6 +63,7 @@ public class MyVisualizationViewer extends VisualizationViewer<String,String> {
     private Map<String,Stroke> edgesStrokeMap;// = new HashMap<String, Stroke>();
     private Map<String, Color> edgesColorMap;
     private Map<String, Icon> iconMap;
+
 
     public MyVisualizationViewer(TopologyViewerConfType viewerConfig, Graph<String, String> graph,
                                  Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas,
