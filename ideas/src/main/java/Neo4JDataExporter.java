@@ -32,7 +32,7 @@ import java.util.HashMap;
 public class Neo4JDataExporter {
 
 
-    private static String SERVER_ROOT_URI = "http://localhost:7474/db/data/";
+    private static String SERVER_ROOT_URI = "http://193.19.172.133:7474/db/data/";
 
     public static void main(String[] args) throws Exception {
         try {

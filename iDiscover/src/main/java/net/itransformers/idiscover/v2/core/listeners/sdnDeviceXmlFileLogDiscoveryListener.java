@@ -49,12 +49,14 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 public class sdnDeviceXmlFileLogDiscoveryListener implements NodeDiscoveryListener {
     static Logger logger = Logger.getLogger(sdnDeviceXmlFileLogDiscoveryListener.class);
     String deviceXmlDataDirName;
-    String baseDirName;
+    String labelDirName;
+
+
+
     String deviceXmlXsltTransformator;
 
 
@@ -63,7 +65,7 @@ public class sdnDeviceXmlFileLogDiscoveryListener implements NodeDiscoveryListen
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
 
-        File baseDir = new File(baseDirName);
+        File baseDir = new File(labelDirName);
         if (!baseDir.exists()) baseDir.mkdir();
 
         File deviceXmlXslt = new File(System.getProperty("base.dir"), deviceXmlXsltTransformator);
@@ -105,28 +107,29 @@ public class sdnDeviceXmlFileLogDiscoveryListener implements NodeDiscoveryListen
             logger.error(e);  //To change body of catch statement use File | Settings | File Templates.
         }
     }
-
-    public String getBaseDirName() {
-        return baseDirName;
-    }
-
-    public void setBaseDirName(String baseDirName) {
-        this.baseDirName = baseDirName;
-    }
-    public String getdeviceXmlDataDirName() {
+    public String getDeviceXmlDataDirName() {
         return deviceXmlDataDirName;
     }
 
-    public void setdeviceXmlDataDirName(String deviceXmlDataDirName) {
+    public void setDeviceXmlDataDirName(String deviceXmlDataDirName) {
         this.deviceXmlDataDirName = deviceXmlDataDirName;
     }
 
-    public String getdeviceXmlXsltTransformator() {
+    public String getLabelDirName() {
+        return labelDirName;
+    }
+
+    public void setLabelDirName(String labelDirName) {
+        this.labelDirName = labelDirName;
+    }
+
+    public String getDeviceXmlXsltTransformator() {
         return deviceXmlXsltTransformator;
     }
 
-    public void setdeviceXmlXsltTransformator(String deviceXmlXsltTransformator) {
+    public void setDeviceXmlXsltTransformator(String deviceXmlXsltTransformator) {
         this.deviceXmlXsltTransformator = deviceXmlXsltTransformator;
     }
+
 
 }

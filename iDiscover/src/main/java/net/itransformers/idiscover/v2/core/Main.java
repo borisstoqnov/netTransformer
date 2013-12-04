@@ -49,7 +49,7 @@ public class Main {
         Map<String, String> params = CmdLineParser.parseCmdLine(args);
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("discovery.xml","connectionsDetails.xml");
      //   NetworkDiscoverer discoverer = applicationContext.getBean("sdnDiscovery", NetworkDiscoverer.class);
-        NetworkDiscoverer discoverer = applicationContext.getBean("bgpPeeringMapDiscovery", NetworkDiscoverer.class);
+        NetworkDiscoverer discoverer = applicationContext.getBean("discovery", NetworkDiscoverer.class);
         String connectionDetailsFileName = params.get("-f");
         List connectionList = (List) applicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
         String depthCmdArg = params.get("-d");
@@ -61,24 +61,24 @@ public class Main {
     public static void main2(String[] args) {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
                 "discovery.xml","connectionsDetails.xml");
-        NetworkDiscoverer discoverer = applicationContext.getBean(NetworkDiscoverer.class);
+        NetworkDiscoverer discoverer = applicationContext.getBean("discovery", NetworkDiscoverer.class);
         ConnectionDetails connectionDetails = new ConnectionDetails();
         connectionDetails.setConnectionType("SNMP");
-        connectionDetails.put("ipAddress","172.16.13.1");
+        connectionDetails.put("ipAddress","172.16.13.3");
         connectionDetails.put("version","1");
-        connectionDetails.put("community-ro","test-r");
+        connectionDetails.put("community-ro","iTransformer-r");
         connectionDetails.put("community-rw","test-rw");
-        connectionDetails.put("timeout","500");
-        connectionDetails.put("retries","1");
+        connectionDetails.put("timeout","3500");
+        connectionDetails.put("retries","3");
         connectionDetails.put("port","161");
         connectionDetails.put("max-repetitions","65535");
         connectionDetails.put("mibDir","snmptoolkit/mibs");
-        int depth = -1;
+        int depth = 10;
         Map<String, Node> result = discoverer.discoverNodes(Arrays.asList(connectionDetails), depth);
         System.out.println(result);
     }
 
-    public static void main1(String[] args) {
+    public static void main3(String[] args) {
         ConnectionDetails connectionDetails = new ConnectionDetails();;
         connectionDetails.setConnectionType("SNMP");
 //        params.put("host","172.16.36.1");
@@ -86,7 +86,7 @@ public class Main {
 //        params.put("community-ro","test-r");
 //        params.put("community-rw","test-rw");
 
-        connectionDetails.put("host","88.203.200.94");
+        connectionDetails.put("host","172.16.13.1");
         connectionDetails.put("version","1");
         connectionDetails.put("community-ro","test-r");
         connectionDetails.put("community-rw","test-rw");

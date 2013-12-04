@@ -40,7 +40,6 @@ import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.util.JaxbMarshalar;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBException;
@@ -48,18 +47,22 @@ import java.io.*;
 
 public class DeviceDataFileLogDiscoveryListener implements NodeDiscoveryListener {
     static Logger logger = Logger.getLogger(DeviceDataFileLogDiscoveryListener.class);
-    String baseDirName;
+    String labelDirName;
+    String deviceDataDirName;
 
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
-        File baseDir = new File(baseDirName);
-        File deviceDataDir = new File(baseDir, "device-data");
+        File baseDir = new File(labelDirName);
+        if (!baseDir.exists()) baseDir.mkdir();
+        File deviceDataDir = new File(baseDir, deviceDataDirName);
         if (!deviceDataDir.exists()) deviceDataDir.mkdir();
 
         String deviceName = discoveryResult.getNodeId();
         File file = new File(deviceDataDir, deviceName+".xml");
         DiscoveredDeviceData discoveredDeviceData = (DiscoveredDeviceData) discoveryResult.getDiscoveredData("deviceData");
-        OutputStream os = null;
+        ByteArrayOutputStream graphMLOutputStream = new ByteArrayOutputStream();
+        OutputStream os  = null;
+
         try {
             os = new FileOutputStream(file);
             JaxbMarshalar.marshal(discoveredDeviceData, os, "DiscoveredDevice");
@@ -73,11 +76,20 @@ public class DeviceDataFileLogDiscoveryListener implements NodeDiscoveryListener
 
     }
 
-    public String getBaseDirName() {
-        return baseDirName;
+    public String getLabelDirName() {
+        return labelDirName;
     }
 
-    public void setBaseDirName(String baseDirName) {
-        this.baseDirName = baseDirName;
+    public void setLabelDirName(String labelDirName) {
+        this.labelDirName = labelDirName;
     }
+    public String getDeviceDataDirName() {
+        return deviceDataDirName;
+    }
+
+    public void setDeviceDataDirName(String deviceDataDirName) {
+        this.deviceDataDirName = deviceDataDirName;
+    }
+
+
 }

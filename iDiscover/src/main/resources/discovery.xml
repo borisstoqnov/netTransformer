@@ -40,6 +40,13 @@
                 <ref bean="sampleNodeDiscoveryListener"/>
                 <ref bean="rawDataFileLogDiscoveryListener"/>
                 <ref bean="deviceDataFileLogDiscoveryListener"/>
+                <ref bean="GraphmlFileLogDiscoveryListener"/>
+
+            </list>
+        </property>
+        <property name="networkDiscoveryListeners">
+            <list>
+                <ref bean="SnmpNetworkDiscoveryListener"/>
             </list>
         </property>
     </bean>
@@ -82,23 +89,36 @@
 
     <bean id="sampleNodeDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SampleNodeDiscoveryListener"/>
     <bean id="rawDataFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.RawDataFileLogDiscoveryListener">
-        <property name="baseDirName" value="network"/>
+        <property name="labelDirName" value="version1"/>
+    </bean>
+
+    <bean id="SnmpNetworkDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SnmpNetworkDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+        <property name="graphmlDataDirName" value="undirected"/>
     </bean>
 
     <bean id="sdnGraphmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.sdnGraphmlFileLogDiscoveryListener">
         <property name="graphmlDataDirName" value="network/undirected"/>
-        <property name="baseDirName" value="network"/>
+        <property name="labelDirName" value="network"/>
         <property name="floodLighGraphmlXsltTransformator" value="iDiscover/conf/xslt/floodLighGraphmlTransformator.xslt"/>
     </bean>
 
     <bean id="sdnDeviceXmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.sdnDeviceXmlFileLogDiscoveryListener">
         <property name="deviceXmlDataDirName" value="node-data"/>
-        <property name="baseDirName" value="network"/>
+        <property name="labelDirName" value="network"/>
         <property name="deviceXmlXsltTransformator" value="iDiscover/conf/xslt/floodLightDeviceXmlTransformator.xslt"/>
     </bean>
 
     <bean id="deviceDataFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.DeviceDataFileLogDiscoveryListener">
-        <property name="baseDirName" value="network"/>
+        <property name="labelDirName" value="version1"/>
+        <property name="deviceDataDirName" value="device-data"/>
+    </bean>
+
+    <bean id="GraphmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.GraphmlFileLogDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+        <property name="graphmDirName" value="undirected"/>
+        <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
+
     </bean>
 
     <bean id="snmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.snmpdiscoverer.SnmpNodeDiscoverer">

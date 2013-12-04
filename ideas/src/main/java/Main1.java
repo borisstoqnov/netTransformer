@@ -40,7 +40,7 @@ public class Main1 {
     public static void main(String[] args) throws URISyntaxException, IOException {
         String data = FileUtils.readFileToString(new File("ideas/src/test/test-rest.txt"));
         Client client = createClient();
-        WebResource resource = client.resource(new URI("http://localhost:7474/db/data/batch"));
+        WebResource resource = client.resource(new URI("http://193.19.172.133:7474/db/data/batch"));
         WebResource.Builder builder = resource.accept(STREAMING_JSON_TYPE).header("X-Stream", "true");
         System.out.println("here1");
         builder.entity( toInputStream(data), APPLICATION_JSON_TYPE );

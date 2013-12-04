@@ -17,7 +17,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.idiscover.v2.core.listeners;/*
+package net.itransformers.idiscover.v2.core.listeners;
+/*
  * iTransformer is an open source tool able to discover IP networks
  * and to perform dynamic data data population into a xml based inventory system.
  * Copyright (C) 2010  http://itransformers.net
@@ -49,12 +50,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 public class sdnGraphmlFileLogDiscoveryListener implements NodeDiscoveryListener {
     static Logger logger = Logger.getLogger(sdnGraphmlFileLogDiscoveryListener.class);
     String graphmlDataDirName;
-    String baseDirName;
+    String labelDirName;
 
 
     String floodLighGraphmlXsltTransformator;
@@ -65,7 +65,7 @@ public class sdnGraphmlFileLogDiscoveryListener implements NodeDiscoveryListener
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
 
-        File baseDir = new File(baseDirName);
+        File baseDir = new File(labelDirName);
         if (!baseDir.exists()) baseDir.mkdir();
 
         File floodlightGraphmlXslt = new File(System.getProperty("base.dir"), floodLighGraphmlXsltTransformator);
@@ -97,7 +97,7 @@ public class sdnGraphmlFileLogDiscoveryListener implements NodeDiscoveryListener
             FileUtils.writeStringToFile(graphmlFile, outputStream1.toString());
             logger.info("Raw-data transformed to graphml for "+deviceName);
 
-            File nodesFileListFile = new File(baseDirName, "nodes.graphmls");
+            File nodesFileListFile = new File(labelDirName, "nodes.graphmls");
             FileUtils.writeStringToFile(nodesFileListFile, graphmlFileName);
             logger.debug("Graphml Data \n" + outputStream1.toString());
 
@@ -112,12 +112,12 @@ public class sdnGraphmlFileLogDiscoveryListener implements NodeDiscoveryListener
         }
     }
 
-    public String getBaseDirName() {
-        return baseDirName;
+    public String getLabelDirName() {
+        return labelDirName;
     }
 
-    public void setBaseDirName(String baseDirName) {
-        this.baseDirName = baseDirName;
+    public void setLabelDirName(String labelDirName) {
+        this.labelDirName = labelDirName;
     }
     public String getGraphmlDataDirName() {
         return graphmlDataDirName;
