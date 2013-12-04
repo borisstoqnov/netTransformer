@@ -139,7 +139,7 @@ public class TopologyManagerFrame extends JFrame{
             }
         } catch (Exception e){
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this,"Unknown create graph: "+e.getMessage());
+            JOptionPane.showMessageDialog(this,"Error creating graph: "+e.getMessage());
         }
     }
     public void doCloseGraph() {

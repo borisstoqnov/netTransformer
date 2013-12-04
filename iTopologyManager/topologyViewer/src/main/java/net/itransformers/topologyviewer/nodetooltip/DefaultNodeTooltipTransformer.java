@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class DefaultNodeTooltipTransformer extends NodeTooltipTransformerBase {
-    public DefaultNodeTooltipTransformer(TooltipType tooltipType, Map<String, Map<String, GraphMLMetadata<String>>> nodeMetadatas) {
+    public DefaultNodeTooltipTransformer(TooltipType tooltipType, Map<String, GraphMLMetadata<String>> nodeMetadatas) {
         super(tooltipType, nodeMetadatas);
     }
 
@@ -36,16 +36,14 @@ public class DefaultNodeTooltipTransformer extends NodeTooltipTransformerBase {
         try {
             StringBuilder sb = new StringBuilder();
             Set<String> valueSet = new HashSet<String>();
-            for (Map<String, GraphMLMetadata<String>> vertexMetadata : nodeMetadatas.values()) {
-                GraphMLMetadata<String> stringGraphMLMetadata = vertexMetadata.get(tooltipType.getDataKey());
-                if (stringGraphMLMetadata == null) {
-                    throw new RuntimeException("No vertex metadata found for key: "+tooltipType.getDataKey());
-                }
-                Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
-                final String value = transformer.transform(vertex);
-                if (value != null) {
-                    sb.append(value);
-                }
+            GraphMLMetadata<String> stringGraphMLMetadata = nodeMetadatas.get(tooltipType.getDataKey());
+            if (stringGraphMLMetadata == null) {
+                throw new RuntimeException("No vertex metadata found for key: "+tooltipType.getDataKey());
+            }
+            Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
+            final String value = transformer.transform(vertex);
+            if (value != null) {
+                sb.append(value);
             }
             sb.append(valueSet);
             return sb.toString();

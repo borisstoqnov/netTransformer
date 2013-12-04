@@ -40,7 +40,7 @@ import java.util.Map;
 public class VertexFilterFactory {
     static Logger logger = Logger.getLogger(VertexFilterFactory.class);
 
-    static VertexPredicateFilter<String, String> createVertexFilter(final FilterType filter, final Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas, final Graph<String, String> graph1) {
+    static VertexPredicateFilter<String, String> createVertexFilter(final FilterType filter, final Map<String, GraphMLMetadata<String>> vertexMetadata, final Graph<String, String> graph1) {
         return new VertexPredicateFilter<String, String>(new Predicate<String>() {
                 public boolean evaluate(String v) {
                     if (graph1.getIncidentEdges(v).isEmpty()){
@@ -53,25 +53,23 @@ public class VertexFilterFactory {
                             if (ForType.NODE.equals(include.getFor())) {
                                 hasNodeInlcude  = true;
                                 final String dataKey = include.getDataKey();
-                                for (Map<String, GraphMLMetadata<String>> vertexMetadata : vertexMetadatas.values()) {
-                                    if (vertexMetadata.get(dataKey) == null) {
-                                        throw new RuntimeException("No data is defined in vertex metadata for dataKey="+dataKey);
-                                    }
-                                    String value = vertexMetadata.get(dataKey).transformer.transform(v);
-                                    if (value != null) {
-                                        String[] dataValues = value.split(",");
+                                if (vertexMetadata.get(dataKey) == null) {
+                                    throw new RuntimeException("No data is defined in vertex metadata for dataKey="+dataKey);
+                                }
+                                String value = vertexMetadata.get(dataKey).transformer.transform(v);
+                                if (value != null) {
+                                    String[] dataValues = value.split(",");
 
-                                        String includeDataValue = include.getDataValue();
+                                    String includeDataValue = include.getDataValue();
 
-                                        for (String dataValue : dataValues){
-                                            if (dataValue.equals(includeDataValue)) {
-                                                logger.debug("Node selected: "+v);
+                                    for (String dataValue : dataValues){
+                                        if (dataValue.equals(includeDataValue)) {
+                                            logger.debug("Node selected: "+v);
 
-                                                return true;
-                                            }
+                                            return true;
                                         }
-
                                     }
+
                                 }
                             }
                         }

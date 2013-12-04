@@ -51,7 +51,7 @@ public class EdgeStrokeMapLoader implements GraphmlLoaderListener{
         return edgesStrokeMap;
     }
 
-    private void updateEdgeStrokeMap(String fileName, final Map<String, GraphMLMetadata<String>> edgeMetadata, final Collection<String> graphEdges) {
+    private void updateEdgeStrokeMap(final Map<String, GraphMLMetadata<String>> edgeMetadata, final Collection<String> graphEdges) {
 //        final Collection<String> graphVertices = graph.getVertices();
         String[] vertices = graphEdges.toArray(new String[graphEdges.size()]);
         List<EdgeStrokeType> edgeStrokeTypeList = viewerConfig.getEdgeStroke();
@@ -64,7 +64,7 @@ public class EdgeStrokeMapLoader implements GraphmlLoaderListener{
                 for (EdgeStrokeType.Data data : datas) {
                     final GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(data.getKey());
                     if (stringGraphMLMetadata == null){
-                        logger.error(String.format("Can not find edge metadata key '%s' in file '%s'.",data.getKey(), fileName));
+                        logger.error(String.format("Can not find edge metadata key '%s'.",data.getKey()));
                         continue;
 //                        throw new RuntimeException(String.format("Can not find vertex metadata key '%s' in file '%s'.",data.getKey(), fileName));
                     }
@@ -110,7 +110,7 @@ public class EdgeStrokeMapLoader implements GraphmlLoaderListener{
     }
 
     @Override
-    public <G extends Graph<String,String>> void graphmlLoaded(String fileName, Map<String, GraphMLMetadata<String>> vertexMetadata, Map<String, GraphMLMetadata<String>> edgeMetadata, G graph) {
-        updateEdgeStrokeMap(fileName, edgeMetadata, graph.getEdges());
+    public <G extends Graph<String,String>> void graphmlLoaded(Map<String, GraphMLMetadata<String>> vertexMetadata, Map<String, GraphMLMetadata<String>> edgeMetadata, G graph) {
+        updateEdgeStrokeMap(edgeMetadata, graph.getEdges());
     }
 }

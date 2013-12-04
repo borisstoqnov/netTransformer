@@ -50,21 +50,18 @@ public class OpenGraphMenuHandler implements ActionListener {
             JOptionPane.showMessageDialog(frame, "Can not open graph before project has been opened.");
             return;
         }
-        //TODO remove that hardcode through viewer configuration!
-        File networkDir = new File(path, "network");
-        if (!networkDir.exists()) networkDir = path;
-        JFileChooser chooser = new JFileChooser(networkDir);
+        JFileChooser chooser = new JFileChooser(path);
         chooser.setDialogTitle("Choose Graph version");
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
-                return  (f.isFile() && f.getName().endsWith(".graphmls") || f.isDirectory());
+                return  (f.isFile() && f.getName().endsWith(".graphml") || f.isDirectory());
             }
 
             @Override
             public String getDescription() {
-                return "(List of graphml files) *.graphmls";
+                return "(graphml file) *.graphml";
             }
         });
         chooser.setMultiSelectionEnabled(false);

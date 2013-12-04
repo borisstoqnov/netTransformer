@@ -27,8 +27,8 @@ import java.util.*;
 
 public abstract class EdgeTooltipTransformerBase implements Transformer<String, String> {
     protected TooltipType tooltipType;
-    protected Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas;
-    public EdgeTooltipTransformerBase(TooltipType tooltipType, Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas) {
+    protected Map<String, GraphMLMetadata<String>> edgeMetadatas;
+    public EdgeTooltipTransformerBase(TooltipType tooltipType, Map<String, GraphMLMetadata<String>> edgeMetadatas) {
         this.tooltipType = tooltipType;
         this.edgeMetadatas = edgeMetadatas;
     }

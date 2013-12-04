@@ -27,8 +27,8 @@ import java.util.Map;
 
 public abstract class NodeTooltipTransformerBase implements Transformer<String, String> {
     protected TooltipType tooltipType;
-    protected Map<String, Map<String, GraphMLMetadata<String>>> nodeMetadatas;
-    public NodeTooltipTransformerBase(TooltipType tooltipType, Map<String, Map<String, GraphMLMetadata<String>>> nodeMetadatas) {
+    protected Map<String, GraphMLMetadata<String>> nodeMetadatas;
+    public NodeTooltipTransformerBase(TooltipType tooltipType, Map<String, GraphMLMetadata<String>> nodeMetadatas) {
         this.tooltipType = tooltipType;
         this.nodeMetadatas = nodeMetadatas;
     }

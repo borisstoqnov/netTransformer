@@ -262,12 +262,12 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
             chooser.setFileFilter(new FileFilter() {
                 @Override
                 public boolean accept(File f) {
-                    return  (f.isFile() && f.getName().endsWith(".graphmls") || f.isDirectory());
+                    return  (f.isFile() && f.getName().endsWith(".graphml") || f.isDirectory());
                 }
 
                 @Override
                 public String getDescription() {
-                    return "(List of graphml files) *.graphmls";
+                    return "(List of graphml files) *.graphml";
                 }
             });
             chooser.setMultiSelectionEnabled(false);

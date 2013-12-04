@@ -31,8 +31,8 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public interface GraphmlLoaderListener {
-    <G extends Graph<String,String>>void graphmlLoaded(String fileName,
-                          Map<String, GraphMLMetadata<String>> vertexMetadata,
-                          Map<String, GraphMLMetadata<String>> edgeMetadata,
-                          G graph);
+    <G extends Graph<String,String>>void graphmlLoaded(
+          Map<String, GraphMLMetadata<String>> vertexMetadata,
+          Map<String, GraphMLMetadata<String>> edgeMetadata,
+          G graph);
 }

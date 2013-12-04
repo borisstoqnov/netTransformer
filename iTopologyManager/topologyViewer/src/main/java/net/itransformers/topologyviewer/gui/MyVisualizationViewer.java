@@ -57,8 +57,8 @@ public class MyVisualizationViewer extends VisualizationViewer<String,String> {
     static Logger logger = Logger.getLogger(MyVisualizationViewer.class);
     private FilterType currentFilter;
     private TopologyViewerConfType viewerConfig;
-    private Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas;
-    private Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas;
+    private Map<String, GraphMLMetadata<String>> vertexMetadatas;
+    private Map<String, GraphMLMetadata<String>> edgeMetadatas;
     // TODO: Think more how to implement this in a better way (temporary for shortest path).
     private Map<String,Stroke> edgesStrokeMap;// = new HashMap<String, Stroke>();
     private Map<String, Color> edgesColorMap;
@@ -66,8 +66,8 @@ public class MyVisualizationViewer extends VisualizationViewer<String,String> {
 
 
     public MyVisualizationViewer(TopologyViewerConfType viewerConfig, Graph<String, String> graph,
-                                 Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas,
-                                 Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas,
+                                 Map<String, GraphMLMetadata<String>> vertexMetadatas,
+                                 Map<String, GraphMLMetadata<String>> edgeMetadatas,
                                  Map<String, Icon> iconMap,
                                  Map<String, Stroke> edgesStrokeMap,
                                  Map<String, Color> edgesColorMap) {

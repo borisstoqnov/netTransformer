@@ -70,7 +70,7 @@ public class IconMapLoader implements GraphmlLoaderListener{
         return iconMap;
     }
 
-    private void updateIconsMap(String fileName, final Map<String, GraphMLMetadata<String>> vertexMetadata, final Collection<String> graphVertices) {
+    private void updateIconsMap(final Map<String, GraphMLMetadata<String>> vertexMetadata, final Collection<String> graphVertices) {
 //        final Collection<String> graphVertices = graph.getVertices();
         String[] vertices = graphVertices.toArray(new String[graphVertices.size()]);
         List<IconType> iconTypeList = viewerConfig.getIcon();
@@ -84,7 +84,7 @@ public class IconMapLoader implements GraphmlLoaderListener{
                 for (IconType.Data data : datas) {
                     final GraphMLMetadata<String> stringGraphMLMetadata = vertexMetadata.get(data.getKey());
                     if (stringGraphMLMetadata == null){
-                        logger.error(String.format("Can not find vertex metadata key '%s' in file '%s'.",data.getKey(), fileName));
+                        logger.error(String.format("Can not find vertex metadata key '%s'.",data.getKey()));
                         continue;
                     }
                     final String value = stringGraphMLMetadata.transformer.transform(vertice);
@@ -124,7 +124,7 @@ public class IconMapLoader implements GraphmlLoaderListener{
     }
 
     @Override
-    public <G extends Graph<String,String>> void graphmlLoaded(String fileName, Map<String, GraphMLMetadata<String>> vertexMetadata, Map<String, GraphMLMetadata<String>> edgeMetadata, G graph) {
-        updateIconsMap(fileName, vertexMetadata, graph.getVertices());
+    public <G extends Graph<String,String>> void graphmlLoaded(Map<String, GraphMLMetadata<String>> vertexMetadata, Map<String, GraphMLMetadata<String>> edgeMetadata, G graph) {
+        updateIconsMap(vertexMetadata, graph.getVertices());
     }
 }

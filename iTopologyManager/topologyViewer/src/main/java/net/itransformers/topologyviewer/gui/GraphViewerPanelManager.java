@@ -35,10 +35,8 @@ import java.util.Map;
 public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private G entireGraph;
     private GraphmlLoader<G> graphmlLoader;
-    private Neo4jLoader<G> neo4jLoader;
     private String initialNode;
     private File projectPath;
-    private String projectType;
     private File viewerConfigFile;
     private GraphType graphType;
     private IconMapLoader iconMapLoader;
@@ -49,47 +47,25 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private JTabbedPane tabbedPane;
     private TopologyViewerConfType viewerConfig;
     private JFrame frame;
-    private File graphmlsFile;
     private final File versionDir;
     private String layout;
 
-    public GraphViewerPanelManager(JFrame frame, String projectType, File projectPath, File viewerConfigFile, File graphmlsFile, Factory<G> factory, JTabbedPane tabbedPane, GraphType graphType) throws Exception {
+    public GraphViewerPanelManager(JFrame frame, String projectType, File projectPath, File viewerConfigFile, File graphmlFile, Factory<G> factory, JTabbedPane tabbedPane, GraphType graphType) throws Exception {
         this.frame = frame;
         this.projectPath = projectPath;
-        this.projectType = projectType;
         this.graphType = graphType;
         this.viewerConfigFile = viewerConfigFile;
-        this.graphmlsFile = graphmlsFile;
-        versionDir = new File(graphmlsFile.getParent());
-        if (graphType==GraphType.DIRECTED){
-            this.graphmlDir = new File(versionDir,"directed");
-        }else{
-            this.graphmlDir = new File(versionDir,"undirected");
-        }
+        versionDir = new File(graphmlFile.getParent());
+        this.graphmlDir = graphmlFile;
         this.factory = factory;
         this.tabbedPane = tabbedPane;
         entireGraph = factory.create();
-        String fName;
-
         viewerConfig = ViewerConfigLoader.loadViewerConfig(this.viewerConfigFile);
         this.layout="FRLayout";
         init();
-
-//        this.configFile = configFile;
-//        if (configFile == null) {                         /
-//            String fName = preferences.getProperty(PreferencesKeys.CONFIG_FILE_NAME.name());
-//    }
-//        try {
-//            viewerConfig = ViewerConfigLoader.loadViewerConfig(configURI);
-//        } catch (JAXBException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        } catch (IOException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        }
-
 }
 
-    public Map<String, Map<String, GraphMLMetadata<String>>> getVertexMetadatas() {
+    public Map<String, GraphMLMetadata<String>> getVertexMetadatas() {
         return graphmlLoader.getVertexMetadatas();
     }
 
@@ -105,17 +81,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
         iconMapLoader = new IconMapLoader(viewerConfig);
         edgeStrokeMapLoader = new EdgeStrokeMapLoader(viewerConfig);
         edgeColorMapLoader = new EdgeColorMapLoader(viewerConfig);
-        neo4jLoader = new Neo4jLoader<G>(entireGraph, factory, "http://localhost:7474/db/data/");
-//        String NetworkId=neo4jLoader.getLatestNetwork();
-
-//        try {
-//            neo4jLoader.getVertexes(NetworkId);
-//            neo4jLoader.getNeighbourVertexes(NetworkId);
-//        } catch (ParseException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        }
-
-        graphmlLoader = new GraphmlLoader<G>(viewerConfig, entireGraph, factory, neo4jLoader.getVertexMetadatas());
+        graphmlLoader = new GraphmlLoader<G>(entireGraph, factory);
         graphmlLoader.addGraphmlLoaderListener(iconMapLoader);
         graphmlLoader.addGraphmlLoaderListener(edgeStrokeMapLoader);
         graphmlLoader.addGraphmlLoaderListener(edgeColorMapLoader);

@@ -42,7 +42,7 @@
         <module>iTopologyManager</module>
         <module>distribution</module>
         <module>iAssertions</module>
-        <!--module>wsitransformer</module-->
+        <module>wsitransformer</module>
         <!--module>ideas</module-->
         <module>distribution</module>
 
@@ -80,11 +80,11 @@
                             <artifactId>maven-site-plugin</artifactId>
                             <version>3.1</version>
                             <dependencies>
-                                <dependency>
-                                    <groupId>org.apache.maven.doxia</groupId>
-                                    <artifactId>doxia-module-twiki</artifactId>
-                                    <version>1.2</version>
-                                </dependency>
+                                <!--<dependency>-->
+                                    <!--<groupId>org.apache.maven.doxia</groupId>-->
+                                    <!--<artifactId>doxia-module-twiki</artifactId>-->
+                                    <!--<version>1.2</version>-->
+                                <!--</dependency>-->
                             </dependencies>
                             <configuration>
                                 <skip>false</skip>

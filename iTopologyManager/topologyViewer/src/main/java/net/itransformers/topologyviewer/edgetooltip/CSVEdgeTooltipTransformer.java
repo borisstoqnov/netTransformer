@@ -26,7 +26,7 @@ import org.apache.commons.collections15.Transformer;
 import java.util.*;
 
 public class CSVEdgeTooltipTransformer extends EdgeTooltipTransformerBase{
-    public CSVEdgeTooltipTransformer(TooltipType tooltipType, Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas) {
+    public CSVEdgeTooltipTransformer(TooltipType tooltipType, Map<String, GraphMLMetadata<String>> edgeMetadatas) {
         super(tooltipType, edgeMetadatas);
     }
 
@@ -34,13 +34,11 @@ public class CSVEdgeTooltipTransformer extends EdgeTooltipTransformerBase{
         try {
              StringBuilder sb = new StringBuilder();
              Set<String> valueSet = new HashSet<String>();
-             for (Map<String, GraphMLMetadata<String>> edgeMetadata : edgeMetadatas.values()) {
-                 GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(tooltipType.getDataKey());
-                 Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
-                 final String value = transformer.transform(edge);
-                 if (value != null){
-                     valueSet.addAll(Arrays.asList(value.split(",")));
-                 }
+             GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadatas.get(tooltipType.getDataKey());
+             Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
+             final String value = transformer.transform(edge);
+             if (value != null){
+                 valueSet.addAll(Arrays.asList(value.split(",")));
              }
             sb.append(valueSet);
             return sb.toString();

@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class RightClickInvoker {
     public static void invokeRightClickHandler(JFrame frame, String v, final RightClickItemType rcItemType,
-                                               Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas,
+                                               Map<String, GraphMLMetadata<String>> vertexMetadatas,
                                                File path,
                                                File deviceXmlPath) throws Exception {
         String clazzStr = rcItemType.getHandlerClass();
@@ -47,18 +47,16 @@ public class RightClickInvoker {
 
     }
 
-    private static <G> Map<String, String> getParams(String v, Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas) {
+    private static <G> Map<String, String> getParams(String v, Map<String, GraphMLMetadata<String>> vertexMetadata) {
         HashMap<String, String> params = new HashMap<String, String>();
-        for (Map<String,GraphMLMetadata<String>> vertexMetadata : vertexMetadatas.values()) {
-            for (String key : vertexMetadata.keySet()){
-                String value = vertexMetadata.get(key).transformer.transform(v);
-                if (value == null) continue;
-                if (!params.containsKey(key)){
-                    params.put(key,value);
-                } else{
-                    value = value.concat(", ").concat(params.get(key));
-                    params.put(key,value);
-                }
+        for (String key : vertexMetadata.keySet()){
+            String value = vertexMetadata.get(key).transformer.transform(v);
+            if (value == null) continue;
+            if (!params.containsKey(key)){
+                params.put(key,value);
+            } else{
+                value = value.concat(", ").concat(params.get(key));
+                params.put(key,value);
             }
         }
         return params;

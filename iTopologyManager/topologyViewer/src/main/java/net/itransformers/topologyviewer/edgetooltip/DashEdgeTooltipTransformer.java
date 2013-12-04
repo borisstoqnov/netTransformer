@@ -26,27 +26,25 @@ import org.apache.commons.collections15.Transformer;
 import java.util.Map;
 
 public class DashEdgeTooltipTransformer extends EdgeTooltipTransformerBase{
-    public DashEdgeTooltipTransformer(TooltipType tooltipType, Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas) {
-        super(tooltipType, (Map<String, Map<String, GraphMLMetadata<String>>>) edgeMetadatas);
+    public DashEdgeTooltipTransformer(TooltipType tooltipType, Map<String, GraphMLMetadata<String>> edgeMetadata) {
+        super(tooltipType, edgeMetadata);
     }
     public String transform(String edge) {
         try {
              StringBuilder sb = new StringBuilder();
              boolean isFirst = true;
              sb.append("<html>");
-             for (Map<String, GraphMLMetadata<String>> edgeMetadata : edgeMetadatas.values()) {
-                 GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(tooltipType.getDataKey());
-                 Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
-                 final String value = transformer.transform(edge);
-                 if (value != null){
-                     if (!isFirst) {
-                         sb.append("<b> - </b>");
-                     } else {
-                         isFirst = false;
-                     }
-                     sb.append(value);
-
+             GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadatas.get(tooltipType.getDataKey());
+             Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
+             final String value = transformer.transform(edge);
+             if (value != null){
+                 if (!isFirst) {
+                     sb.append("<b> - </b>");
+                 } else {
+                     isFirst = false;
                  }
+                 sb.append(value);
+
              }
             sb.append("</html>");
             return sb.toString();

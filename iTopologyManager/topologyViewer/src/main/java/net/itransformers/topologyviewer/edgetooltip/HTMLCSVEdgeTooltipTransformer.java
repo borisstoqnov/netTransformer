@@ -32,7 +32,7 @@ import java.util.Set;
 public class HTMLCSVEdgeTooltipTransformer extends EdgeTooltipTransformerBase{
     static Logger logger = Logger.getLogger(HTMLCSVEdgeTooltipTransformer.class);
 
-    public HTMLCSVEdgeTooltipTransformer(TooltipType tooltipType, Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas) {
+    public HTMLCSVEdgeTooltipTransformer(TooltipType tooltipType, Map<String, GraphMLMetadata<String>> edgeMetadatas) {
         super(tooltipType, edgeMetadatas);
     }
 
@@ -41,17 +41,15 @@ public class HTMLCSVEdgeTooltipTransformer extends EdgeTooltipTransformerBase{
              StringBuilder sb = new StringBuilder();
             sb.append("<html>");
              Set<String> valueSet = new HashSet<String>();
-             for (Map<String, GraphMLMetadata<String>> edgeMetadata : edgeMetadatas.values()) {
-                 GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(tooltipType.getDataKey());
-                 if (stringGraphMLMetadata == null) {
-                    logger.error("Unable find tooltip edgeMetadata for key: "+tooltipType.getDataKey());
-                     return "";
-                 }
-                 Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
-                 final String value = transformer.transform(edge);
-                 if (value != null && !sb.toString().contains(value)){
-                     sb.append(value);
-                 }
+             GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadatas.get(tooltipType.getDataKey());
+             if (stringGraphMLMetadata == null) {
+                logger.error("Unable find tooltip edgeMetadata for key: "+tooltipType.getDataKey());
+                 return "";
+             }
+             Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
+             final String value = transformer.transform(edge);
+             if (value != null && !sb.toString().contains(value)){
+                 sb.append(value);
              }
             sb.append(valueSet);
 

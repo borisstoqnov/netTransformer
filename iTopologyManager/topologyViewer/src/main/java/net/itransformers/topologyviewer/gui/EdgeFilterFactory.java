@@ -35,7 +35,7 @@ import java.util.Map;
 public class EdgeFilterFactory {
     static Logger logger = Logger.getLogger(EdgeFilterFactory.class);
 
-    public static EdgePredicateFilter<String, String> createEdgeFilter(final FilterType filter, final Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas1) {
+    public static EdgePredicateFilter<String, String> createEdgeFilter(final FilterType filter, final Map<String, GraphMLMetadata<String>> edgeMetadata) {
         return new EdgePredicateFilter<String, String>(new Predicate<String>() {
                 public boolean evaluate(String edge) {
                     try {
@@ -44,21 +44,18 @@ public class EdgeFilterFactory {
                         for (IncludeType include: includes) {
                             if (ForType.EDGE.equals(include.getFor())) {
                                 final String dataKey = include.getDataKey();
-                                final Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas = edgeMetadatas1;
-                                for (Map<String, GraphMLMetadata<String>> edgeMetadata : edgeMetadatas.values()) {
-                                    final GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(dataKey);
-                                    if (stringGraphMLMetadata == null) {
-                                        throw new RuntimeException("Can not find metadata for key: "+dataKey);
-                                    }
-                                    final Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
-                                    String value = transformer.transform(edge);
-                                    if (value != null){
-                                        String[] dataValues = value.split(",");
-                                        String includeDataValue = include.getDataValue();
-                                        for (String dataValue : dataValues){
-                                            if (dataValue.equals(includeDataValue)) {
-                                                return true;
-                                            }
+                                final GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(dataKey);
+                                if (stringGraphMLMetadata == null) {
+                                    throw new RuntimeException("Can not find metadata for key: "+dataKey);
+                                }
+                                final Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
+                                String value = transformer.transform(edge);
+                                if (value != null){
+                                    String[] dataValues = value.split(",");
+                                    String includeDataValue = include.getDataValue();
+                                    for (String dataValue : dataValues){
+                                        if (dataValue.equals(includeDataValue)) {
+                                            return true;
                                         }
                                     }
                                 }

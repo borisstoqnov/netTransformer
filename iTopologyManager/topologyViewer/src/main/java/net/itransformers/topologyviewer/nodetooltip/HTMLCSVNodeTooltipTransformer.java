@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class HTMLCSVNodeTooltipTransformer extends NodeTooltipTransformerBase{
-    public HTMLCSVNodeTooltipTransformer(TooltipType tooltipType, Map<String, Map<String, GraphMLMetadata<String>>> nodeMetadatas) {
+    public HTMLCSVNodeTooltipTransformer(TooltipType tooltipType, Map<String, GraphMLMetadata<String>> nodeMetadatas) {
         super(tooltipType, nodeMetadatas);
     }
 
@@ -37,13 +37,11 @@ public class HTMLCSVNodeTooltipTransformer extends NodeTooltipTransformerBase{
              StringBuilder sb = new StringBuilder();
             sb.append("<html>");
              Set<String> valueSet = new HashSet<String>();
-             for (Map<String, GraphMLMetadata<String>> edgeMetadata : nodeMetadatas.values()) {
-                 GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(tooltipType.getDataKey());
-                 Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
-                 final String value = transformer.transform(node);
-                 if (value != null && !sb.toString().contains(value)){
-                     sb.append(value);
-                 }
+             GraphMLMetadata<String> stringGraphMLMetadata = nodeMetadatas.get(tooltipType.getDataKey());
+             Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
+             final String value = transformer.transform(node);
+             if (value != null && !sb.toString().contains(value)){
+                 sb.append(value);
              }
             sb.append(valueSet);
 

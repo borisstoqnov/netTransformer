@@ -476,7 +476,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
             sendCmd.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e1) {
                     try {
-                        final Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = graphmlLoader.getVertexMetadatas();
+                        final Map<String, GraphMLMetadata<String>> vertexMetadatas = graphmlLoader.getVertexMetadatas();
                         for (String v : varr) {
                             GraphViewerPanel.this.Animator(v.toString());
                             RightClickInvoker.invokeRightClickHandler(GraphViewerPanel.this.parent, v, rcItemType, vertexMetadatas, path, deviceXmlPath);
@@ -516,7 +516,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
         reload.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    graphmlLoader.loadGraphml(graphmlDir);
+                    graphmlLoader.loadGraphml(new File(graphmlDir+"/network.graphml"));
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
@@ -619,7 +619,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
     }
 
     private void applyFilter(final FilterType filter, final Integer hops, final Set<String> pickedVertexes) {
-        final Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas1 = graphmlLoader.getEdgeMetadatas();
+        final Map<String, GraphMLMetadata<String>> edgeMetadatas1 = graphmlLoader.getEdgeMetadatas();
         EdgePredicateFilter<String, String> edgeFilter = EdgeFilterFactory.createEdgeFilter(filter, edgeMetadatas1);
         final Graph<String,String> graph1 = edgeFilter.transform(entireGraph);
 
@@ -640,7 +640,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
     }
 
       private void applyNodeFilter(final FilterType filter, final Integer hops, final Set<String> pickedVertexes) {
-        final Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas1 = graphmlLoader.getEdgeMetadatas();
+        final Map<String, GraphMLMetadata<String>> edgeMetadatas1 = graphmlLoader.getEdgeMetadatas();
         EdgePredicateFilter<String, String> edgeFilter = EdgeFilterFactory.createEdgeFilter(filter, edgeMetadatas1);
         final Graph<String,String> graph1 = edgeFilter.transform(entireGraph);
         VertexPredicateFilter<String, String> filterV = VertexFilterFactory.createVertexFilter(filter, graphmlLoader.getVertexMetadatas(), graph1);
@@ -811,56 +811,50 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
         return edgeParams.get(key);
     }
     public Set<String> FindNodeByKey(String key, Object value){
-        Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = graphmlLoader.getVertexMetadatas();
+        Map<String, GraphMLMetadata<String>> vertexMetadata = graphmlLoader.getVertexMetadatas();
         Set<String> foundVertexes = new HashSet<String>();
         outer: for (String element : currentGraph.getVertices()) {
-            //Iterate around for each vertexKey
-            for (Map<String, GraphMLMetadata<String>> vertexMetadata : vertexMetadatas.values()) {
-                logger.info("Key:" + key);
-                // If the vertexKey is equal to the key get the value
-                GraphMLMetadata<String> graphMLMetadata = vertexMetadata.get(key);
-                if (graphMLMetadata != null) {
-                    String nodeDataValue = graphMLMetadata.transformer.transform(element);
-                    logger.info("value: " + value + " Value: " + nodeDataValue);
-                    if (nodeDataValue.toUpperCase().contains(value.toString().toUpperCase())) {
-                        foundVertexes.add(element);
-                        continue outer;
-                    }
+        //Iterate around for each vertexKey
+            logger.info("Key:" + key);
+            // If the vertexKey is equal to the key get the value
+            GraphMLMetadata<String> graphMLMetadata = vertexMetadata.get(key);
+            if (graphMLMetadata != null) {
+                String nodeDataValue = graphMLMetadata.transformer.transform(element);
+                logger.info("value: " + value + " Value: " + nodeDataValue);
+                if (nodeDataValue.toUpperCase().contains(value.toString().toUpperCase())) {
+                    foundVertexes.add(element);
+                    continue outer;
                 }
             }
         }
         return foundVertexes;
     }
     public <G> Map<String, String> getVertexParams(String v ) {
-        Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = graphmlLoader.getVertexMetadatas();
+        Map<String, GraphMLMetadata<String>> vertexMetadata = graphmlLoader.getVertexMetadatas();
         HashMap<String, String> params = new HashMap<String, String>();
-        for (Map<String,GraphMLMetadata<String>> vertexMetadata : vertexMetadatas.values()) {
-            for (String key : vertexMetadata.keySet()){
-                String value = vertexMetadata.get(key).transformer.transform(v);
-                if (value == null) continue;
-                if (!params.containsKey(key)){
-                    params.put(key,value);
-                } else{
-                    value = value.concat(", ").concat(params.get(key));
-                    params.put(key,value);
-                }
+        for (String key : vertexMetadata.keySet()){
+            String value = vertexMetadata.get(key).transformer.transform(v);
+            if (value == null) continue;
+            if (!params.containsKey(key)){
+                params.put(key,value);
+            } else{
+                value = value.concat(", ").concat(params.get(key));
+                params.put(key,value);
             }
         }
         return params;
     }
     public <G> Map<String, String> getEdgeParams(String v) {
         HashMap<String, String> params = new HashMap<String, String>();
-        Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas = graphmlLoader.getEdgeMetadatas();
-        for (Map<String,GraphMLMetadata<String>> edgeMetadata : edgeMetadatas.values()) {
-            for (String key : edgeMetadata.keySet()){
-                String value = edgeMetadata.get(key).transformer.transform(v);
-                if (value == null) continue;
-                if (!params.containsKey(key)){
-                    params.put(key,value);
-                } else{
-                    value = value.concat(", ").concat(params.get(key));
-                    params.put(key,value);
-                }
+        Map<String, GraphMLMetadata<String>> edgeMetadata = graphmlLoader.getEdgeMetadatas();
+        for (String key : edgeMetadata.keySet()){
+            String value = edgeMetadata.get(key).transformer.transform(v);
+            if (value == null) continue;
+            if (!params.containsKey(key)){
+                params.put(key,value);
+            } else{
+                value = value.concat(", ").concat(params.get(key));
+                params.put(key,value);
             }
         }
         return params;

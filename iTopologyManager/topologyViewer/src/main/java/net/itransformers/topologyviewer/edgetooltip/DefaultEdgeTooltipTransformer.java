@@ -26,19 +26,17 @@ import org.apache.commons.collections15.Transformer;
 import java.util.*;
 
 public class DefaultEdgeTooltipTransformer extends EdgeTooltipTransformerBase{
-    public DefaultEdgeTooltipTransformer(TooltipType tooltipType, Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas) {
-        super(tooltipType, (Map<String, Map<String, GraphMLMetadata<String>>>) edgeMetadatas);
+    public DefaultEdgeTooltipTransformer(TooltipType tooltipType, Map<String, GraphMLMetadata<String>> edgeMetadata) {
+        super(tooltipType, edgeMetadata);
     }
     public String transform(String edge) {
         try {
              StringBuilder sb = new StringBuilder();
-             for (Map<String, GraphMLMetadata<String>> edgeMetadata : edgeMetadatas.values()) {
-                 GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(tooltipType.getDataKey());
-                 Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
-                 final String value = transformer.transform(edge);
-                 if (value != null){
-                     sb.append(value);
-                 }
+             GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadatas.get(tooltipType.getDataKey());
+             Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
+             final String value = transformer.transform(edge);
+             if (value != null){
+                 sb.append(value);
              }
             return sb.toString();
         } catch (RuntimeException rte) {

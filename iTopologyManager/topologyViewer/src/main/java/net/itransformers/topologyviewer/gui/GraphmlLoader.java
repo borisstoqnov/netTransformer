@@ -40,66 +40,37 @@ import java.util.*;
  */
 public class GraphmlLoader<G extends Graph<String,String>> {
     Factory<G> factory;
-    private Set<String> loadedFiles = new HashSet<String>();
-    private Map<String, Map<String, GraphMLMetadata<G>>> graphMetadatas = new HashMap<String, Map<String, GraphMLMetadata<G>>>();
-    private Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = new HashMap<String, Map<String, GraphMLMetadata<String>>>();
-    private Map<String, Map<String, GraphMLMetadata<String>>> edgeMetadatas = new HashMap<String, Map<String, GraphMLMetadata<String>>>();
-    private TopologyViewerConfType viewerConfig;
+    private Map<String, GraphMLMetadata<G>> graphMetadatas;
+    private Map<String, GraphMLMetadata<String>> vertexMetadatas;
+    private Map<String, GraphMLMetadata<String>> edgeMetadatas;
     private G entireGraph;
     private List<GraphmlLoaderListener> listeners = new ArrayList<GraphmlLoaderListener>();
 
-    public GraphmlLoader(TopologyViewerConfType viewerConfig, G entireGraph, Factory<G> factory,Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas) {
-        this.viewerConfig = viewerConfig;
+    public GraphmlLoader(G entireGraph, Factory<G> factory) {
         this.entireGraph = entireGraph;
         this.factory = factory;
-        this.vertexMetadatas = vertexMetadatas;
-    }
-
-    List<String> readGraphmlFileNames(File nodeListUrl) throws IOException {
-        List<String> result = new ArrayList<String>();
-        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(nodeListUrl)));
-        try {
-        String s;
-        while ((s = in.readLine()) != null){
-            result.add(s);
-        }
-        } finally {
-            in.close();
-        }
-        return result;
     }
 
     public void loadGraphml(File urlPath) throws ParserConfigurationException, SAXException, IOException {
-//        File file = new File(dir + File.separator + "nodes-file-list.txt");
-        File url2 = new File(urlPath.getParent(), urlPath.getName()+".graphmls");
-        List<String> allFiles = readGraphmlFileNames(url2);//FileUtils.readLines(file);
-        List<String> files = allFiles.subList(loadedFiles.size(),allFiles.size());
-        for (String fileName : files){
-            if (fileName.startsWith("#")) continue;
-            boolean forUpdate = !loadedFiles.add(fileName);
-            final G graph = factory.create();
-            File grahmlUrl = new File(urlPath,fileName);
-            GraphMLReader gmlr = loadGraphmlInGraph(grahmlUrl, graph);
-            Collection<String> verteces = graph.getVertices();
-            for (String vertex :verteces){
-                if(!entireGraph.containsVertex(vertex)){
-                     entireGraph.addVertex(vertex);
-                }             else{
-                    System.out.println("Out");
-                }
+        final G graph = factory.create();
+        GraphMLReader gmlr = loadGraphmlInGraph(urlPath, graph);
+        Collection<String> verteces = graph.getVertices();
+        for (String vertex :verteces){
+            if(!entireGraph.containsVertex(vertex)){
+                entireGraph.addVertex(vertex);
             }
-            Collection<String> edges = graph.getEdges();
-            for (String edge : edges){
-                Pair<String> endpoints = graph.getEndpoints(edge);
-                if (!entireGraph.containsEdge(edge)){
-                    entireGraph.addEdge(edge,endpoints);
-                }
-            }
-            graphMetadatas.put(fileName,gmlr.getGraphMetadata());
-            edgeMetadatas.put(fileName,gmlr.getEdgeMetadata());
-            vertexMetadatas.put(fileName,gmlr.getVertexMetadata());
-            notifyListeners(fileName, gmlr.getVertexMetadata(), gmlr.getEdgeMetadata(), graph);
         }
+        Collection<String> edges = graph.getEdges();
+        for (String edge : edges){
+            Pair<String> endpoints = graph.getEndpoints(edge);
+            if (!entireGraph.containsEdge(edge)){
+                entireGraph.addEdge(edge,endpoints);
+            }
+        }
+        graphMetadatas = gmlr.getGraphMetadata();
+        edgeMetadatas = gmlr.getEdgeMetadata();
+        vertexMetadatas = gmlr.getVertexMetadata();
+        notifyListeners(gmlr.getVertexMetadata(), gmlr.getEdgeMetadata(), graph);
     }
 
     static <G extends Graph<String,String>> GraphMLReader loadGraphmlInGraph(InputStream is, G graph) throws ParserConfigurationException, SAXException, IOException {
@@ -124,27 +95,26 @@ public class GraphmlLoader<G extends Graph<String,String>> {
     }
 
 
-    public Map<String, Map<String, GraphMLMetadata<G>>> getGraphMetadatas() {
+    public Map<String, GraphMLMetadata<G>> getGraphMetadatas() {
         return graphMetadatas;
     }
 
-    public Map<String, Map<String, GraphMLMetadata<String>>> getVertexMetadatas() {
+    public Map<String, GraphMLMetadata<String>> getVertexMetadatas() {
         return vertexMetadatas;
     }
 
-    public Map<String, Map<String, GraphMLMetadata<String>>> getEdgeMetadatas() {
+    public Map<String, GraphMLMetadata<String>> getEdgeMetadatas() {
         return edgeMetadatas;
     }
     public void addGraphmlLoaderListener(GraphmlLoaderListener listener){
         this.listeners.add(listener);
     }
 
-    private void notifyListeners(String fileName,
-                                 Map<String, GraphMLMetadata<String>> vertexMetadata,
+    private void notifyListeners(Map<String, GraphMLMetadata<String>> vertexMetadata,
                                  Map<String, GraphMLMetadata<String>> edgeMetadata,
                                  G graph){
         for (GraphmlLoaderListener graphmlLoaderListener : listeners) {
-            graphmlLoaderListener.graphmlLoaded(fileName, vertexMetadata, edgeMetadata, graph);
+            graphmlLoaderListener.graphmlLoaded(vertexMetadata, edgeMetadata, graph);
         }
     }
 }
