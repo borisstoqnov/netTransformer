@@ -1,4 +1,4 @@
-package net.itransformers.utils;
+package net.itransformers.utils.graphmlmerge;
 
 import com.tinkerpop.blueprints.Direction;
 import com.tinkerpop.blueprints.Edge;
@@ -9,29 +9,24 @@ import com.tinkerpop.blueprints.util.io.graphml.GraphMLReader;
 import com.tinkerpop.blueprints.util.io.graphml.GraphMLWriter;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 
 public class GrahmlMerge {
-    public static void main(String[] args) throws IOException {
-        File outFile = new File("utils/src/test/java/net/itransformers/utils/graphmlmerge/3.graphml");
-//        File dir = new File("utils/src/test/java/net/itransformers/utils/graphmlmerge/");
-        File dir = new File("C:\\Documents and Settings\\VasilYordanov\\My Documents\\undirected");
-        File[] files = dir.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                return pathname.getName().endsWith(".graphml");
-            }
-        });
+   private Map<String, MergeConflictResolver> edgeConflictResolverMap;
+   private Map<String, MergeConflictResolver> vertexConflictResolverMap;
+   private DefaultMergeConflictResolver  defaultMergeConflictResolver = new DefaultMergeConflictResolver();
 
-        new GrahmlMerge().merge(files, outFile);
+    public GrahmlMerge() {
+        edgeConflictResolverMap = new HashMap<String, MergeConflictResolver>();
+        vertexConflictResolverMap = new HashMap<String, MergeConflictResolver>();
     }
 
-    public static void main2(String[] args) throws IOException {
-        File inFile1 = new File("utils/src/test/java/net/itransformers/utils/graphmlmerge/1.graphml");
-        File inFile2 = new File("utils/src/test/java/net/itransformers/utils/graphmlmerge/2.graphml");
-        File outFile = new File("utils/src/test/java/net/itransformers/utils/graphmlmerge/3.graphml");
-        new GrahmlMerge().merge(inFile1, inFile2, outFile);
+    public GrahmlMerge(Map<String, MergeConflictResolver> edgeConflictResolverMap, Map<String, MergeConflictResolver> vertexConflictResolverMap) {
+        this.edgeConflictResolverMap = edgeConflictResolverMap;
+        this.vertexConflictResolverMap = vertexConflictResolverMap;
     }
 
     public void merge(File inFile1, File inFile2, File outFile) throws IOException {
@@ -111,7 +106,9 @@ public class GrahmlMerge {
             Set<String> keys2 = edge2.getPropertyKeys();
             for (String key2 : keys2) {
                 if (keys1.contains(key2)) {
-                    edge1.setProperty(key2, edge1.getProperty(key2) + "," + edge2.getProperty(key2));
+                    MergeConflictResolver conflictResolver = getEdgeConflictResolver(key2);
+                    Object merge =  conflictResolver.resolveConflict(edge1.getProperty(key2), edge2.getProperty(key2));
+                    edge1.setProperty(key2, merge);
                 } else {
                     edge1.setProperty(key2, edge2.getProperty(key2));
                 }
@@ -138,12 +135,31 @@ public class GrahmlMerge {
             Set<String> keys2 = vertex2.getPropertyKeys();
             for (String key2 : keys2) {
                 if (keys1.contains(key2)) {
-                    vertex1.setProperty(key2,vertex1.getProperty(key2)+","+vertex2.getProperty(key2));
+                    MergeConflictResolver conflictResolver = getVertexConflictResolver(key2);
+                    Object merge = conflictResolver.resolveConflict(vertex1.getProperty(key2), vertex2.getProperty(key2));
+                    vertex1.setProperty(key2,merge);
                 } else {
                     vertex1.setProperty(key2,vertex2.getProperty(key2));
                 }
             }
         }
         return vertex1;
+    }
+
+    private MergeConflictResolver getVertexConflictResolver(String key){
+        MergeConflictResolver conflictResolver = vertexConflictResolverMap.get(key);
+        if (conflictResolver == null) {
+            return defaultMergeConflictResolver;
+        } else {
+            return conflictResolver;
+        }
+    }
+    private MergeConflictResolver getEdgeConflictResolver(String key){
+        MergeConflictResolver conflictResolver = edgeConflictResolverMap.get(key);
+        if (conflictResolver == null) {
+            return defaultMergeConflictResolver;
+        } else {
+            return conflictResolver;
+        }
     }
 }
