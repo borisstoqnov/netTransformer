@@ -33,7 +33,7 @@ public class NetworkDiscoverer {
 
 
 
-    List<NetworkDiscoveryListener> networkDiscoveryListeners;
+//    List<NetworkDiscoveryListener> networkDiscoveryListeners;
     NodeDiscoverFilter nodeDiscoverFilter;
 
     public Map<String,Node> discoverNodes(List<ConnectionDetails> connectionDetailsList) {
@@ -43,7 +43,7 @@ public class NetworkDiscoverer {
     public Map<String,Node> discoverNodes(List<ConnectionDetails> connectionDetailsList, int depth) {
         Map<String,Node> nodes = new HashMap<String, Node>();
         doDiscoverNodes(connectionDetailsList, nodes, null, 0, depth);
-        fireNetworkDiscoveredEvent(nodes);
+//        fireNetworkDiscoveredEvent(nodes);
         return nodes;
     }
 
@@ -91,12 +91,12 @@ public class NetworkDiscoverer {
             nodeDiscoveryListener.nodeDiscovered(discoveryResult);
         }
     }
-    private void fireNetworkDiscoveredEvent(Map<String, Node> network) {
-        if (networkDiscoveryListeners != null)
-            for (NetworkDiscoveryListener networkDiscoveryListener : networkDiscoveryListeners) {
-                networkDiscoveryListener.networkDiscovered(network);
-            }
-    }
+//    private void fireNetworkDiscoveredEvent(Map<String, Node> network) {
+//        if (networkDiscoveryListeners != null)
+//            for (NetworkDiscoveryListener networkDiscoveryListener : networkDiscoveryListeners) {
+//                networkDiscoveryListener.networkDiscovered(network);
+//            }
+//    }
 
     public void setNodeDiscoverers(Map<String, NodeDiscoverer> nodeDiscoverers) {
         this.nodeDiscoverers = nodeDiscoverers;
@@ -113,11 +113,11 @@ public class NetworkDiscoverer {
     public void setNodeDiscoveryListeners(List<NodeDiscoveryListener> nodeDiscoveryListeners) {
         this.nodeDiscoveryListeners = nodeDiscoveryListeners;
     }
-    public List<NetworkDiscoveryListener> getNetworkDiscoveryListeners() {
-        return networkDiscoveryListeners;
-    }
-
-    public void setNetworkDiscoveryListeners(List<NetworkDiscoveryListener> networkDiscoveryListeners) {
-        this.networkDiscoveryListeners = networkDiscoveryListeners;
-    }
+//    public List<NetworkDiscoveryListener> getNetworkDiscoveryListeners() {
+//        return networkDiscoveryListeners;
+//    }
+//
+//    public void setNetworkDiscoveryListeners(List<NetworkDiscoveryListener> networkDiscoveryListeners) {
+//        this.networkDiscoveryListeners = networkDiscoveryListeners;
+//    }
 }

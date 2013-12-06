@@ -44,7 +44,7 @@
         <module>iAssertions</module>
         <module>wsitransformer</module>
         <!--module>ideas</module-->
-        <module>distribution</module>
+        <!--<module>distribution</module>-->
 
     </modules>
             <build>
