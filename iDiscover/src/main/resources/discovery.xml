@@ -92,10 +92,10 @@
         <property name="labelDirName" value="version1"/>
     </bean>
 
-    <!--<bean id="SnmpNetworkDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SnmpNetworkDiscoveryListener">-->
-        <!--<property name="labelDirName" value="version1"/>-->
-        <!--<property name="graphmlDataDirName" value="undirected"/>-->
-    <!--</bean>-->
+    <bean id="SnmpNetworkDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SnmpNetworkDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+        <property name="graphmlDataDirName" value="undirected"/>
+    </bean>
 
     <bean id="sdnGraphmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.sdnGraphmlFileLogDiscoveryListener">
         <property name="graphmlDataDirName" value="network/undirected"/>
@@ -158,7 +158,7 @@
         <constructor-arg>
             <map>
                 <entry key="fileName" value="iDiscover/conf/xml/discoveryParameters.xml"/>
-                <entry key="resourceXML" value="iDiscover/conf/xml/discoveryResource.xml"/>
+                <entry key="resourceXML" value="resourceManager/conf/xml/resource.xml"/>
             </map>
         </constructor-arg>
     </bean>
@@ -182,6 +182,6 @@
     <bean id="discoveryResourceManager" class="net.itransformers.idiscover.core.DiscoveryResourceManager">
         <constructor-arg ref="projectPath"/>
         <constructor-arg value="1"/>
-        <constructor-arg value="iDiscover/conf/xml/discoveryResource.xml"/>
+        <constructor-arg value="resourceManager/conf/xml/resource.xml"/>
     </bean>
 </beans>

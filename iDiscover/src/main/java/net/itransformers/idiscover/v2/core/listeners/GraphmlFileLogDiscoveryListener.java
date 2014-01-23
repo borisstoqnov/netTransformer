@@ -77,6 +77,7 @@ public class GraphmlFileLogDiscoveryListener implements NodeDiscoveryListener {
             e.printStackTrace();
         }
 
+
     }
 
     public String getLabelDirName() {

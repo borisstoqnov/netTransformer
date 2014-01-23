@@ -37,34 +37,34 @@
         <!--</constructor-arg>-->
     <!--</bean>-->
 
-    <bean id="connection1" class="net.itransformers.idiscover.v2.core.model.ConnectionDetails">
-        <constructor-arg value="SNMP"/>
-        <constructor-arg>
-            <map>
-                <entry key="ipAddress" value="172.16.13.1"/>
-                <entry key="version" value="1"/>
-                <entry key="community-ro" value="iTransformer-r"/>
-                <entry key="community-rw" value="iTransformer-rw"/>
-                <entry key="timeout" value="1500"/>
-                <entry key="retries" value="2"/>
-                <entry key="port" value="161"/>
-                <entry key="max-repetitions" value="65535"/>
-            </map>
-        </constructor-arg>
-    </bean>
-    <bean id="connection2" class="net.itransformers.idiscover.v2.core.model.ConnectionDetails">
-        <constructor-arg value="SNMP"/>
-        <constructor-arg>
-            <map>
-                <entry key="ipAddress" value="172.16.13.3"/>
-                <entry key="version" value="1"/>
-                <entry key="community-ro" value="iTransformer-r"/>
-                <entry key="community-rw" value="test-rw"/>
-                <entry key="timeout" value="1500"/>
-                <entry key="retries" value="3"/>
-                <entry key="port" value="161"/>
-                <entry key="max-repetitions" value="65535"/>
-            </map>
-        </constructor-arg>
-    </bean>
+    <!--<bean id="connection1" class="net.itransformers.idiscover.v2.core.model.ConnectionDetails">-->
+        <!--<constructor-arg value="SNMP"/>-->
+        <!--<constructor-arg>-->
+            <!--<map>-->
+                <!--<entry key="ipAddress" value="172.16.13.1"/>-->
+                <!--<entry key="version" value="1"/>-->
+                <!--<entry key="community-ro" value="netTransformer-r"/>-->
+                <!--<entry key="community-rw" value="netTransformer-rw"/>-->
+                <!--<entry key="timeout" value="1500"/>-->
+                <!--<entry key="retries" value="2"/>-->
+                <!--<entry key="port" value="161"/>-->
+                <!--<entry key="max-repetitions" value="65535"/>-->
+            <!--</map>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+    <!--<bean id="connection2" class="net.itransformers.idiscover.v2.core.model.ConnectionDetails">-->
+        <!--<constructor-arg value="SNMP"/>-->
+        <!--<constructor-arg>-->
+            <!--<map>-->
+                <!--<entry key="ipAddress" value="172.16.13.3"/>-->
+                <!--<entry key="version" value="1"/>-->
+                <!--<entry key="community-ro" value="netTransformer-r"/>-->
+                <!--<entry key="community-rw" value="netTransformer-rw"/>-->
+                <!--<entry key="timeout" value="1500"/>-->
+                <!--<entry key="retries" value="3"/>-->
+                <!--<entry key="port" value="161"/>-->
+                <!--<entry key="max-repetitions" value="65535"/>-->
+            <!--</map>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
 </beans>
