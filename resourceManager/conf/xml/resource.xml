@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resources>
-    <resource name="default">
-        <connection-params connection-type="ssh"/>
-        <connection-params connection-type="snmp">
-            <param name="community">itransformer-rw</param>
-        </connection-params>
-    </resource>
+
     <resource name="node-from-Moscow">
         <param name="geoloc">Moscow</param>
         <connection-params connection-type="ssh">
@@ -17,6 +12,14 @@
             <param name="username">user</param>
             <param name="password">password</param>
             <param name="system-password">password</param>
+        </connection-params>
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="community-ro">netTransformer-r</param>
+            <param name="community-rw">netTransformer-rw</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+            <param name="port">161</param>
         </connection-params>
     </resource>
     <resource name="cisco-devices-from-Moscow">
@@ -32,20 +35,28 @@
             <param name="password">lab</param>
             <param name="enable-password">lab</param>
         </connection-params>
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="community-ro">netTransformer-r</param>
+            <param name="community-rw">netTransformer-rw</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+            <param name="port">161</param>
+        </connection-params>
     </resource>
     <resource name="huawei">
         <param name="deviceType">HUAWEI</param>
         <connection-params connection-type="ssh">
             <param name="username">lab</param>
-            <param name="password">lab</param>
-            <param name="system-password">lab</param>
+            <param name="password">lab123</param>
+            <param name="system-password">lab123</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
         </connection-params>
         <connection-params connection-type="telnet">
             <param name="username">lab</param>
-            <param name="password">lab</param>
-            <param name="enable-password">lab</param>
+            <param name="password">lab123</param>
+            <param name="enable-password">lab123</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
         </connection-params>
@@ -67,7 +78,12 @@
             <param name="retries">3</param>
         </connection-params>
         <connection-params connection-type="snmp">
-            <param name="community">itransformer-rw</param>
+            <param name="version">2c</param>
+            <param name="community-ro">netTransformer-r</param>
+            <param name="community-rw">netTransformer-rw</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+            <param name="port">161</param>
         </connection-params>
     </resource>
     <resource name="juniper">
@@ -85,6 +101,25 @@
             <param name="enable-password">lab</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
+        </connection-params>
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="community-ro">netTransformer-r</param>
+            <param name="community-rw">netTransformer-rw</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+            <param name="port">161</param>
+        </connection-params>
+    </resource>
+    <resource name="DEFAULT">
+        <param name="protocol">SNMP</param>
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="community-ro">netTransformer-r</param>
+            <param name="community-rw">netTransformer-rw</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+            <param name="port">161</param>
         </connection-params>
     </resource>
 </resources>
