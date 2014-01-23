@@ -34,19 +34,22 @@ public class XmlFileEditorHandler implements RightClickHandler {
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
                                      File projectPath,
-                                     File deviceDataXmlFileName) throws Exception {
+                                     File versionDir) throws Exception {
 
-//      JOptionPane.showMessageDialog(parent, "deviceDataXmlFileName: " + deviceDataXmlFileName );
+//      JOptionPane.showMessageDialog(parent, "versionDir: " + versionDir );
 
-        // JEditorPane settingsEditor = new JEditorPane(deviceDataXmlFileName.getAbsolutePath());
+        // JEditorPane settingsEditor = new JEditorPane(versionDir.getAbsolutePath());
          TopologyManagerFrame frame = (TopologyManagerFrame) parent;
          JEditorPane graphmlEditor = null;
+         String path =  rightClickParams.get("path");
 
          if(rightClickParams.get("type").equals("deviceXml")){
-             graphmlEditor = new net.itransformers.utils.JEditorPane(deviceDataXmlFileName.getAbsolutePath(),deviceDataXmlFileName.getParent(),".xml");
+             String deviceXmlPath = versionDir.getAbsolutePath()+File.separator+path+File.separator+"device-data-"+v+".xml";
+             String deviceXmlDir =  versionDir+File.separator+path;
+             graphmlEditor = new net.itransformers.utils.JEditorPane(deviceXmlPath,deviceXmlDir,".xml");
          }else {
-             String graphmlPath = frame.getCurrentGraphViewerManager().getVersionDir().getAbsolutePath()+File.separator+frame.getCurrentGraphViewerManager().getGraphType().toString().toLowerCase()+File.separator+"node-"+v+".graphml";
-             String graphmlDir =  frame.getCurrentGraphViewerManager().getVersionDir().getAbsolutePath()+File.separator+frame.getCurrentGraphViewerManager().getGraphType().toString().toLowerCase();
+             String graphmlPath = versionDir+File.separator+path+File.separator+"node-"+v+".graphml";
+             String graphmlDir =  versionDir + File.separator+path;
              graphmlEditor = new JEditorPane(graphmlPath,graphmlDir,".graphml");
 
          }

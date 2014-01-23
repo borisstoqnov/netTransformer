@@ -19,10 +19,7 @@
 
 package net.itransformers.topologyviewer.gui;
 
-import edu.uci.ics.jung.graph.DirectedGraph;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
-import edu.uci.ics.jung.graph.UndirectedGraph;
-import edu.uci.ics.jung.graph.UndirectedSparseGraph;
+import edu.uci.ics.jung.graph.*;
 import net.itransformers.topologyviewer.menu.MenuBuilder;
 import org.apache.log4j.Logger;
 
@@ -124,20 +121,24 @@ public class TopologyManagerFrame extends JFrame{
 
     public void doOpenGraph(File selectedFile) {
         try {
-            if (selectedFile.getName().startsWith("undirected")) {
-                GraphViewerPanelManager<UndirectedGraph<String, String>> viewerPanelManager =
-                        new GraphViewerPanelManager<UndirectedGraph<String, String>>(this, projectType, path, viewerConfig, selectedFile, UndirectedSparseGraph.<String, String>getFactory(), tabbedPane, GraphType.UNDIRECTED);
-                viewerPanelManagerMap.put(viewerPanelManager.getVersionDir().getAbsolutePath(),viewerPanelManager);
-                viewerPanelManager.createAndAddViewerPanel();
-            } else if (selectedFile.getName().startsWith("directed")) {
 
-                GraphViewerPanelManager<DirectedGraph<String, String>> viewerPanelManager = new GraphViewerPanelManager<DirectedGraph<String, String>>(this, projectType, path,viewerConfig ,selectedFile, DirectedSparseMultigraph.<String, String>getFactory(), tabbedPane, GraphType.DIRECTED);
+            //            new TopologyManagerFrame<UndirectedGraph<String, String>>(baseUrl, graphmlRelDir, UndirectedSparseMultigraph.<String, String>getFactory(), viewerConfigFile,initialNode);
+
+          //  if (selectedFile.getAbsolutePath().contains("undirected")) {
+                GraphViewerPanelManager<UndirectedGraph<String, String>> viewerPanelManager =
+                new GraphViewerPanelManager<UndirectedGraph<String, String>>(this, projectType, path, viewerConfig, selectedFile, UndirectedSparseMultigraph.<String, String>getFactory(), tabbedPane, GraphType.UNDIRECTED);
                 viewerPanelManagerMap.put(viewerPanelManager.getVersionDir().getAbsolutePath(),viewerPanelManager);
                 viewerPanelManager.createAndAddViewerPanel();
-            } else {
-                JOptionPane.showMessageDialog(this,String.format("Unknown graph type %s. Expected types are (directed, undirected, diff-undirected, diff-directed)",selectedFile.getName()));
-            }
-        } catch (Exception e){
+//            } else if(selectedFile.getAbsolutePath().contains("directed")) {
+//
+//                GraphViewerPanelManager<DirectedGraph<String, String>> viewerPanelManager = new GraphViewerPanelManager<DirectedGraph<String, String>>(this, projectType, path,viewerConfig ,selectedFile, DirectedSparseMultigraph.<String, String>getFactory(), tabbedPane, GraphType.DIRECTED);
+//                viewerPanelManagerMap.put(viewerPanelManager.getVersionDir().getAbsolutePath(),viewerPanelManager);
+//                viewerPanelManager.createAndAddViewerPanel();
+//            } else{
+//                logger.error(String.format("Unknown graph type %s. Expected types are (directed, undirected)",selectedFile.getName()));
+//            }
+        }
+         catch (Exception e){
             e.printStackTrace();
             JOptionPane.showMessageDialog(this,"Error creating graph: "+e.getMessage());
         }

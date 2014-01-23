@@ -49,13 +49,16 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private JFrame frame;
     private final File versionDir;
     private String layout;
+    private final File deviceXmlPath;
 
     public GraphViewerPanelManager(JFrame frame, String projectType, File projectPath, File viewerConfigFile, File graphmlFile, Factory<G> factory, JTabbedPane tabbedPane, GraphType graphType) throws Exception {
         this.frame = frame;
         this.projectPath = projectPath;
         this.graphType = graphType;
         this.viewerConfigFile = viewerConfigFile;
-        versionDir = new File(graphmlFile.getParent());
+        versionDir = new File(new File(graphmlFile.getParent()).getParent());
+       // TODO remove this Hardcode
+        this.deviceXmlPath = versionDir;
         this.graphmlDir = graphmlFile;
         this.factory = factory;
         this.tabbedPane = tabbedPane;
@@ -74,7 +77,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     }
 
     private GraphViewerPanel createViewerPanel() {
-        return new GraphViewerPanel<G>(frame, viewerConfig, graphmlLoader, iconMapLoader, edgeStrokeMapLoader, edgeColorMapLoader, entireGraph, projectPath,versionDir, graphmlDir, initialNode,layout);
+        return new GraphViewerPanel<G>(frame, viewerConfig, graphmlLoader, iconMapLoader, edgeStrokeMapLoader, edgeColorMapLoader, entireGraph, projectPath, deviceXmlPath, versionDir, graphmlDir, initialNode,layout);
     }
 
     public void init() throws JAXBException, ParserConfigurationException, SAXException, IOException {

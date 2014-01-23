@@ -116,7 +116,6 @@ public class DiscoveryResourceDialog extends JDialog {
     private void storeResource(ResourcesType resource) {
         FileOutputStream os = null;
         File path = getPath();
-       // File file = new File(path, "iDiscover/conf/xml/discoveryResource.xml");
         File file = new File(path, "resourceManager/conf/xml/resource.xml");
 
         try {

@@ -19,11 +19,11 @@
 
 package net.itransformers.topologyviewer.rightclick.impl;
 
+import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapter;
 import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapterFactory;
 import net.itransformers.topologyviewer.parameterfactory.ParameterFactoryBuilder;
-import net.itransformers.resourcemanager.ResourceManager;
-import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 
 import javax.swing.*;
@@ -34,7 +34,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Handler;
@@ -45,7 +44,7 @@ public class CmdRightClickHandler implements RightClickHandler {
 //    public <G> void handleRightClick(JFrame parent, String v,
 //                                     Map<String, String> graphMLParams,
 //                                     Map<String, String> rightClickParams,
-//                                     String deviceDataXmlFileName) throws Exception {
+//                                     String versionDir) throws Exception {
 //        Map<String,String> connParams;
 //        connParams = ResourceResolver.getResource(parent, graphMLParams, rightClickParams.get("resource"));
 //        String deviceType = graphMLParams.get("deviceType");
@@ -55,7 +54,7 @@ public class CmdRightClickHandler implements RightClickHandler {
 //        context.put("graphml", graphMLParams);
 //        context.put("resource", connParams);
 //        context.put("rightClickParams", rightClickParams);
-//        context.put("xmlFileName",deviceDataXmlFileName);
+//        context.put("xmlFileName",versionDir);
 //        Map<String,String> params = factory.createParameters(context);
 //        System.out.println(params);
 //
@@ -66,12 +65,14 @@ public class CmdRightClickHandler implements RightClickHandler {
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
                                      File projectPath,
-                                     File deviceDataXmlFileName) throws Exception {
+                                     File versionDir) throws Exception {
         ParameterFactoryBuilder builder = new ParameterFactoryBuilder(new File(projectPath,rightClickParams.get("parameterFactoryXml")));
         Map<String, Object> context = new HashMap<String, Object>();
         context.put("graphml", graphMLParams);
         context.put("rightClickParams", rightClickParams);
-        context.put("xmlFileName", deviceDataXmlFileName.toURI().toString());
+        String deviceXmlPath = versionDir+File.separator+rightClickParams.get("deviceXMlpath")+File.separator+"device-data-"+v+".xml";
+        System.out.println(deviceXmlPath);
+        context.put("xmlFileName", deviceXmlPath);
         context.put("parentFrame", parent);
         ResourceManager resourceManager = new ResourceManager(new File(projectPath, rightClickParams.get("resource")));
         ResourceType resource = resourceManager.findResource(graphMLParams);

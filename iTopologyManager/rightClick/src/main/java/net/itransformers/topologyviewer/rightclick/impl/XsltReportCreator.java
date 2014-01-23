@@ -20,7 +20,7 @@
 package net.itransformers.topologyviewer.rightclick.impl;
 
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
-import net.itransformers.utils.XsltReport;
+import net.itransformers.utils.*;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -33,9 +33,8 @@ public class XsltReportCreator implements RightClickHandler {
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
                                      File projectPath,
-                                     File deviceDataXmlFileName) throws Exception {
+                                     File versionDir) throws Exception {
 
-//      JOptionPane.showMessageDialog(parent, "deviceDataXmlFileName: " + deviceDataXmlFileName );
         JFrame frame = new JFrame(" report for " + v + " ");
         frame.setSize(600, 400);
         frame.getContentPane().setLayout(new BorderLayout());
@@ -46,9 +45,19 @@ public class XsltReportCreator implements RightClickHandler {
         String xsltTableFile = rightClickParams.get("table_transformator");
         Logger logger = Logger.getLogger(XsltReportCreator.class);
 
-        logger.info("deviceDataXmlFileName: " + deviceDataXmlFileName + " xsltFile: " + xsltFile + "xsltTableFile: " + xsltTableFile);
+        String path =  rightClickParams.get("path");
+        String xmlSourcePath = null;
+        if(rightClickParams.get("type").equals("deviceXml")){
+             xmlSourcePath = versionDir.getAbsolutePath()+File.separator+path+File.separator+"device-data-"+v+".xml";
+            String deviceXmlDir =  versionDir+File.separator+path;
+        }else {
+            xmlSourcePath = versionDir+File.separator+path+File.separator+"node-"+v+".graphml";
+            String graphmlDir =  versionDir + File.separator+path;
+
+        }
+        logger.info("XML source path: " + xmlSourcePath + " xsltFile: " + xsltFile + "xsltTableFile: " + xsltTableFile);
         if (!xsltTableFile.equals("")) {
-            XsltReport testReport = new XsltReport(new File(projectPath, xsltFile), new File(projectPath, xsltTableFile), deviceDataXmlFileName);
+            XsltReport testReport = new XsltReport(new File(projectPath, xsltFile), new File(projectPath, xsltTableFile), new File(xmlSourcePath));
             try {
 
                 String report = testReport.doubleTransformer().toString();
@@ -60,7 +69,7 @@ public class XsltReportCreator implements RightClickHandler {
             }
         } else {
 
-            XsltReport testReport = new XsltReport(new File(projectPath, xsltFile), deviceDataXmlFileName);
+            XsltReport testReport = new XsltReport(new File(projectPath, xsltFile), versionDir);
             String report = testReport.doubleTransformer().toString() ;
 
             logger.debug(report);

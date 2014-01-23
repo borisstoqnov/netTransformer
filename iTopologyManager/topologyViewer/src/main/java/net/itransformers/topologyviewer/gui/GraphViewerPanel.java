@@ -80,7 +80,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
                             IconMapLoader iconMapLoader,
                             EdgeStrokeMapLoader edgeStrokeMapLoader,
                             EdgeColorMapLoader edgeColorMapLoader,
-                            G entireGraph, File path, File versionDir,File graphmlDir, String initialNode, String layout) {
+                            G entireGraph, File path, File versionDir,File deviceXmlPath, File graphmlDir, String initialNode, String layout) {
         super();
         this.parent = parent;
         this.viewerConfig = viewerConfig;
@@ -90,7 +90,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
         this.graphmlDir = graphmlDir;
         this.initialNode = initialNode;
         this.path = path;
-        this.deviceXmlPath = versionDir;
+        this.deviceXmlPath = deviceXmlPath;
         this.layout=layout;
         this.graphMouse = new DefaultModalGraphMouse();
 
@@ -479,7 +479,7 @@ public class GraphViewerPanel<G extends Graph<String,String>> extends JPanel{
                         final Map<String, GraphMLMetadata<String>> vertexMetadatas = graphmlLoader.getVertexMetadatas();
                         for (String v : varr) {
                             GraphViewerPanel.this.Animator(v.toString());
-                            RightClickInvoker.invokeRightClickHandler(GraphViewerPanel.this.parent, v, rcItemType, vertexMetadatas, path, deviceXmlPath);
+                            RightClickInvoker.invokeRightClickHandler(GraphViewerPanel.this.parent, v, rcItemType, vertexMetadatas, path, versionDir);
                         }
                     } catch (Exception e2) {
                         e2.printStackTrace();

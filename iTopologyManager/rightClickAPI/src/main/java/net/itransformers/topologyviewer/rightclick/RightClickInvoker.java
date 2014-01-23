@@ -32,7 +32,7 @@ public class RightClickInvoker {
     public static void invokeRightClickHandler(JFrame frame, String v, final RightClickItemType rcItemType,
                                                Map<String, GraphMLMetadata<String>> vertexMetadatas,
                                                File path,
-                                               File deviceXmlPath) throws Exception {
+                                               File versionDir) throws Exception {
         String clazzStr = rcItemType.getHandlerClass();
         Class<?> clazz;
         clazz = Class.forName(clazzStr);
@@ -43,7 +43,8 @@ public class RightClickInvoker {
         for (ParamType param : rcItemType.getParam()) {
             rcParams.put(param.getName(), param.getValue());
         }
-        inst.handleRightClick(frame, v, graphMLParams, rcParams, path, new File(deviceXmlPath+File.separator+"device-data"+"-"+v+".xml")); // todo remove this hardcode
+        inst.handleRightClick(frame, v, graphMLParams, rcParams, path, versionDir);
+        // todo remove this hardcode
 
     }
 

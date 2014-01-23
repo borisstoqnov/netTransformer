@@ -404,7 +404,7 @@ public class DiscoveryResourcePanel extends JPanel {
     public static void main(String[] args) throws IOException, JAXBException {
         FileInputStream is = null;
         try {
-            is = new FileInputStream("iDiscover/conf/xml/discoveryResource.xml");
+            is = new FileInputStream("resourceManager/conf/xml/resource.xml");
 
             ResourcesType resources = JaxbMarshalar.unmarshal(ResourcesType.class, is);
             final DiscoveryResourcePanel panel = new DiscoveryResourcePanel();

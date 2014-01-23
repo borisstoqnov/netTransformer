@@ -26,10 +26,6 @@
     <dataMatcher name="le" class="net.itransformers.topologyviewer.config.datamatcher.impl.LessOrEqual"/>
     <dataMatcher name="be" class="net.itransformers.topologyviewer.config.datamatcher.impl.BetweenInterval"/>
     <dataMatcher name="beoq" class="net.itransformers.topologyviewer.config.datamatcher.impl.BetweenOrEqualInterval"/>
-
-
-
-
     <icon name="/images/small_greendot.png">
         <data key="transit">NO</data>>
         <data key="countOriginatedPrefixes" matcher="le">5</data>
@@ -131,6 +127,12 @@
     <rightClickItem name="TabViewerOpener" handlerClass="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener">
 
     </rightClickItem>
+    <rightClickItem name="ShortestPath" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPath"/>
+    <rightClickItem name="TabViewerOpener" handlerClass="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener"/>
+    <!--rightClickItem name="GraphmlEditor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
+            <param name="type">graphml</param>
+    </rightClickItem-->
+
     <rightClickItem name="RIPE" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ASNRightClickOpener">
 
         <param name="protocol">http</param>
@@ -144,6 +146,5 @@
         <param name="url">http://whois.arin.net/rest/asn/</param>
         <param name="port">80</param>
     </rightClickItem>
-
 
 </topology-viewer-conf>

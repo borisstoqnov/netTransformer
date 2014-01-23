@@ -261,7 +261,7 @@ public class MenuBuilder {
         startDiscovery.addActionListener(new StartDiscoveryMenuHandler(frame));
         snmpNetworkDiscovery.add(startDiscovery);
         final JMenuItem configureResource = new JMenuItem("Configure Resource");
-        configureResource.addActionListener(new EditConfigMenuHandler(frame, "iDiscover/conf/xml/discoveryResource.xml"));
+        configureResource.addActionListener(new EditConfigMenuHandler(frame, "resourceManager/conf/xml/resource.xml"));
         snmpNetworkDiscovery.add(configureResource);
         final JMenuItem configureParameters = new JMenuItem("Configure Parameters");
         configureParameters.addActionListener(new ConfigureParametersMenuHandler(frame));

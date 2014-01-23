@@ -20,7 +20,6 @@
 package net.itransformers.topologyviewer.diff;
 
 import net.itransformers.topologyviewer.gui.PreferencesKeys;
-import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -32,8 +31,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Properties;
 
@@ -177,7 +174,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
             diffPathTextField3.setText(
                 new File(new File(new File(file1.getParent()).getParent(),
                     new File(file1.getParent()).getName() + "-" +
-                            new File(file2.getParent()).getName()),graphType).getAbsolutePath());
+                            new File(file2.getParent()).getName()).getAbsolutePath()).toString());
         }
     }
 
