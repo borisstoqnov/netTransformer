@@ -34,6 +34,8 @@ import java.util.Map;
 public class DeviceFileLogger implements DiscoveryListener{
     static Logger logger = Logger.getLogger(DeviceFileLogger.class);
     private File path;
+    private File deviceDataPath;
+    private File rawDataPath;
 
     public DeviceFileLogger(Map<String, String> params, File baseDir, String label) {
         File base1 = new File(baseDir, params.get("path"));
@@ -44,7 +46,16 @@ public class DeviceFileLogger implements DiscoveryListener{
         if (!this.path.exists()) {
             this.path.mkdir();
         }
+        deviceDataPath = new File(path, params.get("device-data-logging-path"));
 
+        if (!this.deviceDataPath.exists()) {
+            this.deviceDataPath.mkdir();
+        }
+        rawDataPath = new File(path, params.get("raw-data-logging-path"));
+
+        if (!this.rawDataPath.exists()) {
+            this.rawDataPath.mkdir();
+        }
     }
 
     public void handleDevice(String deviceName, RawDeviceData rawData, DiscoveredDeviceData discoveredDeviceData, Resource resource) {
@@ -52,7 +63,7 @@ public class DeviceFileLogger implements DiscoveryListener{
         final String deviceFileName = "device-data-" + deviceName + ".xml";
         OutputStream os = null;
         try {
-            os = new FileOutputStream(new File(path,deviceFileName));
+            os = new FileOutputStream(new File(deviceDataPath,deviceFileName));
             JaxbMarshalar.marshal(discoveredDeviceData, os, "DiscoveredDevice");
         } catch (FileNotFoundException e) {
             logger.error(e.getMessage(),e);
@@ -65,7 +76,7 @@ public class DeviceFileLogger implements DiscoveryListener{
 //        final String rawDeviceName = path + File.separator + "raw-data-" + deviceName + ".xml";
         final String rawDeviceName = "raw-data-" + deviceName + ".xml";
         try {
-            FileUtils.writeStringToFile(new File(path,rawDeviceName), new String(data));
+            FileUtils.writeStringToFile(new File(rawDataPath,rawDeviceName), new String(data));
         } catch (IOException e) {
             logger.error("Can not log raw data file: " + rawDeviceName, e);
         }

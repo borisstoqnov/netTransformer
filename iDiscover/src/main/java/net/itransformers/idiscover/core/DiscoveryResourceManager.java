@@ -82,7 +82,7 @@ public class DiscoveryResourceManager {
 
     public static void main(String[] args){
         System.setProperty("base.dir", System.getProperty("user.dir"));
-        DiscoveryResourceManager Discover = new DiscoveryResourceManager(null,null, "iDiscover/conf/xml/discoveryResource.xml");
+        DiscoveryResourceManager Discover = new DiscoveryResourceManager(null,null, "resourceManager/conf/xml/resource.xml");
         ResourceManager Test = Discover.getResourceManager();
 //        Get CLI parameters
         ResourceType CLI = Discover.ReturnResourceByName("CLI");

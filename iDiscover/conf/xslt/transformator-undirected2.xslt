@@ -24,33 +24,39 @@
     <xsl:include href="utils.xslt"/>
     <xsl:template match="/">
         <graphml>
+            <key id="hostname" for="node" attr.name="hostname" attr.type="string"/>
+            <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string"/>
+            <key id="deviceType" for="node" attr.name="deviceType" attr.type="string"/>
+            <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string"/>
+            <key id="deviceStatus" for="node" attr.name="deviceStatus" attr.type="string"/>
+            <key id="ManagementIPAddress" for="node" attr.name="ManagementIPAddress" attr.type="string"/>
+            <key id="geoCoordinates" for="node" attr.name="geoCoordinates" attr.type="string"/>
+            <key id="site" for="node" attr.name="site" attr.type="string"/>
+            <key id="diff" for="node" attr.name="diff" attr.type="string"/>
+            <key id="diffs" for="node" attr.name="diffs" attr.type="string"/>
+            <key id="IPv6Forwarding" for="node" attr.name="IPv6Forwarding" attr.type="string"/>
+            <key id="IPv4Forwarding" for="node" attr.name="IPv4Forwarding" attr.type="string"/>
+
+
+            <key id="name" for="edge" attr.name="name" attr.type="string"/>
+            <key id="method" for="edge" attr.name="method" attr.type="string"/>
+            <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string"/>
+            <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string"/>
+            <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string"/>
+            <key id="IPv6Forwarding" for="edge" attr.name="IPv6Forwarding" attr.type="string"/>
+            <key id="IPv4Forwarding" for="edge" attr.name="IPv6Forwarding" attr.type="string"/>
+
+            <key id="InterfaceNameA" for="edge" attr.name="InterfaceNameA" attr.type="string"/>
+            <key id="InterfaceNameB" for="edge" attr.name="InterfaceNameB" attr.type="string"/>
+            <key id="IPv4AddressA" for="edge" attr.name="IPv4AddressA" attr.type="string"/>
+            <key id="IPv4AddressB" for="edge" attr.name="IPv4AddressB" attr.type="string"/>
+            <key id="edgeTooltip" for="edge" attr.name="edgeTooltip" attr.type="string"/>
+            <key id="diff" for="edge" attr.name="diff" attr.type="string"/>
+            <key id="diffs" for="edge" attr.name="diffs" attr.type="string"/>
+
             <graph edgedefault="undirected">
                 <!-- data schema -->
-                <key id="hostname" for="node" attr.name="hostname" attr.type="string"/>
-                <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string"/>
-                <key id="deviceType" for="node" attr.name="deviceType" attr.type="string"/>
-                <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string"/>
-                <key id="deviceStatus" for="node" attr.name="deviceStatus" attr.type="string"/>
-                <key id="ManagementIPAddress" for="node" attr.name="ManagementIPAddress" attr.type="string"/>
-                <key id="geoCoordinates" for="node" attr.name="geoCoordinates" attr.type="string"/>
-                <key id="site" for="node" attr.name="site" attr.type="string"/>
-                <key id="diff" for="node" attr.name="diff" attr.type="string"/>
-                <key id="diffs" for="node" attr.name="diffs" attr.type="string"/>
-                <key id="ipv6Forwarding" for="node" attr.name="ipv6Forwarding" attr.type="string"/>
 
-                <key id="name" for="edge" attr.name="name" attr.type="string"/>
-                <key id="method" for="edge" attr.name="method" attr.type="string"/>
-                <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string"/>
-                <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string"/>
-                <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string"/>
-                <key id="ipv6Forwarding" for="edge" attr.name="ipv6Forwarding" attr.type="string"/>
-                <key id="localInterfaceName" for="edge" attr.name="localInterfaceName" attr.type="string"/>
-                <key id="remoteInterfaceName" for="edge" attr.name="remoteInterfaceName" attr.type="string"/>
-                <key id="localIPAddress" for="edge" attr.name="localIPAddress" attr.type="string"/>
-                <key id="remoteIPAddress" for="edge" attr.name="remoteIPAddress" attr.type="string"/>
-                <key id="edgeTooltip" for="edge" attr.name="edgeTooltip" attr.type="string"/>
-                <key id="diff" for="edge" attr.name="diff" attr.type="string"/>
-                <key id="diffs" for="edge" attr.name="diffs" attr.type="string"/>
 
                 <xsl:variable name="nodeID">
                     <xsl:value-of select="/DiscoveredDevice/name"/>
@@ -75,13 +81,17 @@
                 </xsl:variable>
                 <xsl:variable name="X" select="//DiscoveredDevice/parameters/parameter[name='X Coordinate']/value"/>
                 <xsl:variable name="Y" select="//DiscoveredDevice/parameters/parameter[name='Y Coordinate']/value"/>
-                <xsl:variable name="ipv6Forwarding"
-                              select="//DiscoveredDevice/parameters/parameter[name='ipv6Forwarding']/value"/>
+                <xsl:variable name="IPv6Forwarding"
+                              select="//DiscoveredDevice/parameters/parameter[name='IPv6Forwarding']/value"/>
                 <!--Prepare Central Node-->
                 <node>
                     <xsl:attribute name="id">
                         <xsl:value-of select="$nodeID"/>
                     </xsl:attribute>
+                    <xsl:attribute name="label">
+                        <xsl:value-of select="$nodeID"/>
+                    </xsl:attribute>
+
                     <data key="hostname">
                         <xsl:value-of select="$nodeID"/>
                     </data>
@@ -103,8 +113,11 @@
                     <data key="geoCoordinates">
                         <xsl:value-of select="$Y"/>,<xsl:value-of select="$X"/>
                     </data>
-                    <data key="ipv6Forwarding">
-                        <xsl:value-of select="$ipv6Forwarding"/>
+                    <data key="IPv6Forwarding">
+                        <xsl:value-of select="$IPv6Forwarding"/>
+                    </data>
+                    <data key="IPv4Forwarding">
+                        <xsl:text>YES</xsl:text>
                     </data>
                     <data key="nodeInfo" diffignore="YES">
                         <xsl:text disable-output-escaping="yes">&lt;![CDATA[ &lt;html&gt;</xsl:text>
@@ -118,8 +131,8 @@
                                 disable-output-escaping="yes">&lt;br&gt;&lt;b&gt;Mgmt IP address:&lt;/b&gt; </xsl:text>
                         <xsl:value-of select="$ManagementIPAddress"/>
                         <xsl:text disable-output-escaping="yes">&lt;br/&gt;</xsl:text>
-                        <xsl:text disable-output-escaping="yes">&lt;b&gt;ipv6Forwarding:&lt;/b&gt; </xsl:text>
-                        <xsl:value-of select="$ipv6Forwarding"/>
+                        <xsl:text disable-output-escaping="yes">&lt;b&gt;IPv6Forwarding:&lt;/b&gt; </xsl:text>
+                        <xsl:value-of select="$IPv6Forwarding"/>
                         <xsl:text disable-output-escaping="yes">&lt;br/&gt;</xsl:text>
                         <xsl:text disable-output-escaping="yes">&lt;b&gt;BGPLocalASInfo:&lt;/b&gt; </xsl:text>
                         <xsl:value-of select="$BGPLocalASInfo"/>
@@ -328,8 +341,9 @@
                                                         </xsl:for-each>
                                                     </xsl:when>
                                                     <xsl:otherwise>
-                                                        <xsl:for-each
-                                                                select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method'  and contains(value,'MAC')]]/name">
+                                                        <!--xsl:for-each
+                                                                select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method'  and contains(value,'MAC')]]/name"-->
+                                                            <xsl:for-each select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method']]/name">
                                                             <xsl:variable name="neighID">
                                                                 <xsl:value-of select="."/>
                                                             </xsl:variable>
@@ -396,66 +410,56 @@
                 </test>
             </root>
         </xsl:variable>
-        <edge>
-            <xsl:attribute name="id">
+        <xsl:variable name="edgeId"><xsl:choose>
+            <xsl:when test="$localInterface!='' and $remoteInterface!=''">
+                <xsl:variable name="sort2">
+                    <root>
+                        <test>
+                            <node>
+                                <xsl:value-of select="$localInterface"/>
+                            </node>
+                        </test>
+                        <test>
+                            <node>
+                                <xsl:value-of select="$remoteInterface"/>
+                            </node>
+                        </test>
+                    </root>
+                </xsl:variable>
+                <xsl:apply-templates select="$sort//root/test"><xsl:sort select="node"/></xsl:apply-templates>-<xsl:apply-templates select="$sort2//root/test"><xsl:sort select="node"/></xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
                 <xsl:choose>
-                    <xsl:when test="$localInterface!='' and $remoteInterface!=''">
+                    <xsl:when test="$localIP!='' and $remoteIP!=''">
                         <xsl:variable name="sort2">
                             <root>
                                 <test>
                                     <node>
-                                        <xsl:value-of select="$localInterface"/>
+                                        <xsl:value-of select="$localIP"/>
                                     </node>
                                 </test>
                                 <test>
                                     <node>
-                                        <xsl:value-of select="$remoteInterface"/>
+                                        <xsl:value-of select="$remoteIP"/>
                                     </node>
                                 </test>
                             </root>
                         </xsl:variable>
+                        <xsl:apply-templates select="$sort//root/test"><xsl:sort select="node"/></xsl:apply-templates>-<xsl:apply-templates select="$sort2//root/test"><xsl:sort select="node"/></xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:otherwise>
                         <xsl:apply-templates select="$sort//root/test">
                             <xsl:sort select="node"/>
                         </xsl:apply-templates>
-                        -
-                        <xsl:apply-templates select="$sort2//root/test">
-                            <xsl:sort select="node"/>
-                        </xsl:apply-templates>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:choose>
-                            <xsl:when test="$localIP!='' and $remoteIP!=''">
-                                <xsl:variable name="sort2">
-                                    <root>
-                                        <test>
-                                            <node>
-                                                <xsl:value-of select="$localIP"/>
-                                            </node>
-                                        </test>
-                                        <test>
-                                            <node>
-                                                <xsl:value-of select="$remoteIP"/>
-                                            </node>
-                                        </test>
-                                    </root>
-                                </xsl:variable>
-                                <xsl:apply-templates select="$sort//root/test">
-                                    <xsl:sort select="node"/>
-                                </xsl:apply-templates>
-                                -
-                                <xsl:apply-templates select="$sort2//root/test">
-                                    <xsl:sort select="node"/>
-                                </xsl:apply-templates>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:apply-templates select="$sort//root/test">
-                                    <xsl:sort select="node"/>
-                                </xsl:apply-templates>
-                            </xsl:otherwise>
-                        </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
-            </xsl:attribute>
+            </xsl:otherwise>
+        </xsl:choose>
+
+        </xsl:variable>
+        <edge>
+            <xsl:attribute name="id"><xsl:value-of select="$edgeId"/></xsl:attribute>
+            <xsl:attribute name="label"><xsl:value-of select="$edgeId"/></xsl:attribute>
             <xsl:attribute name="source">
                 <xsl:value-of select="$nodeID"/>
             </xsl:attribute>
@@ -472,19 +476,19 @@
                 <xsl:text disable-output-escaping="yes">&lt;/p&gt; </xsl:text>
             </data>
             <data>
-                <xsl:attribute name="key">localInterfaceName</xsl:attribute>
+                <xsl:attribute name="key">InterfaceNameA</xsl:attribute>
                 <xsl:value-of select="$localInterface"/>
             </data>
             <data>
-                <xsl:attribute name="key">remoteInterfaceName</xsl:attribute>
+                <xsl:attribute name="key">InterfaceNameB</xsl:attribute>
                 <xsl:value-of select="$remoteInterface"/>
             </data>
             <data>
-                <xsl:attribute name="key">localIPAddress</xsl:attribute>
+                <xsl:attribute name="key">IPv4AddressA</xsl:attribute>
                 <xsl:value-of select="$localIP"/>
             </data>
             <data>
-                <xsl:attribute name="key">remoteIPAddress</xsl:attribute>
+                <xsl:attribute name="key">IPv4AddressB</xsl:attribute>
                 <xsl:value-of select="$remoteIP"/>
             </data>
             <data>

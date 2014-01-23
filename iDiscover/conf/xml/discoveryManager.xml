@@ -21,23 +21,28 @@
     <discovery-helper class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">
         <parameters>
             <param name="fileName">iDiscover/conf/xml/discoveryParameters.xml</param>
-            <param name="resourceXML">iDiscover/conf/xml/discoveryResource.xml</param>
+            <param name="resourceXML">resourceManager/conf/xml/resource.xml</param>
         </parameters>
     </discovery-helper>
     <discovery-manager-listeners>
         <discovery-manager-listener class="net.itransformers.idiscover.discoverylisteners.DeviceFileLogger">
             <param name="path">network</param>
+            <param name="raw-data-logging-path">raw-data</param>
+            <param name="device-data-logging-path">device-hierarchical</param>
+
         </discovery-manager-listener>
         <discovery-manager-listener class="net.itransformers.idiscover.discoverylisteners.XmlTopologyDeviceLogger">
             <param name="xslt">iDiscover/conf/xslt/transformator-undirected2.xslt</param>
             <param name="path">network</param>
+            <param name="device-centric-logging-path">device-centric</param>
+            <param name="network-centric-logging-path">undirected</param>
             <param name="type">undirected</param>
         </discovery-manager-listener>
-        <discovery-manager-listener class="net.itransformers.idiscover.discoverylisteners.XmlTopologyDeviceLogger">
-            <param name="xslt">iDiscover/conf/xslt/transformator-directed.xslt</param>
-            <param name="path">network</param>
-            <param name="type">directed</param>
-        </discovery-manager-listener>
+        <!--<discovery-manager-listener class="net.itransformers.idiscover.discoverylisteners.XmlTopologyDeviceLogger">-->
+            <!--<param name="xslt">iDiscover/conf/xslt/transformator-directed.xslt</param>-->
+            <!--<param name="path">network</param>-->
+            <!--<param name="type">directed</param>-->
+        <!--</discovery-manager-listener>-->
         <!--snmpDiscovery-manager-listener class="com.snmpDiscovery.discoverylisteners.KMLtransformator">
             <param name="xslt">iDiscover/conf/xslt/kml_transformator.xslt</param>
             <param name="path">devices_and_models/lab/undirected</param>

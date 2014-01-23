@@ -24,8 +24,9 @@ import net.itransformers.idiscover.core.RawDeviceData;
 import net.itransformers.idiscover.core.Resource;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.util.JaxbMarshalar;
-//import net.itransformers.utils.XmlFormatter;
+import net.itransformers.utils.XmlFormatter;
 import net.itransformers.utils.XsltTransformer;
+import net.itransformers.utils.graphmlmerge.GrahmlMerge;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
@@ -34,10 +35,14 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+//import net.itransformers.utils.XmlFormatter;
+
 public class XmlTopologyDeviceLogger implements DiscoveryListener{
     static Logger logger = Logger.getLogger(XmlTopologyDeviceLogger.class);
     private final String graphtType;
     private File path;
+    private File deviceCentricPath;
+    private File networkCentricPath;
     private File xsltFileName;
     private final File labelPath;
 
@@ -51,10 +56,21 @@ public class XmlTopologyDeviceLogger implements DiscoveryListener{
             labelPath.mkdir();
         }
         graphtType = params.get("type");
-        this.path = new File(labelPath, graphtType);
-        if (!this.path.exists()) {
-            this.path.mkdir();
-        }
+     //   this.path = new File(labelPath, graphtType);
+
+//        if (!this.path.exists()) {
+//            this.path.mkdir();
+            this.deviceCentricPath = new File(labelPath, params.get("device-centric-logging-path"));
+            if (!this.deviceCentricPath.exists()){
+                this.deviceCentricPath.mkdir();
+            }
+            this.networkCentricPath = new File(labelPath, params.get("network-centric-logging-path"));
+
+            if (!this.networkCentricPath.exists()){
+                this.networkCentricPath.mkdir();
+
+            }
+//        }
         this.xsltFileName = new File(baseDir,params.get("xslt"));
     }
 
@@ -76,12 +92,61 @@ public class XmlTopologyDeviceLogger implements DiscoveryListener{
         try {
             final String fileName = "node-" + deviceName + ".graphml";
 //            String fullFileName = path + File.separator + fileName;
-            final File nodeFile = new File(path,fileName);
-//           String graphml = new XmlFormatter().format(new String(graphMLOutputStream.toByteArray()));
-//            FileUtils.writeStringToFile(nodeFile,graphml);
-            FileWriter writer = new FileWriter(new File(labelPath,graphtType+".graphmls"),true);
-            writer.append(String.valueOf(fileName)).append("\n");
-            writer.close();
+            final File nodeFile = new File(deviceCentricPath,fileName);
+           String graphml = new XmlFormatter().format(new String(graphMLOutputStream.toByteArray()));
+            FileUtils.writeStringToFile(nodeFile, graphml);
+
+            try {
+                final File networkGraphml = new File(networkCentricPath+File.separator+ "network.graphml");
+                if (networkGraphml.exists()){
+                    Map<String, String> edgesTypes = new HashMap<String, String>();
+                    edgesTypes.put("name","string");
+                    edgesTypes.put("method","string");
+                    edgesTypes.put("dataLink","string");
+                    edgesTypes.put("ipLink","string");
+                    edgesTypes.put("IPv4Forwarding","string");
+                    edgesTypes.put("IPv6Forwarding","string");
+                    edgesTypes.put("InterfaceNameA","string");
+                    edgesTypes.put("InterfaceNameB","string");
+                    edgesTypes.put("IPv4AddressA","string");
+                    edgesTypes.put("IPv4AddressB","string");
+                    edgesTypes.put("edgeTooltip","string");
+                    edgesTypes.put("diff","string");
+                    edgesTypes.put("diffs","string");
+
+                    Map<String, String> vertexTypes = new HashMap<String, String>();
+                    vertexTypes.put("deviceModel","string");
+                    vertexTypes.put("deviceType","string");
+                    vertexTypes.put("nodeInfo","string");
+                    vertexTypes.put("hostname","string");
+                    vertexTypes.put("deviceStatus","string");
+                    vertexTypes.put("ManagementIPAddress","string");
+                    vertexTypes.put("geoCoordinates","string");
+                    vertexTypes.put("site","string");
+                    vertexTypes.put("diff","string");
+                    vertexTypes.put("diffs","string");
+                    vertexTypes.put("diffs","string");
+                    vertexTypes.put("IPv6Forwarding","string");
+                    vertexTypes.put("IPv4Forwarding","string");
+
+                    new GrahmlMerge().merge(nodeFile, networkGraphml, networkGraphml, vertexTypes, edgesTypes, graphtType);
+                }else {
+                    //networkGraphml.createNewFile();
+                    FileUtils.writeStringToFile(networkGraphml, graphml);
+                   // new GrahmlMerge().merge(nodeFile, networkGraphml, networkGraphml);
+                }
+                //TODO remove when you have some time and do the diff in the correct way!
+                File networkGraphmls = new File(labelPath,graphtType+".graphmls");
+                if (!networkGraphmls.exists()){
+                     FileWriter writer = new FileWriter(networkGraphmls);
+                     writer.write("network.graphml\n");
+                     writer.close();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

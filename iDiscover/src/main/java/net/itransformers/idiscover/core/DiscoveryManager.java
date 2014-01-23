@@ -60,7 +60,7 @@ public class DiscoveryManager {
         this.resourceManager = resourceManager;
         this.discovererFactory = discovererFactory;
         this.discoveryHelperFactory = discoveryHelperFactory;
-        this.discoveryResource = new DiscoveryResourceManager(projectDir,label,"iDiscover/conf/xml/discoveryResource.xml");
+        this.discoveryResource = new DiscoveryResourceManager(projectDir,label,"resourceManager/conf/xml/resource.xml");
     }
 
     public NetworkType discoverNetwork(Resource resource, String mode, String[] discoveryTypes) throws Exception {
@@ -325,7 +325,7 @@ public class DiscoveryManager {
         DiscoveryHelperFactory discoveryHelperFactory = createDiscoveryHelperFactory(discoveryManagerType);
         ResourceManager resourceManager;
         {
-        String xml = FileUtils.readFileToString(new File(projectDir,"iDiscover/conf/xml/discoveryResource.xml"));
+        String xml = FileUtils.readFileToString(new File(projectDir,"resourceManager/conf/xml/resource.xml"));
         InputStream is1 = new ByteArrayInputStream(xml.getBytes());
         ResourcesType deviceGroupsType = net.itransformers.resourcemanager.util.JaxbMarshalar.unmarshal(ResourcesType.class, is1);
         resourceManager = new ResourceManager(deviceGroupsType);
