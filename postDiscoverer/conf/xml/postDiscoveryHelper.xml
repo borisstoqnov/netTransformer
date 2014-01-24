@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<post-discovery-helper>
+    <device type="CISCO">
+        <post-discovery-method name ="running-confing" type = "CLI" script="cisco_cli_expect4j.groovy">
+            <command>show running-confing</command>
+            <assertion>my-assertionaaa</assertion>
+        </post-discovery-method>
+        <post-discovery-method name ="startup-confing" type = "CLI" script="cisco_cli_expect4j.groovy">
+            <command>show startup-confing</command>
+            <assertion>assert2ddd</assertion>
+        </post-discovery-method>      `                         `
+        <post-discovery-method name="MPLS" type = "SNMP" script="snmp_expect4j.groovy">
+            <command>mplsVpnVrfName,mplsVpnVrfRouteDistinguisher,mplsVpnVrfRouteDistinguisher</command>
+            <assertion>assert3</assertion>
+        </post-discovery-method>
+        <post-discovery-method name="VLAN" type = "SNMP" script="snmp_expect4j.groovy">
+            <command>dot1dBaseNumPorts, dot1qVlanStaticTable</command>
+            <assertion>assertion4</assertion>
+        </post-discovery-method>
+    </device>
+    <device type="JUNIPER">
+        <post-discovery-method name ="running-confing" type = "CLI" script="juniper_cli_expect4j.groovy">
+            <command>1</command>
+            <assertion>my-assertion113213</assertion>
+        </post-discovery-method>
+        <post-discovery-method name ="startup-confing" type = "CLI" script="juniper_cli_expect4j.groovy">
+            <command>show startup-confing</command>
+            <assertion>assert2</assertion>
+        </post-discovery-method>
+        <post-discovery-method name="MPLS" type = "SNMP" script="snmp_expect4j.groovy">
+            <command>mplsVpnVrfName,mplsVpnVrfRouteDistinguisher,mplsVpnVrfRouteDistinguisher</command>
+            <assertion>1</assertion>
+        </post-discovery-method>
+        <post-discovery-method name="VLAN" type = "SNMP" script="snmp_expect4j.groovy">
+            <command>dot1dBaseNumPorts, dot1qVlanStaticTable</command>
+            <assertion>assertion4</assertion>
+        </post-discovery-method>
+    </device>
+    <device type="HUAWEI">
+        <post-discovery-method name ="display-confing" type = "CLI" script="huawei_cli_expect4j.groovy">
+            <command>display running-confing</command>
+            <assertion>my-assertion4</assertion>
+        </post-discovery-method>
+        <post-discovery-method name ="startup-confing" type = "CLI" script="huawei_cli_expect4j.groovy">
+            <command>showasdada startup-confing</command>
+            <assertion>assert5</assertion>
+        </post-discovery-method>
+        <post-discovery-method name="MPLS" type = "SNMP" script="snmp_expect4j.groovy">
+            <command>mplsVpnVrfName,mplsVpnVrfRouteDistinguisher,mplsVpnVrfRouteDistinguisher</command>
+            <assertion>a</assertion>
+        </post-discovery-method>
+        <post-discovery-method name="VLAN" type = "SNMP" script="snmp_expect4j.groovy">
+            <command>dot1dBaseNumPorts, dot1qVlanStaticTable</command>
+            <assertion>assertion4</assertion>
+        </post-discovery-method>
+    </device>
+    <device type="HP">
+        <post-discovery-method name ="display-confing" type = "CLI" script="hp_cli_expect4j.groovy">
+            <command>display sdsd frunning-confing</command>
+            <assertion>my-assertion4</assertion>
+        </post-discovery-method>
+        <post-discovery-method name ="startup-confing" type = "CLI" script="hp_cli_expect4j.groovy">
+            <command>showsada startup-confing</command>
+            <assertion>assert5</assertion>
+        </post-discovery-method>
+        <post-discovery-method name="MPLS" type = "SNMP" script="snmp_expect4j.groovy">
+            <command>mplsVpnVrfName,mplsVpnVrfRouteDistinguisher,mplsVpnVrfRouteDistinguisher</command>
+            <assertion>assert3</assertion>
+        </post-discovery-method>
+        <post-discovery-method name="VLAN" type = "SNMP" script="snmp_expect4j.groovy">
+            <command>dot1dBaseNumPorts, dot1qVlanStaticTable</command>
+            <assertion>assertion4</assertion>
+        </post-discovery-method>
+    </device>
+    <device type="ALCATEL">
+        <post-discovery-method name ="display-confing" type = "CLI" script="alcatel_cli_expect4j.groovy">
+            <command>display sdfsrunning-confing</command>
+            <assertion>my-assertion4</assertion>
+        </post-discovery-method>
+        <post-discovery-method name ="startup-confing" type = "CLI" script="alcatel_cli_expect4j.groovy">
+            <command>showsdfs startup-confing</command>
+            <assertion>assert5</assertion>
+        </post-discovery-method>
+        <post-discovery-method name="MPLS" type = "SNMP" script="snmp_expect4j.groovy">
+            <command>system,mplsVpnVrfName,mplsVpnVrfRouteDistinguisher,mplsVpnVrfRouteDistinguisher</command>
+            <assertion>assert3</assertion>
+        </post-discovery-method>
+        <post-discovery-method name="VLAN" type = "SNMP" script="snmp_expect4j.groovy">
+            <command>system,dot1dBaseNumPorts, dot1qVlanStaticTable</command>
+            <assertion>assertion46678</assertion>
+        </post-discovery-method>
+    </device>
+</post-discovery-helper>
