@@ -34,14 +34,10 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.Properties;
 
-/**
- * Created by IntelliJ IDEA.
- * Date: 12-4-28
- * Time: 22:32
- * To change this template use File | Settings | File Templates.
- */
+
 public class DiffWizardDialog extends JDialog implements PropertyChangeListener {
     private File baseDir;
+    private File networkDir;
 
     public enum Result {
         CANCELED,
@@ -52,19 +48,24 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     private JTextField diffPathTextField1;
     private JButton openButton1;
     private final JTextField diffPathTextField2;
-    private final JTextField ignoredNodeKeysTextField = new JTextField("iTopologyManager/topologyViewer/conf/xml/ignored_node_keys.xml");
-    private final JTextField ignoredEdgeKeysTextField = new JTextField("iTopologyManager/topologyViewer/conf/xml/ignored_edge_keys.xml");
+    private File ignoredNodeKeysFile;
+    private File ignoredEdgeKeysFile;
+//    = new JTextField("iTopologyManager/topologyViewer/conf/xml/ignored_node_keys.xml");
+//    private final String ignoredEdgeKeysTextField = new JTextField("iTopologyManager/topologyViewer/conf/xml/ignored_edge_keys.xml");
 
     private final JButton openButton2;
     private final JTextField diffPathTextField3;
     private final JButton openButton3;
     private Result result = Result.CANCELED;
     private ProgressMonitor progressMonitor;
-    private GraphMLDiffTool task;
+    private GraphMLFileDiffTool task;
 
     public DiffWizardDialog(final JFrame owner, File baseDir) throws MalformedURLException {
         super(owner,"Diff Dialog",true);
         this.baseDir = baseDir;
+        this.networkDir = new File(baseDir,"network");
+        this.ignoredNodeKeysFile =  new File(baseDir,"iTopologyManager/topologyViewer/conf/xml/ignored_node_keys.xml");
+        this.ignoredEdgeKeysFile = new File(baseDir,"iTopologyManager/topologyViewer/conf/xml/ignored_edge_keys.xml");
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         Container cp = getContentPane();
         cp.setLayout(new BorderLayout());
@@ -93,7 +94,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         JPanel centralPanel = new JPanel();
         centralPanel.setLayout(new BoxLayout(centralPanel,BoxLayout.Y_AXIS));
 
-        String diffPath1 = baseDir.getAbsolutePath();
+        String diffPath1 = networkDir.getAbsolutePath();
         JPanel row1 = new JPanel(new BorderLayout(10,10));
         row1.add(new JLabel("   Graph1"),BorderLayout.WEST);
         diffPathTextField1 = new JTextField(diffPath1);
@@ -103,7 +104,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         centralPanel.add(row1);
         openButton1.addActionListener(new FileSelector(owner,diffPathTextField1));
 
-        String diffPath2 = baseDir.getAbsolutePath();
+        String diffPath2 = networkDir.getAbsolutePath();
         JPanel row2 = new JPanel(new BorderLayout(10,10));
         row2.add(new JLabel("   Graph2"),BorderLayout.WEST);
         diffPathTextField2 = new JTextField(diffPath2);
@@ -115,7 +116,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         diffPathTextField1.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                updateDiffPath();
+                updateDiffPath1();
             }
 
             public void removeUpdate(DocumentEvent e) {
@@ -128,7 +129,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         diffPathTextField2.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                updateDiffPath();
+                updateDiffPath2();
             }
 
             public void removeUpdate(DocumentEvent e) {
@@ -157,7 +158,21 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         this.pack();
     }
 
-    private void updateDiffPath() {
+    private void updateDiffPath1() {
+        System.out.println("INSERT UPDATE");
+        final String path1 = diffPathTextField1.getText();
+        File file1 = new File(path1);
+
+
+            String versionADir = new File(new File(file1.getParent()).getParent()).getName();
+            String versionCdir = networkDir+File.separator+versionADir+"-";
+
+            diffPathTextField3.setText(versionCdir);
+
+
+    }
+
+    private void updateDiffPath2() {
         System.out.println("INSERT UPDATE");
         final String path1 = diffPathTextField1.getText();
         final String path2 = diffPathTextField2.getText();
@@ -165,16 +180,24 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         File file1 = new File(path1);
         File file2 = new File(path2);
         String graphType = null;
-        if (file1.getName().startsWith("undirected")){
-            graphType = "undirected";
-        } else if (file2.getName().startsWith("directed")){
+
+        if (file1.getName().contains("directed")){
+
             graphType = "directed";
+        } else {
+            graphType = "undirected";
+
         }
         if (graphType != null) {
-            diffPathTextField3.setText(
-                new File(new File(new File(file1.getParent()).getParent(),
-                    new File(file1.getParent()).getName() + "-" +
-                            new File(file2.getParent()).getName()).getAbsolutePath()).toString());
+            String versionADir = new File(new File(file1.getParent()).getParent()).getName();
+            String versionCdir = networkDir+File.separator+versionADir+"-";
+            if (file2!=null){
+                String versionBDir = new File(new File(file2.getParent()).getParent()).getName();
+                versionCdir = networkDir+File.separator+versionADir+"-"+versionBDir;
+            }
+
+            diffPathTextField3.setText(versionCdir);
+
         }
     }
 
@@ -187,11 +210,11 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     public String getDiffPath3(){
         return diffPathTextField3.getText();
     }
-    public String getNodeIgnoredKeysPath(){
-        return ignoredNodeKeysTextField.getText();
+    public File getNodeIgnoredKeysFile(){
+        return ignoredNodeKeysFile;
     }
-    public String getEdgeIgnoredKeysPath(){
-        return ignoredEdgeKeysTextField.getText();
+    public File getEdgeIgnoredKeysFile(){
+        return ignoredEdgeKeysFile;
     }
 
     public Result getResult() {
@@ -203,22 +226,26 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         progressMonitor.setMillisToPopup(0);
         new File(getDiffPath3()).mkdirs();
         String path1 = getDiffPath1();
-        File path1File = new File(path1);
-        File diffPath1;
-        if (path1File.getName().startsWith("directed")){
-            diffPath1 = new File(path1File.getParent(),"directed");
-        } else {
-            diffPath1 = new File(path1File.getParent(),"undirected");
-        }
+
         String path2 = getDiffPath2();
-        File path2File = new File(path2);
-        File diffPath2;
-        if (path2File.getName().startsWith("directed")){
-            diffPath2 = new File(path2File.getParent(),"directed");
-        } else {
-            diffPath2 = new File(path2File.getParent(),"undirected");
+        String path3 = getDiffPath3();
+        File path3File = new File (path3);
+        File path3Undirected = new File (path3+File.separator+"undirected");
+        String path3UndirectedNetwork = path3Undirected.getAbsolutePath()+File.separator+"network.graphml";
+
+        if (!path3File.exists()){
+            path3File.mkdir();
+
         }
-        task = new GraphMLDiffTool(baseDir, diffPath1.getAbsolutePath(), diffPath2.getAbsolutePath(), getDiffPath3(), getNodeIgnoredKeysPath(),getEdgeIgnoredKeysPath());
+        if (!path3Undirected.exists()){
+            path3Undirected.mkdir();
+        }
+        if (!path3Undirected.exists()){
+            path3Undirected.mkdir();
+        }
+        File xsltTransformator =  new File(baseDir, "iTopologyManager/topologyViewer/conf/xslt/graphml_diff.xslt");
+
+        task = new GraphMLFileDiffTool(new File(path1),new File(path2),new File(path3UndirectedNetwork), getNodeIgnoredKeysFile(),getEdgeIgnoredKeysFile(),xsltTransformator);
         task.addPropertyChangeListener(this);
         task.execute();
     }
@@ -246,6 +273,8 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     class FileSelector implements ActionListener{
         private JFrame owner;
         private JTextField diffPathTextField;
+        private  File undirectedDir;
+        private File networkGraphml;
 
         FileSelector(JFrame owner, JTextField diffPathTextField) {
             this.owner = owner;
@@ -254,17 +283,29 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JFileChooser chooser = new JFileChooser(baseDir);
-            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            JFileChooser chooser = new JFileChooser(networkDir);
+            chooser.setDialogTitle("Choose Graph version");
+
+            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             chooser.setFileFilter(new FileFilter() {
                 @Override
                 public boolean accept(File f) {
-                    return  (f.isFile() && f.getName().endsWith(".graphml") || f.isDirectory());
+                    if (f.exists() && f.isDirectory()){
+                        undirectedDir = new File(f+File.separator+"undirected");
+                        networkGraphml = new File(undirectedDir+File.separator+"network.graphml");
+                        if (undirectedDir.exists() && networkGraphml.exists()){
+                            return true;
+                        }
+
+                    }
+                    return false;
+
+//                    return  (f.isFile() && f.getName().endsWith(".graphml") || f.isDirectory());
                 }
 
                 @Override
                 public String getDescription() {
-                    return "(List of graphml files) *.graphml";
+                    return "(Network version folders)";
                 }
             });
             chooser.setMultiSelectionEnabled(false);
@@ -272,6 +313,14 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
             if (result == JFileChooser.APPROVE_OPTION) {
                 diffPathTextField.setText(chooser.getSelectedFile().getAbsolutePath());
             }
+            File fileResult = new File(chooser.getSelectedFile()+File.separator+"undirected"+File.separator+"network.graphml");
+            if(fileResult.exists()){
+                diffPathTextField.setText(fileResult.getAbsolutePath());
+            }else {
+                JOptionPane.showMessageDialog(owner, "You are trying to open a version that does not contain a network graph!");
+
+            }
+
         }
     }
 

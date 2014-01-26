@@ -155,6 +155,86 @@ public class GraphMLDiffTool extends SwingWorker<Void, Void> {
         return null;
     }
 
+
+
+
+    protected Void doInBackground1() {
+
+
+    try {
+        File filea = new File(dirAPath);
+        File fileb = new File(dirBPath);
+        File dirc = new File(dirCPath);
+        File ignoredNodeKeysFile = new File(ignoredNodeKeysPath);
+        File ignoredEdgeKeysFile = new File(ignoredEdgeKeysPath);
+
+        String[] lista = filea.list(FILTER);
+        String[] listb = fileb.list(FILTER);
+        Set<String> seta = new HashSet<String>(Arrays.asList(lista));
+        Set<String> setb = new HashSet<String>(Arrays.asList(listb));
+        System.out.println("list a: " + seta);
+        System.out.println("list b: " + setb);
+        Set<String> newfiles = new HashSet<String>(setb);
+        Set<String> deletedfiles = new HashSet<String>(seta);
+        Set<String> modifiedfiles = new HashSet<String>(seta);
+        newfiles.removeAll(seta);
+        deletedfiles.removeAll(setb);
+        modifiedfiles.retainAll(setb);
+        System.out.println("new : " + newfiles);
+        System.out.println("deleted : " + deletedfiles);
+        System.out.println("modify : " + modifiedfiles);
+        int total = modifiedfiles.size() + newfiles.size() + deletedfiles.size();
+        int current = 0;
+        if (!dirc.exists()) {
+            if (!dirc.mkdir()) {
+                throw new IOException("Can not create dir: " + dirc);
+            }
+        }
+        setProgress(1); // dummy to show progress window
+        PrintWriter pw = null;
+        try {
+            pw = new PrintWriter(new FileOutputStream(new File(dirc.getParent(), dirc.getName()+".graphmls")));
+            for (String modifiedfile : modifiedfiles) {
+                Thread.sleep(2000);
+                File file1 = new File(filea, modifiedfile);
+                File file2 = new File(fileb, modifiedfile);
+                final File outputFile = new File(dirc, modifiedfile);
+                createDiffGraphml(file1.toURI(), file2.toURI(), outputFile, ignoredNodeKeysFile,ignoredEdgeKeysFile);
+                pw.println(outputFile.getName());
+                final int progress = 100 * (++current) / total;
+                setProgress(progress);
+                if (isCancelled()) return null;
+            }
+            for (String newfile : newfiles) {
+                Thread.sleep(2000);
+                File file = new File(fileb, newfile);
+                final File outputFile = new File(dirc, newfile);
+                createNewGraphml(newfile, "ADDED", file.toURI(), outputFile);
+                setProgress(100 * (++current) / total);
+                if (isCancelled()) return null;
+                pw.println(outputFile.getName());
+            }
+            for (String newfile : deletedfiles) {
+                Thread.sleep(2000);
+                File file = new File(filea, newfile);
+                final File outputFile = new File(dirc, newfile);
+                createNewGraphml(newfile, "REMOVED", file.toURI(), outputFile);
+                setProgress(100 * (++current) / total);
+                if (isCancelled()) return null;
+                pw.println(outputFile.getName());
+            }
+        } finally {
+            if (pw != null) pw.close();
+        }
+
+
+    } catch (Exception rte) {
+        rte.printStackTrace();
+    }
+    return null;
+}
+
+
     private void createDiffGraphml(URI file1, URI file2, File OutputFile, File ignoredNodeKeysPath, File ignoredEdgeKeysPath) throws FileNotFoundException {
         File transformator = new File(baseDir,"iTopologyManager/topologyViewer/conf/xslt/graphml_diff.xslt");
         ByteArrayInputStream fileInputStream = null;

@@ -82,7 +82,9 @@
                 <xsl:variable name="X" select="//DiscoveredDevice/parameters/parameter[name='X Coordinate']/value"/>
                 <xsl:variable name="Y" select="//DiscoveredDevice/parameters/parameter[name='Y Coordinate']/value"/>
                 <xsl:variable name="IPv6Forwarding"
-                              select="//DiscoveredDevice/parameters/parameter[name='IPv6Forwarding']/value"/>
+                              select="//DiscoveredDevice/parameters/parameter[name='ipv6Forwarding']/value"/>
+                <xsl:variable name="IPv4Forwarding"
+                              select="//DiscoveredDevice/parameters/parameter[name='ipv4Forwarding']/value"/>
                 <!--Prepare Central Node-->
                 <node>
                     <xsl:attribute name="id">
@@ -117,7 +119,7 @@
                         <xsl:value-of select="$IPv6Forwarding"/>
                     </data>
                     <data key="IPv4Forwarding">
-                        <xsl:text>YES</xsl:text>
+                        <xsl:value-of select="$IPv4Forwarding"/>
                     </data>
                     <data key="nodeInfo" diffignore="YES">
                         <xsl:text disable-output-escaping="yes">&lt;![CDATA[ &lt;html&gt;</xsl:text>
@@ -158,6 +160,14 @@
                     <xsl:for-each select="$root//object[objectType='Discovery Interface']">
                         <xsl:variable name="interface">
                             <xsl:value-of select="name"/>
+                        </xsl:variable>
+                        <xsl:variable name="IPv4Forwarding">
+                            <xsl:value-of
+                                    select="distinct-values(parameters/parameter[name='IPv4Forwarding']/value)"/>
+                        </xsl:variable>
+                        <xsl:variable name="IPv6Forwarding">
+                            <xsl:value-of
+                                    select="distinct-values(parameters/parameter[name='IPv6Forwarding']/value)"/>
                         </xsl:variable>
                         <xsl:variable name="remoteInterfaces">
                             <xsl:value-of
@@ -216,6 +226,8 @@
                                 <xsl:call-template name="neighbor">
                                     <xsl:with-param name="localInterface" select="$interface"/>
                                     <xsl:with-param name="remoteInterface"/>
+                                    <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                                    <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
                                     <xsl:with-param name="nodeID" select="$nodeID"/>
                                     <xsl:with-param name="neighID" select="$node"/>
                                     <xsl:with-param name="localIP"></xsl:with-param>
@@ -285,6 +297,9 @@
                                                 <xsl:with-param name="localInterface" select="$interface"/>
                                                 <xsl:with-param name="remoteInterface"
                                                                 select="../parameters/parameter[name='Neighbor Port']/value"/>
+                                                <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                                                <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
+
                                                 <xsl:with-param name="nodeID" select="$node"/>
                                                 <xsl:with-param name="neighID" select="."/>
                                                 <xsl:with-param name="localIP"
@@ -305,6 +320,9 @@
                                                     <xsl:call-template name="neighbor">
                                                         <xsl:with-param name="localInterface" select="$interface"/>
                                                         <xsl:with-param name="remoteInterface"/>
+                                                        <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                                                        <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
+
                                                         <xsl:with-param name="nodeID" select="$node"/>
                                                         <xsl:with-param name="neighID" select="$neighID"/>
                                                         <xsl:with-param name="localIP"
@@ -328,6 +346,9 @@
                                                                 <xsl:with-param name="localInterface"
                                                                                 select="$interface"/>
                                                                 <xsl:with-param name="remoteInterface"/>
+                                                                <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                                                                <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
+
                                                                 <xsl:with-param name="nodeID" select="$node"/>
                                                                 <xsl:with-param name="neighID" select="$neighID"/>
                                                                 <xsl:with-param name="localIP">
@@ -351,6 +372,9 @@
                                                                 <xsl:with-param name="localInterface"
                                                                                 select="$interface"/>
                                                                 <xsl:with-param name="remoteInterface"/>
+                                                                <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                                                                <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
+
                                                                 <xsl:with-param name="nodeID" select="$node"/>
                                                                 <xsl:with-param name="neighID" select="$neighID"/>
                                                                 <xsl:with-param name="localIP"
@@ -393,6 +417,8 @@
         <xsl:param name="neighID"/>
         <xsl:param name="localInterface"/>
         <xsl:param name="remoteInterface"/>
+        <xsl:param name="IPv4Forwarding"/>
+        <xsl:param name="IPv6Forwarding"/>
         <xsl:param name="localIP"/>
         <xsl:param name="remoteIP"/>
         <xsl:param name="methods"/>
@@ -482,6 +508,14 @@
             <data>
                 <xsl:attribute name="key">InterfaceNameB</xsl:attribute>
                 <xsl:value-of select="$remoteInterface"/>
+            </data>
+            <data>
+                <xsl:attribute name="key">IPv4Forwarding</xsl:attribute>
+                <xsl:value-of select="$IPv4Forwarding"/>
+            </data>
+            <data>
+                <xsl:attribute name="key">IPv6Forwarding</xsl:attribute>
+                <xsl:value-of select="$IPv6Forwarding"/>
             </data>
             <data>
                 <xsl:attribute name="key">IPv4AddressA</xsl:attribute>

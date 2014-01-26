@@ -40,21 +40,27 @@ public class XmlFileEditorHandler implements RightClickHandler {
 
         // JEditorPane settingsEditor = new JEditorPane(versionDir.getAbsolutePath());
          TopologyManagerFrame frame = (TopologyManagerFrame) parent;
-         JEditorPane graphmlEditor = null;
+         JEditorPane editor = null;
          String path =  rightClickParams.get("path");
 
          if(rightClickParams.get("type").equals("deviceXml")){
              String deviceXmlPath = versionDir.getAbsolutePath()+File.separator+path+File.separator+"device-data-"+v+".xml";
              String deviceXmlDir =  versionDir+File.separator+path;
-             graphmlEditor = new net.itransformers.utils.JEditorPane(deviceXmlPath,deviceXmlDir,".xml");
-         }else {
+             editor = new net.itransformers.utils.JEditorPane(deviceXmlPath,deviceXmlDir,".xml");
+         }else if(rightClickParams.get("type").equals("graphml")){
              String graphmlPath = versionDir+File.separator+path+File.separator+"node-"+v+".graphml";
              String graphmlDir =  versionDir + File.separator+path;
-             graphmlEditor = new JEditorPane(graphmlPath,graphmlDir,".graphml");
+             editor = new JEditorPane(graphmlPath,graphmlDir,".graphml");
+
+         }  else {
+             String rawDataPath = versionDir+File.separator+path+File.separator+"raw-data-"+v+".xml";
+             String rawDatalDir =  versionDir + File.separator+path;
+
+             editor = new JEditorPane(rawDataPath,rawDatalDir,".xml");
 
          }
          try {
-             graphmlEditor.init();
+             editor.init();
          } catch (IOException e1) {
              e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
          } catch (BadLocationException e1) {

@@ -110,11 +110,11 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
         <xsl:variable name="IPv6">
             <xsl:choose>
                 <xsl:when
-                        test="//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6Forwarding ='1'">
+                        test="count(//root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIp/cIpAddressTable/cIpAddressEntry) > 0">
                     YES
                 </xsl:when>
                 <xsl:when
-                        test="//root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIpv6/cIpv6Forwarding = '1'">
+                        test="count(//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6AddrTable/ipv6AddrEntry) > 0">
                     YES
                 </xsl:when>
                 <xsl:otherwise>NO</xsl:otherwise>
@@ -205,6 +205,10 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                     </value>
                 </parameter>
                 <parameter>
+                    <name>ipv4Forwarding</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
                     <name>Device Model Oid</name>
                     <value><xsl:value-of select="$oid"/></value>
                 </parameter>
@@ -278,6 +282,23 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                 <xsl:variable name="ifType">
                     <xsl:value-of select="ifType"/>
                 </xsl:variable>
+                <xsl:variable name="IPv4Forwarding">
+                    <xsl:choose>
+                        <xsl:when test="count(//root/iso/org/dod/internet/mgmt/mib-2/ip/ipAddrTable/ipAddrEntry[ipAdEntIfIndex=$ifIndex])>0">YES</xsl:when>
+                        <xsl:otherwise>NO</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="IPv6Forwarding">
+                    <xsl:choose>
+                        <xsl:when test="count(//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6AddrTable/ipv6AddrEntry[index=$ifIndex]/instance)>0">YES</xsl:when>
+                        <xsl:when test="count(/root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIp/cIpAddressTable/cIpAddressEntry[cIpAddressIfIndex=$ifIndex]/instance)>0">YES</xsl:when>
+                        <xsl:otherwise>NO</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="vrfForwarding">
+                        <xsl:value-of
+                                select="$mplsVRF/root1//test[substring-after(index,'.')= $ifIndex]/name"/>
+        </xsl:variable>
                 <xsl:message>TRACE:>ifDescr<xsl:value-of select="$ifDescr"/> ifIndex<xsl:value-of select="$ifIndex"/> ifType <xsl:value-of select="$ifType"/></xsl:message>
                 <!-- Neighbors and IP addresses are obtained only for the interfaces that are up and running.
 If the Admin status is UP and Operational is down the interface is marked as Cable CUT !-->
@@ -342,6 +363,20 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                 select="$mplsVRF/root1//test[substring-after(index,'.')= $ifIndex]/name"/>
                                     </value>
                                 </parameter>
+                                <parameter>
+                                    <name>IPv4Forwarding</name>
+                                    <value>
+                                        <xsl:value-of
+                                                select="$IPv4Forwarding"/>
+                                    </value>
+                                </parameter>
+                                <parameter>
+                                    <name>IPv6Forwarding</name>
+                                    <value>
+                                        <xsl:value-of
+                                                select="$IPv6Forwarding"/>
+                                    </value>
+                                </parameter>
                             </parameters>
                             <!--Check for  IPv4 IP addresses-->
                             <xsl:variable name="ipv4Addresses">
@@ -400,7 +435,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                             </xsl:for-each>
                             <!--Check for  IPv6 IP addresses-->
                             <xsl:choose>
-                                <xsl:when test="$deviceType='CISCO'">
+                                <xsl:when test="count(/root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIp/cIpAddressTable/cIpAddressEntry[cIpAddressIfIndex=$ifIndex]/instance)!=0">
                                     <xsl:for-each
                                             select="/root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIp/cIpAddressTable/cIpAddressEntry[cIpAddressIfIndex=$ifIndex]/instance">
                                         <xsl:variable name="instance" select="substring-after(.,'.')"/>
@@ -739,6 +774,20 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                     <value>YES</value>
                                 </parameter>
                                 <parameter>
+                                    <name>IPv4Forwarding</name>
+                                    <value>
+                                        <xsl:value-of
+                                                select="$IPv4Forwarding"/>
+                                    </value>
+                                </parameter>
+                                <parameter>
+                                    <name>IPv6Forwarding</name>
+                                    <value>
+                                        <xsl:value-of
+                                                select="$IPv6Forwarding"/>
+                                    </value>
+                                </parameter>
+                                <parameter>
                                     <name>vrfForwarding</name>
                                     <value>
                                         <xsl:value-of
@@ -793,9 +842,24 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                         <xsl:value-of select="ifPhysAddress"/>
                                     </value>
                                 </parameter>
+
                                 <parameter>
                                     <name>CableCut</name>
                                     <value>NO</value>
+                                </parameter>
+                                <parameter>
+                                    <name>IPv4Forwarding</name>
+                                    <value>
+                                        <xsl:value-of
+                                                select="$IPv4Forwarding"/>
+                                    </value>
+                                </parameter>
+                                <parameter>
+                                    <name>IPv6Forwarding</name>
+                                    <value>
+                                        <xsl:value-of
+                                                select="$IPv6Forwarding"/>
+                                    </value>
                                 </parameter>
                                 <parameter>
                                     <name>vrfForwarding</name>
@@ -855,6 +919,20 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <parameter>
                                     <name>CableCut</name>
                                     <value>UNKNOWN</value>
+                                </parameter>
+                                <parameter>
+                                    <name>IPv4Forwarding</name>
+                                    <value>
+                                        <xsl:value-of
+                                                select="$IPv4Forwarding"/>
+                                    </value>
+                                </parameter>
+                                <parameter>
+                                    <name>IPv6Forwarding</name>
+                                    <value>
+                                        <xsl:value-of
+                                                select="$IPv6Forwarding"/>
+                                    </value>
                                 </parameter>
                                 <parameter>
                                     <name>vrfForwarding</name>

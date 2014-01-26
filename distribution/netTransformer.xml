@@ -124,7 +124,36 @@
                 </fileSets>
             </sources>
         </moduleSet>
+        <moduleSet>
+        <!-- Now, select which projects to include in this module-set. -->
+        <includes>
+            <include>iTransformers.iTransformer:bgpPeeringMap</include>
+        </includes>
+        <sources>
+            <includeModuleDirectory>false</includeModuleDirectory>
+            <fileSets>
+                <fileSet>
+                    <directory>conf/xml</directory>
+                    <outputDirectory>bgpPeeringMap/conf/xml</outputDirectory>
+                </fileSet>
+                <fileSet>
+                    <directory>conf/txt</directory>
+                    <outputDirectory>bgpPeeringMap/conf/txt</outputDirectory>
+                </fileSet>
 
+                <fileSet>
+                    <directory>conf/xslt</directory>
+                    <outputDirectory>bgpPeeringMap/conf/xslt</outputDirectory>
+                </fileSet>
+                <!--<fileSet>-->
+                    <!--<directory>conf/bat</directory>-->
+                    <!--<outputDirectory>bin</outputDirectory>-->
+                    <!--<filtered>false</filtered>-->
+                    <!--<fileMode>0755</fileMode>-->
+                <!--</fileSet>-->
+            </fileSets>
+        </sources>
+    </moduleSet>
         <moduleSet>
             <!-- Enable access to all projects in the current multimodule build! -->
             <useAllReactorProjects>true</useAllReactorProjects>

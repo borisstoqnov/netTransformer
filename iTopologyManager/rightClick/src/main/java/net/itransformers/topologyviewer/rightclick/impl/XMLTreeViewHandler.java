@@ -39,9 +39,13 @@ public class XMLTreeViewHandler implements RightClickHandler {
          if(rightClickParams.get("type").equals("deviceXml")){
              String deviceXmlPath = versionDir.getAbsolutePath()+File.separator+path+File.separator+"device-data-"+v+".xml";
              new XMLTreeView(v,new File(deviceXmlPath));
-         }else {
+         }else if (rightClickParams.get("type").equals("graphml")) {
              String graphmlPath = versionDir+File.separator+path+File.separator+"node-"+v+".graphml";
              new XMLTreeView(v,new File(graphmlPath));
+
+         } else {
+             String rawDataPath = versionDir+File.separator+path+File.separator+"raw-data-"+v+".xml";
+             new XMLTreeView(v,new File(rawDataPath));
 
          }
 }

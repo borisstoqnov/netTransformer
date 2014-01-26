@@ -20,7 +20,6 @@
 package net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers;
 
 import net.itransformers.topologyviewer.diff.DiffWizardDialog;
-import net.itransformers.topologyviewer.gui.GraphType;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import java.awt.*;
@@ -49,19 +48,21 @@ public class DiffMenuHandler implements ActionListener {
         DiffWizardDialog wizardDialog;
         try {
             File baseDir = frame.getPath();
+
             wizardDialog = new DiffWizardDialog(frame,baseDir);
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
             return;
         }
         wizardDialog.setVisible(true);
-//        System.out.println(wizardDialog.getDiffPath1());
-//        System.out.println(wizardDialog.getDiffPath2());
-//        System.out.println(wizardDialog.getDiffPath3());
-//        System.out.println(wizardDialog.getResult() == DiffWizardDialog.Result.DONE);
+        System.out.println(wizardDialog.getDiffPath1());
+        System.out.println(wizardDialog.getDiffPath2());
+        System.out.println(wizardDialog.getDiffPath3());
+        System.out.println(wizardDialog.getResult() == DiffWizardDialog.Result.DONE);
             if (wizardDialog.getResult() == DiffWizardDialog.Result.DONE) {
 //                frame.setConfigUri(new File(wizardDialog.getDiffConfigPath()));
-                frame.doOpenGraph(new File(wizardDialog.getDiffPath3()));
+                //TODO remove hardcore
+                frame.doOpenGraph(new File(wizardDialog.getDiffPath3()+File.separator+"undirected"+File.separator+"network.graphml"));
             }
     }
 }

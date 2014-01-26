@@ -110,14 +110,14 @@ public class BgpPeeringMap {
         transformer.transformXML(inputStream3, xsltFileName3, outputStream3, null, null);
 
 
-        File outputFile = new File(graphmlDir, "bgpPeeringMap.graphml");
+        File outputFile = new File(graphmlDir, "undirected-bgpPeeringMap.graphml");
         FileUtils.writeStringToFile(outputFile, new String(outputStream3.toByteArray()));
         logger.info("Output Graphml saved in a file in"+graphmlDir);
 
 
         //FileUtils.writeStringToFile(nodesFileListFile, "bgpPeeringMap.graphml");
         FileWriter writer = new FileWriter(new File(outputDir,"undirected"+".graphmls"),true);
-        writer.append("bgpPeeringMap.graphml").append("\n");
+        writer.append("undirected-bgpPeeringMap.graphml").append("\n");
         writer.close();
 
 

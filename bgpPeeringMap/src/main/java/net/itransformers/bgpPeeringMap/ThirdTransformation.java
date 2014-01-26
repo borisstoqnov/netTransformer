@@ -27,13 +27,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 
-/**
- * Created with IntelliJ IDEA.
- * User: niau
- * Date: 5/6/13
- * Time: 7:25 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public class ThirdTransformation {
 
     public static void main(String[] args) throws Exception {

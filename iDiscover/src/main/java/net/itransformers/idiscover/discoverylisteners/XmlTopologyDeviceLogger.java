@@ -136,12 +136,12 @@ public class XmlTopologyDeviceLogger implements DiscoveryListener{
                    // new GrahmlMerge().merge(nodeFile, networkGraphml, networkGraphml);
                 }
                 //TODO remove when you have some time and do the diff in the correct way!
-                File networkGraphmls = new File(labelPath,graphtType+".graphmls");
-                if (!networkGraphmls.exists()){
-                     FileWriter writer = new FileWriter(networkGraphmls);
-                     writer.write("network.graphml\n");
-                     writer.close();
-                }
+//                File networkGraphmls = new File(labelPath,graphtType+".graphmls");
+//                if (!networkGraphmls.exists()){
+//                     FileWriter writer = new FileWriter(networkGraphmls);
+//                     writer.write("network.graphml\n");
+//                     writer.close();
+//                }
 
             } catch (IOException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

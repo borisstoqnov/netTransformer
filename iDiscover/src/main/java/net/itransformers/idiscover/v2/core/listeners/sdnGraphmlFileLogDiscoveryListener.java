@@ -55,8 +55,6 @@ public class sdnGraphmlFileLogDiscoveryListener implements NodeDiscoveryListener
     static Logger logger = Logger.getLogger(sdnGraphmlFileLogDiscoveryListener.class);
     String graphmlDataDirName;
     String labelDirName;
-
-
     String floodLighGraphmlXsltTransformator;
 
 

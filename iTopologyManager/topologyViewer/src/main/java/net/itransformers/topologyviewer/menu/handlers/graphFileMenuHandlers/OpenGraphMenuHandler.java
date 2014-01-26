@@ -37,7 +37,8 @@ import java.io.File;
 public class OpenGraphMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
-
+    File undirectedDir;
+    File networkGraphml;
     public OpenGraphMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
@@ -46,28 +47,52 @@ public class OpenGraphMenuHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         File path = frame.getPath();
+
         if (path == null) {
             JOptionPane.showMessageDialog(frame, "Can not open graph before project has been opened.");
             return;
         }
-        JFileChooser chooser = new JFileChooser(path);
+        File networkPath = new File(path+File.separator+"network");
+        JFileChooser chooser;
+        if (!networkPath.exists()){
+                chooser = new JFileChooser(path);
+        } else{
+            chooser = new JFileChooser(networkPath);
+        }
         chooser.setDialogTitle("Choose Graph version");
-        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+
         chooser.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
-                return  (f.isFile() && f.getName().endsWith(".graphml") || f.isDirectory());
+
+                    if (f.exists() && f.isDirectory()){
+                        undirectedDir = new File(f+File.separator+"undirected");
+                        networkGraphml = new File(undirectedDir+File.separator+"network.graphml");
+                        if (undirectedDir.exists() && networkGraphml.exists()){
+                            return true;
+                        }
+
+                    }
+                return false;
             }
 
             @Override
             public String getDescription() {
-                return "(graphml file) *.graphml";
+                return "(Network version folders)";
             }
         });
         chooser.setMultiSelectionEnabled(false);
         int result = chooser.showOpenDialog(frame);
         if (result == JFileChooser.APPROVE_OPTION) {
-            frame.doOpenGraph(chooser.getSelectedFile());
+            File fileResult = new File(chooser.getSelectedFile()+File.separator+"undirected"+File.separator+"network.graphml");
+            if(fileResult.exists()){
+                frame.doOpenGraph(fileResult);
+            }else {
+                JOptionPane.showMessageDialog(frame, "You are trying to open a version that does not contain a network graph!");
+
+            }
         }
 
     }

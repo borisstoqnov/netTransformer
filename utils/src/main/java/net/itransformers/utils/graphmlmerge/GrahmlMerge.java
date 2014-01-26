@@ -6,9 +6,11 @@ import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.Vertex;
 import com.tinkerpop.blueprints.impls.tg.TinkerGraph;
 import com.tinkerpop.blueprints.util.io.graphml.GraphMLReader;
-import com.tinkerpop.blueprints.util.io.graphml.GraphMLWriter;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -29,7 +31,7 @@ public class GrahmlMerge {
         this.vertexConflictResolverMap = vertexConflictResolverMap;
     }
 
-    public void merge(File inFile1, File inFile2, File outFile) throws IOException {
+    public void merge(File inFile1, File inFile2, File outFile, Map<String,String> vertexKeyTypes, Map<String,String> edgeKeyTypes, String graphType) throws IOException {
         Graph graph1 = new TinkerGraph();
         FileInputStream in1 = new FileInputStream(inFile1);
         GraphMLReader reader1 = new GraphMLReader(graph1);
@@ -41,28 +43,34 @@ public class GrahmlMerge {
         reader2.inputGraph(in2);
 
         mergeGraphs(graph1, graph2);
-
-        FileOutputStream out = new FileOutputStream(outFile);
-        GraphMLWriter writer = new GraphMLWriter(graph1);
-        writer.setNormalize(true);
-        writer.outputGraph(out);
+        outputGraphML(outFile, vertexKeyTypes, edgeKeyTypes, graphType, graph1);
 
     }
 
 
-    public void merge(File[] files, File outFile) throws IOException {
+    public void merge(File[] files, File outFile, Map<String,String> vertexKeyTypes, Map<String,String> edgeKeyTypes,  String graphType) throws IOException {
         Graph graph = new TinkerGraph();
         for (File file : files) {
             graph = merge(graph, file);
         }
 
-        FileOutputStream out = new FileOutputStream(outFile);
-        GraphMLWriter writer = new GraphMLWriter(graph);
-        writer.setNormalize(true);
-        writer.outputGraph(out);
+        outputGraphML(outFile, vertexKeyTypes, edgeKeyTypes, graphType, graph);
+//        writer.outputGraph(out, graphType);
     }
 
-    public Graph merge(File[] files) throws IOException {
+    private void outputGraphML(File outFile, Map<String, String> vertexKeyTypes, Map<String, String> edgeKeyTypes, String graphType, Graph graph) throws IOException {
+        MyGraphMLWriter writer = new MyGraphMLWriter(graph);
+        //writer.setXmlSchemaLocation("http://www.w3.org/2001/XMLSchema");
+
+        writer.setNormalize(true);
+        writer.setVertexKeyTypes(vertexKeyTypes);
+        writer.setEdgeKeyTypes(edgeKeyTypes);
+
+        FileOutputStream out = new FileOutputStream(outFile);
+        writer.outputGraph(out, graphType);
+    }
+
+    public Graph merge(File[] files, File outFile) throws IOException {
         Graph graph = new TinkerGraph();
         for (File file : files) {
             merge(graph, file);

@@ -42,7 +42,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private IconMapLoader iconMapLoader;
     private EdgeStrokeMapLoader edgeStrokeMapLoader;
     private EdgeColorMapLoader edgeColorMapLoader;
-    private File graphmlDir;
+    private File graphmlFileName;
     private Factory<G> factory;
     private JTabbedPane tabbedPane;
     private TopologyViewerConfType viewerConfig;
@@ -59,7 +59,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
         versionDir = new File(new File(graphmlFile.getParent()).getParent());
        // TODO remove this Hardcode
         this.deviceXmlPath = versionDir;
-        this.graphmlDir = graphmlFile;
+        this.graphmlFileName = graphmlFile;
         this.factory = factory;
         this.tabbedPane = tabbedPane;
         entireGraph = factory.create();
@@ -77,7 +77,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     }
 
     private GraphViewerPanel createViewerPanel() {
-        return new GraphViewerPanel<G>(frame, viewerConfig, graphmlLoader, iconMapLoader, edgeStrokeMapLoader, edgeColorMapLoader, entireGraph, projectPath, deviceXmlPath, versionDir, graphmlDir, initialNode,layout);
+        return new GraphViewerPanel<G>(frame, viewerConfig, graphmlLoader, iconMapLoader, edgeStrokeMapLoader, edgeColorMapLoader, entireGraph, projectPath, deviceXmlPath, versionDir, graphmlFileName, initialNode,layout);
     }
 
     public void init() throws JAXBException, ParserConfigurationException, SAXException, IOException {
@@ -88,13 +88,13 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
         graphmlLoader.addGraphmlLoaderListener(iconMapLoader);
         graphmlLoader.addGraphmlLoaderListener(edgeStrokeMapLoader);
         graphmlLoader.addGraphmlLoaderListener(edgeColorMapLoader);
-        graphmlLoader.loadGraphml(graphmlDir);
+        graphmlLoader.loadGraphml(graphmlFileName);
     }
 
     public void createAndAddViewerPanel() {
         GraphViewerPanel panel = createViewerPanel();
-        String tabName = this.graphmlDir.getParentFile().getName();
-        tabbedPane.addTab(tabName, null, panel, graphmlDir.getAbsolutePath());
+        String tabName = this.versionDir.getName();
+        tabbedPane.addTab(tabName, null, panel, graphmlFileName.getAbsolutePath());
     }
     public File getVersionDir(){
         return versionDir;

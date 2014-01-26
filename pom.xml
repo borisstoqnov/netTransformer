@@ -43,8 +43,9 @@
         <module>distribution</module>
         <module>iAssertions</module>
         <module>wsitransformer</module>
+        <module>postDiscoverer</module>
         <!--module>ideas</module-->
-        <!--<module>distribution</module>-->
+        <!--module>distribution</module-->
 
     </modules>
             <build>
@@ -57,7 +58,7 @@
                             <configuration>
                                 <descriptors>
                                     <descriptor>distribution/netTransformer.xml</descriptor>
-                                    <descriptor>distribution/bgpPeeringMap.xml</descriptor>
+                                    <!--descriptor>distribution/bgpPeeringMap.xml</descriptor-->
                                 </descriptors>
                             </configuration>
                             <executions>

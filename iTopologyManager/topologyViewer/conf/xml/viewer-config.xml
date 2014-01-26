@@ -774,8 +774,12 @@
         </submenu>
 
 
-        <submenu name="Graph Data Management">
-            <rightClickItem name="Hierarchical device model browser" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler">
+        <submenu name="Node Data Management">
+            <rightClickItem name="Raw-data device model browser" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler">
+                <param name="type">raw</param>
+                <param name="path">raw-data</param>
+            </rightClickItem>
+            <rightClickItem name="Device xml browser" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler">
                 <param name="type">deviceXml</param>
                 <param name="path">device-hierarchical</param>
             </rightClickItem>
@@ -783,16 +787,20 @@
                 <param name="type">graphml</param>
                 <param name="path">device-centric</param>
             </rightClickItem>
-
-            <rightClickItem name="GraphmlEditor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
+            <rightClickItem name="Graphml editor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
                 <param name="type">graphml</param>
                 <param name="path">device-centric</param>
                 <!--Path attrbiute should be equal to the setting of the "device-centric-logging-path" used in discoveryManager.xml-->
             </rightClickItem>
 
-            <rightClickItem name="DeviceXmlEditor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
+            <rightClickItem name="Device xml editor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
                 <param name="type">deviceXml</param>
                 <param name="path">device-hierarchical</param>
+                <!--Path attrbiute should be equal to the setting of the "device-data-logging-path" used in discoveryManager.xml-->
+            </rightClickItem>
+            <rightClickItem name="Raw-Data XML Viewer" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
+                <param name="type">raw-data</param>
+                <param name="path">raw-data</param>
                 <!--Path attrbiute should be equal to the setting of the "device-data-logging-path" used in discoveryManager.xml-->
             </rightClickItem>
         </submenu>

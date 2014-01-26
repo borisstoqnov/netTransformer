@@ -29,8 +29,8 @@
 			<graph>
 				<xsl:copy-of select="$fileA/graphml/graph/@*" copy-namespaces="no"/>
 				<xsl:copy-of select="$fileA/graphml/graph/descr" copy-namespaces="no"/>
-				<xsl:copy-of select="$fileA/graphml/graph/key" copy-namespaces="no"/>
-                <xsl:if test="count($fileA/graphml/graph/key[@id='diff'])=0">
+				<xsl:copy-of select="$fileA/graphml/key" copy-namespaces="no"/>
+                <xsl:if test="count($fileA/graphml/key[@id='diff'])=0">
                     <key id="diff" diff="ADDED" for="node" attr.name="diff" attr.type="string"/>
                     <key id="diff" diff="ADDED" for="edge" attr.name="diff" attr.type="string"/>
                     <key id="diffs" diff="ADDED" for="node" attr.name="diffs" attr.type="string"/>
