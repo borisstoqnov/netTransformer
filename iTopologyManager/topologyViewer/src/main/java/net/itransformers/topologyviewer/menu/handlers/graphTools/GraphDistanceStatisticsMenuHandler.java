@@ -54,16 +54,16 @@ public class GraphDistanceStatisticsMenuHandler implements ActionListener {
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
 
         JFrame frame1 = new JFrame(" Diameter ");
-        frame1.setSize(600,400);
+        frame1.setSize(600, 400);
         frame1.getContentPane().setLayout(new BorderLayout());
-        JTextPane  text   = new JTextPane();
+        JTextPane text = new JTextPane();
         text.setEditable(true);
 
-        double diameterCurrent =  DistanceStatistics.diameter(viewerPanel.getCurrentGraph());
-        double diameterEntire =  DistanceStatistics.diameter(viewerPanel.getEntireGraph(), new UnweightedShortestPath(viewerPanel.getEntireGraph()),false);
+        double diameterCurrent = DistanceStatistics.diameter(viewerPanel.getCurrentGraph());
+        double diameterEntire = DistanceStatistics.diameter(viewerPanel.getEntireGraph(), new UnweightedShortestPath(viewerPanel.getEntireGraph()), false);
 
 
-   //   Transformer transformer =    DistanceStatistics.averageDistances(viewerPanel.getCurrentGraph(), new UnweightedShortestPath(viewerPanel.getCurrentGraph()));
+        //   Transformer transformer =    DistanceStatistics.averageDistances(viewerPanel.getCurrentGraph(), new UnweightedShortestPath(viewerPanel.getCurrentGraph()));
 
         StringBuffer sb = new StringBuffer();
         sb.append(String.format("%s: %2f \n", "Current Graph Diameter", diameterCurrent));
@@ -75,7 +75,7 @@ public class GraphDistanceStatisticsMenuHandler implements ActionListener {
 
         text.setText(sb.toString());
         JScrollPane scrollPane = new JScrollPane(text);
-        frame1.getContentPane().add("Center",scrollPane);
+        frame1.getContentPane().add("Center", scrollPane);
 
         frame1.setVisible(true);
 

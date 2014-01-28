@@ -32,11 +32,12 @@ public class ChangeLayoutMenuHandler implements ActionListener {
     private TopologyManagerFrame frame;
     String layout;
 
-    public ChangeLayoutMenuHandler(TopologyManagerFrame frame,String layout) throws HeadlessException {
+    public ChangeLayoutMenuHandler(TopologyManagerFrame frame, String layout) throws HeadlessException {
 
         this.frame = frame;
         this.layout = layout;
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         final GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();

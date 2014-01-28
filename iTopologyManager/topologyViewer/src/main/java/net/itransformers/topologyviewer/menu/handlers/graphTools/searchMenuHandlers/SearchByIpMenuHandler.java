@@ -57,7 +57,7 @@ public class SearchByIpMenuHandler implements ActionListener {
 
         GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         Set<String> foundVertexes;
-        foundVertexes = viewerPanel.FindNodeByKey("RoutePrefixes",new Object(){
+        foundVertexes = viewerPanel.FindNodeByKey("RoutePrefixes", new Object() {
             @Override
             public boolean equals(Object obj) {
                 String s = (String) obj;
@@ -67,12 +67,12 @@ public class SearchByIpMenuHandler implements ActionListener {
                     if (ipRange.equals("") || ipRange.equals("0.0.0.0/0")) continue;
                     try {
                         SubnetUtils subnet = new SubnetUtils(ipRange);
-                        if (subnet.getInfo().isInRange(ip)){
+                        if (subnet.getInfo().isInRange(ip)) {
                             return true;
                         }
-                    } catch (IllegalArgumentException iae){
-                        logger.error("Can not parse ip or ip range:"+ipRange+", ip:"+ip);
-                        System.out.println("Can not parse ip or ip range:"+ipRange+", ip:"+ip);
+                    } catch (IllegalArgumentException iae) {
+                        logger.error("Can not parse ip or ip range:" + ipRange + ", ip:" + ip);
+                        System.out.println("Can not parse ip or ip range:" + ipRange + ", ip:" + ip);
                         iae.printStackTrace();
                         continue;
                     }
@@ -80,18 +80,18 @@ public class SearchByIpMenuHandler implements ActionListener {
                 return false;
             }
         });
-        if (!foundVertexes.isEmpty()){
+        if (!foundVertexes.isEmpty()) {
             Iterator it = foundVertexes.iterator();
-            if (foundVertexes.size()==1){
+            if (foundVertexes.size() == 1) {
                 Object element = it.next();
-                System.out.println("Redrawing around "+element.toString());
+                System.out.println("Redrawing around " + element.toString());
                 viewerPanel.SetPickedState(element.toString());
                 viewerPanel.Animator(element.toString());
-            }else{
-                JOptionPane.showMessageDialog(frame, "Multiple Nodes with ip " + ip +" found :\n"+foundVertexes, "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(frame, "Multiple Nodes with ip " + ip + " found :\n" + foundVertexes, "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }  else{
-            JOptionPane.showMessageDialog(frame, "Can not find node with ip " + ip , "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(frame, "Can not find node with ip " + ip, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

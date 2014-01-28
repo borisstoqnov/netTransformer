@@ -60,9 +60,9 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
 
         JFrame frame1 = new JFrame(" Random Walk Betweenness Centrality Rankings ");
-        frame1.setSize(400,300);
+        frame1.setSize(400, 300);
         frame1.getContentPane().setLayout(new BorderLayout());
-        JTextPane  text   = new JTextPane();
+        JTextPane text = new JTextPane();
         text.setEditable(false);
         text.setContentType("text/html");
         RandomWalkBetweenness ranker = new RandomWalkBetweenness((UndirectedGraph) viewerPanel.getCurrentGraph());
@@ -70,20 +70,20 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
         ranker.setRemoveRankScoresOnFinalize(false);
         ranker.evaluate();
         StringBuffer sb = new StringBuffer();
-        List<Ranking> rankingList  = ranker.getRankings();
+        List<Ranking> rankingList = ranker.getRankings();
         //sb.append("Position, Node Name, Node Rank \n");
 //        final XYSeriesCollection dataset = new XYSeriesCollection();
 //        final XYSeries s1 = new XYSeries("Random Walk Betweenness Centrality Rankings");
 
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         sb.append("<RandomWalkBetweennessCentralityRankings>");
-        for(int i = 0; i<rankingList.size(); i++){
+        for (int i = 0; i < rankingList.size(); i++) {
             sb.append("\n<entry>\n");
-            sb.append("\t<position>"+i+"</position>\n");
-            sb.append("\t<node>"+rankingList.get(i).getRanked()+"</node>\n");
-            sb.append("\t<rank>"+rankingList.get(i)+"</rank>\n");
+            sb.append("\t<position>" + i + "</position>\n");
+            sb.append("\t<node>" + rankingList.get(i).getRanked() + "</node>\n");
+            sb.append("\t<rank>" + rankingList.get(i) + "</rank>\n");
             sb.append("</entry>");
-         //   s1.add(i,Double.parseDouble(rankingList.get(i).toString()));
+            //   s1.add(i,Double.parseDouble(rankingList.get(i).toString()));
 
         }
         sb.append("\n</RandomWalkBetweennessCentralityRankings>");
@@ -99,12 +99,11 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
             testReport.handleException(ex);
         }
 
-      //  dataset.addSeries(s1);
+        //  dataset.addSeries(s1);
 
 
-
-    //    dataset.addSeries(s1);
-      //  text.setText(sb.toString());
+        //    dataset.addSeries(s1);
+        //  text.setText(sb.toString());
 //        Ranking betwennessMax = (Ranking) rankingList.get(0);
 //        Ranking betwennessMin = (Ranking) rankingList.get(rankingList.size() - 1);
 //

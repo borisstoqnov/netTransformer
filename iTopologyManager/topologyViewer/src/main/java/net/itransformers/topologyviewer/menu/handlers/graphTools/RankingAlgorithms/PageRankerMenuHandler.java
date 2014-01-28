@@ -55,13 +55,13 @@ public class PageRankerMenuHandler implements ActionListener {
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
 
         JFrame frame1 = new JFrame(" PageRank Rankings ");
-        frame1.setSize(600,400);
+        frame1.setSize(600, 400);
         frame1.getContentPane().setLayout(new BorderLayout());
-        JTextPane  text   = new JTextPane();
+        JTextPane text = new JTextPane();
         text.setEditable(false);
 
 
-        PageRank ranker = new PageRank(viewerPanel.getCurrentGraph(),0.2);
+        PageRank ranker = new PageRank(viewerPanel.getCurrentGraph(), 0.2);
         ranker.evaluate();
         StringBuffer sb = new StringBuffer();
         sb.append("Position, Node Name, Node Rank \n");
@@ -76,7 +76,7 @@ public class PageRankerMenuHandler implements ActionListener {
         text.setText(sb.toString());
 
         JScrollPane scrollPane = new JScrollPane(text);
-        frame1.getContentPane().add("Center",scrollPane);
+        frame1.getContentPane().add("Center", scrollPane);
 
         frame1.setVisible(true);
 

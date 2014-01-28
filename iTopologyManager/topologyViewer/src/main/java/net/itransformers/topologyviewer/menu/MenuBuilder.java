@@ -26,13 +26,12 @@ import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.Conf
 import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.DiffMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.OpenGraphMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.ChangeLayoutMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.EditNetworkGraphmlMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.BetweennessCentralityMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.KMarkovMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.RandomWalkBetweennessCentralityMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.SearchByIpMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.SearchByKeyMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.SearchByNameCurrGraphMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.SearchByNameEntireGraphMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.XmlTreeNetworkGraphmlMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.*;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.shortherstPathMenuHandlers.DijkstraShortestPathMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.shortherstPathMenuHandlers.ShortestPathMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.networkActivation.TemplateEditorMenuHandler;
@@ -56,14 +55,16 @@ public class MenuBuilder {
         createFileMenu(frame, menuBar);
         createDiscoveryMenu(frame, menuBar);
         createGraphToolsMenu(frame, menuBar);
-        createNetworkActivationMenu(frame,menuBar);
+        createNetworkActivationMenu(frame, menuBar);
         createWindowMenu(frame, menuBar);
         createHelpMenu(frame, menuBar);
         return menuBar;
     }
-    public JMenuBar getMenubar(final TopologyManagerFrame frame){
+
+    public JMenuBar getMenubar(final TopologyManagerFrame frame) {
         return frame.getJMenuBar();
     }
+
     private void createHelpMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu help = new JMenu("Help");
         menuBar.add(help);
@@ -99,35 +100,75 @@ public class MenuBuilder {
         graphTools.setEnabled(false);
         menuBar.add(graphTools);
 
+        final JMenu search = new JMenu("Search Graph");
+        graphTools.add(search);
+
+        final JMenu searchNode = new JMenu("Search Nodes");
+        search.add(searchNode);
+        final JMenu searchEdge = new JMenu("Search Edges");
+        search.add(searchEdge);
+
+
+        final JMenu networkGraphml = new JMenu("Review Graph");
+        graphTools.add(networkGraphml);
+        final JMenuItem reviewNetworkCentricModel = new JMenuItem("Review Network Centric model");
+        reviewNetworkCentricModel.addActionListener(new XmlTreeNetworkGraphmlMenuHandler(frame));
+        networkGraphml.add(reviewNetworkCentricModel);
+
+        final JMenuItem editNetworkCentricModel = new JMenuItem("Edit Network Centric model");
+        editNetworkCentricModel.addActionListener(new EditNetworkGraphmlMenuHandler(frame));
+        networkGraphml.add(editNetworkCentricModel);
+
+
+        final JMenuItem searchNodeByNameCurrent = new JMenuItem("Search by Name CurrentGraph");
+        searchNodeByNameCurrent.addActionListener(new SearchByNameCurrGraphMenuHandler(frame));
+        searchNode.add(searchNodeByNameCurrent);
+        final JMenuItem searchNodeByNameEntire = new JMenuItem("Search by Name EntireGraph");
+        searchNodeByNameEntire.addActionListener(new SearchByNameEntireGraphMenuHandler(frame));
+        searchNode.add(searchNodeByNameEntire);
+        final JMenuItem searchNodeByKey = new JMenuItem("Search by Key");
+        searchNodeByKey.addActionListener(new SearchByKeyMenuHandler(frame));
+        searchNode.add(searchNodeByKey);
+        final JMenuItem searchNodeByIP = new JMenuItem("Search by IP");
+        searchNodeByIP.addActionListener(new SearchByIpMenuHandler(frame));
+        searchNode.add(searchNodeByIP);
+
+        final JMenuItem searchEdgeByNameCurrent = new JMenuItem("Search by Name CurrentGraph");
+        searchEdgeByNameCurrent.addActionListener(new SearchEdgeByNameCurrGraphMenuHandler(frame));
+        searchEdge.add(searchEdgeByNameCurrent);
+        final JMenuItem searchEdgeByNameEntire = new JMenuItem("Search by Name EntireGraph");
+        searchEdgeByNameEntire.addActionListener(new SearchEdgeByNameEntireGraphMenuHandler(frame));
+        searchEdge.add(searchEdgeByNameEntire);
+        final JMenuItem searchEdgeByKey = new JMenuItem("Search by Key");
+        searchEdgeByKey.addActionListener(new SearchByKeyMenuHandler(frame));
+        searchEdge.add(searchEdgeByKey);
+
         final JMenu layouts = new JMenu("Graph Layouts");
         graphTools.add(layouts);
 
         final JMenuItem FRLayout = new JMenuItem("FR Layout");
-        FRLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"FRLayout"));
+        FRLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "FRLayout"));
         layouts.add(FRLayout);
         final JMenuItem KKLayout = new JMenuItem("KK Layout");
-        KKLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"KKLayout"));
+        KKLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "KKLayout"));
         layouts.add(KKLayout);
         final JMenuItem CircleLayout = new JMenuItem("Circle Layout");
-        CircleLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"CircleLayout"));
+        CircleLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "CircleLayout"));
         layouts.add(CircleLayout);
         final JMenuItem SpringLayout = new JMenuItem("Spring Layout");
-        SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"SpringLayout"));
+        SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "SpringLayout"));
         layouts.add(SpringLayout);
         final JMenuItem ISOMLayout = new JMenuItem("ISOM Layout");
-        SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"ISOMLayout"));
+        SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "ISOMLayout"));
         layouts.add(ISOMLayout);
         final JMenuItem DAGLayout = new JMenuItem("DAG Layout");
-        SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame,"DAGLayout"));
+        SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "DAGLayout"));
         layouts.add(DAGLayout);
 
 //        final JMenuItem iNode = new JMenuItem("Initial Node");
 //        iNode.addActionListener(new InitialNodeMenuHandler(frame));
 //        graphTools.add(iNode);
 
-
-        final JMenu search = new JMenu("Node Search");
-        graphTools.add(search);
 
         final JMenu rank = new JMenu("Ranking Algorithms");
         graphTools.add(rank);
@@ -146,19 +187,6 @@ public class MenuBuilder {
         final JMenuItem RandomWalkBetweennessCentralityRanker = new JMenuItem("Random Walk Betweenness");
         RandomWalkBetweennessCentralityRanker.addActionListener(new RandomWalkBetweennessCentralityMenuHandler(frame));
         rank.add(RandomWalkBetweennessCentralityRanker);
-
-        final JMenuItem searchByNameCurrent = new JMenuItem("Search by Name CurrentGraph");
-        searchByNameCurrent.addActionListener(new SearchByNameCurrGraphMenuHandler(frame));
-        search.add(searchByNameCurrent);
-        final JMenuItem searchByNameEntire = new JMenuItem("Search by Name EntireGraph");
-        searchByNameEntire.addActionListener(new SearchByNameEntireGraphMenuHandler(frame));
-        search.add(searchByNameEntire);
-        final JMenuItem searchByKey = new JMenuItem("Search by Key");
-        searchByKey.addActionListener(new SearchByKeyMenuHandler(frame));
-        search.add(searchByKey);
-        final JMenuItem searchByIP = new JMenuItem("Search by IP");
-        searchByIP.addActionListener(new SearchByIpMenuHandler(frame));
-        search.add(searchByIP);
 
 
         final JMenu shorestpath = new JMenu("Path Preview");
@@ -182,12 +210,10 @@ public class MenuBuilder {
 //        final JMenuItem test = new JMenuItem("Diameter");
 //        test.addActionListener(new GraphDistanceStatisticsMenuHandler(frame));
 //        graphInfo.add(test);
-      //  graphTools.add(graphInfo);
-
+        //  graphTools.add(graphInfo);
 
 
     }
-
 
 
     private void createFileMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
@@ -287,22 +313,21 @@ public class MenuBuilder {
         menuBar.add(networkActvation);
         networkActvation.setEnabled(false);
         final JMenuItem ConfigureParamFactoryParameters = new JMenuItem("Configure Parameters");
-        ConfigureParamFactoryParameters.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/parameterFactory/conf/xml",".xml"));
+        ConfigureParamFactoryParameters.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/parameterFactory/conf/xml", ".xml"));
         networkActvation.add(ConfigureParamFactoryParameters);
         final JMenuItem configureResources = new JMenuItem("Configure Resources");
         configureResources.addActionListener(new EditConfigMenuHandler(frame, "resourceManager/conf/xml/resource.xml"));
         networkActvation.add(configureResources);
 
         final JMenuItem configureFulfillmentFactory = new JMenuItem("Configure Bindings");
-        configureFulfillmentFactory.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/xml/",".xml"));
+        configureFulfillmentFactory.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/xml/", ".xml"));
         networkActvation.add(configureFulfillmentFactory);
 
         final JMenuItem configureTemplates = new JMenuItem("Configure Templates");
-        configureTemplates.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/templ",".templ"));
+        configureTemplates.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/templ", ".templ"));
         networkActvation.add(configureTemplates);
 
     }
-
 
 
     private ActionListener createMenuHandler(TopologyManagerFrame frame, String handlerClassName) {

@@ -55,27 +55,27 @@ public class DijkstraShortestPathMenuHandler implements ActionListener {
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
 
         Collection<String> vertices = viewerPanel.getCurrentGraph().getVertices();
-        String [] test = vertices.toArray(new String[0]);
+        String[] test = vertices.toArray(new String[0]);
         Arrays.sort(test);
 
 
         final String mFrom = (String) JOptionPane.showInputDialog(frame, "Choose A Node", "A Node", JOptionPane.PLAIN_MESSAGE, null, test, test[0]);
         final String mTo = (String) JOptionPane.showInputDialog(frame, "Choose B Node", "B Node", JOptionPane.PLAIN_MESSAGE, null, test, test[0]);
         final Graph<String, String> mGraph = viewerPanel.getCurrentGraph();
-        DijkstraShortestPath<String,String> alg = new DijkstraShortestPath(mGraph);
+        DijkstraShortestPath<String, String> alg = new DijkstraShortestPath(mGraph);
 
         final List<String> mPred = alg.getPath(mFrom, mTo);
 //        System.out.println("The shortest unweighted path from" + mFrom +" to " + mTo + " is:");
 //        System.out.println(mPred.toString());
 
-        if(mPred == null) {
-            JOptionPane.showMessageDialog(frame,String.format("Shortest path between %s,%s is not found",mFrom,mTo),"Message",JOptionPane.INFORMATION_MESSAGE);
+        if (mPred == null) {
+            JOptionPane.showMessageDialog(frame, String.format("Shortest path between %s,%s is not found", mFrom, mTo), "Message", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
-        final Layout<String,String> layout = vv.getGraphLayout();
+        final Layout<String, String> layout = vv.getGraphLayout();
         for (final String edge : layout.getGraph().getEdges()) {
-            if(mPred.contains(edge)){
+            if (mPred.contains(edge)) {
                 vv.setEdgeStroke(edge, new BasicStroke(4f));
 
             }

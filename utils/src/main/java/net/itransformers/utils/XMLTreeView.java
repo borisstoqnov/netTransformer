@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.topologyviewer.rightclick.impl;
+package net.itransformers.utils;
 
 import com.sun.org.apache.xerces.internal.parsers.SAXParser;
 import org.xml.sax.Attributes;
@@ -30,7 +30,6 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.MalformedURLException;
-import java.net.URL;
 
 
 public class XMLTreeView {

@@ -59,15 +59,15 @@ public class KMarkovMenuHandler implements ActionListener {
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
 
         JFrame frame1 = new JFrame(" KStep Markov Rankings ");
-        frame1.setSize(400,300);
+        frame1.setSize(400, 300);
         frame1.getContentPane().setLayout(new BorderLayout());
-        JTextPane  text   = new JTextPane();
+        JTextPane text = new JTextPane();
 
         text.setEditable(false);
         text.setContentType("text/html");
 
 
-        KStepMarkov ranker = new KStepMarkov(viewerPanel.getCurrentGraph(),8);
+        KStepMarkov ranker = new KStepMarkov(viewerPanel.getCurrentGraph(), 8);
         ranker.evaluate();
         StringBuffer sb = new StringBuffer();
         //sb.append("Position, Node Name, Node Rank \n");
@@ -76,16 +76,16 @@ public class KMarkovMenuHandler implements ActionListener {
         ArrayList<Double> scores = new ArrayList<Double>();
 
         //final XYSeriesCollection dataset = new XYSeriesCollection();
-       // final XYSeries s1 = new XYSeries("KStep Markov Rankings");
-       // Map<String,Double> scores = new HashMap<String, Double>();
+        // final XYSeries s1 = new XYSeries("KStep Markov Rankings");
+        // Map<String,Double> scores = new HashMap<String, Double>();
 
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         sb.append("\n<KStepMarkovRankings>");
-        for(int i = 0; i<vertices.size(); i++){
+        for (int i = 0; i < vertices.size(); i++) {
             sb.append("\n<entry>\n");
-            sb.append("\t<position>"+i+"</position>\n");
-            sb.append("\t<node>"+list.get(i)+"</node>\n");
-            sb.append("\t<rank>"+(Double)ranker.getVertexScore(list.get(i))+"</rank>\n");
+            sb.append("\t<position>" + i + "</position>\n");
+            sb.append("\t<node>" + list.get(i) + "</node>\n");
+            sb.append("\t<rank>" + (Double) ranker.getVertexScore(list.get(i)) + "</rank>\n");
             sb.append("</entry>");
         }
 
@@ -141,7 +141,7 @@ public class KMarkovMenuHandler implements ActionListener {
 
 
         JScrollPane scrollPane = new JScrollPane(text);
-        frame1.getContentPane().add("Center",scrollPane);
+        frame1.getContentPane().add("Center", scrollPane);
 
         frame1.setVisible(true);
 

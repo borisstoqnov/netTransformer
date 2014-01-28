@@ -54,24 +54,24 @@ public class ShortestPathMenuHandler implements ActionListener {
         final GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
         Collection<String> vertices = viewerPanel.getCurrentGraph().getVertices();
-        String [] test = vertices.toArray(new String[0]);
+        String[] test = vertices.toArray(new String[0]);
         Arrays.sort(test);
 
         final String mFrom = (String) JOptionPane.showInputDialog(frame, "Choose A Node", "A Node", JOptionPane.PLAIN_MESSAGE, null, test, test[0]);
         final String mTo = (String) JOptionPane.showInputDialog(frame, "Choose B Node", "B Node", JOptionPane.PLAIN_MESSAGE, null, test, test[0]);
 
         final Graph<String, String> mGraph = viewerPanel.getCurrentGraph();
-        final Set<String> mPred = viewerPanel.findShortest(mFrom,mTo,mGraph);
-        if(mPred == null) {
-            JOptionPane.showMessageDialog(frame,String.format("Shortest path between %s,%s is not found",mFrom,mTo),"Message",JOptionPane.INFORMATION_MESSAGE);
+        final Set<String> mPred = viewerPanel.findShortest(mFrom, mTo, mGraph);
+        if (mPred == null) {
+            JOptionPane.showMessageDialog(frame, String.format("Shortest path between %s,%s is not found", mFrom, mTo), "Message", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        final Layout<String,String> layout = vv.getGraphLayout();
+        final Layout<String, String> layout = vv.getGraphLayout();
         for (final String edge : layout.getGraph().getEdges()) {
             Pair<String> endpoints = mGraph.getEndpoints(edge);
-            String v1= endpoints.getFirst()	;
-            String v2= endpoints.getSecond() ;
-            if (!v1.equals(v2) && mPred.contains(v1) && mPred.contains(v2)){
+            String v1 = endpoints.getFirst();
+            String v2 = endpoints.getSecond();
+            if (!v1.equals(v2) && mPred.contains(v1) && mPred.contains(v2)) {
                 vv.setEdgeStroke(edge, new BasicStroke(4f));
             }
         }

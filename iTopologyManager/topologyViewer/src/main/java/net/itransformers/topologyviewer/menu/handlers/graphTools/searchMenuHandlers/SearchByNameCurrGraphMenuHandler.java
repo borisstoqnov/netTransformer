@@ -91,21 +91,24 @@ public class SearchByNameCurrGraphMenuHandler implements ActionListener {
 
                     for (Map.Entry<String, String> entry : graphMLParams.entrySet()) {
                         //    textArea.append("Key: "+entry.getKey()+", "+"Value: "+entry.getValue()+"\n");
-                        sb.append("\n<entry>\n");
-                        sb.append("\t<key>" + entry.getKey() + "</key>" + "\n");
-                        if (!entry.getValue().contains("CDATA")){
-                            sb.append("\t<value><![CDATA[" + entry.getValue() + "]]></value>" + "\n");
-                        }    else{
-                            sb.append("\t<value>"+ entry.getValue() + "</value>" + "\n");
+                        if(!entry.getKey().equals("nodeInfo")){
+
+                            sb.append("\n<entry>\n");
+                            sb.append("\t<key>" + entry.getKey() + "</key>" + "\n");
+                            if (!entry.getValue().contains("CDATA")) {
+                                sb.append("\t<value><![CDATA[" + entry.getValue() + "]]></value>" + "\n");
+                            } else {
+                                sb.append("\t<value>" + entry.getValue() + "</value>" + "\n");
+
+                            }
+                            sb.append("</entry>");
 
                         }
-
-                        sb.append("</entry>");
 
 
                     }
                     sb.append("</findNodeinCurrentGraph>");
-                  //  System.out.println(sb.toString());
+                    //  System.out.println(sb.toString());
                     ByteArrayInputStream inputStream = new ByteArrayInputStream(sb.toString().getBytes());
 
                     XsltReport testReport = new XsltReport(new File(frame.getPath(), "iTopologyManager/rightClick/conf/xslt/table_creator.xslt"), new StreamSource(inputStream));
@@ -118,7 +121,7 @@ public class SearchByNameCurrGraphMenuHandler implements ActionListener {
                         testReport.handleException(ex);
                     }
                 } else {
-                         textArea.setText("Node with id " +vertex[0]+ " can't be found in the current graph!");
+                    textArea.setText("Node with id " + vertex[0] + " can't be found in the current graph!");
                 }
 
 

@@ -53,19 +53,19 @@ public class SearchByKeyMenuHandler implements ActionListener {
         String value = JOptionPane.showInputDialog(frame, "Enter Key Value", "Value", JOptionPane.QUESTION_MESSAGE);
 
         GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
-        Set<String> foundVertexes = viewerPanel.FindNodeByKey(key,value);
-        if (!foundVertexes.isEmpty()){
+        Set<String> foundVertexes = viewerPanel.FindNodeByKey(key, value);
+        if (!foundVertexes.isEmpty()) {
             Iterator it = foundVertexes.iterator();
-            if (foundVertexes.size()==1){
+            if (foundVertexes.size() == 1) {
                 Object element = it.next();
-                System.out.println("Redrawing around "+element.toString());
+                System.out.println("Redrawing around " + element.toString());
                 viewerPanel.SetPickedState(element.toString());
                 viewerPanel.Animator(element.toString());
-            }else{
-                JOptionPane.showMessageDialog(frame, "Multiple Nodes with key " + key +" and value " + value + " found: "+foundVertexes, "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(frame, "Multiple Nodes with key " + key + " and value " + value + " found: " + foundVertexes, "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }  else{
-            JOptionPane.showMessageDialog(frame, "Can not find node with key " + key +" and value " + value , "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(frame, "Can not find node with key " + key + " and value " + value, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

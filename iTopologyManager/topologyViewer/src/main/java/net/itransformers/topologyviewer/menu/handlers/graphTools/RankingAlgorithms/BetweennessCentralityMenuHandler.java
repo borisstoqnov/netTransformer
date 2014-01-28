@@ -56,27 +56,27 @@ public class BetweennessCentralityMenuHandler implements ActionListener {
         frame1.setSize(new java.awt.Dimension(400, 300));
         frame1.getContentPane().setLayout(new BorderLayout());
 
-        JTextPane  text   = new JTextPane();
+        JTextPane text = new JTextPane();
         text.setEditable(false);
         text.setContentType("text/html");
 
         frame1.dispose();
-        BetweennessCentrality ranker = new BetweennessCentrality(viewerPanel.getCurrentGraph(),true,false);
+        BetweennessCentrality ranker = new BetweennessCentrality(viewerPanel.getCurrentGraph(), true, false);
 
         ranker.setRemoveRankScoresOnFinalize(false);
         ranker.evaluate();
         StringBuffer sb = new StringBuffer();
-        List<Ranking> rankingList  = ranker.getRankings();
+        List<Ranking> rankingList = ranker.getRankings();
 
 //        final XYSeries s1 = new XYSeries(" Betweenness Centrality Rankings");
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         sb.append("<BetweennessCentralityRankings>");
-        for(int i = 0; i<rankingList.size(); i++){
-           // sb.append(String.format("<%d, %s, %s\n/>", i, rankingList.get(i).getRanked(), rankingList.get(i)));
+        for (int i = 0; i < rankingList.size(); i++) {
+            // sb.append(String.format("<%d, %s, %s\n/>", i, rankingList.get(i).getRanked(), rankingList.get(i)));
             sb.append("\n<entry>\n");
-            sb.append("\t<position>"+i+"</position>\n");
-            sb.append("\t<node>"+rankingList.get(i).getRanked()+"</node>\n");
-            sb.append("\t<rank>"+rankingList.get(i)+"</rank>\n");
+            sb.append("\t<position>" + i + "</position>\n");
+            sb.append("\t<node>" + rankingList.get(i).getRanked() + "</node>\n");
+            sb.append("\t<rank>" + rankingList.get(i) + "</rank>\n");
             sb.append("</entry>");
 //            s1.add(i, Double.parseDouble(rankingList.get(i).toString()));
 
@@ -94,7 +94,7 @@ public class BetweennessCentralityMenuHandler implements ActionListener {
             testReport.handleException(ex);
         }
 
-  //      dataset.addSeries(s1);
+        //      dataset.addSeries(s1);
 
 //        final JFreeChart chart = ChartFactory.createBarChart(
 //                null,
@@ -123,10 +123,10 @@ public class BetweennessCentralityMenuHandler implements ActionListener {
 //        container.setLayout(new BorderLayout());
 
         JScrollPane scrollPane = new JScrollPane(text);
-        frame1.getContentPane().add("Center",scrollPane);
+        frame1.getContentPane().add("Center", scrollPane);
 
 //        JScrollPane scrollPane2 = new JScrollPane(chartPanel);
-       // scrollPane1.setPreferredSize(new java.awt.Dimension(400, 300));
+        // scrollPane1.setPreferredSize(new java.awt.Dimension(400, 300));
 
 //        container.add(scrollPane2,BorderLayout.NORTH);
 //        container.add(scrollPane1,BorderLayout.SOUTH);
