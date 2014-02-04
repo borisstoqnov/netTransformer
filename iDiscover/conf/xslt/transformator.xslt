@@ -109,14 +109,8 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
         </xsl:variable>
         <xsl:variable name="IPv6">
             <xsl:choose>
-                <xsl:when
-                        test="count(//root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIp/cIpAddressTable/cIpAddressEntry) > 0">
-                    YES
-                </xsl:when>
-                <xsl:when
-                        test="count(//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6AddrTable/ipv6AddrEntry) > 0">
-                    YES
-                </xsl:when>
+                <xsl:when test="//root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIpv6/cIpv6Forwarding = '1'">YES</xsl:when>
+                <xsl:when test="count(//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6AddrTable/ipv6AddrEntry) > 0">YES</xsl:when>
                 <xsl:otherwise>NO</xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -291,7 +285,7 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                 <xsl:variable name="IPv6Forwarding">
                     <xsl:choose>
                         <xsl:when test="count(//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6AddrTable/ipv6AddrEntry[index=$ifIndex]/instance)>0">YES</xsl:when>
-                        <xsl:when test="count(/root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIp/cIpAddressTable/cIpAddressEntry[cIpAddressIfIndex=$ifIndex]/instance)>0">YES</xsl:when>
+                        <xsl:when test="count(/root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIpv6/cIpv6InterfaceTable/cIpv6InterfaceEntry[index[@name='cIpv6InterfaceIfIndex']=$ifIndex])>0">YES</xsl:when>
                         <xsl:otherwise>NO</xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
@@ -461,6 +455,28 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                         <xsl:message>TRACE:ipAdEntAddr<xsl:value-of select="$ipAdEntAddr"/>/<xsl:value-of select="$ipv6AddrPfxLength"/> </xsl:message>
                                     </xsl:for-each>
                                 </xsl:when>
+
+                                <xsl:when test="$IPv6Forwarding='YES'">
+                                    <xsl:for-each
+                                            select="/root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIpv6/cIpv6InterfaceTable/cIpv6InterfaceEntry[index[@name='cIpv6InterfaceIfIndex']=$ifIndex]/cIpv6InterfaceIdentifier">
+                                        <xsl:variable name="instance" select="."/>
+                                        <xsl:variable name="ipAdEntAddr"><xsl:value-of select="."/></xsl:variable>
+                                        <xsl:variable name="ipv6AddrPfxLength"
+                                                      select="../cIpv6InterfaceIdentifierLength"/>
+                                        <xsl:variable name="ipv6AddrType" select="../cIpAddressType"/>
+                                        <xsl:variable name="cIpAddressOrigin" select="../cIpAddressPrefix"/>
+                                        <xsl:variable name="ipv6AddrAnycastFlag" select="../ipv6AddrAnycastFlag"/>
+                                        <xsl:variable name="ipv6AddrStatus" select="../ipv6AddrStatus"/>
+                                        <xsl:call-template name="IPv6">
+                                            <xsl:with-param name="ipAdEntAddr" select="$ipAdEntAddr"/>
+                                            <xsl:with-param name="ipv6AddrPfxLength" select="$ipv6AddrPfxLength"/>
+                                            <xsl:with-param name="ipv6AddrType" select="$ipv6AddrType"/>
+                                            <xsl:with-param name="ipv6AddrAnycastFlag" select="$ipv6AddrAnycastFlag"/>
+                                            <xsl:with-param name="ipv6AddrStatus" select="$ipv6AddrStatus"/>
+                                        </xsl:call-template>
+                                        <xsl:message>TRACE:ipcv6AdEntAddr<xsl:value-of select="$ipAdEntAddr"/>/<xsl:value-of select="$ipv6AddrPfxLength"/> </xsl:message>
+                                    </xsl:for-each>
+                                </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:for-each
                                             select="//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6AddrTable/ipv6AddrEntry[index=$ifIndex]/instance">
@@ -571,7 +587,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <!--</xsl:choose>-->
                                 <!--</xsl:for-each>-->
                             </xsl:variable>
-                            <xsl:message>TRACE: <xsl:value-of select="$interface-neighbors"/> </xsl:message>
+                            <xsl:message>TRACE: <xsl:copy-of select="$interface-neighbors"/> </xsl:message>
                             <!--xsl:copy-of select="$interface-neighbors"/-->
                             <xsl:variable name="neighCount" select="count(distinct-values($interface-neighbors/object/name))"/>
                             <xsl:for-each select="distinct-values($interface-neighbors/object/name)">
@@ -766,7 +782,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <parameter>
                                     <name>ifPhysAddress</name>
                                     <value>
-                                        <xsl:value-of select="ifPhysAddress"/>
+                                        <!--<xsl:value-of select="ifPhysAddress"/>-->
                                     </value>
                                 </parameter>
                                 <parameter>
@@ -842,7 +858,6 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                         <xsl:value-of select="ifPhysAddress"/>
                                     </value>
                                 </parameter>
-
                                 <parameter>
                                     <name>CableCut</name>
                                     <value>NO</value>

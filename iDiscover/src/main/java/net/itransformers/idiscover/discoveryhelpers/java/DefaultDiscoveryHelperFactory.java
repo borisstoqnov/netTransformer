@@ -24,6 +24,8 @@ import net.itransformers.idiscover.core.DiscoveryHelperFactory;
 
 public class DefaultDiscoveryHelperFactory implements DiscoveryHelperFactory {
 
+
+
     public DiscoveryHelper createDiscoveryHelper(String deviceType) {
         throw new RuntimeException("Not implemented");
     }

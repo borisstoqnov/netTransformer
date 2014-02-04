@@ -44,7 +44,7 @@
             <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string"/>
             <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string"/>
             <key id="IPv6Forwarding" for="edge" attr.name="IPv6Forwarding" attr.type="string"/>
-            <key id="IPv4Forwarding" for="edge" attr.name="IPv6Forwarding" attr.type="string"/>
+            <key id="IPv4Forwarding" for="edge" attr.name="IPv4Forwarding" attr.type="string"/>
 
             <key id="InterfaceNameA" for="edge" attr.name="InterfaceNameA" attr.type="string"/>
             <key id="InterfaceNameB" for="edge" attr.name="InterfaceNameB" attr.type="string"/>
@@ -284,6 +284,19 @@
                                         <xsl:otherwise>NO</xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:variable>
+                                <xsl:variable name="OSPF">
+                                    <xsl:choose>
+                                        <xsl:when test="contains($methods_all,'OSPF')">YES</xsl:when>
+                                        <xsl:otherwise>NO</xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+                                <xsl:variable name="BGP">
+                                    <xsl:choose>
+                                        <xsl:when test="contains($methods_all,'BGP')">YES</xsl:when>
+                                        <xsl:otherwise>NO</xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+
                                 <!--methods>
                                     <xsl:value-of select="$methods_all"/>
                                 </methods-->
@@ -338,7 +351,7 @@
                                                     <xsl:when test="$next_hop='YES' or $c_next_hop ='YES'">
                                                         <!--xsl:for-each select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method' and (contains(value, 'NEXT') or contains(value,'c_NEXT') or contains(value,'ARP') or contains(value,'MAC'))]]/name"-->
                                                         <xsl:for-each
-                                                                select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method' and (contains(value, 'NEXT') or contains(value,'c_'))]]/name">
+                                                                select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method' and (contains(value, 'NEXT') or contains(value,'c_') or contains(value,'r_'))]]/name">
                                                             <xsl:variable name="neighID">
                                                                 <xsl:value-of select="."/>
                                                             </xsl:variable>
@@ -436,23 +449,31 @@
                 </test>
             </root>
         </xsl:variable>
+        <xsl:variable name="sorted">
+            <xsl:apply-templates select="$sort//root/test"><xsl:sort select="node"/></xsl:apply-templates>
+        </xsl:variable>
+        <!--<xsl:message>DEBUG: <xsl:value-of select="$sorted"/></xsl:message>-->
+        <xsl:variable name="first" select="substring-before($sorted,' ')"/>;
+        <xsl:variable name="second" select="substring-after($sorted,' ')"/>;
+        <!--<xsl:message>DEBUG:first <xsl:value-of select="$first"/></xsl:message>-->
+        <!--<xsl:message>DEBUG:second <xsl:value-of select="$second"/></xsl:message>-->
+
         <xsl:variable name="edgeId"><xsl:choose>
             <xsl:when test="$localInterface!='' and $remoteInterface!=''">
                 <xsl:variable name="sort2">
                     <root>
-                        <test>
                             <node>
+                                <xsl:attribute name="name"><xsl:value-of select="$nodeID"/></xsl:attribute>
                                 <xsl:value-of select="$localInterface"/>
                             </node>
-                        </test>
-                        <test>
                             <node>
+                                <xsl:attribute name="name"><xsl:value-of select="$neighID"/></xsl:attribute>
                                 <xsl:value-of select="$remoteInterface"/>
                             </node>
-                        </test>
                     </root>
                 </xsl:variable>
-                <xsl:apply-templates select="$sort//root/test"><xsl:sort select="node"/></xsl:apply-templates>-<xsl:apply-templates select="$sort2//root/test"><xsl:sort select="node"/></xsl:apply-templates>
+                <!--<xsl:message>DEBUG: SORT <xsl:copy-of select="$sort2"/></xsl:message>-->
+                <xsl:apply-templates select="$sort//root/test"><xsl:sort select="node"/></xsl:apply-templates>- <xsl:value-of select="$sort2/root//node[@name = $first]"/><xsl:text> </xsl:text><xsl:value-of select="$sort2/root//node[contains($second,@name)]"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
@@ -461,17 +482,20 @@
                             <root>
                                 <test>
                                     <node>
+                                        <xsl:attribute name="name"><xsl:value-of select="$nodeID"/></xsl:attribute>
                                         <xsl:value-of select="$localIP"/>
                                     </node>
                                 </test>
                                 <test>
                                     <node>
+                                        <xsl:attribute name="name"><xsl:value-of select="$neighID"/></xsl:attribute>
                                         <xsl:value-of select="$remoteIP"/>
                                     </node>
                                 </test>
                             </root>
                         </xsl:variable>
-                        <xsl:apply-templates select="$sort//root/test"><xsl:sort select="node"/></xsl:apply-templates>-<xsl:apply-templates select="$sort2//root/test"><xsl:sort select="node"/></xsl:apply-templates>
+
+                        <xsl:apply-templates select="$sort//root/test"><xsl:sort select="node"/></xsl:apply-templates>- <xsl:value-of select="$sort2/root//node[@name = $first]"/><xsl:text> </xsl:text><xsl:value-of select="$sort2/root//node[contains($second,@name)]"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:apply-templates select="$sort//root/test">
@@ -483,6 +507,7 @@
         </xsl:choose>
 
         </xsl:variable>
+        <xsl:message>DEBUG: Edge ID -> <xsl:value-of select="$edgeId"/> </xsl:message>
         <edge>
             <xsl:attribute name="id"><xsl:value-of select="$edgeId"/></xsl:attribute>
             <xsl:attribute name="label"><xsl:value-of select="$edgeId"/></xsl:attribute>
