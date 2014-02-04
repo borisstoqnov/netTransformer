@@ -93,7 +93,7 @@ public class ShortestPathProvisioning implements RightClickHandler {
             Map<String, Object> context = new HashMap<String, Object>();
             Map<String, String> graphMLParams1 = getParams(element.toString(), vertexMetadatas);
 
-            context.put("graphml", graphMLParams1);
+//            context.put("graphml", graphMLParams1);
             context.put("rightClickParams", rightClickParams);
             context.put("xmlFileName", deviceDataXmlFileName.toURI().toString());
             context.put("parentFrame", parent);
@@ -206,9 +206,11 @@ public class ShortestPathProvisioning implements RightClickHandler {
     }
     private static <G> Map<String, String> getParams(String v, Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas) {
         HashMap<String, String> params = new HashMap<String, String>();
-        for (Map<String,GraphMLMetadata<String>> vertexMetadata : vertexMetadatas.values()) {
-            for (String key : vertexMetadata.keySet()){
-                String value = vertexMetadata.get(key).transformer.transform(v);
+        Collection<Map<String, GraphMLMetadata<String>>> test = vertexMetadatas.values();
+        for (Map<String, GraphMLMetadata<String>> stringGraphMLMetadataMap : test) {
+            for (String key : stringGraphMLMetadataMap.keySet()){
+
+                String value = stringGraphMLMetadataMap.get(key).transformer.transform(v);
                 if (value == null) continue;
                 if (!params.containsKey(key)){
                     params.put(key,value);
@@ -218,6 +220,18 @@ public class ShortestPathProvisioning implements RightClickHandler {
                 }
             }
         }
+//        for (Collection<String,GraphMLMetadata<String>> vertexMetadata : vertexMetadatas.values()) {
+//            for (String key : vertexMetadata.keySet()){
+//                String value = vertexMetadata.get(key).transformer.transform(v);
+//                if (value == null) continue;
+//                if (!params.containsKey(key)){
+//                    params.put(key,value);
+//                } else{
+//                    value = value.concat(", ").concat(params.get(key));
+//                    params.put(key,value);
+//                }
+//            }
+//        }
         return params;
     }
 }

@@ -22,6 +22,7 @@ package net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers;
 import net.itransformers.topologyviewer.dialogs.NewProjectDialog;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.utils.RecursiveCopy;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,6 +42,7 @@ import java.util.Scanner;
 public class NewProjectMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
+    static Logger logger = Logger.getLogger(NewProjectMenuHandler.class);
 
     public NewProjectMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
@@ -53,6 +55,8 @@ public class NewProjectMenuHandler implements ActionListener {
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
         File file;
+        logger.info("Selected project file is:"+dialog.getProjectType());
+
         if (!dialog.isOkPressed()) {
             return;
         } else if (dialog.getProjectType().equals("bgpPeeringMap")) {

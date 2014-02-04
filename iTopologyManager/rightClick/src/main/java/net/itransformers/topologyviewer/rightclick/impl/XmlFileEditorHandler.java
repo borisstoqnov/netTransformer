@@ -52,11 +52,16 @@ public class XmlFileEditorHandler implements RightClickHandler {
              String graphmlDir =  versionDir + File.separator+path;
              editor = new JEditorPane(graphmlPath,graphmlDir,".graphml");
 
-         }  else {
+         } else if(rightClickParams.get("type").equals("raw-data")) {
              String rawDataPath = versionDir+File.separator+path+File.separator+"raw-data-"+v+".xml";
              String rawDatalDir =  versionDir + File.separator+path;
 
              editor = new JEditorPane(rawDataPath,rawDatalDir,".xml");
+
+         }else {
+             String config = versionDir+File.separator+path+File.separator+v+File.separator+rightClickParams.get("type")+".txt";
+             String configdir =  versionDir + File.separator+path+File.separator+v;
+             editor = new JEditorPane(config,configdir,".txt");
 
          }
          try {

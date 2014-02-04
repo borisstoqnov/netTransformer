@@ -23,4 +23,5 @@
     <ignored-key name="countOriginatedPrefixes"/>
     <ignored-key name="description"/>
     <ignored-key name="nodeInfo"/>
+    <ignored-key name="ManagementIPAddress"/>
 </ignored-keys>

@@ -20,4 +20,8 @@
 <ignored-keys>
     <ignored-key name="edgeTooltip"/>
     <ignored-key name="color"/>
+    <ignored-key name="InterfaceNameA"/>
+    <ignored-key name="InterfaceNameB"/>
+    <ignored-key name="IPv4AddressA"/>
+    <ignored-key name="IPv4AddressB"/>
 </ignored-keys>

@@ -171,7 +171,7 @@ public class CmdRightClickHandler implements RightClickHandler {
         northPanel.setLayout(new FlowLayout());
         northPanel.add(fulfilmentFactories);
         jDialog.add(BorderLayout.NORTH, northPanel);
-        jDialog.setPreferredSize(new Dimension(300,300));
+        jDialog.setPreferredSize(new Dimension(600,600));
         jDialog.pack();
         jDialog.setVisible(true);
 

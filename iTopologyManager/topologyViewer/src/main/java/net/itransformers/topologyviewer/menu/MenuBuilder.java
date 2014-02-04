@@ -100,6 +100,16 @@ public class MenuBuilder {
         graphTools.setEnabled(false);
         menuBar.add(graphTools);
 
+        final JMenu labels = new JMenu("Show/Hide Labels");
+        final JMenuItem nodeLabels = new JMenuItem("Show/Hide Node Labels");
+        nodeLabels.addActionListener(new ShowHideNodeLabelsMenuHandler(frame));
+        labels.add(nodeLabels);
+
+        final JMenuItem edgeLabels = new JMenuItem("Show/Hide Edge Labels");
+        edgeLabels.addActionListener(new ShowHideEdgeLabelsMenuHandler(frame));
+        labels.add(edgeLabels);
+        graphTools.add(labels);
+
         final JMenu search = new JMenu("Search Graph");
         graphTools.add(search);
 

@@ -55,6 +55,8 @@ public class DiffMenuHandler implements ActionListener {
             return;
         }
         wizardDialog.setVisible(true);
+        System.out.println(frame.getPath());
+
         System.out.println(wizardDialog.getDiffPath1());
         System.out.println(wizardDialog.getDiffPath2());
         System.out.println(wizardDialog.getDiffPath3());

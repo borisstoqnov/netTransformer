@@ -577,13 +577,39 @@
             <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
 
         </filter>
-        <filter name="sdn">
-            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <include dataKey="method" dataValue="OpenFlow" for="edge"/>
-            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+        <!--In this case is presented a only an OSPF view -->
+        <filter name="OSPF">
+            <include dataKey="method" dataValue="OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+            <include dataKey="method" dataValue="r_OSPF" for="edge"/>
             <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
         </filter>
-        <!--In this case is presented a view only in site with side-id = HP-->
+        <!--In this case is presented a only an ISIS view -->
+        <filter name="ISIS">
+            <include dataKey="method" dataValue="ISIS" for="edge"/>
+            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+            <include dataKey="method" dataValue="r_ISIS" for="edge"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
+        </filter>
+        <filter name="OSPF+ISIS">
+            <include dataKey="method" dataValue="OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+            <include dataKey="method" dataValue="r_OSPF" for="edge"/>
+            <include dataKey="method" dataValue="ISIS" for="edge"/>
+            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+            <include dataKey="method" dataValue="r_ISIS" for="edge"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
+        </filter>
+        <!--In this case is presented a only BGP view -->
+        <filter name="BGP">
+            <include dataKey="method" dataValue="BGP" for="edge"/>
+            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
+        </filter>
+
 
         <filter name="diff">
             <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
@@ -591,6 +617,8 @@
             <include dataKey="method" dataValue="CDP" for="edge"/>
             <include dataKey="method" dataValue="LLDP" for="edge"/>
             <include dataKey="method" dataValue="MAC" for="edge"/>
+            <include dataKey="method" dataValue="ARP" for="edge"/>
+
             <include dataKey="method" dataValue="Slash30" for="edge"/>
             <include dataKey="method" dataValue="Slash31" for="edge"/>
             <include dataKey="method" dataValue="OSPF" for="edge"/>
@@ -612,6 +640,7 @@
             <include dataKey="method" dataValue="Slash30" for="edge"/>
             <include dataKey="method" dataValue="Slash31" for="edge"/>
             <include dataKey="method" dataValue="MAC" for="edge"/>
+            <include dataKey="method" dataValue="ARP" for="edge"/>
             <include dataKey="method" dataValue="OSPF" for="edge"/>
             <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
             <include dataKey="method" dataValue="c_OSPF" for="edge"/>
@@ -633,11 +662,10 @@
             <include dataKey="method" dataValue="Slash30" for="edge"/>
             <include dataKey="method" dataValue="Slash31" for="edge"/>
             <include dataKey="method" dataValue="MAC" for="edge"/>
+            <include dataKey="method" dataValue="ARP" for="edge"/>
             <include dataKey="method" dataValue="OSPF" for="edge"/>
             <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
-
             <include dataKey="method" dataValue="c_OSPF" for="edge"/>
-
             <include dataKey="method" dataValue="c_ISIS" for="edge"/>
             <include dataKey="method" dataValue="r_ISIS" for="edge"/>
             <include dataKey="method" dataValue="r_OSPF" for="edge"/>
@@ -660,35 +688,7 @@
             <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
 
         </filter>
-        <!--In this case is presented a only an OSPF view -->
-        <filter name="OSPF">
-            <include dataKey="method" dataValue="OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="r_OSPF" for="edge"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-        </filter>
-        <!--In this case is presented a only an ISIS view -->
-        <filter name="ISIS">
-            <include dataKey="method" dataValue="ISIS" for="edge"/>
-            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_ISIS" for="edge"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
 
-        </filter>
-        <filter name="OSPF+ISIS">
-            <include dataKey="method" dataValue="ISIS" for="edge"/>
-            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_ISIS" for="edge"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-
-        </filter>
-        <!--In this case is presented a only BGP view -->
-        <filter name="BGP">
-            <include dataKey="method" dataValue="BGP" for="edge"/>
-            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-
-        </filter>
         <filter name="IPLinkLayer-reachable">
             <include dataKey="ipLink" dataValue="YES" for="edge"/>
             <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
@@ -728,21 +728,25 @@
             <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
 
         </filter>
+        <filter name="sdn">
+            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+            <include dataKey="method" dataValue="OpenFlow" for="edge"/>
+            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+        </filter>
         <filter name="Any-link-reachable+unreachable">
-            <tooltip dataKey="diffs" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
             <include dataKey="ipLink" dataValue="NO" for="edge"/>
             <include dataKey="dataLink" dataValue="NO" for="edge"/>
             <include dataKey="ipLink" dataValue="YES" for="edge"/>
             <include dataKey="dataLink" dataValue="YES" for="edge"/>
-            <tooltip dataKey="diffs" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
-
+            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
         </filter>
     </filters>
 
     <hops selected="3">1,2,3,4,5,6,7,8,9,10</hops>
     <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
-    <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+    <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
     <!-- this is also possible it could be used as default value-->
     <rightClickItem name="ShortestPath" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPath"/>
     <rightClickItem name="TabViewerOpener" handlerClass="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener">
@@ -803,6 +807,16 @@
                 <param name="path">raw-data</param>
                 <!--Path attrbiute should be equal to the setting of the "device-data-logging-path" used in discoveryManager.xml-->
             </rightClickItem>
+            <rightClickItem name="Running Config Editor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
+                <param name="type">running-config</param>
+                <param name="path">post-discovery</param>
+                <!--Path attrbiute should be equal to the setting of the "device-data-logging-path" used in discoveryManager.xml-->
+            </rightClickItem>
+            <rightClickItem name="Startup Config Editor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
+                <param name="type">startup-config</param>
+                <param name="path">post-discovery</param>
+                <!--Path attrbiute should be equal to the setting of the "device-data-logging-path" used in discoveryManager.xml-->
+            </rightClickItem>
         </submenu>
 
         <submenu name="Reports">
@@ -841,6 +855,11 @@
                 <param name="path">device-hierarchical</param>
 
             </rightClickItem>
+            <rightClickItem name="CLI Security compliance" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CLIReportViewer">
+                <param name="post-discovery-file-path">post-discovery</param>
+                <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt"</param>
+                <param name="reportFileName">Cisco Config security audit.xml</param>
+            </rightClickItem>
         </submenu>
         <submenu name="Network Activation">
             <rightClickItem name="Node Activation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
@@ -859,26 +878,26 @@
             </rightClickItem>
 
 
-            <!--<rightClickItem name="IPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">-->
-                <!--<param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>-->
-                <!--<param name="resource">resourceManager/conf/xml/resource.xml</param>-->
-                <!--<param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6.xml</param>-->
-            <!--</rightClickItem>-->
-            <!--<rightClickItem name="IPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">-->
-                <!--<param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>-->
-                <!--<param name="resource">resourceManager/conf/xml/resource.xml</param>-->
-                <!--<param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6.xml</param>-->
-            <!--</rightClickItem>-->
-            <!--<rightClickItem name="undoIPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">-->
-                <!--<param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>-->
-                <!--<param name="resource">resourceManager/conf/xml/resource.xml</param>-->
-                <!--<param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6_undo.xml</param>-->
-            <!--</rightClickItem>-->
-            <!--<rightClickItem name="undoIPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">-->
-                <!--<param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>-->
-                <!--<param name="resource">resourceManager/conf/xml/resource.xml</param>-->
-                <!--<param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6_undo.xml</param>-->
-            <!--</rightClickItem>-->
+            <rightClickItem name="IPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
+                <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
+                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+                <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6.xml</param>
+            </rightClickItem>
+            <rightClickItem name="IPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
+                <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
+                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+                <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6.xml</param>
+            </rightClickItem>
+            <rightClickItem name="undoIPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
+                <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
+                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+                <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6_undo.xml</param>
+            </rightClickItem>
+            <rightClickItem name="undoIPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
+                <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
+                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+                <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6_undo.xml</param>
+            </rightClickItem>
 
         </submenu>
 

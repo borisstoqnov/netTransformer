@@ -38,6 +38,11 @@
             <param name="cmd">IPv6OSPF</param>
             <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/cisco/IPv6OSPF.templ</param>
         </type>
+        <type name="c_IPv6OSPF_interface" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">IPv6OSPF_interface</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/cisco/IPv6OSPF_interface.templ</param>
+        </type>
+
         <type name="c_IPv6Tunnel" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">IPv6Tunnel</param>
             <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/cisco/IPv6Tunnel.templ</param>

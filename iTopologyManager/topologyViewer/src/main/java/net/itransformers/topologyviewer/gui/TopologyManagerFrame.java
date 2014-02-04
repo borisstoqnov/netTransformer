@@ -125,6 +125,7 @@ public class TopologyManagerFrame extends JFrame{
             //            new TopologyManagerFrame<UndirectedGraph<String, String>>(baseUrl, graphmlRelDir, UndirectedSparseMultigraph.<String, String>getFactory(), viewerConfigFile,initialNode);
 
           //  if (selectedFile.getAbsolutePath().contains("undirected")) {
+                logger.info("Opening "+ projectType + " with viewer config" + viewerConfig + "and selected file" + selectedFile);
                 GraphViewerPanelManager<UndirectedGraph<String, String>> viewerPanelManager =
                 new GraphViewerPanelManager<UndirectedGraph<String, String>>(this, projectType, path, viewerConfig, selectedFile, UndirectedSparseMultigraph.<String, String>getFactory(), tabbedPane, GraphType.UNDIRECTED);
                 viewerPanelManagerMap.put(viewerPanelManager.getVersionDir().getAbsolutePath(),viewerPanelManager);

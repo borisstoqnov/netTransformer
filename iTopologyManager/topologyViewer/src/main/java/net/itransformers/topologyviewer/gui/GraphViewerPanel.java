@@ -41,6 +41,7 @@ import edu.uci.ics.jung.visualization.renderers.DefaultEdgeLabelRenderer;
 import edu.uci.ics.jung.visualization.renderers.DefaultVertexLabelRenderer;
 import net.itransformers.topologyviewer.config.*;
 import net.itransformers.topologyviewer.rightclick.RightClickInvoker;
+import org.apache.commons.collections15.functors.ConstantTransformer;
 import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
@@ -75,6 +76,10 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
     private String initialNode;
     private JFrame parent;
     private String layout;
+    private boolean vertexLabel;
+
+
+    private boolean edgeLabel;
     DefaultModalGraphMouse graphMouse;
 
 
@@ -96,7 +101,6 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         this.deviceXmlPath = deviceXmlPath;
         this.layout = layout;
         this.graphMouse = new DefaultModalGraphMouse();
-
         vv = new MyVisualizationViewer(viewerConfig, entireGraph,
                 graphmlLoader.getVertexMetadatas(),
                 graphmlLoader.getEdgeMetadatas(),
@@ -125,10 +129,13 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
 
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<String>());
         vv.getRenderContext().setVertexLabelRenderer(new MyDefaultVertexLabelRenderer(Color.BLACK, Color.RED));
-        vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<String>());
+       // vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<String>());
+        vv.getRenderContext().setEdgeLabelTransformer(new ConstantTransformer(null));
         vv.getRenderContext().setEdgeLabelRenderer(new MyDefaultEdgeLabelRenderer(Color.BLACK, Color.RED));
 
         vv.getRenderContext().setLabelOffset(18);
+        setEdgeLabel(false);
+        setVertexLabel(true);
 
 //
 //            @Override
@@ -527,13 +534,13 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         reload.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    graphmlLoader.loadGraphml(new File(graphmlDir + "/network.graphml"));
+                    graphmlLoader.loadGraphml(graphmlDir);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
                 Set<String> vertexes = new HashSet<String>(currentGraph.getVertices());
                 applyFilter(currentFilter, currentHops, vertexes);
-//                vv.repaint();
+                vv.repaint();
             }
         });
         return reload;
@@ -552,14 +559,22 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         });
         return redraw;
     }
+
     //TODO
     private JButton hideEdgeLabels() {
         JButton hideEdgeLabels = new JButton("Hide Edge Labels");
         hideEdgeLabels.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if (isEdgeLabel()) {
+                    vv.getRenderContext().setEdgeLabelTransformer(new ConstantTransformer(null));
+                    vv.repaint();
+                    setEdgeLabel(false);
+                } else {
+                    vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<String>());
+                    vv.repaint();
+                    setEdgeLabel(true);
 
-                vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<String>());
-                vv.repaint();
+                }
             }
         });
         return hideEdgeLabels;
@@ -1050,31 +1065,48 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
             return this;
         }
     }
+
     class MyDefaultEdgeLabelRenderer extends DefaultEdgeLabelRenderer {
 
         protected Color unpickedEdgeLabelColor = Color.BLACK;
 
-    public MyDefaultEdgeLabelRenderer(Color unpickedEdgeLabelColor, Color pickedEdgeLabelColor) {
-        super(pickedEdgeLabelColor);
-        this.unpickedEdgeLabelColor = unpickedEdgeLabelColor;
-    }
-
-    public <V> Component getEdgeLabelRendererComponent(JComponent vv, Object value, Font font, boolean isSelected, V vertex) {
-        super.setForeground(unpickedEdgeLabelColor);
-        if (isSelected) setForeground(pickedEdgeLabelColor);
-        super.setBackground(vv.getBackground());
-        if (font != null) {
-            Font font1 = new Font(font.getName(), font.getStyle() + Font.ITALIC, font.getSize());
-            setFont(font1);
-        } else {
-            Font font1 = new Font(vv.getFont().getName(), vv.getFont().getStyle() + Font.ITALIC, vv.getFont().getSize());
-            setFont(font1);
+        public MyDefaultEdgeLabelRenderer(Color unpickedEdgeLabelColor, Color pickedEdgeLabelColor) {
+            super(pickedEdgeLabelColor);
+            this.unpickedEdgeLabelColor = unpickedEdgeLabelColor;
         }
-        setIcon(null);
-        setBorder(noFocusBorder);
-        setValue(value);
 
-        return this;
+        public <V> Component getEdgeLabelRendererComponent(JComponent vv, Object value, Font font, boolean isSelected, V vertex) {
+            super.setForeground(unpickedEdgeLabelColor);
+            if (isSelected) setForeground(pickedEdgeLabelColor);
+            super.setBackground(vv.getBackground());
+            if (font != null) {
+                Font font1 = new Font(font.getName(), font.getStyle() + Font.ITALIC, font.getSize());
+                setFont(font1);
+            } else {
+                Font font1 = new Font(vv.getFont().getName(), vv.getFont().getStyle() + Font.ITALIC, vv.getFont().getSize());
+                setFont(font1);
+            }
+            setIcon(null);
+            setBorder(noFocusBorder);
+            setValue(value);
+
+            return this;
+        }
     }
-}
+
+    public boolean isVertexLabel() {
+        return vertexLabel;
+    }
+
+    public void setVertexLabel(boolean vertexLabel) {
+        this.vertexLabel = vertexLabel;
+    }
+
+    public boolean isEdgeLabel() {
+        return edgeLabel;
+    }
+
+    public void setEdgeLabel(boolean edgeLabel) {
+        this.edgeLabel = edgeLabel;
+    }
 }

@@ -62,8 +62,8 @@ public class GraphMLDiff {
         xsltParams = new HashMap<String, String>();
         xsltParams.put("file1", file1.toString());
         xsltParams.put("file2", file2.toString());
-        xsltParams.put("$ignored_node_keys_file", ignoredNodeKeysPath.toURI().toString());
-        xsltParams.put("$ignored_edge_keys_file", ignoredEdgeKeysPath.toURI().toString());
+        xsltParams.put("ignored_node_keys_file", ignoredNodeKeysPath.toURI().toString());
+        xsltParams.put("ignored_edge_keys_file", ignoredEdgeKeysPath.toURI().toString());
 
 //        System.out.println("test2");
 

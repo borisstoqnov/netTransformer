@@ -14,6 +14,8 @@ configure terminal
 ### start read_until('.*#',3)
 interface $Interface
 no ipv6 address $prefix
+no ipv6 enable
+no ipv6 address
 end
 ### stop read_until
 exit
