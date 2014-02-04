@@ -1,4 +1,4 @@
-package net.itransformers.postDiscoverer.core;
+package net.itransformers.utils.cli;
 
 
 import groovy.lang.Binding;
@@ -35,7 +35,7 @@ public class Expect4GroovyScriptLauncher {
         Expect4GroovyScriptLauncher launcher = new Expect4GroovyScriptLauncher();
 
          launcher.open(new String[]{"/postDiscoverer/conf/groovy/" + File.separator}, "cisco_login.groovy", params);
-         launcher.sendCommand("cisco_sendCommand.groovy");
+         launcher.sendCommand("cisco_sendCommand.groovy", "sh runn", "/postDiscoverer/conf/groovy/cisco_config_eval.groovy");
          launcher.close("cisco_login.groovy");
 
 
@@ -44,9 +44,15 @@ public class Expect4GroovyScriptLauncher {
 
     }
 
-    public Map<Integer,String> sendCommand(String scriptName) throws ResourceException, ScriptException {
-            Map<Integer, String> result = (Map<Integer, String>) gse.run(scriptName, binding);
+    public Map<String,Object> sendCommand(String scriptName, String command,String evalscriptPath) throws ResourceException, ScriptException {
+            binding.setProperty("command",command);
+            if(evalscriptPath!=null){
+                binding.setProperty("evalScript",new File(evalscriptPath));
+            }else {
+                binding.setProperty("evalScript",null);
 
+            }
+            Map<String, Object> result = (Map<String, Object>) gse.run(scriptName, binding);
             return result;
 
     }

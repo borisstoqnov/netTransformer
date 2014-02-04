@@ -57,6 +57,13 @@ public class XsltReport {
         tableXSL = pathToTableXSL;
 
     }
+    public XsltReport(File pathToXSL, StringBuffer inputXml1) throws FileNotFoundException {
+        // xml = pathToXML;
+        inputXml = new StreamSource(new ByteArrayInputStream(inputXml1.toString().getBytes()));
+        xsl = pathToXSL;
+
+    }
+
     public XsltReport(File pathToXSL, File pathToTableXSL, File pathToXML) throws FileNotFoundException {
         inputXml = new StreamSource(new FileInputStream(pathToXML));
         xsl = pathToXSL;

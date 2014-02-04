@@ -1,15 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resources>
+    <resource name="misho">
+        <param name="deviceName">misho</param>
+        <param name="deviceType">CISCO</param>
+        <connection-params connection-type="ssh">
+            <param name="username">misho</param>
+            <param name="password">misho321</param>
+            <param name="enable-password">misho321</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+            <param name="port">22</param>
+
+        </connection-params>
+        <connection-params connection-type="telnet">
+            <param name="username">misho</param>
+            <param name="password">misho321</param>
+            <param name="enable-password">misho321</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+            <param name="port">23</param>
+        </connection-params>
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="community-ro">test-r</param>
+            <param name="community-rw">test-rw</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+            <param name="port">161</param>
+        </connection-params>
+    </resource>
     <resource name="OpenWrt">
-        <param name="hostname">OpenWrt</param>
+        <param name="deviceName">OpenWrt</param>
+        <param name="deviceType">DEFAULT</param>
+
         <connection-params connection-type="ssh">
             <param name="username">root</param>
             <param name="password">usa94</param>
+            <param name="port">22</param>
+
         </connection-params>
         <connection-params connection-type="telnet">
             <param name="username">root</param>
             <param name="password">password</param>
             <param name="system-password">password</param>
+            <param name="port">23</param>
+
         </connection-params>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
@@ -26,11 +61,15 @@
             <param name="username">lab</param>
             <param name="password">lab</param>
             <param name="system-password">lab</param>
+            <param name="port">22</param>
+
         </connection-params>
         <connection-params connection-type="telnet">
             <param name="username">user</param>
             <param name="password">password</param>
             <param name="system-password">password</param>
+            <param name="port">23</param>
+
         </connection-params>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
@@ -48,11 +87,15 @@
             <param name="username">lab</param>
             <param name="password">lab</param>
             <param name="enable-password">lab</param>
+            <param name="port">22</param>
+
         </connection-params>
         <connection-params connection-type="telnet">
             <param name="username">lab</param>
             <param name="password">lab</param>
             <param name="enable-password">lab</param>
+            <param name="port">23</param>
+
         </connection-params>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
@@ -78,6 +121,7 @@
             <param name="enable-password">lab123</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
+            <param name="port">23</param>
         </connection-params>
     </resource>
     <resource name="cisco">
@@ -88,6 +132,8 @@
             <param name="enable-password">lab123</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
+            <param name="port">22</param>
+
         </connection-params>
         <connection-params connection-type="telnet">
             <param name="username">lab</param>
@@ -95,6 +141,7 @@
             <param name="enable-password">lab123</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
+            <param name="port">23</param>
         </connection-params>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
@@ -113,6 +160,8 @@
             <param name="enable-password">lab123</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
+            <param name="port">23</param>
+
         </connection-params>
         <connection-params connection-type="ssh">
             <param name="username">lab</param>
@@ -120,6 +169,7 @@
             <param name="enable-password">lab</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
+            <param name="port">22</param>
         </connection-params>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>

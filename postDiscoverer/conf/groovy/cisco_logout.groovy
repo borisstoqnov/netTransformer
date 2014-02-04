@@ -1,3 +1,4 @@
+println (System.currentTimeMillis())
 
 /**
  * Created with IntelliJ IDEA.

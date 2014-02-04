@@ -133,16 +133,16 @@ def setupTerminal() {
     send ("terminal length 0" + defaultTerminator)
 
     expect _re("[\r][\n]((([^"+powerUserPrompt+"]+)" + powerUserPrompt + "\$)" + "|" + "(([^"+prompt+"]+)" + prompt + "\$" + "))") {
-        def match1 = it.getMatch(2)
-        def match2 = it.getMatch(4)
+        def match1 = it.getMatch(3)
+        def match2 = it.getMatch(5)
 
         if (match1 == null){
-            hostname = match1
+            params["hostname"]=match2
             logedIn = "true"
             returnFlag = status["success"]
 
         }else {
-            hostname = match1
+            params["hostname"]=match1
             logedInPowerMode = "true"
             returnFlag = status["success"]
         }

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<report-generator>
+    <report-entry name="Cisco Config security audit" deviceType="CISCO">
+        <command name = "running-config"/>
+        <command name = "startup-config"/>
+        <command name = "ip-interfaces"/>
+        <command name = "ip-routing"/>
+
+        <!--command name = "tech-support"/-->
+
+    </report-entry>
+    <!--<report-entry  name="my cisco config verification report" deviceType="JUNIPER">-->
+        <!--<command name ="aaa"/>-->
+        <!--<command name ="bbb"/>-->
+    <!--</report-entry>-->
+    <!--<report-entry  name="my cisco config verification report" deviceType="HUAWEI">-->
+        <!--<command name ="ccc"/>-->
+        <!--<command name ="dddd"/>-->
+    <!--</report-entry>-->
+
+    <commandDescriptor deviceType="CISCO">
+        <login-script type="CLI">cisco_login.groovy</login-script>
+        <logout-script type="CLI">cisco_logout.groovy</logout-script>
+        <send-command-script type="CLI">cisco_sendCommand.groovy</send-command-script>
+        <command name = "running-config" type = "CLI">
+            <send-command>show running-config</send-command>
+            <eval-script>cisco_config_eval.groovy</eval-script>
+        </command>
+        <command name = "startup-config" type = "CLI">
+            <send-command>show startup-config</send-command>
+            <eval-script>cisco_config_eval.groovy</eval-script>
+        </command>
+        <command name = "ip-interfaces" type ="CLI">
+            <send-command>show ip interface brief</send-command>
+            <!--<eval-script>cisco_ip_interfaces_eval.groovy</eval-script>-->
+        </command>
+        <command name = "tech-support" type ="CLI">
+            <send-command>show tech-support</send-command>
+            <!--eval-script>cisco_ip_interfaces_eval.groovy</eval-script-->
+        </command>
+        <command name = "ip-routing" type ="CLI">
+            <send-command>show ip route</send-command>
+            <!--eval-script>cisco_ip_interfaces_eval.groovy</eval-script-->
+        </command>
+        <command name = "ipv6-routing" type ="CLI">
+            <send-command>show ipv6 route</send-command>
+            <!--eval-script>cisco_ip_interfaces_eval.groovy</eval-script-->
+        </command>
+
+
+
+    </commandDescriptor>
+
+    <!--<commandDescriptor deviceType="CISCO" >-->
+        <!--<login-script type="CLI">show running-confing</login-script>-->
+        <!--<logout-script type="CLI">bbb</logout-script>-->
+        <!--<send-command-script type="CLI">my-assertionaaa1</send-command-script>-->
+        <!--<command name ="sh running-confing" >-->
+            <!--<send-command>sh running config</send-command>-->
+            <!--<eval-script>bbb</eval-script>-->
+        <!--</command>-->
+    <!--</commandDescriptor>-->
+    <!--<commandDescriptor deviceType="JUNIPER">-->
+        <!--<login-script type="CLI">show-confing</login-script>-->
+        <!--<logout-script type="CLI">asdsadsadsa</logout-script>-->
+        <!--<logout-script type="SNMP">asdsadsadsa</logout-script>-->
+        <!--<login-script type="SNMP">show-confing</login-script>-->
+        <!--<login-script type="HTTP">show-confing</login-script>-->
+
+        <!--<send-command-script type="CLI">ccc-assertionaaa</send-command-script>-->
+        <!--<send-command-script type="SNMP">ccc-assertionaaa</send-command-script>-->
+        <!--<send-command-script type="HTTP">ccc-assertionaaa</send-command-script>-->
+
+        <!--<command type="CLI" name ="running-confing">-->
+            <!--<send-command>sh startup config</send-command>-->
+            <!--<eval-script>zzz</eval-script>-->
+        <!--</command>-->
+        <!--<command name ="running-confing" type = "CLI" >-->
+            <!--<send-command>1sdsfdsf</send-command>-->
+            <!--<eval-script>3sdsfs</eval-script>-->
+        <!--</command>-->
+        <!--<command name ="asdsadad" type = "SNMP">-->
+            <!--<send-command>1sdsfdsf</send-command>-->
+            <!--<eval-script>3sdsfs</eval-script>-->
+        <!--</command>-->
+
+    <!--</commandDescriptor>-->
+
+    <!--<commandDescriptor deviceType="HP" deviceName="R11">-->
+        <!--<send-command-script>my-assertionaaa</send-command-script>-->
+        <!--<command name ="running-confing" >-->
+            <!--<send-command>sh running config</send-command>-->
+            <!--<eval-script>aaaaa</eval-script>-->
+        <!--</command>-->
+    <!--</commandDescriptor>-->
+
+</report-generator>

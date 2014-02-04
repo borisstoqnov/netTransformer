@@ -5,7 +5,6 @@ import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.Vertex;
 import com.tinkerpop.blueprints.impls.tg.TinkerGraph;
-import com.tinkerpop.blueprints.util.io.graphml.GraphMLReader;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,12 +33,12 @@ public class GrahmlMerge {
     public void merge(File inFile1, File inFile2, File outFile, Map<String,String> vertexKeyTypes, Map<String,String> edgeKeyTypes, String graphType) throws IOException {
         Graph graph1 = new TinkerGraph();
         FileInputStream in1 = new FileInputStream(inFile1);
-        GraphMLReader reader1 = new GraphMLReader(graph1);
+        MyGraphMLReader reader1 = new MyGraphMLReader(graph1);
         reader1.inputGraph(in1);
 
         Graph graph2 = new TinkerGraph();
         FileInputStream in2 = new FileInputStream(inFile2);
-        GraphMLReader reader2 = new GraphMLReader(graph2);
+        MyGraphMLReader reader2 = new MyGraphMLReader(graph2);
         reader2.inputGraph(in2);
 
         mergeGraphs(graph1, graph2);
@@ -81,7 +80,7 @@ public class GrahmlMerge {
     public Graph merge(Graph graph, File file) throws IOException {
         Graph graph2 = new TinkerGraph();
         FileInputStream in2 = new FileInputStream(file);
-        GraphMLReader reader2 = new GraphMLReader(graph2);
+        MyGraphMLReader reader2 = new MyGraphMLReader(graph2);
         reader2.inputGraph(in2);
 
         mergeGraphs(graph, graph2);

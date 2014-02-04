@@ -25,7 +25,7 @@
     <bean id="projectPath" class="java.lang.String">
         <constructor-arg value="/Users/niau/trunk"/>
     </bean>
-    <bean id="postDiscovery" class="net.itransformers.postDiscoverer.core.Expect4GroovyScriptLauncher">
+    <bean id="postDiscovery" class="net.itransformers.utils.cli.Expect4GroovyScriptLauncher">
         <constructor-arg ref="postDiscoveryHelpers"/>
         <constructor-arg value="postDiscoverer/conf/xml/post-discovery-helper.xml"/>
     </bean>

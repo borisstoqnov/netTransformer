@@ -1,0 +1,230 @@
+package net.itransformers.postDiscoverer.core;
+
+import groovy.util.ResourceException;
+import groovy.util.ScriptException;
+import net.itransformers.postDiscoverer.reportGenerator.*;
+import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.resourcemanager.config.ConnectionParamsType;
+import net.itransformers.resourcemanager.config.ParamType;
+import net.itransformers.resourcemanager.config.ResourceType;
+import net.itransformers.resourcemanager.config.ResourcesType;
+import net.itransformers.utils.JaxbMarshalar;
+import net.itransformers.utils.XmlFormatter;
+import net.itransformers.utils.XsltTransformer;
+import net.itransformers.utils.cli.Expect4GroovyScriptLauncher;
+import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
+
+import javax.xml.bind.JAXBException;
+import java.io.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+public class ReportManager {
+    static Logger logger = Logger.getLogger(ReportManager.class);
+
+    private ReportGeneratorType reportGenerator;
+    private String scriptPath;
+    private File projectPath;
+    private File xsltTransformator;
+
+
+    public ReportManager(ReportGeneratorType reportGenerator, String scriptPath,File projectPath, File xsltTransformator) {
+        this.reportGenerator = reportGenerator;
+        this.scriptPath = scriptPath;
+        this.projectPath = projectPath;
+        this.xsltTransformator = xsltTransformator;
+    }
+
+    public StringBuffer reportExecutor(File postDiscoveryPath, Map<String, String> params) {
+
+        List<ReportEntryType> reportEnties = reportGenerator.getReportEntry();
+        StringBuffer sb = new StringBuffer();
+        String deviceType =  params.get("deviceType");
+        String deviceName = params.get("deviceName");
+        File postDiscoveryNodeFolder = new File(postDiscoveryPath,params.get("deviceName"));
+        if(!postDiscoveryNodeFolder.exists()){
+            postDiscoveryNodeFolder.mkdir();
+        }
+
+        for (ReportEntryType reportEntry : reportEnties) {
+            String reportName = reportEntry.getName();
+            File postDiscoveryReportOutput = new File(postDiscoveryNodeFolder+File.separator+reportName+".xml");
+
+            logger.debug("Report id: " + reportName + " " + reportEntry.getDeviceType() + " " + reportEntry.getDeviceName());
+            if (reportEntry.getDeviceType().equals(deviceType)) {
+
+                sb.append("<?xml version=\"1.0\"?>\n");
+
+               // sb.append("<report name=\""+reportEntry.getName()+"\" " + "deviceType=\""+deviceType+"\" "+ "deviceName=\""+deviceName+"\">");
+               sb.append("<report>\n");
+                List<CommandType> commands = reportEntry.getCommand();
+                List<CommandDescriptorType> commandDescriptors = reportGenerator.getCommandDescriptor();
+
+                for (CommandDescriptorType commandDescriptor : commandDescriptors) {
+
+                    if (commandDescriptor.getDeviceType().equals(deviceType)) {
+                        LoginScriptType loginScript = commandDescriptor.getLoginScript();
+                        LogoutScriptType logoutScript = commandDescriptor.getLogoutScript();
+                        SendCommandScriptType sendCommandScript = commandDescriptor.getSendCommandScript();
+
+                        try {
+                            Expect4GroovyScriptLauncher launcher = new Expect4GroovyScriptLauncher();
+                            launcher.open(new String[]{scriptPath+File.separator}, loginScript.getValue(), params);
+
+                            List<CommandType> commandDescriptorCommands = commandDescriptor.getCommand();
+
+                            for (CommandType descriptorCommand : commandDescriptorCommands) {
+
+                                for (CommandType command : commands) {
+
+                                    if (descriptorCommand.getName().equals(command.getName())) {
+                                        String evalScriptName = descriptorCommand.getEvalScript();
+                                        String commandString = descriptorCommand.getSendCommand();
+                                        File script = null;
+                                        Map<String, Object> result = null;
+
+
+                                        if (evalScriptName!=null){
+                                            script = new File(scriptPath,evalScriptName);
+                                            result = launcher.sendCommand(sendCommandScript.getValue(), commandString, script.getAbsolutePath());
+                                            Map<String, Object> evalData = (Map<String, Object>) result.get("reportResult");
+                                            if(evalData!=null){
+                                                for (String key : evalData.keySet()) {
+                                                    sb.append("\n\t<entry>\n");
+                                                    sb.append("\t\t<AuditRule>" + key + "</AuditRule>" + "\n");
+                                                    Map<String,Map<String,Integer>> keyMap= (Map<String, Map<String,Integer>>) evalData.get(key);
+                                                    if(keyMap.get("message")!=null){
+                                                     sb.append("\t\t<Statement><![CDATA[" + keyMap.get("message") + "]]></Statement>" + "\n");
+                                                    }
+
+                                                    if(keyMap.get("score")!=null){
+
+                                                                sb.append("\t\t<Score>"+keyMap.get("score")+"</Score>"+"\n");
+                                                    }
+                                                    sb.append("\t</entry>");
+                                                    logger.debug(key + " " + evalData.get(key));
+                                                }
+
+
+
+                                            }
+                                            result = launcher.sendCommand(sendCommandScript.getValue(), commandString, null);
+                                            if(result.get("commandResult")!=null){
+                                                File postDiscoveryCommandOutput = new File(postDiscoveryNodeFolder+File.separator+command.getName()+".txt");
+                                                try {
+                                                        FileUtils.writeStringToFile(postDiscoveryCommandOutput,result.get("commandResult").toString());
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                                                }
+                                            }
+                                        }
+
+                                    }
+
+                                }
+                            }
+
+                            launcher.close(logoutScript.getValue());
+                        } catch (ResourceException e) {
+                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        } catch (ScriptException e) {
+                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        }
+                    }
+
+                }
+                sb.append("\n</report>");
+                try {
+                    String report = new XmlFormatter().format(sb.toString());
+
+                    ByteArrayOutputStream finalReport = generateTableReport(new ByteArrayInputStream(report.getBytes()));
+                    FileUtils.writeStringToFile(postDiscoveryReportOutput,finalReport.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+
+            }
+        }
+
+        return sb;
+    }
+
+    public static void main(String[] args) throws IOException {
+
+        File projectDir = new File("/Users/niau/trunk");
+        File scriptPath = new File("/postDiscoverer/conf/groovy/");
+        ResourceManager resourceManager;
+
+        String xml = FileUtils.readFileToString(new File(projectDir, "/resourceManager/conf/xml/resource.xml"));
+
+        InputStream is1 = new ByteArrayInputStream(xml.getBytes());
+        ResourcesType deviceGroupsType = null;
+
+        try {
+            deviceGroupsType = net.itransformers.resourcemanager.util.JaxbMarshalar.unmarshal(ResourcesType.class, is1);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        resourceManager = new ResourceManager(deviceGroupsType);
+
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("protocol", "ssh");
+        params.put("deviceName", "R1");
+        params.put("deviceType", "CISCO");
+        params.put("address", "10.17.1.13");
+        params.put("port", "22");
+
+        ResourceType resource = resourceManager.findResource(params);
+        List connectParameters = resource.getConnectionParams();
+
+        for (int i = 0; i < connectParameters.size(); i++) {
+            ConnectionParamsType connParamsType = (ConnectionParamsType) connectParameters.get(i);
+
+            String connectionType = connParamsType.getConnectionType();
+            if (connectionType.equalsIgnoreCase(params.get("protocol"))) {
+
+                for (ParamType param : connParamsType.getParam()) {
+                    params.put(param.getName(), param.getValue());
+                }
+
+            }
+        }
+
+        File postDiscoveryConfing = new File(projectDir + "/postDiscoverer/conf/xml/reportGenerator.xml");
+
+
+        ReportGeneratorType reportGenerator = null;
+
+        FileInputStream is = new FileInputStream(postDiscoveryConfing);
+        try {
+            reportGenerator = JaxbMarshalar.unmarshal(ReportGeneratorType.class, is);
+        } catch (JAXBException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } finally {
+            is.close();
+        }
+
+        ReportManager reportManager = new ReportManager(reportGenerator, "postDiscoverer/conf/groovy/",projectDir,new File(projectDir,"iTopologyManager/rightClick/conf/xslt/table_creator.xslt"));
+        StringBuffer report = reportManager.reportExecutor(new File("/Users/niau/trunk/version1/post-discovery"),params);
+        System.out.println(report.toString());
+    }
+
+    private ByteArrayOutputStream generateTableReport(ByteArrayInputStream inputStream){
+        XsltTransformer transformer = new XsltTransformer();
+        ByteArrayOutputStream os  = new ByteArrayOutputStream();
+        ByteArrayOutputStream reportOutputStream = new ByteArrayOutputStream();
+
+
+        try {
+            transformer.transformXML(inputStream, xsltTransformator,reportOutputStream, null,null);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+
+       return  reportOutputStream;
+    }
+}

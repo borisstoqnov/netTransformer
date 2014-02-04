@@ -1,4 +1,3 @@
-
 /**
  * Created with IntelliJ IDEA.
  * User: niau
@@ -24,13 +23,22 @@ return result
 def sendCommand() {
     def returnFlag = 2
     def result = null
-    send (params["command"] + defaultTerminator)
-
-    expect _re(powerUserPrompt + "\$") {
-        returnFlag = status["success"]
-        result = it.getBuffer()
+    String commandResult = command;
+    send(command + defaultTerminator)
+    expect (command+defaultTerminator)
+ //   iterator().getBuffer();
+    if (evalScript != null) {
+       // println(System.currentTimeMillis())
+        def evalResult = evaluate(evalScript)
+        if (evalResult["status"] != status["success"]) {
+            return ["status": returnFlag, "reportResult": evalResult["reportResult"], "commandResult": evalResult["commandResult"]]
+        }
     }
-    return ["status": returnFlag, "data": result]
+    expect _re(params["hostname"]+powerUserPrompt + "\$") {
+        returnFlag = status["success"]
+        commandResult = it.getBuffer()
+    }
+    return ["status": returnFlag, "commandResult": commandResult]
 
 
 }
