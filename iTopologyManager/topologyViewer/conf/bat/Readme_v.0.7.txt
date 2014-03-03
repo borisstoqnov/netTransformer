@@ -9,7 +9,7 @@ netTransformer is a conceptual software prototype of a network transformation ma
   -  Track the network evolution process
   -  Transform a network from one state to the other
 
-netTransformer Version 0.7 builds on top of our previous work by adding postDiscoverers. Post Discoverers are able to
+netTransformer Version Pirin Edition builds on top of our previous work by adding postDiscoverers. Post Discoverers are able to
 communicate through telnet or SSH with CISCO devices, to perform configuration management and to generate CISCO security audit reports.
 
 If you want to learn more about netTransformer ideology please go to http://itransformers.net/netTransformer/ideology
