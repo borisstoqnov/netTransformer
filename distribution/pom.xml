@@ -5,13 +5,13 @@
 
     <groupId>iTransformers.iTransformer</groupId>
     <artifactId>distribution</artifactId>
-    <version>0.1-SNAPSHOT</version><!--Change for new version-->
+    <version>0.7-SNAPSHOT</version><!--Change for new version-->
     <packaging>pom</packaging>
 
     <parent>
         <groupId>iTransformers</groupId>
         <artifactId>iTransformer</artifactId>
-        <version>0.1-SNAPSHOT</version><!--Change for new version-->
+        <version>0.7-SNAPSHOT</version><!--Change for new version-->
     </parent>
 
     <!-- NOTE: These dependency declarations are only required to sort this project to the
@@ -26,6 +26,7 @@
             <artifactId>utils</artifactId>
             <version>0.1-SNAPSHOT</version><!--Change for new version-->
         </dependency>
+
     </dependencies>
 
     <build>
@@ -49,22 +50,22 @@
                             </descriptors>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>imap-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <finalName>bgpPeeringMap</finalName>
-                            <filters>
-                                <filter>distribution/bgpPeeringMap.properties</filter>
-                            </filters>
-                            <descriptors>
-                                <descriptor>distribution/bgpPeeringMap.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
+                    <!--<execution>-->
+                        <!--<id>imap-assembly</id>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>single</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<finalName>bgpPeeringMap</finalName>-->
+                            <!--<filters>-->
+                                <!--<filter>distribution/bgpPeeringMap.properties</filter>-->
+                            <!--</filters>-->
+                            <!--<descriptors>-->
+                                <!--<descriptor>distribution/bgpPeeringMap.xml</descriptor>-->
+                            <!--</descriptors>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
                 </executions>
             </plugin>
             <!--<plugin>-->

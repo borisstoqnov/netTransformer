@@ -65,6 +65,8 @@ public class NewProjectMenuHandler implements ActionListener {
             frame.setViewerConfig(new File(dialog.getProjectDir() +File.separator +"iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
             frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
             frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
+            frame.getRootPane().getJMenuBar().getMenu(6).getMenuComponent(4).setEnabled(true);
+
 
         } else {
             file = new File("netTransformer.pfl");
@@ -72,6 +74,8 @@ public class NewProjectMenuHandler implements ActionListener {
             frame.setViewerConfig(new File(dialog.getProjectDir() +File.separator +"iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
             frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
             frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
+            frame.getRootPane().getJMenuBar().getMenu(6).getMenuComponent(3).setEnabled(true);
+
         }
         Scanner s = null;
         try {
@@ -106,12 +110,9 @@ public class NewProjectMenuHandler implements ActionListener {
             frame.getRootPane().getJMenuBar().getMenu(2).setEnabled(true);
             frame.getRootPane().getJMenuBar().getMenu(3).setEnabled(true);
             frame.getRootPane().getJMenuBar().getMenu(4).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(4).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(5).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(6).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(7).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(8).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(9).setEnabled(true);
+            frame.getRootPane().getJMenuBar().getMenu(5).setEnabled(true);
+            frame.getRootPane().getJMenuBar().getMenu(6).setEnabled(true);
+
         } finally {
             if (s != null) s.close();
         }

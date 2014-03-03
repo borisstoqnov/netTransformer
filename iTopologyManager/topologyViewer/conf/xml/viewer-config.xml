@@ -807,6 +807,9 @@
                 <param name="path">raw-data</param>
                 <!--Path attrbiute should be equal to the setting of the "device-data-logging-path" used in discoveryManager.xml-->
             </rightClickItem>
+
+        </submenu>
+        <submenu name = "Configuration Management">
             <rightClickItem name="Running Config Editor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
                 <param name="type">running-config</param>
                 <param name="path">post-discovery</param>
@@ -818,7 +821,6 @@
                 <!--Path attrbiute should be equal to the setting of the "device-data-logging-path" used in discoveryManager.xml-->
             </rightClickItem>
         </submenu>
-
         <submenu name="Reports">
             <rightClickItem name="Device Neighbors" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
                 <param name="xsl_transformator">iTopologyManager/rightClick/conf/xslt/deviceNeighbors.xslt</param>

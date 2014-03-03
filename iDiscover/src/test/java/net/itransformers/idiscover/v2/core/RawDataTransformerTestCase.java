@@ -33,9 +33,6 @@ import net.itransformers.idiscover.discoverers.SnmpWalker;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.snmpdiscoverer.SnmpNodeDiscoverer;
-import org.apache.log4j.Logger;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -43,61 +40,66 @@ import org.xml.sax.SAXException;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class RawDataTransformerTestCase {
-//    private SnmpWalker walker;
-//    private String[] discoveryTypes = new String[5];
-//    private DiscoveryHelper discoveryHelper;
-//    private Resource resource;
-//    private RawDeviceData rawdata = new RawDeviceData(null);
-//    @Before
-//    public void setUp() throws Exception {
-//        XmlDiscoveryHelperFactory discoveryHelperFactory = null;
-//        try {
-//            Map<String, String> params1 = new HashMap<String, String>();
-////            String baseDir = (String) System.getProperties().get("basedir");
-//            params1.put("fileName", "/Users/niau/trunk/iDiscover/src/test/resources/discoveryParameters.xml");
-//            discoveryHelperFactory = new XmlDiscoveryHelperFactory(params1);
-//        } catch (JAXBException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        }
-//        discoveryTypes[0] = DiscoveryTypes.ADDITIONAL;
-//        Map<String, String> resourceParams = new HashMap<String, String>();
-//        resourceParams.put("community", "itransformer-r");
-//        resourceParams.put("community2", "itransformer-rw");
-//        resourceParams.put("version", "1");
-//        resourceParams.put("mibDir", "../snmptoolkit/mibs");
-//        resource = new Resource("juniper", "1.1.1.1", resourceParams);
-//        resource.setDeviceType("JUNIPER");
-//        walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
-//        discoveryHelper = discoveryHelperFactory.createDiscoveryHelper("JUNIPER");
-//
-//        FileInputStream is = new FileInputStream("src/test/resources/raw-data-Juniper.xml");
-//        byte[] data = new byte[is.available()];
-//        is.read(data);
-//        rawdata.setData(data);
-//    }
-//    @Test
-//    public void testDoTransform() throws TransformerException, IOException, SAXException, ParserConfigurationException {
-//        new NodeDiscoverer(){
-//            @Override
-//            public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
-//                NodeDiscoveryResult result = new NodeDiscoveryResult();
-//                //String devName = walker.getDeviceName(resource);
-//                result.setNodeId(resource.getHost());
-//                result.setDiscoveredData("rawData", rawdata.getData());
-//                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource);
-//                result.setDiscoveredData("deviceData", discoveredDeviceData);
-//                return result;
-//            }
-//        }.discover(null);
-//        //Assert.assertEquals("a", "a");
-//    }
+    private SnmpWalker walker;
+    private String[] discoveryTypes = new String[5];
+    private DiscoveryHelper discoveryHelper;
+    private Resource resource;
+    private RawDeviceData rawdata = new RawDeviceData(null);
+    @Before
+    public void setUp() throws Exception {
+        XmlDiscoveryHelperFactory discoveryHelperFactory = null;
+        try {
+            Map<String, String> params1 = new HashMap<String, String>();
+            String baseDir = (String) System.getProperties().get("basedir");
+            params1.put("fileName", new File(baseDir,"resourceManager/conf/xml/resource.xml").getAbsolutePath());
+            discoveryHelperFactory = new XmlDiscoveryHelperFactory(params1);
+        } catch (JAXBException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        discoveryTypes[0] = DiscoveryTypes.ADDITIONAL;
+        Map<String, String> resourceParams = new HashMap<String, String>();
+        resourceParams.put("community", "netTransformer-r");
+        resourceParams.put("community2", "netTransformer-rw");
+        resourceParams.put("version", "1");
+        resourceParams.put("mibDir", "snmptoolkit/mibs");
+        resource = new Resource("R1", "10.17.1.13", resourceParams);
+        resource.setDeviceType("CISCO");
+        walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
+        discoveryHelper = discoveryHelperFactory.createDiscoveryHelper("CISCO");
+
+        FileInputStream is = new FileInputStream("src/test/resources/raw-data-Juniper.xml");
+        byte[] data = new byte[is.available()];
+        is.read(data);
+        rawdata.setData(data);
+    }
+    @Test
+    public void testDoTransform() throws TransformerException, IOException, SAXException, ParserConfigurationException {
+        new NodeDiscoverer(){
+            @Override
+            public String probe(ConnectionDetails connectionDetails) {
+                return null;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
+                NodeDiscoveryResult result = new NodeDiscoveryResult();
+                //String devName = walker.getDeviceName(resource);
+                result.setNodeId(resource.getHost());
+                result.setDiscoveredData("rawData", rawdata.getData());
+                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource);
+                result.setDiscoveredData("deviceData", discoveredDeviceData);
+                return result;
+            }
+        }.discover(null);
+        //Assert.assertEquals("a", "a");
+    }
 
 }
 

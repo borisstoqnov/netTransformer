@@ -34,11 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-/**
- * Demonstrates loading (and visualizing) a graph from a GraphML file.
- * http://www.mesur.org/services/mesur4/mesur_test.html
- *
- */
+
 public class TopologyManagerFrame extends JFrame{
     static Logger logger = Logger.getLogger(TopologyManagerFrame.class);
     public static final String VIEWER_PREFERENCES_PROPERTIES = "viewer-preferences.properties";
@@ -67,7 +63,9 @@ public class TopologyManagerFrame extends JFrame{
         this.path = path;
         createFrame();
     }
-
+//    public TopologyManagerFrame(String s){
+//        super(s);
+//    }
     public File getPath() {
         return path;
     }
@@ -107,6 +105,8 @@ public class TopologyManagerFrame extends JFrame{
         this.setJMenuBar(menuBar);
         this.setMinimumSize(new Dimension(640, 480));
         this.setVisible(true);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 
     }
 
@@ -198,10 +198,15 @@ public class TopologyManagerFrame extends JFrame{
         viewerPanelManagerMap.clear();
         setProjectType("");
 
+        //Disable all main menus except the File and Help
         this.getRootPane().getJMenuBar().getMenu(1).setEnabled(false);
         this.getRootPane().getJMenuBar().getMenu(2).setEnabled(false);
         this.getRootPane().getJMenuBar().getMenu(3).setEnabled(false);
         this.getRootPane().getJMenuBar().getMenu(4).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(5).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(6).setEnabled(false);
+
+        //Disable most of the components of  File menu (all except the Open Project)
 
         this.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(4).setEnabled(false);
         this.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(5).setEnabled(false);
@@ -212,8 +217,14 @@ public class TopologyManagerFrame extends JFrame{
 
 
         // frame.getRootPane().getJMenuBar().getMenu(4).setEnabled(false);
+        //Disable iDiscover menu options
         this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
-        this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
+       this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
+        //Disable Discoverers settings options
+
+        this.getRootPane().getJMenuBar().getMenu(6).getMenuComponent(3).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(6).getMenuComponent(4).setEnabled(false);
+
 
     }
 

@@ -10,6 +10,7 @@ import net.itransformers.expect4groovy.cliconnection.CLIConnection;
 import net.itransformers.expect4groovy.cliconnection.impl.RawSocketCLIConnection;
 import net.itransformers.expect4groovy.cliconnection.impl.SshCLIConnection;
 import net.itransformers.expect4groovy.cliconnection.impl.TelnetCLIConnection;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +21,8 @@ public class Expect4GroovyScriptLauncher {
     Binding binding;
     CLIConnection connection;
     GroovyScriptEngine gse;
+     static Logger logger = Logger.getLogger(Expect4GroovyScriptLauncher.class);
+
 
 
     public static void main(String[] args) throws IOException, ResourceException, ScriptException {
@@ -35,7 +38,7 @@ public class Expect4GroovyScriptLauncher {
         Expect4GroovyScriptLauncher launcher = new Expect4GroovyScriptLauncher();
 
          launcher.open(new String[]{"/postDiscoverer/conf/groovy/" + File.separator}, "cisco_login.groovy", params);
-         launcher.sendCommand("cisco_sendCommand.groovy", "sh runn", "/postDiscoverer/conf/groovy/cisco_config_eval.groovy");
+         launcher.sendCommand("cisco_sendCommand.groovy", "sh runn", "postDiscoverer/conf/groovy/cisco_config_eval.groovy");
          launcher.close("cisco_login.groovy");
 
 
@@ -57,21 +60,24 @@ public class Expect4GroovyScriptLauncher {
 
     }
 
-    public Map<Integer,String>  open(String[] roots, String scriptName, Map<String, String> params) throws ResourceException, ScriptException {
+    public Map<String,Integer>  open(String[] roots, String scriptName, Map<String, String> params) throws ResourceException, ScriptException {
         connection = createCliConnection(params);
-        Map<Integer, String> result = null;
+        Map<String, Integer> result = null;
         try {
             connection.connect(params);
             binding = new Binding();
             Expect4Groovy.createBindings(connection, binding, true);
             binding.setProperty("params", params);
             gse = new GroovyScriptEngine(roots);
-            result = (Map<Integer, String>) gse.run(scriptName, binding);
-           // if (result.get("status").equals("1")){
+            result = (Map<String, Integer>) gse.run(scriptName, binding);
+           if (result.get("status").equals("1")){
                 return result;
-            //}
+            }else {
+               return result;
+           }
+
         } catch (IOException ioe){
-            ioe.printStackTrace();
+            logger.info(ioe);
         }
         return result;
     }
@@ -86,7 +92,7 @@ public class Expect4GroovyScriptLauncher {
             //}
 
         } catch (IOException ioe){
-            ioe.printStackTrace();
+            logger.info(ioe);
         }
         return null;
     }

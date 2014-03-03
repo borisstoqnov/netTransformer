@@ -19,25 +19,27 @@ Integer [] columnPositions;
 //
 //}
 
-expect _re("([^\n]*)\r\n") {    String headerLine = it.getMatch(1)
-    columns = TableUtil.getColumnNames(headerLine," ");
-    columnPositions = TableUtil.getColumnIndexes(headerLine,columns);
-    println("cols------->"+Arrays.asList(columns))
-    result = status["success"]
+expect ([
+        _re("([^\n]*)\r\n") {    String headerLine = it.getMatch(1)
+            columns = TableUtil.getColumnNames(headerLine," ");
+            columnPositions = TableUtil.getColumnIndexes(headerLine,columns);
+            println("cols------->"+Arrays.asList(columns))
+            result = status["success"]
 
-}
+        }
+])
 println (System.currentTimeMillis())
 
 expect ([
-_re("([^\n]*)\r\n") {
-    String row = it.getMatch(1)
-    String [] rowContents = TableUtil.getCells(columnPositions, row)
-    println("----------->"+Arrays.asList(rowContents))
-    it.exp_continue()
-},
-_gl(powerUserPrompt) {
-    //String row = it.getMatch(1)
-    }
+        _re("([^\n]*)\r\n") {
+            String row = it.getMatch(1)
+            String [] rowContents = TableUtil.getCells(columnPositions, row)
+            println("----------->"+Arrays.asList(rowContents))
+            it.exp_continue()
+        },
+        _gl(powerUserPrompt) {
+            //String row = it.getMatch(1)
+        }
 ])
 println (System.currentTimeMillis())
 

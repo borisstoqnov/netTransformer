@@ -55,6 +55,9 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
     private XmlDiscoveryHelperFactory discoveryHelperFactory;
     private String[] discoveryTypes;
     private DiscoveryResourceManager discoveryResource;
+    private boolean isRunning;
+    private boolean isPaused;
+    private boolean isStopped;
 
     public SnmpNodeDiscoverer(Map<String, String> attributes, XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource) throws Exception {
         this.discoveryHelperFactory = discoveryHelperFactory;
@@ -62,6 +65,34 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         this.discoveryResource = discoveryResource;
         Resource resource = new Resource("", "", attributes);
         walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
+    }
+
+    @Override
+    public String probe(ConnectionDetails connectionDetails) {
+        String hostName = connectionDetails.getParam("host");
+        if(hostName == null){
+            IPv4Address ipAddress = new IPv4Address(connectionDetails.getParam("ipAddress"), connectionDetails.getParam("netMask"));
+            Map<String,String> params1 = new HashMap<String, String>();
+            params1.put("DeviceName",hostName);
+            //params1.put("DeviceType",params.get("deviceType"));
+            params1.put("protocol","SNMP");
+
+            ResourceType SNMP = this.discoveryResource.ReturnResourceByParam(params1);
+            Map<String, String> SNMPconnParams;
+            SNMPconnParams = this.discoveryResource.getParamMap(SNMP);
+            Resource resource = new Resource(hostName,ipAddress,connectionDetails.getParam("deviceType"), Integer.parseInt(SNMPconnParams.get("port")), SNMPconnParams);
+            hostName = walker.getDeviceName(resource);
+            if  (hostName!=null && hostName.indexOf(".") != -1){
+                hostName=hostName.substring(0,hostName.indexOf("."));
+            }
+            String deviceType = connectionDetails.getParam("deviceType");
+            if(deviceType==null){
+                deviceType = walker.getDeviceType(resource);
+                connectionDetails.put("deviceType",deviceType);
+            }
+
+        }
+        return hostName;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -108,7 +139,39 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         result.setNeighboursConnectionDetails(neighboursConnDetails);
         return result;
     }
+    private synchronized void doPause() {
 
+        try {
+        wait();
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+}
+
+    public synchronized void pause(){
+        isPaused = true;
+    }
+
+    public synchronized void resume(){
+        isPaused = false;
+        notifyAll();
+    }
+    public synchronized void stop(){
+        isStopped = true;
+        isRunning = false;
+    }
+
+    public synchronized boolean isStopped(){
+        return isStopped;
+    }
+
+    public synchronized boolean isPaused(){
+        return isPaused;
+    }
+
+    public synchronized boolean isRunning() {
+        return isRunning;
+    }
     private List<ConnectionDetails> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
         List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
         for (DeviceNeighbour neighbour : neighbours) {

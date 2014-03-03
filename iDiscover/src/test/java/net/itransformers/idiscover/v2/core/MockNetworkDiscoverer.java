@@ -54,6 +54,11 @@ public class MockNetworkDiscoverer implements NodeDiscoverer{
     }
 
     @Override
+    public String probe(ConnectionDetails connectionDetails) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
         String node = connectionDetails.getParam("node");
         NodeDiscoveryResult result = new NodeDiscoveryResult();

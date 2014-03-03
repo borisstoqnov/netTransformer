@@ -23,9 +23,9 @@ import net.itransformers.idiscover.core.discoveryconfig.DiscoveryManagerListener
 import net.itransformers.idiscover.core.discoveryconfig.DiscoveryManagerType;
 import net.itransformers.idiscover.core.discoveryconfig.ParamType;
 import net.itransformers.idiscover.discoverers.DefaultDiscovererFactory;
-import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
-import net.itransformers.idiscover.networkmodel.NetworkType;
+import net.itransformers.idiscover.networkmodel.*;
 import net.itransformers.idiscover.util.JaxbMarshalar;
+import net.itransformers.idiscover.v2.core.NetworkDiscoveryListener;
 import net.itransformers.resourcemanager.ResourceManager;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.resourcemanager.config.ResourcesType;
@@ -49,12 +49,15 @@ public class DiscoveryManager {
 
     private DiscoveryHelperFactory discoveryHelperFactory;
     private List<DiscoveryListener> listeners = new ArrayList<DiscoveryListener>();
+    private List<NetworkDiscoveryListener> networkListeners = new ArrayList<NetworkDiscoveryListener>();
+
     private ResourceManager resourceManager;
     private DiscovererFactory discovererFactory;
     public DiscoveryResourceManager discoveryResource;
     private boolean isRunning;
     private boolean isPaused;
     private boolean isStopped;
+    private boolean postDiscoveryflag;
 
     public DiscoveryManager(File projectDir, String label, ResourceManager resourceManager, DiscovererFactory discovererFactory, DiscoveryHelperFactory discoveryHelperFactory) throws IllegalAccessException, InstantiationException {
         this.resourceManager = resourceManager;
@@ -70,6 +73,26 @@ public class DiscoveryManager {
         Discoverer discoverer = discovererFactory.createDiscoverer(resource);
         this.discoverDevice(resource, discoveryTypes, mode, network, foundDevices, discoverer);
         stop();
+        for (DiscoveredDeviceData  data : network.getDiscoveredDevice()) {
+            System.out.println(data.getName() + "\n");
+            for (ObjectType object : data.getObject()) {
+                ParametersType params  = object.getParameters();
+                for (ParameterType param : params.getParameter()) {
+                    System.out.println(param.getName()+" " +param.getValue()+"\n");
+                }
+
+                for (ObjectType innterObject :object.getObject() ){
+                    System.out.println(innterObject.getObjectType());
+                    ParametersType innerParams  = innterObject.getParameters();
+                    for (ParameterType param : innerParams.getParameter()) {
+                        System.out.println(param.getName()+" " +param.getValue()+"\n");
+                    }
+                }
+            }
+
+
+        }
+
         return network;
     }
 
@@ -251,6 +274,12 @@ public class DiscoveryManager {
         }
     }
 
+//    private void fireNetworkDiscoveredEvent(NetworkType network, Resource resource) {
+//        for (NetworkDiscoveryListener listener : networkListeners) {
+//            listener.networkDiscovered();
+//        }
+//    }
+
     public void addDiscoveryManagerListener(DiscoveryListener listener){
         listeners.add(listener);
     }
@@ -309,6 +338,27 @@ public class DiscoveryManager {
 //        DiscovererFactory.init();
 //        Discoverer discoverer = new SnmpWalker(resource);
         NetworkType network = manager.discoverNetwork(resource, mode, discoveryTypes);
+
+        for (DiscoveredDeviceData  data : network.getDiscoveredDevice()) {
+            System.out.println(data.getName() + "\n");
+            for (ObjectType object : data.getObject()) {
+                     for (ObjectType innterObject :object.getObject() ){
+                         System.out.println(innterObject.getObjectType());
+                     }
+            }
+
+
+        }
+//        List<DiscoveredDeviceData> discoveredDeviceDatas = network.getDiscoveredDevice();
+//        for (DiscoveredDeviceData discoveredDeviceData : discoveredDeviceDatas) {
+//            discoveredDeviceData.getName();
+//            ParametersType parameters = discoveredDeviceData.getParameters();
+//            List<ParameterType> paras =   parameters.getParameter();
+//            for (ParameterType para : paras) {
+//
+//            }
+//
+//        }
         
     }
 

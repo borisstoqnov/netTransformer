@@ -53,7 +53,7 @@ public class ReportManager {
             String reportName = reportEntry.getName();
             File postDiscoveryReportOutput = new File(postDiscoveryNodeFolder+File.separator+reportName+".xml");
 
-            logger.debug("Report id: " + reportName + " " + reportEntry.getDeviceType() + " " + reportEntry.getDeviceName());
+            logger.debug("Report id: " + reportName + " " + reportEntry.getDeviceType() + " " + reportEntry.getDeviceName()+ "with params"+params.toString());
             if (reportEntry.getDeviceType().equals(deviceType)) {
 
                 sb.append("<?xml version=\"1.0\"?>\n");
@@ -72,7 +72,15 @@ public class ReportManager {
 
                         try {
                             Expect4GroovyScriptLauncher launcher = new Expect4GroovyScriptLauncher();
-                            launcher.open(new String[]{scriptPath+File.separator}, loginScript.getValue(), params);
+                            logger.debug("Launch connection to :" +deviceName+" with params "+params.toString());
+                            logger.debug("Script path = " + scriptPath + "login script "+loginScript.getValue());
+
+                            Map<String, Integer> loginResult = launcher.open(new String[]{scriptPath + File.separator}, loginScript.getValue(), params);
+
+                            if(loginResult.get("status")==2){
+                                logger.debug(loginResult);
+                                return null;
+                            }
 
                             List<CommandType> commandDescriptorCommands = commandDescriptor.getCommand();
 
@@ -117,7 +125,7 @@ public class ReportManager {
                                                 try {
                                                         FileUtils.writeStringToFile(postDiscoveryCommandOutput,result.get("commandResult").toString());
                                                 } catch (IOException e) {
-                                                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                                                    logger.info(e);  //To change body of catch statement use File | Settings | File Templates.
                                                 }
                                             }
                                         }
@@ -129,9 +137,10 @@ public class ReportManager {
 
                             launcher.close(logoutScript.getValue());
                         } catch (ResourceException e) {
-                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                            logger.info(e);  //To change body of catch statement use File | Settings | File Templates.
                         } catch (ScriptException e) {
-                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                            logger.info(e);  //To change body of catch statement use File | Settings | File Templates.
+                            //To change body of catch statement use File | Settings | File Templates.
                         }
                     }
 
@@ -143,7 +152,7 @@ public class ReportManager {
                     ByteArrayOutputStream finalReport = generateTableReport(new ByteArrayInputStream(report.getBytes()));
                     FileUtils.writeStringToFile(postDiscoveryReportOutput,finalReport.toString());
                 } catch (IOException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    logger.info(e);  //To change body of catch statement use File | Settings | File Templates.
                 }
 
             }
@@ -172,11 +181,11 @@ public class ReportManager {
 
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("protocol", "ssh");
+        params.put("protocol", "telnet");
         params.put("deviceName", "R1");
         params.put("deviceType", "CISCO");
-        params.put("address", "10.17.1.13");
-        params.put("port", "22");
+        params.put("address", "172.16.13.1");
+        params.put("port", "23");
 
         ResourceType resource = resourceManager.findResource(params);
         List connectParameters = resource.getConnectionParams();
@@ -203,14 +212,20 @@ public class ReportManager {
         try {
             reportGenerator = JaxbMarshalar.unmarshal(ReportGeneratorType.class, is);
         } catch (JAXBException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+           logger.info(e);  //To change body of catch statement use File | Settings | File Templates.
         } finally {
             is.close();
         }
 
         ReportManager reportManager = new ReportManager(reportGenerator, "postDiscoverer/conf/groovy/",projectDir,new File(projectDir,"iTopologyManager/rightClick/conf/xslt/table_creator.xslt"));
         StringBuffer report = reportManager.reportExecutor(new File("/Users/niau/trunk/version1/post-discovery"),params);
-        System.out.println(report.toString());
+        if(report!=null){
+                   System.out.println(report.toString());
+
+        }  else{
+            System.out.println("Report generation failed!");
+
+        }
     }
 
     private ByteArrayOutputStream generateTableReport(ByteArrayInputStream inputStream){

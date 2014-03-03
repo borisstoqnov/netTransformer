@@ -69,7 +69,13 @@ public class ResourceManager {
             if (deviceParams.keySet().containsAll(paramSet)) {
                 boolean found = true;
                 for (String key : paramSet) {
-                    if (!deviceParams.get(key).equals(map.get(key))) {
+                    if(deviceParams.get(key)!=null){
+                        if (!deviceParams.get(key).equals(map.get(key))) {
+                            found = false;
+                            break;
+                        }
+
+                    }   else{
                         found = false;
                         break;
                     }

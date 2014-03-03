@@ -101,11 +101,12 @@
 
     <bean id="PostNetworkDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.PostNetworkDiscoveryListener">
         <property name="labelDirName" value="version1"/>
-        <property name="postDiscoveryDir" value="post-discovery"/>
+        <property name="postDiscoveryDataDirName" value="post-discovery"/>
         <property name="scriptPath" value="postDiscoverer/conf/groovy/"/>
         <property name="projectPath" value="/Users/niau/trunk"/>
         <property name="resourceManagerPath" value="/resourceManager/conf/xml/resource.xml"/>
         <property name="reportGeneratorPath" value="/postDiscoverer/conf/xml/reportGenerator.xml"/>
+        <property name="tableTransfomator" value="iTopologyManager/rightClick/conf/xslt/table_creator.xslt"/>
     </bean>
 
 

@@ -27,7 +27,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
 
 import javax.swing.*;
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -50,6 +50,8 @@ public class DiscoveryManagerDialog extends JDialog {
     private JLabel lblDiscoveredDevices;
     private JTextField labelTextField;
     private JCheckBox autoLabelCheckBox;
+    private JCheckBox postDiscoveryCheckBox;
+
 
     /**
      * Launch the application.
@@ -72,9 +74,11 @@ public class DiscoveryManagerDialog extends JDialog {
     }
     public DiscoveryManagerDialog(JFrame frame, File projectDir) {
         this.frame = frame;
+//        Container pane = frame.getContentPane();
+//        pane.add(this.frame);
         this.projectDir = projectDir;
         setTitle("Discovery Manager");
-        setBounds(100, 100, 860, 364);
+        setBounds(100, 100, 960, 364);
         getContentPane().setLayout(new BorderLayout());
         {
             JPanel buttonPane = new JPanel();
@@ -118,6 +122,11 @@ public class DiscoveryManagerDialog extends JDialog {
                     autoLabelCheckBox.setBounds(520, 11, 113, 20);
                     autoLabelCheckBox.setSelected(true);
                     panel.add(autoLabelCheckBox);
+                    postDiscoveryCheckBox = new JCheckBox("Post Discovery");
+                    postDiscoveryCheckBox.setBounds(620, 11, 153, 20);
+                    postDiscoveryCheckBox.setSelected(true);
+                    panel.add(postDiscoveryCheckBox);
+
 
                 }
             }
@@ -310,8 +319,12 @@ public class DiscoveryManagerDialog extends JDialog {
 
     private boolean isValidLabel(String label) {
         if (new File(new File(projectDir,"network"),label).exists()){
-            JOptionPane.showMessageDialog(this,"The specified label already exists");
-            return false;
+            int reply = JOptionPane.showConfirmDialog(this,"The specified label already exists! Would you like to merge graph in it?","",JOptionPane.YES_NO_OPTION);
+            if(reply==JOptionPane.YES_OPTION){
+                return true;
+            }   else {
+                return false;
+            }
         }
         return true;
     }

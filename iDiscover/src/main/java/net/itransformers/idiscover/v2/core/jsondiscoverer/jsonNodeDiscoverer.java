@@ -29,7 +29,6 @@ import net.itransformers.utils.XsltTransformer;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONSerializer;
 import net.sf.json.xml.XMLSerializer;
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
@@ -61,6 +60,11 @@ public class jsonNodeDiscoverer implements NodeDiscoverer {
        // walker = (JsonDiscoverer) new DefaultDiscovererFactory().createDiscoverer(resource);
     }
 
+
+    @Override
+    public String probe(ConnectionDetails connectionDetails) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 
     @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {

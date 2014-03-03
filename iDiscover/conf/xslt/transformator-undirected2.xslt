@@ -457,45 +457,46 @@
         <xsl:variable name="second" select="substring-after($sorted,' ')"/>;
         <!--<xsl:message>DEBUG:first <xsl:value-of select="$first"/></xsl:message>-->
         <!--<xsl:message>DEBUG:second <xsl:value-of select="$second"/></xsl:message>-->
-
+        <xsl:variable name="interfaceSort">
+            <root>
+                <node>
+                    <xsl:attribute name="name"><xsl:value-of select="$nodeID"/></xsl:attribute>
+                    <xsl:value-of select="$localInterface"/>
+                </node>
+                <node>
+                    <xsl:attribute name="name"><xsl:value-of select="$neighID"/></xsl:attribute>
+                    <xsl:value-of select="$remoteInterface"/>
+                </node>
+            </root>
+        </xsl:variable>
+        <xsl:variable name="ipAddressSort">
+            <root>
+                <test>
+                    <node>
+                        <xsl:attribute name="name"><xsl:value-of select="$nodeID"/></xsl:attribute>
+                        <xsl:value-of select="$localIP"/>
+                    </node>
+                </test>
+                <test>
+                    <node>
+                        <xsl:attribute name="name"><xsl:value-of select="$neighID"/></xsl:attribute>
+                        <xsl:value-of select="$remoteIP"/>
+                    </node>
+                </test>
+            </root>
+        </xsl:variable>
         <xsl:variable name="edgeId"><xsl:choose>
             <xsl:when test="$localInterface!='' and $remoteInterface!=''">
-                <xsl:variable name="sort2">
-                    <root>
-                            <node>
-                                <xsl:attribute name="name"><xsl:value-of select="$nodeID"/></xsl:attribute>
-                                <xsl:value-of select="$localInterface"/>
-                            </node>
-                            <node>
-                                <xsl:attribute name="name"><xsl:value-of select="$neighID"/></xsl:attribute>
-                                <xsl:value-of select="$remoteInterface"/>
-                            </node>
-                    </root>
-                </xsl:variable>
+
                 <!--<xsl:message>DEBUG: SORT <xsl:copy-of select="$sort2"/></xsl:message>-->
-                <xsl:apply-templates select="$sort//root/test"><xsl:sort select="node"/></xsl:apply-templates>- <xsl:value-of select="$sort2/root//node[@name = $first]"/><xsl:text> </xsl:text><xsl:value-of select="$sort2/root//node[contains($second,@name)]"/>
+                <xsl:apply-templates select="$sort//root/test"><xsl:sort select="node"/></xsl:apply-templates>- <xsl:value-of select="$interfaceSort/root//node[@name = $first]"/><xsl:text> </xsl:text><xsl:value-of select="$interfaceSort/root//node[contains($second,@name)]"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
                     <xsl:when test="$localIP!='' and $remoteIP!=''">
-                        <xsl:variable name="sort2">
-                            <root>
-                                <test>
-                                    <node>
-                                        <xsl:attribute name="name"><xsl:value-of select="$nodeID"/></xsl:attribute>
-                                        <xsl:value-of select="$localIP"/>
-                                    </node>
-                                </test>
-                                <test>
-                                    <node>
-                                        <xsl:attribute name="name"><xsl:value-of select="$neighID"/></xsl:attribute>
-                                        <xsl:value-of select="$remoteIP"/>
-                                    </node>
-                                </test>
-                            </root>
-                        </xsl:variable>
 
-                        <xsl:apply-templates select="$sort//root/test"><xsl:sort select="node"/></xsl:apply-templates>- <xsl:value-of select="$sort2/root//node[@name = $first]"/><xsl:text> </xsl:text><xsl:value-of select="$sort2/root//node[contains($second,@name)]"/>
+
+                        <xsl:apply-templates select="$sort//root/test"><xsl:sort select="node"/></xsl:apply-templates>- <xsl:value-of select="$ipAddressSort/root//node[@name = $first]"/><xsl:text> </xsl:text><xsl:value-of select="$ipAddressSort/root//node[contains($second,@name)]"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:apply-templates select="$sort//root/test">
@@ -528,11 +529,11 @@
             </data>
             <data>
                 <xsl:attribute name="key">InterfaceNameA</xsl:attribute>
-                <xsl:value-of select="$localInterface"/>
+                <xsl:value-of select="$interfaceSort/root//node[contains($first,@name)]"/>
             </data>
             <data>
                 <xsl:attribute name="key">InterfaceNameB</xsl:attribute>
-                <xsl:value-of select="$remoteInterface"/>
+                <xsl:value-of select="$interfaceSort/root//node[contains($second,@name)]"/>
             </data>
             <data>
                 <xsl:attribute name="key">IPv4Forwarding</xsl:attribute>
@@ -544,11 +545,11 @@
             </data>
             <data>
                 <xsl:attribute name="key">IPv4AddressA</xsl:attribute>
-                <xsl:value-of select="$localIP"/>
+                <xsl:value-of select="$ipAddressSort/root//node[contains($first,@name)]"/>
             </data>
             <data>
                 <xsl:attribute name="key">IPv4AddressB</xsl:attribute>
-                <xsl:value-of select="$remoteIP"/>
+                <xsl:value-of select="$ipAddressSort/root//node[contains($second,@name)]"/>
             </data>
             <data>
                 <xsl:attribute name="key">method</xsl:attribute>

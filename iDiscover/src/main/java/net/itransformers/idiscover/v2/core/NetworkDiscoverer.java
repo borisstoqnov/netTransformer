@@ -31,67 +31,77 @@ public class NetworkDiscoverer {
     Map<String, NodeDiscoverer> nodeDiscoverers;
     List<NodeDiscoveryListener> nodeDiscoveryListeners;
     List<NetworkDiscoveryListener> networkDiscoveryListeners;
-
+    private boolean isRunning;
+    private boolean isPaused;
+    private boolean isStopped;
 
 
     //    List<NetworkDiscoveryListener> networkDiscoveryListeners;
     NodeDiscoverFilter nodeDiscoverFilter;
 
-    public Map<String,Node> discoverNodes(List<ConnectionDetails> connectionDetailsList) {
+
+    public Map<String, Node> discoverNodes(List<ConnectionDetails> connectionDetailsList) {
         return discoverNodes(connectionDetailsList, -1);
     }
 
-    public Map<String,Node> discoverNodes(List<ConnectionDetails> connectionDetailsList, int depth) {
-        Map<String,Node> nodes = new HashMap<String, Node>();
+    public Map<String, Node> discoverNodes(List<ConnectionDetails> connectionDetailsList, int depth) {
+        Map<String, Node> nodes = new HashMap<String, Node>();
         doDiscoverNodes(connectionDetailsList, nodes, null, 0, depth);
-       fireNetworkDiscoveredEvent(nodes);
+        fireNetworkDiscoveredEvent(nodes);
         return nodes;
     }
 
     void doDiscoverNodes(List<ConnectionDetails> connectionDetailsList, Map<String, Node> nodes,
-                                 Node initialNode, int level, int depth) {
+                         Node initialNode, int level, int depth) {
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
             String connectionType = connectionDetails.getConnectionType();
             NodeDiscoverer nodeDiscoverer = nodeDiscoverers.get(connectionType);
-            // Limit snmpDiscovery by depth
             if (level == depth) return;
             // Limit snmpDiscovery by Filter
             if (nodeDiscoverFilter != null && nodeDiscoverFilter.match(connectionDetails)) return;
-            NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
-            if (discoveryResult == null) return; // in case some error during snmpDiscovery
-            fireNodeDiscoveredEvent(discoveryResult);
+            String nodeId = nodeDiscoverer.probe(connectionDetails);
 
-            String nodeId = discoveryResult.getNodeId();
+            if (nodeId != null) {
 
-            Node currentNode = nodes.get(nodeId);
-            if (currentNode == null) {
                 if (logger.getLevel() == Level.INFO) {
-                    logger.info("Discovered node: '"+nodeId+"'");
+                    logger.info("Node discovered: '" + nodeId + "'");
                 } else {
-                    logger.debug("Node '"+nodeId+"' discovered with connection details: "+connectionDetails);
+                    logger.debug("Node '" + nodeId + "' discovered with connection details: " + connectionDetails);
                 }
-                currentNode = new Node(nodeId,Arrays.asList(connectionDetails));
-                nodes.put(nodeId, currentNode);
-            } else {
-                logger.debug("Node '" + currentNode.getId() + "' is already discovered. Skipping it.");
-                return;
-            }
+                Node currentNode = nodes.get(nodeId);
+                if (currentNode == null) {
+                    NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
+                    if (discoveryResult == null) return; // in case some error during snmpDiscovery
+                    fireNodeDiscoveredEvent(discoveryResult);
 
-            if (initialNode != null) initialNode.addNeighbour(currentNode);
-            List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
-            logger.debug("Found Neighbours, connection details: "+neighboursConnectionDetails);
-            if (neighboursConnectionDetails !=null){
-                doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode, level+1, depth);
+                    //String nodeId = discoveryResult.getNodeId();
+
+
+                    currentNode = new Node(nodeId, Arrays.asList(connectionDetails));
+                    nodes.put(nodeId, currentNode);
+                    if (initialNode != null) initialNode.addNeighbour(currentNode);
+                    List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
+                    logger.debug("Found Neighbours, connection details: " + neighboursConnectionDetails);
+                    if (neighboursConnectionDetails != null) {
+                        doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode, level + 1, depth);
+                    }
+                } else {
+                    logger.debug("Node '" + currentNode.getId() + "' is already discovered. Skipping it.");
+                    return;
+                }
+
+
             }
         }
     }
 
     private void fireNodeDiscoveredEvent(NodeDiscoveryResult discoveryResult) {
         if (nodeDiscoveryListeners != null)
-        for (NodeDiscoveryListener nodeDiscoveryListener : nodeDiscoveryListeners) {
-            nodeDiscoveryListener.nodeDiscovered(discoveryResult);
-        }
+            for (NodeDiscoveryListener nodeDiscoveryListener : nodeDiscoveryListeners) {
+                nodeDiscoveryListener.nodeDiscovered(discoveryResult);
+            }
     }
+
     private void fireNetworkDiscoveredEvent(Map<String, Node> network) {
         if (networkDiscoveryListeners != null)
             for (NetworkDiscoveryListener networkDiscoveryListener : networkDiscoveryListeners) {
@@ -114,11 +124,47 @@ public class NetworkDiscoverer {
     public void setNodeDiscoveryListeners(List<NodeDiscoveryListener> nodeDiscoveryListeners) {
         this.nodeDiscoveryListeners = nodeDiscoveryListeners;
     }
+
     public List<NetworkDiscoveryListener> getNetworkDiscoveryListeners() {
         return networkDiscoveryListeners;
     }
 
     public void setNetworkDiscoveryListeners(List<NetworkDiscoveryListener> networkDiscoveryListeners) {
         this.networkDiscoveryListeners = networkDiscoveryListeners;
+    }
+
+    private synchronized void doPause() {
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void pause() {
+        isPaused = true;
+    }
+
+    public synchronized void resume() {
+        isPaused = false;
+        notifyAll();
+    }
+
+    public synchronized void stop() {
+        isStopped = true;
+        isRunning = false;
+    }
+
+    public synchronized boolean isStopped() {
+        return isStopped;
+    }
+
+    public synchronized boolean isPaused() {
+        return isPaused;
+    }
+
+    public synchronized boolean isRunning() {
+        return isRunning;
     }
 }

@@ -38,27 +38,32 @@ package net.itransformers.idiscover.v2.core;/*
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
-import net.itransformers.utils.CmdLineParser;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.io.File;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) {
-        Map<String, String> params = CmdLineParser.parseCmdLine(args);
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("discovery.xml","connectionsDetails.xml");
-     //   NetworkDiscoverer discoverer = applicationContext.getBean("sdnDiscovery", NetworkDiscoverer.class);
-        NetworkDiscoverer discoverer = applicationContext.getBean("discovery", NetworkDiscoverer.class);
-        String connectionDetailsFileName = params.get("-f");
-        List connectionList = (List) applicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
-        String depthCmdArg = params.get("-d");
-        int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1":depthCmdArg);
-        Map<String, Node> result = discoverer.discoverNodes(connectionList, depth);
-        System.out.println(result);
-    }
+//    public static void main(String[] args) {
+//        Map<String, String> params = CmdLineParser.parseCmdLine(args);
+//        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("discovery.xml","connectionsDetails.xml");
+//     //   NetworkDiscoverer discoverer = applicationContext.getBean("sdnDiscovery", NetworkDiscoverer.class);
+//        NetworkDiscoverer discoverer = applicationContext.getBean("discovery", NetworkDiscoverer.class);
+//        String connectionDetailsFileName = params.get("-f");
+//        List connectionList = (List) applicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
+//        String depthCmdArg = params.get("-d");
+//        int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1":depthCmdArg);
+//        Map<String, Node> result = discoverer.discoverNodes(connectionList, depth);
+//        for (String s : result.keySet()) {
+//            System.out.println("\nNode: "+ s);
+//            for (String s1 : result.keySet()) {
+//                System.out.println(s1 +"\t");
+//
+//            }
+//        }
+//    }
 
-    public static void main2(String[] args) {
+    public static void main(String[] args) {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
                 "discovery.xml","connectionsDetails.xml");
         NetworkDiscoverer discoverer = applicationContext.getBean("discovery", NetworkDiscoverer.class);
@@ -66,8 +71,8 @@ public class Main {
         connectionDetails.setConnectionType("SNMP");
         connectionDetails.put("ipAddress","172.16.13.3");
         connectionDetails.put("version","1");
-        connectionDetails.put("community-ro","iTransformer-r");
-        connectionDetails.put("community-rw","test-rw");
+        connectionDetails.put("community-ro","netTransformer-r");
+        connectionDetails.put("community-rw","netTransformer-rw");
         connectionDetails.put("timeout","3500");
         connectionDetails.put("retries","3");
         connectionDetails.put("port","161");
@@ -75,6 +80,7 @@ public class Main {
         connectionDetails.put("mibDir","snmptoolkit/mibs");
         int depth = 10;
         Map<String, Node> result = discoverer.discoverNodes(Arrays.asList(connectionDetails), depth);
+
         System.out.println(result);
     }
 

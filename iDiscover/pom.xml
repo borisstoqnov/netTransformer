@@ -6,13 +6,13 @@
 
     <groupId>iTransformers.iTransformer</groupId>
     <artifactId>iDiscover</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.7-SNAPSHOT</version>
     <!--Change for new version-->
 
     <parent>
         <groupId>iTransformers</groupId>
         <artifactId>iTransformer</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.7-SNAPSHOT</version>
         <!--Change for new version-->
     </parent>
 
@@ -20,25 +20,25 @@
         <dependency>
             <groupId>iTransformers.iTransformer</groupId>
             <artifactId>resourceManager</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.7-SNAPSHOT</version>
             <!--Change for new version-->
         </dependency>
         <dependency>
             <groupId>iTransformers.iTransformer</groupId>
             <artifactId>snmptoolkit</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.7-SNAPSHOT</version>
             <!--Change for new version-->
         </dependency>
         <dependency>
             <groupId>iTransformers.iTransformer</groupId>
             <artifactId>utils</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.7-SNAPSHOT</version>
             <!--Change for new version-->
         </dependency>
         <dependency>
             <groupId>iTransformers.iTransformer</groupId>
             <artifactId>postDiscoverer</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.7-SNAPSHOT</version>
             <!--Change for new version-->
         </dependency>
         <dependency>

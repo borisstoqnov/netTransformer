@@ -33,18 +33,18 @@ import java.net.URL;
  * Time: 23:30
  * To change this template use File | Settings | File Templates.
  */
-public class UsersGuideMenuHandler implements ActionListener {
+public class ForumMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
 
-    public UsersGuideMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
+    public ForumMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        final String url = "http://itransformers.net/netTransformer/07/user-guide";
+        final String url = "http://forum.itransformers.net";
         try {
             Desktop.getDesktop().browse(new URL(url).toURI());
         } catch (Exception e1) {

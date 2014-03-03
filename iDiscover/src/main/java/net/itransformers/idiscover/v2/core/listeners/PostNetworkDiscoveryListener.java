@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +49,7 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
 
     @Override
     public void networkDiscovered(Map<String, Node> network) {
-
+        logger.info("Starting PostNetwork Discovery Listener");
         String xml = null;
         try {
             xml = FileUtils.readFileToString(new File(projectPath, resourceManagerPath));
@@ -91,13 +90,14 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
         //TODO remove xsltReport hardCode
         final ReportManager reportManager = new ReportManager(reportGenerator, "postDiscoverer/conf/groovy/",projectPath,new File(projectPath,tableTransfomator));
 
-        List<Thread> threads = new ArrayList<Thread>();
+       // List<Thread> threads = new ArrayList<Thread>();
         for (String nodeName : network.keySet()) {
+            logger.info("Post Network Discovery of "+nodeName);
             final Map<String, String> params = new HashMap<String, String>();
             params.put("deviceName",nodeName);
             List<ConnectionDetails> connectionDetails = network.get(nodeName).getConnectionDetailsList();
             params.put("deviceType",connectionDetails.get(0).getParam("deviceType"));
-            params.put("protocol", "ssh");
+            params.put("protocol", "telnet");
             params.put("address",connectionDetails.get(0).getParam("ipAddress"));
 
             ResourceType resource =  resourceManager.findResource(params);
@@ -121,16 +121,16 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
                     reportManager.reportExecutor(new File(labelDirName),params);
                 }
             });
-            threads.add(thread);
-            thread.start();
+           // threads.add(thread);
+            thread.run();
         }
-        for (Thread thread : threads) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-        }
+//        for (Thread thread : threads) {
+//            try {
+//                thread.join();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//            }
+//        }
 
     }
     public String getPostDiscoveryDataDirName() {

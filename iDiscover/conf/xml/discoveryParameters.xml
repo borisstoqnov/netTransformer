@@ -78,7 +78,8 @@
             dot1dBaseNumPorts, dot1qVlanStaticTable
         </discovery-method>
         <discovery-method name="IPV6">
-            ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry,ciscoIetfIpMIBObjects
+            <!--ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry,cIpv6InterfaceEntry,cIpAddressEntry-->
+            ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry,cIpAddressEntry
         </discovery-method>
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="HUAWEI">

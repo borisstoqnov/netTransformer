@@ -23,36 +23,45 @@ public class JEditorPane implements ActionListener {
         this.dir = dir;
         this.fileExtension = fileExtension;
     }
+
     public static void main(String[] a) throws IOException, BadLocationException {
-        (new JEditorPane("/Users/niau/trunk/iDiscover/conf/xml/discoveryResource.xml","/Users/niau/trunk/iDiscover/conf/xml" ,"xml")).init();
+        (new JEditorPane("resourceManager/conf/xml/resource.xml", "resourceManager/conf/xml", "xml")).init();
     }
+
     public void init() throws IOException, BadLocationException {
         myFrame = new JFrame("netTransformer configuration editor");
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myFrame.setSize(640,480);
+        myFrame.setSize(640, 480);
+        if (new File(fileName).exists()) {
 
-        myPane = new XmlEditorPane(fileName);
-        JScrollPane editorScrollPane = new JScrollPane(myPane);
-        editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        editorScrollPane.setPreferredSize(new Dimension(250, 145));
-        editorScrollPane.setMinimumSize(new Dimension(10, 10));
+            myPane = new XmlEditorPane(fileName);
+            JScrollPane editorScrollPane = new JScrollPane(myPane);
+            editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            editorScrollPane.setPreferredSize(new Dimension(250, 145));
+            editorScrollPane.setMinimumSize(new Dimension(10, 10));
 
-        myPane.setContentType("text/xml");
+            myPane.setContentType("text/xml");
 
-        FileReader in = new FileReader(fileName);
-        myPane.getEditorKit().read(in,myPane.getDocument(),0);
+            FileReader in = new FileReader(fileName);
+            myPane.getEditorKit().read(in, myPane.getDocument(), 0);
 
-        in.close();
-        myFrame.setContentPane(editorScrollPane);
+            in.close();
+            myFrame.setContentPane(editorScrollPane);
 
-        JMenuBar myBar = new JMenuBar();
-        JMenu myMenu = getFileMenu();
-        myBar.add(myMenu);
-        myFrame.setJMenuBar(myBar);
+            JMenuBar myBar = new JMenuBar();
+            JMenu myMenu = getFileMenu();
+            myBar.add(myMenu);
+            myFrame.setJMenuBar(myBar);
 
 
-        myFrame.setVisible(true);
+            myFrame.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(myFrame, "File does not exist! Please generate it first!");
+
+            myFrame.dispose();
+        }
     }
+
     private JMenu getFileMenu() {
         JMenu myMenu = new JMenu("File");
         JMenuItem myItem = new JMenuItem("New");
@@ -83,6 +92,7 @@ public class JEditorPane implements ActionListener {
 
         return myMenu;
     }
+
     public void actionPerformed(ActionEvent e) {
         String cmd = ((AbstractButton) e.getSource()).getText();
         try {
@@ -90,13 +100,11 @@ public class JEditorPane implements ActionListener {
                 fileName = null;
                 myPane.setText("");
 
-            }
-           else if (cmd.equals("Close")) {
+            } else if (cmd.equals("Close")) {
                 fileName = null;
                 myPane.setText("");
 
-            }
-            else if (cmd.equals("Open")) {
+            } else if (cmd.equals("Open")) {
 
                 JFileChooser chooser = new JFileChooser(dir);
                 chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -104,12 +112,12 @@ public class JEditorPane implements ActionListener {
                 chooser.setFileFilter(new FileFilter() {
                     @Override
                     public boolean accept(File f) {
-                        return  (f.isFile() && f.getName().endsWith(fileExtension) || f.isDirectory());
+                        return (f.isFile() && f.getName().endsWith(fileExtension) || f.isDirectory());
                     }
 
                     @Override
                     public String getDescription() {
-                        return "(iTransformer Files) *."+fileExtension;
+                        return "(iTransformer Files) *." + fileExtension;
                     }
                 });
 
@@ -117,39 +125,37 @@ public class JEditorPane implements ActionListener {
                 int result = chooser.showOpenDialog(myFrame);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     myPane.setText("");
-                    fileName= chooser.getSelectedFile().getAbsolutePath();
+                    fileName = chooser.getSelectedFile().getAbsolutePath();
                     FileReader in = new FileReader(fileName);
-                    myPane.getEditorKit().read(in,myPane.getDocument(),0);
+                    myPane.getEditorKit().read(in, myPane.getDocument(), 0);
 
                     in.close();
 
                 }
             } else if (cmd.equals("Save")) {
-                if (fileName!=null){
+                if (fileName != null) {
                     SaveFile();
                 } else {
                     SaveFileAs();
                 }
             } else if (cmd.equals("Save As")) {
                 SaveFileAs();
-            }   else if (cmd.equals("Save and Exit")) {
-                if (fileName!=null){
+            } else if (cmd.equals("Save and Exit")) {
+                if (fileName != null) {
                     SaveFile();
                     myFrame.dispose();
 
-                }else{
+                } else {
                     SaveFileAs();
                     myFrame.dispose();
 
                 }
 
-            }
-
-            else{
-                if(fileName==null){
+            } else {
+                if (fileName == null) {
                     SaveFileAs();
                     myFrame.dispose();
-                }else{
+                } else {
                     myFrame.dispose();
 
                 }
@@ -163,25 +169,27 @@ public class JEditorPane implements ActionListener {
             e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
+
     private void SaveFile() throws IOException {
         FileWriter out = new FileWriter(fileName);
         out.write(myPane.getText());
         out.close();
 
     }
+
     private void SaveFileAs() throws IOException {
-        JFileChooser  chooser =  new JFileChooser(dir);
+        JFileChooser chooser = new JFileChooser(dir);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
         chooser.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
-                return  (f.isFile() && f.getName().endsWith(fileExtension) || f.isDirectory());
+                return (f.isFile() && f.getName().endsWith(fileExtension) || f.isDirectory());
             }
 
             @Override
             public String getDescription() {
-                return "(iTransformer Files) *."+fileExtension;
+                return "(iTransformer Files) *." + fileExtension;
             }
         });
 

@@ -24,7 +24,7 @@
     <parent>
         <artifactId>iTransformer</artifactId>
         <groupId>iTransformers</groupId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.7-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>iTransformers.iTransformer</groupId>
             <artifactId>iDiscover</artifactId>
-            <version>0.1-SNAPSHOT</version><!--Change for new version-->
+            <version>0.7-SNAPSHOT</version><!--Change for new version-->
         </dependency>
         <dependency>
             <groupId>org.neo4j.app</groupId>

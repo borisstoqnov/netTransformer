@@ -5,25 +5,25 @@
     <parent>
         <groupId>iTransformers.iTransformer</groupId>
         <artifactId>iTopologyManager</artifactId>
-        <version>0.1-SNAPSHOT</version><!--Change for new version-->
+        <version>0.7-SNAPSHOT</version><!--Change for new version-->
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
     <artifactId>fulfilmentFactory</artifactId>
-    <version>0.1-SNAPSHOT</version><!--Change for new version-->
+    <version>0.7-SNAPSHOT</version><!--Change for new version-->
 
     <dependencies>
         <dependency>
             <groupId>iTransformers.iTransformer</groupId>
             <artifactId>resourceManager</artifactId>
-            <version>0.1-SNAPSHOT</version><!--Change for new version-->
+            <version>0.7-SNAPSHOT</version><!--Change for new version-->
         </dependency>
         <dependency>
             <groupId>iTransformers.iTransformer</groupId>
             <artifactId>snmptoolkit</artifactId>
-            <version>0.1-SNAPSHOT</version><!--Change for new version-->
+            <version>0.7-SNAPSHOT</version><!--Change for new version-->
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>

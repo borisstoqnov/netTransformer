@@ -21,7 +21,12 @@ package net.itransformers.idiscover.util;
 
 public class IPv6formatConvertor {
      public  static String IPv6Convertor(String oldS){
-          String s= oldS;
+         String s= oldS;
+         String [] test  = s.split("\\.");
+         if (test.length<18){
+             System.out.println(test.length);
+             s = "00."+s;
+         }
         String newS = "";
         int dotIndex = -1;
         while (true) {
@@ -80,7 +85,9 @@ public class IPv6formatConvertor {
      }
      public static void main(String[] args) {
 //        final String oldS = "FE..0.0.0.0.0.0.0.A.0.0.0.0.0.4";
-         final String oldS = "FE.80.0.0.0.0.0.0.2.10.A5.FF.FE.56.F.D3";
+         final String oldS =   "10.0.10.0.17.0.1.0.0.0.0.0.0.0.0.0.13";
+        // final String oldS = "10.FE.80.0.0.0.0.0.0.C.0.0.FF.FE.0.65.0";
+
          String newS1 = IPv6Convertor(oldS);
          System.out.println(newS1);
      }

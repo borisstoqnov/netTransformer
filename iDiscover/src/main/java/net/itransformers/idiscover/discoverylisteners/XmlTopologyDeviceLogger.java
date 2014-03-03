@@ -27,13 +27,15 @@ import net.itransformers.idiscover.util.JaxbMarshalar;
 import net.itransformers.utils.XmlFormatter;
 import net.itransformers.utils.XsltTransformer;
 import net.itransformers.utils.graphmlmerge.GrahmlMerge;
+import net.itransformers.utils.graphmlmerge.MergeConflictResolver;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 //import net.itransformers.utils.XmlFormatter;
 
@@ -129,7 +131,26 @@ public class XmlTopologyDeviceLogger implements DiscoveryListener{
                     vertexTypes.put("IPv6Forwarding","string");
                     vertexTypes.put("IPv4Forwarding","string");
 
-                    new GrahmlMerge().merge(nodeFile, networkGraphml, networkGraphml, vertexTypes, edgesTypes, graphtType);
+                    Map<String, MergeConflictResolver> edgeConflictResolver = new HashMap<String, MergeConflictResolver>();
+                    Map<String, MergeConflictResolver> nodeConflictResolver = new HashMap<String, MergeConflictResolver>();
+                    edgeConflictResolver.put("method", new MergeConflictResolver(){
+                        @Override
+                        public Object resolveConflict(Object srcValue, Object targetValue) {
+                            // if (srcValue instanceof String && targetValue instanceof String) {
+                            String[] srcArray = ((String) srcValue).split(",");
+                            String[] targetArray = ((String) targetValue).split(",");
+
+
+                            String[] both = (String[]) ArrayUtils.addAll(srcArray, targetArray);
+                            Arrays.sort(both);
+                            LinkedHashSet<String> m = new LinkedHashSet<String>();
+                            Collections.addAll(m, both);
+
+                            return StringUtils.join(m, ',');
+
+                        }
+                    });
+                    new GrahmlMerge(nodeConflictResolver,edgeConflictResolver).merge(nodeFile, networkGraphml, networkGraphml, vertexTypes, edgesTypes, graphtType);
                 }else {
                     //networkGraphml.createNewFile();
                     FileUtils.writeStringToFile(networkGraphml, graphml);

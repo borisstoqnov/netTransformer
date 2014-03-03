@@ -19,13 +19,14 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
+import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
+import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import org.apache.commons.collections15.functors.ConstantTransformer;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,23 +34,30 @@ import java.net.URL;
  * Time: 23:30
  * To change this template use File | Settings | File Templates.
  */
-public class UsersGuideMenuHandler implements ActionListener {
+public class ShowHideEdgeLabelsMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
 
-    public UsersGuideMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
+    public ShowHideEdgeLabelsMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        final String url = "http://itransformers.net/netTransformer/07/user-guide";
-        try {
-            Desktop.getDesktop().browse(new URL(url).toURI());
-        } catch (Exception e1) {
-            e1.printStackTrace();
-            JOptionPane.showMessageDialog(frame, "Can not open url:" + url, "Error", JOptionPane.ERROR_MESSAGE);
+        GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
+        if(viewerPanel.isEdgeLabel()){
+            viewerPanel.getVisualizationViewer().getRenderContext().setEdgeLabelTransformer(new ConstantTransformer(null));
+            viewerPanel.getVisualizationViewer().repaint();
+            viewerPanel.setEdgeLabel(false);
         }
+        else{
+            viewerPanel.getVisualizationViewer().getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<String>());
+            viewerPanel.getVisualizationViewer().repaint();
+            viewerPanel.setEdgeLabel(true);
+
+        }
+
+
     }
 }

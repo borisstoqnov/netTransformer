@@ -6,7 +6,7 @@
 
     <groupId>iTransformers.iTransformer</groupId>
     <artifactId>iTopologyManager</artifactId>
-    <version>0.1-SNAPSHOT</version><!--Change for new version-->
+    <version>0.7-SNAPSHOT</version><!--Change for new version-->
     <modules>
         <module>rightClickAPI</module>
         <module>rightClick</module>
@@ -21,7 +21,7 @@
     <parent>
         <groupId>iTransformers</groupId>
         <artifactId>iTransformer</artifactId>
-        <version>0.1-SNAPSHOT</version><!--Change for new version-->
+        <version>0.7-SNAPSHOT</version><!--Change for new version-->
     </parent>
     <build>
         <plugins>

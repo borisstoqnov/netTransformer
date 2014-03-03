@@ -290,9 +290,9 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                     </xsl:choose>
                 </xsl:variable>
                 <xsl:variable name="vrfForwarding">
-                        <xsl:value-of
-                                select="$mplsVRF/root1//test[substring-after(index,'.')= $ifIndex]/name"/>
-        </xsl:variable>
+                    <xsl:value-of
+                            select="$mplsVRF/root1//test[substring-after(index,'.')= $ifIndex]/name"/>
+                </xsl:variable>
                 <xsl:message>TRACE:>ifDescr<xsl:value-of select="$ifDescr"/> ifIndex<xsl:value-of select="$ifIndex"/> ifType <xsl:value-of select="$ifType"/></xsl:message>
                 <!-- Neighbors and IP addresses are obtained only for the interfaces that are up and running.
 If the Admin status is UP and Operational is down the interface is marked as Cable CUT !-->
@@ -433,72 +433,96 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                     <xsl:for-each
                                             select="/root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIp/cIpAddressTable/cIpAddressEntry[cIpAddressIfIndex=$ifIndex]/instance">
                                         <xsl:variable name="instance" select="substring-after(.,'.')"/>
-                                        <xsl:variable name="ipAdEntAddr">
-                                            <xsl:for-each select="tokenize($instance,'\.')">
-                                                <xsl:value-of select="functx:decimal-to-hex(xs:integer(.))"/>.
-                                            </xsl:for-each>
-                                        </xsl:variable>
+                                        <xsl:variable name="ipAdEntAddr"><xsl:for-each select="tokenize($instance,'\.')"><xsl:value-of select="functx:decimal-to-hex(xs:integer(.))"/>.</xsl:for-each></xsl:variable>
+
                                         <xsl:variable name="ipv6AddrPfxLength"
                                                       select="substring-after(substring-before(../cIpAddressPrefix,'.'),'.')"/>
                                         <xsl:variable name="ipv6AddrType" select="../cIpAddressType"/>
                                         <xsl:variable name="cIpAddressOrigin" select="../cIpAddressPrefix"/>
                                         <xsl:variable name="ipv6AddrAnycastFlag" select="../ipv6AddrAnycastFlag"/>
                                         <xsl:variable name="ipv6AddrStatus" select="../ipv6AddrStatus"/>
+                                        <xsl:message>DEBUG: cIpAddressTable  <xsl:value-of select="$ipAdEntAddr"/>/<xsl:value-of select="$ipv6AddrPfxLength"/> </xsl:message>
+
                                         <xsl:call-template name="IPv6">
-                                            <xsl:with-param name="ipAdEntAddr" select="$ipAdEntAddr"/>
+                                            <xsl:with-param name="ipAdEntAddr" select="IPv6formatConvertor:IPv6Convertor($ipAdEntAddr)"/>
                                             <xsl:with-param name="ipv6AddrPfxLength"
                                                             select="functx:substring-after-last-match($cIpAddressOrigin,'\.')"/>
                                             <xsl:with-param name="ipv6AddrType" select="$ipv6AddrType"/>
                                             <xsl:with-param name="ipv6AddrAnycastFlag" select="$ipv6AddrAnycastFlag"/>
                                             <xsl:with-param name="ipv6AddrStatus" select="$ipv6AddrStatus"/>
                                         </xsl:call-template>
-                                        <xsl:message>TRACE:ipAdEntAddr<xsl:value-of select="$ipAdEntAddr"/>/<xsl:value-of select="$ipv6AddrPfxLength"/> </xsl:message>
-                                    </xsl:for-each>
-                                </xsl:when>
-
-                                <xsl:when test="$IPv6Forwarding='YES'">
-                                    <xsl:for-each
-                                            select="/root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIpv6/cIpv6InterfaceTable/cIpv6InterfaceEntry[index[@name='cIpv6InterfaceIfIndex']=$ifIndex]/cIpv6InterfaceIdentifier">
-                                        <xsl:variable name="instance" select="."/>
-                                        <xsl:variable name="ipAdEntAddr"><xsl:value-of select="."/></xsl:variable>
-                                        <xsl:variable name="ipv6AddrPfxLength"
-                                                      select="../cIpv6InterfaceIdentifierLength"/>
-                                        <xsl:variable name="ipv6AddrType" select="../cIpAddressType"/>
-                                        <xsl:variable name="cIpAddressOrigin" select="../cIpAddressPrefix"/>
-                                        <xsl:variable name="ipv6AddrAnycastFlag" select="../ipv6AddrAnycastFlag"/>
-                                        <xsl:variable name="ipv6AddrStatus" select="../ipv6AddrStatus"/>
-                                        <xsl:call-template name="IPv6">
-                                            <xsl:with-param name="ipAdEntAddr" select="$ipAdEntAddr"/>
-                                            <xsl:with-param name="ipv6AddrPfxLength" select="$ipv6AddrPfxLength"/>
-                                            <xsl:with-param name="ipv6AddrType" select="$ipv6AddrType"/>
-                                            <xsl:with-param name="ipv6AddrAnycastFlag" select="$ipv6AddrAnycastFlag"/>
-                                            <xsl:with-param name="ipv6AddrStatus" select="$ipv6AddrStatus"/>
-                                        </xsl:call-template>
-                                        <xsl:message>TRACE:ipcv6AdEntAddr<xsl:value-of select="$ipAdEntAddr"/>/<xsl:value-of select="$ipv6AddrPfxLength"/> </xsl:message>
                                     </xsl:for-each>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:for-each
-                                            select="//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6AddrTable/ipv6AddrEntry[index=$ifIndex]/instance">
-                                        <xsl:variable name="instance" select="substring-after(.,'.')"/>
-                                        <xsl:variable name="ipAdEntAddr"><xsl:for-each select="tokenize($instance,'\.')"><xsl:value-of select="functx:decimal-to-hex(xs:integer(.))"/>.</xsl:for-each></xsl:variable>
-                                        <!--<xsl:variable name="fr" select="()"/>-->
-                                        <!--<xsl:variable name="to" select="(':')"/>-->
-                                        <!--<xsl:variable name="ipAddr" select="functx:replace-multi($ipAdEntAddr,$fr,$to)" />-->
-                                        <xsl:variable name="ipv6AddrPfxLength" select="../ipv6AddrPfxLength"/>
-                                        <xsl:variable name="ipv6AddrType" select="../ipv6AddrType"/>
-                                        <xsl:variable name="ipv6AddrAnycastFlag" select="../ipv6AddrAnycastFlag"/>
-                                        <xsl:variable name="ipv6AddrStatus" select="../ipv6AddrStatus"/>
-                                        <xsl:call-template name="IPv6">
-                                            <xsl:with-param name="ipAdEntAddr"
-                                                            select="IPv6formatConvertor:IPv6Convertor($ipAdEntAddr)"/>
-                                            <xsl:with-param name="ipv6AddrPfxLength" select="$ipv6AddrPfxLength"/>
-                                            <xsl:with-param name="ipv6AddrType" select="$ipv6AddrType"/>
-                                            <xsl:with-param name="ipv6AddrAnycastFlag" select="$ipv6AddrAnycastFlag"/>
-                                            <xsl:with-param name="ipv6AddrStatus" select="$ipv6AddrStatus"/>
-                                        </xsl:call-template>
-                                    </xsl:for-each>
+                                        <!--<xsl:when test="count(/root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIpv6/cIpv6InterfaceTable/cIpv6InterfaceEntry[index[@name='cIpv6InterfaceIfIndex']=$ifIndex]/cIpv6InterfaceIdentifier) > 0">-->
+                                            <!--<xsl:for-each-->
+                                                    <!--select="/root/iso/org/dod/internet/private/enterprises/cisco/ciscoExperiment/ciscoIetfIpMIB/ciscoIetfIpMIBObjects/cIpv6/cIpv6InterfaceTable/cIpv6InterfaceEntry[index[@name='cIpv6InterfaceIfIndex']=$ifIndex]/cIpv6InterfaceIdentifier">-->
+                                                <!--<xsl:variable name="instance" select="."/>-->
+                                                <!--<xsl:variable name="ipAdEntAddr" select="IPv6formatConvertor:IPv6Convertor(.)"/>-->
+                                                <!--<xsl:variable name="ipv6AddrPfxLength"-->
+                                                              <!--select="../cIpv6InterfaceIdentifierLength"/>-->
+                                                <!--<xsl:variable name="ipv6AddrType" select="../cIpAddressType"/>-->
+                                                <!--<xsl:variable name="cIpAddressOrigin" select="../cIpAddressPrefix"/>-->
+                                                <!--<xsl:variable name="ipv6AddrAnycastFlag" select="../ipv6AddrAnycastFlag"/>-->
+                                                <!--<xsl:variable name="ipv6AddrStatus" select="../ipv6AddrStatus"/>-->
+                                                <!--<xsl:message>DEBUG: cIpv6InterfaceIfIndex<xsl:value-of select="$ipAdEntAddr"/>/<xsl:value-of select="$ipv6AddrPfxLength"/> </xsl:message>-->
+
+                                                <!--<xsl:call-template name="IPv6">-->
+                                                    <!--<xsl:with-param name="ipAdEntAddr" select="$ipAdEntAddr"/>-->
+                                                    <!--<xsl:with-param name="ipv6AddrPfxLength" select="$ipv6AddrPfxLength"/>-->
+                                                    <!--<xsl:with-param name="ipv6AddrType" select="$ipv6AddrType"/>-->
+                                                    <!--<xsl:with-param name="ipv6AddrAnycastFlag" select="$ipv6AddrAnycastFlag"/>-->
+                                                    <!--<xsl:with-param name="ipv6AddrStatus" select="$ipv6AddrStatus"/>-->
+                                                <!--</xsl:call-template>-->
+                                            <!--</xsl:for-each>-->
+                                        <!--</xsl:when>-->
+                                            <xsl:for-each
+                                                    select="//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6AddrTable/ipv6AddrEntry[index=$ifIndex]/instance">
+                                                <xsl:variable name="instance" select="substring-after(.,'.')"/>
+                                                <xsl:variable name="ipAdEntAddr"><xsl:for-each select="tokenize($instance,'\.')"><xsl:value-of select="functx:decimal-to-hex(xs:integer(.))"/>.</xsl:for-each></xsl:variable>
+
+                                                <!--<xsl:variable name="fr" select="()"/>-->
+                                                <!--<xsl:variable name="to" select="(':')"/>-->
+                                                <!--<xsl:variable name="ipAddr" select="functx:replace-multi($ipAdEntAddr,$fr,$to)" />-->
+                                                <xsl:variable name="ipv6AddrPfxLength" select="../ipv6AddrPfxLength"/>
+                                                <xsl:variable name="ipv6AddrType" select="../ipv6AddrType"/>
+                                                <xsl:variable name="ipv6AddrAnycastFlag" select="../ipv6AddrAnycastFlag"/>
+                                                <xsl:variable name="ipv6AddrStatus" select="../ipv6AddrStatus"/>
+                                                <xsl:message>DEBUG: ipv6MIB<xsl:value-of select="$ipAdEntAddr"/>/<xsl:value-of select="$ipv6AddrPfxLength"/> </xsl:message>
+
+                                                <xsl:call-template name="IPv6">
+                                                    <xsl:with-param name="ipAdEntAddr"
+                                                                    select="$ipAdEntAddr"/>
+                                                    <xsl:with-param name="ipv6AddrPfxLength" select="$ipv6AddrPfxLength"/>
+                                                    <xsl:with-param name="ipv6AddrType" select="$ipv6AddrType"/>
+                                                    <xsl:with-param name="ipv6AddrAnycastFlag" select="$ipv6AddrAnycastFlag"/>
+                                                    <xsl:with-param name="ipv6AddrStatus" select="$ipv6AddrStatus"/>
+                                                </xsl:call-template>
+
+                                            </xsl:for-each>
                                 </xsl:otherwise>
+                                <!--<xsl:otherwise>-->
+                                    <!--<xsl:for-each-->
+                                            <!--select="//root/iso/org/dod/internet/mgmt/mib-2/ipv6MIB/ipv6MIBObjects/ipv6AddrTable/ipv6AddrEntry[index=$ifIndex]/instance">-->
+                                        <!--<xsl:variable name="instance" select="substring-after(.,'.')"/>-->
+                                        <!--<xsl:variable name="ipAdEntAddr"><xsl:for-each select="tokenize($instance,'\.')"><xsl:value-of select="functx:decimal-to-hex(xs:integer(.))"/>.</xsl:for-each></xsl:variable>-->
+                                        <!--&lt;!&ndash;<xsl:variable name="fr" select="()"/>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<xsl:variable name="to" select="(':')"/>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<xsl:variable name="ipAddr" select="functx:replace-multi($ipAdEntAddr,$fr,$to)" />&ndash;&gt;-->
+                                        <!--<xsl:variable name="ipv6AddrPfxLength" select="../ipv6AddrPfxLength"/>-->
+                                        <!--<xsl:variable name="ipv6AddrType" select="../ipv6AddrType"/>-->
+                                        <!--<xsl:variable name="ipv6AddrAnycastFlag" select="../ipv6AddrAnycastFlag"/>-->
+                                        <!--<xsl:variable name="ipv6AddrStatus" select="../ipv6AddrStatus"/>-->
+                                        <!--<xsl:call-template name="IPv6">-->
+                                            <!--<xsl:with-param name="ipAdEntAddr"-->
+                                                            <!--select="IPv6formatConvertor:IPv6Convertor($ipAdEntAddr)"/>-->
+                                            <!--<xsl:with-param name="ipv6AddrPfxLength" select="$ipv6AddrPfxLength"/>-->
+                                            <!--<xsl:with-param name="ipv6AddrType" select="$ipv6AddrType"/>-->
+                                            <!--<xsl:with-param name="ipv6AddrAnycastFlag" select="$ipv6AddrAnycastFlag"/>-->
+                                            <!--<xsl:with-param name="ipv6AddrStatus" select="$ipv6AddrStatus"/>-->
+                                        <!--</xsl:call-template>-->
+                                    <!--</xsl:for-each>-->
+                                <!--</xsl:otherwise>-->
                             </xsl:choose>
                             <xsl:variable name="interface-neighbors">
                                 <xsl:for-each select="$ipv4Addresses/ipv4/ipv4addr">

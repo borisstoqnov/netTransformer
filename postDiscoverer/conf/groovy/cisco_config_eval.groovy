@@ -181,8 +181,10 @@ expect ([
         },
         _re("security passwords min-length (\\d)") {
             stringBuffer.append(it.getBuffer())
-            securityPasswordsMinLength = ["message":"Passoword security min length of "+ it.getMatch(1) + " symbols has been configured!","score":10];
-            points = points +10;
+            passwordLength = it.getMatch(1);
+            Float pointScore = passwordLength?.isInteger()?passwordLength.toFloat():null
+            securityPasswordsMinLength = ["message":"Passoword security min length of "+ passwordLength + " symbols has been configured!","score":length];
+            points = points + pointScore;
 
             it.exp_continue()
         },

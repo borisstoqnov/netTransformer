@@ -2,7 +2,7 @@
 <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-<!-- http://maven.apache.org/plugins/maven-assembly-plugin/assembly.html#class_moduleSet -->
+    <!-- http://maven.apache.org/plugins/maven-assembly-plugin/assembly.html#class_moduleSet -->
     <id>bin</id>
     <formats>
         <format>zip</format>
@@ -11,41 +11,16 @@
 
 
     <!--<fileSets>-->
-        <!--<fileSet>-->
-            <!--<directory>${basedir}</directory>-->
-            <!--<includes>-->
-                <!--<include>configs/*</include>-->
-            <!--</includes>-->
-            <!--<outputDirectory>/</outputDirectory>-->
-        <!--</fileSet>-->
+    <!--<fileSet>-->
+    <!--<directory>${basedir}</directory>-->
+    <!--<includes>-->
+    <!--<include>configs/*</include>-->
+    <!--</includes>-->
+    <!--<outputDirectory>/</outputDirectory>-->
+    <!--</fileSet>-->
     <!--</fileSets>-->
     <moduleSets>
-        <moduleSet>
-            <!-- Enable access to all projects in the current multimodule build! -->
-            <useAllReactorProjects>true</useAllReactorProjects>
 
-            <!-- Now, select which projects to include in this module-set. -->
-            <includes>
-                <include>iTransformers.iTransformer:postDiscoverer</include>
-            </includes>
-            <sources>
-                <includeModuleDirectory>false</includeModuleDirectory>
-                <fileSets>
-                    <fileSet>
-                        <directory>conf/xml</directory>
-                        <outputDirectory>postDiscoverer/conf/xml</outputDirectory>
-                    </fileSet>
-                    <fileSet>
-                        <directory>conf/groovy</directory>
-                        <outputDirectory>postDiscoverer/conf/groovy</outputDirectory>
-                    </fileSet>
-                    <fileSet>
-                        <directory>conf/xsd</directory>
-                        <outputDirectory>postDiscoverer/conf/xsd</outputDirectory>
-                    </fileSet>
-                </fileSets>
-            </sources>
-        </moduleSet>
         <moduleSet>
             <!-- Enable access to all projects in the current multimodule build! -->
             <useAllReactorProjects>true</useAllReactorProjects>
@@ -84,7 +59,7 @@
                         <directory>conf</directory>
                         <outputDirectory>iTopologyManager/rightClick/conf</outputDirectory>
                     </fileSet>
-		    <fileSet>
+                    <fileSet>
                         <directory>../../lib/putty</directory>
                         <outputDirectory>../lib/putty</outputDirectory>
                     </fileSet>
@@ -108,8 +83,8 @@
                         <outputDirectory>iTopologyManager/topologyViewer/conf/xml</outputDirectory>
                     </fileSet>
                     <!--<fileSet>-->
-                        <!--<directory>conf/xsd</directory>-->
-                        <!--<outputDirectory>iTopologyManager/topologyViewer/conf/xsd</outputDirectory>-->
+                    <!--<directory>conf/xsd</directory>-->
+                    <!--<outputDirectory>iTopologyManager/topologyViewer/conf/xsd</outputDirectory>-->
                     <!--</fileSet>-->
                     <fileSet>
                         <directory>conf/xslt</directory>
@@ -151,35 +126,37 @@
             </sources>
         </moduleSet>
         <moduleSet>
-        <!-- Now, select which projects to include in this module-set. -->
-        <includes>
-            <include>iTransformers.iTransformer:bgpPeeringMap</include>
-        </includes>
-        <sources>
-            <includeModuleDirectory>false</includeModuleDirectory>
-            <fileSets>
-                <fileSet>
-                    <directory>conf/xml</directory>
-                    <outputDirectory>bgpPeeringMap/conf/xml</outputDirectory>
-                </fileSet>
-                <fileSet>
-                    <directory>conf/txt</directory>
-                    <outputDirectory>bgpPeeringMap/conf/txt</outputDirectory>
-                </fileSet>
+            <useAllReactorProjects>true</useAllReactorProjects>
 
-                <fileSet>
-                    <directory>conf/xslt</directory>
-                    <outputDirectory>bgpPeeringMap/conf/xslt</outputDirectory>
-                </fileSet>
-                <!--<fileSet>-->
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
+                <include>iTransformers.iTransformer:bgpPeeringMap</include>
+            </includes>
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+                    <fileSet>
+                        <directory>conf/xml</directory>
+                        <outputDirectory>bgpPeeringMap/conf/xml</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>conf/txt</directory>
+                        <outputDirectory>bgpPeeringMap/conf/txt</outputDirectory>
+                    </fileSet>
+
+                    <fileSet>
+                        <directory>conf/xslt</directory>
+                        <outputDirectory>bgpPeeringMap/conf/xslt</outputDirectory>
+                    </fileSet>
+                    <!--<fileSet>-->
                     <!--<directory>conf/bat</directory>-->
                     <!--<outputDirectory>bin</outputDirectory>-->
                     <!--<filtered>false</filtered>-->
                     <!--<fileMode>0755</fileMode>-->
-                <!--</fileSet>-->
-            </fileSets>
-        </sources>
-    </moduleSet>
+                    <!--</fileSet>-->
+                </fileSets>
+            </sources>
+        </moduleSet>
         <moduleSet>
             <!-- Enable access to all projects in the current multimodule build! -->
             <useAllReactorProjects>true</useAllReactorProjects>
@@ -295,11 +272,35 @@
 
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
-                <include>iTransformers.iTransformer:utils</include>
                 <include>iTransformers.iTransformer:postDiscoverer</include>
+            </includes>
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+                    <fileSet>
+                        <directory>conf/xml</directory>
+                        <outputDirectory>postDiscoverer/conf/xml</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>conf/groovy</directory>
+                        <outputDirectory>postDiscoverer/conf/groovy</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>conf/xsd</directory>
+                        <outputDirectory>postDiscoverer/conf/xsd</outputDirectory>
+                    </fileSet>
+                </fileSets>
+            </sources>
+        </moduleSet>
+        <moduleSet>
+            <!-- Enable access to all projects in the current multimodule build! -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+
+            <!-- Now, select which projects to include in this module-set. -->
+            <includes>
+                <include>iTransformers.iTransformer:utils</include>
                 <include>iTransformers.iTransformer:snmptoolkit</include>
                 <include>iTransformers.iTransformer:resourceManager</include>
-                <include>iTransformers.iTransformer.bgpPeeringMap</include>
                 <include>iTransformers.iTransformer.iTopologyManager:launcher</include>
                 <include>iTransformers.iTransformer.iTopologyManager:topologyViewer</include>
                 <include>iTransformers.iTransformer.iTopologyManager:topologyManagerConfig</include>
@@ -308,6 +309,10 @@
                 <include>iTransformers.iTransformer.iTopologyManager:parameterFactory</include>
                 <include>iTransformers.iTransformer.iTopologyManager:fulfilmentFactory</include>
                 <include>iTransformers.iTransformer:iDiscover</include>
+                <include>iTransformers.iTransformer:postDiscoverer</include>
+                <include>iTransformers.iTransformer.bgpPeeringMap</include>
+
+
                 <!--include>iTransformers:iMap</include-->
             </includes>
             <binaries>
@@ -315,6 +320,7 @@
                 <unpack>false</unpack>
             </binaries>
         </moduleSet>
+
         <!--moduleSet>
             <useAllReactorProjects>true</useAllReactorProjects>
 

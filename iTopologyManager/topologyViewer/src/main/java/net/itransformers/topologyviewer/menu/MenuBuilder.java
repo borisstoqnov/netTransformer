@@ -51,12 +51,17 @@ import java.lang.reflect.InvocationTargetException;
 public class MenuBuilder {
     public JMenuBar createMenuBar(final TopologyManagerFrame frame) {
         JMenuBar menuBar = new JMenuBar();
-
+        //Main menu items
+        // File - 0, Discovery -1, Layouts -2 ,Graph - 3, Search - 4, Window - 5, Preferences 6, Help - 7
         createFileMenu(frame, menuBar);
         createDiscoveryMenu(frame, menuBar);
+        createLayoutsMenu(frame,menuBar);
         createGraphToolsMenu(frame, menuBar);
-        createNetworkActivationMenu(frame, menuBar);
+        createSearchMenu(frame, menuBar);
+
+//        createNetworkActivationMenu(frame, menuBar);
         createWindowMenu(frame, menuBar);
+        createPreferencesMenu(frame, menuBar);
         createHelpMenu(frame, menuBar);
         return menuBar;
     }
@@ -67,18 +72,25 @@ public class MenuBuilder {
 
     private void createHelpMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu help = new JMenu("Help");
+        help.setName("Help");
         menuBar.add(help);
         final JMenuItem about = new JMenuItem("About");
+        about.setName("About");
         about.addActionListener(new AboutMenuHandler(frame));
         help.add(about);
-
-        final JMenuItem userGuide = new JMenuItem("Users Guide");
+        final JMenuItem userGuide = new JMenuItem("User Guide");
+        userGuide.setName("User Guide");
         userGuide.addActionListener(new UsersGuideMenuHandler(frame));
         help.add(userGuide);
+        final JMenuItem forum = new JMenuItem("Forum");
+        forum.setName("Forum");
+        forum.addActionListener(new ForumMenuHandler(frame));
+        help.add(forum);
     }
 
     private void createWindowMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu tabs = new JMenu("Window");
+        tabs.setName("Window");
         tabs.setEnabled(false);
         menuBar.add(tabs);
         final JMenuItem newTab = new JMenuItem("New Tab");
@@ -94,67 +106,42 @@ public class MenuBuilder {
         closeAll.addActionListener(new CloseAllMenuHandler(frame));
         tabs.add(closeAll);
     }
-
-    private void createGraphToolsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
-        final JMenu graphTools = new JMenu("Graph Tools");
-        graphTools.setEnabled(false);
-        menuBar.add(graphTools);
-
-        final JMenu labels = new JMenu("Show/Hide Labels");
-        final JMenuItem nodeLabels = new JMenuItem("Show/Hide Node Labels");
-        nodeLabels.addActionListener(new ShowHideNodeLabelsMenuHandler(frame));
-        labels.add(nodeLabels);
-
-        final JMenuItem edgeLabels = new JMenuItem("Show/Hide Edge Labels");
-        edgeLabels.addActionListener(new ShowHideEdgeLabelsMenuHandler(frame));
-        labels.add(edgeLabels);
-        graphTools.add(labels);
-
-        final JMenu search = new JMenu("Search Graph");
-        graphTools.add(search);
-
-        final JMenu searchNode = new JMenu("Search Nodes");
-        search.add(searchNode);
-        final JMenu searchEdge = new JMenu("Search Edges");
-        search.add(searchEdge);
-
-
-        final JMenu networkGraphml = new JMenu("Review Graph");
-        graphTools.add(networkGraphml);
-        final JMenuItem reviewNetworkCentricModel = new JMenuItem("Review Network Centric model");
-        reviewNetworkCentricModel.addActionListener(new XmlTreeNetworkGraphmlMenuHandler(frame));
-        networkGraphml.add(reviewNetworkCentricModel);
-
-        final JMenuItem editNetworkCentricModel = new JMenuItem("Edit Network Centric model");
-        editNetworkCentricModel.addActionListener(new EditNetworkGraphmlMenuHandler(frame));
-        networkGraphml.add(editNetworkCentricModel);
-
-
-        final JMenuItem searchNodeByNameCurrent = new JMenuItem("Search by Name CurrentGraph");
+    private void createSearchMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
+        final JMenu search = new JMenu("Search");
+        search.setName("Search");
+        search.setEnabled(false);
+        menuBar.add(search);
+        final JMenuItem searchNodeByNameCurrent = new JMenuItem("Search Node by Name CurrentGraph");
         searchNodeByNameCurrent.addActionListener(new SearchByNameCurrGraphMenuHandler(frame));
-        searchNode.add(searchNodeByNameCurrent);
-        final JMenuItem searchNodeByNameEntire = new JMenuItem("Search by Name EntireGraph");
+        search.add(searchNodeByNameCurrent);
+        final JMenuItem searchNodeByNameEntire = new JMenuItem("Search Node by Name EntireGraph");
         searchNodeByNameEntire.addActionListener(new SearchByNameEntireGraphMenuHandler(frame));
-        searchNode.add(searchNodeByNameEntire);
-        final JMenuItem searchNodeByKey = new JMenuItem("Search by Key");
+        search.add(searchNodeByNameEntire);
+        final JMenuItem searchNodeByKey = new JMenuItem("Search Node by Key");
         searchNodeByKey.addActionListener(new SearchByKeyMenuHandler(frame));
-        searchNode.add(searchNodeByKey);
-        final JMenuItem searchNodeByIP = new JMenuItem("Search by IP");
+        search.add(searchNodeByKey);
+        final JMenuItem searchNodeByIP = new JMenuItem("Search Node by IP");
         searchNodeByIP.addActionListener(new SearchByIpMenuHandler(frame));
-        searchNode.add(searchNodeByIP);
+        search.add(searchNodeByIP);
+        search.addSeparator();
 
-        final JMenuItem searchEdgeByNameCurrent = new JMenuItem("Search by Name CurrentGraph");
+        final JMenuItem searchEdgeByNameCurrent = new JMenuItem("Search Edge by Name CurrentGraph");
         searchEdgeByNameCurrent.addActionListener(new SearchEdgeByNameCurrGraphMenuHandler(frame));
-        searchEdge.add(searchEdgeByNameCurrent);
-        final JMenuItem searchEdgeByNameEntire = new JMenuItem("Search by Name EntireGraph");
+        search.add(searchEdgeByNameCurrent);
+        final JMenuItem searchEdgeByNameEntire = new JMenuItem("Search Edge by Name EntireGraph");
         searchEdgeByNameEntire.addActionListener(new SearchEdgeByNameEntireGraphMenuHandler(frame));
-        searchEdge.add(searchEdgeByNameEntire);
-        final JMenuItem searchEdgeByKey = new JMenuItem("Search by Key");
+        search.add(searchEdgeByNameEntire);
+        final JMenuItem searchEdgeByKey = new JMenuItem("Search Edge by Key");
         searchEdgeByKey.addActionListener(new SearchByKeyMenuHandler(frame));
-        searchEdge.add(searchEdgeByKey);
+        search.add(searchEdgeByKey);
 
-        final JMenu layouts = new JMenu("Graph Layouts");
-        graphTools.add(layouts);
+
+    }
+        private void createLayoutsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
+        final JMenu layouts = new JMenu("Layouts");
+        layouts.setName("Layouts");
+        layouts.setEnabled(false);
+        menuBar.add(layouts);
 
         final JMenuItem FRLayout = new JMenuItem("FR Layout");
         FRLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "FRLayout"));
@@ -174,13 +161,42 @@ public class MenuBuilder {
         final JMenuItem DAGLayout = new JMenuItem("DAG Layout");
         SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "DAGLayout"));
         layouts.add(DAGLayout);
+    }
+
+    private void createModelsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
+        final JMenu models = new JMenu("Network Models");
+        models.setEnabled(false);
+        models.setName("Network Models");
+        menuBar.add(models);
+        final JMenuItem reviewNetworkCentricModel = new JMenuItem("Tree viewer");
+        reviewNetworkCentricModel.addActionListener(new XmlTreeNetworkGraphmlMenuHandler(frame));
+        models.add(reviewNetworkCentricModel);
+
+        final JMenuItem editNetworkCentricModel = new JMenuItem("Data viewer");
+        editNetworkCentricModel.addActionListener(new EditNetworkGraphmlMenuHandler(frame));
+        models.add(editNetworkCentricModel);
+
+
+    }
+        private void createGraphToolsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
+        final JMenu graphTools = new JMenu("Graph Tools");
+        graphTools.setName("Graph Tools");
+        graphTools.setEnabled(false);
+        menuBar.add(graphTools);
 
 //        final JMenuItem iNode = new JMenuItem("Initial Node");
 //        iNode.addActionListener(new InitialNodeMenuHandler(frame));
 //        graphTools.add(iNode);
+            final JMenuItem ShortestPath = new JMenuItem("ShortestPath");
+            ShortestPath.addActionListener(new ShortestPathMenuHandler(frame));
+            graphTools.add(ShortestPath);
+            final JMenuItem DijkstraShortestPath = new JMenuItem("Dijkstra Shortest Path");
+            DijkstraShortestPath.addActionListener(new DijkstraShortestPathMenuHandler(frame));
+            graphTools.add(DijkstraShortestPath);
 
+            graphTools.addSeparator();
 
-        final JMenu rank = new JMenu("Ranking Algorithms");
+            final JMenu rank = new JMenu("Ranking Algorithms");
         graphTools.add(rank);
         final JMenuItem BetweennessCentrality = new JMenuItem("BetweennessCentrality");
         BetweennessCentrality.addActionListener(new BetweennessCentralityMenuHandler(frame));
@@ -198,36 +214,12 @@ public class MenuBuilder {
         RandomWalkBetweennessCentralityRanker.addActionListener(new RandomWalkBetweennessCentralityMenuHandler(frame));
         rank.add(RandomWalkBetweennessCentralityRanker);
 
-
-        final JMenu shorestpath = new JMenu("Path Preview");
-        menuBar.add(shorestpath);
-        graphTools.add(shorestpath);
-
-        final JMenuItem ShortestPath = new JMenuItem("ShortestPath");
-        ShortestPath.addActionListener(new ShortestPathMenuHandler(frame));
-        shorestpath.add(ShortestPath);
-        final JMenuItem DijkstraShortestPath = new JMenuItem("Dijkstra Shortest Path");
-        DijkstraShortestPath.addActionListener(new DijkstraShortestPathMenuHandler(frame));
-        shorestpath.add(DijkstraShortestPath);
-//        final JMenuItem DijkstraWeightedShortestPath = new JMenuItem("Dijkstra Shortest Path");
-//        DijkstraWeightedShortestPath.addActionListener(new DijkstraWeightedShortestPathMenuHandler(frame));
-//        shorestpath.add(DijkstraWeightedShortestPath);
-
-//        final JMenu graphInfo = new JMenu("Graph Distance Statistics");
-//        menuBar.add(graphInfo);
-//        graphTools.add(graphInfo);
-
-//        final JMenuItem test = new JMenuItem("Diameter");
-//        test.addActionListener(new GraphDistanceStatisticsMenuHandler(frame));
-//        graphInfo.add(test);
-        //  graphTools.add(graphInfo);
-
-
     }
 
 
     private void createFileMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu file = new JMenu("File");
+        file.setName("File");
         menuBar.add(file);
 
         final JMenuItem newProject = new JMenuItem("New Project");
@@ -262,12 +254,12 @@ public class MenuBuilder {
 
         file.addSeparator();
 
-        final JMenuItem config = new JMenuItem("Viewer Settings");
-        config.addActionListener(new ConfigMenuHandler(frame));
-        config.setEnabled(false);
-        file.add(config);
+//        final JMenuItem config = new JMenuItem("Viewer Settings");
+//        config.addActionListener(new ConfigMenuHandler(frame));
+//        config.setEnabled(false);
+//        file.add(config);
 
-        final JMenu capture = new JMenu("Export to ...");
+        final JMenu capture = new JMenu("Export Graph to ...");
         capture.setEnabled(false);
         //file.add(capture);
 
@@ -287,47 +279,82 @@ public class MenuBuilder {
     }
 
     private void createDiscoveryMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
-        final JMenu discovery = new JMenu("Discoverers");
+        final JMenu discovery = new JMenu("Discover");
+        discovery.setName("Discover");
         discovery.setEnabled(false);
         menuBar.add(discovery);
-        final JMenu snmpNetworkDiscovery = new JMenu("SNMP Network Discovery");
-        final JMenu bgpPeeringNetworkDiscovery = new JMenu("BGP Peering Network Discovery");
 
-        final JMenuItem startDiscovery = new JMenuItem("Start Discovery");
+        final JMenuItem startDiscovery = new JMenuItem("IP Network");
         startDiscovery.addActionListener(new StartDiscoveryMenuHandler(frame));
-        snmpNetworkDiscovery.add(startDiscovery);
-        final JMenuItem configureResource = new JMenuItem("Configure Resource");
-        configureResource.addActionListener(new EditConfigMenuHandler(frame, "resourceManager/conf/xml/resource.xml"));
-        snmpNetworkDiscovery.add(configureResource);
-        final JMenuItem configureParameters = new JMenuItem("Configure Parameters");
-        configureParameters.addActionListener(new ConfigureParametersMenuHandler(frame));
-        snmpNetworkDiscovery.add(configureParameters);
+        discovery.add(startDiscovery);
 
 
-        final JMenuItem startBGPDiscovery = new JMenuItem("Start Discovery");
+        final JMenuItem startBGPDiscovery = new JMenuItem("Internet BGP Peering");
         startBGPDiscovery.addActionListener(new StartBGPDiscoveryMenuHandler(frame));
-        bgpPeeringNetworkDiscovery.add(startBGPDiscovery);
-        final JMenuItem configureBGPParameters = new JMenuItem("Configure Parameters");
-        configureBGPParameters.addActionListener(new ConfigureBGPParametersMenuHandler(frame));
-        bgpPeeringNetworkDiscovery.add(configureBGPParameters);
-
-
-        discovery.add(snmpNetworkDiscovery);
-        discovery.add(bgpPeeringNetworkDiscovery);
-
+        discovery.add(startBGPDiscovery);
 
     }
+    private void createPreferencesMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
+        final JMenu configuration = new JMenu("Configuration");
+        configuration.setName("Configuration");
+        menuBar.add(configuration);
 
-    private void createNetworkActivationMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
-        final JMenu networkActvation = new JMenu("Network Activation");
-        menuBar.add(networkActvation);
-        networkActvation.setEnabled(false);
+        configuration.setEnabled(false);
+
+
+//        final JMenu labels = new JMenu("Show/Hide Labels");
+        final JMenuItem nodeLabels = new JMenuItem("Show/Hide Node Labels");
+        nodeLabels.addActionListener(new ShowHideNodeLabelsMenuHandler(frame));
+        configuration.add(nodeLabels);
+
+        final JMenuItem edgeLabels = new JMenuItem("Show/Hide Edge Labels");
+        edgeLabels.addActionListener(new ShowHideEdgeLabelsMenuHandler(frame));
+        configuration.add(edgeLabels);
+        configuration.addSeparator();
+
+        final JMenu snmpDiscoverer = new JMenu("IP Network Discovery");
+        snmpDiscoverer.setName("SNMP Discoverer");
+        snmpDiscoverer.setEnabled(false);
+        configuration.add(snmpDiscoverer);
+
+        final JMenuItem resources = new JMenuItem("Resource Manager");
+        resources.addActionListener(new EditConfigMenuHandler(frame, "resourceManager/conf/xml/resource.xml"));
+        snmpDiscoverer.add(resources);
+
+        final JMenuItem configureManager = new JMenuItem("SNMP Discovery Manager");
+        configureManager.addActionListener(new EditConfigMenuHandler(frame, "iDiscover/conf/xml/DiscoveryManager.xml"));
+        snmpDiscoverer.add(configureManager);
+
+        final JMenuItem configureParameters = new JMenuItem("SNMP Discovery Parameters");
+        configureParameters.addActionListener(new ConfigureParametersMenuHandler(frame));
+        snmpDiscoverer.add(configureParameters);
+
+        final JMenuItem viewerSettingsItem = new JMenuItem("Viewer Configuration Editor");
+
+        viewerSettingsItem.addActionListener(new ConfigMenuHandler(frame));
+        snmpDiscoverer.add(viewerSettingsItem);
+
+        final JMenu diffSettings = new JMenu("Diff Ignored keys Editor");
+        final JMenuItem ignoredNodeKeys = new JMenuItem("ignoredNodeKeys");
+        ignoredNodeKeys.addActionListener(new EditConfigMenuHandler(frame, "iTopologyManager/topologyViewer/conf/xml/ignored_node_keys.xml"));
+        diffSettings.add(ignoredNodeKeys);
+
+        final JMenuItem ignoredEdgeKeys = new JMenuItem("ignoredEdgeKeys");
+        ignoredEdgeKeys.addActionListener(new EditConfigMenuHandler(frame, "iTopologyManager/topologyViewer/conf/xml/ignored_edge_keys.xml"));
+        diffSettings.add(ignoredEdgeKeys);
+
+        snmpDiscoverer.add(diffSettings);
+        //configuration.addSeparator();
+
+
+
+        final JMenu networkActvation = new JMenu("Activation templates");
+        snmpDiscoverer.add(networkActvation);
+
+
         final JMenuItem ConfigureParamFactoryParameters = new JMenuItem("Configure Parameters");
         ConfigureParamFactoryParameters.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/parameterFactory/conf/xml", ".xml"));
         networkActvation.add(ConfigureParamFactoryParameters);
-        final JMenuItem configureResources = new JMenuItem("Configure Resources");
-        configureResources.addActionListener(new EditConfigMenuHandler(frame, "resourceManager/conf/xml/resource.xml"));
-        networkActvation.add(configureResources);
 
         final JMenuItem configureFulfillmentFactory = new JMenuItem("Configure Bindings");
         configureFulfillmentFactory.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/xml/", ".xml"));
@@ -337,10 +364,40 @@ public class MenuBuilder {
         configureTemplates.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/templ", ".templ"));
         networkActvation.add(configureTemplates);
 
+
+        final JMenu bgpPeeringDiscovery = new JMenu("Internet BGP Peering");
+        bgpPeeringDiscovery.setName("Internet BGP Peering");
+        bgpPeeringDiscovery.setEnabled(false);
+
+        final JMenuItem configureBGPParameters = new JMenuItem("BGP peering Map Parameters");
+        configureBGPParameters.addActionListener(new ConfigureBGPParametersMenuHandler(frame));
+        bgpPeeringDiscovery.add(configureBGPParameters);
+        final JMenuItem bgpViewerSettingsItem = new JMenuItem("Viewer Configuration Editor");
+
+        bgpViewerSettingsItem.addActionListener(new ConfigMenuHandler(frame));
+         bgpPeeringDiscovery.add(bgpViewerSettingsItem);
+
+        final JMenu bgpDiffSettings = new JMenu("Diff Ignored keys Editor");
+        final JMenuItem bgpIgnoredNodeKeys = new JMenuItem("ignoredNodeKeys");
+
+        bgpIgnoredNodeKeys.addActionListener(new EditConfigMenuHandler(frame, "iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/ignored_node_keys.xml"));
+        bgpDiffSettings.add(bgpIgnoredNodeKeys);
+
+        final JMenuItem bgpIgnoredEdgeKeys = new JMenuItem("ignoredEdgeKeys");
+
+        bgpIgnoredEdgeKeys.addActionListener(new EditConfigMenuHandler(frame, "iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/ignored_edge_keys.xml"));
+        bgpDiffSettings.add(bgpIgnoredEdgeKeys);
+
+        bgpPeeringDiscovery.add(bgpDiffSettings);
+
+        //configuration.add(discovery);
+        configuration.add(bgpPeeringDiscovery);
+
+
+
     }
 
-
-    private ActionListener createMenuHandler(TopologyManagerFrame frame, String handlerClassName) {
+        private ActionListener createMenuHandler(TopologyManagerFrame frame, String handlerClassName) {
         ActionListener handler = null;
         try {
             Class handlerClass = Class.forName(handlerClassName);

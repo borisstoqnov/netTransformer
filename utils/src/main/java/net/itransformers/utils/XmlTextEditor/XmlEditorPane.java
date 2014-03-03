@@ -18,6 +18,7 @@ public class XmlEditorPane extends JEditorPane {
     public XmlEditorPane(String fileName) {
          this.setName(fileName);
         // Set editor kit
+
         this.setEditorKitForContentType("text/xml", new XmlEditorKit());
         this.setContentType("text/xml");
         
