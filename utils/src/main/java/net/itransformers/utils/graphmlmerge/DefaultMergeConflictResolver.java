@@ -13,8 +13,20 @@ public class DefaultMergeConflictResolver implements MergeConflictResolver {
         if (targetValue.equals(srcValue)) {
             return targetValue;
         }
+
         if (targetValue instanceof String && srcValue instanceof String) {
-            return targetValue + "," + srcValue;
+            if(((String) srcValue).isEmpty()){
+                return targetValue;
+            }
+            else if(((String) targetValue).isEmpty()){
+                return srcValue;
+            }
+            else if(targetValue.equals(srcValue)){
+                return targetValue;
+            }
+            else {
+                return targetValue + "," + srcValue;
+            }
         } else {
             return targetValue;
         }

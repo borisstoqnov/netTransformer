@@ -351,6 +351,8 @@ public class DiscoveryManagerDialogV2 extends JDialog {
         networkListeners.add(networkListener);
         discoverer.setNetworkDiscoveryListeners(networkListeners);
         managerThread = new DiscoveryManagerThread(discoverer, depth, connectionDetails);
+        lblDiscoveredDevices.setText("");
+        loggerConsole.setText("");
         managerThread.start();
         return true;
     }

@@ -1,0 +1,27 @@
+### vars: username, password, enable-password, Local_AS, Remote_AS, neigh_id
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### read_until('.*>',3)
+enable
+### read_until('Password:',3)
+$enable-password
+### start read_until('.*#',3)
+configure terminal
+### stop read_until
+
+### start read_until('.*#',3)
+router bgp $Local_AS
+   neighbor $neigh_id remote-as $Remote_AS
+    address-family ipv4
+     no synchronization
+     neighbor $neigh_id activate
+     no auto-summary
+    exit-address-family
+### stop read_until
+exit
+### exit
+
+
+

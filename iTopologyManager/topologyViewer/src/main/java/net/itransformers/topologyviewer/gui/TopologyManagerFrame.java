@@ -205,6 +205,7 @@ public class TopologyManagerFrame extends JFrame{
         this.getRootPane().getJMenuBar().getMenu(4).setEnabled(false);
         this.getRootPane().getJMenuBar().getMenu(5).setEnabled(false);
         this.getRootPane().getJMenuBar().getMenu(6).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(7).setEnabled(false);
 
         //Disable most of the components of  File menu (all except the Open Project)
 
@@ -222,8 +223,8 @@ public class TopologyManagerFrame extends JFrame{
        this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
         //Disable Discoverers settings options
 
-        this.getRootPane().getJMenuBar().getMenu(6).getMenuComponent(3).setEnabled(false);
-        this.getRootPane().getJMenuBar().getMenu(6).getMenuComponent(4).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(false);
+        this.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(false);
 
 
     }

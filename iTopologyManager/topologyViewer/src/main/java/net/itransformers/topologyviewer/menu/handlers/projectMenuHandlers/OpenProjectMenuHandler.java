@@ -44,7 +44,10 @@ public class OpenProjectMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        File dir = new File(System.getProperty("user.home"));
+        File dir = new File(new File(System.getProperty("user.dir")).getParent()+File.separator+"Projects");
+        if(!dir.exists()){
+            dir.mkdir();
+        }
         if (frame.getPath() != null){
             dir = frame.getPath();
         }
@@ -139,17 +142,15 @@ public class OpenProjectMenuHandler implements ActionListener {
                 frame.setViewerConfig(new File(selectedFile.getParentFile()+ File.separator+"iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
-                frame.getRootPane().getJMenuBar().getMenu(6).getMenuComponent(4).setEnabled(true);
-
-
+                frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
 
             } else if(selectedFile.getName().equals("netTransformer.pfl"))    {
-                frame.setProjectType("netTransformer - SNMP Network Discoverer");
+                frame.setProjectType("netTransformer - IP Network Discoverer");
                 frame.setViewerConfig(new File(selectedFile.getParentFile()+File.separator+ "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
                 //
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
-                frame.getRootPane().getJMenuBar().getMenu(6).getMenuComponent(3).setEnabled(true);
+                frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
 
             }  else{
                 JOptionPane.showMessageDialog(frame, "Unknown project type");
@@ -162,6 +163,7 @@ public class OpenProjectMenuHandler implements ActionListener {
             frame.getRootPane().getJMenuBar().getMenu(4).setEnabled(true);
             frame.getRootPane().getJMenuBar().getMenu(5).setEnabled(true);
             frame.getRootPane().getJMenuBar().getMenu(6).setEnabled(true);
+            frame.getRootPane().getJMenuBar().getMenu(7).setEnabled(true);
 
             frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(4).setEnabled(true);
             frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(5).setEnabled(true);

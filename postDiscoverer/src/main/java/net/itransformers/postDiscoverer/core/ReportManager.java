@@ -119,7 +119,7 @@ public class ReportManager {
 
 
                                             }
-                                            result = launcher.sendCommand(sendCommandScript.getValue(), commandString, null);
+                                           // result = launcher.sendCommand(sendCommandScript.getValue(), commandString, null);
                                             if(result.get("commandResult")!=null){
                                                 File postDiscoveryCommandOutput = new File(postDiscoveryNodeFolder+File.separator+command.getName()+".txt");
                                                 try {
@@ -128,6 +128,17 @@ public class ReportManager {
                                                     logger.info(e);  //To change body of catch statement use File | Settings | File Templates.
                                                 }
                                             }
+                                        } else {
+                                            result = launcher.sendCommand(sendCommandScript.getValue(), commandString, null);
+                                            if(result.get("commandResult")!=null){
+                                                File postDiscoveryCommandOutput = new File(postDiscoveryNodeFolder+File.separator+command.getName()+".txt");
+                                                try {
+                                                    FileUtils.writeStringToFile(postDiscoveryCommandOutput,result.get("commandResult").toString());
+                                                } catch (IOException e) {
+                                                    logger.info(e);  //To change body of catch statement use File | Settings | File Templates.
+                                                }
+                                            }
+
                                         }
 
                                     }

@@ -22,6 +22,7 @@ package net.itransformers.idiscover.core;
 import net.itransformers.idiscover.core.discoveryconfig.DiscoveryManagerListenerType;
 import net.itransformers.idiscover.core.discoveryconfig.DiscoveryManagerType;
 import net.itransformers.idiscover.core.discoveryconfig.ParamType;
+import net.itransformers.idiscover.core.discoveryconfig.PostDiscoveryManagerListenerType;
 import net.itransformers.idiscover.discoverers.DefaultDiscovererFactory;
 import net.itransformers.idiscover.networkmodel.*;
 import net.itransformers.idiscover.util.JaxbMarshalar;
@@ -49,6 +50,8 @@ public class DiscoveryManager {
 
     private DiscoveryHelperFactory discoveryHelperFactory;
     private List<DiscoveryListener> listeners = new ArrayList<DiscoveryListener>();
+    private List<PostDiscoveryListener> postDiscoveryListeners = new ArrayList<PostDiscoveryListener>();
+
     private List<NetworkDiscoveryListener> networkListeners = new ArrayList<NetworkDiscoveryListener>();
 
     private ResourceManager resourceManager;
@@ -59,11 +62,12 @@ public class DiscoveryManager {
     private boolean isStopped;
     private boolean postDiscoveryflag;
 
-    public DiscoveryManager(File projectDir, String label, ResourceManager resourceManager, DiscovererFactory discovererFactory, DiscoveryHelperFactory discoveryHelperFactory) throws IllegalAccessException, InstantiationException {
+    public DiscoveryManager(File projectDir, String label, ResourceManager resourceManager, DiscovererFactory discovererFactory, DiscoveryHelperFactory discoveryHelperFactory, Boolean postDiscoveryflag) throws IllegalAccessException, InstantiationException {
         this.resourceManager = resourceManager;
         this.discovererFactory = discovererFactory;
         this.discoveryHelperFactory = discoveryHelperFactory;
         this.discoveryResource = new DiscoveryResourceManager(projectDir,label,"resourceManager/conf/xml/resource.xml");
+        this.postDiscoveryflag = postDiscoveryflag;
     }
 
     public NetworkType discoverNetwork(Resource resource, String mode, String[] discoveryTypes) throws Exception {
@@ -99,7 +103,10 @@ public class DiscoveryManager {
     private void discoverDevice(Resource resource, String[] discoveryTypes, String mode,
                                 NetworkType network, Map<String,Device> foundDevices,
                                 Discoverer discoverer) {
-        if (isStopped) return;
+        if (isStopped) {
+            logger.info("Discovery process stopped!");
+            return;
+        }
         if (isPaused) doPause();
         //Obtain resource hostname, attributes and deviceType;
         String deviceName=resource.getHost();
@@ -272,7 +279,15 @@ public class DiscoveryManager {
         for (DiscoveryListener listener : listeners) {
             listener.handleDevice(deviceName,rawData, discoveredDeviceData, resource);
         }
+        if (postDiscoveryflag){
+            for (PostDiscoveryListener postDiscoverylistener: postDiscoveryListeners){
+                postDiscoverylistener.handleDevice(deviceName,rawData, discoveredDeviceData, resource);
+
+            }
+        }
     }
+
+
 
 //    private void fireNetworkDiscoveredEvent(NetworkType network, Resource resource) {
 //        for (NetworkDiscoveryListener listener : networkListeners) {
@@ -286,6 +301,14 @@ public class DiscoveryManager {
 
     public void removedDiscoveryManagerListener(DiscoveryListener listener){
         listeners.remove(listener);
+    }
+
+    public void addPostDiscoveryManagerListener(PostDiscoveryListener listener){
+        postDiscoveryListeners.add(listener);
+    }
+
+    public void removedPostDiscoveryManagerListener(PostDiscoveryListener listener){
+        postDiscoveryListeners.remove(listener);
     }
     private static void printUsage(String param){
         System.out.println("Usage:   java -h <Initial IP address> -p <port> [-d <mode network|node> -c <community> -c2 <community> -f <discoveryParameters.xml>");
@@ -305,7 +328,7 @@ public class DiscoveryManager {
         }
         File file = new File(fileName);
 
-        DiscoveryManager manager = createDiscoveryManager(file.getParentFile(),file.getName(),"network");
+        DiscoveryManager manager = createDiscoveryManager(file.getParentFile(),file.getName(),"network",true);
 
         String mode = params.get("-d");
         if (mode == null){
@@ -362,7 +385,7 @@ public class DiscoveryManager {
         
     }
 
-    public static DiscoveryManager createDiscoveryManager(File projectDir, String discoveryManagerXmlRelPath, String label) throws JAXBException, IOException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    public static DiscoveryManager createDiscoveryManager(File projectDir, String discoveryManagerXmlRelPath, String label,Boolean postDiscoveryflag) throws JAXBException, IOException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         File file = new File(projectDir,discoveryManagerXmlRelPath);
         DiscoveryManagerType discoveryManagerType;
         FileInputStream is = new FileInputStream(file);
@@ -383,7 +406,7 @@ public class DiscoveryManager {
 //        params.put("geoloc","Moscow");
         }
         DiscovererFactory discovererFactory = new DefaultDiscovererFactory();
-        DiscoveryManager manager = new DiscoveryManager(projectDir, label, resourceManager,discovererFactory, discoveryHelperFactory);
+        DiscoveryManager manager = new DiscoveryManager(projectDir, label, resourceManager,discovererFactory, discoveryHelperFactory,postDiscoveryflag);
 
 
         List<DiscoveryManagerListenerType> listenerTypes = discoveryManagerType.getDiscoveryManagerListeners().getDiscoveryManagerListener();
@@ -399,6 +422,21 @@ public class DiscoveryManager {
             DiscoveryListener discoveryManagerListener = (DiscoveryListener) constructor1.newInstance(listenerParams, projectDir, label);
             manager.addDiscoveryManagerListener(discoveryManagerListener);
         }
+
+        List<PostDiscoveryManagerListenerType> postDiscoveryListenerTypes = discoveryManagerType.getPostDiscoveryManagerListeners().getPostDiscoveryManagerListener();
+        for (PostDiscoveryManagerListenerType listenerType : postDiscoveryListenerTypes) {
+            String classStr = listenerType.getClazz();
+            Class clazz1 = Class.forName(classStr);
+            Constructor constructor1 = clazz1.getConstructor(Map.class,File.class,String.class);
+            Map<String, String> listenerParams = new HashMap<String, String>();
+            List<ParamType> paramType = listenerType.getParam();
+            for (ParamType type : paramType) {
+                listenerParams.put(type.getName(),type.getValue());
+            }
+            PostDiscoveryListener postDiscoveryManagerListener = (PostDiscoveryListener) constructor1.newInstance(listenerParams, projectDir, label);
+            manager.addPostDiscoveryManagerListener(postDiscoveryManagerListener);
+        }
+
 //        List<ParamType> vlanList = discoveryManagerType.getManagementVlans().getParam();
 //        for (ParamType paramType : vlanList) {
 //

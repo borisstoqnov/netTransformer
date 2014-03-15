@@ -42,7 +42,21 @@
       <xs:element type="discovery-manager-listenerType" name="discovery-manager-listener" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="management-vlansType">
+
+    <xs:complexType name="post-discovery-manager-listenerType">
+        <xs:sequence>
+            <xs:element type="paramType" name="param" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="class" use="optional"/>
+    </xs:complexType>
+    <xs:complexType name="post-discovery-manager-listenersType">
+        <xs:sequence>
+            <xs:element type="post-discovery-manager-listenerType" name="post-discovery-manager-listener" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="management-vlansType">
     <xs:sequence>
       <xs:element type="paramType" name="param" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
@@ -51,7 +65,9 @@
     <xs:sequence>
       <xs:element type="discovery-helperType" name="discovery-helper"/>
       <xs:element type="discovery-manager-listenersType" name="discovery-manager-listeners"/>
-      <xs:element type="management-vlansType" name="management-vlans"/>
+        <xs:element type="post-discovery-manager-listenersType" name="post-discovery-manager-listeners"/>
+
+        <xs:element type="management-vlansType" name="management-vlans"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="paramType">

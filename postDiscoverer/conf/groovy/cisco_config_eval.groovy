@@ -183,7 +183,7 @@ expect ([
             stringBuffer.append(it.getBuffer())
             passwordLength = it.getMatch(1);
             Float pointScore = passwordLength?.isInteger()?passwordLength.toFloat():null
-            securityPasswordsMinLength = ["message":"Passoword security min length of "+ passwordLength + " symbols has been configured!","score":length];
+            securityPasswordsMinLength = ["message":"Passoword security min length of "+ passwordLength + " symbols has been configured!","score":pointScore];
             points = points + pointScore;
 
             it.exp_continue()

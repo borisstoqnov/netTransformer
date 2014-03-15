@@ -79,7 +79,11 @@ public class NewProjectDialog extends JDialog {
         {
             baseFilePathTextField = new JTextField();
             if (frame.getPath() == null) {
-                baseFilePathTextField.setText(System.getProperty("user.home"));
+                File dir = new File(new File(System.getProperty("user.dir")).getParent()+File.separator+"Projects");
+                if(!dir.exists()){
+                    dir.mkdir();
+                }
+                baseFilePathTextField.setText(dir.getAbsolutePath());
             }
             baseFilePathTextField.setColumns(10);
             baseFilePathTextField.setBounds(108, 82, 277, 20);
@@ -91,7 +95,7 @@ public class NewProjectDialog extends JDialog {
             contentPanel.add(label);
         }
         {
-            String[] projectTypes = {"snmpDiscoverer", "bgpPeeringMap"};
+            String[] projectTypes = {"IP Network", "BGP Peering Map"};
             final JComboBox comboBox = new JComboBox(projectTypes);
             comboBox.setBounds(108, 47, 277, 22);
             comboBox.setSelectedItem(projectTypes[0]);

@@ -115,6 +115,8 @@ public class XmlTopologyDeviceLogger implements DiscoveryListener{
                     edgesTypes.put("edgeTooltip","string");
                     edgesTypes.put("diff","string");
                     edgesTypes.put("diffs","string");
+                    edgesTypes.put("bgpAutonomousSystemA","string");
+                    edgesTypes.put("bgpAutonomousSystemB","string");
 
                     Map<String, String> vertexTypes = new HashMap<String, String>();
                     vertexTypes.put("deviceModel","string");
@@ -130,6 +132,7 @@ public class XmlTopologyDeviceLogger implements DiscoveryListener{
                     vertexTypes.put("diffs","string");
                     vertexTypes.put("IPv6Forwarding","string");
                     vertexTypes.put("IPv4Forwarding","string");
+                    vertexTypes.put("bgpLocalAS","string");
 
                     Map<String, MergeConflictResolver> edgeConflictResolver = new HashMap<String, MergeConflictResolver>();
                     Map<String, MergeConflictResolver> nodeConflictResolver = new HashMap<String, MergeConflictResolver>();

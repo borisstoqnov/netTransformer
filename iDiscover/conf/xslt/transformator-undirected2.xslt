@@ -37,7 +37,6 @@
             <key id="IPv6Forwarding" for="node" attr.name="IPv6Forwarding" attr.type="string"/>
             <key id="IPv4Forwarding" for="node" attr.name="IPv4Forwarding" attr.type="string"/>
 
-
             <key id="name" for="edge" attr.name="name" attr.type="string"/>
             <key id="method" for="edge" attr.name="method" attr.type="string"/>
             <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string"/>
@@ -45,6 +44,10 @@
             <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string"/>
             <key id="IPv6Forwarding" for="edge" attr.name="IPv6Forwarding" attr.type="string"/>
             <key id="IPv4Forwarding" for="edge" attr.name="IPv4Forwarding" attr.type="string"/>
+
+            <key id="bgpLocalAS" for="node" attr.name="bgpLocalAS" attr.type="string"/>
+            <key id="bgpAutonomousSystemA" for="edge" attr.name="bgpAutonomousSystemA" attr.type="string"/>
+            <key id="bgpAutonomousSystemB" for="edge" attr.name="bgpAutonomousSystemB" attr.type="string"/>
 
             <key id="InterfaceNameA" for="edge" attr.name="InterfaceNameA" attr.type="string"/>
             <key id="InterfaceNameB" for="edge" attr.name="InterfaceNameB" attr.type="string"/>
@@ -68,6 +71,7 @@
                 <xsl:variable name="deviceType">
                     <xsl:value-of select="//DiscoveredDevice/parameters/parameter[name='Device Type']/value"/>
                 </xsl:variable>
+
                 <xsl:variable name="deviceStatus"
                               select="//DiscoveredDevice/parameters/parameter[name='Device State']/value"/>
                 <xsl:variable name="siteID">
@@ -109,6 +113,7 @@
                     <data key="ManagementIPAddress">
                         <xsl:value-of select="$ManagementIPAddress"/>
                     </data>
+                    <data key="bgpLocalAS"><xsl:value-of select="$BGPLocalASInfo"/></data>
                     <data key="site">
                         <xsl:value-of select="$siteID"/>
                     </data>
@@ -181,6 +186,7 @@
                             <xsl:value-of
                                     select="distinct-values($root//object[name=$interface]/object[objectType='Discovered Neighbor']/name)"/>
                         </xsl:variable>
+
                         <xsl:variable name="methods_all">
                             <xsl:for-each
                                     select="distinct-values($root//object[name=$interface]/object[objectType='Discovered Neighbor']/parameters/parameter[name='Discovery Method']/value)">
@@ -193,6 +199,15 @@
                                         select="distinct-values($root//object[objectType='DeviceLogicalData']/object[name=$neighID]/parameters/parameter[name='Discovery Method']/value)">
                                     <xsl:value-of select="."/>
                                     <xsl:text>,</xsl:text>
+                                </xsl:for-each>
+                            </xsl:for-each>
+                        </xsl:variable>
+                        <xsl:variable name="bgpRemoteAs">
+                            <xsl:for-each select="$neighborIDs">
+                                <xsl:variable name="neighID" select="."/>
+                                <xsl:for-each
+                                        select="distinct-values($root//object[objectType='DeviceLogicalData']/object[name=$neighID]/parameters/parameter[name='bgpPeerRemoteAs']/value)">
+                                    <xsl:value-of select="."/>
                                 </xsl:for-each>
                             </xsl:for-each>
                         </xsl:variable>
@@ -232,6 +247,8 @@
                                     <xsl:with-param name="neighID" select="$node"/>
                                     <xsl:with-param name="localIP"></xsl:with-param>
                                     <xsl:with-param name="remoteIP"></xsl:with-param>
+                                    <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
+                                    <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
                                     <xsl:with-param name="methods" select="$methods_all"/>
                                 </xsl:call-template>
                             </xsl:when>
@@ -297,6 +314,7 @@
                                     </xsl:choose>
                                 </xsl:variable>
 
+
                                 <!--methods>
                                     <xsl:value-of select="$methods_all"/>
                                 </methods-->
@@ -319,6 +337,9 @@
                                                                 select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
                                                 <xsl:with-param name="remoteIP"
                                                                 select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                                                <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
+                                                <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
+
                                                 <xsl:with-param name="methods" select="$methods_all"/>
                                             </xsl:call-template>
                                         </xsl:for-each>
@@ -342,6 +363,9 @@
                                                                         select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
                                                         <xsl:with-param name="remoteIP"
                                                                         select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                                                        <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
+                                                        <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
+
                                                         <xsl:with-param name="methods" select="$methods_all"/>
                                                     </xsl:call-template>
                                                 </xsl:for-each>
@@ -370,6 +394,9 @@
                                                                 </xsl:with-param>
                                                                 <xsl:with-param name="remoteIP"
                                                                                 select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                                                                <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
+                                                                <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
+
                                                                 <xsl:with-param name="methods" select="$methods_all"/>
                                                             </xsl:call-template>
                                                         </xsl:for-each>
@@ -394,6 +421,9 @@
                                                                                 select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
                                                                 <xsl:with-param name="remoteIP"
                                                                                 select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                                                                <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
+                                                                <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
+
                                                                 <xsl:with-param name="methods" select="$methods_all"/>
                                                             </xsl:call-template>
                                                         </xsl:for-each>
@@ -434,6 +464,8 @@
         <xsl:param name="IPv6Forwarding"/>
         <xsl:param name="localIP"/>
         <xsl:param name="remoteIP"/>
+        <xsl:param name="bgpLocalAS"/>
+        <xsl:param name="bgpRemoteAS"/>
         <xsl:param name="methods"/>
         <xsl:variable name="sort">
             <root>
@@ -481,6 +513,23 @@
                     <node>
                         <xsl:attribute name="name"><xsl:value-of select="$neighID"/></xsl:attribute>
                         <xsl:value-of select="$remoteIP"/>
+                    </node>
+                </test>
+            </root>
+        </xsl:variable>
+
+        <xsl:variable name="BGPASSort">
+            <root>
+                <test>
+                    <node>
+                        <xsl:attribute name="name"><xsl:value-of select="$nodeID"/></xsl:attribute>
+                        <xsl:value-of select="$bgpLocalAS"/>
+                    </node>
+                </test>
+                <test>
+                    <node>
+                        <xsl:attribute name="name"><xsl:value-of select="$neighID"/></xsl:attribute>
+                        <xsl:value-of select="$bgpRemoteAS"/>
                     </node>
                 </test>
             </root>
@@ -575,6 +624,14 @@
                 </xsl:choose>
             </data>
 
+            <data>
+                <xsl:attribute name="key">bgpAutonomousSystemA</xsl:attribute>
+                <xsl:value-of select="$BGPASSort/root//node[contains($first,@name)]"/>
+            </data>
+            <data>
+                <xsl:attribute name="key">bgpAutonomousSystemB</xsl:attribute>
+                <xsl:value-of select="$BGPASSort/root//node[contains($second,@name)]"/>
+            </data>
         </edge>
     </xsl:template>
     <xsl:function name="functx:is-node-in-sequence" as="xs:boolean" xmlns:functx="http://www.functx.com">

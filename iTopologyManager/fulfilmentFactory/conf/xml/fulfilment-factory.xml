@@ -67,7 +67,14 @@
             <param name="cmd">Save Configuration</param>
             <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/save-configuration.templ</param>
         </type>
-
+        <type name="Configure BGP" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">Configure BGP routing</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/cisco/BGP/BGP_local.templ</param>
+        </type>
+        <type name="Configure BGP neighbour" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">Configure BGP neighbour</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/cisco/BGP/BGP_Neighbour.templ</param>
+        </type>
         <!--type name="setDeviceLocation" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.XslFulfilmentImpl">
             <param name="xslFileName">iTopologyManager/fulfilmentFactory/conf/xslt/setDeviceLocation.xslt</param>
         </type-->
@@ -87,5 +94,9 @@
     <fulfilment-factory name="set Device Admin data" resourceName="cisco" type="setDeviceAdminData" parameterFactoryName="setDeviceAdminData"/>
     <fulfilment-factory name="set SSH" resourceName="cisco" type="setSSH" parameterFactoryName="SSH"/>
     <fulfilment-factory name="Save Config" resourceName="cisco" type="Save Config" parameterFactoryName="basic"/>
+
+    <fulfilment-factory name="BGP_local" resourceName="cisco" type="BGP_local" parameterFactoryName="BGP_local"/>
+    <fulfilment-factory name="BGP_Neighbour" resourceName="cisco" type="BGP_Neighbour" parameterFactoryName="BGP_Neighbour"/>
+
 
 </fulfilment-factories>

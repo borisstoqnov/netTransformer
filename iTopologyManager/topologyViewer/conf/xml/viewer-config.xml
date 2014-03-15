@@ -787,7 +787,7 @@
                 <param name="type">deviceXml</param>
                 <param name="path">device-hierarchical</param>
             </rightClickItem>
-            <rightClickItem name="Graph device model browser" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler">
+            <rightClickItem name="Graphml device model browser" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler">
                 <param name="type">graphml</param>
                 <param name="path">device-centric</param>
             </rightClickItem>
@@ -819,6 +819,10 @@
                 <param name="type">startup-config</param>
                 <param name="path">post-discovery</param>
                 <!--Path attrbiute should be equal to the setting of the "device-data-logging-path" used in discoveryManager.xml-->
+            </rightClickItem>
+            <rightClickItem name="CLI reviewer" handlerClass="net.itransformers.topologyviewer.rightclick.impl.FileOpeneerHandler">
+                <param name="extension">.txt</param>
+                <param name="path">post-discovery</param>
             </rightClickItem>
         </submenu>
         <submenu name="Reports">

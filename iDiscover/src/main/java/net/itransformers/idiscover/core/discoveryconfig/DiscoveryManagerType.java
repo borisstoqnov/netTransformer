@@ -58,7 +58,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "discovery-managerType", propOrder = {
     "discoveryHelper",
     "discoveryManagerListeners",
-    "managementVlans"
+     "postDiscoveryManagerListeners",
+     "managementVlans"
 })
 public class DiscoveryManagerType {
 
@@ -66,6 +67,9 @@ public class DiscoveryManagerType {
     protected DiscoveryHelperType discoveryHelper;
     @XmlElement(name = "discovery-manager-listeners", required = true)
     protected DiscoveryManagerListenersType discoveryManagerListeners;
+    @XmlElement(name = "post-discovery-manager-listeners", required = true)
+    protected PostDiscoveryManagerListenersType postDiscoveryManagerListeners;
+
     @XmlElement(name = "management-vlans", required = true)
     protected ManagementVlansType managementVlans;
 
@@ -105,6 +109,10 @@ public class DiscoveryManagerType {
         return discoveryManagerListeners;
     }
 
+    public PostDiscoveryManagerListenersType getPostDiscoveryManagerListeners() {
+        return postDiscoveryManagerListeners;
+    }
+
     /**
      * Sets the value of the discoveryManagerListeners property.
      * 
@@ -115,6 +123,10 @@ public class DiscoveryManagerType {
      */
     public void setDiscoveryManagerListeners(DiscoveryManagerListenersType value) {
         this.discoveryManagerListeners = value;
+    }
+
+    public void setPostDiscoveryManagerListeners(PostDiscoveryManagerListenersType value) {
+        this.postDiscoveryManagerListeners = value;
     }
 
     /**

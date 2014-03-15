@@ -55,6 +55,7 @@ public class MenuBuilder {
         // File - 0, Discovery -1, Layouts -2 ,Graph - 3, Search - 4, Window - 5, Preferences 6, Help - 7
         createFileMenu(frame, menuBar);
         createDiscoveryMenu(frame, menuBar);
+        createModelsMenu(frame,menuBar);
         createLayoutsMenu(frame,menuBar);
         createGraphToolsMenu(frame, menuBar);
         createSearchMenu(frame, menuBar);
@@ -348,7 +349,7 @@ public class MenuBuilder {
 
 
 
-        final JMenu networkActvation = new JMenu("Activation templates");
+        final JMenu networkActvation = new JMenu("CLI configuration settings");
         snmpDiscoverer.add(networkActvation);
 
 
@@ -363,6 +364,15 @@ public class MenuBuilder {
         final JMenuItem configureTemplates = new JMenuItem("Configure Templates");
         configureTemplates.addActionListener(new TemplateEditorMenuHandler(frame, "iTopologyManager/fulfilmentFactory/conf/templ", ".templ"));
         networkActvation.add(configureTemplates);
+
+        final JMenuItem configureGroovyTemplates = new JMenuItem("Configure Groovy Templates");
+        configureGroovyTemplates.addActionListener(new TemplateEditorMenuHandler(frame, "postDiscoverer/conf/groovy", ".groovy"));
+        networkActvation.add(configureGroovyTemplates);
+
+
+        final JMenuItem postDiscovery = new JMenuItem("POST discovery settings");
+        postDiscovery.addActionListener(new EditConfigMenuHandler(frame, "postDiscoverer/conf/xml/reportGenerator.xml"));
+        snmpDiscoverer.add(postDiscovery);
 
 
         final JMenu bgpPeeringDiscovery = new JMenu("Internet BGP Peering");

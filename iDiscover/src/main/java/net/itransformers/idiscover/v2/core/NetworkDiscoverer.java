@@ -41,19 +41,29 @@ public class NetworkDiscoverer {
 
 
     public Map<String, Node> discoverNodes(List<ConnectionDetails> connectionDetailsList) {
-        return discoverNodes(connectionDetailsList, -1);
+        isRunning=true;
+        Map<String, Node> nodes = new HashMap<String, Node>();
+        nodes=discoverNodes(connectionDetailsList, -1);
+        fireNetworkDiscoveredEvent(nodes);
+        stop();
+        return nodes;
+
     }
 
     public Map<String, Node> discoverNodes(List<ConnectionDetails> connectionDetailsList, int depth) {
+        isRunning=true;
         Map<String, Node> nodes = new HashMap<String, Node>();
         doDiscoverNodes(connectionDetailsList, nodes, null, 0, depth);
         fireNetworkDiscoveredEvent(nodes);
+        stop();
         return nodes;
     }
 
     void doDiscoverNodes(List<ConnectionDetails> connectionDetailsList, Map<String, Node> nodes,
                          Node initialNode, int level, int depth) {
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
+            if (isStopped) return;
+            if (isPaused) doPause();
             String connectionType = connectionDetails.getConnectionType();
             NodeDiscoverer nodeDiscoverer = nodeDiscoverers.get(connectionType);
             if (level == depth) return;

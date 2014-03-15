@@ -1,0 +1,23 @@
+### vars: username, password, enable-password, Local_AS, Router_ID
+### read_until('(login:|user:|Username:)',3)
+$username
+### read_until('(Password:|password:)',3)
+$password
+### read_until('.*>',3)
+enable
+### read_until('Password:',3)
+$enable-password
+### start read_until('.*#',3)
+configure terminal
+### stop read_until
+
+### start read_until('.*#',3)
+router bgp $Local_AS
+  bgp router-id $Router_ID
+  bgp log-neighbor-changes
+  no bgp default ipv4-unicast
+### stop read_until
+exit
+### exit
+
+

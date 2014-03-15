@@ -19,7 +19,7 @@
 
 package net.itransformers.idiscover.discoverylisteners;
 
-import net.itransformers.idiscover.core.DiscoveryListener;
+import net.itransformers.idiscover.core.PostDiscoveryListener;
 import net.itransformers.idiscover.core.RawDeviceData;
 import net.itransformers.idiscover.core.Resource;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
@@ -41,9 +41,8 @@ import java.util.Map;
 
 //import net.itransformers.utils.XmlFormatter;
 
-public class PostDiscovererDeviceLogger implements DiscoveryListener{
+public class PostDiscovererDeviceLogger implements PostDiscoveryListener{
     static Logger logger = Logger.getLogger(PostDiscovererDeviceLogger.class);
-    private File path;
     private File scriptPath;
     private File resourceManagerPath;
     private File reportGeneratorPath;

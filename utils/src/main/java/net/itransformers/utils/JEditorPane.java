@@ -30,7 +30,7 @@ public class JEditorPane implements ActionListener {
 
     public void init() throws IOException, BadLocationException {
         myFrame = new JFrame("netTransformer configuration editor");
-        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //myFrame.setDefaultCloseOperation(JFrame.);
         myFrame.setSize(640, 480);
         if (new File(fileName).exists()) {
 

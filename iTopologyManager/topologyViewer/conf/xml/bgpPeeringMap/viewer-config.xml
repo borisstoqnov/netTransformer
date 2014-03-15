@@ -62,10 +62,6 @@
         <data key="countOriginatedPrefixes" matcher="gt">150</data>
         <data key="transit">YES</data>
     </icon>
-
-
-
-
     <filters>
 
         <filter name="INTET">

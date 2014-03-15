@@ -334,4 +334,36 @@
             <param name="enable-password"/>
         </param-factory-element>
     </param-factory>
+    <param-factory name="BGP_local">
+        <param-factory-element type="manual">
+            <param name="Local_AS"/>
+        </param-factory-element>
+        <param-factory-element type="graphml">
+            <param name="ManagementIPAddress"/>
+        </param-factory-element>
+        <param-factory-element type="deviceData">
+            <param name="Router_ID">//DiscoveredDevice/object[objectType='Discovery Interface' and name = 'Loopback0']/../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value</param>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+    <param-factory name="BGP_Neighbour">
+        <param-factory-element type="manual">
+            <param name="Local_AS"/>
+            <param name="Remote_AS"/>
+            <param name="neigh_id"/>
+        </param-factory-element>
+        <param-factory-element type="graphml">
+            <param name="ManagementIPAddress"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+
 </param-factories>

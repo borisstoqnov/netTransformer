@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <report-generator>
     <report-entry name="Cisco Config security audit" deviceType="CISCO">
+        <command name = "version"/>
         <command name = "running-config"/>
         <command name = "startup-config"/>
         <command name = "ip-interfaces"/>
-        <command name = "ip-routing"/>
+        <command name = "ipv4-routing-table"/>
+        <command name = "ipv6-routing-table"/>
+
 
         <!--command name = "tech-support"/-->
 
@@ -32,17 +35,17 @@
         </command>
         <command name = "ip-interfaces" type ="CLI">
             <send-command>show ip interface brief</send-command>
-            <!--<eval-script>cisco_ip_interfaces_eval.groovy</eval-script>-->
+            <eval-script>cisco_ip_interfaces_eval.groovy</eval-script>
         </command>
-        <command name = "tech-support" type ="CLI">
-            <send-command>show tech-support</send-command>
+        <command name = "version" type ="CLI">
+            <send-command>show version</send-command>
             <!--eval-script>cisco_ip_interfaces_eval.groovy</eval-script-->
         </command>
-        <command name = "ip-routing" type ="CLI">
+        <command name = "ipv4-routing-table" type ="CLI">
             <send-command>show ip route</send-command>
             <!--eval-script>cisco_ip_interfaces_eval.groovy</eval-script-->
         </command>
-        <command name = "ipv6-routing" type ="CLI">
+        <command name = "ipv6-routing-table" type ="CLI">
             <send-command>show ipv6 route</send-command>
             <!--eval-script>cisco_ip_interfaces_eval.groovy</eval-script-->
         </command>

@@ -265,7 +265,7 @@ public class DiscoveryManagerDialog extends JDialog {
                 if (!isValidLabel(label)) return false;
             }
 
-            manager = DiscoveryManager.createDiscoveryManager(projectDir, "iDiscover/conf/xml/discoveryManager.xml",label);
+            manager = DiscoveryManager.createDiscoveryManager(projectDir, "iDiscover/conf/xml/discoveryManager.xml",label,postDiscoveryCheckBox.isSelected());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Cannot start snmpDiscovery. See error log for more info");
             e.printStackTrace();

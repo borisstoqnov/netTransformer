@@ -55,9 +55,6 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
     private XmlDiscoveryHelperFactory discoveryHelperFactory;
     private String[] discoveryTypes;
     private DiscoveryResourceManager discoveryResource;
-    private boolean isRunning;
-    private boolean isPaused;
-    private boolean isStopped;
 
     public SnmpNodeDiscoverer(Map<String, String> attributes, XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource) throws Exception {
         this.discoveryHelperFactory = discoveryHelperFactory;
@@ -139,39 +136,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         result.setNeighboursConnectionDetails(neighboursConnDetails);
         return result;
     }
-    private synchronized void doPause() {
 
-        try {
-        wait();
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
-}
-
-    public synchronized void pause(){
-        isPaused = true;
-    }
-
-    public synchronized void resume(){
-        isPaused = false;
-        notifyAll();
-    }
-    public synchronized void stop(){
-        isStopped = true;
-        isRunning = false;
-    }
-
-    public synchronized boolean isStopped(){
-        return isStopped;
-    }
-
-    public synchronized boolean isPaused(){
-        return isPaused;
-    }
-
-    public synchronized boolean isRunning() {
-        return isRunning;
-    }
     private List<ConnectionDetails> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
         List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
         for (DeviceNeighbour neighbour : neighbours) {
