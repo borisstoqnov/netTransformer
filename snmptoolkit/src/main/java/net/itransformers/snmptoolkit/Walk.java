@@ -100,7 +100,7 @@ public class Walk {
         ObjectIdentifierValue oid = getLoader().getRootOid();
         Set<String> includesSet = new HashSet<String>(Arrays.asList(includes));
         Node rootNode = new Node(oid, null);
-         setSNMPTable(rootNode, parameters);
+        setSNMPTable(rootNode, parameters);
         fillTreeFromMib(rootNode);
         fillDoWalk(rootNode, includesSet);
         fillTreeFromSNMP(rootNode, parameters);
@@ -290,13 +290,22 @@ public class Walk {
         StringBuilder sb = new StringBuilder();
         sb.append("<?xml version=\"1.0\" ?>\n");
         sb.append("<root>\n");
-        printTreeAsXML(node, "", sb);
+        printTreeAsXML(node, "", sb,false);
+        sb.append("</root>");
+        logger.trace(sb.toString());
+        return sb.toString();
+    }
+    public static String printTreeAsXML(Node node,boolean oidFlag) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<?xml version=\"1.0\" ?>\n");
+        sb.append("<root>\n");
+        printTreeAsXML(node, "", sb,oidFlag);
         sb.append("</root>");
         logger.trace(sb.toString());
         return sb.toString();
     }
 
-    private static void printTreeAsXML(Node node, String tabs, StringBuilder sb) {
+    private static void printTreeAsXML(Node node, String tabs, StringBuilder sb, boolean oidFlag) {
         if (node == null) return;
         if (!node.isDoWalk()) return;
         final ObjectIdentifierValue objectIdentifierValue = node.getObjectIdentifierValue();
@@ -308,22 +317,32 @@ public class Walk {
             if (vb1 == null) return;
             final Variable variable = vb1.getVariable();
             final String vb = variable != null ? escapeForXML(variable.toString()) : "";
-            sb.append(String.format("%s<%s>", tabs, tagName));
+            if (oidFlag) {
+                sb.append(String.format("%s<%s oid=\"%s\">", tabs, tagName, objectIdentifierValue));
+            }else{
+                sb.append(String.format("%s<%s>", tabs, tagName));
+
+            }
             sb.append(vb);
             sb.append(String.format("</%s>", tagName));
             sb.append('\n');
             logger.trace(sb.toString());
         } else {
             if (node.getTable() != null) {
-                printNodeTableAsXML(node, tabs, sb);
+                printNodeTableAsXML(node, tabs, sb,oidFlag);
                 logger.trace(sb.toString());
 
             } else {
                 StringBuilder sb1 = new StringBuilder();
                 for (Node child : node.getChildren()) {
-                    printTreeAsXML(child, tabs + "\t", sb1);
+                    printTreeAsXML(child, tabs + "\t", sb1,oidFlag);
                 }
-                sb.append(String.format("%s<%s>", tabs, tagName));
+                if(oidFlag) {
+                    sb.append(String.format("%s<%s oid=\"%s\">", tabs, tagName, objectIdentifierValue));
+                }else{
+                    sb.append(String.format("%s<%s>", tabs, tagName,objectIdentifierValue));
+
+                }
                 sb.append('\n');
                 sb.append(sb1);
                 sb.append(String.format("%s</%s>", tabs, tagName));
@@ -337,15 +356,23 @@ public class Walk {
                 replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("'", "&apos;").replaceAll("\u001c","");
     }
 
-    private static void printNodeTableAsXML(Node node, String tabs, StringBuilder sb) {
+    private static void printNodeTableAsXML(Node node, String tabs, StringBuilder sb, boolean oidFlag) {
         String tagName = node.getObjectIdentifierValue().getName();
+        int i = 0;
         for (TableEvent tableEvent : node.getTable()) {
+            i++;
             StringBuilder sbTable = new StringBuilder();
             StringBuilder sbIndex = new StringBuilder();
             StringBuilder sbRows = new StringBuilder();
-            printTableIndexAsXML(node, tabs, sbIndex, tableEvent.getIndex());
-            printTableRowsAsXML(node, tabs, sbRows, tableEvent.getColumns());
-            sbTable.append(String.format("%s<%s>", tabs, tagName));
+            printTableIndexAsXML(node, tabs, sbIndex, tableEvent.getIndex(),i,oidFlag);
+            printTableRowsAsXML(node, tabs, sbRows, tableEvent.getColumns(),oidFlag);
+            if(oidFlag) {
+                sbTable.append(String.format("%s<%s oid=\"%s\">", tabs, tagName, node.getObjectIdentifierValue()));
+            }
+            else {
+                    sbTable.append(String.format("%s<%s>", tabs, tagName));
+
+                }
             sbTable.append('\n');
             sbTable.append(sbIndex); // append index
             sbTable.append(sbRows); // append rows
@@ -356,7 +383,7 @@ public class Walk {
         }
     }
 
-    private static void printTableRowsAsXML(Node node, String tabs, StringBuilder sb4, VariableBinding[] cols) {
+    private static void printTableRowsAsXML(Node node, String tabs, StringBuilder sb4, VariableBinding[] cols, boolean oidFlag) {
         if (cols == null) return;
         for (VariableBinding vb : cols) {
             if (vb == null) continue;
@@ -376,14 +403,18 @@ public class Walk {
             final Variable variable = vb.getVariable();
             if (variable == null) continue;
             final String var = escapeForXML(variable.toString());
-            sb4.append(String.format("\t%s<%s>", tabs, childTagName));
+            if(oidFlag) {
+                sb4.append(String.format("\t%s<%s oid=\"%s\">", tabs, childTagName, vb.getOid()));
+            }else{
+                sb4.append(String.format("\t%s<%s>", tabs, childTagName));
+            }
             sb4.append(var);
             sb4.append(String.format("</%s>", childTagName));
             sb4.append('\n');
         }
     }
 
-    private static void printTableIndexAsXML(Node node, String tabs, StringBuilder sb, OID indexOID) {
+    private static void printTableIndexAsXML(Node node, String tabs, StringBuilder sb, OID indexOID, int instanceIndex, boolean oidFlag) {
         if (node == null) return;
         final ObjectIdentifierValue objectIdentifierValue = node.getObjectIdentifierValue();
         if (objectIdentifierValue == null) return;
@@ -393,7 +424,8 @@ public class Walk {
         if (snmpObjectType == null) return;
         ArrayList indexes = snmpObjectType.getIndex();
         if(indexOID!=null){
-        sb.append(String.format("\t%s<instance>%s</instance>\n", tabs, indexOID));
+            StringBuffer instance = new StringBuffer();
+            StringBuffer instanceValues = new StringBuffer();
 
 
             if (indexes != null && indexes.size() > 0) {
@@ -403,19 +435,41 @@ public class Walk {
                         SnmpIndex index = (SnmpIndex) indexes.get(i);
                         String indexName = index.getValue().getName();
                         //Why do we need childbyName
+
+
                         final ObjectIdentifierValue childByName = objectIdentifierValue.getChildByName(indexName);
+                        final MibValueSymbol symbol = childByName.getSymbol();
+                        SnmpObjectType indexType = (SnmpObjectType) symbol.getType();
+                        MibType syntax = indexType.getSyntax();
+                        String syntaxString = syntax.getName();
+
                         if (childByName == null) {
                              OID indexVal = new OID(indexOID.getValue(), pos, 1);
-                             sb.append(String.format("\t%s<index name=\"%s\">%s</index>\n", tabs, indexName, indexVal));
+                             if(oidFlag){
+                                 sb.append(String.format("\t%s<index name=\"%s\" syntax=\"%s\" oid=\"%s\">%s</index>\n", tabs, indexName,syntaxString, index, indexVal.toString()));
+                             }else{
+                                 sb.append(String.format("\t%s<index name=\"%s\">%s</index>\n", tabs, indexName, indexVal.toString()));
+                             }
+
+
+                            if (i!=indexes.size()-1) {
+                                instance.append(indexName + ".");
+                                instanceValues.append(indexVal + ".");
+                            }else{
+                                instance.append(indexName);
+                                instanceValues.append(indexVal);
+
+                            }
 
                         }else{
-                            final MibValueSymbol symbol = childByName.getSymbol();
-                            SnmpObjectType indexType = (SnmpObjectType) symbol.getType();
-                            MibType syntax = indexType.getSyntax();
+//                            final MibValueSymbol symbol = childByName.getSymbol();
+//                            SnmpObjectType indexType = (SnmpObjectType) symbol.getType();
+//                            MibType syntax = indexType.getSyntax();
                             OID indexVal = new OID(indexOID.getValue(), pos, 1);
+//                            String syntaxString = syntax.getName();
                             boolean posIncremented = false;
                             if (syntax instanceof StringType) {
-                                if (syntax.getName().equals("OCTET STRING")) {
+                                if (syntaxString.equals("OCTET STRING")) {
                                     Constraint constraint = ((StringType) syntax).getConstraint();
                                     if (constraint instanceof SizeConstraint) {
                                         ArrayList list = ((SizeConstraint) constraint).getValues();
@@ -431,13 +485,28 @@ public class Walk {
                                                     pos += size;
                                                     posIncremented = true;
                                                 }
+                                            } else if (constraint1 instanceof ValueRangeConstraint){
+                                                new Object();
                                             }
                                         }
                                     }
+                                    indexVal = new OID(indexOID.getValue());
                                 }
                             }
+                            if(oidFlag) {
+                                sb.append(String.format("\t%s<index name=\"%s\" syntax=\"%s\" oid=\"%s\">%s</index>\n", tabs, indexName, syntaxString, index, indexVal.toString()));
+                            }else {
+                                sb.append(String.format("\t%s<index name=\"%s\">%s</index>\n", tabs, indexName, indexVal.toString()));
+                            }
+                            if (i!=indexes.size()-1) {
+                                instance.append(indexName + ".");
+                                instanceValues.append(indexVal + ".");
+                            }else{
+                                instance.append(indexName);
+                                instanceValues.append(indexVal);
 
-                            sb.append(String.format("\t%s<index name=\"%s\">%s</index>\n", tabs, indexName, indexVal));
+                            }
+
                             if (!posIncremented) {
                                 pos++;
                             }
@@ -448,11 +517,14 @@ public class Walk {
                     }
                 }
             }
+            sb.append(String.format("\t%s<instance instanceIndex=\"%s\" instanceName=\"%s\">%s</instance>\n", tabs,instanceIndex, instance.toString(), instanceValues.toString()));
+
         }
     }
 
     public static void main(String[] args) throws IOException, MibLoaderException, XPathExpressionException, SAXException, ParserConfigurationException {
         LogFactory.setLogFactory(new Log4jLogFactory());
+        boolean oidFlag = true;
         Map<CmdOptions, String> opts;
         try {
             opts = CmdParser.parseCmd(args);
@@ -492,7 +564,7 @@ public class Walk {
             includesList.add(tokenizer.nextToken());
         }
         Node root = walker.walk(includesList.toArray(new String[includesList.size()]), parameters);
-        String xml = Walk.printTreeAsXML(root);
+        String xml = Walk.printTreeAsXML(root, oidFlag);
 
         finalXmlBuffer.append(xml);
         outputXml(opts, finalXmlBuffer, finalXmlBuffer.toString());
