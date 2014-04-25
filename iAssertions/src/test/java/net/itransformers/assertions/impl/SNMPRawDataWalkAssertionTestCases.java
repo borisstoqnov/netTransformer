@@ -26,7 +26,7 @@ public class SNMPRawDataWalkAssertionTestCases {
         FileInputStream is = new FileInputStream("snmptoolkit/src/test/java/resources/aptilo.xml");
         InputSource inputSource = new InputSource(is);
         AssertionResult assertionResult = assertion.doAssert(inputSource);
-        Assert.assertEquals(AssertionType.SUCCESS, assertionResult.getType());
+        Assert.assertEquals(assertionResult.toString(),AssertionType.SUCCESS, assertionResult.getType());
     }
     @Test
     public void AssertSnmpWalkJnxUtilCounter32Entry() throws FileNotFoundException {
