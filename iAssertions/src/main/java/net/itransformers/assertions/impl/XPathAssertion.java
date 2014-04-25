@@ -89,14 +89,18 @@ public class XPathAssertion implements Assertion {
             Document xmlDocument = builder.parse(source);
             String actualValue = xPathExpression.evaluate(xmlDocument, XPathConstants.STRING).toString();
             if (expectedValue == null && actualValue == null) {
-                return new AssertionResult(assertionName, AssertionType.SUCCESS);
+                return new AssertionResult(assertionName, AssertionType.SUCCESS,
+                        String.format("Expected value: null matched"));
             } else if (expectedValue == null){
-                return new AssertionResult(assertionName, AssertionType.FAILED);
+                return new AssertionResult(assertionName, AssertionType.FAILED,
+                        String.format("Expected value: null, does not match actual value '%s'", actualValue));
             }
             if (expectedValue.equals(actualValue)){
-                return new AssertionResult(assertionName, AssertionType.SUCCESS);
+                return new AssertionResult(assertionName, AssertionType.SUCCESS,
+                        String.format("Expected value: '%s', matches actual value", expectedValue));
             } else {
-                return new AssertionResult(assertionName, AssertionType.FAILED);
+                return new AssertionResult(assertionName, AssertionType.FAILED,
+                        String.format("Expected value: '%s', does not match actual value '%s'", expectedValue, actualValue));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
