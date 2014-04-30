@@ -188,7 +188,7 @@ public class Walk {
          };
 
          ResponseEvent  responseEvent;
-         responseEvent = tutils.createRow(t, rowStatusOid,indexOid, (VariableBinding[]) rowValue);
+         responseEvent = tutils.createRow(t, rowStatusOid,indexOid, rowValue);
          logger.info("CreateRow response: " + responseEvent.getResponse());
     }
     private void fillTreeFromSNMP(Snmp snmp, PDUFactory pduFactory, Node node, TableUtils tutils, Target t) throws IOException {
@@ -461,11 +461,11 @@ public class Walk {
 
                             }
 
-                        }else{
+                        }   else{
 //                            final MibValueSymbol symbol = childByName.getSymbol();
 //                            SnmpObjectType indexType = (SnmpObjectType) symbol.getType();
 //                            MibType syntax = indexType.getSyntax();
-                            OID indexVal = new OID(indexOID.getValue(), pos, 1);
+                            String indexVal = new OID(indexOID.getValue(), pos, 1).toString();
 //                            String syntaxString = syntax.getName();
                             boolean posIncremented = false;
                             if (syntax instanceof StringType) {
@@ -481,22 +481,29 @@ public class Walk {
                                                     NumberValue numVal = (NumberValue) val;
                                                     Number number = (Number) numVal.toObject();
                                                     int size = number.intValue();
-                                                    indexVal = new OID(indexOID.getValue(), pos, size);
+                                                    indexVal = new OID(indexOID.getValue(), pos, size).toString();
                                                     pos += size;
                                                     posIncremented = true;
                                                 }
                                             } else if (constraint1 instanceof ValueRangeConstraint){
-                                                new Object();
+//                                                if (syntax.getTag())
+                                                indexVal = OctetString.fromString(new OID(indexOID.getValue(), 1, indexOID.getValue().length -1 ).toString(),'.',10).toString();
+                                            } else {
+                                                indexVal = new OID(indexOID.getValue()).toString();
                                             }
+                                        } else {
+                                            indexVal = new OID(indexOID.getValue()).toString();
                                         }
+                                    } else {
+                                        indexVal = new OID(indexOID.getValue()).toString();
                                     }
-                                    indexVal = new OID(indexOID.getValue());
+
                                 }
                             }
                             if(oidFlag) {
-                                sb.append(String.format("\t%s<index name=\"%s\" syntax=\"%s\" oid=\"%s\">%s</index>\n", tabs, indexName, syntaxString, index, indexVal.toString()));
+                                sb.append(String.format("\t%s<index name=\"%s\" syntax=\"%s\" oid=\"%s\">%s</index>\n", tabs, indexName, syntaxString, index, indexVal));
                             }else {
-                                sb.append(String.format("\t%s<index name=\"%s\">%s</index>\n", tabs, indexName, indexVal.toString()));
+                                sb.append(String.format("\t%s<index name=\"%s\">%s</index>\n", tabs, indexName, indexVal));
                             }
                             if (i!=indexes.size()-1) {
                                 instance.append(indexName + ".");
@@ -567,13 +574,13 @@ public class Walk {
         String xml = Walk.printTreeAsXML(root, oidFlag);
 
         finalXmlBuffer.append(xml);
-        outputXml(opts, finalXmlBuffer, finalXmlBuffer.toString());
+        outputXml(opts, finalXmlBuffer.toString());
     }
 
-    private static void outputXml(Map<CmdOptions, String> opts, StringBuffer finalXmlBuffer, String finalXml) throws FileNotFoundException {
+    private static void outputXml(Map<CmdOptions, String> opts, String finalXml) throws FileNotFoundException {
         String outputFile = opts.get(CmdOptions.OUTPUT_FILE);
         if (outputFile == null) {
-            System.out.println(finalXmlBuffer.toString());
+            System.out.println(finalXml);
         } else {
             PrintWriter writer = new PrintWriter(outputFile);
             writer.print(finalXml);
@@ -582,7 +589,7 @@ public class Walk {
         }
     }
 
-    private static boolean fillParams(Map<CmdOptions, String> opts, Properties parameters) {
+    static boolean fillParams(Map<CmdOptions, String> opts, Properties parameters) {
 
 
         String address = opts.get(CmdOptions.ADDRESS);
