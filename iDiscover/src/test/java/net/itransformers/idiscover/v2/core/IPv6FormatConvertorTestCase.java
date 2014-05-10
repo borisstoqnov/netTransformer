@@ -34,4 +34,13 @@ public class IPv6FormatConvertorTestCase {
         Assert.assertEquals("IPv6 Addresses are different",newS1,"10:FE80::C00:FF:FE00:6500");
 
     }
+    @Test
+    public void simpleConversion4(){
+        final String oldS = "2.10.20.1.4.70.1F.B.A.BD.0.0.0.5.0.13.0.0";
+
+        String newS1 = IPv6Convertor(oldS);
+        Assert.assertEquals("IPv6 Addresses are different",newS1,"0210:2001:0470:1F0B:0ABD:0000:0005:0013:0000");
+
+    }
+
 }

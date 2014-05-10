@@ -24,6 +24,7 @@ import net.itransformers.snmptoolkit.messagedispacher.MessageDispatcherAbstractF
 import net.itransformers.snmptoolkit.transport.TransportMappingAbstractFactory;
 import net.itransformers.snmptoolkit.transport.UdpTransportMappingFactory;
 import net.percederberg.mibble.*;
+import net.percederberg.mibble.snmp.SnmpAccess;
 import net.percederberg.mibble.snmp.SnmpIndex;
 import net.percederberg.mibble.snmp.SnmpObjectType;
 import net.percederberg.mibble.type.*;
@@ -61,16 +62,16 @@ public class Walk {
     private MessageDispatcherAbstractFactory messageDispatcherFactory;
 
     public Walk(MibLoader loader, TransportMappingAbstractFactory transportFactory, MessageDispatcherAbstractFactory messageDispatcherFactory) throws IOException, MibLoaderException {
-        this (new MibLoaderHolder(loader), transportFactory, messageDispatcherFactory);
+        this(new MibLoaderHolder(loader), transportFactory, messageDispatcherFactory);
         final InetAddress localHost = InetAddress.getLocalHost();
-        logger.info("Local address: "+localHost);
+        logger.info("Local address: " + localHost);
         localAddress = new UdpAddress(localHost, 0);
     }
 
     public Walk(File mibDir, boolean failOnError, TransportMappingAbstractFactory transportFactory, MessageDispatcherAbstractFactory messageDispatcherFactory) throws IOException, MibLoaderException {
-        this (new MibLoaderHolder(mibDir, failOnError), transportFactory, messageDispatcherFactory);
+        this(new MibLoaderHolder(mibDir, failOnError), transportFactory, messageDispatcherFactory);
         final InetAddress localHost = InetAddress.getLocalHost();
-        logger.info("Local address: "+localHost);
+        logger.info("Local address: " + localHost);
         localAddress = new UdpAddress("0.0.0.0/0");
 //        localAddress = new UdpAddress(localHost, 0);
     }
@@ -78,7 +79,7 @@ public class Walk {
     public Walk(MibLoaderHolder loader, TransportMappingAbstractFactory transportFactory, MessageDispatcherAbstractFactory messageDispatcherFactory) throws IOException {
         this.loader = loader;
         final InetAddress localHost = InetAddress.getLocalHost();
-        logger.info("Local address: "+localHost);
+        logger.info("Local address: " + localHost);
 //        localAddress = new UdpAddress(localHost, 0);
         localAddress = new UdpAddress("0.0.0.0/0");
         this.transportFactory = transportFactory;
@@ -86,9 +87,9 @@ public class Walk {
     }
 
     public Walk(String[] mibFiles, TransportMappingAbstractFactory transportFactory, MessageDispatcherAbstractFactory messageDispatcherFactory) throws IOException, MibLoaderException {
-        this (new MibLoaderHolder(mibFiles), transportFactory, messageDispatcherFactory);
+        this(new MibLoaderHolder(mibFiles), transportFactory, messageDispatcherFactory);
         final InetAddress localHost = InetAddress.getLocalHost();
-        logger.info("Local address: "+localHost);
+        logger.info("Local address: " + localHost);
         localAddress = new UdpAddress(localHost, 0);
     }
 
@@ -125,6 +126,7 @@ public class Walk {
             snmp.close();
         }
     }
+
     private void setSNMPTable(Node root, Map parameters) throws IOException {
         CounterSupport.getInstance().addCounterListener(new DefaultCounterListener());
 //         AbstractTransportMapping transport = new DefaultUdpTransportMapping(localAddress);
@@ -142,9 +144,10 @@ public class Walk {
             snmp.close();
         }
     }
+
     private void createTableRow(Snmp snmp, PDUFactory pduFactory, Node node, TableUtils tutils, Target t) throws IOException {
-           OID rowStatusOid = new OID("1.3.6.1.2.1.80.1.2.1.23");
-         OID indexOid = new OID("1");
+        OID rowStatusOid = new OID("1.3.6.1.2.1.80.1.2.1.23");
+        OID indexOid = new OID("1");
 //         VariableBinding[] rowValue = new VariableBinding[]{
 //                 new VariableBinding(new OID("1.3.6.1.4.1.9.9.42.1.2.1.1.2"),
 //                 new OctetString("")),
@@ -166,31 +169,32 @@ public class Walk {
 //new OctetString(""))
 //         };
 
-                VariableBinding[] rowValue = new VariableBinding[]{
-                   //pingCtlRowStatus
-                 new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.23.1"),new Integer32(1)),
-                     //pingCtlTargetAddress
-                 new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.4.1"),new OctetString("4.2.2.2")),
-                        //pingCtlTargetAddressType
-                 new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.3.1"),new Integer32(1)),
+        VariableBinding[] rowValue = new VariableBinding[]{
+                //pingCtlRowStatus
+                new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.23.1"), new Integer32(1)),
+                //pingCtlTargetAddress
+                new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.4.1"), new OctetString("4.2.2.2")),
+                //pingCtlTargetAddressType
+                new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.3.1"), new Integer32(1)),
 //                        pingCtlProbeCount
-                 new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.7.1"),new Integer32(3)),
-                   //pingCtlDataSize
-                 new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.5.1"),new Integer32(64)),
-                   //pingCtlFrequency
-                 new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.10.1"), new Integer32(1)),
-                    //pingCtlMaxRows
-                 new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.11.1"),new Integer32(2)),
-                    //pingCtlAdminStatus    1.3.6.1.2.1.80.1.2.1.8
-                 new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.8.1"),new Integer32(1)),
+                new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.7.1"), new Integer32(3)),
+                //pingCtlDataSize
+                new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.5.1"), new Integer32(64)),
+                //pingCtlFrequency
+                new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.10.1"), new Integer32(1)),
+                //pingCtlMaxRows
+                new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.11.1"), new Integer32(2)),
+                //pingCtlAdminStatus    1.3.6.1.2.1.80.1.2.1.8
+                new VariableBinding(new OID(".1.3.6.1.2.1.80.1.2.1.8.1"), new Integer32(1)),
 
-                 new VariableBinding(new OID(".1.3.6.1.2.1.80.1.1.0"),new OctetString("1"))
-         };
+                new VariableBinding(new OID(".1.3.6.1.2.1.80.1.1.0"), new OctetString("1"))
+        };
 
-         ResponseEvent  responseEvent;
-         responseEvent = tutils.createRow(t, rowStatusOid,indexOid, rowValue);
-         logger.info("CreateRow response: " + responseEvent.getResponse());
+        ResponseEvent responseEvent;
+        responseEvent = tutils.createRow(t, rowStatusOid, indexOid, rowValue);
+        logger.info("CreateRow response: " + responseEvent.getResponse());
     }
+
     private void fillTreeFromSNMP(Snmp snmp, PDUFactory pduFactory, Node node, TableUtils tutils, Target t) throws IOException {
         if (!node.isDoWalk()) return;
         ObjectIdentifierValue oid = node.getObjectIdentifierValue();
@@ -290,16 +294,17 @@ public class Walk {
         StringBuilder sb = new StringBuilder();
         sb.append("<?xml version=\"1.0\" ?>\n");
         sb.append("<root>\n");
-        printTreeAsXML(node, "", sb,false);
+        printTreeAsXML(node, "", sb, false);
         sb.append("</root>");
         logger.trace(sb.toString());
         return sb.toString();
     }
-    public static String printTreeAsXML(Node node,boolean oidFlag) {
+
+    public static String printTreeAsXML(Node node, boolean oidFlag) {
         StringBuilder sb = new StringBuilder();
         sb.append("<?xml version=\"1.0\" ?>\n");
         sb.append("<root>\n");
-        printTreeAsXML(node, "", sb,oidFlag);
+        printTreeAsXML(node, "", sb, oidFlag);
         sb.append("</root>");
         logger.trace(sb.toString());
         return sb.toString();
@@ -311,7 +316,7 @@ public class Walk {
         final ObjectIdentifierValue objectIdentifierValue = node.getObjectIdentifierValue();
         if (objectIdentifierValue == null) return;
         String tagName = objectIdentifierValue.getName();
-        if (node.getChildren() == null ) return;
+        if (node.getChildren() == null) return;
         if (node.getChildren().size() == 0) {
             final VariableBinding vb1 = node.getVb();
             if (vb1 == null) return;
@@ -319,7 +324,7 @@ public class Walk {
             final String vb = variable != null ? escapeForXML(variable.toString()) : "";
             if (oidFlag) {
                 sb.append(String.format("%s<%s oid=\"%s\">", tabs, tagName, objectIdentifierValue));
-            }else{
+            } else {
                 sb.append(String.format("%s<%s>", tabs, tagName));
 
             }
@@ -329,18 +334,18 @@ public class Walk {
             logger.trace(sb.toString());
         } else {
             if (node.getTable() != null) {
-                printNodeTableAsXML(node, tabs, sb,oidFlag);
+                printNodeTableAsXML(node, tabs, sb, oidFlag);
                 logger.trace(sb.toString());
 
             } else {
                 StringBuilder sb1 = new StringBuilder();
                 for (Node child : node.getChildren()) {
-                    printTreeAsXML(child, tabs + "\t", sb1,oidFlag);
+                    printTreeAsXML(child, tabs + "\t", sb1, oidFlag);
                 }
-                if(oidFlag) {
+                if (oidFlag) {
                     sb.append(String.format("%s<%s oid=\"%s\">", tabs, tagName, objectIdentifierValue));
-                }else{
-                    sb.append(String.format("%s<%s>", tabs, tagName,objectIdentifierValue));
+                } else {
+                    sb.append(String.format("%s<%s>", tabs, tagName, objectIdentifierValue));
 
                 }
                 sb.append('\n');
@@ -353,7 +358,7 @@ public class Walk {
 
     static String escapeForXML(String s) {
         return s.replaceAll("&", "&amp;").replaceAll("\"", "&quot;").
-                replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("'", "&apos;").replaceAll("\u001c","");
+                replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("'", "&apos;").replaceAll("\u001c", "");
     }
 
     private static void printNodeTableAsXML(Node node, String tabs, StringBuilder sb, boolean oidFlag) {
@@ -364,22 +369,21 @@ public class Walk {
             StringBuilder sbTable = new StringBuilder();
             StringBuilder sbIndex = new StringBuilder();
             StringBuilder sbRows = new StringBuilder();
-            printTableIndexAsXML(node, tabs, sbIndex, tableEvent.getIndex(),i,oidFlag);
-            printTableRowsAsXML(node, tabs, sbRows, tableEvent.getColumns(),oidFlag);
-            if(oidFlag) {
-                sbTable.append(String.format("%s<%s oid=\"%s\">", tabs, tagName, node.getObjectIdentifierValue()));
-            }
-            else {
-                    sbTable.append(String.format("%s<%s>", tabs, tagName));
+            printTableIndexAsXML(node, tabs, sbIndex, tableEvent.getIndex(), i, oidFlag);
+            printTableRowsAsXML(node, tabs, sbRows, tableEvent.getColumns(), oidFlag);
+            if (oidFlag) {
+                sbTable.append(String.format("%s<%s oid=\"%s\" syntax=\"%s\" >", tabs, tagName, node.getObjectIdentifierValue(), node.getObjectIdentifierValue().getSymbol().getType().getName()));
+            } else {
+                sbTable.append(String.format("%s<%s>", tabs, tagName));
 
-                }
+            }
             sbTable.append('\n');
             sbTable.append(sbIndex); // append index
             sbTable.append(sbRows); // append rows
             sbTable.append(String.format("%s</%s>", tabs, tagName));
             sbTable.append('\n');
             sb.append(sbTable);
-           // logger.debug(sbTable.toString());
+            // logger.debug(sbTable.toString());
         }
     }
 
@@ -395,17 +399,30 @@ public class Walk {
                     if (vb.getOid() != null && vb.getOid().startsWith(new OID(objectIdentifierValue.toString()))) {
                         childTagName = objectIdentifierValue.getName();
                     }
-                } catch (RuntimeException rte){
-                    logger.error(rte.getMessage(),rte);
+                } catch (RuntimeException rte) {
+                    logger.error(rte.getMessage(), rte);
                 }
             }
             if (childTagName == null) continue;
             final Variable variable = vb.getVariable();
             if (variable == null) continue;
             final String var = escapeForXML(variable.toString());
-            if(oidFlag) {
-                sb4.append(String.format("\t%s<%s oid=\"%s\">", tabs, childTagName, vb.getOid()));
-            }else{
+            if (oidFlag) {
+                ObjectIdentifierValue objectIdentifierValue = node.getObjectIdentifierValue();
+                final MibValueSymbol mibValueSymbol = objectIdentifierValue.getSymbol();
+                if (mibValueSymbol == null)
+                    return;
+                SnmpObjectType snmpObjectType = (SnmpObjectType) mibValueSymbol.getType();
+                final ObjectIdentifierValue childByName = objectIdentifierValue.getChildByName(childTagName);
+                final MibValueSymbol symbol = childByName.getSymbol();
+                SnmpObjectType indexType = (SnmpObjectType) symbol.getType();
+                MibType syntax = indexType.getSyntax();
+                String syntaxString = syntax.getName();
+
+                SnmpAccess access = indexType.getAccess();
+
+                sb4.append(String.format("\t%s<%s oid=\"%s\" syntax=\"%s\" access=\"%s\">", tabs, childTagName, vb.getOid(), syntaxString, access.toString()));
+            } else {
                 sb4.append(String.format("\t%s<%s>", tabs, childTagName));
             }
             sb4.append(var);
@@ -423,7 +440,7 @@ public class Walk {
         SnmpObjectType snmpObjectType = (SnmpObjectType) mibValueSymbol.getType();
         if (snmpObjectType == null) return;
         ArrayList indexes = snmpObjectType.getIndex();
-        if(indexOID!=null){
+        if (indexOID != null) {
             StringBuffer instance = new StringBuffer();
             StringBuffer instanceValues = new StringBuffer();
 
@@ -434,39 +451,24 @@ public class Walk {
                     try {
                         SnmpIndex index = (SnmpIndex) indexes.get(i);
                         String indexName = index.getValue().getName();
-                        //Why do we need childbyName
+                        //Why do we need childbyName ! To determine the syntax... But there are cases in which this does not work.
 
 
                         final ObjectIdentifierValue childByName = objectIdentifierValue.getChildByName(indexName);
-                        final MibValueSymbol symbol = childByName.getSymbol();
-                        SnmpObjectType indexType = (SnmpObjectType) symbol.getType();
-                        MibType syntax = indexType.getSyntax();
-                        String syntaxString = syntax.getName();
-
-                        if (childByName == null) {
-                             OID indexVal = new OID(indexOID.getValue(), pos, 1);
-                             if(oidFlag){
-                                 sb.append(String.format("\t%s<index name=\"%s\" syntax=\"%s\" oid=\"%s\">%s</index>\n", tabs, indexName,syntaxString, index, indexVal.toString()));
-                             }else{
-                                 sb.append(String.format("\t%s<index name=\"%s\">%s</index>\n", tabs, indexName, indexVal.toString()));
-                             }
+                        MibValueSymbol symbol = null;
+                        String syntaxString = "UNKNOWN";
+                        String accessString = "UNKNOWN";
+                        if (childByName != null) {
 
 
-                            if (i!=indexes.size()-1) {
-                                instance.append(indexName + ".");
-                                instanceValues.append(indexVal + ".");
-                            }else{
-                                instance.append(indexName);
-                                instanceValues.append(indexVal);
+                            symbol = childByName.getSymbol();
+                            SnmpObjectType indexType = (SnmpObjectType) symbol.getType();
+                            MibType syntax = indexType.getSyntax();
+                            syntaxString = syntax.getName();
 
-                            }
-
-                        }   else{
-//                            final MibValueSymbol symbol = childByName.getSymbol();
-//                            SnmpObjectType indexType = (SnmpObjectType) symbol.getType();
-//                            MibType syntax = indexType.getSyntax();
+                            SnmpAccess access = indexType.getAccess();
+                            accessString = access.toString();
                             String indexVal = new OID(indexOID.getValue(), pos, 1).toString();
-//                            String syntaxString = syntax.getName();
                             boolean posIncremented = false;
                             if (syntax instanceof StringType) {
                                 if (syntaxString.equals("OCTET STRING")) {
@@ -485,9 +487,9 @@ public class Walk {
                                                     pos += size;
                                                     posIncremented = true;
                                                 }
-                                            } else if (constraint1 instanceof ValueRangeConstraint){
+                                            } else if (constraint1 instanceof ValueRangeConstraint) {
 //                                                if (syntax.getTag())
-                                                indexVal = OctetString.fromString(new OID(indexOID.getValue(), 1, indexOID.getValue().length -1 ).toString(),'.',10).toString();
+                                                indexVal = OctetString.fromString(new OID(indexOID.getValue(), 1, indexOID.getValue().length - 1).toString(), '.', 10).toString();
                                             } else {
                                                 indexVal = new OID(indexOID.getValue()).toString();
                                             }
@@ -500,15 +502,15 @@ public class Walk {
 
                                 }
                             }
-                            if(oidFlag) {
-                                sb.append(String.format("\t%s<index name=\"%s\" syntax=\"%s\" oid=\"%s\">%s</index>\n", tabs, indexName, syntaxString, index, indexVal));
-                            }else {
+                            if (oidFlag) {
+                                sb.append(String.format("\t%s<index name=\"%s\" syntax=\"%s\" oid=\"%s\" access=\"%s\">%s</index>\n", tabs, indexName, syntaxString, index, accessString, indexVal));
+                            } else {
                                 sb.append(String.format("\t%s<index name=\"%s\">%s</index>\n", tabs, indexName, indexVal));
                             }
-                            if (i!=indexes.size()-1) {
+                            if (i != indexes.size() - 1) {
                                 instance.append(indexName + ".");
                                 instanceValues.append(indexVal + ".");
-                            }else{
+                            } else {
                                 instance.append(indexName);
                                 instanceValues.append(indexVal);
 
@@ -517,14 +519,95 @@ public class Walk {
                             if (!posIncremented) {
                                 pos++;
                             }
+                        } else {
+                            OID indexVal = new OID(indexOID.getValue(), pos, 1);
+                            if (oidFlag) {
+                                sb.append(String.format("\t%s<index name=\"%s\" syntax=\"%s\" oid=\"%s\" access=\"%s\">%s</index>\n", tabs, indexName, syntaxString, index, accessString, indexVal.toString()));
+                            } else {
+                                sb.append(String.format("\t%s<index name=\"%s\">%s</index>\n", tabs, indexName, indexVal.toString()));
+                            }
+
+
+                            if (i != indexes.size() - 1) {
+                                instance.append(indexName + ".");
+                                instanceValues.append(indexVal + ".");
+                            } else {
+                                instance.append(indexName);
+                                instanceValues.append(indexVal);
+
+                            }
+
                         }
+
+
+//                        if (childByName == null) {
+//
+//
+//                        } else {
+////                            final MibValueSymbol symbol = childByName.getSymbol();
+////                            SnmpObjectType indexType = (SnmpObjectType) symbol.getType();
+////                            MibType syntax = indexType.getSyntax();
+//                            String indexVal = new OID(indexOID.getValue(), pos, 1).toString();
+////                            String syntaxString = syntax.getName();
+//                            boolean posIncremented = false;
+//                            if (syntax instanceof StringType) {
+//                                if (syntaxString.equals("OCTET STRING")) {
+//                                    Constraint constraint = ((StringType) syntax).getConstraint();
+//                                    if (constraint instanceof SizeConstraint) {
+//                                        ArrayList list = ((SizeConstraint) constraint).getValues();
+//                                        if (list.size() == 1) {
+//                                            Constraint constraint1 = (Constraint) list.get(0);
+//                                            if (constraint1 instanceof ValueConstraint) {
+//                                                MibValue val = ((ValueConstraint) constraint1).getValue();
+//                                                if (val instanceof NumberValue) {
+//                                                    NumberValue numVal = (NumberValue) val;
+//                                                    Number number = (Number) numVal.toObject();
+//                                                    int size = number.intValue();
+//                                                    indexVal = new OID(indexOID.getValue(), pos, size).toString();
+//                                                    pos += size;
+//                                                    posIncremented = true;
+//                                                }
+//                                            } else if (constraint1 instanceof ValueRangeConstraint) {
+////                                                if (syntax.getTag())
+//                                                indexVal = OctetString.fromString(new OID(indexOID.getValue(), 1, indexOID.getValue().length - 1).toString(), '.', 10).toString();
+//                                            } else {
+//                                                indexVal = new OID(indexOID.getValue()).toString();
+//                                            }
+//                                        } else {
+//                                            indexVal = new OID(indexOID.getValue()).toString();
+//                                        }
+//                                    } else {
+//                                        indexVal = new OID(indexOID.getValue()).toString();
+//                                    }
+//
+//                                }
+//                            }
+//                            if (oidFlag) {
+//                                sb.append(String.format("\t%s<index name=\"%s\" syntax=\"%s\" oid=\"%s\" access=\"%s\">%s</index>\n", tabs, indexName, syntaxString, index, access.toString(), indexVal));
+//                            } else {
+//                                sb.append(String.format("\t%s<index name=\"%s\">%s</index>\n", tabs, indexName, indexVal));
+//                            }
+//                            if (i != indexes.size() - 1) {
+//                                instance.append(indexName + ".");
+//                                instanceValues.append(indexVal + ".");
+//                            } else {
+//                                instance.append(indexName);
+//                                instanceValues.append(indexVal);
+//
+//                            }
+//
+//                            if (!posIncremented) {
+//                                pos++;
+//                            }
+//                        }
+
                     } catch (RuntimeException e) {
                         logger.trace(sb.toString());
-                        logger.error(e.getMessage(),e);
+                        logger.error(e.getMessage(), e);
                     }
                 }
             }
-            sb.append(String.format("\t%s<instance instanceIndex=\"%s\" instanceName=\"%s\">%s</instance>\n", tabs,instanceIndex, instance.toString(), instanceValues.toString()));
+            sb.append(String.format("\t%s<instance instanceIndex=\"%s\" instanceName=\"%s\">%s</instance>\n", tabs, instanceIndex, instance.toString(), instanceValues.toString()));
 
         }
     }

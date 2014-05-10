@@ -58,7 +58,10 @@ public class OpenProjectMenuHandler implements ActionListener {
             ImageIcon imageIcon;
             {
                 final URL resource = getClass().getResource("/images/metro_switch_medium_small.png");
-                imageIcon = new ImageIcon(resource);
+                if (resource!=null){
+                    imageIcon = new ImageIcon(resource);
+                }
+
 
             }
             @Override
