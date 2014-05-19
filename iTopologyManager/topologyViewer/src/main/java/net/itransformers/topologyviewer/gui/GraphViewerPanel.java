@@ -534,7 +534,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         reload.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    graphmlLoader.loadGraphml(graphmlDir);
+                    graphmlLoader.loadGraphml();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
@@ -631,8 +631,10 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         final Map<String, FilterType> filterName2FilterType = new HashMap<String, FilterType>();
 
         for (FilterType filter : filters) {
-            filtersCombo.addItem(filter.getName());
-            filterName2FilterType.put(filter.getName(), filter);
+            G graph = transformGraph(filter, Integer.valueOf(viewerConfig.getHops().getSelected()), null);
+            int size = graph.getVertices().size();
+            filtersCombo.addItem(filter.getName()+ " ("+size+")");
+            filterName2FilterType.put(filter.getName()+ " ("+size+")", filter);
         }
         filtersCombo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -658,7 +660,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         applyFilter(filter, hops, null);
     }
 
-    private void applyFilter(final FilterType filter, final Integer hops, final Set<String> pickedVertexes) {
+    private G transformGraph(final FilterType filter, final Integer hops, final Set<String> pickedVertexes){
         final Map<String, GraphMLMetadata<String>> edgeMetadatas1 = graphmlLoader.getEdgeMetadatas();
         EdgePredicateFilter<String, String> edgeFilter = EdgeFilterFactory.createEdgeFilter(filter, edgeMetadatas1);
         final Graph<String, String> graph1 = edgeFilter.transform(entireGraph);
@@ -672,30 +674,16 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
                 set.retainAll(pickedVertexes);
             }
         }
-        KNeighborhoodFilter<String, String> f = new KNeighborhoodFilter<String, String>(set, hops == null ? 0 : hops, KNeighborhoodFilter.EdgeType.IN_OUT);
-        currentGraph = (G) f.transform(graph2);
-
-        vv.setGraphLayout(createLayout(currentGraph, layout));
-
+        KNeighborhoodFilter<String, String> f = new KNeighborhoodFilter<String, String>(set, hops, KNeighborhoodFilter.EdgeType.IN_OUT);
+        return (G) f.transform(graph2);
     }
 
-    private void applyNodeFilter(final FilterType filter, final Integer hops, final Set<String> pickedVertexes) {
-        final Map<String, GraphMLMetadata<String>> edgeMetadatas1 = graphmlLoader.getEdgeMetadatas();
-        EdgePredicateFilter<String, String> edgeFilter = EdgeFilterFactory.createEdgeFilter(filter, edgeMetadatas1);
-        final Graph<String, String> graph1 = edgeFilter.transform(entireGraph);
-        VertexPredicateFilter<String, String> filterV = VertexFilterFactory.createVertexFilter(filter, graphmlLoader.getVertexMetadatas(), graph1);
-
-        G graph2 = (G) filterV.transform(graph1);
-        HashSet<String> set = new HashSet<String>(graph2.getVertices());
-        if (pickedVertexes != null) {
-            set.retainAll(pickedVertexes);
-        }
-        KNeighborhoodFilter<String, String> f = new KNeighborhoodFilter<String, String>(set, hops, KNeighborhoodFilter.EdgeType.IN_OUT);
-        currentGraph = (G) f.transform(graph2);
+    private void applyFilter(final FilterType filter, Integer hops, final Set<String> pickedVertexes) {
+        hops = hops == null ? 0 : hops;
+        currentGraph = transformGraph(filter, hops, pickedVertexes);
 
         vv.setGraphLayout(createLayout(currentGraph, layout));
-        vv.repaint();
-        vv.setDoubleBuffered(true);
+
     }
 
     public void changeLayout() {

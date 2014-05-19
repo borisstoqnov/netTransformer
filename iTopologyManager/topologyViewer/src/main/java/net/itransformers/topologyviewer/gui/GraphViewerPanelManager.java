@@ -80,15 +80,17 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
         return new GraphViewerPanel<G>(frame, viewerConfig, graphmlLoader, iconMapLoader, edgeStrokeMapLoader, edgeColorMapLoader, entireGraph, projectPath, deviceXmlPath, versionDir, graphmlFileName, initialNode,layout);
     }
 
-    public void init() throws JAXBException, ParserConfigurationException, SAXException, IOException {
+    public void init() throws Exception {
         iconMapLoader = new IconMapLoader(viewerConfig);
         edgeStrokeMapLoader = new EdgeStrokeMapLoader(viewerConfig);
         edgeColorMapLoader = new EdgeColorMapLoader(viewerConfig);
-        graphmlLoader = new GraphmlLoader<G>(entireGraph, factory);
+        // TODO make factory
+        graphmlLoader = new FileSystemGraphmlLoader<G>(entireGraph, factory, graphmlFileName);
+
         graphmlLoader.addGraphmlLoaderListener(iconMapLoader);
         graphmlLoader.addGraphmlLoaderListener(edgeStrokeMapLoader);
         graphmlLoader.addGraphmlLoaderListener(edgeColorMapLoader);
-        graphmlLoader.loadGraphml(graphmlFileName);
+        graphmlLoader.loadGraphml();
     }
 
     public void createAndAddViewerPanel() {
