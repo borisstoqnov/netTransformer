@@ -70,15 +70,15 @@
             <version>2.0.1</version>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>org.neo4j.app</groupId>-->
+            <!--<artifactId>neo4j-server</artifactId>-->
+            <!--<version>1.8.M07</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.neo4j.app</groupId>
             <artifactId>neo4j-server</artifactId>
-            <version>1.8.M07</version>
-        </dependency>
-        <dependency>
-            <groupId>org.neo4j.app</groupId>
-            <artifactId>neo4j-server</artifactId>
-            <classifier>static-web</classifier>
+            <!--<classifier>static-web</classifier>-->
             <version>1.8.M07</version>
             <exclusions>
                 <exclusion>
@@ -145,8 +145,8 @@
                 <!--<configuration>-->
 
                     <!--<sei>net.itransformers.ws.upload.TreeImporterImpl</sei>-->
-                    <!--&lt;!&ndash;for demo purpose only, the webapp does not&ndash;&gt;-->
-                    <!--&lt;!&ndash;need the generated wsdl files&ndash;&gt;-->
+                    <!-- for demo purpose only, the webapp does not-->
+                    <!--need the generated wsdl files-->
                     <!--<genWsdl>true</genWsdl>-->
                     <!--<keep>true</keep>-->
                 <!--</configuration>-->
