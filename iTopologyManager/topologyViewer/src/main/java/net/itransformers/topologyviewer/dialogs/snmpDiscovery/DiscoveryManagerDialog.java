@@ -101,11 +101,11 @@ public class DiscoveryManagerDialog extends JDialog {
                     panel.add(lblMode);
 
                     JLabel lblAddress = new JLabel("Address:");
-                    lblAddress.setBounds(172, 14, 56, 14);
+                    lblAddress.setBounds(172, 14, 66, 14);
                     panel.add(lblAddress);
 
                     addressTextField = new JTextField();
-                    addressTextField.setBounds(230, 11, 113, 20);
+                    addressTextField.setBounds(240, 11, 113, 20);
                     panel.add(addressTextField);
                     addressTextField.setColumns(10);
 
@@ -114,12 +114,12 @@ public class DiscoveryManagerDialog extends JDialog {
                     panel.add(lblLabel);
 
                     labelTextField = new JTextField();
-                    labelTextField.setBounds(400, 11, 113, 20);
+                    labelTextField.setBounds(410, 11, 113, 20);
                     panel.add(labelTextField);
                     labelTextField.setColumns(10);
 
                     autoLabelCheckBox = new JCheckBox("auto-label");
-                    autoLabelCheckBox.setBounds(520, 11, 113, 20);
+                    autoLabelCheckBox.setBounds(525, 11, 113, 20);
                     autoLabelCheckBox.setSelected(true);
                     panel.add(autoLabelCheckBox);
                     postDiscoveryCheckBox = new JCheckBox("Post Discovery");
