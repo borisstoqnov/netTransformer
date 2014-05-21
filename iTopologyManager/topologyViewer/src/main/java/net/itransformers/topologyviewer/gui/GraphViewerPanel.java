@@ -77,6 +77,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
     private JFrame parent;
     private String layout;
     private boolean vertexLabel;
+    private JComboBox jComboBox = new JComboBox();
 
 
     private boolean edgeLabel;
@@ -154,7 +155,8 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         JToggleButton mouseModeButton = createMouseModeButton(graphMouse);
         JButton plus = createZoomInButton(scaler);
         JButton minus = createZoomOutButton(scaler);
-        JComboBox filtersCombo = createFilterCombo();
+        createFilterCombo(jComboBox);
+
         JComboBox hopsCombo = createHopsCombo();
         JButton update = createUpdateButton();
         JButton reload = createReloadButton();
@@ -176,7 +178,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         controls.add(saveView);
         controls.add(loadView);
         controls.add(mouseModeButton);
-        controls.add(filtersCombo);
+        controls.add(jComboBox);
         controls.add(update);
         controls.add(reload);
         controls.add(plus);
@@ -522,6 +524,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Set<String> vertexes = new HashSet<String>(currentGraph.getVertices());
                 applyFilter(currentFilter, currentHops, vertexes);
+                refreshComboFilters();
 //                vv.repaint();
             }
         });
@@ -540,6 +543,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
                 }
                 Set<String> vertexes = new HashSet<String>(currentGraph.getVertices());
                 applyFilter(currentFilter, currentHops, vertexes);
+                refreshComboFilters();
                 vv.repaint();
             }
         });
@@ -555,6 +559,9 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
                 if (pickedVertexes.iterator().next() != null) {
                     Animator(pickedVertexes.iterator().next());
                 }
+                refreshComboFilters();
+
+
             }
         });
         return redraw;
@@ -623,9 +630,25 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         return hopsCombo;
     }
 
-    private JComboBox createFilterCombo() {
+    private void refreshComboFilters(){
         FiltersType filtersType = viewerConfig.getFilters();
-        JComboBox filtersCombo = new JComboBox();
+        if (filtersType == null) ;
+        jComboBox.removeAllItems();
+        java.util.List<FilterType> filters = filtersType.getFilter();
+        final Map<String, FilterType> filterName2FilterType = new HashMap<String, FilterType>();
+
+        for (FilterType filter : filters) {
+            G graph = transformCurrentGraph(filter, Integer.valueOf(viewerConfig.getHops().getSelected()), null);
+            int size = graph.getVertices().size();
+            jComboBox.addItem(filter.getName()+ " ("+size+")");
+            filterName2FilterType.put(filter.getName()+ " ("+size+")", filter);
+
+        }
+        int i =1;
+    }
+    private JComboBox createFilterCombo(JComboBox filtersCombo) {
+        FiltersType filtersType = viewerConfig.getFilters();
+       // filtersCombo = new JComboBox();
         if (filtersType == null) return filtersCombo;
         java.util.List<FilterType> filters = filtersType.getFilter();
         final Map<String, FilterType> filterName2FilterType = new HashMap<String, FilterType>();
@@ -664,6 +687,23 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         final Map<String, GraphMLMetadata<String>> edgeMetadatas1 = graphmlLoader.getEdgeMetadatas();
         EdgePredicateFilter<String, String> edgeFilter = EdgeFilterFactory.createEdgeFilter(filter, edgeMetadatas1);
         final Graph<String, String> graph1 = edgeFilter.transform(entireGraph);
+
+        VertexPredicateFilter<String, String> filterV = VertexFilterFactory.createVertexFilter(filter, graphmlLoader.getVertexMetadatas(), graph1);
+
+        G graph2 = (G) filterV.transform(graph1);
+        HashSet<String> set = new HashSet<String>(graph2.getVertices());
+        if (pickedVertexes != null) {
+            if (pickedVertexes.size() != 0) {
+                set.retainAll(pickedVertexes);
+            }
+        }
+        KNeighborhoodFilter<String, String> f = new KNeighborhoodFilter<String, String>(set, hops, KNeighborhoodFilter.EdgeType.IN_OUT);
+        return (G) f.transform(graph2);
+    }
+    private G transformCurrentGraph(final FilterType filter, final Integer hops, final Set<String> pickedVertexes){
+        final Map<String, GraphMLMetadata<String>> edgeMetadatas1 = graphmlLoader.getEdgeMetadatas();
+        EdgePredicateFilter<String, String> edgeFilter = EdgeFilterFactory.createEdgeFilter(filter, edgeMetadatas1);
+        final Graph<String, String> graph1 = edgeFilter.transform(currentGraph);
 
         VertexPredicateFilter<String, String> filterV = VertexFilterFactory.createVertexFilter(filter, graphmlLoader.getVertexMetadatas(), graph1);
 

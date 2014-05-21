@@ -44,7 +44,7 @@ public class UsersGuideMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        final String url = "http://itransformers.net/netTransformer/07/user-guide";
+        final String url = "http://itransformers.net/UserGuide-Pirin.pdf";
         try {
             Desktop.getDesktop().browse(new URL(url).toURI());
         } catch (Exception e1) {
