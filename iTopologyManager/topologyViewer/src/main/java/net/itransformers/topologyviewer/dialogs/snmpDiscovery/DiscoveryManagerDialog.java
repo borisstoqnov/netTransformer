@@ -123,7 +123,7 @@ public class DiscoveryManagerDialog extends JDialog {
                     autoLabelCheckBox.setSelected(true);
                     panel.add(autoLabelCheckBox);
                     postDiscoveryCheckBox = new JCheckBox("Post Discovery");
-                    postDiscoveryCheckBox.setBounds(620, 11, 153, 20);
+                    postDiscoveryCheckBox.setBounds(640, 11, 153, 20);
                     postDiscoveryCheckBox.setSelected(true);
                     panel.add(postDiscoveryCheckBox);
 
