@@ -258,6 +258,7 @@
                         <directory>conf/bat</directory>
                         <outputDirectory>bin</outputDirectory>
                         <fileMode>0755</fileMode>
+                        <filtered>true</filtered>
                     </fileSet>
                     <fileSet>
                         <directory>mibs</directory>

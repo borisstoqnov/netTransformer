@@ -343,7 +343,7 @@ public class Walk {
                     printTreeAsXML(child, tabs + "\t", sb1, oidFlag);
                 }
                 if (oidFlag) {
-                    sb.append(String.format("%s<%s oid=\"%s\">", tabs, tagName, objectIdentifierValue));
+                    sb.append(String.format("%s<%s oid=\"%s\" >", tabs, tagName, objectIdentifierValue));
                 } else {
                     sb.append(String.format("%s<%s>", tabs, tagName, objectIdentifierValue));
 
@@ -371,8 +371,28 @@ public class Walk {
             StringBuilder sbRows = new StringBuilder();
             printTableIndexAsXML(node, tabs, sbIndex, tableEvent.getIndex(), i, oidFlag);
             printTableRowsAsXML(node, tabs, sbRows, tableEvent.getColumns(), oidFlag);
+            //
+//            for (Node child : node.getChildren()) {
+//                final ObjectIdentifierValue objectIdentifierValue = child.getObjectIdentifierValue();
+//                if (objectIdentifierValue == null) continue;
+//                try {
+//                    if (vb.getOid() != null && vb.getOid().startsWith(new OID(objectIdentifierValue.toString()))) {
+//                        childTagName = objectIdentifierValue.getName();
+//                    }
+//                } catch (RuntimeException rte) {
+//                    logger.error(rte.getMessage(), rte);
+//                }
+//            }
+
+           // final ObjectIdentifierValue childByName = node.getObjectIdentifierValue().getChildByName(tagName);
+            final MibValueSymbol symbol = node.getObjectIdentifierValue().getSymbol();
+            SnmpObjectType symbolType = (SnmpObjectType) symbol.getType();
+            MibType syntax = symbolType.getSyntax();
+            String syntaxString = syntax.getName();
+            SnmpAccess access = symbolType.getAccess();
+            String accessString = access.toString();
             if (oidFlag) {
-                sbTable.append(String.format("%s<%s oid=\"%s\" syntax=\"%s\" >", tabs, tagName, node.getObjectIdentifierValue(), node.getObjectIdentifierValue().getSymbol().getType().getName()));
+                sbTable.append(String.format("%s<%s oid=\"%s\" syntax=\"%s\" access=\"%s\">", tabs, tagName, node.getObjectIdentifierValue(), syntaxString, accessString));
             } else {
                 sbTable.append(String.format("%s<%s>", tabs, tagName));
 
@@ -412,16 +432,18 @@ public class Walk {
                 final MibValueSymbol mibValueSymbol = objectIdentifierValue.getSymbol();
                 if (mibValueSymbol == null)
                     return;
-                SnmpObjectType snmpObjectType = (SnmpObjectType) mibValueSymbol.getType();
+                //SnmpObjectType snmpObjectType = (SnmpObjectType) mibValueSymbol.getType();
                 final ObjectIdentifierValue childByName = objectIdentifierValue.getChildByName(childTagName);
                 final MibValueSymbol symbol = childByName.getSymbol();
-                SnmpObjectType indexType = (SnmpObjectType) symbol.getType();
-                MibType syntax = indexType.getSyntax();
+                SnmpObjectType symbolType = (SnmpObjectType) symbol.getType();
+                MibType syntax = symbolType.getSyntax();
                 String syntaxString = syntax.getName();
 
-                SnmpAccess access = indexType.getAccess();
 
-                sb4.append(String.format("\t%s<%s oid=\"%s\" syntax=\"%s\" access=\"%s\">", tabs, childTagName, vb.getOid(), syntaxString, access.toString()));
+                SnmpAccess access = symbolType.getAccess();
+                String accessString = access.toString();
+
+                sb4.append(String.format("\t%s<%s oid=\"%s\" syntax=\"%s\" access=\"%s\">", tabs, childTagName, vb.getOid(), syntaxString, accessString));
             } else {
                 sb4.append(String.format("\t%s<%s>", tabs, childTagName));
             }
@@ -451,10 +473,11 @@ public class Walk {
                     try {
                         SnmpIndex index = (SnmpIndex) indexes.get(i);
                         String indexName = index.getValue().getName();
-                        //Why do we need childbyName ! To determine the syntax... But there are cases in which this does not work.
+                        //Why do we need childbyName ! To determine the syntax and access... But there are cases in which this does not work.Thus for those we set the syntax and access to UNKNOWN
 
 
                         final ObjectIdentifierValue childByName = objectIdentifierValue.getChildByName(indexName);
+
                         MibValueSymbol symbol = null;
                         String syntaxString = "UNKNOWN";
                         String accessString = "UNKNOWN";
@@ -489,7 +512,8 @@ public class Walk {
                                                 }
                                             } else if (constraint1 instanceof ValueRangeConstraint) {
 //                                                if (syntax.getTag())
-                                                indexVal = OctetString.fromString(new OID(indexOID.getValue(), 1, indexOID.getValue().length - 1).toString(), '.', 10).toString();
+                                                indexVal = OctetString.fromString(new OID(indexOID.getValue(), i+1, indexOID.getValue().length - (i+1)).toString(), '.', 10).toString();
+
                                             } else {
                                                 indexVal = new OID(indexOID.getValue()).toString();
                                             }

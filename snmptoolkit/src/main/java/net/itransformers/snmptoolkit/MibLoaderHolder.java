@@ -75,6 +75,24 @@ public class MibLoaderHolder {
         return loader;
     }
 
+
+//    public String getSyntaxByName(String name){
+//        logger.debug("getSyntaxByName,  oid="+name);
+//        Mib mib = loader.getMib(name);
+//
+//        if (mib == null) {
+//            logger.error("Can not find symbol by mib, mibName="+mibName + ", oid="+oid);
+//        }
+//        final MibValueSymbol symbolByOid = mib.getSymbolByOid(oid);
+//        if (symbolByOid == null) {
+//            logger.error("Can not find symbol by OID, mibName="+mibName + ", oid="+oid);
+//            return null;
+//        }
+//        logger.info(symbolByOid.getName());
+//
+//        return symbolByOid.getName();
+//    }
+
     public String getSymbolByOid(String mibName, String oid){
         logger.debug("getSymbolByOid, mibName="+mibName + ", oid="+oid);
         Mib mib = loader.getMib(mibName);
