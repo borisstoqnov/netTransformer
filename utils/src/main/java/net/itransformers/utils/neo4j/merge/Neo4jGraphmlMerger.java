@@ -1,4 +1,4 @@
-package net.itransformers.neo4j.merge;
+package net.itransformers.utils.neo4j.merge;
 
 import com.tinkerpop.blueprints.Direction;
 import com.tinkerpop.blueprints.Edge;
@@ -7,7 +7,7 @@ import com.tinkerpop.blueprints.Vertex;
 import com.tinkerpop.blueprints.impls.tg.TinkerGraph;
 import net.itransformers.utils.graphmlmerge.DefaultMergeConflictResolver;
 import net.itransformers.utils.graphmlmerge.MergeConflictResolver;
-import net.itransformers.utils.graphmlmerge.MyGraphMLReader;
+import net.itransformers.utils.blueprints_patch.MyGraphMLReader;
 import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.index.*;
 

@@ -1,4 +1,4 @@
-package net.itransformers.utils.graphmlmerge;
+package net.itransformers.utils.blueprints_patch;
 
 import com.tinkerpop.blueprints.Direction;
 import com.tinkerpop.blueprints.Edge;

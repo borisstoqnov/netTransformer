@@ -1,4 +1,4 @@
-package net.itransformers.utils.graphmlmerge;
+package net.itransformers.utils.blueprints_patch;
 
 /**
  * Created with IntelliJ IDEA.

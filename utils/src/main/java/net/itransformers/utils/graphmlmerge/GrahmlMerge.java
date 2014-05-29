@@ -5,6 +5,8 @@ import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.Vertex;
 import com.tinkerpop.blueprints.impls.tg.TinkerGraph;
+import net.itransformers.utils.blueprints_patch.MyGraphMLReader;
+import net.itransformers.utils.blueprints_patch.MyGraphMLWriter;
 
 import java.io.File;
 import java.io.FileInputStream;
