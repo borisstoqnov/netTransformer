@@ -131,6 +131,11 @@
         <property name="labelDirName" value="version1"/>
         <property name="graphmDirName" value="undirected"/>
         <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
+    </bean>
+
+    <bean id="Neo4JLoggerLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.Neo4JLoggerLogDiscoveryListener">
+        <property name="label" value="version1"/>
+        <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
 
     </bean>
 

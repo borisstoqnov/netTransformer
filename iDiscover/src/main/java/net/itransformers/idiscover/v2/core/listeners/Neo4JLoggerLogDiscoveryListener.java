@@ -43,34 +43,61 @@ import net.itransformers.idiscover.networkmodel.ParametersType;
 import net.itransformers.idiscover.util.JaxbMarshalar;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.utils.XmlFormatter;
+import net.itransformers.utils.XsltTransformer;
 import org.apache.log4j.Logger;
-import org.neo4j.graphdb.DynamicRelationshipType;
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.Transaction;
+//import org.neo4j.graphdb.DynamicRelationshipType;
+//import org.neo4j.graphdb.GraphDatabaseService;
+//import org.neo4j.graphdb.Node;
+//import org.neo4j.graphdb.Transaction;
 
-import javax.ws.rs.core.UriBuilder;
+//import javax.ws.rs.core.UriBuilder;
 import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.util.List;
 
 public class Neo4JLoggerLogDiscoveryListener implements NodeDiscoveryListener {
     static Logger logger = Logger.getLogger(Neo4JLoggerLogDiscoveryListener.class);
-    long rootNodeId = 1;
+    String label;
+    private String xsltFileName;
+
+    public Neo4JLoggerLogDiscoveryListener() {
+    }
 
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
 
         String deviceName = discoveryResult.getNodeId();
         DiscoveredDeviceData discoveredDeviceData = (DiscoveredDeviceData) discoveryResult.getDiscoveredData("deviceData");
-    }
+        ByteArrayOutputStream graphMLOutputStream = new ByteArrayOutputStream();
 
 
-    public long getRootNodeId() {
-        return rootNodeId;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try {
+            JaxbMarshalar.marshal(discoveredDeviceData, out, "DiscoveredDevice");
+            File xsltFile = new File(xsltFileName);
+            XsltTransformer transformer = new XsltTransformer();
+            transformer.transformXML(new ByteArrayInputStream(out.toByteArray()), xsltFile,graphMLOutputStream, null,null);
+
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
     }
 
-    public void setRootNodeId(long rootNodeId) {
-        this.rootNodeId = rootNodeId;
+    public String getLabel() {
+        return label;
     }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+    public String getXsltFileName() {
+        return xsltFileName;
+    }
+
+    public void setXsltFileName(String xsltFileName) {
+        this.xsltFileName = xsltFileName;
+    }
+
 }

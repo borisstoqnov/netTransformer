@@ -75,24 +75,24 @@
             <!--<artifactId>neo4j-server</artifactId>-->
             <!--<version>1.8.M07</version>-->
         <!--</dependency>-->
-        <dependency>
-            <groupId>org.neo4j.app</groupId>
-            <artifactId>neo4j-server</artifactId>
-            <!--<classifier>static-web</classifier>-->
-            <version>1.8.M07</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jetty</artifactId>
-                    <groupId>org.mortbay.jetty</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.neo4j</groupId>
-            <artifactId>neo4j-lucene-index</artifactId>
-            <!--<classifier>static-web</classifier>-->
-            <version>1.8-SNAPSHOT</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.neo4j.app</groupId>-->
+            <!--<artifactId>neo4j-server</artifactId>-->
+            <!--&lt;!&ndash;<classifier>static-web</classifier>&ndash;&gt;-->
+            <!--<version>1.8.M07</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<artifactId>jetty</artifactId>-->
+                    <!--<groupId>org.mortbay.jetty</groupId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.neo4j</groupId>-->
+            <!--<artifactId>neo4j-lucene-index</artifactId>-->
+            <!--&lt;!&ndash;<classifier>static-web</classifier>&ndash;&gt;-->
+            <!--<version>1.8-SNAPSHOT</version>-->
+        <!--</dependency>-->
 
 
     </dependencies>

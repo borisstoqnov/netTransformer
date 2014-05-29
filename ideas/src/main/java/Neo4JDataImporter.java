@@ -27,13 +27,7 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
-import org.neo4j.graphdb.factory.GraphDatabaseSetting;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
-import org.neo4j.kernel.GraphDatabaseAPI;
-import org.neo4j.server.WrappingNeoServerBootstrapper;
-import org.neo4j.server.configuration.Configurator;
-import org.neo4j.server.configuration.ServerConfigurator;
-import org.neo4j.shell.ShellSettings;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.ws.rs.core.UriBuilder;
@@ -41,6 +35,7 @@ import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.util.List;
 
+@Deprecated
 public class Neo4JDataImporter {
     public static int nodeCounter = 0;
     public static void main(String[] args) throws Exception {
@@ -73,26 +68,26 @@ org.neo4j.rest.logging_filter=false (set to true if verbose request/response log
     }
     public static void main1(String[] args) throws Exception {
 // let the database accept remote neo4j-shell connections
-        GraphDatabaseAPI graphdb = (GraphDatabaseAPI) new GraphDatabaseFactory()
-                .newEmbeddedDatabaseBuilder( "target/bigDB" )
-                .setConfig( ShellSettings.remote_shell_enabled, GraphDatabaseSetting.TRUE )
-                .setConfig( GraphDatabaseSettings.node_keys_indexable, "name,objectType" )
+        GraphDatabaseService graphdb = new GraphDatabaseFactory()
+                .newEmbeddedDatabaseBuilder("target/bigDB")
+//                .setConfig(GraphDatabaseSettings.node_keys_indexable, "name,objectType")
 //                .setConfig( GraphDatabaseSettings.relationship_keys_indexable, "relProp1,relProp2" )
-                .setConfig( GraphDatabaseSettings.node_auto_indexing, GraphDatabaseSetting.TRUE )
-                .setConfig( GraphDatabaseSettings.relationship_auto_indexing, GraphDatabaseSetting.TRUE )
+                .setConfig(GraphDatabaseSettings.node_auto_indexing, Boolean.TRUE.toString())
+                .setConfig(GraphDatabaseSettings.relationship_auto_indexing, Boolean.TRUE.toString())
                 .newGraphDatabase();
-        ServerConfigurator config;
-        config = new ServerConfigurator( graphdb );
-// let the server endpoint be on a custom port
-        config.configuration().setProperty(
-                Configurator.WEBSERVER_PORT_PROPERTY_KEY, 7575 );
 
-        WrappingNeoServerBootstrapper srv;
-        srv = new WrappingNeoServerBootstrapper( graphdb, config );
-        srv.start();
-//        Transaction tr = graphdb.beginTx();
-//        try {
-            doImport(graphdb);
+//        ServerConfigurator config;
+//        config = new ServerConfigurator( graphdb );
+//// let the server endpoint be on a custom port
+//        config.configuration().setProperty(
+//                Configurator.WEBSERVER_PORT_PROPERTY_KEY, 7575 );
+//
+//        WrappingNeoServerBootstrapper srv;
+//        srv = new WrappingNeoServerBootstrapper( graphdb, config );
+//        srv.start();
+////        Transaction tr = graphdb.beginTx();
+////        try {
+//            doImport(graphdb);
 //            tr.success();
 //        } catch (Exception e) {
 //            tr.failure();

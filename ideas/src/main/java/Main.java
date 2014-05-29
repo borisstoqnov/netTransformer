@@ -22,8 +22,8 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.client.apache.ApacheHttpClient;
 import org.apache.commons.io.FileUtils;
-import org.neo4j.rest.graphdb.RequestResult;
-import org.neo4j.rest.graphdb.UserAgent;
+//import org.neo4j.rest.graphdb.RequestResult;
+//import org.neo4j.rest.graphdb.UserAgent;
 
 import javax.ws.rs.core.MediaType;
 import java.io.*;
@@ -34,46 +34,47 @@ import java.util.Map;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
 
+@Deprecated
 public class Main {
-    private static final UserAgent userAgent = new UserAgent();
-    public static final MediaType STREAMING_JSON_TYPE = new MediaType(APPLICATION_JSON_TYPE.getType(),APPLICATION_JSON_TYPE.getSubtype(), stringMap("stream","true"));
-
-    public static void main(String[] args) throws URISyntaxException, IOException {
-        String data = FileUtils.readFileToString(new File("ideas/src/test/test-rest.txt"));
-        Client client = createClient();
-        WebResource resource = client.resource(new URI("http://193.19.172.133:7474/db/data/batch"));
-        WebResource.Builder builder = resource.accept(STREAMING_JSON_TYPE).header("X-Stream", "true");
-        builder.entity( toInputStream(data), APPLICATION_JSON_TYPE );
-        System.out.println(RequestResult.extractFrom(builder.post(ClientResponse.class)));
-    }
-
-    private static InputStream toInputStream(String data) throws IOException {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(4024 * 1024);
-        outputStream.write(data.getBytes());
-        byte[] buf = outputStream.toByteArray();
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(buf);
-        return inputStream;
-    }
-
-
-    protected static Client createClient1() {
-        Client client = Client.create();
-        client.setConnectTimeout(800);
-        client.setReadTimeout(800);
-        client.setChunkedEncodingSize(80 * 1024);
-        userAgent.install(client);
-        return client;
-    }
-
-    protected static Client createClient() {
-        Client client = ApacheHttpClient.create();
-        return client;
-    }
-
-    private static Map<String, String> stringMap(String stream, String aTrue) {
-        HashMap<String, String> result = new HashMap<String, String>();
-        result.put(stream, aTrue);
-        return result;
-    }
-
+//    private static final UserAgent userAgent = new UserAgent();
+//    public static final MediaType STREAMING_JSON_TYPE = new MediaType(APPLICATION_JSON_TYPE.getType(),APPLICATION_JSON_TYPE.getSubtype(), stringMap("stream","true"));
+//
+//    public static void main(String[] args) throws URISyntaxException, IOException {
+//        String data = FileUtils.readFileToString(new File("ideas/src/test/test-rest.txt"));
+//        Client client = createClient();
+//        WebResource resource = client.resource(new URI("http://193.19.172.133:7474/db/data/batch"));
+//        WebResource.Builder builder = resource.accept(STREAMING_JSON_TYPE).header("X-Stream", "true");
+//        builder.entity( toInputStream(data), APPLICATION_JSON_TYPE );
+//        System.out.println(RequestResult.extractFrom(builder.post(ClientResponse.class)));
+//    }
+//
+//    private static InputStream toInputStream(String data) throws IOException {
+//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(4024 * 1024);
+//        outputStream.write(data.getBytes());
+//        byte[] buf = outputStream.toByteArray();
+//        ByteArrayInputStream inputStream = new ByteArrayInputStream(buf);
+//        return inputStream;
+//    }
+//
+//
+//    protected static Client createClient1() {
+//        Client client = Client.create();
+//        client.setConnectTimeout(800);
+//        client.setReadTimeout(800);
+//        client.setChunkedEncodingSize(80 * 1024);
+//        userAgent.install(client);
+//        return client;
+//    }
+//
+//    protected static Client createClient() {
+//        Client client = ApacheHttpClient.create();
+//        return client;
+//    }
+//
+//    private static Map<String, String> stringMap(String stream, String aTrue) {
+//        HashMap<String, String> result = new HashMap<String, String>();
+//        result.put(stream, aTrue);
+//        return result;
+//    }
+//
 }

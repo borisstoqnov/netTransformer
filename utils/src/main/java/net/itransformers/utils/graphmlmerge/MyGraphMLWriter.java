@@ -15,7 +15,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
 
-
+// changed to support graphtype
+// https://raw.githubusercontent.com/tinkerpop/blueprints/master/blueprints-core/src/main/java/com/tinkerpop/blueprints/util/io/graphml/GraphMLWriter.java
 public class MyGraphMLWriter {
 
     private final Graph graph;
@@ -25,6 +26,8 @@ public class MyGraphMLWriter {
 
     private String xmlSchemaLocation = null;
     private String edgeLabelKey = null;
+    private String vertexIdKey;
+    private String edgeIdKey;
 
     /**
      * @param graph the Graph to pull the data from
@@ -38,6 +41,20 @@ public class MyGraphMLWriter {
      */
     public void setXmlSchemaLocation(String xmlSchemaLocation) {
         this.xmlSchemaLocation = xmlSchemaLocation;
+    }
+
+    /**
+     * @param vertexIdKey if the id of a vertex is a &lt;data/&gt; property, fetch it from the data property.
+     */
+    public void setVertexIdKey(String vertexIdKey) {
+        this.vertexIdKey = vertexIdKey;
+    }
+
+    /**
+     * @param edgeIdKey if the id of an edge is a &lt;data/&gt; property, fetch it from the data property.
+     */
+    public void setEdgeIdKey(String edgeIdKey) {
+        this.edgeIdKey = edgeIdKey;
     }
 
     /**
@@ -157,17 +174,36 @@ public class MyGraphMLWriter {
             if (normalize) {
                 keyset = new ArrayList<String>();
                 keyset.addAll(vertexKeyTypes.keySet());
-                Collections.sort((List<String>) keyset);
+//                if (vertexIdKey == null) {
+                    Collections.sort((List<String>) keyset);
+//                } else {
+//                    Collections.sort((List<String>) keyset, new Comparator<String>() {
+//                        @Override
+//                        public int compare(String key1, String key2) {
+//                            try {
+//                                String id1 = graph.getVertex(key1).getProperty(vertexIdKey);
+//                                String id2 = graph.getVertex(key2).getProperty(vertexIdKey);
+//                                if (id1 == null || id2 == null) return key1.compareTo(key2);
+//                            } catch (NullPointerException npe){
+//                                npe.printStackTrace();
+//                            }
+////                            return id1.compareTo(id2);
+//                        }
+//                    });
+//                }
             } else {
                 keyset = vertexKeyTypes.keySet();
             }
             for (String key : keyset) {
-                writer.writeStartElement(GraphMLTokens.KEY);
-                writer.writeAttribute(GraphMLTokens.ID, key);
-                writer.writeAttribute(GraphMLTokens.FOR, GraphMLTokens.NODE);
-                writer.writeAttribute(GraphMLTokens.ATTR_NAME, key);
-                writer.writeAttribute(GraphMLTokens.ATTR_TYPE, vertexKeyTypes.get(key));
-                writer.writeEndElement();
+                if ((vertexIdKey == null) || !key.equals(vertexIdKey)) {
+                    writer.writeStartElement(GraphMLTokens.KEY);
+                    writer.writeAttribute(GraphMLTokens.ID, key);
+                    writer.writeAttribute(GraphMLTokens.FOR, GraphMLTokens.NODE);
+                    writer.writeAttribute(GraphMLTokens.ATTR_NAME, key);
+                    writer.writeAttribute(GraphMLTokens.ATTR_TYPE, vertexKeyTypes.get(key));
+                    writer.writeEndElement();
+                }
+
             }
 
             if (normalize) {
@@ -178,12 +214,14 @@ public class MyGraphMLWriter {
                 keyset = edgeKeyTypes.keySet();
             }
             for (String key : keyset) {
-                writer.writeStartElement(GraphMLTokens.KEY);
-                writer.writeAttribute(GraphMLTokens.ID, key);
-                writer.writeAttribute(GraphMLTokens.FOR, GraphMLTokens.EDGE);
-                writer.writeAttribute(GraphMLTokens.ATTR_NAME, key);
-                writer.writeAttribute(GraphMLTokens.ATTR_TYPE, edgeKeyTypes.get(key));
-                writer.writeEndElement();
+                if ((edgeIdKey == null) || !key.equals(edgeIdKey)) {
+                    writer.writeStartElement(GraphMLTokens.KEY);
+                    writer.writeAttribute(GraphMLTokens.ID, key);
+                    writer.writeAttribute(GraphMLTokens.FOR, GraphMLTokens.EDGE);
+                    writer.writeAttribute(GraphMLTokens.ATTR_NAME, key);
+                    writer.writeAttribute(GraphMLTokens.ATTR_TYPE, edgeKeyTypes.get(key));
+                    writer.writeEndElement();
+                }
             }
 
             writer.writeStartElement(GraphMLTokens.GRAPH);
@@ -196,13 +234,28 @@ public class MyGraphMLWriter {
                 for (Vertex v : graph.getVertices()) {
                     ((Collection<Vertex>) vertices).add(v);
                 }
-                Collections.sort((List<Vertex>) vertices, new LexicographicalElementComparator());
+                if (vertexIdKey != null) {
+                    Collections.sort((List<Vertex>) vertices, new Comparator<Vertex>() {
+                        @Override
+                        public int compare(Vertex v1, Vertex v2) {
+                            String id1 = v1.getProperty(vertexIdKey);
+                            String id2 = v2.getProperty(vertexIdKey);
+                            return id1.compareTo(id2);
+                        }
+                    });
+                } else {
+                    Collections.sort((List<Vertex>) vertices, new LexicographicalElementComparator());
+                }
             } else {
                 vertices = graph.getVertices();
             }
             for (Vertex vertex : vertices) {
                 writer.writeStartElement(GraphMLTokens.NODE);
-                writer.writeAttribute(GraphMLTokens.ID, vertex.getId().toString());
+                if (vertexIdKey != null && vertex.getProperty(vertexIdKey) != null) {
+                    writer.writeAttribute(GraphMLTokens.ID, vertex.getProperty(vertexIdKey).toString());
+                } else {
+                    writer.writeAttribute(GraphMLTokens.ID, vertex.getId().toString());
+                }
                 Collection<String> keys;
                 if (normalize) {
                     keys = new ArrayList<String>();
@@ -212,13 +265,15 @@ public class MyGraphMLWriter {
                     keys = vertex.getPropertyKeys();
                 }
                 for (String key : keys) {
-                    writer.writeStartElement(GraphMLTokens.DATA);
-                    writer.writeAttribute(GraphMLTokens.KEY, key);
-                    Object value = vertex.getProperty(key);
-                    if (null != value) {
-                        writer.writeCharacters(value.toString());
+                    if (vertexIdKey == null || !key.equals(vertexIdKey)) {
+                        writer.writeStartElement(GraphMLTokens.DATA);
+                        writer.writeAttribute(GraphMLTokens.KEY, key);
+                        Object value = vertex.getProperty(key);
+                        if (null != value) {
+                            writer.writeCharacters(value.toString());
+                        }
+                        writer.writeEndElement();
                     }
-                    writer.writeEndElement();
                 }
                 writer.writeEndElement();
             }
@@ -230,13 +285,29 @@ public class MyGraphMLWriter {
                         edges.add(edge);
                     }
                 }
-                Collections.sort(edges, new LexicographicalElementComparator());
-
+                if (edgeIdKey != null) {
+                    Collections.sort(edges, new Comparator<Edge>() {
+                        @Override
+                        public int compare(Edge e1, Edge e2) {
+                            String id1 = e1.getProperty(edgeIdKey);
+                            String id2 = e2.getProperty(edgeIdKey);
+                            return id1.compareTo(id2);
+                        }
+                    });
+                } else {
+                    Collections.sort(edges, new LexicographicalElementComparator());
+                }
                 for (Edge edge : edges) {
                     writer.writeStartElement(GraphMLTokens.EDGE);
-                    writer.writeAttribute(GraphMLTokens.ID, edge.getId().toString());
-                    writer.writeAttribute(GraphMLTokens.SOURCE, edge.getVertex(Direction.OUT).getId().toString());
-                    writer.writeAttribute(GraphMLTokens.TARGET, edge.getVertex(Direction.IN).getId().toString());
+                    if (edgeIdKey != null && edge.getProperty(edgeIdKey) != null) {
+                        writer.writeAttribute(GraphMLTokens.ID, edge.getProperty(edgeIdKey).toString());
+                        writer.writeAttribute(GraphMLTokens.SOURCE, edge.getVertex(Direction.OUT).getProperty("id").toString());
+                        writer.writeAttribute(GraphMLTokens.TARGET, edge.getVertex(Direction.IN).getProperty("id").toString());
+                    } else {
+                        writer.writeAttribute(GraphMLTokens.ID, edge.getId().toString());
+                        writer.writeAttribute(GraphMLTokens.SOURCE, edge.getVertex(Direction.OUT).getId().toString());
+                        writer.writeAttribute(GraphMLTokens.TARGET, edge.getVertex(Direction.IN).getId().toString());
+                    }
 
                     if (this.edgeLabelKey == null) {
                         // this will not comply with the graphml schema but is here so that the label is not
@@ -254,13 +325,15 @@ public class MyGraphMLWriter {
                     Collections.sort(keys);
 
                     for (String key : keys) {
-                        writer.writeStartElement(GraphMLTokens.DATA);
-                        writer.writeAttribute(GraphMLTokens.KEY, key);
-                        Object value = edge.getProperty(key);
-                        if (null != value) {
-                            writer.writeCharacters(value.toString());
+                        if (edgeIdKey == null || !key.equals(edgeIdKey)) {
+                            writer.writeStartElement(GraphMLTokens.DATA);
+                            writer.writeAttribute(GraphMLTokens.KEY, key);
+                            Object value = edge.getProperty(key);
+                            if (null != value) {
+                                writer.writeCharacters(value.toString());
+                            }
+                            writer.writeEndElement();
                         }
-                        writer.writeEndElement();
                     }
                     writer.writeEndElement();
                 }

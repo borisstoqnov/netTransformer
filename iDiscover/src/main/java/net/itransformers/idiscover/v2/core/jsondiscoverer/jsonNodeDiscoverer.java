@@ -19,9 +19,9 @@
 
 package net.itransformers.idiscover.v2.core.jsondiscoverer;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
+//import com.sun.jersey.api.client.Client;
+//import com.sun.jersey.api.client.ClientResponse;
+//import com.sun.jersey.api.client.WebResource;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
@@ -113,20 +113,21 @@ public class jsonNodeDiscoverer implements NodeDiscoverer {
      return serializer.write(json);
  }
   private JSONArray getJsonDetails(String url) {
-        WebResource resource = Client.create()
-                .resource(url);
-        ClientResponse response = resource.accept("application/json")
-                .get(ClientResponse.class);
-
-        if (response.getStatus() != 200) {
-            logger.error("Failed : HTTP error code : " + response.getStatus());
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + response.getStatus());
-
-        }
-        String output = response.getEntity(String.class);
-        response.close();
-        JSONArray json = (JSONArray) JSONSerializer.toJSON(output);
-      return  json;
+//        WebResource resource = Client.create()
+//                .resource(url);
+//        ClientResponse response = resource.accept("application/json")
+//                .get(ClientResponse.class);
+//
+//        if (response.getStatus() != 200) {
+//            logger.error("Failed : HTTP error code : " + response.getStatus());
+//            throw new RuntimeException("Failed : HTTP error code : "
+//                    + response.getStatus());
+//
+//        }
+//        String output = response.getEntity(String.class);
+//        response.close();
+//        JSONArray json = (JSONArray) JSONSerializer.toJSON(output);
+//      return  json;
+      return null;
   }
 }

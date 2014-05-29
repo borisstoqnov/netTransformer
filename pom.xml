@@ -45,7 +45,7 @@
         <module>iAssertions</module>
         <module>wsitransformer</module>
         <module>postDiscoverer</module>
-        <!--module>ideas</module-->
+        <module>ideas</module>
         <!--module>distribution</module-->
 
     </modules>

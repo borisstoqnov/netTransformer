@@ -11,6 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: com:expect4j:1.0" level="project" />
     <orderEntry type="module" module-name="resourceManager" />
     <orderEntry type="library" name="Maven: junit:junit:4.8.2" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.16" level="project" />
@@ -44,10 +45,10 @@
     <orderEntry type="library" name="Maven: commons-net:commons-net:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-all:2.1.9" level="project" />
     <orderEntry type="library" name="Maven: expect4groovy:expect4groovy:1.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: com:expect4j:1.0" level="project" />
     <orderEntry type="library" name="Maven: oro:oro:2.0.8" level="project" />
     <orderEntry type="library" name="Maven: com.jcraft:jsch:0.1.44-1" level="project" />
     <orderEntry type="library" name="Maven: com.wittams.gritty:gritty:0.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.3.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:3.1.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:3.1.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />

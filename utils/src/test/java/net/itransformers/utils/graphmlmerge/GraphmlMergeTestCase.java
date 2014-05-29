@@ -24,7 +24,7 @@ public class GraphmlMergeTestCase {
         new GrahmlMerge().merge(new File[]{f1, f2}, f3Actual, vertexTypes, edgesTypes, "undirected");
         String xml3 = FileUtils.readFileToString(f3);
         String xml3Actual = FileUtils.readFileToString(f3Actual);
-        Assert.assertEquals(xml3, xml3Actual);
+        Assert.assertEquals(xml3.replaceAll("\r",""), xml3Actual.replaceAll("\r",""));
     }
     @Test
     public void testMerge2() throws IOException {

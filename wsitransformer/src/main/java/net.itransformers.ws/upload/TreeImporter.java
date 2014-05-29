@@ -36,7 +36,7 @@ package net.itransformers.ws.upload;/*
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import org.neo4j.kernel.GraphDatabaseAPI;
+//import org.neo4j.kernel.GraphDatabaseAPI;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -46,7 +46,7 @@ import javax.jws.soap.SOAPBinding;
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use= SOAPBinding.Use.LITERAL)
 public interface TreeImporter {
 
-    @WebMethod
-    public Long importNode(Long parentId, Node node) throws Exception;
+//    @WebMethod
+//    public Long importNode(Long parentId, Node node) throws Exception;
 
 }

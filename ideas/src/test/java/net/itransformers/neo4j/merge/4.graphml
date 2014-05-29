@@ -8,11 +8,11 @@
     <graph id="G" edgedefault="undirected">
         <node id="1">
             <data key="age">27</data>
-            <data key="name">marko</data>
+            <data key="name">marko-marko</data>
         </node>
         <node id="2">
             <data key="age">27</data>
-            <data key="name">vadas12,vadas</data>
+            <data key="name">vadas-vadas12</data>
         </node>
         <node id="3">
             <data key="lang">java</data>
@@ -20,34 +20,34 @@
         </node>
         <node id="4">
             <data key="age">32</data>
-            <data key="name">josh</data>
+            <data key="name">josh-josh</data>
         </node>
         <node id="5">
             <data key="lang">java2,java</data>
-            <data key="name">ripple</data>
+            <data key="name">ripple-ripple</data>
         </node>
         <node id="6">
             <data key="age">35</data>
-            <data key="name">peter</data>
+            <data key="name">peter-peter</data>
         </node>
         <edge id="10" source="4" target="5" label="created">
-            <data key="weight">1.0</data>
+            <data key="weight">2.0</data>
         </edge>
         <edge id="11" source="4" target="3" label="created">
-            <data key="weight">0.4</data>
+            <data key="weight">0.8</data>
         </edge>
         <edge id="12" source="6" target="3" label="created">
-            <data key="weight">0.2</data>
+            <data key="weight">0.4</data>
         </edge>
         <edge id="7" source="1" target="2" label="knows">
-            <data key="weight">0.5</data>
-        </edge>
-        <edge id="8" source="1" target="4" label="knows">
             <data key="weight">1.0</data>
         </edge>
+        <edge id="8" source="1" target="4" label="knows">
+            <data key="weight">2.0</data>
+        </edge>
         <edge id="9" source="1" target="3" label="created">
-            <data key="method">CDP,OSPF,,OSPF,CDP,</data>
-            <data key="weight">0.4</data>
+            <data key="weight">0.8</data>
+            <data key="method">CDP,OSPF</data>
         </edge>
     </graph>
 </graphml>

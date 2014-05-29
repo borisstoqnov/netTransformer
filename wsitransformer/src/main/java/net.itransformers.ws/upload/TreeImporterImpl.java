@@ -35,11 +35,11 @@ package net.itransformers.ws.upload;/*
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-import org.neo4j.graphdb.DynamicRelationshipType;
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.Transaction;
-import org.neo4j.kernel.GraphDatabaseAPI;
+//
+//import org.neo4j.graphdb.DynamicRelationshipType;
+//import org.neo4j.graphdb.GraphDatabaseService;
+//import org.neo4j.graphdb.Transaction;
+//import org.neo4j.kernel.GraphDatabaseAPI;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -52,60 +52,60 @@ import java.util.Map;
 
 // http://www.java-tutorial.ch/web-services/web-services-java-tutorial
 @WebService(endpointInterface = "net.itransformers.ws.upload.TreeImporter")
-public class TreeImporterImpl implements TreeImporter{
-
-    GraphDatabaseAPI graphDatabaseAPI;
-
-    @Resource
-    private WebServiceContext context;
-
-    @Override
-    public Long importNode(Long rootNodeId, Node node) throws Exception {
-        Transaction tr = getGraphDatabaseAPI().beginTx();
-        try {
-            org.neo4j.graphdb.Node root = null;
-            if (rootNodeId != null){
-                root = getGraphDatabaseAPI().getNodeById(rootNodeId);
-            }
-            org.neo4j.graphdb.Node result = doImportNode(root, node);
-            tr.success();
-            return result.getId();
-        } catch (Exception e) {
-            tr.failure();
-            throw e;
-        } finally {
-            tr.finish();
-        }
-
-    }
-
-    public GraphDatabaseAPI getGraphDatabaseAPI() {
-        if (graphDatabaseAPI == null){
-            ServletContext servletContext = (ServletContext) context.getMessageContext().get(MessageContext.SERVLET_CONTEXT);
-            graphDatabaseAPI = (GraphDatabaseAPI) servletContext.getAttribute("graphdb");
-        }
-        return graphDatabaseAPI;
-    }
-
-    public org.neo4j.graphdb.Node doImportNode(org.neo4j.graphdb.Node root, Node node) throws Exception {
-        org.neo4j.graphdb.Node neonode= getGraphDatabaseAPI().createNode();
-        System.out.println("Node created, nodeId="+neonode.getId());
-        if (root != null) {
-            root.createRelationshipTo(neonode, DynamicRelationshipType.withName("parent"));
-        }
-        Map<String, String> attributes = node.getAttributes();
-        if (attributes != null) {
-            for (Map.Entry<String, String> param : attributes.entrySet()) {
-                neonode.setProperty(param.getKey(),param.getValue());
-            }
-        }
-        List<Node> children = node.getChildren();
-        if (children != null){
-            for (Node child : children) {
-                doImportNode(neonode, child);
-            }
-        }
-        return neonode;
-    }
-
+public class TreeImporterImpl{// implements TreeImporter{
+//
+//    GraphDatabaseAPI graphDatabaseAPI;
+//
+//    @Resource
+//    private WebServiceContext context;
+//
+//    @Override
+//    public Long importNode(Long rootNodeId, Node node) throws Exception {
+//        Transaction tr = getGraphDatabaseAPI().beginTx();
+//        try {
+//            org.neo4j.graphdb.Node root = null;
+//            if (rootNodeId != null){
+//                root = getGraphDatabaseAPI().getNodeById(rootNodeId);
+//            }
+//            org.neo4j.graphdb.Node result = doImportNode(root, node);
+//            tr.success();
+//            return result.getId();
+//        } catch (Exception e) {
+//            tr.failure();
+//            throw e;
+//        } finally {
+//            tr.finish();
+//        }
+//
+//    }
+//
+//    public GraphDatabaseAPI getGraphDatabaseAPI() {
+//        if (graphDatabaseAPI == null){
+//            ServletContext servletContext = (ServletContext) context.getMessageContext().get(MessageContext.SERVLET_CONTEXT);
+//            graphDatabaseAPI = (GraphDatabaseAPI) servletContext.getAttribute("graphdb");
+//        }
+//        return graphDatabaseAPI;
+//    }
+//
+//    public org.neo4j.graphdb.Node doImportNode(org.neo4j.graphdb.Node root, Node node) throws Exception {
+//        org.neo4j.graphdb.Node neonode= getGraphDatabaseAPI().createNode();
+//        System.out.println("Node created, nodeId="+neonode.getId());
+//        if (root != null) {
+//            root.createRelationshipTo(neonode, DynamicRelationshipType.withName("parent"));
+//        }
+//        Map<String, String> attributes = node.getAttributes();
+//        if (attributes != null) {
+//            for (Map.Entry<String, String> param : attributes.entrySet()) {
+//                neonode.setProperty(param.getKey(),param.getValue());
+//            }
+//        }
+//        List<Node> children = node.getChildren();
+//        if (children != null){
+//            for (Node child : children) {
+//                doImportNode(neonode, child);
+//            }
+//        }
+//        return neonode;
+//    }
+//
 }

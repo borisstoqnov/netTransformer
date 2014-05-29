@@ -37,6 +37,12 @@ import javax.ws.rs.core.Context;
      // type "text/plain"
      @Produces("text/plain")
      public String start() {
+        if (context.getAttribute("discovery") != null) {
+
+        } else {
+
+            context.setAttribute("discovery", null);
+        }
 
 
          return "Hello World:"+ context.getInitParameter("config.file");
