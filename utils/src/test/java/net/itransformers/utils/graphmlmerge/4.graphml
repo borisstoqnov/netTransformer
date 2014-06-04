@@ -46,8 +46,8 @@
             <data key="weight">2.0</data>
         </edge>
         <edge id="9" source="1" target="3" label="created">
+            <data key="method">CDP,OSPF,,OSPF,CDP,</data>
             <data key="weight">0.8</data>
-            <data key="method">CDP,OSPF</data>
         </edge>
     </graph>
 </graphml>

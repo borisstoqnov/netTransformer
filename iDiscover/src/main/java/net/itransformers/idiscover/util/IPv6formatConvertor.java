@@ -24,7 +24,6 @@ public class IPv6formatConvertor {
          String s= oldS;
          String [] test  = s.split("\\.");
          if (test.length<18){
-             System.out.println(test.length);
              s = "00."+s;
          }
         String newS = "";
@@ -45,14 +44,12 @@ public class IPv6formatConvertor {
 
             newS += String.format("%02X%02X:", octet1, octet2);
         }
-        System.out.println(oldS);
 
         if (newS.endsWith(":")){
             s = newS.substring(0,newS.length()-1);
         }   else {
             s = newS;
         }
-        System.out.println(s);
         String newS1 = "";
         while (true) {
             dotIndex = s.indexOf(":");
@@ -60,23 +57,24 @@ public class IPv6formatConvertor {
                 long octetPair = Long.parseLong(s.substring(0), 16);
                 s = s.substring(dotIndex+1);
                 if (octetPair == 0) {
-                        if (!newS1.endsWith("::"))
-                        newS1 += ":";
-                        continue;
-
+                        if (!newS1.endsWith("::")) {
+                            newS1 += ":";
+                            continue;
+                        }
+                } else {
+                    newS1 += String.format("%X", octetPair);
                 }
-                newS1 += String.format("%X",octetPair);
                 break;
             }   else {
                 long octetPair = Long.parseLong(s.substring(0, dotIndex), 16);
                 s = s.substring(dotIndex+1);
                 if (octetPair == 0) {
-                        if (!newS1.endsWith("::"))
-                        newS1 += ":";
-                        continue;
-
+                        if (!newS1.endsWith("::")) {
+                            newS1 += ":";
+                        }
+                } else {
+                    newS1 += String.format("%X:", octetPair);
                 }
-                newS1 += String.format("%X:",octetPair);
             }
 
         }

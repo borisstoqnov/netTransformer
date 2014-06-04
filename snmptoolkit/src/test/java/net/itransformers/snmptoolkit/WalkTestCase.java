@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Properties;
 
 public class WalkTestCase {
-    @Test
+//    @Test
     public void aptiloTestWalk() throws MibLoaderException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         String oids = "radiusAuthServTotalAccessRequests,radiusAuthServTotalInvalidRequests,radiusAuthServTotalDupAccessRequests,radiusAuthServTotalAccessAccepts,radiusAuthServTotalAccessRejects,radiusAuthServTotalAccessChallenges,radiusAuthServTotalMalformedAccessRequests,radiusAuthServTotalBadAuthenticators,radiusAuthServTotalPacketsDropped,radiusAuthServTotalUnknownTypes,radiusAuthClientAddress,radiusAuthClientID,radiusAuthServAccessRequests,radiusAuthServDupAccessRequests," +
                 "radiusAuthServAccessAccepts,radiusAuthServAccessRejects," +
@@ -75,7 +75,7 @@ public class WalkTestCase {
         String expectedXML = FileUtils.readFileToString(new File("snmptoolkit/src/test/java/resources/aptilo.xml"));
         Assert.assertEquals(expectedXML,xml);
     }
-    @Test
+//    @Test
     public void ciscoIpv6Walk() throws MibLoaderException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         String oids = "ipv6Forwarding, ipv6IfIndex,ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry,cIpAddressEntry";
         String mibDir = "snmptoolkit/mibs";
@@ -98,7 +98,7 @@ public class WalkTestCase {
         String expectedXML = FileUtils.readFileToString(new File("snmptoolkit/src/test/java/resources/cisco_ipv6.xml"));
         Assert.assertEquals(expectedXML,xml);
     }
-    @Test
+//    @Test
     public void ciscoASATestWalk() throws MibLoaderException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         String oids = "ifIndex, natAddrMapEntry";
         String mibDir = "snmptoolkit/mibs";
@@ -121,7 +121,7 @@ public class WalkTestCase {
         String expectedXML = FileUtils.readFileToString(new File("snmptoolkit/src/test/java/resources/ASA.xml"));
         Assert.assertEquals(expectedXML,xml);
     }
-    @Test
+//    @Test
     public void acmeTestWalk() throws MibLoaderException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         String oids = "apSipSAStatsPeriodAnswers";
         String mibDir = "snmptoolkit/mibs";

@@ -61,7 +61,7 @@ public class Neo4jGraphmlMergerTestCase {
     public void testMerge() throws IOException {
         Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger();
         Transaction tx = graphdb.beginTx();
-        File file = new File("utils/src/test/java/net/itransformers/utils/neo4j/merge/1.graphml");
+        File file = new File("src/test/java/net/itransformers/utils/neo4j/merge/1.graphml");
         neo4jMerger.merge(graphdb, file);
         Neo4jGraph neo4jGraph = new Neo4jGraph(graphdb);
         neo4jGraph.removeVertex(neo4jGraph.getVertex(0));
@@ -78,9 +78,9 @@ public class Neo4jGraphmlMergerTestCase {
     }
     @Test
     public void testMerge2() throws IOException {
-        File file1 = new File("utils/src/test/java/net/itransformers/utils/neo4j/merge/1.graphml");
-        File file2 = new File("utils/src/test/java/net/itransformers/utils/neo4j/merge/2.graphml");
-        File file3 = new File("utils/src/test/java/net/itransformers/utils/neo4j/merge/3.graphml");
+        File file1 = new File("src/test/java/net/itransformers/utils/neo4j/merge/1.graphml");
+        File file2 = new File("src/test/java/net/itransformers/utils/neo4j/merge/2.graphml");
+        File file3 = new File("src/test/java/net/itransformers/utils/neo4j/merge/3.graphml");
         Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger();
         Transaction tx = graphdb.beginTx();
 
@@ -106,8 +106,8 @@ public class Neo4jGraphmlMergerTestCase {
 
     @Test
     public void testVertexMerge() throws IOException {
-        File file1 = new File("utils/src/test/java/net/itransformers/utils/neo4j/merge/1.graphml");
-        File expectedFile = new File("utils/src/test/java/net/itransformers/utils/neo4j/merge/vertex_merge1.graphml");
+        File file1 = new File("src/test/java/net/itransformers/utils/neo4j/merge/1.graphml");
+        File expectedFile = new File("src/test/java/net/itransformers/utils/neo4j/merge/vertex_merge1.graphml");
         Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger();
         Transaction tx = graphdb.beginTx();
 
@@ -141,9 +141,9 @@ public class Neo4jGraphmlMergerTestCase {
     public void testMerge3() throws IOException {
         Transaction tx = graphdb.beginTx();
 
-        File f1 = new File("utils/src/test/java/net/itransformers/utils/graphmlmerge/version5/device-centric/node-R11.graphml");
-        File f2 = new File("utils/src/test/java/net/itransformers/utils/graphmlmerge/version5/device-centric/node-R2.graphml");
-        File f3 = new File("utils/src/test/java/net/itransformers/utils/graphmlmerge/version5/device-centric/expected.graphml");
+        File f1 = new File("src/test/java/net/itransformers/utils/graphmlmerge/version5/device-centric/node-R11.graphml");
+        File f2 = new File("src/test/java/net/itransformers/utils/graphmlmerge/version5/device-centric/node-R2.graphml");
+        File f3 = new File("src/test/java/net/itransformers/utils/graphmlmerge/version5/device-centric/expected.graphml");
         File f3Actual = File.createTempFile("graphml_merge",".xml");
 
         Map<String, MergeConflictResolver> vertexConflictResolver = new HashMap<String, MergeConflictResolver>();
@@ -217,9 +217,9 @@ public class Neo4jGraphmlMergerTestCase {
     public void testMerge4() throws IOException {
         Transaction tx = graphdb.beginTx();
 
-        File f1 = new File("utils/src/test/java/net/itransformers/utils/neo4j/merge/1.graphml");
-        File f2 = new File("utils/src/test/java/net/itransformers/utils/neo4j/merge/2.graphml");
-        File f3 = new File("utils/src/test/java/net/itransformers/utils/neo4j/merge/4.graphml");
+        File f1 = new File("src/test/java/net/itransformers/utils/neo4j/merge/1.graphml");
+        File f2 = new File("src/test/java/net/itransformers/utils/neo4j/merge/2.graphml");
+        File f3 = new File("src/test/java/net/itransformers/utils/neo4j/merge/4.graphml");
 
         Map<String, MergeConflictResolver> vertexConflictResolver = new HashMap<String, MergeConflictResolver>();
         vertexConflictResolver.put("name", new MergeConflictResolver(){
@@ -239,7 +239,6 @@ public class Neo4jGraphmlMergerTestCase {
                 }
             }
         });
-
         new Neo4jGraphmlMerger(edgeConflictResolver, vertexConflictResolver).merge(graphdb, new File[]{f1, f2});
         tx.success();
 
