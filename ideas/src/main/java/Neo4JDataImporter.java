@@ -31,11 +31,10 @@ import org.neo4j.graphdb.factory.GraphDatabaseSettings;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.ws.rs.core.UriBuilder;
-import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.util.List;
 
-@Deprecated
+//@Deprecated
 public class Neo4JDataImporter {
     public static int nodeCounter = 0;
     public static void main(String[] args) throws Exception {
@@ -105,13 +104,13 @@ org.neo4j.rest.logging_filter=false (set to true if verbose request/response log
 
 //       importData(graphdb);
 // add some data first
-        File dir = new File("C:\\Documents and Settings\\LYCHO\\My Documents\\4_very_big");
+        File dir = new File("ideas/src/main/resources/device-xml");
 
         Node root = createRootNetworkNode(graphdb);
         File[] files = dir.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.startsWith("device-") && name.endsWith(".xml");
+                return name.endsWith(".xml");
             }
         });
 

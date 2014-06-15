@@ -1,0 +1,987 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<graphml xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:functx="http://www.functx.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <key id="IPv4Forwarding" for="node" attr.name="IPv4Forwarding" attr.type="string" />
+    <key id="IPv6Forwarding" for="node" attr.name="IPv6Forwarding" attr.type="string" />
+    <key id="ManagementIPAddress" for="node" attr.name="ManagementIPAddress" attr.type="string" />
+    <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string" />
+    <key id="deviceStatus" for="node" attr.name="deviceStatus" attr.type="string" />
+    <key id="deviceType" for="node" attr.name="deviceType" attr.type="string" />
+    <key id="diff" for="node" attr.name="diff" attr.type="string" />
+    <key id="diffs" for="node" attr.name="diffs" attr.type="string" />
+    <key id="geoCoordinates" for="node" attr.name="geoCoordinates" attr.type="string" />
+    <key id="hostname" for="node" attr.name="hostname" attr.type="string" />
+    <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string" />
+    <key id="site" for="node" attr.name="site" attr.type="string" />
+    <key id="IPv4AddressA" for="edge" attr.name="IPv4AddressA" attr.type="string" />
+    <key id="IPv4AddressB" for="edge" attr.name="IPv4AddressB" attr.type="string" />
+    <key id="IPv4Forwarding" for="edge" attr.name="IPv4Forwarding" attr.type="string" />
+    <key id="IPv6Forwarding" for="edge" attr.name="IPv6Forwarding" attr.type="string" />
+    <key id="InterfaceNameA" for="edge" attr.name="InterfaceNameA" attr.type="string" />
+    <key id="InterfaceNameB" for="edge" attr.name="InterfaceNameB" attr.type="string" />
+    <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string" />
+    <key id="diff" for="edge" attr.name="diff" attr.type="string" />
+    <key id="diffs" for="edge" attr.name="diffs" attr.type="string" />
+    <key id="edgeTooltip" for="edge" attr.name="edgeTooltip" attr.type="string" />
+    <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string" />
+    <key id="method" for="edge" attr.name="method" attr.type="string" />
+    <key id="name" for="edge" attr.name="name" attr.type="string" />
+    <graph id="G" edgedefault="undirected">
+        <node id="172.16.12.0/30">
+            <data key="deviceModel">passiveHub</data>
+            <data key="deviceStatus">passive</data>
+            <data key="nodeInfo">172.16.12.0/30</data>
+        </node>
+        <node id="172.16.12.2" />
+        <node id="172.16.15.0" />
+        <node id="172.16.15.0/31">
+            <data key="deviceModel">passiveHub</data>
+            <data key="deviceStatus">passive</data>
+            <data key="nodeInfo">172.16.15.0/31</data>
+        </node>
+        <node id="172.16.15.1" />
+        <node id="172.16.24.0/30">
+            <data key="deviceModel">passiveHub</data>
+            <data key="deviceStatus">passive</data>
+            <data key="nodeInfo">172.16.24.0/30</data>
+        </node>
+        <node id="172.16.24.2" />
+        <node id="172.16.34.0/29">
+            <data key="deviceModel">passiveHub</data>
+            <data key="deviceStatus">passive</data>
+            <data key="nodeInfo">172.16.34.0/29</data>
+        </node>
+        <node id="172.16.34.3" />
+        <node id="172.16.35.0/29">
+            <data key="deviceModel">passiveHub</data>
+            <data key="deviceStatus">passive</data>
+            <data key="nodeInfo">172.16.35.0/29</data>
+        </node>
+        <node id="172.16.35.3" />
+        <node id="OpenWrt">
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="ManagementIPAddress">10.17.1.1</data>
+            <data key="deviceModel">Unknown</data>
+            <data key="deviceStatus">discovered</data>
+            <data key="deviceType">DEFAULT</data>
+            <data key="geoCoordinates">,</data>
+            <data key="hostname">OpenWrt</data>
+            <data key="nodeInfo"> &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:43:29.96&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:27:56.60&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:17:24.36&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:12:06.52&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 29 days, 0:05:45.92&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 28 days, 23:58:55.56&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 28 days, 23:43:24.54&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 28 days, 23:38:16.94&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 28 days, 23:30:30.88&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 28 days, 23:15:52.71&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 28 days, 22:51:21.79&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 28 days, 21:36:33.46&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 28 days, 21:25:53.98&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 28 days, 13:22:07.65&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 28 days, 13:22:07.65&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 28 days, 13:22:07.65&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 28 days, 13:22:07.65&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 28 days, 4:00:14.04&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 27 days, 13:39:38.29&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 27 days, 13:32:32.29&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 24 days, 21:34:13.87&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 24 days, 3:01:18.40&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 24 days, 3:01:18.40&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 23 days, 21:42:07.99&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>DEFAULT &lt;b>Model:&lt;/b> Unknown &lt;b>Site:&lt;/b> OpenWrt&lt;br>&lt;b>Mgmt IP address:&lt;/b> 10.17.1.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 19 days, 12:01:33.87&lt;/html></data>
+            <data key="site">OpenWrt</data>
+        </node>
+        <node id="R1">
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="ManagementIPAddress">172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.13.1,172.16.12.1,172.16.13.1,172.16.12.1,172.16.12.1,172.16.12.1,172.16.12.1,172.16.12.1,172.16.12.1,172.16.12.1,172.16.12.1,172.16.15.0,172.16.15.0,172.16.13.1,172.16.12.1</data>
+            <data key="deviceModel">ciscoGatewayServer</data>
+            <data key="deviceStatus">discovered</data>
+            <data key="deviceType">CISCO</data>
+            <data key="geoCoordinates">,</data>
+            <data key="hostname">R1</data>
+            <data key="nodeInfo"> &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b&gt;Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.15.0&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.15.0&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R1&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html></data>
+            <data key="site">R1</data>
+        </node>
+        <node id="R2">
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="ManagementIPAddress">172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.23.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.12.2,172.16.23.2,172.16.23.2,172.16.23.2,172.16.12.2</data>
+            <data key="deviceModel">ciscoGatewayServer</data>
+            <data key="deviceStatus">discovered</data>
+            <data key="deviceType">CISCO</data>
+            <data key="geoCoordinates">,</data>
+            <data key="hostname">R2</data>
+            <data key="nodeInfo"> &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b&gt;Mgmt IP address:&lt;/b> 172.16.23.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.23.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.23.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.23.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R2&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.12.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html></data>
+            <data key="site">R2</data>
+        </node>
+        <node id="R3">
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="ManagementIPAddress">172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.35.3,172.16.35.3,172.16.34.3,172.16.35.3,172.16.35.3,172.16.35.3,172.16.35.3,172.16.35.3,172.16.35.3,172.16.35.3,172.16.35.3,172.16.13.3,172.16.13.3,172.16.34.3</data>
+            <data key="deviceModel">ciscoGatewayServer</data>
+            <data key="deviceStatus">discovered</data>
+            <data key="deviceType">CISCO</data>
+            <data key="geoCoordinates">,</data>
+            <data key="hostname">R3</data>
+            <data key="nodeInfo"> &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b&gt;Mgmt IP address:&lt;/b> 172.16.34.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.13.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R3&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.34.3&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html></data>
+            <data key="site">R3</data>
+        </node>
+        <node id="R4">
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="ManagementIPAddress">172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.34.4,172.16.34.4,172.16.34.4,172.16.34.4,172.16.34.4,172.16.34.4,172.16.34.4,172.16.34.4,172.16.34.4,172.16.34.4,172.16.34.4,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.45.1,172.16.34.4,192.168.4.4</data>
+            <data key="deviceModel">ciscoGatewayServer</data>
+            <data key="deviceStatus">discovered</data>
+            <data key="deviceType">CISCO</data>
+            <data key="geoCoordinates">,</data>
+            <data key="hostname">R4</data>
+            <data key="nodeInfo"> &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.34.4&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.34.4&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.34.4&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.34.4&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.34.4&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.34.4&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.34.4&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.34.4&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.34.4&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.34.4&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b&gt;Mgmt IP address:&lt;/b> 172.16.34.4&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.34.4&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R4&lt;br>&lt;b>Mgmt IP address:&lt;/b> 192.168.4.4&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html></data>
+            <data key="site">R4</data>
+        </node>
+        <node id="R5">
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="ManagementIPAddress">172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.35.5,172.16.15.1,172.16.35.5,172.16.15.1,172.16.15.1,172.16.15.1,172.16.15.1,172.16.15.1,172.16.15.1,172.16.15.1,172.16.15.1,172.16.45.2,172.16.45.2,172.16.35.5,172.16.15.1</data>
+            <data key="deviceModel">ciscoGatewayServer</data>
+            <data key="deviceStatus">discovered</data>
+            <data key="deviceType">CISCO</data>
+            <data key="geoCoordinates">,</data>
+            <data key="hostname">R5</data>
+            <data key="nodeInfo"> &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.15.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b&gt;Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.15.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.15.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.15.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.15.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.15.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.15.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.15.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.15.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.45.2&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.35.5&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html>, &lt;html>&lt;b>Type: &lt;/b>CISCO &lt;b>Model:&lt;/b> ciscoGatewayServer &lt;b>Site:&lt;/b> R5&lt;br>&lt;b>Mgmt IP address:&lt;/b> 172.16.15.1&lt;br/>&lt;b>IPv6Forwarding:&lt;/b> NO&lt;br/>&lt;b>BGPLocalASInfo:&lt;/b> 0&lt;/html></data>
+            <data key="site">R5</data>
+        </node>
+        <edge id="172.16.12.0/30 R1 " source="R1" target="172.16.12.0/30" label="172.16.12.0/30 R1 ">
+            <data key="IPv4AddressA"></data>
+            <data key="IPv4AddressB"></data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA"></data>
+            <data key="InterfaceNameB">Serial1/2</data>
+            <data key="dataLink">NO</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> (  )
+                | Slash30,r_ISIS,CDP&lt;/p> </data>
+            <data key="ipLink">NO</data>
+            <data key="method">Slash30,r_ISIS,CDP,</data>
+        </edge>
+        <edge id="172.16.15.0/31 R1 " source="R1" target="172.16.15.0/31" label="172.16.15.0/31 R1 ">
+            <data key="IPv4AddressA"></data>
+            <data key="IPv4AddressB"></data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA"></data>
+            <data key="InterfaceNameB">Serial1/3</data>
+            <data key="dataLink">NO</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> (  )
+                | Slash31,CDP,r_ISIS&lt;/p> </data>
+            <data key="ipLink">NO</data>
+            <data key="method">Slash31,CDP,r_ISIS,</data>
+        </edge>
+        <edge id="172.16.15.0/31 R5 " source="R5" target="172.16.15.0/31" label="172.16.15.0/31 R5 ">
+            <data key="IPv4AddressA"></data>
+            <data key="IPv4AddressB"></data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA"></data>
+            <data key="InterfaceNameB">Serial1/3</data>
+            <data key="dataLink">NO</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> (  )
+                | Slash31,r_ISIS,CDP&lt;/p> </data>
+            <data key="ipLink">NO</data>
+            <data key="method">Slash31,r_ISIS,CDP,</data>
+        </edge>
+        <edge id="172.16.24.0/30 R2 " source="R2" target="172.16.24.0/30" label="172.16.24.0/30 R2 ">
+            <data key="IPv4AddressA"></data>
+            <data key="IPv4AddressB"></data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA"></data>
+            <data key="InterfaceNameB">Serial1/3</data>
+            <data key="dataLink">NO</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> (  )
+                | Slash30,CDP,r_ISIS&lt;/p> </data>
+            <data key="ipLink">NO</data>
+            <data key="method">Slash30,CDP,r_ISIS,</data>
+        </edge>
+        <edge id="172.16.34.0/29 R4 " source="R4" target="172.16.34.0/29" label="172.16.34.0/29 R4 ">
+            <data key="IPv4AddressA"></data>
+            <data key="IPv4AddressB"></data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA"></data>
+            <data key="InterfaceNameB">Serial1/1</data>
+            <data key="dataLink">NO</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> (  )
+                | r_OSPF,CDP&lt;/p> </data>
+            <data key="ipLink">NO</data>
+            <data key="method">r_OSPF,CDP,</data>
+        </edge>
+        <edge id="172.16.35.0/29 R5 " source="R5" target="172.16.35.0/29" label="172.16.35.0/29 R5 ">
+            <data key="IPv4AddressA"></data>
+            <data key="IPv4AddressB"></data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA"></data>
+            <data key="InterfaceNameB">Ethernet0/1</data>
+            <data key="dataLink">NO</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> (  )
+                | r_OSPF,ARP,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> (  )
+                | ARP,CDP&lt;/p> </data>
+            <data key="ipLink">NO</data>
+            <data key="method">r_OSPF,ARP,CDP,,ARP,CDP,</data>
+        </edge>
+        <edge id="OpenWrt R1 - 10.17.1.1 10.17.1.13" source="R1" target="OpenWrt" label="OpenWrt R1 - 10.17.1.1 10.17.1.13">
+            <data key="IPv4AddressA">10.17.1.1</data>
+            <data key="IPv4AddressB">10.17.1.13</data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA"></data>
+            <data key="InterfaceNameB">Ethernet0/0</data>
+            <data key="dataLink">NO</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R1&lt;/b> Ethernet0/0&lt;b>&lt;/b> ( 10.17.1.13 )
+                | ARP&lt;/p> </data>
+            <data key="ipLink">YES</data>
+            <data key="method">ARP,</data>
+        </edge>
+        <edge id="R1 R2 - Serial1/2 Serial1/1" source="R1" target="R2" label="R1 R2 - Serial1/2 Serial1/1">
+            <data key="IPv4AddressA">172.16.12.1</data>
+            <data key="IPv4AddressB">172.16.12.2</data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA">Serial1/2</data>
+            <data key="InterfaceNameB">Serial1/1</data>
+            <data key="dataLink">YES</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b&gt;&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.12.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.12.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> </data>
+            <data key="ipLink">YES</data>
+            <data key="method">Slash30,r_ISIS,CDP,</data>
+        </edge>
+        <edge id="R1 R3 - 172.16.13.1 172.16.13.3" source="R3" target="R1" label="R1 R3 - 172.16.13.1 172.16.13.3">
+            <data key="IPv4AddressA">172.16.13.1</data>
+            <data key="IPv4AddressB">172.16.13.3</data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA"></data>
+            <data key="InterfaceNameB">Serial1/1</data>
+            <data key="dataLink">NO</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,OSPF&lt;/p> </data>
+            <data key="ipLink">YES</data>
+            <data key="method">r_OSPF,OSPF,</data>
+        </edge>
+        <edge id="R1 R3 - Serial1/1 Serial1/1" source="R1" target="R3" label="R1 R3 - Serial1/1 Serial1/1">
+            <data key="IPv4AddressA">172.16.13.1</data>
+            <data key="IPv4AddressB">172.16.13.3,,172.16.13.3,,172.16.13.3,,172.16.13.3,,172.16.13.3,,172.16.13.3,,172.16.13.3,,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,172.16.13.3,,,172.16.13.3</data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA">Serial1/1</data>
+            <data key="InterfaceNameB">Serial1/1</data>
+            <data key="dataLink">YES</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b&gt;R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b&gt; Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.13.1 )
+                | r_OSPF,CDP,OSPF&lt;/p> </data>
+            <data key="ipLink">YES</data>
+            <data key="method">r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,CDP,,CDP,,r_OSPF,CDP,OSPF,</data>
+        </edge>
+        <edge id="R1 R5 - Serial1/3 Serial1/3" source="R1" target="R5" label="R1 R5 - Serial1/3 Serial1/3">
+            <data key="IPv4AddressA">172.16.15.0</data>
+            <data key="IPv4AddressB">172.16.15.1</data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA">Serial1/3</data>
+            <data key="InterfaceNameB">Serial1/3</data>
+            <data key="dataLink">YES</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b&gt;&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.1 )
+                | Slash31,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R1&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.15.0 )
+                | Slash31,r_ISIS,CDP&lt;/p> </data>
+            <data key="ipLink">YES</data>
+            <data key="method">Slash31,r_ISIS,CDP,</data>
+        </edge>
+        <edge id="R2 R3 - 172.16.23.2 172.16.23.3" source="R3" target="R2" label="R2 R3 - 172.16.23.2 172.16.23.3">
+            <data key="IPv4AddressA">172.16.23.2</data>
+            <data key="IPv4AddressB">172.16.23.3</data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA"></data>
+            <data key="InterfaceNameB">Serial1/2</data>
+            <data key="dataLink">NO</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,OSPF&lt;/p> </data>
+            <data key="ipLink">YES</data>
+            <data key="method">r_OSPF,OSPF,</data>
+        </edge>
+        <edge id="R2 R3 - Serial1/2 Serial1/2" source="R2" target="R3" label="R2 R3 - Serial1/2 Serial1/2">
+            <data key="IPv4AddressA">172.16.23.2</data>
+            <data key="IPv4AddressB">172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,172.16.23.3,,172.16.23.3</data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA">Serial1/2</data>
+            <data key="InterfaceNameB">Serial1/2</data>
+            <data key="dataLink">YES</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p&gt;&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b&gt;&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b&gt; ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.23.2 )
+                | r_OSPF,CDP,OSPF&lt;/p> </data>
+            <data key="ipLink">YES</data>
+            <data key="method">r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,</data>
+        </edge>
+        <edge id="R2 R4 - Serial1/3 Serial1/3" source="R2" target="R4" label="R2 R4 - Serial1/3 Serial1/3">
+            <data key="IPv4AddressA">172.16.24.1</data>
+            <data key="IPv4AddressB">172.16.24.2</data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA">Serial1/3</data>
+            <data key="InterfaceNameB">Serial1/3</data>
+            <data key="dataLink">YES</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b&gt;&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R2&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.24.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> </data>
+            <data key="ipLink">YES</data>
+            <data key="method">Slash30,r_ISIS,CDP,</data>
+        </edge>
+        <edge id="R3 R4 - 172.16.34.3 172.16.34.4" source="R3" target="R4" label="R3 R4 - 172.16.34.3 172.16.34.4">
+            <data key="IPv4AddressA">172.16.34.3</data>
+            <data key="IPv4AddressB">172.16.34.4</data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA">Serial1/3</data>
+            <data key="InterfaceNameB"></data>
+            <data key="dataLink">NO</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,OSPF&lt;/p> </data>
+            <data key="ipLink">YES</data>
+            <data key="method">r_OSPF,OSPF,</data>
+        </edge>
+        <edge id="R3 R4 - Serial1/3 Serial1/1" source="R3" target="R4" label="R3 R4 - Serial1/3 Serial1/1">
+            <data key="IPv4AddressA">172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,172.16.34.3,,172.16.34.3,,172.16.34.3,,172.16.34.3,,172.16.34.3,,172.16.34.3,,172.16.34.3,,172.16.34.3,,172.16.34.3,,,172.16.34.3</data>
+            <data key="IPv4AddressB">172.16.34.4</data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA">Serial1/3</data>
+            <data key="InterfaceNameB">Serial1/1</data>
+            <data key="dataLink">YES</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p&gt;&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/1&lt;b>&lt;/b> ( 172.16.34.4 )
+                | r_OSPF,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Serial1/3&lt;b>&lt;/b> ( 172.16.34.3 )
+                | r_OSPF,CDP,OSPF&lt;/p> </data>
+            <data key="ipLink">YES</data>
+            <data key="method">r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,CDP,,r_OSPF,CDP,OSPF,,CDP,,CDP,,r_OSPF,CDP,OSPF,</data>
+        </edge>
+        <edge id="R3 R5 - 172.16.35.3 172.16.35.5" source="R3" target="R5" label="R3 R5 - 172.16.35.3 172.16.35.5">
+            <data key="IPv4AddressA">172.16.35.3</data>
+            <data key="IPv4AddressB">172.16.35.5</data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA">Ethernet0/1</data>
+            <data key="InterfaceNameB"></data>
+            <data key="dataLink">NO</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,OSPF&lt;/p> </data>
+            <data key="ipLink">YES</data>
+            <data key="method">r_OSPF,ARP,OSPF,</data>
+        </edge>
+        <edge id="R3 R5 - Ethernet0/1 Ethernet0/1" source="R3" target="R5" label="R3 R5 - Ethernet0/1 Ethernet0/1">
+            <data key="IPv4AddressA">172.16.35.3</data>
+            <data key="IPv4AddressB">172.16.35.5</data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA">Ethernet0/1</data>
+            <data key="InterfaceNameB">Ethernet0/1</data>
+            <data key="dataLink">YES</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.5 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> ,&lt;p>&lt;b>R3&lt;/b> Ethernet0/1&lt;b>&lt;/b> ( 172.16.35.3 )
+                | r_OSPF,ARP,CDP,OSPF&lt;/p> </data>
+            <data key="ipLink">YES</data>
+            <data key="method">r_OSPF,ARP,CDP,OSPF,</data>
+        </edge>
+        <edge id="R4 R5 - Serial1/2 Serial1/2" source="R4" target="R5" label="R4 R5 - Serial1/2 Serial1/2">
+            <data key="IPv4AddressA">172.16.45.1</data>
+            <data key="IPv4AddressB">172.16.45.2</data>
+            <data key="IPv4Forwarding">YES</data>
+            <data key="IPv6Forwarding">NO</data>
+            <data key="InterfaceNameA">Serial1/2</data>
+            <data key="InterfaceNameB">Serial1/2</data>
+            <data key="dataLink">YES</data>
+            <data key="edgeTooltip">&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b&gt;&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R5&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.2 )
+                | Slash30,r_ISIS,CDP&lt;/p> ,&lt;p>&lt;b>R4&lt;/b> Serial1/2&lt;b>&lt;/b> ( 172.16.45.1 )
+                | Slash30,r_ISIS,CDP&lt;/p> </data>
+            <data key="ipLink">YES</data>
+            <data key="method">Slash30,r_ISIS,CDP,</data>
+        </edge>
+    </graph>
+</graphml>
