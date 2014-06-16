@@ -65,7 +65,8 @@ public class Neo4jGraphmlMerger {
         if (edge1 == null) {
             Node outVertex1 = getNodeById(dbService, edge2.getVertex(Direction.OUT).getId());
             Node outVertex2 = getNodeById(dbService, edge2.getVertex(Direction.IN).getId());
-            edge1 = outVertex1.createRelationshipTo(outVertex2, DynamicRelationshipType.withName(edge2.getLabel()));//dbService.addEdge(edge2.getId(), outVertex1, outVertex2, edge2.getLabel());
+            DynamicRelationshipType dynamicRelationshipType = DynamicRelationshipType.withName(edge2.getLabel());
+            edge1 = outVertex1.createRelationshipTo(outVertex2, dynamicRelationshipType);//dbService.addEdge(edge2.getId(), outVertex1, outVertex2, edge2.getLabel());
             edge1.setProperty("id",edge2.getId());
             for (String key2 : edge2.getPropertyKeys()) {
                 edge1.setProperty(key2,edge2.getProperty(key2));
