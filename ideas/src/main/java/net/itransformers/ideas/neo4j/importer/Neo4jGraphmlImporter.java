@@ -18,32 +18,21 @@ import java.io.IOException;
  */
 public class Neo4jGraphmlImporter {
     public static void main(String[] args) throws IOException {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("neo4j-spring.xml");
-        GraphDatabaseService graphdb = applicationContext.getBean("graphDbService", GraphDatabaseService.class);
-//        graphdb.setConfig(GraphDatabaseSettings.string_block_size, "60")
-//                .setConfig( GraphDatabaseSettings.array_block_size, "300" )
-//                .setConfig( GraphDatabaseSettings.node_auto_indexing, "true" )
-//                .setConfig( GraphDatabaseSettings.node_keys_indexable, "true" )
-//                .setConfig(GraphDatabaseSettings.relationship_auto_indexing, "true")
-//                .setConfig( GraphDatabaseSettings.relationship_keys_indexable, "true" )
-//                .setConfig( GraphDatabaseSettings.node_keys_indexable, "id" )
-//                .setConfig( GraphDatabaseSettings.relationship_keys_indexable, "id" )
 
+        GraphDatabaseService graphdb = new org.neo4j.rest.graphdb.RestGraphDatabase("http://193.19.172.133:7474/db/data");
         Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger();
-        Transaction tx = graphdb.beginTx();
+        Transaction tx = null;
+        try {
+            tx = graphdb.beginTx();
 
-        File file = new File("src/main/resources/graphml/1.graphml");
-        neo4jMerger.merge(graphdb, file);
-        Neo4jGraph neo4jGraph = new Neo4jGraph(graphdb);
-        neo4jGraph.removeVertex(neo4jGraph.getVertex(0));
-        MyGraphMLWriter writer = new MyGraphMLWriter(neo4jGraph);
-        writer.setNormalize(true);
-        writer.setVertexIdKey("id");
-        writer.setEdgeIdKey("id");
-        String expectedResult = FileUtils.readFileToString(file);
-        ByteArrayOutputStream os = new ByteArrayOutputStream(expectedResult.length());
-        writer.outputGraph(os, "undirected");
-        tx.success();
+            File file = new File("src/main/resources/graphml/1.graphml");
+            neo4jMerger.merge(graphdb, file);
+            tx.success();
+        } catch (Exception e) {
+            if (tx != null) tx.failure();
+        } finally {
+            if (tx != null) tx.finish();
+        }
 
     }
 }

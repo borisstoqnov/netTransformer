@@ -24,6 +24,5 @@
 
     <bean id="graphDbService" class="org.neo4j.rest.graphdb.RestGraphDatabase" destroy-method="shutdown">
         <constructor-arg index="0" value="http://193.19.172.133:7474/db/data" />
-        <neo4j:config storeDirectory="data/graph.db" />
     </bean>
 </beans>

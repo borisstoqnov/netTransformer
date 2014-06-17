@@ -50,5 +50,8 @@
         <edge id="12" source="6" target="3" label="created">
             <data key="weight">0.2</data>
         </edge>
+        <edge id="13" source="4" target="1" label="created">
+            <data key="weight">0.2</data>
+        </edge>
     </graph>
 </graphml>
