@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.tinkerpop.blueprints</groupId>
             <artifactId>blueprints-core</artifactId>
-            <version>2.4.0</version>
+            <version>2.5.0</version>
         </dependency>
         <dependency>
             <groupId>iTransformers.iTransformer</groupId>
@@ -48,21 +48,23 @@
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-kernel</artifactId>
-            <!--<version>2.0.3</version>-->
-            <version>1.9.6</version>
-            <type>test-jar</type>
-            <scope>test</scope>
+            <version>2.1.2</version>
+            <!--<version>1.9.6</version>-->
+            <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>com.tinkerpop.blueprints</groupId>
-            <artifactId>blueprints-core</artifactId>
-            <version>2.5.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.tinkerpop.blueprints</groupId>
-            <artifactId>blueprints-neo4j-graph</artifactId>
-            <version>2.5.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.neo4j</groupId>-->
+            <!--<artifactId>neo4j-kernel</artifactId>-->
+            <!--&lt;!&ndash;<version>2.0.3</version>&ndash;&gt;-->
+            <!--<version>1.9.6</version>-->
+            <!--<type>test-jar</type>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.tinkerpop.blueprints</groupId>-->
+            <!--<artifactId>blueprints-neo4j-graph</artifactId>-->
+            <!--<version>2.5.0</version>-->
+        <!--</dependency>-->
     </dependencies>
     <build>
         <plugins>

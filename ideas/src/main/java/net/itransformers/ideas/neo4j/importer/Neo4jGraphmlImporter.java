@@ -1,15 +1,8 @@
 package net.itransformers.ideas.neo4j.importer;
 
-import com.tinkerpop.blueprints.impls.neo4j.Neo4jGraph;
-import net.itransformers.utils.blueprints_patch.MyGraphMLWriter;
 import net.itransformers.utils.neo4j.merge.Neo4jGraphmlMerger;
-import org.apache.commons.io.FileUtils;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
-import org.neo4j.graphdb.factory.GraphDatabaseSettings;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
