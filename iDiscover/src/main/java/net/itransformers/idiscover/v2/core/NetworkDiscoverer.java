@@ -35,8 +35,6 @@ public class NetworkDiscoverer {
     private boolean isPaused;
     private boolean isStopped;
 
-
-    //    List<NetworkDiscoveryListener> networkDiscoveryListeners;
     NodeDiscoverFilter nodeDiscoverFilter;
 
 

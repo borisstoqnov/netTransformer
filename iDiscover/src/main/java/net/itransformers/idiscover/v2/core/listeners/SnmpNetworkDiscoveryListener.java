@@ -41,6 +41,8 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
             edgesTypes.put("edgeTooltip","string");
             edgesTypes.put("diff","string");
             edgesTypes.put("diffs","string");
+            edgesTypes.put("bgpAutonomousSystemA","string");
+            edgesTypes.put("bgpAutonomousSystemB","string");
 
             Map<String, String> vertexTypes = new HashMap<String, String>();
             vertexTypes.put("deviceModel","string");
@@ -56,6 +58,7 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
             vertexTypes.put("diffs","string");
             vertexTypes.put("IPv6Forwarding","string");
             vertexTypes.put("IPv4Forwarding","string");
+            vertexTypes.put("bgpLocalAS","string");
 
             new GrahmlMerge().merge(files,outFile,vertexTypes, edgesTypes, "undirected");
         } catch (IOException e) {
