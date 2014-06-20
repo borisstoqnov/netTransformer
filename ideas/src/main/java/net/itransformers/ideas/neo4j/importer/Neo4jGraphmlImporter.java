@@ -1,7 +1,9 @@
 package net.itransformers.ideas.neo4j.importer;
 
 import net.itransformers.utils.neo4j.merge.Neo4jGraphmlMerger;
+import org.neo4j.graphdb.DynamicLabel;
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Label;
 import org.neo4j.graphdb.Transaction;
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +15,7 @@ public class Neo4jGraphmlImporter {
     public static void main(String[] args) throws IOException {
 
         GraphDatabaseService graphdb = new org.neo4j.rest.graphdb.RestGraphDatabase("http://193.19.172.133:7474/db/data");
-        Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger();
+        Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger(new Label[]{DynamicLabel.label("test_1")});
         Transaction tx = null;
         try {
             tx = graphdb.beginTx();
@@ -24,7 +26,7 @@ public class Neo4jGraphmlImporter {
         } catch (Exception e) {
             if (tx != null) tx.failure();
         } finally {
-            if (tx != null) tx.finish();
+            if (tx != null) tx.close();
         }
 
     }

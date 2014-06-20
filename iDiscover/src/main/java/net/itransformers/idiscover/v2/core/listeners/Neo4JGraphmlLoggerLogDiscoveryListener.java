@@ -28,7 +28,9 @@ import net.itransformers.utils.XsltTransformer;
 import net.itransformers.utils.neo4j.merge.Neo4jGraphmlMerger;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.neo4j.graphdb.DynamicLabel;
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Label;
 import org.neo4j.graphdb.Transaction;
 
 import javax.xml.bind.JAXBException;
@@ -87,7 +89,7 @@ public class Neo4JGraphmlLoggerLogDiscoveryListener implements NodeDiscoveryList
         }
 
 
-        Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger();
+        Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger(new Label[]{DynamicLabel.label("v1")});
         Transaction tx = graphdb.beginTx();
 
         try {

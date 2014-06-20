@@ -22,16 +22,20 @@ import java.util.Set;
 public class Neo4jGraphmlMerger {
     private Map<String, MergeConflictResolver> edgeConflictResolverMap;
     private Map<String, MergeConflictResolver> vertexConflictResolverMap;
+    private Label[] labels;
     private DefaultMergeConflictResolver defaultMergeConflictResolver = new DefaultMergeConflictResolver();
 
-    public Neo4jGraphmlMerger() {
+    public Neo4jGraphmlMerger(Label[] labels) {
+        this.labels = labels;
         edgeConflictResolverMap = new HashMap<String, MergeConflictResolver>();
         vertexConflictResolverMap = new HashMap<String, MergeConflictResolver>();
     }
 
-    public Neo4jGraphmlMerger(Map<String, MergeConflictResolver> edgeConflictResolverMap, Map<String, MergeConflictResolver> vertexConflictResolverMap) {
+    public Neo4jGraphmlMerger(Map<String, MergeConflictResolver> edgeConflictResolverMap, Map<String, MergeConflictResolver> vertexConflictResolverMap,
+                              Label[] labels) {
         this.edgeConflictResolverMap = edgeConflictResolverMap;
         this.vertexConflictResolverMap = vertexConflictResolverMap;
+        this.labels = labels;
     }
 
     public void merge(GraphDatabaseService dbService, File[] files) throws IOException {
@@ -97,7 +101,7 @@ public class Neo4jGraphmlMerger {
     private Node mergeVertex(GraphDatabaseService dbService, Vertex vertex2) {
         Node vertex1 = getNodeById(dbService, vertex2.getId());
         if (vertex1 == null) {
-            vertex1 = dbService.createNode();
+            vertex1 = dbService.createNode(labels);
             vertex1.setProperty("id", vertex2.getId());
             Set<String> keys2 = vertex2.getPropertyKeys();
             for (String key2 : keys2) {
