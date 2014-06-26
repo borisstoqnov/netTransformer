@@ -20,29 +20,29 @@ import java.util.Map;
 import java.util.Set;
 
 public class Neo4jGraphmlMerger {
+    private final String version;
     private Map<String, MergeConflictResolver> edgeConflictResolverMap;
     private Map<String, MergeConflictResolver> vertexConflictResolverMap;
-    private Label[] labels;
     private DefaultMergeConflictResolver defaultMergeConflictResolver = new DefaultMergeConflictResolver();
 
-    public Neo4jGraphmlMerger(Label[] labels) {
-        this.labels = labels;
+    public Neo4jGraphmlMerger(String version) {
+        this.version = version;
         edgeConflictResolverMap = new HashMap<String, MergeConflictResolver>();
         vertexConflictResolverMap = new HashMap<String, MergeConflictResolver>();
     }
 
     public Neo4jGraphmlMerger(Map<String, MergeConflictResolver> edgeConflictResolverMap, Map<String, MergeConflictResolver> vertexConflictResolverMap,
-                              Label[] labels) {
+                              String version) {
         this.edgeConflictResolverMap = edgeConflictResolverMap;
         this.vertexConflictResolverMap = vertexConflictResolverMap;
-        this.labels = labels;
+        this.version = version;
     }
 
-    public void merge(GraphDatabaseService dbService, File[] files) throws IOException {
-        for (File file : files) {
-            merge(dbService, file);
-        }
-    }
+//    public void merge(GraphDatabaseService dbService, File[] files) throws IOException {
+//        for (File file : files) {
+//            merge(dbService, file);
+//        }
+//    }
 
 
     public void merge(GraphDatabaseService dbService, File file) throws IOException {
@@ -70,8 +70,9 @@ public class Neo4jGraphmlMerger {
             Node outVertex1 = getNodeById(dbService, edge2.getVertex(Direction.OUT).getId());
             Node outVertex2 = getNodeById(dbService, edge2.getVertex(Direction.IN).getId());
             DynamicRelationshipType dynamicRelationshipType = DynamicRelationshipType.withName(edge2.getLabel());
-            edge1 = outVertex1.createRelationshipTo(outVertex2, dynamicRelationshipType);//dbService.addEdge(edge2.getId(), outVertex1, outVertex2, edge2.getLabel());
-            edge1.setProperty("id",edge2.getId());
+            edge1 = outVertex1.createRelationshipTo(outVertex2, dynamicRelationshipType);
+            edge1.setProperty("__id",edge2.getId());
+            edge1.setProperty("__version",version);
             for (String key2 : edge2.getPropertyKeys()) {
                 edge1.setProperty(key2,edge2.getProperty(key2));
             }
@@ -101,8 +102,9 @@ public class Neo4jGraphmlMerger {
     private Node mergeVertex(GraphDatabaseService dbService, Vertex vertex2) {
         Node vertex1 = getNodeById(dbService, vertex2.getId());
         if (vertex1 == null) {
-            vertex1 = dbService.createNode(labels);
-            vertex1.setProperty("id", vertex2.getId());
+            vertex1 = dbService.createNode();
+            vertex1.setProperty("__id", vertex2.getId());
+            vertex1.setProperty("__version", version);
             Set<String> keys2 = vertex2.getPropertyKeys();
             for (String key2 : keys2) {
                 vertex1.setProperty(key2,vertex2.getProperty(key2));
@@ -127,7 +129,7 @@ public class Neo4jGraphmlMerger {
 
     private Relationship getEdgeById(GraphDatabaseService dbService, Object id){
         ReadableRelationshipIndex index = dbService.index().getRelationshipAutoIndexer().getAutoIndex();
-        IndexHits<Relationship> result = index.get("id", id);
+        IndexHits<Relationship> result = index.query(String.format("__id:\"%s\" AND __version:\"%s\"", id, version));
         if (result.hasNext()) {
             return result.getSingle();
         } else {
@@ -137,7 +139,7 @@ public class Neo4jGraphmlMerger {
     }
     private Node getNodeById(GraphDatabaseService dbService, Object id){
         ReadableIndex<Node> index = dbService.index().getNodeAutoIndexer().getAutoIndex();
-        IndexHits<Node> result = index.get("id", id);
+        IndexHits<Node> result = index.query(String.format("__id:\"%s\" AND __version:\"%s\"", id, version));
         if (result.hasNext()) {
             return result.getSingle();
         } else {

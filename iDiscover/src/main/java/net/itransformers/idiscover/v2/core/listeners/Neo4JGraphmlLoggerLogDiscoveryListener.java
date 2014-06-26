@@ -89,7 +89,7 @@ public class Neo4JGraphmlLoggerLogDiscoveryListener implements NodeDiscoveryList
         }
 
 
-        Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger(new Label[]{DynamicLabel.label("v1")});
+        Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger("v1");
         Transaction tx = graphdb.beginTx();
 
         try {

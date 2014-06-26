@@ -15,7 +15,7 @@ public class Neo4jGraphmlImporter {
     public static void main(String[] args) throws IOException {
 
         GraphDatabaseService graphdb = new org.neo4j.rest.graphdb.RestGraphDatabase("http://193.19.172.133:7474/db/data");
-        Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger(new Label[]{DynamicLabel.label("test_1")});
+        Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger("test_1");
         Transaction tx = null;
         try {
             tx = graphdb.beginTx();
