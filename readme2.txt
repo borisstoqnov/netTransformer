@@ -1,2 +1,0 @@
-mvn install:install-file -DperformRelease=true -DcreateChecksum=true -DgroupId=com.wittams.gritty -DartifactId=gritty -Dversion=0.0.2 -Dpackaging=jar -Dfile="lib\gritty\gritty-0.02.jar"
-mvn install:install-file -DperformRelease=true -DcreateChecksum=true -DgroupId=edu.uci.ics -DartifactId=screencap -Dversion=1.0 -Dpackaging=jar -Dfile="lib\dump\dump.jar"
