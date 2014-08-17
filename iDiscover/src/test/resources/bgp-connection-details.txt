@@ -1,0 +1,1 @@
+type=javaMRT,nodeId=ATLA,date=2014/01/01/0113,pathToFile=/Users/niau/trunk/iDiscover/src/test/resources/cps_rib.20140101.0113.gz

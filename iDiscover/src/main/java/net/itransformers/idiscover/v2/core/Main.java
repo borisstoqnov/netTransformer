@@ -38,32 +38,41 @@ package net.itransformers.idiscover.v2.core;/*
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
+import net.itransformers.utils.CmdLineParser;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
-//    public static void main(String[] args) {
-//        Map<String, String> params = CmdLineParser.parseCmdLine(args);
-//        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("discovery.xml","connectionsDetails.xml");
-//     //   NetworkDiscoverer discoverer = applicationContext.getBean("sdnDiscovery", NetworkDiscoverer.class);
-//        NetworkDiscoverer discoverer = applicationContext.getBean("discovery", NetworkDiscoverer.class);
-//        String connectionDetailsFileName = params.get("-f");
-//        List connectionList = (List) applicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
-//        String depthCmdArg = params.get("-d");
-//        int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1":depthCmdArg);
-//        Map<String, Node> result = discoverer.discoverNodes(connectionList, depth);
-//        for (String s : result.keySet()) {
-//            System.out.println("\nNode: "+ s);
-//            for (String s1 : result.keySet()) {
-//                System.out.println(s1 +"\t");
-//
-//            }
-//        }
-//    }
-
     public static void main(String[] args) {
+        Map<String, String> params = CmdLineParser.parseCmdLine(args);
+        String connectionDetailsFileName = params.get("-f");
+        if (connectionDetailsFileName == null) {
+            printUsage("fileName"); return;
+        }
+        String depthCmdArg = params.get("-d");
+        if (connectionDetailsFileName == null) {
+            printUsage("depth"); return;
+        }
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("discovery.xml","connectionsDetails.xml");
+     //   NetworkDiscoverer discoverer = applicationContext.getBean("sdnDiscovery", NetworkDiscoverer.class);
+        NetworkDiscoverer discoverer = applicationContext.getBean("bgpPeeringMapDiscovery", NetworkDiscoverer.class);
+        List connectionList = (List) applicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
+        int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1":depthCmdArg);
+        Map<String, Node> result = discoverer.discoverNodes(connectionList, depth);
+        for (String s : result.keySet()) {
+            System.out.println("\nNode: "+ s);
+            for (String s1 : result.keySet()) {
+                System.out.println(s1 +"\t");
+
+            }
+        }
+    }
+
+    public static void main1(String[] args) {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
                 "discovery.xml","connectionsDetails.xml");
         NetworkDiscoverer discoverer = applicationContext.getBean("discovery", NetworkDiscoverer.class);
@@ -110,6 +119,11 @@ public class Main {
         Map<String, Node> result = discoverer.discoverNodes(Arrays.asList(connectionDetails));
         System.out.println(result);
     }
+    private static void printUsage(String param){
+        System.out.println("Usage:   iDiscoverv2.sh -f bgp-connection-details.txt -d 10");
+        System.out.println("Missing parameter: "+param);
+    }
+
 }
 
 /*<resource name="SNMP">

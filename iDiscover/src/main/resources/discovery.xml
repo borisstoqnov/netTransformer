@@ -41,7 +41,7 @@
                 <ref bean="rawDataFileLogDiscoveryListener"/>
                 <ref bean="deviceDataFileLogDiscoveryListener"/>
                 <ref bean="GraphmlFileLogDiscoveryListener"/>
-
+                <ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>
             </list>
         </property>
         <property name="networkDiscoveryListeners">
@@ -57,14 +57,13 @@
 
         <property name="nodeDiscoverers">
             <map>
-                <entry key="SNMP" value-ref="bgpSnmpNodeDiscoverer"/>
+                <entry key="javaMRT" value-ref="bgpMapDiscoverer"/>
             </map>
         </property>
-        <property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>
         <property name="nodeDiscoveryListeners">
             <list>
-                <ref bean="sampleNodeDiscoveryListener"/>
                 <ref bean="rawDataFileLogDiscoveryListener"/>
+                <ref bean="Neo4JGraphmlBGPLoggerLogDiscoveryListener"/>
             </list>
         </property>
     </bean>
@@ -88,6 +87,8 @@
             </list>
         </property>
     </bean>
+
+
 
     <bean id="sampleNodeDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SampleNodeDiscoveryListener"/>
     <bean id="rawDataFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.RawDataFileLogDiscoveryListener">
@@ -133,9 +134,26 @@
         <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
     </bean>
 
-    <bean id="Neo4JLoggerLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.Neo4JLoggerLogDiscoveryListener">
-        <property name="label" value="version1"/>
+    <bean id="Neo4JGraphmlLoggerLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.Neo4JGraphmlLoggerLogDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+        <property name="graphmDirName" value="undirected"/>
         <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
+        <property name="graphDbUrl" value="http://193.19.172.133:7474/db/data"/>
+        <property name="dataType" value="deviceData"/>
+
+    </bean>
+    <bean id="Neo4JGraphmlBGPLoggerLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.Neo4JGraphmlBGPLoggerLogDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+        <property name="graphmDirName" value="undirected"/>
+        <property name="xsltFileName" value="../iDiscover/conf/xslt/inet-map2.xslt"/>
+        <property name="graphDbUrl" value="http://193.19.172.133:7474/db/data"/>
+        <property name="dataType" value="rawData"/>
+        <property name="params">
+            <map>
+                <entry key="as-numbers" value="../../../bgpPeeringMap/conf/xml/autnums.xml"/>
+            </map>
+        </property>
+
 
     </bean>
 
@@ -158,6 +176,15 @@
         <constructor-arg ref="discoveryHelperFactory"/>
         <constructor-arg value="sysName,bgpLocalAs,bgpPeerEntry,bgp4PathAttrEntry"/>
         <constructor-arg ref="discoveryResourceManager"/>
+    </bean>
+
+    <bean id="bgpMapDiscoverer" class="net.itransformers.idiscover.v2.core.bgpdiscoverer.bgpMapDiscoverer">
+        <constructor-arg>
+        <map>
+            <entry key="fileLocation" value="iDiscover/src/test/resources/cps_rib.20140101.0113.gz"/>
+
+        </map>
+        </constructor-arg>
     </bean>
     <bean id="jsonNodeDiscoverer" class="net.itransformers.idiscover.v2.core.jsondiscoverer.jsonNodeDiscoverer">
         <constructor-arg>
