@@ -23,12 +23,12 @@
             <version>0.7-SNAPSHOT</version>
             <!--Change for new version-->
         </dependency>
-        <dependency>
-            <groupId>org</groupId>
-            <artifactId>javamrt</artifactId>
-            <version>1.0</version>
-            <!--Change for new version-->
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org</groupId>-->
+            <!--<artifactId>javamrt</artifactId>-->
+            <!--<version>1.0</version>-->
+            <!--&lt;!&ndash;Change for new version&ndash;&gt;-->
+        <!--</dependency>-->
         <dependency>
             <groupId>iTransformers.iTransformer</groupId>
             <artifactId>snmptoolkit</artifactId>

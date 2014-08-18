@@ -24,7 +24,6 @@ import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.utils.XsltTransformer;
 import org.apache.log4j.Logger;
-import org.javamrt.launcher.RouteDumper;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -72,13 +71,13 @@ public class bgpMapDiscoverer implements NodeDiscoverer {
 
         args[2] = pathToFile;
 
-        RouteDumper dumper = new RouteDumper(args,false);
+//        RouteDumper dumper = new RouteDumper(args,false);
        // boolean oldall =  dumper.init(args,false);
       //  Getopts prueba = new Getopts(args, "46hmP:p:o:z:v:t:x");
 
 
      //   Dumper xmlDumper = new Dumper(prueba,false,args);
-        String xml = dumper.dumpToXml();
+//        String xml = dumper.dumpToXml();
 
 
         //Assemble EntryUri
@@ -88,7 +87,7 @@ public class bgpMapDiscoverer implements NodeDiscoverer {
         logger.debug ("Node id: " + nodeId+ "\n");
         logger.debug ("Date: " + date + "\n");
         result.setNodeId(nodeId);
-        result.setDiscoveredData("rawData",xml.getBytes());
+//        result.setDiscoveredData("rawData",xml.getBytes());
         result.setDiscoveredData("version",version);
 
         return result;
