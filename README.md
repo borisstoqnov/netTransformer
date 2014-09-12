@@ -10,3 +10,4 @@ netTransformer is a software prototype able to:
 *	Track the network evolution process and create network DIFFs between any two network states
 
 If that sounds interesting and you want to find out more please checkout the UserGuide or visit out youtube channel. 
+
