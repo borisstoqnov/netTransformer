@@ -53,6 +53,9 @@ public class VertexFilterFactory {
                             if (ForType.NODE.equals(include.getFor())) {
                                 hasNodeInlcude  = true;
                                 final String dataKey = include.getDataKey();
+                                if (dataKey == null) { // lets include all nodes
+                                    return true;
+                                }
                                 if (vertexMetadata.get(dataKey) == null) {
                                     throw new RuntimeException("No data is defined in vertex metadata for dataKey="+dataKey);
                                 }

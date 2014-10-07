@@ -44,6 +44,9 @@ public class EdgeFilterFactory {
                         for (IncludeType include: includes) {
                             if (ForType.EDGE.equals(include.getFor())) {
                                 final String dataKey = include.getDataKey();
+                                if (dataKey == null) { // lets include all edges
+                                    return true;
+                                }
                                 final GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(dataKey);
                                 if (stringGraphMLMetadata == null) {
                                     throw new RuntimeException("Can not find metadata for key: "+dataKey);
