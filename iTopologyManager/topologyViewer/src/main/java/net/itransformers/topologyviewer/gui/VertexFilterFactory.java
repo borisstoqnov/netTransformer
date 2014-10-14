@@ -51,26 +51,47 @@ public class VertexFilterFactory {
                         boolean hasNodeInlcude = false;
                         for (IncludeType include: includes) {
                             if (ForType.NODE.equals(include.getFor())) {
-                                hasNodeInlcude  = true;
-                                final String dataKey = include.getDataKey();
-                                if (dataKey == null) { // lets include all nodes
-                                    return true;
-                                }
-                                if (vertexMetadata.get(dataKey) == null) {
-                                    throw new RuntimeException("No data is defined in vertex metadata for dataKey="+dataKey);
-                                }
-                                String value = vertexMetadata.get(dataKey).transformer.transform(v);
-                                if (value != null) {
-                                    String[] dataValues = value.split(",");
+                                if (include.getType() == null) {
+                                    hasNodeInlcude = true;
+                                    final String dataKey = include.getDataKey();
+                                    if (dataKey == null) { // lets include all nodes
+                                        return true;
+                                    }
+                                    if (vertexMetadata.get(dataKey) == null) {
+                                        throw new RuntimeException("No data is defined in vertex metadata for dataKey=" + dataKey);
+                                    }
+                                    String value = vertexMetadata.get(dataKey).transformer.transform(v);
+                                    if (value != null) {
+                                        String[] dataValues = value.split(",");
 
-                                    String includeDataValue = include.getDataValue();
+                                        String includeDataValue = include.getDataValue();
 
-                                    for (String dataValue : dataValues){
-                                        if (dataValue.equals(includeDataValue)) {
-                                            logger.debug("Node selected: "+v);
+                                        for (String dataValue : dataValues) {
+                                            if (dataValue.equals(includeDataValue)) {
+                                                logger.debug("Node selected: " + v);
 
-                                            return true;
+                                                return true;
+                                            }
                                         }
+
+                                    }
+                                } else {
+                                    String type = include.getType();
+                                    Class<?> includeClazz;
+                                    try {
+                                        includeClazz = Class.forName(type);
+                                        VertexIncluder includeInst = (VertexIncluder)includeClazz.newInstance();
+                                        boolean includeDecision = includeInst.hasToInclude(v, vertexMetadata, graph1);
+                                        return includeDecision;
+                                    } catch (ClassNotFoundException e) {
+                                        e.printStackTrace();
+                                        return false;
+                                    } catch (InstantiationException e) {
+                                        e.printStackTrace();
+                                        return false;
+                                    } catch (IllegalAccessException e) {
+                                        e.printStackTrace();
+                                        return false;
                                     }
 
                                 }
