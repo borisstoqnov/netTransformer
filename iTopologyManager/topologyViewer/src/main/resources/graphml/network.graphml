@@ -1,0 +1,62 @@
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <graph id="BGPInternetMap" edgedefault="undirected">
+        <key id="ASName" for="node" attr.name="ASName" attr.type="string"/>
+        <key id="IPv4PrefixCount" for="node" attr.name="IPv4PrefixCount" attr.type="int"/>
+        <key id="IPv6PrefixCount" for="node" attr.name="IPv6PrefixCount"  attr.type="int"/>
+        <key id="IPv4Flag" for="node" attr.name="IPv4Flag" attr.type="string"/>
+        <key id="IPv6Flag" for="node" attr.name="IPv6Flag" attr.type="string"/>
+        <key id="IPv4AddressSpace" for="node" attr.name="IPv4AddressSpace" attr.type="int"/>
+        <key id="IPv6AddressSpace" for="node" attr.name="IPv6AddressSpace" attr.type="int"/>
+        <key id="Country" for="node" attr.name="Country" attr.type="string"/>
+        <key id="Description" for="node" attr.name="Description" attr.type="string"/>
+        <key id="IPv4Prefixes" for="node" attr.name="IPv4Prefixes" attr.type="string"/>
+        <key id="IPv6Prefixes" for="node" attr.name="IPv6Prefixes" attr.type="string"/>
+        <key id="countOriginatedPrefixes" for="node" attr.name="countOriginatedPrefixes" attr.type="int"/>
+        <key id="weight" for="edge" attr.name="weight" attr.type="int"/>
+                        <node id="1">
+                                <data key="IPv4AddressSpace">6400</data>
+                                <data key="IPv6AddressSpace">0</data>
+                                <data key="countOriginatedPrefixes">17</data>
+                                <data key="IPv4Flag">TRUE</data>
+                                <data key="IPv6Flag">FALSE</data>
+                                <data key="ASName"><![CDATA[INTDATA-AS]]></data>
+                                <data key="Description"><![CDATA[Interactive Data]]></data>
+                                <data key="Country"><![CDATA[US]]></data>
+                        </node>
+                        <node id="10998">
+                                <data key="IPv4AddressSpace">12544</data>
+                                <data key="IPv6AddressSpace">0</data>
+                                <data key="countOriginatedPrefixes">10</data>
+                                <data key="IPv4Flag">TRUE</data>
+                                <data key="IPv6Flag">FALSE</data>
+                                <data key="ASName"><![CDATA[BAC-MLAMRS]]></data>
+                                <data key="Description"><![CDATA[Bank of America]]></data>
+                                <data key="Country"><![CDATA[BG]]></data>
+                        </node>
+                        <node id="10999">
+                                <data key="IPv4AddressSpace">512</data>
+                                <data key="IPv6AddressSpace">0</data>
+                                <data key="countOriginatedPrefixes">2</data>
+                                <data key="IPv4Flag">TRUE</data>
+                                <data key="IPv6Flag">FALSE</data>
+                                <data key="ASName"><![CDATA[BAC-MLAMRS1]]></data>
+                                <data key="Description"><![CDATA[Bank of Sofia]]></data>
+                                <data key="Country"><![CDATA[BG]]></data>
+                        </node>
+                         <node id="10995">
+                                 <data key="IPv4AddressSpace">6400</data>
+                                 <data key="IPv6AddressSpace">0</data>
+                                 <data key="countOriginatedPrefixes">22</data>
+                                 <data key="IPv4Flag">TRUE</data>
+                                 <data key="IPv6Flag">FALSE</data>
+                                 <data key="ASName"><![CDATA[CDS-PHX-ATL]]></data>
+                                 <data key="Description"><![CDATA[M/A/R/C INC]]></data>
+                                 <data key="Country"><![CDATA[BG]]></data>
+                         </node>
+                        <edge id="1_10998" source="1" target="10998"/>
+                        <edge id="10998_10999" source="10998" target="10999"/>
+                        <edge id="10999_10995" source="10999" target="10995"/>
+                        <edge id="1_10995" source="1" target="10995"/>
+        </graph>
+</graphml>
