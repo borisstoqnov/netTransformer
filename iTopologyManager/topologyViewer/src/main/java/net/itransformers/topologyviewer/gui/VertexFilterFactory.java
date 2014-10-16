@@ -48,14 +48,12 @@ public class VertexFilterFactory {
                     } else {
                         if (filter == null) return true;
                         List<IncludeType> includes = filter.getInclude();
-                        boolean hasNodeInlcude = false;
                         for (IncludeType include: includes) {
                             if (ForType.NODE.equals(include.getFor())) {
                                 if (include.getType() == null) {
-                                    hasNodeInlcude = true;
                                     final String dataKey = include.getDataKey();
                                     if (dataKey == null) { // lets include all nodes
-                                        return true;
+                                        continue;
                                     }
                                     if (vertexMetadata.get(dataKey) == null) {
                                         throw new RuntimeException("No data is defined in vertex metadata for dataKey=" + dataKey);
@@ -66,11 +64,17 @@ public class VertexFilterFactory {
 
                                         String includeDataValue = include.getDataValue();
 
+                                        boolean hasNodeInlcude = false;
+
                                         for (String dataValue : dataValues) {
                                             if (dataValue.equals(includeDataValue)) {
                                                 logger.debug("Node selected: " + v + " by filter "+filter.getName() +" with include "+ include.getDataKey() + " with value " + dataValue);
-                                                return true;
+                                                hasNodeInlcude = true;
                                             }
+                                        }
+
+                                        if (!hasNodeInlcude) {
+                                            return false;
                                         }
 
                                     }
@@ -80,8 +84,10 @@ public class VertexFilterFactory {
                                     try {
                                         includeClazz = Class.forName(type);
                                         VertexIncluder includeInst = (VertexIncluder)includeClazz.newInstance();
-                                        boolean includeDecision = includeInst.hasToInclude(v, vertexMetadata, graph1);
-                                        return includeDecision;
+                                        boolean hasToInclude = includeInst.hasToInclude(v, vertexMetadata, graph1);
+                                        if (!hasToInclude) {
+                                            return false;
+                                        }
                                     } catch (ClassNotFoundException e) {
                                         e.printStackTrace();
                                         return false;
@@ -96,11 +102,7 @@ public class VertexFilterFactory {
                                 }
                             }
                         }
-                        if (hasNodeInlcude) {
-                            return false;
-                        } else {
-                            return true;
-                        }
+                        return true;
                     }
                 }
             });
