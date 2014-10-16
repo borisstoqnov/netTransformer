@@ -68,8 +68,7 @@ public class VertexFilterFactory {
 
                                         for (String dataValue : dataValues) {
                                             if (dataValue.equals(includeDataValue)) {
-                                                logger.debug("Node selected: " + v);
-
+                                                logger.debug("Node selected: " + v + " by filter "+filter.getName() +" with include "+ include.getDataKey() + " with value " + dataValue);
                                                 return true;
                                             }
                                         }
