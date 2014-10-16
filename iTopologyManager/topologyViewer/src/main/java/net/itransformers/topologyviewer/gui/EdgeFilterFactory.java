@@ -45,7 +45,7 @@ public class EdgeFilterFactory {
                             if (ForType.EDGE.equals(include.getFor())) {
                                 final String dataKey = include.getDataKey();
                                 if (dataKey == null) { // lets include all edges
-                                    return true;
+                                    continue;
                                 }
                                 final GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(dataKey);
                                 if (stringGraphMLMetadata == null) {
@@ -56,17 +56,21 @@ public class EdgeFilterFactory {
                                 if (value != null){
                                     String[] dataValues = value.split(",");
                                     String includeDataValue = include.getDataValue();
+                                    boolean hasToInclude = false;
                                     for (String dataValue : dataValues){
                                         if (dataValue.equals(includeDataValue)) {
-                                            return true;
+                                            hasToInclude = true;
                                         }
+                                    }
+                                    if (!hasToInclude) {
+                                        return false;
                                     }
                                 }
 
                             }
                         }
                         logger.debug("filter edge: "+edge);
-                        return false;
+                        return true;
                     } catch (RuntimeException rte){
                         rte.printStackTrace();
                         return false;
