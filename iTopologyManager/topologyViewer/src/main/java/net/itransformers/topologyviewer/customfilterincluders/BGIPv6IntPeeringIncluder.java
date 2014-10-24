@@ -1,8 +1,9 @@
-package net.itransformers.topologyviewer.gui;
+package net.itransformers.topologyviewer.customfilterincluders;
 
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.io.GraphMLMetadata;
+import net.itransformers.topologyviewer.gui.VertexIncluder;
 
 import java.util.Collection;
 import java.util.Map;
@@ -10,11 +11,13 @@ import java.util.Map;
 /**
  * Created by vasko on 10/13/14.
  */
-public class BGAndIntBGPeeringIncluder implements VertexIncluder {
+public class BGIPv6IntPeeringIncluder implements VertexIncluder {
     @Override
     public boolean hasToInclude(String vertexName, Map<String, GraphMLMetadata<String>> vertexMetadata, Graph<String, String> graph1) {
         String country = vertexMetadata.get("Country").transformer.transform(vertexName);
-        if (!"BG".equals(country)) {
+        String ipv6Flag = vertexMetadata.get("IPv6Flag").transformer.transform(vertexName);
+
+            if (!"BG".equals(country)) {
             Collection<String> inEdges = graph1.getInEdges(vertexName);
             for (String inEdge : inEdges) {
                 Pair<String> endpoints = graph1.getEndpoints(inEdge);
@@ -26,6 +29,7 @@ public class BGAndIntBGPeeringIncluder implements VertexIncluder {
                 }
                 String oppositeCountry = vertexMetadata.get("Country").transformer.transform(oppositeVertex);
                 if ("BG".equals(oppositeCountry)) {
+//                    System.out.println("BGAndIntBGPeeringIncluder returns "+vertexName);
                     return true;
                 }
            }
