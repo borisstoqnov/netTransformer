@@ -48,7 +48,7 @@ public class openstack4jDiscoverer {
     private List<? extends Volume> volumes;
 
 
-    public Openstack4jDiscoverer(String endpoint, String userName, String password, String tenant){
+    public openstack4jDiscoverer(String endpoint, String userName, String password, String tenant){
                 os = OSFactory.builder()
                 .endpoint(endpoint)
                 .credentials(userName,password)
@@ -153,7 +153,7 @@ public class openstack4jDiscoverer {
     }
 
     public static void main(String[] args) {
-         Openstack4jDiscoverer  oD = new Openstack4jDiscoverer("http://192.168.31.149:5000/v2.0","admin","openstack","admin");
+         openstack4jDiscoverer  oD = new openstack4jDiscoverer("http://192.168.31.149:5000/v2.0","admin","openstack","admin");
 
         System.out.println("----------------Hypervisors-----------------\n");
         oD.setHypervisors();
