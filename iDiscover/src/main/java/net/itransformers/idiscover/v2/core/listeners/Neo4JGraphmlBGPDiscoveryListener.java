@@ -2,25 +2,27 @@
 
 package net.itransformers.idiscover.v2.core.listeners;
 
+import com.tinkerpop.blueprints.Graph;
+import com.tinkerpop.blueprints.impls.tg.TinkerGraph;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.utils.XmlFormatter;
-import net.itransformers.utils.XsltTransformer;
+import net.itransformers.utils.blueprints_patch.MyGraphMLReader;
 import net.itransformers.utils.neo4j.merge.Neo4jGraphmlMerger;
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
 //import org.neo4j.graphdb.GraphDatabaseService;
 
 
-public class Neo4JGraphmlBGPLoggerLogDiscoveryListener implements NodeDiscoveryListener {
-    static Logger logger = Logger.getLogger(Neo4JGraphmlBGPLoggerLogDiscoveryListener.class);
+public class Neo4JGraphmlBGPDiscoveryListener implements NodeDiscoveryListener {
+    static Logger logger = Logger.getLogger(Neo4JGraphmlBGPDiscoveryListener.class);
     String labelDirName;
     String graphmDirName;
     String xsltFileName;
@@ -33,53 +35,32 @@ public class Neo4JGraphmlBGPLoggerLogDiscoveryListener implements NodeDiscoveryL
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
         File baseDir = new File(labelDirName);
-        File xsltFile = new File(xsltFileName);
         File graphmlDir = new File(baseDir,graphmDirName);
         logger.info("Starting Neo4JGraphml BGP Discovery Listener");
 
         GraphDatabaseService graphdb = new org.neo4j.rest.graphdb.RestGraphDatabase(graphDbUrl);
 
         if (!graphmlDir.exists()) graphmlDir.mkdir();
-
-        String deviceName = discoveryResult.getNodeId();
         version = (String)discoveryResult.getDiscoveredData("version");
-        byte [] discoveredDeviceData = (byte[]) discoveryResult.getDiscoveredData(dataType);
-        ByteArrayOutputStream graphMLOutputStream = new ByteArrayOutputStream();
+        byte[] discoveredDeviceData = (byte[]) discoveryResult.getDiscoveredData("graphml");
 
+        Graph graph2 = new TinkerGraph();
+        ByteArrayInputStream in2 = new ByteArrayInputStream(discoveredDeviceData);
 
-        //ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-        logger.info("Starting xslt transformation");
-
-        XsltTransformer transformer = new XsltTransformer();
+        MyGraphMLReader reader2 = new MyGraphMLReader(graph2);
         try {
-            transformer.transformXML(new ByteArrayInputStream(discoveredDeviceData), xsltFile,graphMLOutputStream, params,null);
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-        }
-
-
-            final String fileName = "node-" + deviceName + ".graphml";
-            final File nodeFile = new File(graphmlDir,fileName);
-            String graphml = new XmlFormatter().format(new String(graphMLOutputStream.toByteArray()));
-        try {
-            FileUtils.writeStringToFile(nodeFile, graphml);
-            FileWriter writer = new FileWriter(new File(labelDirName,"undirected"+".graphmls"),true);
-            writer.append(String.valueOf(fileName)).append("\n");
-            writer.close();
+            reader2.inputGraph(in2);
         } catch (IOException e) {
-            logger.error(e.getMessage(),e);
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        logger.info("Xslt transformation finished");
 
-        logger.info("Connecting to neo4j graph datatabase!");
 
         Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger(version);
         Transaction tx = graphdb.beginTx();
 
         try {
             tx = graphdb.beginTx();
-            neo4jMerger.merge(graphdb, nodeFile);
+            neo4jMerger.merge(graphdb, graph2);
             tx.success();
             logger.info("Successfully merged data into neo4jdb!!");
 
