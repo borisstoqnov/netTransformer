@@ -23,12 +23,6 @@
             <version>0.7-SNAPSHOT</version>
             <!--Change for new version-->
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org</groupId>-->
-            <!--<artifactId>javamrt</artifactId>-->
-            <!--<version>1.0</version>-->
-            <!--&lt;!&ndash;Change for new version&ndash;&gt;-->
-        <!--</dependency>-->
         <dependency>
             <groupId>iTransformers.iTransformer</groupId>
             <artifactId>snmptoolkit</artifactId>
@@ -78,7 +72,11 @@
             <version>2.4</version>
             <classifier>jdk15</classifier>
         </dependency>
-
+        <dependency>
+            <groupId>org.pacesys</groupId>
+            <artifactId>openstack4j</artifactId>
+            <version>1.0.2</version>
+        </dependency>
         <!--<dependency>-->
         <!--<groupId>org.neo4j.app</groupId>-->
         <!--<artifactId>neo4j-server</artifactId>-->
@@ -107,16 +105,31 @@
             <artifactId>xom</artifactId>
             <version>1.2.5</version>
         </dependency>
+        <dependency>
+            <groupId>netTransformer</groupId>
+            <artifactId>java-mrt</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.googlecode.sli4j</groupId>-->
+            <!--<artifactId>sli4j-slf4j</artifactId>-->
+            <!--<version>2.0</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.jclouds.driver</groupId>-->
+            <!--<artifactId>jclouds-slf4j</artifactId>-->
+            <!--<version>1.8.1</version>-->
+        <!--</dependency>-->
 
     </dependencies>
 
-    <!--repositories>
+    <repositories>
         <repository>
             <id>mvn-repo</id>
             <name>MVN repo</name>
             <url>http://mvnrepository.com/artifact/</url>
         </repository>
-    </repositories-->
+    </repositories>
     <build>
         <plugins>
             <plugin>
