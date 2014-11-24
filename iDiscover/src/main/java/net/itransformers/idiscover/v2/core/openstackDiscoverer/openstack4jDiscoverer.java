@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Openstack4jDiscoverer {
+public class openstack4jDiscoverer {
     private final OSClient os;
     private List<? extends User> users;
     private  List<? extends Tenant> tenants;
