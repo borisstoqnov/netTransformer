@@ -110,6 +110,18 @@
             <artifactId>java-mrt</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-cypher</artifactId>
+            <version>2.1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.uci.ics</groupId>
+            <artifactId>crawler4j</artifactId>
+            <version>3.5</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>com.googlecode.sli4j</groupId>-->
             <!--<artifactId>sli4j-slf4j</artifactId>-->
