@@ -24,6 +24,7 @@ import net.itransformers.topologyviewer.config.ForType;
 import net.itransformers.topologyviewer.config.IncludeType;
 import edu.uci.ics.jung.algorithms.filters.EdgePredicateFilter;
 import edu.uci.ics.jung.io.GraphMLMetadata;
+import net.itransformers.topologyviewer.config.datamatcher.DataMatcher;
 import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
 import org.apache.log4j.Logger;
@@ -35,42 +36,91 @@ import java.util.Map;
 public class EdgeFilterFactory {
     static Logger logger = Logger.getLogger(EdgeFilterFactory.class);
 
-    public static EdgePredicateFilter<String, String> createEdgeFilter(final FilterType filter, final Map<String, GraphMLMetadata<String>> edgeMetadata) {
+    public static EdgePredicateFilter<String, String> createEdgeFilter(final FilterType filter, final Map<String, DataMatcher> matcherMap,final Map<String, GraphMLMetadata<String>> edgeMetadata) {
         return new EdgePredicateFilter<String, String>(new Predicate<String>() {
                 public boolean evaluate(String edge) {
                     try {
                         if (filter == null) return true;
+
                         List<IncludeType> includes = filter.getInclude();
+                        String filterType = filter.getType();
+
+                        if(filterType==null){
+                            filterType="or";
+                        }
+                        boolean hasEdgeInlcude = false;
+
                         for (IncludeType include: includes) {
+
                             if (ForType.EDGE.equals(include.getFor())) {
+                                String matcher = include.getMatcher();
+                                if (matcher == null) {
+                                    matcher = "default";
+                                }
                                 final String dataKey = include.getDataKey();
                                 if (dataKey == null) { // lets include all edges
+                                    hasEdgeInlcude = true;
+
                                     continue;
                                 }
+
                                 final GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(dataKey);
                                 if (stringGraphMLMetadata == null) {
                                     throw new RuntimeException("Can not find metadata for key: "+dataKey);
                                 }
+
                                 final Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
                                 String value = transformer.transform(edge);
                                 if (value != null){
                                     String[] dataValues = value.split(",");
                                     String includeDataValue = include.getDataValue();
+
+                                    //Circle around the actual values and perform the datamatch
+                                    DataMatcher matcherInstance = matcherMap.get(matcher);
+
                                     boolean hasToInclude = false;
-                                    for (String dataValue : dataValues){
-                                        if (dataValue.equals(includeDataValue)) {
-                                            hasToInclude = true;
+
+
+                                    if("and".equals(filterType)){
+                                        for (String dataValue : dataValues) {
+                                            // boolean matchResult = ;
+                                            hasEdgeInlcude = false;
+                                            if (matcherInstance.compareData(dataValue, includeDataValue)) {
+                                                logger.debug("Edge selected: " + edge + " by filter "+filter.getName() +" with include "+ include.getDataKey() + " with value " + dataValue);
+                                                hasEdgeInlcude = true;
+                                            }
                                         }
-                                    }
-                                    if (!hasToInclude) {
-                                        return false;
+
+                                        if (!hasEdgeInlcude) {
+                                            return false;
+                                        }
+                                        //If we have an "or" filter
+
+                                    }else {
+                                        for (String dataValue : dataValues) {
+                                            if (matcherInstance.compareData(dataValue, includeDataValue)) {
+                                                logger.debug("Edge "+ edge + " has been selected from filter "+filter.getName() +" by property "+ include.getDataKey() + " with value " + dataValue);
+                                                return true;
+
+                                            }
+
+                                        }
                                     }
                                 }
 
                             }
+
                         }
-                        logger.debug("filter edge: "+edge);
-                        return true;
+                        //Finally if the has to include flag is set include
+                        if (!hasEdgeInlcude) {
+                            System.out.println("Edge "+edge + " has not been selected");
+                            return false;
+
+                        } else {
+                            System.out.println("Edge "+edge + " has been selected");
+
+                            return true;
+                        }
                     } catch (RuntimeException rte){
                         rte.printStackTrace();
                         return false;

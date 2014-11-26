@@ -18,10 +18,8 @@
   -->
 
 <ignored-keys>
-    <ignored-key name="ASInfo"/>
-    <ignored-key name="countASTransitAppearances"/>
-    <ignored-key name="countOriginatedPrefixes"/>
-    <ignored-key name="description"/>
-    <ignored-key name="nodeInfo"/>
-    <ignored-key name="ManagementIPAddress"/>
+    <ignored-key name="IPv6Prefixes"/>
+    <ignored-key name="IPv4Prefixes"/>
+    <ignored-key name="IPv4PrefixCount"/>
+    <ignored-key name="IPv6PrefixCount"/>
 </ignored-keys>

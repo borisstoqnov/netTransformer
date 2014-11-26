@@ -84,11 +84,7 @@ public class GraphMLDiff {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            fileOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
 

@@ -88,12 +88,12 @@ public class Neo4JGraphmlLoggerLogDiscoveryListener implements NodeDiscoveryList
         }
 
 
-        Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger("v1");
+        Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger(graphdb, "v1");
         Transaction tx = graphdb.beginTx();
 
         try {
             tx = graphdb.beginTx();
-            neo4jMerger.merge(graphdb, nodeFile);
+            neo4jMerger.merge(nodeFile);
             tx.success();
         } catch (Exception e) {
             if (tx != null) tx.failure();

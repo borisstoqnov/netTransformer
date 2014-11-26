@@ -27,6 +27,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -64,24 +67,77 @@ public class BGMapStatisticsMenuHandler implements ActionListener {
         //   Transformer transformer =    DistanceStatistics.averageDistances(viewerPanel.getCurrentGraph(), new UnweightedShortestPath(viewerPanel.getCurrentGraph()));
 
 
+
+
         StringBuffer sb = new StringBuffer();
-        sb.append("Current Graph Number of Nodes: " + viewerPanel.getCurrentGraph().getVertexCount()+"\n");
-        sb.append("Current Graph Number of Edges: " + viewerPanel.getCurrentGraph().getEdgeCount()+"\n");
-        sb.append("Entire Graph Number of Nodes: " + viewerPanel.getEntireGraph().getVertexCount()+"\n");
-        sb.append("Entire Graph Number of Edges: " + viewerPanel.getEntireGraph().getEdgeCount()+"\n");
 
-//        sb.append(String.format("%s: %2f \n", "Current Graph Diameter", diameterCurrent));
-//        sb.append(String.format("%s: %2f \n", "Entire Graph Diameter", diameterEntire));
-        //sb.append(transformer.toString());
+        Map<String,Integer> countryCounters = new HashMap<String,Integer>();
+        Map<String,Long> countryIPv4Counters = new HashMap<String,Long>();
+        Map<String,Long> countryIPv6Counters = new HashMap<String,Long>();
 
-        //  sb.append(String.format("%s: %2f \n", "AverageDistances",DistanceStatistics.averageDistances(viewerPanel.getCurrentGraph())));
+        for (Iterator iterator = viewerPanel.getCurrentGraph().getVertices().iterator(); iterator.hasNext();) {
+            String vertex = (String) iterator.next();
+            HashMap<String, String> vertexMetadata = (HashMap<String, String>) viewerPanel.getVertexParams(vertex);
 
 
-        text.setText(sb.toString());
-        JScrollPane scrollPane = new JScrollPane(text);
-        frame1.getContentPane().add("Center", scrollPane);
+            if (vertexMetadata != null) {
+                String country = vertexMetadata.get("Country");
 
-        frame1.setVisible(true);
 
-    }
+                if("BG".equals(country)){
+                    if (countryCounters.get(country)!=null){
+                        int counter = countryCounters.get(country);
+                        countryCounters.put(country,++counter);
+                    } else{
+                        countryCounters.put(country,1);
+                    }
+
+                    Long IPv4AddressSpace = Long.valueOf(vertexMetadata.get("IPv4AddressSpace"));
+                    if (countryIPv4Counters.get(country)!=null){
+                        long counter = countryIPv4Counters.get(country);
+                        countryIPv4Counters.put(country,counter+IPv4AddressSpace);
+                    } else{
+                        countryIPv4Counters.put(country, IPv4AddressSpace);
+                    }
+
+                    Long IPv6AddressSpace = Long.valueOf(vertexMetadata.get("IPv6AddressSpace"));
+                    if (countryIPv6Counters.get(country)!=null){
+                        long counter = countryIPv6Counters.get(country);
+                        countryIPv6Counters.put(country,counter+IPv6AddressSpace);
+                    } else{
+                        countryIPv6Counters.put(country,IPv6AddressSpace);
+                    }
+                } else {
+                    if (countryCounters.get("InternationalPeering")!=null){
+                        int counter = countryCounters.get("InternationalPeering");
+                        countryCounters.put("InternationalPeering",++counter);
+                    } else{
+                        countryCounters.put("InternationalPeering",1);
+                    }
+
+                }
+            }
+
+        }
+        sb.append("\nCountry counters: \n");
+        for (Map.Entry<String, Integer> stringIntegerEntry : countryCounters.entrySet()) {
+            sb.append(stringIntegerEntry.getKey()+ ": "+stringIntegerEntry.getValue()+"\n");
+        }
+        sb.append("\nBG IPv4 Address Space counters: \n");
+
+        for (Map.Entry<String, Long> stringLongEntry : countryIPv4Counters.entrySet()) {
+            sb.append(stringLongEntry.getKey()+ ": "+stringLongEntry.getValue()+"\n");
+        }
+        sb.append("\nBG IPv6 Address Space counters: \n");
+
+        for (Map.Entry<String, Long> stringLongEntry : countryIPv6Counters.entrySet()) {
+            sb.append(stringLongEntry.getKey()+ ": "+stringLongEntry.getValue()+"\n");
+        }
+    text.setText(sb.toString());
+    JScrollPane scrollPane = new JScrollPane(text);
+    frame1.getContentPane().add("Center", scrollPane);
+
+    frame1.setVisible(true);
+
+}
 }

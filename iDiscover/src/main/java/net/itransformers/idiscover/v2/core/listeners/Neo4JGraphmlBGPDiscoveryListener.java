@@ -40,6 +40,7 @@ public class Neo4JGraphmlBGPDiscoveryListener implements NodeDiscoveryListener {
 
         GraphDatabaseService graphdb = new org.neo4j.rest.graphdb.RestGraphDatabase(graphDbUrl);
 
+
         if (!graphmlDir.exists()) graphmlDir.mkdir();
         version = (String)discoveryResult.getDiscoveredData("version");
         byte[] discoveredDeviceData = (byte[]) discoveryResult.getDiscoveredData("graphml");
@@ -55,12 +56,12 @@ public class Neo4JGraphmlBGPDiscoveryListener implements NodeDiscoveryListener {
         }
 
 
-        Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger(version);
+        Neo4jGraphmlMerger neo4jMerger = new Neo4jGraphmlMerger(graphdb, version);
         Transaction tx = graphdb.beginTx();
 
         try {
             tx = graphdb.beginTx();
-            neo4jMerger.merge(graphdb, graph2);
+            neo4jMerger.merge(graph2);
             tx.success();
             logger.info("Successfully merged data into neo4jdb!!");
 

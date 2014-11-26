@@ -298,7 +298,7 @@ public class MyGraphMLReader {
             reader.close();
 
             graph.commit();
-            ;
+
         } catch (XMLStreamException xse) {
             throw new IOException(xse);
         }

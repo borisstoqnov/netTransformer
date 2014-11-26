@@ -29,12 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-/**
- * Created by IntelliJ IDEA.
- * Date: 12-4-27
- * Time: 23:30
- * To change this template use File | Settings | File Templates.
- */
+
 public class DiffReportMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
@@ -60,20 +55,18 @@ public class DiffReportMenuHandler implements ActionListener {
         text.setContentType("text/html");
 
 
-//        double diameterCurrent = DistanceStatistics.diameter(viewerPanel.getCurrentGraph());
-//        double diameterEntire = DistanceStatistics.diameter(viewerPanel.getEntireGraph(), new UnweightedShortestPath(viewerPanel.getEntireGraph()), false);
-
-
-        //   Transformer transformer =    DistanceStatistics.averageDistances(viewerPanel.getCurrentGraph(), new UnweightedShortestPath(viewerPanel.getCurrentGraph()));
+//   double diameterCurrent = DistanceStatistics.diameter(viewerPanel.getCurrentGraph());
+//   double diameterEntire = DistanceStatistics.diameter(viewerPanel.getEntireGraph(), new UnweightedShortestPath(viewerPanel.getEntireGraph()), false);
+//   Transformer transformer =    DistanceStatistics.averageDistances(viewerPanel.getCurrentGraph(), new UnweightedShortestPath(viewerPanel.getCurrentGraph()));
 
 
 
 
         StringBuffer sb = new StringBuffer();
         sb.append("<html>");
-        Set<String> addCounter = new HashSet<String>();
-        Set<String> changedCounter = new HashSet<String>();
-        Set<String> removedCounter = new HashSet<String>();
+        Map<String,String> addCounter = new HashMap<String, String>();
+        Map<String,String> changedCounter = new HashMap<String, String>();
+        Map<String,String> removedCounter = new HashMap<String, String>();
         Map<String,String> changes = new HashMap<String, String>();
 
         for (Iterator iterator = viewerPanel.getCurrentGraph().getVertices().iterator(); iterator.hasNext();) {
@@ -83,28 +76,39 @@ public class DiffReportMenuHandler implements ActionListener {
 
                 String diff = vertexMetadata.get("diff");
                 String diffs = vertexMetadata.get("diffs");
+                String asName = vertexMetadata.get("ASName");
+                String country = vertexMetadata.get("Country");
+                if ("BG".equals(country))
                     if("ADDED".equals(diff)){
-                        addCounter.add(vertex);
-                    } else if("REMOVED".equals(diff)){
-                        removedCounter.add(vertex);
-                    } else if("YES".equals(diff)){
-                        changedCounter.add(vertex);
-                        String asName = vertexMetadata.get("ASName");
-                        changes.put(vertex+" "+asName,diffs);
+                            addCounter.put(vertex,asName);
+                        } else if("REMOVED".equals(diff)){
+                            removedCounter.put(vertex,asName);
+                        } else if("YES".equals(diff)){
+                            changedCounter.put(vertex,asName);
+                            changes.put(vertex+" "+asName,diffs);
+                        }
                     }
-                }
 
         }
 
-        sb.append("<p><b>Diff counters</b>");
-        sb.append("<p><b>Nodes added:</b> "+addCounter.size());
-        sb.append("<p><b><br>Nodes removed:</b> "+removedCounter.size());
+        sb.append("<p><b>Diff counters</b></br>");
+        sb.append("<p><b>Node births:</b> "+addCounter.size());
+        for( String node : addCounter.keySet()){
+            sb.append("<p>"+node+": "+addCounter.get(node)+"</p>");
+        }
+        sb.append("<p><b><br>Nodes deads:</b> "+removedCounter.size());
+        for( String node : removedCounter.keySet()){
+            sb.append("<p>"+node+": "+removedCounter.get(node)+"</p>");
+
+        }
+
         sb.append("<p><b><br>Nodes changed:</b> "+changedCounter.size());
 
         sb.append("<p><b>Changes per node</b>");
         for (String s : changes.keySet()) {
-            sb.append("<b>Node: "+s+"</b>");
-            sb.append(changes.get(s)+"<br>");
+            sb.append("<p><b><br>Node: "+s+"</b>");
+            sb.append(changes.get(s));
+            sb.append("</p>");
         }
         sb.append("</html>");
         text.setText(sb.toString());

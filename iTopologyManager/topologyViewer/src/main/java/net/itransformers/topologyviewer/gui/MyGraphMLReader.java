@@ -11,20 +11,13 @@
  */
 package net.itransformers.topologyviewer.gui;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
+import edu.uci.ics.jung.algorithms.util.MapSettableTransformer;
+import edu.uci.ics.jung.algorithms.util.SettableTransformer;
+import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.Hypergraph;
+import edu.uci.ics.jung.graph.util.EdgeType;
+import edu.uci.ics.jung.graph.util.Pair;
+import edu.uci.ics.jung.io.GraphMLMetadata;
 import org.apache.commons.collections15.BidiMap;
 import org.apache.commons.collections15.Factory;
 import org.apache.commons.collections15.bidimap.DualHashBidiMap;
@@ -34,12 +27,13 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import edu.uci.ics.jung.algorithms.util.MapSettableTransformer;
-import edu.uci.ics.jung.algorithms.util.SettableTransformer;
-import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.Hypergraph;
-import edu.uci.ics.jung.graph.util.EdgeType;
-import edu.uci.ics.jung.graph.util.Pair;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.*;
 
 /**
  * Reads in data from a GraphML-formatted file and generates graphs based on
@@ -588,7 +582,7 @@ public class MyGraphMLReader<G extends Hypergraph<V,E>, V, E> extends DefaultHan
             !getVertexMetadata().containsKey(this.current_key) &&
             !getEdgeMetadata().containsKey(this.current_key))
         {
-            throw new SAXNotSupportedException("'data' tag's key specification must reference a defined key");
+            throw new SAXNotSupportedException("'data' tag's key "+ this.current_key+" specification must reference a defined key");
         }
 
     }

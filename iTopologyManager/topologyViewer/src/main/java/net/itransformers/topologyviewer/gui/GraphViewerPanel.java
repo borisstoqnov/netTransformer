@@ -34,12 +34,12 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.*;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.layout.PersistentLayout;
-import edu.uci.ics.jung.visualization.layout.PersistentLayoutImpl;
 import edu.uci.ics.jung.visualization.picking.MultiPickedState;
 import edu.uci.ics.jung.visualization.picking.PickedState;
 import edu.uci.ics.jung.visualization.renderers.DefaultEdgeLabelRenderer;
 import edu.uci.ics.jung.visualization.renderers.DefaultVertexLabelRenderer;
 import net.itransformers.topologyviewer.config.*;
+import net.itransformers.topologyviewer.config.datamatcher.DataMatcher;
 import net.itransformers.topologyviewer.rightclick.RightClickInvoker;
 import org.apache.commons.collections15.functors.ConstantTransformer;
 import org.apache.log4j.Logger;
@@ -57,6 +57,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 
 public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
@@ -82,6 +83,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
 
     private boolean edgeLabel;
     DefaultModalGraphMouse graphMouse;
+    private JPanel controls;
 
 
     public GraphViewerPanel(JFrame parent, TopologyViewerConfType viewerConfig,
@@ -164,17 +166,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         JButton loadView = createLoadButton();
         JButton redraw = createRedrawAroundButton();
         JButton hideEdgeLabels = hideEdgeLabels();
-        if (!entireGraph.containsVertex(initialNode)) {
-            applyFilter(currentFilter, currentHops);
-        } else {
-            SetPickedState(initialNode);
-            Set<String> vertexes = new HashSet<String>();
-            vertexes.add(initialNode);
-            applyFilter(currentFilter, currentHops, vertexes);
-        }
-
-//        Animator(initialNode);
-        JPanel controls = new JPanel();
+        controls = new JPanel();
         controls.add(saveView);
         controls.add(loadView);
         controls.add(mouseModeButton);
@@ -186,6 +178,19 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         controls.add(hopsCombo);
         controls.add(redraw);
         controls.add(createCaptureButton());
+        this.add(controls, BorderLayout.SOUTH);
+
+        if (!entireGraph.containsVertex(initialNode)) {
+            applyFilter(currentFilter, currentHops);
+        } else {
+            SetPickedState(initialNode);
+            Set<String> vertexes = new HashSet<String>();
+            vertexes.add(initialNode);
+            applyFilter(currentFilter, currentHops, vertexes);
+        }
+
+//        Animator(initialNode);
+
         //controls.add(hideEdgeLabels);
 
 //        JPanel jp2 = new JPanel();
@@ -200,7 +205,6 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
 //        controls.add( jp2 );
 //		controls.add( jp3 );
 
-        this.add(controls, BorderLayout.SOUTH);
 
     }
 //    private Component getSelectionBox(final boolean from) {
@@ -637,14 +641,41 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         java.util.List<FilterType> filters = filtersType.getFilter();
         final Map<String, FilterType> filterName2FilterType = new HashMap<String, FilterType>();
 
+        Map<String, DataMatcher> matcherMap = new HashMap<String, DataMatcher>();
+
+        List<DataMatcherType> matcherList = viewerConfig.getDataMatcher();
+        for (DataMatcherType dataMatcherType : matcherList) {
+            String className = dataMatcherType.getClazz();
+            Class clazz = null;
+            try {
+                clazz = Class.forName(className);
+            } catch (ClassNotFoundException e) {
+                logger.error("Can not find class: "+className, e);
+            }
+            try {
+                DataMatcher dataMatcher = (DataMatcher) clazz.newInstance();
+                matcherMap.put(dataMatcherType.getName(), dataMatcher);
+            } catch (InstantiationException e) {
+                logger.error("Can not instantiate class: " + className, e);
+            } catch (IllegalAccessException e) {
+                logger.error("Can not access constructor class: " + className, e);
+            }
+        }
+
+//        for (FilterType filter : filters) {
+//            G graph = transformCurrentGraph(filter,matcherMap, Integer.valueOf(viewerConfig.getHops().getSelected()), null);
+//            int size = graph.getVertices().size();
+//            jComboBox.addItem(filter.getName()+ " ("+size+")");
+//            filterName2FilterType.put(filter.getName()+ " ("+size+")", filter);
+//
+//        }
         for (FilterType filter : filters) {
-            G graph = transformCurrentGraph(filter, Integer.valueOf(viewerConfig.getHops().getSelected()), null);
-            int size = graph.getVertices().size();
-            jComboBox.addItem(filter.getName()+ " ("+size+")");
-            filterName2FilterType.put(filter.getName()+ " ("+size+")", filter);
+          //  G graph = transformCurrentGraph(filter,matcherMap, Integer.valueOf(viewerConfig.getHops().getSelected()), null);
+          //  int size = graph.getVertices().size();
+            jComboBox.addItem(filter.getName());
+            filterName2FilterType.put(filter.getName(), filter);
 
         }
-        int i =1;
     }
     private JComboBox createFilterCombo(JComboBox filtersCombo) {
         FiltersType filtersType = viewerConfig.getFilters();
@@ -653,11 +684,17 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         java.util.List<FilterType> filters = filtersType.getFilter();
         final Map<String, FilterType> filterName2FilterType = new HashMap<String, FilterType>();
 
+//        for (FilterType filter : filters) {
+//            G graph = transformGraph(filter, Integer.valueOf(viewerConfig.getHops().getSelected()), null);
+//            int size = graph.getVertices().size();
+//            filtersCombo.addItem(filter.getName()+ " ("+size+")");
+//            filterName2FilterType.put(filter.getName()+ " ("+size+")", filter);
+//        }
         for (FilterType filter : filters) {
-            G graph = transformGraph(filter, Integer.valueOf(viewerConfig.getHops().getSelected()), null);
-            int size = graph.getVertices().size();
-            filtersCombo.addItem(filter.getName()+ " ("+size+")");
-            filterName2FilterType.put(filter.getName()+ " ("+size+")", filter);
+       //     G graph = transformGraph(filter, Integer.valueOf(viewerConfig.getHops().getSelected()), null);
+       //     int size = graph.getVertices().size();
+            filtersCombo.addItem(filter.getName());
+            filterName2FilterType.put(filter.getName(), filter);
         }
         filtersCombo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -685,10 +722,32 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
 
     private G transformGraph(final FilterType filter, final Integer hops, final Set<String> pickedVertexes){
         final Map<String, GraphMLMetadata<String>> edgeMetadatas1 = graphmlLoader.getEdgeMetadatas();
-        EdgePredicateFilter<String, String> edgeFilter = EdgeFilterFactory.createEdgeFilter(filter, edgeMetadatas1);
+
+        Map<String, DataMatcher> matcherMap = new HashMap<String, DataMatcher>();
+
+        List<DataMatcherType> matcherList = viewerConfig.getDataMatcher();
+        for (DataMatcherType dataMatcherType : matcherList) {
+            String className = dataMatcherType.getClazz();
+            Class clazz = null;
+            try {
+                clazz = Class.forName(className);
+            } catch (ClassNotFoundException e) {
+                logger.error("Can not find class: "+className, e);
+            }
+            try {
+                DataMatcher dataMatcher = (DataMatcher) clazz.newInstance();
+                matcherMap.put(dataMatcherType.getName(), dataMatcher);
+            } catch (InstantiationException e) {
+                logger.error("Can not instantiate class: " + className, e);
+            } catch (IllegalAccessException e) {
+                logger.error("Can not access constructor class: " + className, e);
+            }
+        }
+        EdgePredicateFilter<String, String> edgeFilter = EdgeFilterFactory.createEdgeFilter(filter, matcherMap,edgeMetadatas1);
         final Graph<String, String> graph1 = edgeFilter.transform(entireGraph);
 
-        VertexPredicateFilter<String, String> filterV = VertexFilterFactory.createVertexFilter(filter, graphmlLoader.getVertexMetadatas(), graph1);
+
+        VertexPredicateFilter<String, String> filterV = VertexFilterFactory.createVertexFilter(filter,matcherMap, graphmlLoader.getVertexMetadatas(), graph1);
 
         G graph2 = (G) filterV.transform(graph1);
         HashSet<String> set = new HashSet<String>(graph2.getVertices());
@@ -700,12 +759,12 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         KNeighborhoodFilter<String, String> f = new KNeighborhoodFilter<String, String>(set, hops, KNeighborhoodFilter.EdgeType.IN_OUT);
         return (G) f.transform(graph2);
     }
-    private G transformCurrentGraph(final FilterType filter, final Integer hops, final Set<String> pickedVertexes){
+    private G transformCurrentGraph(final FilterType filter, Map<String, DataMatcher> matcherMap, final Integer hops, final Set<String> pickedVertexes){
         final Map<String, GraphMLMetadata<String>> edgeMetadatas1 = graphmlLoader.getEdgeMetadatas();
-        EdgePredicateFilter<String, String> edgeFilter = EdgeFilterFactory.createEdgeFilter(filter, edgeMetadatas1);
+        EdgePredicateFilter<String, String> edgeFilter = EdgeFilterFactory.createEdgeFilter(filter, matcherMap,edgeMetadatas1);
         final Graph<String, String> graph1 = edgeFilter.transform(currentGraph);
 
-        VertexPredicateFilter<String, String> filterV = VertexFilterFactory.createVertexFilter(filter, graphmlLoader.getVertexMetadatas(), graph1);
+        VertexPredicateFilter<String, String> filterV = VertexFilterFactory.createVertexFilter(filter,matcherMap ,graphmlLoader.getVertexMetadatas(), graph1);
 
         G graph2 = (G) filterV.transform(graph1);
         HashSet<String> set = new HashSet<String>(graph2.getVertices());
@@ -735,17 +794,17 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
     private Layout createLayout(G graph, String layout) {
         PersistentLayout test = null;
         if (layout.equals("CircleLayout")) {
-            test = new PersistentLayoutImpl(new CircleLayout<String, String>(graph));
+            test = new MyPersistentLayoutImpl(new CircleLayout<String, String>(graph));
         } else if (layout.equals("KKLayout")) {
-            test = new PersistentLayoutImpl(new KKLayout<String, String>(graph));
+            test = new MyPersistentLayoutImpl(new KKLayout<String, String>(graph));
         } else if (layout.equals("SpringLayout")) {
-            test = new PersistentLayoutImpl(new SpringLayout<String, String>(graph));
+            test = new MyPersistentLayoutImpl(new SpringLayout<String, String>(graph));
         } else if (layout.equals("SpringLayout2")) {
-            test = new PersistentLayoutImpl(new SpringLayout2<String, String>(graph));
+            test = new MyPersistentLayoutImpl(new SpringLayout2<String, String>(graph));
         } else if (layout.equals("ISOMLayout")) {
-            test = new PersistentLayoutImpl(new ISOMLayout<String, String>(graph));
+            test = new MyPersistentLayoutImpl(new ISOMLayout<String, String>(graph));
         } else if (layout.equals("FRLayout2")) {
-            test = new PersistentLayoutImpl(new FRLayout2<String, String>(graph));
+            test = new MyPersistentLayoutImpl(new FRLayout2<String, String>(graph));
 //        }   else if (layout.equals("DAGLayout")){
 //            DAGLayout<String,String> abx =    new DAGLayout<String,String>(graph);
 //             abx.setRoot("R1");
@@ -755,27 +814,30 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
 //            TreeLayout<String,String> abx = new TreeLayout<String, String>(graph);
 //        }
         else {
-            test = new PersistentLayoutImpl(new FRLayout<String, String>(graph));
+            test = new MyPersistentLayoutImpl(new FRLayout<String, String>(graph));
         }
 
         int vertexCount = currentGraph.getVertexCount();
 //        final ScalingControl scaler = new CrossoverScalingControl();
-        final double nodeDensity = 0.0001;
+        final double nodeDensity = 0.001;
         Dimension parent1 = parent.getSize();
+         int  x=parent.getWidth();
+         int  y= (int) (parent.getHeight() - 150);
+//
+//        int x = (int) (Math.sqrt(vertexCount / nodeDensity));
+//        int y = (int) (Math.sqrt(vertexCount / nodeDensity));
+//        if (x < parent1.width) {
+//            x = parent1.width - 50;
+//        } else {
+//            x = x * (parent1.width - 50) / 1000;
+//        }
+//
+//        if (y < parent1.height) {
+//            y = parent1.height - 150;
+//        } else {
+//            y = y * (parent1.height - 150) / 1000;
+//        }
 
-        int x = (int) (Math.sqrt(vertexCount / nodeDensity));
-        int y = (int) (Math.sqrt(vertexCount / nodeDensity));
-        if (x < parent1.width) {
-            x = parent1.width - 50;
-        } else {
-            x = x * (parent1.width - 50) / 1000;
-        }
-
-        if (y < parent1.height) {
-            y = parent1.height - 150;
-        } else {
-            y = y * (parent1.height - 150) / 1000;
-        }
         System.out.println("X: " + x + "Y: " + y + "width: " + parent1.width + "heigth: " + parent1.height);
         test.setSize(new Dimension(new Dimension(x, y)));
 
@@ -1136,5 +1198,9 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
 
     public void setEdgeLabel(boolean edgeLabel) {
         this.edgeLabel = edgeLabel;
+    }
+
+    public GraphmlLoader<G> getGraphmlLoader() {
+        return graphmlLoader;
     }
 }

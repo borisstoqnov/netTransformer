@@ -65,7 +65,8 @@ public class EdgeStrokeMapLoader implements GraphmlLoaderListener{
                     final GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(data.getKey());
                     if (stringGraphMLMetadata == null){
                         logger.error(String.format("Can not find edge metadata key '%s'.",data.getKey()));
-                        continue;
+                        match = false;
+                        break;
 //                        throw new RuntimeException(String.format("Can not find vertex metadata key '%s' in file '%s'.",data.getKey(), fileName));
                     }
                     final String value = stringGraphMLMetadata.transformer.transform(edge);
@@ -83,19 +84,22 @@ public class EdgeStrokeMapLoader implements GraphmlLoaderListener{
 //                    Icon iconImg = new LayeredIcon(imageIcon.getImage());
                     try {
                         String dashStr = edgeStrokeType.getDash();
-                        String[] dashArr = dashStr.split(",");
-                        float[] dash = new float[dashArr.length];
-                        for (int i=0;i < dashArr.length; i++) {
-                            dash[i] = Float.parseFloat(dashArr[i]);
+                        if(dashStr!=null){
+                            String[] dashArr = dashStr.split(",");
+                            float[] dash = new float[dashArr.length];
+                            for (int i=0;i < dashArr.length; i++) {
+                                dash[i] = Float.parseFloat(dashArr[i]);
+                            }
+                            float width = edgeStrokeType.getWidth();
+                            float dashPhase = edgeStrokeType.getDashPhase();
+                            int join = edgeStrokeType.getJoin();
+                            int cap = edgeStrokeType.getCap();
+                            float miterlimit = edgeStrokeType.getMiterlimit();
+                            final Stroke edgeStroke = new BasicStroke(width, cap,
+                                    join, miterlimit, dash, dashPhase);
+                            edgesStrokeMap.put(edge, edgeStroke);
+
                         }
-                        float width = edgeStrokeType.getWidth();
-                        float dashPhase = edgeStrokeType.getDashPhase();
-                        int join = edgeStrokeType.getJoin();
-                        int cap = edgeStrokeType.getCap();
-                        float miterlimit = edgeStrokeType.getMiterlimit();
-                        final Stroke edgeStroke = new BasicStroke(width, cap,
-                                join, miterlimit, dash, dashPhase);
-                        edgesStrokeMap.put(edge, edgeStroke);
                     } catch (NumberFormatException nfe) {
                         nfe.printStackTrace();
                         break;

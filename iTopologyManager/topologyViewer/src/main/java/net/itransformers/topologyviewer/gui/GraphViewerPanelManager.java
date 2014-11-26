@@ -23,13 +23,9 @@ import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.io.GraphMLMetadata;
 import net.itransformers.topologyviewer.config.TopologyViewerConfType;
 import org.apache.commons.collections15.Factory;
-import org.xml.sax.SAXException;
 
 import javax.swing.*;
-import javax.xml.bind.JAXBException;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 
 public class GraphViewerPanelManager<G extends Graph<String, String>> {
@@ -82,15 +78,31 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
 
     public void init() throws Exception {
         iconMapLoader = new IconMapLoader(viewerConfig);
+        System.out.println("iconSystem" + System.currentTimeMillis());
         edgeStrokeMapLoader = new EdgeStrokeMapLoader(viewerConfig);
+        System.out.println("edgeStrokeMapLoader" + System.currentTimeMillis());
+
         edgeColorMapLoader = new EdgeColorMapLoader(viewerConfig);
+        System.out.println("edgeColorMapLoader" + System.currentTimeMillis());
+
         // TODO make factory
         graphmlLoader = new FileSystemGraphmlLoader<G>(entireGraph, factory, graphmlFileName);
+        System.out.println("FileSystemGraphmlLoader" + System.currentTimeMillis());
+
 
         graphmlLoader.addGraphmlLoaderListener(iconMapLoader);
+        System.out.println("addGraphmlLoaderListener(iconMapLoader)" + System.currentTimeMillis());
+
+
         graphmlLoader.addGraphmlLoaderListener(edgeStrokeMapLoader);
+        System.out.println("addGraphmlLoaderListener(edgeStrokeMapLoader);" + System.currentTimeMillis());
+
         graphmlLoader.addGraphmlLoaderListener(edgeColorMapLoader);
+        System.out.println("addGraphmlLoaderListener(edgeColorMapLoader);" + System.currentTimeMillis());
+
         graphmlLoader.loadGraphml();
+        System.out.println("graphmlLoader.loadGraphml();" + System.currentTimeMillis());
+
     }
 
     public void createAndAddViewerPanel() {

@@ -22,7 +22,6 @@ package net.itransformers.topologyviewer.gui;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.io.GraphMLMetadata;
-import edu.uci.ics.jung.io.GraphMLReader;
 import org.apache.commons.collections15.Factory;
 import org.xml.sax.SAXException;
 
@@ -56,7 +55,7 @@ public class FileSystemGraphmlLoader<G extends Graph<String,String>> implements 
     @Override
     public void loadGraphml() throws Exception {
         final G graph = factory.create();
-        GraphMLReader gmlr = loadGraphmlInGraph(urlPath, graph);
+        MyGraphMLReader gmlr = loadGraphmlInGraph(urlPath, graph);
         Collection<String> verteces = graph.getVertices();
         for (String vertex :verteces){
             if(!entireGraph.containsVertex(vertex)){
@@ -76,13 +75,13 @@ public class FileSystemGraphmlLoader<G extends Graph<String,String>> implements 
         notifyListeners(gmlr.getVertexMetadata(), gmlr.getEdgeMetadata(), graph);
     }
 
-    static <G extends Graph<String,String>> GraphMLReader loadGraphmlInGraph(InputStream is, G graph) throws ParserConfigurationException, SAXException, IOException {
-        GraphMLReader gmlr = new GraphMLReader<G, String, String>(null, null);
+    static <G extends Graph<String,String>> MyGraphMLReader loadGraphmlInGraph(InputStream is, G graph) throws ParserConfigurationException, SAXException, IOException {
+        MyGraphMLReader gmlr = new MyGraphMLReader<G, String, String>(null, null);
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
         gmlr.load(in, graph);
         return gmlr;
     }
-    static <G extends Graph<String,String>> GraphMLReader loadGraphmlInGraph(File grahmlUrl, G graph) throws ParserConfigurationException, SAXException, IOException {
+    static <G extends Graph<String,String>> MyGraphMLReader loadGraphmlInGraph(File grahmlUrl, G graph) throws ParserConfigurationException, SAXException, IOException {
         InputStream is = null;
         try {
             is = new FileInputStream(grahmlUrl);

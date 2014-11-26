@@ -15,7 +15,10 @@ public class BGIPv4IntPeeringIncluder implements VertexIncluder {
     @Override
     public boolean hasToInclude(String vertexName, Map<String, GraphMLMetadata<String>> vertexMetadata, Graph<String, String> graph1) {
         String country = vertexMetadata.get("Country").transformer.transform(vertexName);
-        String ipv6Flag = vertexMetadata.get("IPv6Flag").transformer.transform(vertexName);
+        String ipv4Flag = vertexMetadata.get("IPv4Flag").transformer.transform(vertexName);
+            if("BG".equals(country)&"TRUE".equals(ipv4Flag)){
+                return true;
+            }
 
             if (!"BG".equals(country)) {
             Collection<String> inEdges = graph1.getInEdges(vertexName);
@@ -28,8 +31,10 @@ public class BGIPv4IntPeeringIncluder implements VertexIncluder {
                     oppositeVertex = endpoints.getFirst();
                 }
                 String oppositeCountry = vertexMetadata.get("Country").transformer.transform(oppositeVertex);
-                if ("BG".equals(oppositeCountry)) {
-//                    System.out.println("BGAndIntBGPeeringIncluder returns "+vertexName);
+                String oppositeIPv6Flag = vertexMetadata.get("IPv4Flag").transformer.transform(oppositeVertex);
+
+                if ("BG".equals(oppositeCountry)&&"TRUE".equals(oppositeIPv6Flag)) {
+//                   System.out.println("BGAndIntBGPeeringIncluder returns "+vertexName);
                     return true;
                 }
            }

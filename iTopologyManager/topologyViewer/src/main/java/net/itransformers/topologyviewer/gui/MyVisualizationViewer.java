@@ -27,7 +27,6 @@ import edu.uci.ics.jung.visualization.decorators.DefaultVertexIconTransformer;
 import edu.uci.ics.jung.visualization.decorators.EllipseVertexShapeTransformer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.decorators.VertexIconShapeTransformer;
-import edu.uci.ics.jung.visualization.layout.PersistentLayoutImpl;
 import edu.uci.ics.jung.visualization.renderers.DefaultEdgeLabelRenderer;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
 import net.itransformers.topologyviewer.config.FilterType;
@@ -72,7 +71,7 @@ public class MyVisualizationViewer extends VisualizationViewer<String,String> {
                                  Map<String, Stroke> edgesStrokeMap,
                                  Map<String, Color> edgesColorMap) {
 //        RadialTreeLayout<String,Integer> radialLayout;
-        super(new PersistentLayoutImpl(new FRLayout<String,String>(graph)));
+        super(new MyPersistentLayoutImpl(new FRLayout<String,String>(graph)));
 //        super(new PersistentLayoutImpl(new RadialTreeLayout(<String,Integer>(graph)));
         this.viewerConfig = viewerConfig;
         this.vertexMetadatas = vertexMetadatas;

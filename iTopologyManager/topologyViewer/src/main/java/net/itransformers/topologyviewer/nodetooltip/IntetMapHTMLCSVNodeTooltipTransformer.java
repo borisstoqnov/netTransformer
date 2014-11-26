@@ -19,13 +19,11 @@
 
 package net.itransformers.topologyviewer.nodetooltip;
 
-import net.itransformers.topologyviewer.config.TooltipType;
 import edu.uci.ics.jung.io.GraphMLMetadata;
+import net.itransformers.topologyviewer.config.TooltipType;
 import org.apache.commons.collections15.Transformer;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class IntetMapHTMLCSVNodeTooltipTransformer extends NodeTooltipTransformerBase{
     public IntetMapHTMLCSVNodeTooltipTransformer(TooltipType tooltipType, Map<String, GraphMLMetadata<String>> nodeMetadatas) {
@@ -36,14 +34,17 @@ public class IntetMapHTMLCSVNodeTooltipTransformer extends NodeTooltipTransforme
         try {
              StringBuilder sb = new StringBuilder();
             sb.append("<html>");
-             Set<String> valueSet = new HashSet<String>();
-             GraphMLMetadata<String> stringGraphMLMetadata = nodeMetadatas.get(tooltipType.getDataKey());
-             Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
-             final String value = transformer.transform(node);
-             if (value != null && !sb.toString().contains(value)){
-                 sb.append(value);
-             }
-            sb.append(valueSet);
+
+
+             for ( String key : nodeMetadatas.keySet()){
+                 GraphMLMetadata<String> stringGraphMLMetadata = nodeMetadatas.get(key);
+                 Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
+                 final String value = transformer.transform(node);
+                 if (value != null && !key.contains("Prefixes")){
+                     sb.append("<p>"+key+": "+value+"</p>");
+                 }
+            }
+
 
             sb.append("</html>");
             return sb.toString().replaceAll("\\[\\]","");

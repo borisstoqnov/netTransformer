@@ -32,21 +32,21 @@
 				<key id="diffs" for="edge" attr.name="diffs" attr.type="string"/>
 				<key id="diffs" for="node" attr.name="diffs" attr.type="string"/>      
 				<key id="diff" for="edge" attr.name="diff" attr.type="string"/>
-				<key id="diff" for="node" attr.name="diff" attr.type="string"/>  			
-				<key id="AS" for="node" attr.name="AS" attr.type="string"/>
-				<key id="ASInfo" for="node" attr.name="ASInfo" attr.type="string"/>
-				<key id="ASN" for="node" attr.name="ASN" attr.type="string"/>
-				<key id="description" for="node" attr.name="description" attr.type="string"/>
-				<key id="RoutePrefixes" for="node" attr.name="RoutePrefixes" attr.type="string"/>
-				<key id="countOriginatedPrefixes" for="node" attr.name="countOriginatedPrefixes" attr.type="integer"/>
-				<key id="countASTransitAppearances" for="node" attr.name="countASTransitAppearances" attr.type="integer"/>
-				<key id="customer" for="node" attr.name="customer" attr.type="string"/>
-				<key id="transit" for="node" attr.name="transit" attr.type="string"/>
-				<key id="edgeID" for="edge" attr.name="edgeID" attr.type="string"/>
-				<key id="edge" for="edge" attr.name="edge" attr.type="string"/>
-				<key id="prefix" for="edge" attr.name="prefix" attr.type="string"/>
-				<key id="color" for="edge" attr.name="color" attr.type="string"/>
-				<key id="weigth" for="edge" attr.name="weigth" attr.type="string"/>
+				<key id="diff" for="node" attr.name="diff" attr.type="string"/>
+                <key id="ASName" for="node" attr.name="ASName" attr.type="string"/>
+                <key id="IPv4PrefixCount" for="node" attr.name="IPv4PrefixCount" attr.type="int"/>
+                <key id="IPv6PrefixCount" for="node" attr.name="IPv6PrefixCount"  attr.type="int"/>
+                <key id="IPv4Flag" for="node" attr.name="IPv4Flag" attr.type="string"/>
+                <key id="IPv6Flag" for="node" attr.name="IPv6Flag" attr.type="string"/>
+                <key id="IPv4AddressSpace" for="node" attr.name="IPv4AddressSpace" attr.type="int"/>
+                <key id="IPv6AddressSpace" for="node" attr.name="IPv6AddressSpace" attr.type="int"/>
+                <key id="Country" for="node" attr.name="Country" attr.type="string"/>
+                <key id="Description" for="node" attr.name="Description" attr.type="string"/>
+                <key id="IPv4Prefixes" for="node" attr.name="IPv4Prefixes" attr.type="string"/>
+                <key id="IPv6Prefixes" for="node" attr.name="IPv6Prefixes" attr.type="string"/>
+                <key id="weight" for="edge" attr.name="weight" attr.type="int"/>
+
+
 				<xsl:variable name="asNumberess" select="document($as-numbers)/root/AS"/>
 
 				<xsl:for-each select="distinct-values($root//prefix/ASes/AS)">
@@ -58,11 +58,10 @@
                     <xsl:variable name="node">
 					<node>
 						<xsl:attribute name="id"><xsl:value-of select="$AS"/></xsl:attribute>
-						<data key="AS">YES</data>
-						<data key="ASN">
-							<xsl:value-of select="$AS"/>
+						<data key="ASName">
+							<xsl:value-of select="$description"/>
 						</data>
-						<data key="countOriginatedPrefixes">
+						<data key="IPv4PrefixCount">
 								<xsl:value-of select="$countOriginatedPrefixes"/>
 						</data>
 						<data key="countASTransitAppearances">
@@ -96,7 +95,7 @@
 							<xsl:value-of select="$description"/>
 							<xsl:text disable-output-escaping="yes">&lt;/html&gt;]]&gt;</xsl:text>
 						</data>
-                        <data key="RoutePrefixes"><xsl:copy-of select="$RoutePrefixes"/></data>
+                        <data key="IPv4Prefixes"><xsl:copy-of select="$RoutePrefixes"/></data>
 					</node>
                     </xsl:variable>
                     <xsl:message>DEBUG:<xsl:value-of select="$AS"/></xsl:message>

@@ -21,17 +21,13 @@ package net.itransformers.topologyviewer.menu;
 
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.menu.handlers.*;
-import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.CloseGraphMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.ConfigMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.DiffMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.OpenGraphMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.ChangeLayoutMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.EditNetworkGraphmlMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.*;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.*;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.BetweennessCentralityMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.KMarkovMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.RandomWalkBetweennessCentralityMenuHandler;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.XmlTreeNetworkGraphmlMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.*;
+import net.itransformers.topologyviewer.menu.handlers.graphTools.DiffReportMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.shortherstPathMenuHandlers.DijkstraShortestPathMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.shortherstPathMenuHandlers.ShortestPathMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.networkActivation.TemplateEditorMenuHandler;
@@ -185,9 +181,20 @@ public class MenuBuilder {
         graphTools.setEnabled(false);
         menuBar.add(graphTools);
 
-//        final JMenuItem iNode = new JMenuItem("Initial Node");
-//        iNode.addActionListener(new InitialNodeMenuHandler(frame));
-//        graphTools.add(iNode);
+//            final JMenuItem iNode = new JMenuItem("Initial Node");
+//            iNode.addActionListener(new InitialNodeMenuHandler(frame));
+//            graphTools.add(iNode);
+           final JMenuItem statistics = new JMenuItem("Graph Statistics");
+            statistics.addActionListener(new GraphDistanceStatisticsMenuHandler(frame));
+            graphTools.add(statistics);
+            final JMenuItem bgstatistics = new JMenuItem("BG Peering Statistics");
+            bgstatistics.addActionListener(new BGMapStatisticsMenuHandler(frame));
+            graphTools.add(bgstatistics);
+            final JMenuItem diffStatistics = new JMenuItem("Diff Statistics");
+            diffStatistics.addActionListener(new DiffReportMenuHandler(frame));
+            graphTools.add(diffStatistics);
+
+
             final JMenuItem ShortestPath = new JMenuItem("ShortestPath");
             ShortestPath.addActionListener(new ShortestPathMenuHandler(frame));
             graphTools.add(ShortestPath);
@@ -239,6 +246,11 @@ public class MenuBuilder {
         openGraph.addActionListener(new OpenGraphMenuHandler(frame));
         openGraph.setEnabled(false);
         file.add(openGraph);
+        final JMenuItem saveGraph = new JMenuItem("Save Current Graph");
+        saveGraph.addActionListener(new SaveCurrentGraphMenuHandler(frame));
+        saveGraph.setEnabled(true);
+        file.add(saveGraph);
+
 //        final JMenuItem openDirectedGraph = new JMenuItem("Open Directed Graph");
 //        openDirectedGraph.addActionListener(new OpenGraphMenuHandler(frame, GraphType.DIRECTED));
 //        file.add(openDirectedGraph);

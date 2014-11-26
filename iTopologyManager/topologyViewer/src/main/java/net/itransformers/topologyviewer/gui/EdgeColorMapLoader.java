@@ -65,7 +65,8 @@ public class EdgeColorMapLoader implements GraphmlLoaderListener{
                     final GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(data.getKey());
                     if (stringGraphMLMetadata == null){
                         logger.error(String.format("Can not find edge metadata key '%s'.",data.getKey()));
-                        continue;
+                        match = false;
+                        break;
 //                        throw new RuntimeException(String.format("Can not find vertex metadata key '%s' in file '%s'.",data.getKey(), fileName));
                     }
                     final String value = stringGraphMLMetadata.transformer.transform(edge);

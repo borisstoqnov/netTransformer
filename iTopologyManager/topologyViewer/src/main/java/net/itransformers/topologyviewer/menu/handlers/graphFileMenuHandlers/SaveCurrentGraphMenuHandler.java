@@ -19,14 +19,22 @@
 
 package net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers;
 
+import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.util.Pair;
+import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.utils.MyGraphMLWriter;
+import org.apache.commons.collections15.Transformer;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Arrays;
 
 /**
  * Created by IntelliJ IDEA.
@@ -52,48 +60,56 @@ public class SaveCurrentGraphMenuHandler implements ActionListener {
             JOptionPane.showMessageDialog(frame, "Can not open graph before project has been opened.");
             return;
         }
+
+        JTextField fileName = new JTextField();
+        Object[] message = {"File name", fileName};
+        String versionName = JOptionPane.showInputDialog("Enter output graph version");
+
         File networkPath = new File(path+File.separator+"network");
-        JFileChooser chooser;
-        if (!networkPath.exists()){
-                chooser = new JFileChooser(path);
-        } else{
-            chooser = new JFileChooser(networkPath);
+
+        File versionPath = new File(networkPath,versionName);
+        if (versionPath.exists()){
+          throw new RuntimeException("Version path already exists: "+versionPath.getAbsolutePath());
         }
-        chooser.setDialogTitle("Choose Graph version");
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
+        if (!versionPath.mkdir()){
+            throw new RuntimeException("Unable to create version path: "+versionPath.getAbsolutePath());
+        }
 
-        chooser.setFileFilter(new FileFilter() {
+        File undirectedPath = new File(versionPath, "undirected");
+        if (!undirectedPath.mkdir()) {
+            throw new RuntimeException("Unable to create undirected path: "+undirectedPath.getAbsolutePath());
+        }
+        Writer fileWriter;
+        try {
+            fileWriter = new FileWriter(new File(undirectedPath, "network.graphml"));
+        } catch (IOException e1) {
+            throw new RuntimeException("Unable to create file: "+e1.getMessage());
+        }
+        GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
+        final Graph<String, String> currentGraph = viewerPanel.getCurrentGraph();
+        MyGraphMLWriter  writer = new MyGraphMLWriter();
+        writer.setGraphData(viewerPanel.getGraphmlLoader().getGraphMetadatas());
+        writer.setVertexData(viewerPanel.getGraphmlLoader().getVertexMetadatas());
+        writer.setEdgeData(viewerPanel.getGraphmlLoader().getEdgeMetadatas());
+        writer.setEdgeIDs(new Transformer<String, String>() {
+
             @Override
-            public boolean accept(File f) {
-
-                    if (f.exists() && f.isDirectory()){
-                        undirectedDir = new File(f+File.separator+"undirected");
-                        networkGraphml = new File(undirectedDir+File.separator+ "network.graphml");
-                        if (undirectedDir.exists() && networkGraphml.exists()){
-                            return true;
-                        }
-
-                    }
-                return false;
-            }
-
-            @Override
-            public String getDescription() {
-                return "(Network version folders)";
+            public String transform(String s) {
+                Pair<String> endpoints = currentGraph.getEndpoints(s);
+                String[] endpointsArr =  new String[] {endpoints.getFirst(), endpoints.getSecond()};
+                Arrays.sort(endpointsArr);
+                return endpointsArr[0] + "_" + endpointsArr[1];
             }
         });
-        chooser.setMultiSelectionEnabled(false);
-        int result = chooser.showOpenDialog(frame);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File fileResult = new File(chooser.getSelectedFile()+File.separator+"undirected"+File.separator+ "network.graphml");
-            System.out.println(fileResult);
-            if(fileResult.exists()){
-                frame.doOpenGraph(fileResult);
-            }else {
-                JOptionPane.showMessageDialog(frame, "You are trying to open a version that does not contain a network graph!");
+        boolean flag;
+        try {
+            writer.save(currentGraph, fileWriter);
+            flag = true;
 
-            }
+        } catch (IOException e1) {
+            flag = false;
+            throw new RuntimeException("Unable to write graph file: "+e1.getMessage());
         }
 
     }

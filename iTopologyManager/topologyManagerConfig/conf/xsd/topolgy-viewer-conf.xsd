@@ -96,9 +96,10 @@
   <xs:complexType name="includeType">
     <xs:simpleContent>
       <xs:extension base="xs:string">
-        <xs:attribute type="xs:string" name="type" use="optional"/>
-        <xs:attribute type="xs:string" name="dataKey" use="optional"/>
+        <xs:attribute type="xs:string" name="classType" use="optional"/>
+          <xs:attribute type="xs:string" name="dataKey" use="optional"/>
         <xs:attribute type="xs:string" name="dataValue" use="optional"/>
+        <xs:attribute type="xs:string" name="matcher" use="optional"/>
         <xs:attribute type="forType" name="for" use="optional" default="node"/>
       </xs:extension>
     </xs:simpleContent>
@@ -114,6 +115,7 @@
       <xs:element type="tooltipType" name="tooltip" minOccurs="0" maxOccurs="2"/>
     </xs:sequence>
     <xs:attribute type="xs:string" name="name" use="optional"/>
+    <xs:attribute type="xs:string" name="type" use="optional"/>
   </xs:complexType>
   <xs:complexType name="subMenuType">
       <xs:sequence>

@@ -47,7 +47,7 @@ public class StringEquals implements DataMatcher {
         if (data1 != null) {
             logger.debug("EQ: "+data1+"="+data2);
 
-            return data1.equals(data2);
+            return data1.equalsIgnoreCase(data2);
         } else {
             return false;
         }

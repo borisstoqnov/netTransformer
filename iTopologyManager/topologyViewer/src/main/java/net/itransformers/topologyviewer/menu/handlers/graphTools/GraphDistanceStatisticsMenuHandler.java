@@ -19,8 +19,6 @@
 
 package net.itransformers.topologyviewer.menu.handlers.graphTools;
 
-import edu.uci.ics.jung.algorithms.shortestpath.DistanceStatistics;
-import edu.uci.ics.jung.algorithms.shortestpath.UnweightedShortestPath;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
@@ -53,21 +51,27 @@ public class GraphDistanceStatisticsMenuHandler implements ActionListener {
         final GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
 
-        JFrame frame1 = new JFrame(" Diameter ");
+        JFrame frame1 = new JFrame(" Graph Statistics ");
         frame1.setSize(600, 400);
         frame1.getContentPane().setLayout(new BorderLayout());
         JTextPane text = new JTextPane();
         text.setEditable(true);
 
-        double diameterCurrent = DistanceStatistics.diameter(viewerPanel.getCurrentGraph());
-        double diameterEntire = DistanceStatistics.diameter(viewerPanel.getEntireGraph(), new UnweightedShortestPath(viewerPanel.getEntireGraph()), false);
+//        double diameterCurrent = DistanceStatistics.diameter(viewerPanel.getCurrentGraph());
+//        double diameterEntire = DistanceStatistics.diameter(viewerPanel.getEntireGraph(), new UnweightedShortestPath(viewerPanel.getEntireGraph()), false);
 
 
         //   Transformer transformer =    DistanceStatistics.averageDistances(viewerPanel.getCurrentGraph(), new UnweightedShortestPath(viewerPanel.getCurrentGraph()));
 
+
         StringBuffer sb = new StringBuffer();
-        sb.append(String.format("%s: %2f \n", "Current Graph Diameter", diameterCurrent));
-        sb.append(String.format("%s: %2f \n", "Entire Graph Diameter", diameterEntire));
+        sb.append("Current Graph Number of Nodes: " + viewerPanel.getCurrentGraph().getVertexCount()+"\n");
+        sb.append("Current Graph Number of Edges: " + viewerPanel.getCurrentGraph().getEdgeCount()+"\n");
+        sb.append("Entire Graph Number of Nodes: " + viewerPanel.getEntireGraph().getVertexCount()+"\n");
+        sb.append("Entire Graph Number of Edges: " + viewerPanel.getEntireGraph().getEdgeCount()+"\n");
+
+//        sb.append(String.format("%s: %2f \n", "Current Graph Diameter", diameterCurrent));
+//        sb.append(String.format("%s: %2f \n", "Entire Graph Diameter", diameterEntire));
         //sb.append(transformer.toString());
 
         //  sb.append(String.format("%s: %2f \n", "AverageDistances",DistanceStatistics.averageDistances(viewerPanel.getCurrentGraph())));

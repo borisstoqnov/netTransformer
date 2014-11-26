@@ -19,6 +19,7 @@ import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.io.GraphMLMetadata;
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.TransformerUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -87,10 +88,8 @@ public class MyGraphMLWriter<V,E>
 
 		// write out boilerplate header
 		bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-		bw.write("<graphml xmlns=\"http://graphml.graphdrawing.org/xmlns/graphml\"\n" +
-				"xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"  \n");
-		bw.write("xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns/graphml\">\n");
-		
+		bw.write("<graphml xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">  \n");
+
 		// write out data specifiers, including defaults
 		for (String key : graph_data.keySet())
 			writeKeySpecification(key, "graph", graph_data.get(key), bw);
@@ -176,7 +175,7 @@ public class MyGraphMLWriter<V,E>
     						w.write(v_string + ">\n");
     						closed = true;
     					}
-    					w.write(format("data", "key", key, value.toString()) + "\n");
+    					w.write(format("data", "key", key, StringEscapeUtils.escapeXml(value.toString())) + "\n");
     				}
 				}
 			}
@@ -242,7 +241,7 @@ public class MyGraphMLWriter<V,E>
 						w.write(e_string + ">\n");
 						closed = true;
 					}
-					w.write(format("data", "key", key, value.toString()) + "\n");
+					w.write(format("data", "key", key, StringEscapeUtils.escapeXml(value.toString())) + "\n");
 				}
 			}
 			// if this is a hyperedge, write endpoints out if any

@@ -76,21 +76,29 @@ public class IconMapLoader implements GraphmlLoaderListener{
         List<IconType> iconTypeList = viewerConfig.getIcon();
         List<IconType.Data> datas;
         for (String vertice : vertices) {
+            System.out.println(vertice);
             for (IconType iconType : iconTypeList) {
                 boolean match = true;
                 datas = iconType.getData();
                 boolean isDefaultIcon = datas.isEmpty();
 
                 for (IconType.Data data : datas) {
+
                     final GraphMLMetadata<String> stringGraphMLMetadata = vertexMetadata.get(data.getKey());
                     if (stringGraphMLMetadata == null){
                         logger.error(String.format("Can not find vertex metadata key '%s'.",data.getKey()));
-                        continue;
+                        match = false;
+                        break;
                     }
                     final String value = stringGraphMLMetadata.transformer.transform(vertice);
                     String matcher = data.getMatcher();
                     if (matcher == null) {
                         matcher = "default";
+                    }
+                    if (value == null){
+                        match = false;
+                        break;
+
                     }
                     DataMatcher matcherInstance = matcherMap.get(matcher);
                     boolean matchResult = matcherInstance.compareData(value, data.getValue());
@@ -103,7 +111,7 @@ public class IconMapLoader implements GraphmlLoaderListener{
                 if ((!isDefaultIcon && match) || (isDefaultIcon && !iconExists)) {
                     final String name = iconType.getName();
                     String[] iconNames = name.split(",");
-                    logger.debug("Load icon: "+iconNames[0].trim());
+                    logger.debug("Load icon: "+iconNames[0].trim() + " for node "+vertice);
                     final URL resource = TopologyManagerFrame.class.getResource(iconNames[0].trim());
                     if (resource == null) {
                         logger.error("Can not load icon: "+iconNames[0].trim());
@@ -113,7 +121,7 @@ public class IconMapLoader implements GraphmlLoaderListener{
                     LayeredIcon iconImg = new LayeredIcon(imageIcon.getImage());
                     for (int i=1;i<iconNames.length;i++) {
                         final URL resource1 = TopologyManagerFrame.class.getResource(iconNames[i].trim());
-                        logger.debug("Load icon: "+iconNames[i].trim());
+                        logger.debug("Load icon: "+iconNames[0].trim() + " for node "+vertice);
                         iconImg.add(new ImageIcon(resource1));
                     }
                     iconMap.put(vertice, iconImg);

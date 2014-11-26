@@ -22,16 +22,13 @@ package net.itransformers.idiscover.v2.core.bgpdiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
-import net.itransformers.utils.XsltTransformer;
+import org.apache.commons.io.output.NullOutputStream;
 import org.apache.log4j.Logger;
-import org.xml.sax.SAXException;
+import org.javamrt.dumper.CmdLineParser;
+import org.javamrt.dumper.Route2GraphmlDumper;
+import org.javamrt.dumper.structures.ASContainer;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Map;
 
 //         com.sun.jersey.api.client.Client;
@@ -43,7 +40,7 @@ public class bgpMapDiscoverer implements NodeDiscoverer {
     String fileLocation =null;
 
 
-    public bgpMapDiscoverer(Map<String, String> attributes) throws Exception {
+    public bgpMapDiscoverer(Map<String, String> attributes)  {
 
         fileLocation=attributes.get("file");
        // walker = (JsonDiscoverer) new DefaultDiscovererFactory().createDiscoverer(resource);
@@ -58,49 +55,69 @@ public class bgpMapDiscoverer implements NodeDiscoverer {
     }
 
     @Override
-    public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
-        NodeDiscoveryResult result = new NodeDiscoveryResult();
-        String[] args = new String[3];
-        args[0] = "-z";
-        args[1] ="-x";
+    public NodeDiscoveryResult discover(ConnectionDetails connectionDetails)  {
 
+        NodeDiscoveryResult result = new NodeDiscoveryResult();
         String pathToFile = connectionDetails.getParam("pathToFile");
-        String date = connectionDetails.getParam("date");
         String nodeId = connectionDetails.getParam("nodeId");
         String version = connectionDetails.getParam("version");
 
-        args[2] = pathToFile;
 
-//        RouteDumper dumper = new RouteDumper(args,false);
-       // boolean oldall =  dumper.init(args,false);
-      //  Getopts prueba = new Getopts(args, "46hmP:p:o:z:v:t:x");
+        String[] args = new String[4];
+        args[0] = "-f";
 
 
-     //   Dumper xmlDumper = new Dumper(prueba,false,args);
-//        String xml = dumper.dumpToXml();
+        args[1] = pathToFile;
 
 
-        //Assemble EntryUri
-       //connectionDetails.getParam("protocol") +"://" + connectionDetails.getParam("ipAddress")  + ":" + connectionDetails.getParam("port");
-        logger.debug ("pathToFile: " + pathToFile+ "\n");
+        args[2] = "-o";
+        String outputFile="network.graphml";
+        args[3] = outputFile;
 
-        logger.debug ("Node id: " + nodeId+ "\n");
-        logger.debug ("Date: " + date + "\n");
+        Map<String, String> params = CmdLineParser.parseCmdLine(args);
+
+
+
+        StringWriter writer = new StringWriter();
+
+        String file = null;
+        OutputStream logOutputStream = new NullOutputStream();
+
+        if (params.containsKey("-f")) {
+            file = params.get("-f");
+        } else {
+            logger.info("no file passed");
+            System.exit(1);
+        }
+
+        ASContainer ases = new ASContainer();
+        System.out.println("Start reading MRT file");
+        File tmpEdgeFile = null;
+        try {
+            tmpEdgeFile = File.createTempFile("test" + "_", ".txt");
+        System.out.println("Creating edge tmp file: "+tmpEdgeFile.getAbsolutePath());
+        Writer edgeWriter =  new PrintWriter(tmpEdgeFile);
+
+        Route2GraphmlDumper.dumpToXmlString(new String[]{file}, new PrintWriter(logOutputStream), edgeWriter, ases);
+        edgeWriter.close();
+        Route2GraphmlDumper.dumpGraphml(ases, writer, tmpEdgeFile);
+
+        }catch (IOException e){
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+
+        } finally {
+            tmpEdgeFile.delete();
+
+
+        }
+
+
+//        logger.debug ("Node id: " + nodeId+ "\n");
+//        logger.debug ("Date: " + date + "\n");
         result.setNodeId(nodeId);
-//        result.setDiscoveredData("rawData",xml.getBytes());
         result.setDiscoveredData("version",version);
-
+        result.setDiscoveredData("graphml",writer.toString().getBytes());
         return result;
     }
 
- private ByteArrayOutputStream xsltTranform(File xsltTransformator, String rawData, Map settings) throws TransformerException, IOException, SAXException, ParserConfigurationException {
-     XsltTransformer transformer = new XsltTransformer();
-
-     ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
-     ByteArrayInputStream inputStream;
-     inputStream = new ByteArrayInputStream(rawData.getBytes());
-     transformer.transformXML(inputStream, xsltTransformator, outputStream1, settings, null);
-     return outputStream1;
-
- }
 }

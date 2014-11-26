@@ -33,8 +33,10 @@
     <!--Compares 2 graphml files. If something is present in A is marked with diff A. If something is present in B is marked with diff B.
      If there is a difference in the data key values an additional diff attribute is added with value = value A - value B. The tag itself takes the value of node B-->
     <xsl:template match="/">
-        <xsl:message>DEBUG: Node Ignored Keys<xsl:value-of select="$ignoredNodeKeysFile"/></xsl:message>
-        <xsl:message>DEBUG: Edge Ignored Keys<xsl:value-of select="$ignoredEdgeKeysFile"/></xsl:message>
+        <xsl:message>DEBUG: Node Ignored Keys: <xsl:value-of select="$ignoredNodeKeysFile"/></xsl:message>
+        <xsl:message>DEBUG: Edge Ignored Keys: <xsl:value-of select="$ignoredEdgeKeysFile"/></xsl:message>
+        <xsl:message>DEBUG: File1: <xsl:value-of select="$file1"/></xsl:message>
+        <xsl:message>DEBUG: File2: <xsl:value-of select="$file2"/></xsl:message>
 
         <xsl:variable name="temp">
             <graphml>
@@ -353,9 +355,17 @@
         <graphml>
 			<xsl:copy-of select="$temp/graphml/@*" copy-namespaces="no"/>
             <xsl:copy-of select="$temp/graphml/key" copy-namespaces="no"/>
+            <key id="diff" for="node"/>
+            <key id="diffs" for="node"/>
+            <key id="diff" for="edge"/>
+            <key id="diffs" for="edge"/>
             <graph>
                 <xsl:copy-of select="$temp/graphml/graph/@*" copy-namespaces="no"/>
                 <xsl:copy-of select="$temp/graphml/graph/key" copy-namespaces="no"/>
+                <key id="diff" for="node"/>
+                <key id="diffs" for="node"/>
+                <key id="diff" for="edge"/>
+                <key id="diffs" for="edge"/>
                 <xsl:for-each select="$temp/graphml/graph/node">
                     <xsl:variable name="node" select="."/>
                     <xsl:variable name="diff" select="@diff"/>

@@ -4,6 +4,16 @@ import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
+import net.itransformers.idiscover.v2.core.NodeDiscoverer;
+import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import org.apache.commons.io.output.NullOutputStream;
+import org.javamrt.dumper.CmdLineParser;
+import org.javamrt.dumper.Route2GraphmlDumper;
+import org.javamrt.dumper.structures.ASContainer;
+
+import java.io.*;
+import java.util.Map;
 
 /**
  * @author Yasser Ganjisaffar <lastname at gmail dot com>
@@ -14,7 +24,7 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
  * crawler.include_images to true
  */
 
-public class MrtCrawlController {
+public class MrtCrawlController implements NodeDiscoverer {
 
   public static void main(String[] args) throws Exception {
     if (args.length < 3) {
@@ -53,5 +63,72 @@ public class MrtCrawlController {
 
     controller.start(javaMrtCrawler.class, numberOfCrawlers);
   }
+
+    @Override
+    public String probe(ConnectionDetails connectionDetails) {
+        String nodeId = connectionDetails.getParam("nodeId");
+
+        return nodeId;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
+        NodeDiscoveryResult result = new NodeDiscoveryResult();
+        String[] args = new String[4];
+        args[0] = "-f";
+
+
+      //  args[1] = pathToFile;
+
+
+        args[2] = "-o";
+        String outputFile="network.graphml";
+        args[3] = outputFile;
+
+        Map<String, String> params = CmdLineParser.parseCmdLine(args);
+
+
+
+        StringWriter writer = new StringWriter();
+
+        String file = null;
+        OutputStream logOutputStream = new NullOutputStream();
+
+        if (params.containsKey("-f")) {
+            file = params.get("-f");
+        } else {
+         //  logger.info("no file passed");
+            System.exit(1);
+        }
+
+        ASContainer ases = new ASContainer();
+        System.out.println("Start reading MRT file");
+        File tmpEdgeFile = null;
+        try {
+            tmpEdgeFile = File.createTempFile("test" + "_", ".txt");
+            System.out.println("Creating edge tmp file: "+tmpEdgeFile.getAbsolutePath());
+            Writer edgeWriter =  new PrintWriter(tmpEdgeFile);
+
+            Route2GraphmlDumper.dumpToXmlString(new String[]{file}, new PrintWriter(logOutputStream), edgeWriter, ases);
+            edgeWriter.close();
+            Route2GraphmlDumper.dumpGraphml(ases, writer, tmpEdgeFile);
+
+        }catch (IOException e){
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+
+        } finally {
+            tmpEdgeFile.delete();
+
+
+        }
+
+
+//        logger.debug ("Node id: " + nodeId+ "\n");
+//        logger.debug ("Date: " + date + "\n");
+      //  result.setNodeId(nodeId);
+      //  result.setDiscoveredData("version",version);
+        result.setDiscoveredData("graphml",writer.toString().getBytes());
+        return result;
+    }
 }
 
