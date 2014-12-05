@@ -17,27 +17,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.idiscover.v2.core;/*
- * iTransformer is an open source tool able to discover IP networks
- * and to perform dynamic data data population into a xml based inventory system.
- * Copyright (C) 2010  http://itransformers.net
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+package net.itransformers.idiscover.v2.core;
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.model.Node;
 import net.itransformers.utils.CmdLineParser;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -62,10 +44,10 @@ public class Main {
         NetworkDiscoverer discoverer = applicationContext.getBean("bgpPeeringMapDiscovery", NetworkDiscoverer.class);
         List connectionList = (List) applicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
         int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1":depthCmdArg);
-        Map<String, Node> result = discoverer.discoverNodes(connectionList, depth);
-        for (String s : result.keySet()) {
+        NetworkDiscoveryResult result = discoverer.discoverNetwork(connectionList, depth);
+        for (String s : result.getNodes().keySet()) {
             System.out.println("\nNode: "+ s);
-            for (String s1 : result.keySet()) {
+            for (String s1 : result.getNodes().keySet()) {
                 System.out.println(s1 +"\t");
 
             }
@@ -75,7 +57,7 @@ public class Main {
     public static void main1(String[] args) {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
                 "discovery.xml","connectionsDetails.xml");
-        NetworkDiscoverer discoverer = applicationContext.getBean("discovery", NetworkDiscoverer.class);
+        NetworkNodeDiscovererImpl nodeDiscovererImpl = applicationContext.getBean("discovery", NetworkNodeDiscovererImpl.class);
         ConnectionDetails connectionDetails = new ConnectionDetails();
         connectionDetails.setConnectionType("SNMP");
         connectionDetails.put("ipAddress","172.16.13.3");
@@ -88,7 +70,7 @@ public class Main {
         connectionDetails.put("max-repetitions","65535");
         connectionDetails.put("mibDir","snmptoolkit/mibs");
         int depth = 10;
-        Map<String, Node> result = discoverer.discoverNodes(Arrays.asList(connectionDetails), depth);
+        NetworkDiscoveryResult result = nodeDiscovererImpl.discoverNetwork(Arrays.asList(connectionDetails), depth);
 
         System.out.println(result);
     }
@@ -115,8 +97,8 @@ public class Main {
         connectionDetails.put("port","161");
         connectionDetails.put("max-repetitions","65535");
         connectionDetails.put("mibDir","snmptoolkit/mibs");
-        NetworkDiscoverer discoverer = new NetworkDiscoverer();
-        Map<String, Node> result = discoverer.discoverNodes(Arrays.asList(connectionDetails));
+        NetworkNodeDiscovererImpl nodeDiscovererImpl = new NetworkNodeDiscovererImpl();
+        NetworkDiscoveryResult result = nodeDiscovererImpl.discoverNetwork(Arrays.asList(connectionDetails));
         System.out.println(result);
     }
     private static void printUsage(String param){

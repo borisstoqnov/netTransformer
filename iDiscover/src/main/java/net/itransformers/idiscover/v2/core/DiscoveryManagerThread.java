@@ -29,13 +29,13 @@ import java.util.Arrays;
 public class DiscoveryManagerThread extends Thread {
     static Logger logger = Logger.getLogger(DiscoveryManagerThread.class);
 
-    private NetworkDiscoverer discoverer;
+    private NetworkNodeDiscovererImpl nodeDiscovererImpl;
     private int depth;
     ConnectionDetails connectionDetails;
 
-    public DiscoveryManagerThread(NetworkDiscoverer discoverer, int depth, ConnectionDetails connectionDetails) {
+    public DiscoveryManagerThread(NetworkNodeDiscovererImpl nodeDiscovererImpl, int depth, ConnectionDetails connectionDetails) {
         logger.debug("Thread created");
-        this.discoverer = discoverer;
+        this.nodeDiscovererImpl = nodeDiscovererImpl;
         this.depth = depth;
         this.connectionDetails = connectionDetails;
     }
@@ -44,7 +44,7 @@ public class DiscoveryManagerThread extends Thread {
     public void run() {
         try {
             logger.debug("Thread started");
-            discoverer.discoverNodes(Arrays.asList(connectionDetails), depth);
+            nodeDiscovererImpl.discoverNetwork(Arrays.asList(connectionDetails), depth);
         } catch (Exception e) {
             logger.error(e.getMessage(),e);
         }
@@ -52,24 +52,24 @@ public class DiscoveryManagerThread extends Thread {
 
     public void stopDiscovery(){
         logger.info("stopping discovery");
-        discoverer.stop();
+        nodeDiscovererImpl.stop();
     }
     public void pauseDiscovery(){
         logger.info("pausing discovery");
-        discoverer.pause();
+        nodeDiscovererImpl.pause();
     }
     public void resumeDiscovery() {
         logger.info("resuming discovery");
-        discoverer.resume();
+        nodeDiscovererImpl.resume();
     }
     public DiscoveryManagerStatus getStatus(){
         DiscoveryManagerStatus status = null; 
 
-        if (discoverer.isPaused()) {
+        if (nodeDiscovererImpl.isPaused()) {
             status =  DiscoveryManagerStatus.PAUSED;
-        } else if (discoverer.isRunning()) {
+        } else if (nodeDiscovererImpl.isRunning()) {
             status = DiscoveryManagerStatus.RUNNING;
-        } else if (discoverer.isStopped()) {
+        } else if (nodeDiscovererImpl.isStopped()) {
             status = DiscoveryManagerStatus.STOPPED;
         } else {
             status = DiscoveryManagerStatus.CONFIGURED;

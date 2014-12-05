@@ -24,7 +24,6 @@
 
 package net.itransformers.idiscover.v2.core;
 
-import net.itransformers.idiscover.v2.core.model.Node;
 import net.itransformers.utils.Pair;
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,13 +32,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class bgpMapFileTestCase {
     Set<String> networkNodes;
     Set<Pair<String,String>> links;
-    private NetworkDiscoverer networkDiscoverer;
+    private NetworkNodeDiscovererImpl networkNodeDiscovererImpl;
     List connectionList;
 
     @Before
@@ -47,15 +45,15 @@ public class bgpMapFileTestCase {
         //networkDiscoverer = new NetworkDiscoverer();
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
         "discovery.xml","connectionsDetails.xml");
-        networkDiscoverer = applicationContext.getBean("bgpPeeringMapDiscovery", NetworkDiscoverer.class);
+        networkNodeDiscovererImpl = applicationContext.getBean("bgpPeeringMapDiscovery", NetworkNodeDiscovererImpl.class);
         String connectionDetailsFileName = "iDiscover/src/test/resources/bgp-connection-details.txt";
         connectionList = (List) applicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
     }
     @Test
     public void testDoDiscoverNodes(){
-        Map<String, Node> result = networkDiscoverer.discoverNodes(connectionList, 1);
+        NetworkDiscoveryResult result = networkNodeDiscovererImpl.discoverNetwork(connectionList, 1);
         System.out.println("Result: \n"+result);
-        Assert.assertEquals("ATLA",result.get("ATLA").getId());
+        Assert.assertEquals("ATLA",result.getNodes().get("ATLA").getId());
     }
 
 }

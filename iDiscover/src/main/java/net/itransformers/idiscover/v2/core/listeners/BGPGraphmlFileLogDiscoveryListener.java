@@ -2,8 +2,8 @@
 
 package net.itransformers.idiscover.v2.core.listeners;
 
-import net.itransformers.idiscover.v2.core.NodeDiscoveryListener;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.v2.core.NetworkDiscoveryListener;
+import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
@@ -11,24 +11,23 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class BGPGraphmlFileLogDiscoveryListener implements NodeDiscoveryListener {
+public class BGPGraphmlFileLogDiscoveryListener implements NetworkDiscoveryListener {
     static Logger logger = Logger.getLogger(BGPGraphmlFileLogDiscoveryListener.class);
     String labelDirName;
     String graphmDirName;
 
     @Override
-    public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
+    public void networkDiscovered(NetworkDiscoveryResult result) {
         File baseDir = new File(labelDirName);
         File graphmlDir = new File(baseDir,graphmDirName);
         if (!graphmlDir.exists()) graphmlDir.mkdir();
 
-        String deviceName = discoveryResult.getNodeId();
-        byte[] discoveredDeviceData = (byte []) discoveryResult.getDiscoveredData("graphml");
+        byte[] discoveredDeviceData = (byte []) result.getDiscoveredData("graphml");
 
 
 
         try {
-            final String fileName = "node-" + deviceName + ".graphml";
+            final String fileName = "network.graphml";
             final File nodeFile = new File(graphmlDir,fileName);
             String graphml = new String(discoveredDeviceData);
             FileUtils.writeStringToFile(nodeFile, graphml);
@@ -57,4 +56,5 @@ public class BGPGraphmlFileLogDiscoveryListener implements NodeDiscoveryListener
     public void setGraphmDirName(String graphmDirName) {
         this.graphmDirName = graphmDirName;
     }
+
 }

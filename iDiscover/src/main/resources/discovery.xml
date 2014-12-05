@@ -27,7 +27,7 @@
       </bean>
 
 
-    <bean id="discovery" class="net.itransformers.idiscover.v2.core.NetworkDiscoverer">
+    <bean id="discovery" class="net.itransformers.idiscover.v2.core.NetworkNodeDiscovererImpl">
 
         <property name="nodeDiscoverers">
             <map>
@@ -53,14 +53,15 @@
         </property>
     </bean>
 
-    <bean id="bgpPeeringMapDiscovery" class="net.itransformers.idiscover.v2.core.NetworkDiscoverer">
+    <bean id="bgpPeeringMapDiscovery" class="net.itransformers.idiscover.v2.core.bgpdiscoverer.BGPMapNetworkDiscoverer">
 
-        <property name="nodeDiscoverers">
+        <constructor-arg>
             <map>
-                <entry key="javaMRT" value-ref="bgpMapDiscoverer"/>
+                <entry key="fileLocation" value="iDiscover/src/test/resources/cps_rib.20140101.0113.gz"/>
+
             </map>
-        </property>
-        <property name="nodeDiscoveryListeners">
+        </constructor-arg>
+        <property name="networkDiscoveryListeners">
             <list>
                 <!--<ref bean="rawDataFileLogDiscoveryListener"/>-->
                 <ref bean="BGPGraphmlFileLogDiscoveryListener"/>
@@ -70,7 +71,7 @@
         </property>
     </bean>
 
-    <bean id="sdnDiscovery" class="net.itransformers.idiscover.v2.core.NetworkDiscoverer">
+    <bean id="sdnDiscovery" class="net.itransformers.idiscover.v2.core.NetworkNodeDiscovererImpl">
 
         <property name="nodeDiscoverers">
             <map>
@@ -184,14 +185,6 @@
         <constructor-arg ref="discoveryResourceManager"/>
     </bean>
 
-    <bean id="bgpMapDiscoverer" class="net.itransformers.idiscover.v2.core.bgpdiscoverer.bgpMapDiscoverer">
-        <constructor-arg>
-        <map>
-            <entry key="fileLocation" value="iDiscover/src/test/resources/cps_rib.20140101.0113.gz"/>
-
-        </map>
-        </constructor-arg>
-    </bean>
     <bean id="jsonNodeDiscoverer" class="net.itransformers.idiscover.v2.core.jsondiscoverer.jsonNodeDiscoverer">
         <constructor-arg>
             <map>

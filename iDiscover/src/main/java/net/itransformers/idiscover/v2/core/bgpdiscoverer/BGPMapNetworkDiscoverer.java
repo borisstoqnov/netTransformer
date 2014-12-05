@@ -19,8 +19,8 @@
 
 package net.itransformers.idiscover.v2.core.bgpdiscoverer;
 
-import net.itransformers.idiscover.v2.core.NodeDiscoverer;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.v2.core.ANetworkDiscoverer;
+import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.apache.commons.io.output.NullOutputStream;
 import org.apache.log4j.Logger;
@@ -29,18 +29,19 @@ import org.javamrt.dumper.Route2GraphmlDumper;
 import org.javamrt.dumper.structures.ASContainer;
 
 import java.io.*;
+import java.util.List;
 import java.util.Map;
 
 //         com.sun.jersey.api.client.Client;
 //import com.sun.jersey.api.client.ClientResponse;
 //import com.sun.jersey.api.client.WebResource;
 
-public class bgpMapDiscoverer implements NodeDiscoverer {
-    static Logger logger = Logger.getLogger(bgpMapDiscoverer.class);
+public class BGPMapNetworkDiscoverer extends ANetworkDiscoverer {
+    static Logger logger = Logger.getLogger(BGPMapNetworkDiscoverer.class);
     String fileLocation =null;
 
 
-    public bgpMapDiscoverer(Map<String, String> attributes)  {
+    public BGPMapNetworkDiscoverer(Map<String, String> attributes)  {
 
         fileLocation=attributes.get("file");
        // walker = (JsonDiscoverer) new DefaultDiscovererFactory().createDiscoverer(resource);
@@ -48,18 +49,12 @@ public class bgpMapDiscoverer implements NodeDiscoverer {
 
 
     @Override
-    public String probe(ConnectionDetails connectionDetails) {
-        String nodeId = connectionDetails.getParam("nodeId");
+    public NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList,int depth) {
 
-        return nodeId;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+        //TODO design for Network Discoverer from subnetworkDiscoverers
+        ConnectionDetails connectionDetails = connectionDetailsList.get(0);
 
-    @Override
-    public NodeDiscoveryResult discover(ConnectionDetails connectionDetails)  {
-
-        NodeDiscoveryResult result = new NodeDiscoveryResult();
         String pathToFile = connectionDetails.getParam("pathToFile");
-        String nodeId = connectionDetails.getParam("nodeId");
         String version = connectionDetails.getParam("version");
 
 
@@ -95,12 +90,12 @@ public class bgpMapDiscoverer implements NodeDiscoverer {
         File tmpEdgeFile = null;
         try {
             tmpEdgeFile = File.createTempFile("test" + "_", ".txt");
-        System.out.println("Creating edge tmp file: "+tmpEdgeFile.getAbsolutePath());
-        Writer edgeWriter =  new PrintWriter(tmpEdgeFile);
+            System.out.println("Creating edge tmp file: "+tmpEdgeFile.getAbsolutePath());
+            Writer edgeWriter =  new PrintWriter(tmpEdgeFile);
 
-        Route2GraphmlDumper.dumpToXmlString(new String[]{file}, new PrintWriter(logOutputStream), edgeWriter, ases);
-        edgeWriter.close();
-        Route2GraphmlDumper.dumpGraphml(ases, writer, tmpEdgeFile);
+            Route2GraphmlDumper.dumpToXmlString(new String[]{file}, new PrintWriter(logOutputStream), edgeWriter, ases);
+            edgeWriter.close();
+            Route2GraphmlDumper.dumpGraphml(ases, writer, tmpEdgeFile);
 
         }catch (IOException e){
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -112,12 +107,13 @@ public class bgpMapDiscoverer implements NodeDiscoverer {
         }
 
 
-//        logger.debug ("Node id: " + nodeId+ "\n");
-//        logger.debug ("Date: " + date + "\n");
-        result.setNodeId(nodeId);
+        NetworkDiscoveryResult result = new NetworkDiscoveryResult();
         result.setDiscoveredData("version",version);
         result.setDiscoveredData("graphml",writer.toString().getBytes());
+        fireNetworkDiscoveredEvent(result);
         return result;
     }
+
+
 
 }

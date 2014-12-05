@@ -1,8 +1,8 @@
 package net.itransformers.idiscover.v2.core.listeners;
 
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryListener;
+import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.model.Node;
 import net.itransformers.postDiscoverer.core.ReportManager;
 import net.itransformers.postDiscoverer.reportGenerator.ReportGeneratorType;
 import net.itransformers.resourcemanager.ResourceManager;
@@ -48,7 +48,7 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
 
 
     @Override
-    public void networkDiscovered(Map<String, Node> network) {
+    public void networkDiscovered(NetworkDiscoveryResult result) {
         logger.info("Starting PostNetwork Discovery Listener");
         String xml = null;
         try {
@@ -91,11 +91,11 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
         final ReportManager reportManager = new ReportManager(reportGenerator, "postDiscoverer/conf/groovy/",projectPath,new File(projectPath,tableTransfomator));
 
        // List<Thread> threads = new ArrayList<Thread>();
-        for (String nodeName : network.keySet()) {
+        for (String nodeName : result.getNodes().keySet()) {
             logger.info("Post Network Discovery of "+nodeName);
             final Map<String, String> params = new HashMap<String, String>();
             params.put("deviceName",nodeName);
-            List<ConnectionDetails> connectionDetails = network.get(nodeName).getConnectionDetailsList();
+            List<ConnectionDetails> connectionDetails = result.getNodes().get(nodeName).getConnectionDetailsList();
             params.put("deviceType",connectionDetails.get(0).getParam("deviceType"));
             params.put("protocol", "telnet");
             params.put("address",connectionDetails.get(0).getParam("ipAddress"));
