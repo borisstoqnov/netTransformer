@@ -23,7 +23,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <bean id="projectPath" class="java.lang.String">
-        <constructor-arg value="/Users/niau/Projects/netTransformer"/>
+        <constructor-arg value="/Users/niau/Projects/Projects/InternalNet"/>
       </bean>
 
 
@@ -79,7 +79,7 @@
                 <entry key="REST" value-ref="jsonNodeDiscoverer"/>
             </map>
         </property>
-        <property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>
+        <!--<property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>-->
         <property name="nodeDiscoveryListeners">
             <list>
                 <ref bean="sampleNodeDiscoveryListener"/>
@@ -107,7 +107,7 @@
         <property name="labelDirName" value="version1"/>
         <property name="postDiscoveryDataDirName" value="post-discovery"/>
         <property name="scriptPath" value="postDiscoverer/conf/groovy/"/>
-        <property name="projectPath" value="/Users/niau/trunk"/>
+        <property name="projectPath" value="/Users/niau/Projects/Projects/InternalNet"/>
         <property name="resourceManagerPath" value="/resourceManager/conf/xml/resource.xml"/>
         <property name="reportGeneratorPath" value="/postDiscoverer/conf/xml/reportGenerator.xml"/>
         <property name="tableTransfomator" value="iTopologyManager/rightClick/conf/xslt/table_creator.xslt"/>
@@ -188,7 +188,7 @@
     <bean id="jsonNodeDiscoverer" class="net.itransformers.idiscover.v2.core.jsondiscoverer.jsonNodeDiscoverer">
         <constructor-arg>
             <map>
-                <entry key="devices" value="/wm/node/"/>
+                <entry key="devices" value="/wm/device/"/>
                 <entry key="links" value="/wm/topology/links/json"/>
                 <entry key="switches" value="/wm/core/controller/switches/json"/>
                 <entry key="floodlightDeviceXmlXslt" value="iDiscover/conf/xslt/floodLightDeviceXmlTransformator.xslt"/>

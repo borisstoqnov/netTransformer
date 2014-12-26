@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ iTransformer is an open source tool able to discover and transform
+  ~  IP network infrastructures.
+  ~  Copyright (C) 2012  http://itransformers.net
+  ~
+  ~  This program is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  any later version.
+  ~
+  ~  This program is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+
+
+    <bean id="snmpDiscovery" class="net.itransformers.idiscover.v2.core.NetworkNodeDiscovererImpl">
+
+        <property name="nodeDiscoverers">
+            <map>
+                <entry key="SNMP" value-ref="snmpNodeDiscoverer"/>
+            </map>
+        </property>
+        <property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>
+        <property name="nodeDiscoveryListeners">
+            <list>
+                <ref bean="sampleNodeDiscoveryListener"/>
+                <ref bean="rawDataFileLogDiscoveryListener"/>
+                <ref bean="deviceDataFileLogDiscoveryListener"/>
+                <ref bean="GraphmlFileLogDiscoveryListener"/>
+                <ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>
+            </list>
+        </property>
+        <property name="networkDiscoveryListeners">
+            <list>
+                <ref bean="SnmpNetworkDiscoveryListener"/>
+                <ref bean="PostNetworkDiscoveryListener"/>
+
+            </list>
+        </property>
+    </bean>
+
+
+    <bean id="SnmpNetworkDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SnmpNetworkDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+        <property name="graphmlDataDirName" value="undirected"/>
+    </bean>
+
+
+    <bean id="snmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.snmpdiscoverer.SnmpNodeDiscoverer">
+        <constructor-arg>
+            <map>
+                <entry key="mibDir" value="snmptoolkit/mibs"/>
+            </map>
+        </constructor-arg>
+        <constructor-arg ref="discoveryHelperFactory"/>
+        <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,BGP,RIP,ADDITIONAL,IPV6"/>
+        <constructor-arg ref="discoveryResourceManager"/>
+    </bean>
+
+
+    <bean id="discoveryHelperFactory" class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">
+        <constructor-arg>
+            <map>
+                <entry key="fileName" value="iDiscover/conf/xml/discoveryParameters.xml"/>
+                <entry key="resourceXML" value="resourceManager/conf/xml/resource.xml"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+
+    <bean id="discoveryResourceManager" class="net.itransformers.idiscover.core.DiscoveryResourceManager">
+        <constructor-arg ref="projectPath"/>
+        <constructor-arg value="1"/>
+        <constructor-arg value="resourceManager/conf/xml/resource.xml"/>
+    </bean>
+</beans>

@@ -246,10 +246,6 @@ public class MenuBuilder {
         openGraph.addActionListener(new OpenGraphMenuHandler(frame));
         openGraph.setEnabled(false);
         file.add(openGraph);
-        final JMenuItem saveGraph = new JMenuItem("Save Current Graph");
-        saveGraph.addActionListener(new SaveCurrentGraphMenuHandler(frame));
-        saveGraph.setEnabled(true);
-        file.add(saveGraph);
 
 //        final JMenuItem openDirectedGraph = new JMenuItem("Open Directed Graph");
 //        openDirectedGraph.addActionListener(new OpenGraphMenuHandler(frame, GraphType.DIRECTED));
@@ -283,6 +279,12 @@ public class MenuBuilder {
         captureTpEPSMenuItem.addActionListener(new CaptureToEPSMenuHandler(frame));
         capture.add(captureTpEPSMenuItem);
         file.add(capture);
+
+        final JMenuItem saveGraph = new JMenuItem("Export Current Graph to Graphml");
+        saveGraph.addActionListener(new SaveCurrentGraphMenuHandler(frame));
+        saveGraph.setEnabled(true);
+        capture.add(saveGraph);
+
 
         file.addSeparator();
 

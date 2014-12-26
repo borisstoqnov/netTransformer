@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ iTransformer is an open source tool able to discover and transform
+  ~  IP network infrastructures.
+  ~  Copyright (C) 2012  http://itransformers.net
+  ~
+  ~  This program is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  any later version.
+  ~
+  ~  This program is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="projectPath" class="java.lang.String">
+        <constructor-arg value="."/>
+    </bean>
+
+    <bean id="sampleNodeDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SampleNodeDiscoveryListener"/>
+    <bean id="rawDataFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.RawDataFileLogDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+    </bean>
+
+    <bean id="SnmpNetworkDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SnmpNetworkDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+        <property name="graphmlDataDirName" value="undirected"/>
+    </bean>
+
+    <bean id="PostNetworkDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.PostNetworkDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+        <property name="postDiscoveryDataDirName" value="post-discovery"/>
+        <property name="scriptPath" value="postDiscoverer/conf/groovy/"/>
+        <property name="projectPath" value="."/>
+        <property name="resourceManagerPath" value="resourceManager/conf/xml/resource.xml"/>
+        <property name="reportGeneratorPath" value="postDiscoverer/conf/xml/reportGenerator.xml"/>
+        <property name="tableTransfomator" value="iTopologyManager/rightClick/conf/xslt/table_creator.xslt"/>
+    </bean>
+
+
+    <bean id="deviceDataFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.DeviceDataFileLogDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+        <property name="deviceDataDirName" value="device-data"/>
+    </bean>
+
+    <bean id="GraphmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.GraphmlFileLogDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+        <property name="graphmDirName" value="undirected"/>
+        <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
+    </bean>
+
+    <bean id="Neo4JGraphmlLoggerLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.Neo4JGraphmlLoggerLogDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+        <property name="graphmDirName" value="undirected"/>
+        <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
+        <property name="graphDbUrl" value="http://54.69.21.203:7474/db/data"/>
+        <property name="dataType" value="deviceData"/>
+
+    </bean>
+
+
+
+    <bean id="simpleNodeDiscoveryFilter" class="net.itransformers.idiscover.v2.core.snmpdiscoverer.SimpleNodeDiscoveryFilter">
+        <property name="matches">
+            <list>
+                <!--<value>ipAddress=.*</value>-->
+                <!--<value>ipAddress=10.121</value>-->
+                <!--<value>ipAddress=10.122</value>-->
+            </list>
+        </property>
+        <property name="notMatches">
+            <list>
+                <!--<value>ipAddress=10\..*</value>-->
+                <!--<value>ipAddress=c82\..*</value>-->
+                <!--<value>ipAddress=c92\.168.*</value>-->
+            </list>
+        </property>
+    </bean>
+</beans>

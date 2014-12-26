@@ -78,8 +78,12 @@ public class Walk {
 
     public Walk(MibLoaderHolder loader, TransportMappingAbstractFactory transportFactory, MessageDispatcherAbstractFactory messageDispatcherFactory) throws IOException {
         this.loader = loader;
-        final InetAddress localHost = InetAddress.getLocalHost();
-        logger.info("Local address: " + localHost);
+//        try{
+//            final InetAddress localHost = InetAddress.getLocalHost();
+//        }catch (java.net.UnknownHostException ex){
+//            logger.info("Local address: " + localHost);
+//
+//        }
 //        localAddress = new UdpAddress(localHost, 0);
         localAddress = new UdpAddress("0.0.0.0/0");
         this.transportFactory = transportFactory;

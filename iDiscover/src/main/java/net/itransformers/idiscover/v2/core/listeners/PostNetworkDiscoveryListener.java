@@ -101,6 +101,9 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
             params.put("address",connectionDetails.get(0).getParam("ipAddress"));
 
             ResourceType resource =  resourceManager.findResource(params);
+            if(resource==null){
+                continue;
+            }
             List connectParameters = resource.getConnectionParams();
 
             for (int i = 0; i < connectParameters.size(); i++) {

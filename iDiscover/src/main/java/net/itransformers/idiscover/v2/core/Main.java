@@ -22,6 +22,7 @@ package net.itransformers.idiscover.v2.core;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.utils.CmdLineParser;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.io.File;
 import java.util.Arrays;
@@ -39,11 +40,12 @@ public class Main {
         if (connectionDetailsFileName == null) {
             printUsage("depth"); return;
         }
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("discovery.xml","connectionsDetails.xml");
-     //   NetworkDiscoverer discoverer = applicationContext.getBean("sdnDiscovery", NetworkDiscoverer.class);
-        NetworkDiscoverer discoverer = applicationContext.getBean("bgpPeeringMapDiscovery", NetworkDiscoverer.class);
-        List connectionList = (List) applicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
-        int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1":depthCmdArg);
+        FileSystemXmlApplicationContext fileApplicationContext= new FileSystemXmlApplicationContext(File.separator+"iDiscover/conf/xml/generic.xml",File.separator+"iDiscover/conf/xml/snmpNetworkDiscovery.xml",File.separator+"iDiscover/conf/xml/floodlightNetworkDiscovery.xml",File.separator+"iDiscover/conf/xml/bgpInternetMapMRTDiscovery.xml","iDiscover/src/main/resources/connectionsDetails.xml");
+        //ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(workingDir+File.separator+"iDiscover/conf/xml/generic.xml",workingDir+File.separator+"/iDiscover/conf/xml/snmpNetworkDiscovery.xml","connectionsDetails.xml");
+        NetworkDiscoverer discoverer = fileApplicationContext.getBean("bgpPeeringMapDiscovery", NetworkDiscoverer.class);
+//        NetworkDiscoverer discoverer = applicationContext.getBean("bgpPeeringMapDiscovery", NetworkDiscoverer.class);
+        List connectionList = (List) fileApplicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
+        int depth = (Integer)fileApplicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1":depthCmdArg);
         NetworkDiscoveryResult result = discoverer.discoverNetwork(connectionList, depth);
         for (String s : result.getNodes().keySet()) {
             System.out.println("\nNode: "+ s);

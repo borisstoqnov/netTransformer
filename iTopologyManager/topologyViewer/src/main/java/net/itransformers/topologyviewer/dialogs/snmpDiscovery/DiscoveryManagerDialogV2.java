@@ -21,7 +21,6 @@ package net.itransformers.topologyviewer.dialogs.snmpDiscovery;
 
 import net.itransformers.idiscover.v2.core.*;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.model.Node;
 import net.itransformers.resourcemanager.ResourceManager;
 import net.itransformers.resourcemanager.config.ConnectionParamsType;
 import net.itransformers.resourcemanager.config.ParamType;
@@ -288,7 +287,7 @@ public class DiscoveryManagerDialogV2 extends JDialog {
         }
 
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("discovery.xml", "connectionsDetails.xml");
-        NetworkDiscoverer discoverer = applicationContext.getBean("discovery", NetworkDiscoverer.class);
+        NetworkNodeDiscovererImpl nodeDiscovererImpl = applicationContext.getBean("discovery", NetworkNodeDiscovererImpl.class);
 
 
         Map<String, String> resourceSelectionParams = new HashMap<String, String>();
@@ -334,23 +333,23 @@ public class DiscoveryManagerDialogV2 extends JDialog {
                 lblDiscoveredDevices.append(discoveryResult.getNodeId() + " has been discovered. " + "Total number of " + DISCOVERED_DEVICES + discoveredDevices + "\n");
             }
         };
-        List<NodeDiscoveryListener> nodeListeners = discoverer.getNodeDiscoveryListeners();
+        List<NodeDiscoveryListener> nodeListeners = nodeDiscovererImpl.getNodeDiscoveryListeners();
         nodeListeners.add(nodeListener);
 
-        discoverer.setNodeDiscoveryListeners(nodeListeners);
+        nodeDiscovererImpl.setNodeDiscoveryListeners(nodeListeners);
 
 
         NetworkDiscoveryListener networkListener = new NetworkDiscoveryListener() {
             @Override
-            public void networkDiscovered(Map<String, Node> network) {
+            public void networkDiscovered(NetworkDiscoveryResult result) {
 
                 lblDiscoveredDevices.append("Network Discovered!!!");
             }
         };
-        List<NetworkDiscoveryListener> networkListeners = discoverer.getNetworkDiscoveryListeners();
+        List<NetworkDiscoveryListener> networkListeners = nodeDiscovererImpl.getNetworkDiscoveryListeners();
         networkListeners.add(networkListener);
-        discoverer.setNetworkDiscoveryListeners(networkListeners);
-        managerThread = new DiscoveryManagerThread(discoverer, depth, connectionDetails);
+        nodeDiscovererImpl.setNetworkDiscoveryListeners(networkListeners);
+        managerThread = new DiscoveryManagerThread(nodeDiscovererImpl, depth, connectionDetails);
         lblDiscoveredDevices.setText("");
         loggerConsole.setText("");
         managerThread.start();

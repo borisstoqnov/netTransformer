@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ iTransformer is an open source tool able to discover and transform
+  ~  IP network infrastructures.
+  ~  Copyright (C) 2012  http://itransformers.net
+  ~
+  ~  This program is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  any later version.
+  ~
+  ~  This program is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+
+
+
+    <bean id="floodLightDiscovery" class="net.itransformers.idiscover.v2.core.NetworkNodeDiscovererImpl">
+
+        <property name="nodeDiscoverers">
+            <map>
+                <entry key="FloodLight" value-ref="floodLightNodeDiscoverer"/>
+            </map>
+        </property>
+        <!--<property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>-->
+        <property name="nodeDiscoveryListeners">
+            <list>
+                <ref bean="sampleNodeDiscoveryListener"/>
+                <ref bean="rawDataFileLogDiscoveryListener"/>
+                <ref bean="sdnDeviceXmlFileLogDiscoveryListener"/>
+                <ref bean="sdnGraphmlFileLogDiscoveryListener"/>
+
+            </list>
+        </property>
+    </bean>
+
+
+
+
+
+    <bean id="sdnGraphmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.sdnGraphmlFileLogDiscoveryListener">
+        <property name="graphmlDataDirName" value="network/undirected"/>
+        <property name="labelDirName" value="network"/>
+        <property name="floodLighGraphmlXsltTransformator" value="iDiscover/conf/xslt/floodLighGraphmlTransformator.xslt"/>
+    </bean>
+
+    <bean id="sdnDeviceXmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.sdnDeviceXmlFileLogDiscoveryListener">
+        <property name="deviceXmlDataDirName" value="node-data"/>
+        <property name="labelDirName" value="network"/>
+        <property name="deviceXmlXsltTransformator" value="iDiscover/conf/xslt/floodLightDeviceXmlTransformator.xslt"/>
+    </bean>
+
+    <bean id="floodLightNodeDiscoverer" class="net.itransformers.idiscover.v2.core.jsondiscoverer.FloodLightNodeDiscoverer">
+        <constructor-arg>
+            <map>
+                <entry key="devices" value="/wm/device/"/>
+                <entry key="links" value="/wm/topology/links/json"/>
+                <entry key="switches" value="/wm/core/controller/switches/json"/>
+                <entry key="floodlightDeviceXmlXslt" value="iDiscover/conf/xslt/floodLightDeviceXmlTransformator.xslt"/>
+                <entry key="floodlightGraphmlXslt" value="iDiscover/conf/xslt/floodLighGraphmlTransformator.xslt"/>
+            </map>
+        </constructor-arg>
+
+    </bean>
+
+
+</beans>

@@ -1,16 +1,17 @@
-#type=SNMP,ipAddress=87.247.249.134,deviceType=CISCO,version=1,community-ro=test-r,community-rw=test-rw,timeout=500,retries=1,port=161,max-repetitions=65535
+type=javaMRT,nodeId=routeviews1,pathToFile=/Users/niau/Projects/java-mrt/ribs/arhieve2/rib.20141027.1800.bz2,version=201411027
+#type=SNMP,ipAddress=192.168.137.102,deviceType=DEFAULT,version=1,community-ro=test,community-rw=test-rw,timeout=500,retries=1,port=161,max-repetitions=65535
 #type=SNMP,ipAddress=88.203.200.94,version=1,community-ro=test-r,community-rw=test-rw,timeout=500,retries=1,port=161,max-repetitions=65535
 #type=SNMP,ipAddress=88.203.203.226,version=1,community-ro=test-r,community-rw=test-rw,timeout=500,retries=1,port=161,max-repetitions=65535
 #type=SNMP,ipAddress=10.17.1.13,version=2c,deviceType=CISCO,community-ro=netTransformer-r,community-rw=netTransformer-rw,timeout=500,retries=1,port=161,max-repetitions=65535
 #type=SNMP,ipAddress=192.168.4.4,version=2c,deviceType=CISCO,community-ro=netTransformer-r,community-rw=netTransformer-rw,timeout=500,retries=1,port=161,max-repetitions=65535
-#type=REST,protocol=http,ipAddress=10.10.10.3,port=8080,timeout=500,retries=1
+#type=FloodLight,protocol=http,ipAddress=192.168.107.34,port=8080,timeout=500,retries=1
 #type=SNMP,ipAddress=88.203.200.94,version=2c,community-ro=test-r,community-rw=test-rw,timeout=500,retries=1,port=161,max-repetitions=65535
 #type=javaMRT,nodeId=ATLA,date=2014/01/01/2113,pathToFile=http://ndb7.net.internet2.edu/bgp/RIBS/ATLA/2014/01/01/cps_rib.20140101.2113.gz
 #type=javaMRT,nodeId=CHIC,date=2014/01/01/2113,pathToFile=http://ndb7.net.internet2.edu/bgp/RIBS/CHIC/2014/01/01/cps_rib.20140101.2113.gz
 #ype=javaMRT,nodeId=HOUS,date=2014/01/01/2113,pathToFile=http://ndb7.net.internet2.edu/bgp/RIBS/HOUS/2014/01/01/cps_rib.20140101.2113.gz
-type=javaMRT,nodeId=RouteViewes1,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.04/RIBS/rib.20140401.0000.bz2,version=v1
-type=javaMRT,nodeId=RouteViewes2,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.05/RIBS/rib.20140501.0000.bz2,version=v2
-type=javaMRT,nodeId=RouteViewes3,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.06/RIBS/rib.20140601.0000.bz2,version=v3
-type=javaMRT,nodeId=RouteViewes4,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.07/RIBS/rib.20140701.0000.bz2,version=v4
-type=javaMRT,nodeId=RouteViewes5,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.08/RIBS/rib.20140801.0000.bz2,version=v5
+#type=javaMRT,nodeId=RouteViewes1,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.04/RIBS/rib.20140401.0000.bz2,version=v1
+#type=javaMRT,nodeId=RouteViewes2,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.05/RIBS/rib.20140501.0000.bz2,version=v2
+#type=javaMRT,nodeId=RouteViewes3,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.06/RIBS/rib.20140601.0000.bz2,version=v3
+#type=javaMRT,nodeId=RouteViewes4,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.07/RIBS/rib.20140701.0000.bz2,version=v4
+#type=javaMRT,nodeId=RouteViewes5,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.08/RIBS/rib.20140801.0000.bz2,version=v5
 

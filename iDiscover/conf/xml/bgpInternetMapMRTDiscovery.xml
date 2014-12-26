@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ iTransformer is an open source tool able to discover and transform
+  ~  IP network infrastructures.
+  ~  Copyright (C) 2012  http://itransformers.net
+  ~
+  ~  This program is free software: you can redistribute it and/or modify
+  ~  it under the terms of the GNU General Public License as published by
+  ~  the Free Software Foundation, either version 3 of the License, or
+  ~  any later version.
+  ~
+  ~  This program is distributed in the hope that it will be useful,
+  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  GNU General Public License for more details.
+  ~
+  ~  You should have received a copy of the GNU General Public License
+  ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+
+    <bean id="bgpPeeringMapDiscovery" class="net.itransformers.idiscover.v2.core.bgpdiscoverer.BGPMapNetworkDiscoverer">
+
+        <constructor-arg>
+            <map>
+                <entry key="fileLocation" value="iDiscover/src/test/resources/cps_rib.20140101.0113.gz"/>
+
+            </map>
+        </constructor-arg>
+        <property name="networkDiscoveryListeners">
+            <list>
+                <!--<ref bean="rawDataFileLogDiscoveryListener"/>-->
+                <ref bean="BGPGraphmlFileLogDiscoveryListener"/>
+
+                <ref bean="Neo4JGraphmlBGPDiscoveryListener"/>
+            </list>
+        </property>
+    </bean>
+
+
+    <bean id="BGPGraphmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.BGPGraphmlFileLogDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+        <property name="graphmDirName" value="undirected"/>
+    </bean>
+
+    <bean id="Neo4JGraphmlBGPDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.Neo4JGraphmlBGPDiscoveryListener">
+        <property name="labelDirName" value="version1"/>
+        <property name="graphmDirName" value="undirected"/>
+        <property name="xsltFileName" value="../iDiscover/conf/xslt/inet-map2.xslt"/>
+        <property name="graphDbUrl" value="http://54.69.21.203:7474/db/data"/>
+        <property name="dataType" value="rawData"/>
+        <property name="params">
+            <map>
+                <entry key="as-numbers" value="../../../bgpPeeringMap/conf/xml/autnums.xml"/>
+            </map>
+        </property>
+
+
+    </bean>
+
+</beans>

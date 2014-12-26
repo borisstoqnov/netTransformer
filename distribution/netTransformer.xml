@@ -125,38 +125,38 @@
                 </fileSets>
             </sources>
         </moduleSet>
-        <moduleSet>
-            <useAllReactorProjects>true</useAllReactorProjects>
+        <!--<moduleSet>-->
+            <!--<useAllReactorProjects>true</useAllReactorProjects>-->
 
-            <!-- Now, select which projects to include in this module-set. -->
-            <includes>
-                <include>iTransformers.iTransformer:bgpPeeringMap</include>
-            </includes>
-            <sources>
-                <includeModuleDirectory>false</includeModuleDirectory>
-                <fileSets>
-                    <fileSet>
-                        <directory>conf/xml</directory>
-                        <outputDirectory>bgpPeeringMap/conf/xml</outputDirectory>
-                    </fileSet>
-                    <fileSet>
-                        <directory>conf/txt</directory>
-                        <outputDirectory>bgpPeeringMap/conf/txt</outputDirectory>
-                    </fileSet>
-
-                    <fileSet>
-                        <directory>conf/xslt</directory>
-                        <outputDirectory>bgpPeeringMap/conf/xslt</outputDirectory>
-                    </fileSet>
+            <!--&lt;!&ndash; Now, select which projects to include in this module-set. &ndash;&gt;-->
+            <!--<includes>-->
+                <!--<include>iTransformers.iTransformer:bgpPeeringMap</include>-->
+            <!--</includes>-->
+            <!--<sources>-->
+                <!--<includeModuleDirectory>false</includeModuleDirectory>-->
+                <!--<fileSets>-->
                     <!--<fileSet>-->
-                    <!--<directory>conf/bat</directory>-->
-                    <!--<outputDirectory>bin</outputDirectory>-->
-                    <!--<filtered>false</filtered>-->
-                    <!--<fileMode>0755</fileMode>-->
+                        <!--<directory>conf/xml</directory>-->
+                        <!--<outputDirectory>bgpPeeringMap/conf/xml</outputDirectory>-->
                     <!--</fileSet>-->
-                </fileSets>
-            </sources>
-        </moduleSet>
+                    <!--<fileSet>-->
+                        <!--<directory>conf/txt</directory>-->
+                        <!--<outputDirectory>bgpPeeringMap/conf/txt</outputDirectory>-->
+                    <!--</fileSet>-->
+
+                    <!--<fileSet>-->
+                        <!--<directory>conf/xslt</directory>-->
+                        <!--<outputDirectory>bgpPeeringMap/conf/xslt</outputDirectory>-->
+                    <!--</fileSet>-->
+                    <!--&lt;!&ndash;<fileSet>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<directory>conf/bat</directory>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<outputDirectory>bin</outputDirectory>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<filtered>false</filtered>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<fileMode>0755</fileMode>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</fileSet>&ndash;&gt;-->
+                <!--</fileSets>-->
+            <!--</sources>-->
+        <!--</moduleSet>-->
         <moduleSet>
             <!-- Enable access to all projects in the current multimodule build! -->
             <useAllReactorProjects>true</useAllReactorProjects>

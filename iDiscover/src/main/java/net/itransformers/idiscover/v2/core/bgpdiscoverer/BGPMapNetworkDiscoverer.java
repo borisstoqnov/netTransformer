@@ -54,6 +54,12 @@ public class BGPMapNetworkDiscoverer extends ANetworkDiscoverer {
         //TODO design for Network Discoverer from subnetworkDiscoverers
         ConnectionDetails connectionDetails = connectionDetailsList.get(0);
 
+        if (!"javaMRT".equals(connectionDetails.getConnectionType())){
+            logger.debug("Connection details are not for javaMRTfile");
+
+            return null;
+        }
+
         String pathToFile = connectionDetails.getParam("pathToFile");
         String version = connectionDetails.getParam("version");
 

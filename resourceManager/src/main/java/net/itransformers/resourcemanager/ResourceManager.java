@@ -93,7 +93,9 @@ public class ResourceManager {
                 logger.debug("device params does not contain all resource param key");
             }
         }
-        logger.debug("match Resource=" + resourceType.getName() + ", device params: " + deviceParams);
+        if (resourceType != null) {
+            logger.debug("match Resource=" + resourceType.getName() + ", device params: " + deviceParams);
+        }
         return resourceType;
     }
 

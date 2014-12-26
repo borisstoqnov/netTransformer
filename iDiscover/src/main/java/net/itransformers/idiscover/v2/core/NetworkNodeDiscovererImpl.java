@@ -50,8 +50,13 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
             if (isPaused) doPause();
             String connectionType = connectionDetails.getConnectionType();
             NodeDiscoverer nodeDiscoverer = nodeDiscoverers.get(connectionType);
+            if(nodeDiscoverer==null){
+                logger.info("No Node Discoverers found");
+
+                return;
+            }
             if (level == depth) return;
-            // Limit snmpDiscovery by Filter
+
             if (nodeDiscoverFilter != null && nodeDiscoverFilter.match(connectionDetails)) return;
             String nodeId = nodeDiscoverer.probe(connectionDetails);
 
