@@ -45,8 +45,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
-public class FloodLightNodeDiscoverer implements NodeDiscoverer {
-    static Logger logger = Logger.getLogger(FloodLightNodeDiscoverer.class);
+public class floodLightNodeDiscoverer implements NodeDiscoverer {
+    static Logger logger = Logger.getLogger(floodLightNodeDiscoverer.class);
     String switchesUrl =null;
     String devicesUrl =null;
     String linksUrl=null;
@@ -54,7 +54,7 @@ public class FloodLightNodeDiscoverer implements NodeDiscoverer {
     File floodlightGraphmlXslt = null;
 
 
-    public FloodLightNodeDiscoverer(Map<String, String> attributes) throws Exception {
+    public floodLightNodeDiscoverer(Map<String, String> attributes) throws Exception {
 
         switchesUrl=attributes.get("switches");
         devicesUrl=attributes.get("devices");

@@ -36,7 +36,9 @@ package net.itransformers.idiscover.v2.core.model;/*
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ConnectionDetails {
@@ -67,6 +69,13 @@ public class ConnectionDetails {
 
     public String getParam(String key) {
         return params.get(key);
+    }
+    public Map<String,String> getParams() {
+        return Collections.unmodifiableMap(new LinkedHashMap<String, String>(params));
+    }
+
+    public void clear(){
+        params.clear();
     }
 
     @Override
