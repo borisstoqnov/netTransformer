@@ -20,14 +20,11 @@
 package net.itransformers.idiscover.v2.core.model;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class DiscoverySource {
     String id;
     List<ConnectionDetails> connectionDetailsList;
-    Set<DiscoverySource> neighbours = new HashSet<DiscoverySource>();
 
     public DiscoverySource(String id, List<ConnectionDetails> connectionDetailsList) {
         this.id = id;
@@ -42,21 +39,11 @@ public class DiscoverySource {
         return Collections.unmodifiableList(connectionDetailsList);
     }
 
-    public void addNeighbour(DiscoverySource neighbour){
-        neighbours.add(neighbour);
-    }
-
-    public Set<DiscoverySource> getNeighbours() {
-        return Collections.unmodifiableSet(neighbours);
-    }
 
     @Override
     public String toString() {
         StringBuilder neighboursStr = new StringBuilder();
-        for (DiscoverySource neighbour : neighbours) {
-            neighboursStr.append(neighbour.getId());
-            neighboursStr.append(",");
-        }
+
         return "Node{" +
                 "id='" + id + '\'' +
                 ", connectionDetailsList=" + connectionDetailsList +

@@ -90,15 +90,18 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
         //TODO remove xsltReport hardCode
         final ReportManager reportManager = new ReportManager(reportGenerator, "postDiscoverer/conf/groovy/",projectPath,new File(projectPath,tableTransfomator));
 
-       // List<Thread> threads = new ArrayList<Thread>();
-        for (String nodeName : result.getNodes().keySet()) {
+
+        for (String nodeName : result.getSourceConnectionDetails().keySet()) {
+
             logger.info("Post Network Discovery of "+nodeName);
             final Map<String, String> params = new HashMap<String, String>();
             params.put("deviceName",nodeName);
-            List<ConnectionDetails> connectionDetails = result.getNodes().get(nodeName).getConnectionDetailsList();
-            params.put("deviceType",connectionDetails.get(0).getParam("deviceType"));
+           // NodeDiscoveryResult result1 = result.getSourceConnectionDetails().get(nodeName);
+
+           ConnectionDetails  connectionDetails = result.getSourceConnectionDetails().get(nodeName);
+            params.put("deviceType",connectionDetails.getParam("deviceType"));
             params.put("protocol", "telnet");
-            params.put("address",connectionDetails.get(0).getParam("ipAddress"));
+            params.put("address",connectionDetails.getParam("ipAddress"));
 
             ResourceType resource =  resourceManager.findResource(params);
             if(resource==null){

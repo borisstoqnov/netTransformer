@@ -109,6 +109,7 @@ public class Neo4JGraphmlBGPDiscoveryListener implements NetworkDiscoveryListene
 
 
         if (!graphmlDir.exists()) graphmlDir.mkdir();
+
         version = (String)result.getDiscoveredData("version");
         byte[] discoveredDeviceData = (byte[]) result.getDiscoveredData("graphml");
 

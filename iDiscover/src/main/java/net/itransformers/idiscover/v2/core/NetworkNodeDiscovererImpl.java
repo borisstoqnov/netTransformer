@@ -37,7 +37,8 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         Map<String, Node> nodes = new HashMap<String, Node>();
         doDiscoverNodes(connectionDetailsList, nodes, null, 0, depth);
         NetworkDiscoveryResult result = new NetworkDiscoveryResult();
-        result.setNodes(nodes);
+
+        //result.setNodes(nodes);
         fireNetworkDiscoveredEvent(result);
         stop();
         return result;

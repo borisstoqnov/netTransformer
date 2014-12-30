@@ -53,7 +53,7 @@ public class bgpMapFileTestCase {
     public void testDoDiscoverNodes(){
         NetworkDiscoveryResult result = networkNodeDiscovererImpl.discoverNetwork(connectionList, 1);
         System.out.println("Result: \n"+result);
-        Assert.assertEquals("ATLA",result.getNodes().get("ATLA").getId());
+        Assert.assertEquals("ATLA",result.getDiscoveredData().get("ATLA").getNodeId());
     }
 
 }

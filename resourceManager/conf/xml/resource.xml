@@ -10,7 +10,6 @@
             <param name="timeout">3000</param>
             <param name="retries">3</param>
             <param name="port">22</param>
-
         </connection-params>
         <connection-params connection-type="telnet">
             <param name="username">misho</param>
@@ -184,7 +183,7 @@
         <param name="protocol">SNMP</param>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
-            <param name="community-ro">sevone</param>
+            <param name="community-ro">netTransformer-r</param>
             <param name="community-rw">netTransformer-rw</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>

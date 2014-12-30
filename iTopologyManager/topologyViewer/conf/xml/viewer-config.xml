@@ -535,212 +535,117 @@
 
     <filters>
         <!--In this case is presented a physical view with devices that respond to SNMP-->
-        <filter name="all">
-            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <!--include dataKey="site" dataValue="" for="node"/-->
-            <include dataKey="method" dataValue="OpenFlow" for="edge"/>
-            <include dataKey="method" dataValue="CDP" for="edge"/>
-            <include dataKey="method" dataValue="LLDP" for="edge"/>
-            <include dataKey="method" dataValue="MAC" for="edge"/>
-            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="Slash30" for="edge"/>
-            <include dataKey="method" dataValue="Slash31" for="edge"/>
-            <include dataKey="method" dataValue="OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
-            <include dataKey="method" dataValue="r_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="r_STATIC_ROUTE" for="edge"/>
-
-            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-        </filter>
-        <!--In this case is presented a physical view with all devices-->
-        <filter name="all+unreachable">
-            <include dataKey="method" dataValue="CDP" for="edge"/>
-            <include dataKey="method" dataValue="OpenFlow" for="edge"/>
-            <include dataKey="method" dataValue="LLDP" for="edge"/>
-            <include dataKey="method" dataValue="Slash30" for="edge"/>
-            <include dataKey="method" dataValue="Slash31" for="edge"/>
-            <include dataKey="method" dataValue="MAC" for="edge"/>
-            <include dataKey="method" dataValue="ARP" for="edge"/>
-
-            <include dataKey="method" dataValue="OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
-            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="r_STATIC_ROUTE" for="edge"/>
-
-            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-
-        </filter>
-        <!--In this case is presented a only an OSPF view -->
-        <filter name="OSPF">
-            <include dataKey="method" dataValue="OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="r_OSPF" for="edge"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-        </filter>
-        <!--In this case is presented a only an ISIS view -->
-        <filter name="ISIS">
-            <include dataKey="method" dataValue="ISIS" for="edge"/>
-            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_ISIS" for="edge"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-
-        </filter>
-        <filter name="OSPF+ISIS">
-            <include dataKey="method" dataValue="OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="r_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="ISIS" for="edge"/>
-            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_ISIS" for="edge"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-
-        </filter>
-        <!--In this case is presented a only BGP view -->
-        <filter name="BGP">
-            <include dataKey="method" dataValue="BGP" for="edge"/>
-            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-
-        </filter>
-
-
-        <filter name="diff">
-            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
-            <include dataKey="method" dataValue="CDP" for="edge"/>
-            <include dataKey="method" dataValue="LLDP" for="edge"/>
-            <include dataKey="method" dataValue="MAC" for="edge"/>
-            <include dataKey="method" dataValue="ARP" for="edge"/>
-
-            <include dataKey="method" dataValue="Slash30" for="edge"/>
-            <include dataKey="method" dataValue="Slash31" for="edge"/>
-            <include dataKey="method" dataValue="OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
-            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="r_STATIC_ROUTE" for="edge"/>
-
-            <tooltip dataKey="diffs" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
-            <tooltip dataKey="diffs" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-
-        </filter>
-        <filter name="diff+unreachable">
-            <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
-            <include dataKey="method" dataValue="CDP" for="edge"/>
-            <include dataKey="method" dataValue="LLDP" for="edge"/>
-            <include dataKey="method" dataValue="Slash30" for="edge"/>
-            <include dataKey="method" dataValue="Slash31" for="edge"/>
-            <include dataKey="method" dataValue="MAC" for="edge"/>
-            <include dataKey="method" dataValue="ARP" for="edge"/>
-            <include dataKey="method" dataValue="OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
-            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="r_STATIC_ROUTE" for="edge"/>
-
-            <tooltip dataKey="diffs" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
-            <tooltip dataKey="diffs" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-        </filter>
-
-        <!--In this case is presented a view only in site with Cisco and Default type Devices-->
-        <filter name="CISCO Devices">
-            <include dataKey="deviceType" dataValue="CISCO" for="node"/>
-            <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
-            <include dataKey="method" dataValue="CDP" for="edge"/>
-            <include dataKey="method" dataValue="LLDP" for="edge"/>
-            <include dataKey="method" dataValue="Slash30" for="edge"/>
-            <include dataKey="method" dataValue="Slash31" for="edge"/>
-            <include dataKey="method" dataValue="MAC" for="edge"/>
-            <include dataKey="method" dataValue="ARP" for="edge"/>
-            <include dataKey="method" dataValue="OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
-            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="r_STATIC_ROUTE" for="edge"/>
-
-
-            <tooltip dataKey="nodeInfo" for="node"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-
-        </filter>
-        <!--In this case is presented a only LLDP view -->
-        <filter name="LLDP">
-            <include dataKey="method" dataValue="LLDP" for="edge"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-
-        </filter>
-        <!--In this case is presented a only CDP view -->
-        <filter name="CDP">
-            <include dataKey="method" dataValue="CDP" for="edge"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-
-        </filter>
-
-        <filter name="IPLinkLayer-reachable">
-            <include dataKey="ipLink" dataValue="YES" for="edge"/>
-            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <tooltip dataKey="nodeInfo" for="node"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-        </filter>
-        <filter name="IPLinkLayer-reachable+unreachable">
-            <include dataKey="ipLink" dataValue="YES" for="edge"/>
-            <tooltip dataKey="nodeInfo" for="node"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-        </filter>
-        <!--In this case is presented a data+IPlink view with devices that respond to SNMP-->
-
-        <filter name="Data+IPLinkLayer-reachable">
+        <filter name="Data+IPLinkLayer-reachable" type="and">
             <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
             <include dataKey="ipLink" dataValue="YES" for="edge"/>
             <include dataKey="dataLink" dataValue="YES" for="edge"/>
-            <tooltip dataKey="nodeInfo" for="node"/>
+            <tooltip dataKey="deviceInfo" for="node"/>
             <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
 
         </filter>
         <filter name="Data+IPLinkLayer-reachable+unreachable">
             <include dataKey="ipLink" dataValue="YES" for="edge"/>
             <include dataKey="dataLink" dataValue="YES" for="edge"/>
-            <tooltip dataKey="nodeInfo" for="node"/>
+            <include for="node"/>
+            <tooltip dataKey="deviceInfo" for="node"/>
             <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
 
         </filter>
         <filter name="Any-link-reachable">
             <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <include dataKey="ipLink" dataValue="YES" for="edge"/>
-            <include dataKey="dataLink" dataValue="YES" for="edge"/>
-            <tooltip dataKey="nodeInfo" for="node"/>
+            <include  for="edge"/>
+            <tooltip dataKey="deviceInfo" for="node"/>
             <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
 
         </filter>
-        <filter name="sdn">
-            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <include dataKey="method" dataValue="OpenFlow" for="edge"/>
-            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
+        <filter name="all" type="or">
+
+            <include for="edge"/>
+            <include for="node"/>
+            <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
         </filter>
-        <filter name="Any-link-reachable+unreachable">
-            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
-            <include dataKey="ipLink" dataValue="NO" for="edge"/>
-            <include dataKey="dataLink" dataValue="NO" for="edge"/>
-            <include dataKey="ipLink" dataValue="YES" for="edge"/>
-            <include dataKey="dataLink" dataValue="YES" for="edge"/>
+        <!--In this case is presented a physical view with all devices-->
+
+
+
+        <filter name="diff" type="or">
+            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+            <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
+            <include dataKey="method" dataValue="CDP" for="edge"/>
+            <include dataKey="method" dataValue="LLDP" for="edge"/>
+            <include dataKey="method" dataValue="MAC" for="edge"/>
+            <include dataKey="method" dataValue="Slash30" for="edge"/>
+            <include dataKey="method" dataValue="Slash31" for="edge"/>
+            <include dataKey="method" dataValue="OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
+            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+            <include dataKey="method" dataValue="r_ISIS" for="edge"/>
+            <include dataKey="method" dataValue="r_OSPF" for="edge"/>
+            <include dataKey="method" dataValue="r_STATIC_ROUTE" for="edge"/>
+            <include for="node"/>
+            <tooltip dataKey="diffs" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="diffs" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
+        </filter>
+
+        <!--In this case is presented a view only in site with Cisco and Default type Devices-->
+        <filter name="CISCO Devices" type="or">
+            <include dataKey="deviceType" dataValue="CISCO" for="node"/>
+            <include for="edge"/>
+            <tooltip dataKey="deviceInfo" for="node"/>
             <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+
+        </filter>
+
+        <!--In this case is presented a only CDP view -->
+        <filter name="CDP" type="and">
+            <include dataKey="method" dataValue="CDP" for="edge"/>
+            <include for="node"/>
+            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+
+        </filter>
+        <!--In this case is presented a only an OSPF view -->
+        <filter name="OSPF" type="or">
+            <include dataKey="method" dataValue="OSPF" for="edge"/>
+            <include dataKey="method" dataValue="cOSPF" for="edge"/>
+            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+            <include for="node"/>
+            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+
+        </filter>
+        <!--In this case is presented a only an ISIS view -->
+        <filter name="ISIS" type="or">
+            <include dataKey="method" dataValue="ISIS" for="edge"/>
+            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+            <include for="node"/>
+            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+
+        </filter>
+        <!--In this case is presented a only BGP view -->
+        <filter name="BGP" type="or">
+            <include dataKey="method" dataValue="BGP" for="edge"/>
+            <include dataKey="method" dataValue="c_BGP" for="edge"/>
+            <include for="node"/>
+            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+
+        </filter>
+        <filter name="IPLinkLayer-reachable" type="and">
+            <include dataKey="ipLink" dataValue="YES" for="edge"/>
+            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+            <tooltip dataKey="deviceInfo" for="node"/>
+            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="IPLinkLayer-reachable+unreachable" type="and">
+            <include dataKey="ipLink" dataValue="YES" for="edge"/>
+            <include for="node"/>
+            <tooltip dataKey="deviceInfo" for="node"/>
+            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
         </filter>
     </filters>
 

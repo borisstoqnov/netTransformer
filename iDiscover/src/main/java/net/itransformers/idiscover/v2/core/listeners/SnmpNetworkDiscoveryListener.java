@@ -88,7 +88,7 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
 
     }
     public static void main(String[] args){
-        File outFile = new File("/Users/niau/DemoMedium1/network/version22/undirected/network.graphml");
+        File outFile = new File("network/version1/undirected/network.graphml");
         if(!outFile.exists()){
             try {
                 outFile.createNewFile();
@@ -96,7 +96,7 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
         }
-        File dir = new File("/Users/niau/DemoMedium1/network/version2/undirected");
+        File dir = new File("version1/undirected");
         File[] files = dir.listFiles(new FileFilter() {
             @Override
             public boolean accept(File pathname) {

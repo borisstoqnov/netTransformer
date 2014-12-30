@@ -1,24 +1,11 @@
-<!--
-  ~ iTransformer is an open source tool able to discover and transform
-  ~  IP network infrastructures.
-  ~  Copyright (C) 2012  http://itransformers.net
-  ~
-  ~  This program is free software: you can redistribute it and/or modify
-  ~  it under the terms of the GNU General Public License as published by
-  ~  the Free Software Foundation, either version 3 of the License, or
-  ~  any later version.
-  ~
-  ~  This program is distributed in the hope that it will be useful,
-  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  GNU General Public License for more details.
-  ~
-  ~  You should have received a copy of the GNU General Public License
-  ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  -->
 
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:SnmpForXslt="net.itransformers.idiscover.discoveryhelpers.xml.SnmpForXslt">
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+    <xsl:include href="utils.xslt"/>
+    <xsl:include href="discovery-methods.xslt"/>
+    <xsl:param name="community-ro"/>
+    <xsl:param name="community-rw"/>
+
 
     <xsl:template match="/">
         <!--xsl:for-each select="//root/devices/e">
@@ -32,10 +19,17 @@
                 <xsl:for-each select="//root/switches/e">
             <DiscoveredDevice>
                 <name>
-                    <xsl:value-of select="dpid"/>
+                    <xsl:call-template name="return-hostname">
+                        <xsl:with-param name="hostname-unformated"
+                                        select="SnmpForXslt:getName(attributes/inetAddress, $comm)"/>
+                    </xsl:call-template>
+
                 </name>
+
+
                 <!-- Node specific parameters-->
                 <parameters>
+
                     <parameter>
                         <name>Device State</name>
                         <value>discovered</value>

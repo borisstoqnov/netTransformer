@@ -334,7 +334,8 @@
 			<xsl:when test="contains($sysDescr, 'Huawei')">HUAWEI</xsl:when>
 			<xsl:when test="contains($sysDescr, 'Juniper')">JUNIPER</xsl:when>
 			<xsl:when test="contains($sysDescr, 'Riverstone')">RIVERSTONE</xsl:when>
-			<xsl:when test="contains($sysDescr, 'Tellabs')">TELLABS</xsl:when>
+            <xsl:when test="contains($sysDescr, 'SevOne')">SevOne</xsl:when>
+            <xsl:when test="contains($sysDescr, 'Tellabs')">TELLABS</xsl:when>
 			<xsl:when test="contains($sysDescr, 'ProCurve')">HP</xsl:when>
 			<xsl:otherwise>DEFAULT</xsl:otherwise>
 		</xsl:choose>

@@ -83,6 +83,9 @@ public class SnmpWalkerBase implements Discoverer {
         }else if (sysDescr.contains("Tellabs")){
           return "TELLABS";
         }
+        else if (sysDescr.contains("SevOne")){
+            return "SevOne";
+        }
         else if (sysDescr.contains("Riverstone")){
           return "RIVERSTONE";
         }

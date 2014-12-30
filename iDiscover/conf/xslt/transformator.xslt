@@ -23,7 +23,7 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:exslt="http://exslt.org/common"
                 extension-element-prefixes="exslt" xmlns:functx="http://www.functx.com"
                 xmlns:IPv6formatConvertor="net.itransformers.idiscover.util.IPv6formatConvertor"
-                xmlns:InterfaceNeighbor="com.discovery.discoveryhelpers.xml.InterfaceNeighbor">
+                xmlns:InterfaceNeighbor="net.itransformers.idiscover.discoveryhelpers.xml.InterfaceNeighbor">
     <xsl:output method="xml" omit-xml-declaration="yes"/>
     <xsl:param name="ipAddress"/>
     <xsl:param name="status"/>

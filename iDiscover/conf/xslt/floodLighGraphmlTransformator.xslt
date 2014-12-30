@@ -21,7 +21,13 @@
 
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                xmlns:functx="http://www.functx.com">
+                xmlns:functx="http://www.functx.com" xmlns:SnmpForXslt="net.itransformers.idiscover.discoveryhelpers.xml.SnmpForXslt">
+    <xsl:include href="utils.xslt"/>
+    <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+    <xsl:include href="discovery-methods.xslt"/>
+    <xsl:param name="community-ro"/>
+    <xsl:param name="community-rw"/>
+
 
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 
@@ -66,15 +72,21 @@
                      attr.type="string"/>
                 <key id="type" for="edge" attr.name="tyle"
                      attr.type="string"/>
+                <xsl:variable name="comm" select="$community-ro"/>
+                <xsl:variable name="comm2" select="$community-rw"/>
 
                 <xsl:for-each select="/root/switches/e">
+                    <xsl:variable name="hostnameFromSnmp" select="SnmpForXslt:getName(attributes/inetAddress, $comm)"/>
                     <node>
                         <xsl:attribute name="id">
-                            <xsl:value-of select="dpid"/>
+                           <xsl:choose>
+                            <xsl:when test="$hostnameFromSnmp!=''"><xsl:value-of select="$hostnameFromSnmp"/></xsl:when>
+                            <xsl:otherwise><xsl:value-of select="dpid"/></xsl:otherwise>
+                           </xsl:choose>
                         </xsl:attribute>
-                        <!--data key="hostname">
-                            <xsl:value-of select="hostname"/>
-                        </data-->
+                        <data key="hostname">
+                            <xsl:value-of select="$hostnameFromSnmp"/>
+                        </data>
                         <data key="deviceModel">
                             <xsl:value-of select="attributes/DescriptionData/hardwareDescription"/>
                         </data>
@@ -121,8 +133,11 @@
                         <data key="deviceModel">SDN host</data>
                         <data key="deviceType">SDN host</data>
                         <data key="deviceStatus">discovered</data>
-                        <data key="ManagementIPAddress">
+                        <data key="ManagementIPv4Address">
                             <xsl:value-of select="ipv4/e"/>
+                        </data>
+                        <data key="ManagementIPv6Address">
+                            <xsl:value-of select="ipv6/e"/>
                         </data>
                         <data key="ipv6Forwarding">
                             <xsl:value-of select="$ipv6Forwarding"/>

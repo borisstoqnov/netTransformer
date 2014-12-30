@@ -21,6 +21,7 @@ package net.itransformers.idiscover.v2.core.bgpdiscoverer;
 
 import net.itransformers.idiscover.v2.core.ANetworkDiscoverer;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
+import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.apache.commons.io.output.NullOutputStream;
 import org.apache.log4j.Logger;
@@ -50,73 +51,80 @@ public class BGPMapNetworkDiscoverer extends ANetworkDiscoverer {
 
     @Override
     public NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList,int depth) {
-
-        //TODO design for Network Discoverer from subnetworkDiscoverers
-        ConnectionDetails connectionDetails = connectionDetailsList.get(0);
-
-        if (!"javaMRT".equals(connectionDetails.getConnectionType())){
-            logger.debug("Connection details are not for javaMRTfile");
-
-            return null;
-        }
-
-        String pathToFile = connectionDetails.getParam("pathToFile");
-        String version = connectionDetails.getParam("version");
-
-
-        String[] args = new String[4];
-        args[0] = "-f";
-
-
-        args[1] = pathToFile;
-
-
-        args[2] = "-o";
-        String outputFile="network.graphml";
-        args[3] = outputFile;
-
-        Map<String, String> params = CmdLineParser.parseCmdLine(args);
-
-
-
-        StringWriter writer = new StringWriter();
-
-        String file = null;
-        OutputStream logOutputStream = new NullOutputStream();
-
-        if (params.containsKey("-f")) {
-            file = params.get("-f");
-        } else {
-            logger.info("no file passed");
-            System.exit(1);
-        }
-
-        ASContainer ases = new ASContainer();
-        System.out.println("Start reading MRT file");
-        File tmpEdgeFile = null;
-        try {
-            tmpEdgeFile = File.createTempFile("test" + "_", ".txt");
-            System.out.println("Creating edge tmp file: "+tmpEdgeFile.getAbsolutePath());
-            Writer edgeWriter =  new PrintWriter(tmpEdgeFile);
-
-            Route2GraphmlDumper.dumpToXmlString(new String[]{file}, new PrintWriter(logOutputStream), edgeWriter, ases);
-            edgeWriter.close();
-            Route2GraphmlDumper.dumpGraphml(ases, writer, tmpEdgeFile);
-
-        }catch (IOException e){
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-
-        } finally {
-            tmpEdgeFile.delete();
-
-
-        }
-
-
         NetworkDiscoveryResult result = new NetworkDiscoveryResult();
-        result.setDiscoveredData("version",version);
-        result.setDiscoveredData("graphml",writer.toString().getBytes());
+
+        for (ConnectionDetails connectionDetails : connectionDetailsList) {
+
+
+            if (!"javaMRT".equals(connectionDetails.getConnectionType())){
+                logger.debug("Connection details are not for javaMRTfile");
+
+                return null;
+            }
+
+            String pathToFile = connectionDetails.getParam("pathToFile");
+            String version = connectionDetails.getParam("version");
+
+
+            String[] args = new String[4];
+            args[0] = "-f";
+
+
+            args[1] = pathToFile;
+
+
+            args[2] = "-o";
+            String outputFile="network.graphml";
+            args[3] = outputFile;
+
+            Map<String, String> params = CmdLineParser.parseCmdLine(args);
+
+
+
+            StringWriter writer = new StringWriter();
+
+            String file = null;
+            OutputStream logOutputStream = new NullOutputStream();
+
+            if (params.containsKey("-f")) {
+                file = params.get("-f");
+            } else {
+                logger.info("no file passed");
+                System.exit(1);
+            }
+
+            ASContainer ases = new ASContainer();
+            System.out.println("Start reading MRT file");
+            File tmpEdgeFile = null;
+            try {
+                tmpEdgeFile = File.createTempFile("test" + "_", ".txt");
+                System.out.println("Creating edge tmp file: "+tmpEdgeFile.getAbsolutePath());
+                Writer edgeWriter =  new PrintWriter(tmpEdgeFile);
+
+                Route2GraphmlDumper.dumpToXmlString(new String[]{file}, new PrintWriter(logOutputStream), edgeWriter, ases);
+                edgeWriter.close();
+                Route2GraphmlDumper.dumpGraphml(ases, writer, tmpEdgeFile);
+
+            }catch (IOException e){
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+
+            } finally {
+                tmpEdgeFile.delete();
+
+
+            }
+
+            NodeDiscoveryResult result1 = new NodeDiscoveryResult();
+
+            result1.setDiscoveredData("version", version);
+            result1.setDiscoveredData("graphml", writer.toString().getBytes());
+            result1.setDiscoveredData("discoverer", "javaMRT");
+
+            result.addDiscoveredData(file, result1);
+
+        }
         fireNetworkDiscoveredEvent(result);
+
         return result;
     }
 

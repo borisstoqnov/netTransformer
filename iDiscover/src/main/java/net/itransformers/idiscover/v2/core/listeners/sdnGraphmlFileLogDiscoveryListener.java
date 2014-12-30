@@ -5,29 +5,61 @@ package net.itransformers.idiscover.v2.core.listeners;
 
 import net.itransformers.idiscover.v2.core.NodeDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.resourcemanager.config.ConnectionParamsType;
+import net.itransformers.resourcemanager.config.ParamType;
+import net.itransformers.resourcemanager.config.ResourceType;
+import net.itransformers.resourcemanager.config.ResourcesType;
 import net.itransformers.utils.XsltTransformer;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
+import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class sdnGraphmlFileLogDiscoveryListener implements NodeDiscoveryListener {
     static Logger logger = Logger.getLogger(sdnGraphmlFileLogDiscoveryListener.class);
     String graphmlDataDirName;
     String labelDirName;
     String floodLighGraphmlXsltTransformator;
+    private File projectPath;
+    private String resourceManagerPath;
 
 
 
     // walker = (JsonDiscoverer) new DefaultDiscovererFactory().createDiscoverer(resource);
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
+
+        String xml = null;
+        try {
+            xml = FileUtils.readFileToString(new File(projectPath, resourceManagerPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        InputStream is1 = new ByteArrayInputStream(xml.getBytes());
+        ResourcesType deviceGroupsType = null;
+
+        try {
+            deviceGroupsType = net.itransformers.resourcemanager.util.JaxbMarshalar.unmarshal(ResourcesType.class, is1);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        ResourceManager resourceManager = new ResourceManager(deviceGroupsType);
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("deviceName",discoveryResult.getNodeId());
+
+
+        ResourceType resource =  resourceManager.findResource(params);
+
+
 
         File baseDir = new File(labelDirName);
         if (!baseDir.exists()) baseDir.mkdir();
@@ -51,15 +83,37 @@ public class sdnGraphmlFileLogDiscoveryListener implements NodeDiscoveryListener
 
             inputStream = new ByteArrayInputStream(rawDataXml.getBytes());
 
-            transformer.transformXML(inputStream, floodlightGraphmlXslt, outputStream1, null, null);
 
-            final  String graphmlFileName = "node"+"-"+"floodLight"+"-"+deviceName+".graphml";
+
+
+            if(resource!=null){
+                List connectParameters = resource.getConnectionParams();
+
+                for (int i = 0; i < connectParameters.size(); i++) {
+                    ConnectionParamsType connParamsType = (ConnectionParamsType) connectParameters.get(i);
+
+                    String connectionType = connParamsType.getConnectionType();
+                    if (connectionType.equalsIgnoreCase("snmp")) {
+
+                        for (ParamType param : connParamsType.getParam()) {
+                            params.put(param.getName(), param.getValue());
+                        }
+
+                    }
+                }
+
+
+            }else {
+                transformer.transformXML(inputStream, floodlightGraphmlXslt, outputStream1, params, null);
+            }
+
+            final  String graphmlFileName = "floodLight"+"-"+deviceName+".graphml";
             logger.info("Transforming raw-data to graphml for "+deviceName);
             logger.debug("Raw Data \n" + rawDataXml.toString());
 
             File graphmlFile = new File(graphmlDataDir,graphmlFileName );
             FileUtils.writeStringToFile(graphmlFile, outputStream1.toString());
-            logger.info("Raw-data transformed to graphml for "+deviceName);
+            logger.info("Raw-data transformed to graphml for " + deviceName);
 
             File nodesFileListFile = new File(labelDirName, "nodes.graphmls");
             FileUtils.writeStringToFile(nodesFileListFile, graphmlFileName);
