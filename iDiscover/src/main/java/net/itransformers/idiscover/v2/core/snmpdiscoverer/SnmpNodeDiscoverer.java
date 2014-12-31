@@ -66,7 +66,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
     @Override
     public String probe(ConnectionDetails connectionDetails) {
-        String hostName = connectionDetails.getParam("host");
+        String hostName = connectionDetails.getParam("nodeId");
         if(hostName == null){
             IPv4Address ipAddress = new IPv4Address(connectionDetails.getParam("ipAddress"), connectionDetails.getParam("netMask"));
             Map<String,String> params1 = new HashMap<String, String>();

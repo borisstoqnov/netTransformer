@@ -42,6 +42,7 @@ import java.util.Map;
 
 public class FloodLightNodeDiscoverer extends ANetworkDiscoverer {
     static Logger logger = Logger.getLogger(FloodLightNodeDiscoverer.class);
+
     String switchesUrl =null;
     String devicesUrl =null;
     String linksUrl=null;
