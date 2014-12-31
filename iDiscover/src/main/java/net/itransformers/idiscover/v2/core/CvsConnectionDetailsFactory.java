@@ -76,7 +76,7 @@ public class CvsConnectionDetailsFactory {
 
     private static Map<String, String> parse(String line, String body) {
         String[] fields = body.split(",");
-        Map<String, String> attributes = new HashMap<String, String>();
+        Map<String, String> attributes = new LinkedHashMap<String, String>();
         for (String field : fields) {
             String[] nameValPair = field.split("=");
             if (nameValPair.length != 2) {
