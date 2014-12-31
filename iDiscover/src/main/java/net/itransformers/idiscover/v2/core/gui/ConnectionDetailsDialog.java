@@ -8,6 +8,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.File;
@@ -32,6 +33,7 @@ public class ConnectionDetailsDialog extends JDialog  implements TableModelListe
 	 */
 	public static void main(String[] args) {
 		try {
+            UIManager.put("Table.gridColor", new ColorUIResource(Color.gray));
             java.util.Map<String,ConnectionDetails> connectionDetailsList = CvsConnectionDetailsFactory.createConnectionDetail(new File("iDiscover/src/main/resources/connection-details.txt"));
 			ConnectionDetailsDialog dialog = new ConnectionDetailsDialog(connectionDetailsList,true);
             int option = dialog.showDialog();
@@ -148,6 +150,7 @@ public class ConnectionDetailsDialog extends JDialog  implements TableModelListe
         tableButtonsPanel.add(removeTableButton);
         
         table = new JTable();
+        table.putClientProperty("terminateEditOnFocusLost", true);
         JScrollPane tableScrollPane = new JScrollPane(table);
         tablePanel.add(tableScrollPane);
 		{
