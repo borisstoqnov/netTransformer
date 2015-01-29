@@ -40,8 +40,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FloodLightNodeDiscoverer extends ANetworkDiscoverer {
-    static Logger logger = Logger.getLogger(FloodLightNodeDiscoverer.class);
+public class floodLightNodeDiscoverer extends ANetworkDiscoverer {
+    static Logger logger = Logger.getLogger(floodLightNodeDiscoverer.class);
 
     String switchesUrl =null;
     String devicesUrl =null;
@@ -50,7 +50,7 @@ public class FloodLightNodeDiscoverer extends ANetworkDiscoverer {
     File floodlightGraphmlXslt = null;
 
 
-    public FloodLightNodeDiscoverer(Map<String, String> attributes) throws Exception {
+    public floodLightNodeDiscoverer(Map<String, String> attributes) throws Exception {
 
         switchesUrl=attributes.get("switches");
         devicesUrl=attributes.get("devices");
