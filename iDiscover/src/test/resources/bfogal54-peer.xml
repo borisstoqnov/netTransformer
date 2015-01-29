@@ -1,0 +1,1121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DiscoveredDevice>
+    <name>bfogal54-peer</name>
+    <parameters>
+        <parameter>
+            <name>Device State</name>
+            <value>discovered</value>
+        </parameter>
+        <parameter>
+            <name>sysDescr</name>
+            <value>Linux bfogal54-peer 3.10.33-SevOne.fips.6.0 #1 SMP Wed Jun 18 19:22:37 GMT 2014 x86_64</value>
+        </parameter>
+        <parameter>
+            <name>Device Type</name>
+            <value>DEFAULT</value>
+        </parameter>
+        <parameter>
+            <name>Device Model</name>
+            <value>Unknown</value>
+        </parameter>
+        <parameter>
+            <name>Management IP Address</name>
+            <value>192.168.142.117</value>
+        </parameter>
+        <parameter>
+            <name>ipv6Forwarding</name>
+            <value>NO</value>
+        </parameter>
+        <parameter>
+            <name>ipv4Forwarding</name>
+            <value>YES</value>
+        </parameter>
+        <parameter>
+            <name>Device Model Oid</name>
+            <value>1.3.6.1.4.1.8072.3.2.10</value>
+        </parameter>
+        <parameter>
+            <name>BGPLocalASInfo</name>
+            <value>22 days, 16:57:10.63</value>
+        </parameter>
+        <parameter>
+            <name>baseBridgeAddress</name>
+            <value></value>
+        </parameter>
+        <parameter>
+            <name>stpDesignatedRoot</name>
+            <value>22 days, 16:57:11.74</value>
+        </parameter>
+        <parameter>
+            <name>siteID</name>
+            <value>bfogal54</value>
+        </parameter>
+        <parameter>
+            <name>X Coordinate</name>
+            <value>Unknown</value>
+        </parameter>
+        <parameter>
+            <name>Y Coordinate</name>
+            <value>Unknown</value>
+        </parameter>
+    </parameters>
+    <object>
+        <name>lo</name>
+        <objectType>Discovery Interface</objectType>
+        <parameters>
+            <parameter>
+                <name>ifIndex</name>
+                <value>1</value>
+            </parameter>
+            <parameter>
+                <name>ifDescr</name>
+                <value>lo</value>
+            </parameter>
+            <parameter>
+                <name>ifType</name>
+                <value>24</value>
+            </parameter>
+            <parameter>
+                <name>ifSpeed</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>ifAdminStatus</name>
+                <value>UP</value>
+            </parameter>
+            <parameter>
+                <name>ifOperStatus</name>
+                <value>UP</value>
+            </parameter>
+            <parameter>
+                <name>ifPhysAddress</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>CableCut</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>vrfForwarding</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>IPv4Forwarding</name>
+                <value>YES</value>
+            </parameter>
+            <parameter>
+                <name>IPv6Forwarding</name>
+                <value>NO</value>
+            </parameter>
+        </parameters>
+        <object>
+            <name>127.0.0.1/255.0.0.0</name>
+            <objectType>IPv4 Address</objectType>
+            <parameters>
+                <parameter>
+                    <name>IPv4Address</name>
+                    <value>127.0.0.1</value>
+                </parameter>
+                <parameter>
+                    <name>ipSubnetMask</name>
+                    <value>255.0.0.0</value>
+                </parameter>
+                <parameter>
+                    <name>ipv4Subnet</name>
+                    <value>127.0.0.0/8</value>
+                </parameter>
+            </parameters>
+        </object>
+    </object>
+    <object>
+        <name>bond0</name>
+        <objectType>Discovery Interface</objectType>
+        <parameters>
+            <parameter>
+                <name>ifIndex</name>
+                <value>2</value>
+            </parameter>
+            <parameter>
+                <name>ifDescr</name>
+                <value>bond0</value>
+            </parameter>
+            <parameter>
+                <name>ifType</name>
+                <value>6</value>
+            </parameter>
+            <parameter>
+                <name>ifAdminStatus</name>
+                <value>DOWN</value>
+            </parameter>
+            <parameter>
+                <name>ifOperStatus</name>
+                <value>DOWN</value>
+            </parameter>
+            <parameter>
+                <name>ifPhysAddress</name>
+                <value>76:43:f8:49:75:1c</value>
+            </parameter>
+            <parameter>
+                <name>CableCut</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>IPv4Forwarding</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>IPv6Forwarding</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>vrfForwarding</name>
+                <value></value>
+            </parameter>
+        </parameters>
+    </object>
+    <object>
+        <name>dummy0</name>
+        <objectType>Discovery Interface</objectType>
+        <parameters>
+            <parameter>
+                <name>ifIndex</name>
+                <value>3</value>
+            </parameter>
+            <parameter>
+                <name>ifDescr</name>
+                <value>dummy0</value>
+            </parameter>
+            <parameter>
+                <name>ifType</name>
+                <value>6</value>
+            </parameter>
+            <parameter>
+                <name>ifAdminStatus</name>
+                <value>DOWN</value>
+            </parameter>
+            <parameter>
+                <name>ifOperStatus</name>
+                <value>DOWN</value>
+            </parameter>
+            <parameter>
+                <name>ifPhysAddress</name>
+                <value>d2:20:39:70:1c:3c</value>
+            </parameter>
+            <parameter>
+                <name>CableCut</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>IPv4Forwarding</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>IPv6Forwarding</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>vrfForwarding</name>
+                <value></value>
+            </parameter>
+        </parameters>
+    </object>
+    <object>
+        <name>eth0</name>
+        <objectType>Discovery Interface</objectType>
+        <parameters>
+            <parameter>
+                <name>ifIndex</name>
+                <value>4</value>
+            </parameter>
+            <parameter>
+                <name>ifDescr</name>
+                <value>eth0</value>
+            </parameter>
+            <parameter>
+                <name>ifType</name>
+                <value>6</value>
+            </parameter>
+            <parameter>
+                <name>ifSpeed</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>ifAdminStatus</name>
+                <value>UP</value>
+            </parameter>
+            <parameter>
+                <name>ifOperStatus</name>
+                <value>UP</value>
+            </parameter>
+            <parameter>
+                <name>ifPhysAddress</name>
+                <value>00:50:56:8c:19:c8</value>
+            </parameter>
+            <parameter>
+                <name>CableCut</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>vrfForwarding</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>IPv4Forwarding</name>
+                <value>YES</value>
+            </parameter>
+            <parameter>
+                <name>IPv6Forwarding</name>
+                <value>NO</value>
+            </parameter>
+        </parameters>
+        <object>
+            <name>192.168.142.117/255.255.248.0</name>
+            <objectType>IPv4 Address</objectType>
+            <parameters>
+                <parameter>
+                    <name>IPv4Address</name>
+                    <value>192.168.142.117</value>
+                </parameter>
+                <parameter>
+                    <name>ipSubnetMask</name>
+                    <value>255.255.248.0</value>
+                </parameter>
+                <parameter>
+                    <name>ipv4Subnet</name>
+                    <value>192.168.136.0/21</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>192.168.136.1</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>NO</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Platform</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.136.1</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>mambas-ci-53</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.136.67</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>mambas-ci-53</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>ysun54</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.136.130</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>ysun54</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>bfogal54-master-hsa</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.136.187</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>bfogal54-master-hsa</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>bfogal52x</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.136.195</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>bfogal52x</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>snakes</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.136.209</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>snakes</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>rhenderson5213</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.137.41</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>rhenderson5213</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>pod_default_732</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.137.102</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>pod_default_732</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>bfogal54-master</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.142.198</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>bfogal54-master</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>dsmith3c</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.143.22</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>dsmith3c</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>slawrowc-v5</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.143.56</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>slawrowc-v5</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>recompile1</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.143.57</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>recompile1</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>192.168.143.95</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>NO</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Platform</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.143.95</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>arch-prod</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.143.120</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>arch-prod</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>qa53_peer2</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.143.122</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>qa53_peer2</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>vzw5211</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.143.163</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>vzw5211</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+        <object>
+            <name>rhenderson53</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>YES</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value>sevone</value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.143.209</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>rhenderson53</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
+    </object>
+    <object>
+        <name>tunl0</name>
+        <objectType>Discovery Interface</objectType>
+        <parameters>
+            <parameter>
+                <name>ifIndex</name>
+                <value>5</value>
+            </parameter>
+            <parameter>
+                <name>ifDescr</name>
+                <value>tunl0</value>
+            </parameter>
+            <parameter>
+                <name>ifType</name>
+                <value>131</value>
+            </parameter>
+            <parameter>
+                <name>ifAdminStatus</name>
+                <value>DOWN</value>
+            </parameter>
+            <parameter>
+                <name>ifOperStatus</name>
+                <value>DOWN</value>
+            </parameter>
+            <parameter>
+                <name>ifPhysAddress</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>CableCut</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>IPv4Forwarding</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>IPv6Forwarding</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>vrfForwarding</name>
+                <value></value>
+            </parameter>
+        </parameters>
+    </object>
+    <object>
+        <name>gre0</name>
+        <objectType>Discovery Interface</objectType>
+        <parameters>
+            <parameter>
+                <name>ifIndex</name>
+                <value>6</value>
+            </parameter>
+            <parameter>
+                <name>ifDescr</name>
+                <value>gre0</value>
+            </parameter>
+            <parameter>
+                <name>ifType</name>
+                <value>131</value>
+            </parameter>
+            <parameter>
+                <name>ifAdminStatus</name>
+                <value>DOWN</value>
+            </parameter>
+            <parameter>
+                <name>ifOperStatus</name>
+                <value>DOWN</value>
+            </parameter>
+            <parameter>
+                <name>ifPhysAddress</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>CableCut</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>IPv4Forwarding</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>IPv6Forwarding</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>vrfForwarding</name>
+                <value></value>
+            </parameter>
+        </parameters>
+    </object>
+    <object>
+        <name>gretap0</name>
+        <objectType>Discovery Interface</objectType>
+        <parameters>
+            <parameter>
+                <name>ifIndex</name>
+                <value>7</value>
+            </parameter>
+            <parameter>
+                <name>ifDescr</name>
+                <value>gretap0</value>
+            </parameter>
+            <parameter>
+                <name>ifType</name>
+                <value>6</value>
+            </parameter>
+            <parameter>
+                <name>ifAdminStatus</name>
+                <value>DOWN</value>
+            </parameter>
+            <parameter>
+                <name>ifOperStatus</name>
+                <value>DOWN</value>
+            </parameter>
+            <parameter>
+                <name>ifPhysAddress</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>CableCut</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>IPv4Forwarding</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>IPv6Forwarding</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>vrfForwarding</name>
+                <value></value>
+            </parameter>
+        </parameters>
+    </object>
+    <object>
+        <name>sit0</name>
+        <objectType>Discovery Interface</objectType>
+        <parameters>
+            <parameter>
+                <name>ifIndex</name>
+                <value>8</value>
+            </parameter>
+            <parameter>
+                <name>ifDescr</name>
+                <value>sit0</value>
+            </parameter>
+            <parameter>
+                <name>ifType</name>
+                <value>131</value>
+            </parameter>
+            <parameter>
+                <name>ifAdminStatus</name>
+                <value>DOWN</value>
+            </parameter>
+            <parameter>
+                <name>ifOperStatus</name>
+                <value>DOWN</value>
+            </parameter>
+            <parameter>
+                <name>ifPhysAddress</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>CableCut</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>IPv4Forwarding</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>IPv6Forwarding</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>vrfForwarding</name>
+                <value></value>
+            </parameter>
+        </parameters>
+    </object>
+    <object>
+        <name>ip6tnl0</name>
+        <objectType>Discovery Interface</objectType>
+        <parameters>
+            <parameter>
+                <name>ifIndex</name>
+                <value>9</value>
+            </parameter>
+            <parameter>
+                <name>ifDescr</name>
+                <value>ip6tnl0</value>
+            </parameter>
+            <parameter>
+                <name>ifType</name>
+                <value>131</value>
+            </parameter>
+            <parameter>
+                <name>ifAdminStatus</name>
+                <value>DOWN</value>
+            </parameter>
+            <parameter>
+                <name>ifOperStatus</name>
+                <value>DOWN</value>
+            </parameter>
+            <parameter>
+                <name>ifPhysAddress</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>CableCut</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>IPv4Forwarding</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>IPv6Forwarding</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>vrfForwarding</name>
+                <value></value>
+            </parameter>
+        </parameters>
+    </object>
+    <object>
+        <name>DeviceLogicalData</name>
+        <objectType>DeviceLogicalData</objectType>
+        <parameters/>
+    </object>
+    <object>
+        <name>mplsL3VPNs</name>
+        <objectType>mplsL3VPNs</objectType>
+        <parameters/>
+    </object>
+    <object>
+        <name>IPSEC VPNS</name>
+        <objectType>IPSECVPNs</objectType>
+        <parameters/>
+    </object>
+</DiscoveredDevice>
