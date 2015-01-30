@@ -8,7 +8,8 @@
     <artifactId>utils</artifactId>
     <version>0.7-SNAPSHOT</version><!--Change for new version-->
 
-    <parent>
+
+<parent>
         <groupId>iTransformers</groupId>
         <artifactId>iTransformer</artifactId>
         <version>0.7-SNAPSHOT</version><!--Change for new version-->
@@ -31,9 +32,10 @@
             <version>2.5.0</version>
         </dependency>
         <dependency>
-            <groupId>iTransformers.iTransformer</groupId>
+            <groupId>iTransformers.snmp2xml4j</groupId>
             <artifactId>snmptoolkit</artifactId>
-            <version>0.7-SNAPSHOT</version>
+            <version>1.0</version>
+            <!--Change for new version-->
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -88,6 +90,20 @@
         <!--</dependency>-->
     </dependencies>
     <build>
+
+
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
