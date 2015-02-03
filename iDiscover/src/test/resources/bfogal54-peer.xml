@@ -269,7 +269,7 @@
             </parameter>
         </parameters>
         <object>
-            <name>192.168.142.117/255.255.248.0</name>
+            <name>192.168.142.117/23</name>
             <objectType>IPv4 Address</objectType>
             <parameters>
                 <parameter>

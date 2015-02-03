@@ -149,19 +149,11 @@ input.object.findAll {
 
 }
 
-def foundSubnets = [] as Set
 
-input.object.findAll {
-    it.objectType.text() == 'Discovery Interface'
-}.object.findAll {
-    it.objectType.text() == 'IPv4 Address'
-}.each {
-    def ipv4Address = it.name.text()
-    foundSubnets.add(calcSubnet(ipv4Address))
 
-}
+Device device = new Device(""); // TODO put name here
 
-private void calcSubnet(ipv4Address) {
+private String calcSubnet(ipv4Address) {
     String[] ipAndSubnetPrefix = ipv4Address.split("/")
     if (ipAndSubnetPrefix.length == 2) {
         try {
@@ -173,12 +165,84 @@ private void calcSubnet(ipv4Address) {
             println(nfe.toString())
         }
     }
+    return null;
 }
 
 for (String node : foundNeighbours) {
     output << "<node id=\"${node}\" label=\"${node}\">\n"
 
 }
+
+
+
+def foundSubnets = [] as Set
+
+input.object.findAll {
+    it.objectType.text() == "Discovery Interface"   || it.objectType.text() == "DeviceLogicalData"
+}.each { discoveryInterface ->
+    def subnets = [] as Set
+    discoveryInterface.object.findAll {
+        it.objectType.text() == 'IPv4 Address'
+    }.parameters.parameter.findAll {
+        it.name.text() == 'ipv4Subnet'
+    }.each {
+        String subnet = it.value.text()
+        subnets.add(subnet)
+        foundSubnets.add(subnet)
+        device.addSubnet(new Subnet(subnet))
+    }
+
+    discoveryInterface.object.findAll {
+        it.objectType.text() == 'Discovered Neighbor'
+    }.each {
+        def neighborName = it.name.text();
+        DeviceNeighbour neighbour = new DeviceNeighbour(neighborName);
+        def neighborParams = neighbour.getProperties()
+
+        it.parameters.parameter.find {
+            it.name.text() == 'Discovery Method'
+        }.each {
+            neighborParams.put('Discovery Method', it.value.text())
+        }
+
+        it.parameters.parameter.find {
+            it.name.text() == 'Neighbor IP Address'
+        }.each {
+            def neighbourIp = it.value.text()
+            neighborParams.put('Neighbor IP Address', neighbourIp)
+
+            for (String subnet : subnets) {
+                CIDRUtils cidrUtils = new CIDRUtils(subnet)
+                cidrUtils.isInRange(neighbourIp);
+                device.getSubnets().get(subnet).addNeighbour(neighbour)
+            }
+        }
+
+        it.parameters.parameter.find {
+            it.name.text() == 'Neighbor Port'
+        }.each {
+            neighborParams.put('Neighbor Port', it.value.text())
+
+        }
+        it.parameters.parameter.find {
+            it.name.text() == 'Reachable'
+        }.each {
+            neighborParams.put('Reachable', it.value.text())
+
+        }
+        it.parameters.parameter.find {
+            it.name.text() == 'Neighbor Device Type'
+        }.each {
+            neighborParams.put('Neighbor Device Type', it.value.text())
+
+        }
+
+    }
+}
+//       CIDRUtils utils = new CIDRUtils("192.168");
+
+
+
 
 for (String subnet : foundSubnets) {
     output << "<node id=\"${subnet}\" label=\"${subnet}\">\n"
@@ -188,84 +252,22 @@ for (String subnet : foundSubnets) {
 
 
 }
+for (Map.Entry<String, Subnet> subnetEntry : device.getSubnets()) {
 
+    Subnet subnet  = subnetEntry.getValue()
+    output << "Subnet: " << subnet.getName() << "\n"
 
-def discoveredNeighbours = [:] as HashMap
+    for (Map.Entry<String, DeviceNeighbour> neighboursEntry  : subnet.getNeighbours()) {
 
+        output << "   neighbour: " << neighboursEntry.getKey() << "\n"
 
-input.object.findAll {
-    it.objectType.text() == "Discovery Interface"   || it.objectType.text() == "DeviceLogicalData"
-
-}.object.findAll {
-        it.objectType.text() == 'Discovered Neighbor'
-
-
-}.each {
-
-    output << "Neighbor Name: " << it.name.text() << "\n"
-    def neighborName = it.name.text();
-    def neighborParams = [:] as HashMap
-    if (!discoveredNeighbours.containsKey(neighborName))
-        discoveredNeighbours.put(neighborName,neighborParams)
-
-    it.parameters.parameter.find {
-            it.name.text() == 'Discovery Method'
-            }.each {
-                output << " Discovery Method:  " << it.value.text() << "\n"
-                neighborParams.put('Discovery Method',it.value.text())
-
-    }
-
-    it.parameters.parameter.find {
-        it.name.text() == 'Neighbor IP Address'
-    }.each {
-        output << " Neighbor IP Address:  " << it.value.text() << "\n"
-        neighborParams.put('Neighbor IP Address',it.value.text())
-
-    }
-
-    it.parameters.parameter.find {
-        it.name.text() == 'Neighbor Port'
-    }.each {
-        output << " Neighbor Port:  " << it.value.text() << "\n"
-        neighborParams.put('Neighbor Port',it.value.text())
-
-    }
-    it.parameters.parameter.find {
-        it.name.text() == 'Reachable'
-    }.each {
-        output << " Is Reachable:  " << it.value.text() << "\n"
-        neighborParams.put('Reachable',it.value.text())
-
-    }
-    it.parameters.parameter.find {
-        it.name.text() == 'Neighbor Device Type'
-    }.each {
-        output << " Neighbor Device Type:  " << it.value.text() << "\n"
-        neighborParams.put('Neighbor Device Type',it.value.text())
-
-    }
-
-
-}
-       CIDRUtils utils = new CIDRUtils();
-
-
-for (Map.Entry neighbor : discoveredNeighbours.entrySet()) {
-
-    HashMap<String,String> neighborParams  = neighbor.getValue()
-    output << "Neighbor: " << neighbor.getKey() << "\n"
-
-    for (Map.Entry entry  : neighborParams.entrySet()) {
-
-        output << "param: " << entry.getKey() << " value: " << entry.getValue()  << "\n"
+        for (Map.Entry<String, DeviceNeighbour> neighbourProps  : subnet.getNeighbours()) {
+            output << "       param: " << neighbourProps.getKey() << " = " <<  neighbourProps.getValue() << "\n"
+        }
 
     }
 
 }
-
-
-
 //parameters.parameter.findAll {
 //    it.name.text() == 'Neighbor IP Address'
 //}.each {
