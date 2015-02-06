@@ -218,6 +218,44 @@
                 <value></value>
             </parameter>
         </parameters>
+        <object>
+            <name>L2Neighbour</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>NO</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>CDP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value>FastEthernet0/1</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Platform</name>
+                    <value>CISCO</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value>L2Neighbour</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>CISCO</value>
+                </parameter>
+            </parameters>
+        </object>
     </object>
     <object>
         <name>eth0</name>

@@ -7,7 +7,7 @@ import java.util.HashMap;
  */
 public class Device {
     String name;
-    HashMap<String, Subnet> subnets = new HashMap<String, Subnet>();
+    HashMap<String, Network> subnets = new HashMap<String, Network>();
 
     public Device(String name) {
         this.name = name;
@@ -21,10 +21,10 @@ public class Device {
         this.name = name;
     }
 
-    public void addSubnet(Subnet subnet){
-        subnets.put(subnet.getName(), subnet);
+    public void addSubnet(Network network){
+        subnets.put(network.getName(), network);
     }
-    public HashMap<String, Subnet> getSubnets() {
+    public HashMap<String, Network> getSubnets() {
         return subnets;
     }
 

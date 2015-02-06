@@ -5,11 +5,38 @@ import java.util.HashMap;
 /**
  * Created by vasko on 03.02.15.
  */
-public class Subnet {
+public class Network {
     String name;
     HashMap<String, DeviceNeighbour> neighbours = new HashMap<String, DeviceNeighbour>();
+    String IPv4Address;
+    String prefix;
+    String ipv4SubnetMaskPrefix;
 
-    public Subnet(String name) {
+    public String getIpv4SubnetMaskPrefix() {
+        return ipv4SubnetMaskPrefix;
+    }
+
+    public void setIpv4SubnetMaskPrefix(String ipv4SubnetMaskPrefix) {
+        this.ipv4SubnetMaskPrefix = ipv4SubnetMaskPrefix;
+    }
+
+    public String getIPv4Address() {
+        return IPv4Address;
+    }
+
+    public void setIPv4Address(String IPv4Address) {
+        this.IPv4Address = IPv4Address;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public Network(String name) {
         this.name = name;
     }
 

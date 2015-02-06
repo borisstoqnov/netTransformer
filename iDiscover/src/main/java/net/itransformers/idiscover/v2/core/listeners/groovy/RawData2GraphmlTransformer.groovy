@@ -180,16 +180,39 @@ def foundSubnets = [] as Set
 input.object.findAll {
     it.objectType.text() == "Discovery Interface"   || it.objectType.text() == "DeviceLogicalData"
 }.each { discoveryInterface ->
+
     def subnets = [] as Set
+
     discoveryInterface.object.findAll {
         it.objectType.text() == 'IPv4 Address'
-    }.parameters.parameter.findAll {
-        it.name.text() == 'ipv4Subnet'
+
     }.each {
-        String subnet = it.value.text()
-        subnets.add(subnet)
-        foundSubnets.add(subnet)
-        device.addSubnet(new Subnet(subnet))
+        def Network subnet = new Network()
+
+        it.parameters.parameter.findAll {
+            it.name.text() == 'ipv4Subnet'
+        }.each {
+            String subnetPrefix = it.value.text()
+            subnets.add(subnetPrefix)
+            foundSubnets.add(subnetPrefix)
+            subnet.setName(subnetPrefix)
+        }
+        it.parameters.parameter.findAll {
+            it.name.text() == 'IPv4Address'
+        }.each {
+            String ipv4Address = it.value.text()
+            subnet.setIPv4Address(ipv4Address)
+
+        }
+        it.parameters.parameter.findAll {
+            it.name.text() == 'ipv4SubnetMaskPrefix'
+        }.each {
+            String ipv4SubnetMaskPrefix = it.value.text()
+            subnet.setIpv4SubnetMaskPrefix(ipv4SubnetMaskPrefix)
+        }
+        device.addSubnet(subnet)
+
+
     }
 
     discoveryInterface.object.findAll {
@@ -239,7 +262,6 @@ input.object.findAll {
 
     }
 }
-//       CIDRUtils utils = new CIDRUtils("192.168");
 
 
 
@@ -249,21 +271,48 @@ for (String subnet : foundSubnets) {
     output << "\t<data key=\"deviceType\">Subnet</data>\"\n"
     output << "\t<data key=\"deviceModel\">passiveHub</data>\"\n"
     output << "\t<data key=\"SubnetPrefix\">${subnet}</data>\"\n"
-
+    output << "</node>\n"
 
 }
-for (Map.Entry<String, Subnet> subnetEntry : device.getSubnets()) {
 
-    Subnet subnet  = subnetEntry.getValue()
+String nodeID ="nnnn"
+
+for (Map.Entry<String, Network> subnetEntry : device.getSubnets()) {
+
+    Network subnet  = subnetEntry.getValue()
     output << "Subnet: " << subnet.getName() << "\n"
+    output << "SubnetPrefix: " << subnet.getIpv4SubnetMaskPrefix() << "\n"
+
 
     for (Map.Entry<String, DeviceNeighbour> neighboursEntry  : subnet.getNeighbours()) {
 
         output << "   neighbour: " << neighboursEntry.getKey() << "\n"
 
-        for (Map.Entry<String, DeviceNeighbour> neighbourProps  : subnet.getNeighbours()) {
+        DeviceNeighbour neighbour = neighboursEntry.getValue();
+
+
+
+        for (Map.Entry<String, String> neighbourProps  : neighbour.getProperties()) {
+
             output << "       param: " << neighbourProps.getKey() << " = " <<  neighbourProps.getValue() << "\n"
+
         }
+////        $neighbourPort=""""";
+////        $neighbourIPaddress = """;
+////        $myPort="";
+////        $myIPaddress = "";
+////        neighbourID;
+//
+//        if (nodeID.compareTo(neighbourID)){
+//            edgeId = neighbourID + "-" + nodeID;
+//        } else {
+//            edgeId = nodeID + "-" + neighbourID;
+//        }
+//        output << "<edge id=\"{$edgeId}\" source=${} />"
+
+
+
+
 
     }
 
