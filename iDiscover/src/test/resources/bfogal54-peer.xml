@@ -307,11 +307,7 @@
             </parameter>
         </parameters>
         <object>
-<<<<<<< Updated upstream
             <name>192.168.142.117/23</name>
-=======
-            <name>192.168.142.117/22</name>
->>>>>>> Stashed changes
             <objectType>IPv4 Address</objectType>
             <parameters>
                 <parameter>
