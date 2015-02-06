@@ -243,11 +243,9 @@
             </sources>
         </moduleSet>
 
-        <moduleSet>
-            <!-- Enable access to all projects in the current multimodule build! -->
+        <!--moduleSet>
             <useAllReactorProjects>true</useAllReactorProjects>
 
-            <!-- Now, select which projects to include in this module-set. -->
             <includes>
                 <include>iTransformers.iTransformer:snmptoolkit</include>
             </includes>
@@ -266,7 +264,7 @@
                     </fileSet>
                 </fileSets>
             </sources>
-        </moduleSet>
+        </moduleSet-->
         <moduleSet>
             <!-- Enable access to all projects in the current multimodule build! -->
             <useAllReactorProjects>true</useAllReactorProjects>
@@ -300,7 +298,7 @@
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
                 <include>iTransformers.iTransformer:utils</include>
-                <include>iTransformers.iTransformer:snmptoolkit</include>
+                <!--include>iTransformers.iTransformer:snmptoolkit</include-->
                 <include>iTransformers.iTransformer:resourceManager</include>
                 <include>iTransformers.iTransformer.iTopologyManager:launcher</include>
                 <include>iTransformers.iTransformer.iTopologyManager:topologyViewer</include>

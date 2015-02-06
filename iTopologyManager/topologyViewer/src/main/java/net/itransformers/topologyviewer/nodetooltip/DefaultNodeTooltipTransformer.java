@@ -19,38 +19,43 @@
 
 package net.itransformers.topologyviewer.nodetooltip;
 
-import net.itransformers.topologyviewer.config.TooltipType;
 import edu.uci.ics.jung.io.GraphMLMetadata;
+import net.itransformers.topologyviewer.config.TooltipType;
 import org.apache.commons.collections15.Transformer;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-public class DefaultNodeTooltipTransformer extends NodeTooltipTransformerBase {
-    public DefaultNodeTooltipTransformer(TooltipType tooltipType, Map<String, GraphMLMetadata<String>> nodeMetadatas) {
-        super(tooltipType, nodeMetadatas);
-    }
 
-    public String transform(String vertex) {
-        try {
-            StringBuilder sb = new StringBuilder();
-            Set<String> valueSet = new HashSet<String>();
-            GraphMLMetadata<String> stringGraphMLMetadata = nodeMetadatas.get(tooltipType.getDataKey());
-            if (stringGraphMLMetadata == null) {
-                throw new RuntimeException("No vertex metadata found for key: "+tooltipType.getDataKey());
+
+    public class DefaultNodeTooltipTransformer extends NodeTooltipTransformerBase{
+        public DefaultNodeTooltipTransformer(TooltipType tooltipType, Map<String, GraphMLMetadata<String>> nodeMetadatas) {
+            super(tooltipType, nodeMetadatas);
+        }
+
+        public String transform(String node) {
+            try {
+                StringBuilder sb = new StringBuilder();
+                sb.append("<html>");
+
+
+                for ( String key : nodeMetadatas.keySet()){
+                    GraphMLMetadata<String> stringGraphMLMetadata = nodeMetadatas.get(key);
+                    Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
+                    final String value = transformer.transform(node);
+                    if (value != null){
+                        sb.append("<p>"+key+": "+value+"</p>");
+                    }
+                }
+
+
+                sb.append("</html>");
+                return sb.toString().replaceAll("\\[\\]","");
+            } catch (RuntimeException rte) {
+                rte.printStackTrace();
+                throw rte;
             }
-            Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
-            final String value = transformer.transform(vertex);
-            if (value != null) {
-                sb.append(value);
-            }
-            sb.append(valueSet);
-            return sb.toString();
-        } catch (RuntimeException rte) {
-            rte.printStackTrace();
-            throw rte;
         }
     }
-}
+
+
 

@@ -230,7 +230,7 @@
         <data key="IPv6Forwarding">YES</data>
     </icon>
 
-    <icon name="/images/cloud.png,/images/ipv4_internet.png">
+    <icon name="/images/cloud.png,/images/subnet.pn">
         <data key="deviceModel">cloud</data>
     </icon>
 
@@ -361,6 +361,34 @@
     <icon name="/images/medium_router.png">
         <data key="deviceType">HUAWEI</data>
     </icon>
+
+    <!--Linux-->
+
+    <icon name="/images/Linux.png,/images/circle_red.png">
+        <data key="deviceType">LINUX</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+
+    <icon name="/images/Linux.png,/images/circle_green.png">
+        <data key="deviceType">LINUX</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/Linux.png,/images/circle_blue.png">
+        <data key="deviceType">LINUX</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/Linux.png,/images/circle_blue.png">
+        <data key="deviceType">LINUX</data>
+        <data key="IPv6Forwarding">YES</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/Linux.png">
+        <data key="deviceType">LINUX</data>
+        <data key="IPv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/Linux.png">
+        <data key="deviceType">LINUX</data>
+    </icon>
     <!--JUNIPER-->
 
     <icon name="/images/very_big_router.png,/images/circle_red.png">
@@ -388,6 +416,35 @@
     <icon name="/images/very_big_router.png">
         <data key="deviceType">JUNIPER</data>
     </icon>
+    <!--NETGEAR-->
+
+    <icon name="/images/netgear.png,/images/circle_red.png">
+        <data key="deviceType">NETGEAR</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/netgear.png,/images/circle_green.png">
+        <data key="deviceType">NETGEAR</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/netgear.png,/images/circle_blue.png">
+        <data key="deviceType">NETGEAR</data>
+        <data key="diff">YES</data>
+        <data key="IPv6Forwarding">YES</data>
+    </icon>
+
+    <icon name="/images/netgear.png,/images/circle_blue.png">
+        <data key="deviceType">NETGEAR</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/netgear.png">
+        <data key="deviceType">NETGEAR</data>
+        <data key="IPv6Forwarding">YES</data>
+    </icon>
+
+    <icon name="/images/netgear.png">
+        <data key="deviceType">NETGEAR</data>
+    </icon>
+
     <!--HP-->
 
 
@@ -511,12 +568,12 @@
         <data key="diff">YES</data>
     </icon>
 
-    <icon name="/images/cloud.png,/images/ipv6_internet.png">
+    <icon name="/images/subnet.png,/images/ipv6_internet.png">
         <data key="deviceModel">passiveHub</data>
         <data key="IPv6Forwarding">YES</data>
     </icon>
 
-    <icon name="/images/cloud.png,/images/ipv4_internet.png">
+    <icon name="/images/subnet.png">
         <data key="deviceModel">passiveHub</data>
     </icon>
     <!--UNKNOWN-->
@@ -531,44 +588,54 @@
         <data key="diff">YES</data>
     </icon>
     <icon name="/images/unknown_switch.png">
+        <data key="deviceType">DEFAULT</data>
+    </icon>
+    <icon name="/images/computer.png">
     </icon>
 
     <filters>
+        <filter name="all-network-IPv4" type="or">
+
+            <include for="edge"/>
+            <include dataKey="IPv4Forwarding" dataValue="YES" for="node"/>
+            <include dataKey="deviceType" dataValue="Subnet" for="node"/>
+            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
+            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="all" type="or">
+
+            <include for="edge"/>
+            <include for="node"/>
+            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
+            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+        </filter>
+
         <!--In this case is presented a physical view with devices that respond to SNMP-->
         <filter name="Data+IPLinkLayer-reachable" type="and">
             <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
             <include dataKey="ipLink" dataValue="YES" for="edge"/>
             <include dataKey="dataLink" dataValue="YES" for="edge"/>
-            <tooltip dataKey="deviceInfo" for="node"/>
             <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-            <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
 
         </filter>
         <filter name="Data+IPLinkLayer-reachable+unreachable">
             <include dataKey="ipLink" dataValue="YES" for="edge"/>
             <include dataKey="dataLink" dataValue="YES" for="edge"/>
             <include for="node"/>
-            <tooltip dataKey="deviceInfo" for="node"/>
             <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-            <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
 
         </filter>
         <filter name="Any-link-reachable">
             <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
             <include  for="edge"/>
-            <tooltip dataKey="deviceInfo" for="node"/>
             <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-            <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
 
         </filter>
 
-        <filter name="all" type="or">
 
-            <include for="edge"/>
-            <include for="node"/>
-            <tooltip dataKey="deviceInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
-            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
-        </filter>
         <!--In this case is presented a physical view with all devices-->
 
 
@@ -598,7 +665,6 @@
         <filter name="CISCO Devices" type="or">
             <include dataKey="deviceType" dataValue="CISCO" for="node"/>
             <include for="edge"/>
-            <tooltip dataKey="deviceInfo" for="node"/>
             <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
 
         </filter>
@@ -645,12 +711,12 @@
             <include dataKey="ipLink" dataValue="YES" for="edge"/>
             <include for="node"/>
             <tooltip dataKey="deviceInfo" for="node"/>
-            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
+            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
         </filter>
     </filters>
 
     <hops selected="3">1,2,3,4,5,6,7,8,9,10</hops>
-    <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
+    <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
     <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
     <!-- this is also possible it could be used as default value-->
     <rightClickItem name="ShortestPath" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPath"/>

@@ -1,5 +1,4 @@
 resourceManager/conf/xml
-resourceManager/conf/xsd
 iTopologyManager/rightClick/conf
 iTopologyManager/topologyViewer/conf/xml
 iTopologyManager/topologyViewer/conf/xslt

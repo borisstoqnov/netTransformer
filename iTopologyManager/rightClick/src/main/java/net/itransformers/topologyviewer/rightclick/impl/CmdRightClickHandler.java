@@ -76,11 +76,17 @@ public class CmdRightClickHandler implements RightClickHandler {
         context.put("parentFrame", parent);
         ResourceManager resourceManager = new ResourceManager(new File(projectPath, rightClickParams.get("resource")));
         ResourceType resource = resourceManager.findResource(graphMLParams);
-        context.put("connection-params", ResourceResolver.getConnectionParams(resource, graphMLParams));
-        FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(projectPath, new File(projectPath, rightClickParams.get("fulfilment-factory")),
-                builder,resource);
-        String[] factoryNames = factory.getFulfilmentFactoryNamesForResource(resource.getName());
-        createGUI(v,context, factoryNames, factory);
+        if (resource!=null){
+            context.put("connection-params", ResourceResolver.getConnectionParams(resource, graphMLParams));
+            FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(projectPath, new File(projectPath, rightClickParams.get("fulfilment-factory")),
+                    builder,resource);
+            String[] factoryNames = factory.getFulfilmentFactoryNamesForResource(resource.getName());
+            createGUI(v,context, factoryNames, factory);
+
+        }  else {
+            JOptionPane.showMessageDialog(parent,"There are no resources suitable for this operations");
+
+        }
     }
 
     private void createGUI(String v, final Map<String, Object> context, String[] factoryNames, final FulfilmentAdapterFactory factory) {

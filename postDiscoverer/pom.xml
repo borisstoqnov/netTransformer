@@ -24,9 +24,9 @@
             <!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>iTransformers.iTransformer</groupId>
+            <groupId>iTransformers.snmp2xml4j</groupId>
             <artifactId>snmptoolkit</artifactId>
-            <version>0.7-SNAPSHOT</version>
+            <version>1.0</version>
             <!--Change for new version-->
         </dependency>
         <dependency>

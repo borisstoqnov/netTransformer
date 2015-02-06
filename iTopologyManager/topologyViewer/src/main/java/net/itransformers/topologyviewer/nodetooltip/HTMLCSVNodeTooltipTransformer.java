@@ -38,13 +38,14 @@ public class HTMLCSVNodeTooltipTransformer extends NodeTooltipTransformerBase{
             sb.append("<html>");
              Set<String> valueSet = new HashSet<String>();
              GraphMLMetadata<String> stringGraphMLMetadata = nodeMetadatas.get(tooltipType.getDataKey());
+            if(stringGraphMLMetadata!=null){
              Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
              final String value = transformer.transform(node);
              if (value != null && !sb.toString().contains(value)){
                  sb.append(value);
              }
             sb.append(valueSet);
-
+            }
             sb.append("</html>");
             return sb.toString().replaceAll("\\[\\]","");
         } catch (RuntimeException rte) {

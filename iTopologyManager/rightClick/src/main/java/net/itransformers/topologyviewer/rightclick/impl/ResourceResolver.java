@@ -41,14 +41,19 @@ public class ResourceResolver {
         return getConnectionParams(resource,graphMLParams);
     }
     public static Map<String, String> getConnectionParams(ResourceType resource, Map<String, String> graphMLParams){
-        ConnectionParamsType connParamsType = resource.getConnectionParams().get(0);
-        Map<String, String> connParams = new HashMap<String, String>();
-        for (ParamType param : connParamsType.getParam()) {
-            connParams.put(param.getName(), param.getValue());
+        if(resource.getConnectionParams()!=null){
+            ConnectionParamsType connParamsType = resource.getConnectionParams().get(0);
+            Map<String, String> connParams = new HashMap<String, String>();
+            for (ParamType param : connParamsType.getParam()) {
+                connParams.put(param.getName(), param.getValue());
+            }
+            // ask Niki how to remove this hardcode
+            connParams.put("ManagementIPAddress",graphMLParams.get("ManagementIPAddress"));
+            connParams.put("protocol", connParamsType.getConnectionType());
+            return connParams;
+
+        }else {
+             return null;
         }
-        // ask Niki how to remove this hardcode
-        connParams.put("ManagementIPAddress",graphMLParams.get("ManagementIPAddress"));
-        connParams.put("protocol", connParamsType.getConnectionType());
-        return connParams;
     }
 }

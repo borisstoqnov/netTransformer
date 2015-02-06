@@ -30,13 +30,13 @@
     <groupId>iTransformers</groupId>
     <artifactId>iTransformer</artifactId>
     <version>0.7-SNAPSHOT</version><!--Change for new version-->
-    <description>Pirin Edition http://www.mayaeye.com/browse.php?menu_id=176</description>
+    <description>Rodopi Edition http://www.mayaeye.com/browse.php?menu_id=211</description>
     <packaging>pom</packaging>
 
     <!--http://mvnrepository.com/artifact/net.sf.jung-->
     <modules>
         <module>resourceManager</module>
-        <module>snmptoolkit</module>
+        <!--module>snmptoolkit</module-->
         <module>utils</module>
         <module>bgpPeeringMap</module>
         <module>iDiscover</module>
@@ -46,7 +46,6 @@
         <module>wsitransformer</module>
         <module>postDiscoverer</module>
         <module>ideas</module>
-        <!--module>distribution</module-->
 
     </modules>
             <build>

@@ -207,6 +207,7 @@ public class ShortestPathProvisioning implements RightClickHandler {
     private static <G> Map<String, String> getParams(String v, Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas) {
         HashMap<String, String> params = new HashMap<String, String>();
         Collection<Map<String, GraphMLMetadata<String>>> test = vertexMetadatas.values();
+
         for (Map<String, GraphMLMetadata<String>> stringGraphMLMetadataMap : test) {
             for (String key : stringGraphMLMetadataMap.keySet()){
 
