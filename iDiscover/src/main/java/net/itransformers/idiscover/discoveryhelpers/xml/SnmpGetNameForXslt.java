@@ -24,6 +24,7 @@ import net.itransformers.idiscover.core.DiscovererFactory;
 import net.itransformers.idiscover.core.Resource;
 import net.itransformers.idiscover.discoverers.DefaultDiscovererFactory;
 import net.itransformers.idiscover.discoverers.SimulSnmpWalker;
+import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
@@ -32,6 +33,8 @@ import java.util.Map;
 public class SnmpGetNameForXslt {
     static Logger logger = Logger.getLogger(SnmpGetNameForXslt.class);
     private static DiscovererFactory discovererFactory;
+    private static InetAddressValidator ipAddressValidator = new InetAddressValidator();
+
 
     public SnmpGetNameForXslt() {
         discovererFactory = new DefaultDiscovererFactory();

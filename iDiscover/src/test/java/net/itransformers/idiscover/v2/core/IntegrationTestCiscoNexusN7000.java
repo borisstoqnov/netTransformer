@@ -67,7 +67,14 @@ public class IntegrationTestCiscoNexusN7000 {
     @Before
     public void setUp() throws Exception {
 
-
+        File IntegrationTestCiscoNexusN7000 = new File(baseDir + File.separator + "iDiscover/src/test/resources/test/IntegrationTestCiscoNexusN7000");
+        if (IntegrationTestCiscoNexusN7000.exists()){
+            try {
+                FileUtils.deleteDirectory(new File(baseDir + File.separator + "iDiscover/src/test/resources/test/IntegrationTestCiscoNexusN7000"));
+            } catch (IOException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        }
 
         XmlDiscoveryHelperFactory discoveryHelperFactory = null;
         try {
@@ -173,6 +180,7 @@ public class IntegrationTestCiscoNexusN7000 {
                 Assert.assertEquals(237,discoveredInterfaceCounter);
 
                 Assert.assertEquals(2893,discoveredNeighboursCounter);
+                if(new File(baseDir+File.separator+"iDiscover/src/test/resources/test/CiscoNexusn7000Test").exists())
                 try {
                     FileUtils.deleteDirectory(new File(baseDir+File.separator+"iDiscover/src/test/resources/test/CiscoNexusn7000Test"));
                 } catch (IOException e) {

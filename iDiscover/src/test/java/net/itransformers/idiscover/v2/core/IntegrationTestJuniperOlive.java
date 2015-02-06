@@ -31,6 +31,8 @@ import net.itransformers.idiscover.core.Resource;
 import net.itransformers.idiscover.discoverers.DefaultDiscovererFactory;
 import net.itransformers.idiscover.discoverers.SnmpWalker;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
+import net.itransformers.idiscover.discoverylisteners.DeviceFileLogger;
+import net.itransformers.idiscover.discoverylisteners.XmlTopologyDeviceLogger;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.networkmodel.ObjectType;
 import net.itransformers.idiscover.networkmodel.ParameterType;
@@ -58,10 +60,32 @@ public class IntegrationTestJuniperOlive {
     private DiscoveryHelper discoveryHelper;
     private Resource resource;
     private RawDeviceData rawdata = new RawDeviceData(null);
+    private final String baseDir = (String) System.getProperties().get("user.dir");
+    private DeviceFileLogger deviceLogger;
+    private XmlTopologyDeviceLogger xmlTopologyDeviceLogger;
+
+
     @Before
     public void setUp() throws Exception {
 
+        File IntegrationTestJuniperOlive = new File(baseDir + File.separator + "iDiscover/src/test/resources/test/IntegrationTestJuniperOlive");
+        if (IntegrationTestJuniperOlive.exists()){
+            try {
+                FileUtils.deleteDirectory(new File(baseDir + File.separator + "iDiscover/src/test/resources/test/IntegrationTestJuniperOlive"));
+            } catch (IOException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        }
+
         XmlDiscoveryHelperFactory discoveryHelperFactory = null;
+        try {
+            Map<String, String> params1 = new HashMap<String, String>();
+            params1.put("fileName", new File(baseDir,"iDiscover/conf/xml/discoveryParameters.xml").getAbsolutePath());
+            discoveryHelperFactory = new XmlDiscoveryHelperFactory(params1);
+        } catch (JAXBException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
         try {
             Map<String, String> params1 = new HashMap<String, String>();
             String baseDir = (String) System.getProperties().get("basedir");
@@ -81,6 +105,23 @@ public class IntegrationTestJuniperOlive {
         walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
         discoveryHelper = discoveryHelperFactory.createDiscoveryHelper("JUNIPER");
 
+
+
+        Map<String, String> params1 = new HashMap<String, String>();
+        params1.put("path","iDiscover/src/test/resources/test");
+        params1.put("device-data-logging-path","device-hierarchical");
+        params1.put("raw-data-logging-path","raw-data");
+        params1.put("device-centric-logging-path","device-centric");
+        params1.put("network-centric-logging-path","undirected");
+        params1.put("xslt","iDiscover/conf/xslt/transformator-undirected2.xslt");
+
+
+
+        deviceLogger = new DeviceFileLogger(params1,new File(baseDir),"IntegrationTestJuniperOlive");
+        xmlTopologyDeviceLogger = new XmlTopologyDeviceLogger(params1,new File(baseDir),"IntegrationTestJuniperOlive");
+
+
+
         FileInputStream is = new FileInputStream("iDiscover/src/test/resources/raw-data-juniper-olive.xml");
         byte[] data = new byte[is.available()];
         is.read(data);
@@ -96,6 +137,9 @@ public class IntegrationTestJuniperOlive {
 
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
+
+
+
                 NodeDiscoveryResult result = new NodeDiscoveryResult();
                 //String devName = walker.getDeviceName(resource);
                 result.setNodeId(resource.getHost());
@@ -142,14 +186,26 @@ public class IntegrationTestJuniperOlive {
 
                 }
 
+
+                deviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
+                xmlTopologyDeviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
+
                 ObjectType ipv6Interface = objects.get(13);
                 List<ObjectType> interfaceObjects = ipv6Interface.getObject();
                 ObjectType ipv6Address = interfaceObjects.get(1);
                 String ipv6Prefix = ipv6Address.getName();
 
+//                try {
+//                     System.out.println("Deleting" + baseDir + File.separator + "iDiscover/src/test/resources/test/IntegrationTestJuniperOlive");
+
+//                  //  FileUtils.deleteDirectory(new File(baseDir + File.separator + "iDiscover/src/test/resources/test/IntegrationTestJuniperOlive"));
+//                } catch (IOException e) {
+//                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//                }
+
                 Assert.assertEquals(19, discoveredInterfaceCounter);
 
-                Assert.assertEquals(3,discoveredNeighboursCounter);
+                Assert.assertEquals(1,discoveredNeighboursCounter);
                 Assert.assertEquals(ipv6Prefix, "FE.80.0.0.0.0.0.0.A.0.27.FF.FE.C1.B7.3B/128");
 
                 return result;

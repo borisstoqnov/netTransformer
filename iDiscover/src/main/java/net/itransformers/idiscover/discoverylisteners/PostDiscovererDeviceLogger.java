@@ -122,8 +122,9 @@ public class PostDiscovererDeviceLogger implements PostDiscoveryListener{
             params.put("address",resource.getIpAddress().getIpAddress());
 
             ResourceType resourceType =  resourceManager.findResource(params);
-            List connectParameters = resourceType.getConnectionParams();
+             if (resourceType!=null){
 
+            List connectParameters = resourceType.getConnectionParams();
             for (int i = 0; i < connectParameters.size(); i++) {
                 ConnectionParamsType connParamsType = (ConnectionParamsType) connectParameters.get(i);
 
@@ -151,7 +152,7 @@ public class PostDiscovererDeviceLogger implements PostDiscoveryListener{
             });
 
             thread.run();
-
+            }
 
     }
 

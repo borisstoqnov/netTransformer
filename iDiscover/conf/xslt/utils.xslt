@@ -69,10 +69,12 @@
 		<xsl:param name="neighIP"/>
 		<xsl:param name="comm"/>
 		<xsl:param name="comm2"/>
+        <xsl:param name="timeout"/>
+        <xsl:param name="retries"/>
 		<xsl:if test="$neighIP!=''">
 		<xsl:variable name="temp">
 			<xsl:call-template name="return-hostname">
-				<xsl:with-param name="hostname-unformated" select="SnmpForXslt:getName($neighIP, $comm)"/>
+				<xsl:with-param name="hostname-unformated" select="SnmpForXslt:getName($neighIP, $comm,$timeout,$retries)"/>
 			</xsl:call-template>
 		</xsl:variable>
 		<xsl:choose>
@@ -82,7 +84,7 @@
 			<xsl:otherwise>
 				<xsl:variable name="temp2">
 					<xsl:call-template name="return-hostname">
-						<xsl:with-param name="hostname-unformated" select="SnmpForXslt:getName($neighIP, $comm2)"/>
+						<xsl:with-param name="hostname-unformated" select="SnmpForXslt:getName($neighIP, $comm2,$timeout,$retries)"/>
 					</xsl:call-template>
 				</xsl:variable>
 				<xsl:choose>
@@ -296,7 +298,10 @@
 		<xsl:param name="neighborIP"/>
 		<xsl:param name="neighborHostname"/>
 		<xsl:param name="comm"/>
-		<!--Get Neighbor hostname and format it-->
+        <xsl:param name="timeout"/>
+        <xsl:param name="retries"/>
+
+        <!--Get Neighbor hostname and format it-->
 		<parameter>
 			<name>Neighbor IP Address</name>
 			<value>
@@ -314,8 +319,9 @@
 			<xsl:choose>
 			<xsl:when test="$neighborHostname!='' and $comm!=''">
 				<xsl:call-template name="determine-device-Type">
-					<xsl:with-param name="sysDescr" select="SnmpForXslt:getByOid($neighborIP,'1.3.6.1.2.1.1.1', $comm)"/>
-				</xsl:call-template>
+					<xsl:with-param name="sysDescr" select="SnmpForXslt:getByOid($neighborIP,'1.3.6.1.2.1.1.1', $comm,$timeout, $retries)"/>
+                    <xsl:with-param name="sysOr"></xsl:with-param>
+                </xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>DEFAULT</xsl:otherwise>
 			</xsl:choose>
@@ -329,14 +335,19 @@
 	</xsl:template>
 	<xsl:template name="determine-device-Type">
 		<xsl:param name="sysDescr"/>
+        <xsl:param name="sysOr"/>
+
 		<xsl:choose>
-			<xsl:when test="contains($sysDescr, 'Cisco')">CISCO</xsl:when>
+            <xsl:when test="contains($sysOr, '1.3.6.1.4.1.4526')">NETGEAR</xsl:when>
+            <xsl:when test="contains($sysDescr, 'Cisco')">CISCO</xsl:when>
+            <xsl:when test="contains($sysDescr, 'Linux')">LINUX</xsl:when>
 			<xsl:when test="contains($sysDescr, 'Huawei')">HUAWEI</xsl:when>
 			<xsl:when test="contains($sysDescr, 'Juniper')">JUNIPER</xsl:when>
 			<xsl:when test="contains($sysDescr, 'Riverstone')">RIVERSTONE</xsl:when>
             <xsl:when test="contains($sysDescr, 'SevOne')">SevOne</xsl:when>
             <xsl:when test="contains($sysDescr, 'Tellabs')">TELLABS</xsl:when>
 			<xsl:when test="contains($sysDescr, 'ProCurve')">HP</xsl:when>
+            <xsl:when test="contains($sysDescr, 'Windows')">WINDOWS</xsl:when>
 			<xsl:otherwise>DEFAULT</xsl:otherwise>
 		</xsl:choose>
 		<!--xsl:when test="$sysDescr!=''">UNKNOWN</xsl:when-->

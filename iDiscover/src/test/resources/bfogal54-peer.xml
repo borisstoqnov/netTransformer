@@ -109,7 +109,7 @@
             </parameter>
         </parameters>
         <object>
-            <name>127.0.0.1/255.0.0.0</name>
+            <name>127.0.0.1/8</name>
             <objectType>IPv4 Address</objectType>
             <parameters>
                 <parameter>
@@ -307,7 +307,11 @@
             </parameter>
         </parameters>
         <object>
+<<<<<<< Updated upstream
             <name>192.168.142.117/23</name>
+=======
+            <name>192.168.142.117/22</name>
+>>>>>>> Stashed changes
             <objectType>IPv4 Address</objectType>
             <parameters>
                 <parameter>
@@ -324,6 +328,7 @@
                 </parameter>
             </parameters>
         </object>
+
         <object>
             <name>192.168.136.1</name>
             <objectType>Discovered Neighbor</objectType>
@@ -1094,6 +1099,44 @@
                 <value></value>
             </parameter>
         </parameters>
+        <object>
+            <name>192.168.136.1</name>
+            <objectType>Discovered Neighbor</objectType>
+            <parameters>
+                <parameter>
+                    <name>Reachable</name>
+                    <value>NO</value>
+                </parameter>
+                <parameter>
+                    <name>SNMP Community</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>ARP</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Port</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Platform</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor IP Address</name>
+                    <value>192.168.136.1</value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor hostname</name>
+                    <value></value>
+                </parameter>
+                <parameter>
+                    <name>Neighbor Device Type</name>
+                    <value>DEFAULT</value>
+                </parameter>
+            </parameters>
+        </object>
     </object>
     <object>
         <name>ip6tnl0</name>
@@ -1142,18 +1185,198 @@
         </parameters>
     </object>
     <object>
-        <name>DeviceLogicalData</name>
-        <objectType>DeviceLogicalData</objectType>
-        <parameters/>
+    <name>DeviceLogicalData</name>
+    <objectType>DeviceLogicalData</objectType>
+    <parameters/>
+    <object>
+        <name>10.107.0.25</name>
+        <objectType>Discovered Neighbor</objectType>
+        <parameters>
+            <parameter>
+                <name>Reachable</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>SNMP Community</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>Discovery Method</name>
+                <value>OSPF</value>
+            </parameter>
+            <parameter>
+                <name>Neighbor IP Address</name>
+                <value>10.107.0.25</value>
+            </parameter>
+            <parameter>
+                <name>Neighbor hostname</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>Neighbor Device Type</name>
+                <value>DEFAULT</value>
+            </parameter>
+        </parameters>
     </object>
     <object>
-        <name>mplsL3VPNs</name>
-        <objectType>mplsL3VPNs</objectType>
-        <parameters/>
+        <name>10.107.0.37</name>
+        <objectType>Discovered Neighbor</objectType>
+        <parameters>
+            <parameter>
+                <name>Reachable</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>SNMP Community</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>Discovery Method</name>
+                <value>OSPF</value>
+            </parameter>
+            <parameter>
+                <name>Neighbor IP Address</name>
+                <value>10.107.0.37</value>
+            </parameter>
+            <parameter>
+                <name>Neighbor hostname</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>Neighbor Device Type</name>
+                <value>DEFAULT</value>
+            </parameter>
+        </parameters>
     </object>
     <object>
-        <name>IPSEC VPNS</name>
-        <objectType>IPSECVPNs</objectType>
-        <parameters/>
+        <name>10.107.128.3</name>
+        <objectType>Discovered Neighbor</objectType>
+        <parameters>
+            <parameter>
+                <name>Reachable</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>SNMP Community</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>Discovery Method</name>
+                <value>OSPF</value>
+            </parameter>
+            <parameter>
+                <name>Neighbor IP Address</name>
+                <value>10.107.128.3</value>
+            </parameter>
+            <parameter>
+                <name>Neighbor hostname</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>Neighbor Device Type</name>
+                <value>DEFAULT</value>
+            </parameter>
+        </parameters>
     </object>
+    <object>
+        <name>10.107.128.5</name>
+        <objectType>Discovered Neighbor</objectType>
+        <parameters>
+            <parameter>
+                <name>Reachable</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>SNMP Community</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>Discovery Method</name>
+                <value>OSPF</value>
+            </parameter>
+            <parameter>
+                <name>Neighbor IP Address</name>
+                <value>10.107.128.5</value>
+            </parameter>
+            <parameter>
+                <name>Neighbor hostname</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>Neighbor Device Type</name>
+                <value>DEFAULT</value>
+            </parameter>
+        </parameters>
+    </object>
+    <object>
+        <name>10.107.128.8</name>
+        <objectType>Discovered Neighbor</objectType>
+        <parameters>
+            <parameter>
+                <name>Reachable</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>SNMP Community</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>Discovery Method</name>
+                <value>OSPF</value>
+            </parameter>
+            <parameter>
+                <name>Neighbor IP Address</name>
+                <value>10.107.128.8</value>
+            </parameter>
+            <parameter>
+                <name>Neighbor hostname</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>Neighbor Device Type</name>
+                <value>DEFAULT</value>
+            </parameter>
+        </parameters>
+    </object>
+    <object>
+        <name>10.107.129.1</name>
+        <objectType>Discovered Neighbor</objectType>
+        <parameters>
+            <parameter>
+                <name>Reachable</name>
+                <value>NO</value>
+            </parameter>
+            <parameter>
+                <name>SNMP Community</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>Discovery Method</name>
+                <value>OSPF</value>
+            </parameter>
+            <parameter>
+                <name>Neighbor IP Address</name>
+                <value>10.107.129.1</value>
+            </parameter>
+            <parameter>
+                <name>Neighbor hostname</name>
+                <value></value>
+            </parameter>
+            <parameter>
+                <name>Neighbor Device Type</name>
+                <value>DEFAULT</value>
+            </parameter>
+        </parameters>
+    </object>
+</object>
+<object>
+<name>mplsL3VPNs</name>
+<objectType>mplsL3VPNs</objectType>
+<parameters/>
+</object>
+<object>
+<name>IPSEC VPNS</name>
+<objectType>IPSECVPNs</objectType>
+<parameters/>
+</object>
 </DiscoveredDevice>

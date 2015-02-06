@@ -249,24 +249,39 @@ public class DiscoveryManager {
             String hostName = deviceNeighbour.getHostName();
             String deviceType = deviceNeighbour.getDeviceType();
             boolean Reachable =  deviceNeighbour.getStatus();
-            //String SnmpCommunity =  deviceNeighbour.getROCommunity();
+            String SnmpCommunity =  deviceNeighbour.getROCommunity();
             //Discover only the neighbors that are reachable
              if (Reachable){
 
 
                 Map<String,String> params = new HashMap<String, String>();
-                if(hostName!=null){
-                    params.put("DeviceName",hostName);
-                }
-                if (deviceType!=null){
-                    params.put("DeviceType",deviceType);
-                }
-                params.put("protocol","SNMP");
-                ResourceType SNMP = this.discoveryResource.ReturnResourceByParam(params);
-                Map<String, String> SNMPconnParams = new HashMap<String, String>();
-                SNMPconnParams = this.discoveryResource.getParamMap(SNMP);
+                 Map<String, String> SNMPconnParams = new HashMap<String, String>();
+                if (SnmpCommunity==null){
 
 
+                    if(hostName!=null){
+                        params.put("deviceName",hostName);
+                    }
+                    if (deviceType!=null){
+                        params.put("deviceType",deviceType);
+                    }
+                    params.put("protocol","SNMP");
+                    ResourceType SNMP = this.discoveryResource.ReturnResourceByParam(params);
+
+                    SNMPconnParams = this.discoveryResource.getParamMap(SNMP);
+                } else {
+
+                    params.put("protocol","SNMP");
+                    ResourceType SNMP = this.discoveryResource.ReturnResourceByParam(params);
+
+                    SNMPconnParams = this.discoveryResource.getParamMap(SNMP);
+
+
+                    SNMPconnParams.put("community-ro",SnmpCommunity);
+
+                }
+//
+//
                 Resource resource = new Resource(hostName,ipAddress,deviceType, Integer.parseInt(SNMPconnParams.get("port")), SNMPconnParams);
 
 

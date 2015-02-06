@@ -29,6 +29,8 @@
     <xsl:param name="status"/>
     <xsl:param name="community-ro"/>
     <xsl:param name="community-rw"/>
+    <xsl:param name="timeout"/>
+    <xsl:param name="retries"/>
     <xsl:include href="utils.xslt"/>
     <xsl:include href="discovery-methods.xslt"/>
     <xsl:variable name="comm" select="$community-ro"/>
@@ -91,7 +93,7 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                     <xsl:variable name="temp">
                         <xsl:call-template name="return-hostname">
                             <xsl:with-param name="hostname-unformated"
-                                            select="SnmpForXslt:getName($deviceIPv4Address, $comm)"/>
+                                            select="SnmpForXslt:getName($deviceIPv4Address, $comm,$timeout,$retries)"/>
                         </xsl:call-template>
                     </xsl:variable>
                     <xsl:value-of select="$temp"/>
@@ -102,9 +104,11 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
         <xsl:variable name="sysDescr">
             <xsl:value-of select="//root/iso/org/dod/internet/mgmt/mib-2/system/sysDescr"/>
         </xsl:variable>
+        <xsl:variable name="sysOr" select="//root/iso/org/dod/internet/mgmt/mib-2/system/sysObjectID"/>
         <xsl:variable name="deviceType">
             <xsl:call-template name="determine-device-Type">
                 <xsl:with-param name="sysDescr" select="$sysDescr"/>
+                <xsl:with-param name="sysOr" select="$sysOr"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="IPv6">
@@ -260,6 +264,7 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                 <xsl:variable name="ifIndex">
                     <xsl:value-of select="ifIndex"/>
                 </xsl:variable>
+                <xsl:variable name="ifInstanceIndex" select="instance/@instanceIndex"/>
                 <xsl:variable name="ifAdminStatus">
                     <xsl:call-template name="adminStatus">
                         <xsl:with-param name="status" select="ifAdminStatus"/>
@@ -270,12 +275,25 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                         <xsl:with-param name="status" select="ifOperStatus"/>
                     </xsl:call-template>
                 </xsl:variable>
+                <xsl:variable name="ifName">
+                    <xsl:value-of select="/root/iso/org/dod/internet/mgmt/mib-2/ifMIB/ifMIBObjects/ifXTable/ifXEntry[instance=$ifIndex]/ifName"/>
+                </xsl:variable>
                 <xsl:variable name="ifDescr">
                     <xsl:value-of select="ifDescr"/>
                 </xsl:variable>
                 <xsl:variable name="ifType">
                     <xsl:value-of select="ifType"/>
                 </xsl:variable>
+                <parameter>
+                    <name>ifSpeed</name>
+                    <value>
+                        <xsl:variable name="speed" select="ifSpeed"/>
+                        <xsl:choose>
+                            <xsl:when test="$speed = 0">0</xsl:when>
+                            <xsl:otherwise><xsl:value-of select="number($speed) div number(10000000)"/></xsl:otherwise>
+                        </xsl:choose>
+                    </value>
+                </parameter>
                 <xsl:variable name="IPv4Forwarding">
                     <xsl:choose>
                         <xsl:when test="count(//root/iso/org/dod/internet/mgmt/mib-2/ip/ipAddrTable/ipAddrEntry[ipAdEntIfIndex=$ifIndex])>0">YES</xsl:when>
@@ -314,6 +332,12 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                     <name>ifDescr</name>
                                     <value>
                                         <xsl:value-of select="$ifDescr"/>
+                                    </value>
+                                </parameter>
+                                <parameter>
+                                    <name>ifName</name>
+                                    <value>
+                                        <xsl:value-of select="$ifName"/>
                                     </value>
                                 </parameter>
                                 <parameter>
@@ -377,13 +401,20 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <ipv4>
                                     <xsl:for-each
                                             select="//root/iso/org/dod/internet/mgmt/mib-2/ip/ipAddrTable/ipAddrEntry[ipAdEntIfIndex=$ifIndex]">
+                                        <xsl:variable name="ipAdEntAddr" select="ipAdEntAddr"/>
+                                        <xsl:variable name="ipAdEntNetMask" select="ipAdEntNetMask"/>
+                                        <xsl:variable name="subnetBitCount"><xsl:call-template name="subnet-to-bitcount"><xsl:with-param
+                                                name="subnet" select="$ipAdEntNetMask"/></xsl:call-template></xsl:variable>
+                                        <xsl:variable name="ipPrefix"><xsl:value-of select="$ipAdEntAddr"/>/<xsl:value-of select="$subnetBitCount"/></xsl:variable>
+
                                         <ipv4addr>
-                                            <ipAdEntAddr>
-                                                <xsl:value-of select="ipAdEntAddr"/>
-                                            </ipAdEntAddr>
-                                            <ipAdEntNetMask>
-                                                <xsl:value-of select="ipAdEntNetMask"/>
-                                            </ipAdEntNetMask>
+                                            <ipAdEntAddr><xsl:value-of select="ipAdEntAddr"/></ipAdEntAddr>
+                                            <ipAdEntNetMask><xsl:value-of select="ipAdEntNetMask"/></ipAdEntNetMask>
+                                            <ipPrefix><xsl:value-of select="$ipAdEntAddr"/>/<xsl:value-of select="$subnetBitCount"/></ipPrefix>
+                                            <subnetBitCount><xsl:call-template name="subnet-to-bitcount"><xsl:with-param
+                                                    name="subnet" select="$ipAdEntNetMask"/></xsl:call-template></subnetBitCount>
+                                            <ipv4Subnet><xsl:value-of select="SnmpForXslt:getSubnetFromPrefix($ipPrefix)"/></ipv4Subnet>
+                                            <ipv4SubnetBroadcast><xsl:value-of select="SnmpForXslt:getBroadCastFromPrefix($ipPrefix)"/></ipv4SubnetBroadcast>
                                         </ipv4addr>
                                     </xsl:for-each>
                                 </ipv4>
@@ -392,12 +423,13 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                             <xsl:for-each select="$ipv4Addresses/ipv4/ipv4addr">
                                 <xsl:variable name="ipAdEntAddr" select="ipAdEntAddr"/>
                                 <xsl:variable name="ipAdEntNetMask" select="ipAdEntNetMask"/>
-
+                                <xsl:variable name="subnetBitCount" select="subnetBitCount"/>
+                                <xsl:variable name="ipPrefix" select="ipPrefix"/>
                                 <xsl:if test="$ipAdEntAddr !=''">
                                     <object>
                                         <name>
                                             <xsl:value-of select="$ipAdEntAddr"/>/<xsl:value-of
-                                                select="$ipAdEntNetMask"/>
+                                                select="$subnetBitCount"/>
                                         </name>
                                         <objectType>IPv4 Address</objectType>
                                         <parameters>
@@ -415,13 +447,11 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                             </parameter>
                                             <parameter>
                                                 <name>ipv4Subnet</name>
-                                                <value>
-
-                                                    <xsl:call-template name="get-network-range">
-                                                        <xsl:with-param name="ip-address" select="$ipAdEntAddr"/>
-                                                        <xsl:with-param name="subnet-mask" select="$ipAdEntNetMask"/>
-                                                    </xsl:call-template>
-                                                </value>
+                                                <value><xsl:value-of select="SnmpForXslt:getSubnetFromPrefix($ipPrefix)"/></value>
+                                            </parameter>
+                                            <parameter>
+                                                <name>ipv4SubnetBroadcast</name>
+                                                <value><xsl:value-of select="SnmpForXslt:getBroadCastFromPrefix($ipPrefix)"/></value>
                                             </parameter>
                                         </parameters>
                                     </object>
@@ -542,7 +572,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                     <xsl:with-param name="ipRouteTable"
                                                     select="//root/iso/org/dod/internet/mgmt/mib-2/ip/ipRouteTable/ipRouteEntry[ipRouteIfIndex=$ifIndex]"/>
                                     <xsl:with-param name="sysName" select="$sysName"/>
-                                    <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr/ipAdEntAddr"/>
+                                    <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr"/>
                                 </xsl:call-template>
                                 <!--Check for CIDR-NEXT-HOP neighbors-->
                                 <xsl:call-template name="cnextHop">
@@ -552,12 +582,12 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                     <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr"/>
                                 </xsl:call-template>
                                 <!--Check for ARP neighbors-->
-                                <xsl:call-template name="ARP">
+                                <!--xsl:call-template name="ARP">
                                     <xsl:with-param name="ipNetToMediaIfNeighbors"
                                                     select="//root/iso/org/dod/internet/mgmt/mib-2/ip/ipNetToMediaTable/ipNetToMediaEntry[ipNetToMediaIfIndex = $ifIndex]"/>
                                     <xsl:with-param name="sysName" select="$sysName"/>
                                     <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr"/>
-                                </xsl:call-template>
+                                </xsl:call-template-->
                                 <!--Check for MAC neighbors-->
                                 <xsl:variable name="brdPort">
                                     <xsl:value-of
@@ -573,12 +603,15 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                 select="//root/iso/org/dod/internet/mgmt/mib-2/ip/ipNetToMediaTable/ipNetToMediaEntry[ipNetToMediaPhysAddress=$neighborMACAddress][1]/ipNetToMediaNetAddress"/>
 
                                     </xsl:variable>
+                                    <xsl:message>TRACE: NEIGHBOR MAC: <xsl:copy-of select="$neighborMACAddress"/> </xsl:message>
+                                    <xsl:message>TRACE: NEIGHBOR IP: <xsl:copy-of select="$neighborIPAddress"/> </xsl:message>
+
                                     <xsl:call-template name="MAC">
                                         <xsl:with-param name="neighborMACAddress" select="dot1dTpFdbAddress"/>
                                         <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr"/>
 
                                         <xsl:with-param name="neighborIPAddress"
-                                                        select="//root/iso/org/dod/internet/mgmt/mib-2/ip/ipNetToMediaTable/ipNetToMediaEntry[ipNetToMediaPhysAddress=$neighborMACAddress][1]/ipNetToMediaNetAddress"/>
+                                                        select="$neighborIPAddress"/>
                                     </xsl:call-template>
                                 </xsl:for-each>
                                 <!--Check for CDP neighbors-->
@@ -613,7 +646,6 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                             </xsl:variable>
                             <xsl:message>TRACE: <xsl:copy-of select="$interface-neighbors"/> </xsl:message>
                             <!--xsl:copy-of select="$interface-neighbors"/-->
-                            <xsl:variable name="neighCount" select="count(distinct-values($interface-neighbors/object/name))"/>
                             <xsl:for-each select="distinct-values($interface-neighbors/object/name)">
                                 <xsl:variable name="name" select="."/>
 
@@ -650,7 +682,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                     </parameter>
                                                     <parameter>
                                                         <name>Discovery Method</name>
-                                                        <xsl:variable name="discoveryMethods"><xsl:for-each select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Discovery Method']/value"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
+                                                        <xsl:variable name="discoveryMethods"><xsl:for-each select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Discovery Method']/value)"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
                                                         <value><xsl:value-of select="functx:substring-before-last-match($discoveryMethods,',')"/></value>
                                                     </parameter>
                                                     <parameter>
@@ -662,7 +694,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                     <parameter>
                                                         <name>Neighbor IP Address</name>
                                                         <value>
-                                                            <xsl:value-of select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable' and value='YES']/../parameter[name='Neighbor IP Address']/value)"/>
+                                                            <xsl:value-of select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable' and value='YES']/../parameter[name='Neighbor IP Address'][1]/value)[1]"/>
                                                         </value>
                                                     </parameter>
                                                     <parameter>
@@ -767,10 +799,19 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                         <xsl:value-of select="ifIndex"/>
                                     </value>
                                 </parameter>
+                                <xsl:variable name="ifName">
+                                    <xsl:value-of select="/root/iso/org/dod/internet/mgmt/mib-2/ifMIB/ifMIBObjects/ifXTable/ifXEntry[instance=$ifIndex]/ifHighSpeed"/>
+                                </xsl:variable>
                                 <parameter>
                                     <name>ifDescr</name>
                                     <value>
-                                        <xsl:value-of select="ifDescr"/>
+                                        <xsl:value-of select="$ifDescr"/>
+                                    </value>
+                                </parameter>
+                                <parameter>
+                                    <name>ifName</name>
+                                    <value>
+                                        <xsl:value-of select="$ifName"/>
                                     </value>
                                 </parameter>
                                 <parameter>
@@ -803,6 +844,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                         <xsl:value-of select="$ifOperStatus"/>
                                     </value>
                                 </parameter>
+
                                 <parameter>
                                     <name>ifPhysAddress</name>
                                     <value>
@@ -853,7 +895,13 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <parameter>
                                     <name>ifDescr</name>
                                     <value>
-                                        <xsl:value-of select="ifDescr"/>
+                                        <xsl:value-of select="$ifDescr"/>
+                                    </value>
+                                </parameter>
+                                <parameter>
+                                    <name>ifName</name>
+                                    <value>
+                                        <xsl:value-of select="$ifName"/>
                                     </value>
                                 </parameter>
                                 <parameter>
@@ -862,6 +910,16 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                         <xsl:call-template name="determine-ifType">
                                             <xsl:with-param name="ifType" select="$ifType"/>
                                         </xsl:call-template>
+                                    </value>
+                                </parameter>
+                                <parameter>
+                                    <name>ifSpeed</name>
+                                    <value>
+                                        <xsl:variable name="speed" select="ifSpeed"/>
+                                        <xsl:choose>
+                                            <xsl:when test="$speed = 0">0</xsl:when>
+                                            <xsl:otherwise><xsl:value-of select="number($speed) div number(10000000)"/></xsl:otherwise>
+                                        </xsl:choose>
                                     </value>
                                 </parameter>
                                 <parameter>
@@ -926,7 +984,13 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <parameter>
                                     <name>ifDescr</name>
                                     <value>
-                                        <xsl:value-of select="ifDescr"/>
+                                        <xsl:value-of select="$ifDescr"/>
+                                    </value>
+                                </parameter>
+                                <parameter>
+                                    <name>ifName</name>
+                                    <value>
+                                        <xsl:value-of select="$ifName"/>
                                     </value>
                                 </parameter>
                                 <parameter>

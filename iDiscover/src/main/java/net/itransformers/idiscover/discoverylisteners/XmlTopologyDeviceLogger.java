@@ -124,8 +124,9 @@ public class XmlTopologyDeviceLogger implements DiscoveryListener{
                     vertexTypes.put("nodeInfo","string");
                     vertexTypes.put("hostname","string");
                     vertexTypes.put("deviceStatus","string");
-                    vertexTypes.put("ManagementIPAddress","string");
+                    vertexTypes.put("DiscoveredIPv4Address","string");
                     vertexTypes.put("geoCoordinates","string");
+                    vertexTypes.put("SubnetPrefix","string");
                     vertexTypes.put("site","string");
                     vertexTypes.put("diff","string");
                     vertexTypes.put("diffs","string");

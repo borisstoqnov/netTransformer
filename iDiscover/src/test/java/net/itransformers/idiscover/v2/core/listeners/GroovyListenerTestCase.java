@@ -38,4 +38,8 @@ public class GroovyListenerTestCase {
         }
         return bos.toString().replace("\r","");// for tests under windows
     }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 }

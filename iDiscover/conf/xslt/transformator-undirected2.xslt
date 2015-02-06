@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ iTransformer is an open source tool able to discover and transform
-  ~  IP network infrastructures.
-  ~  Copyright (C) 2012  http://itransformers.net
-  ~
-  ~  This program is free software: you can redistribute it and/or modify
-  ~  it under the terms of the GNU General Public License as published by
-  ~  the Free Software Foundation, either version 3 of the License, or
-  ~  any later version.
-  ~
-  ~  This program is distributed in the hope that it will be useful,
-  ~  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~  GNU General Public License for more details.
-  ~
-  ~  You should have received a copy of the GNU General Public License
-  ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  -->
+
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:functx="http://www.functx.com">
@@ -28,14 +11,14 @@
             <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string"/>
             <key id="deviceType" for="node" attr.name="deviceType" attr.type="string"/>
             <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string"/>
-            <key id="deviceStatus" for="node" attr.name="deviceStatus" attr.type="string"/>
-            <key id="ManagementIPAddress" for="node" attr.name="ManagementIPAddress" attr.type="string"/>
+            <key id="DiscoveredIPv4Address" for="node" attr.name="DiscoveredIPv4Address" attr.type="string"/>
             <key id="geoCoordinates" for="node" attr.name="geoCoordinates" attr.type="string"/>
             <key id="site" for="node" attr.name="site" attr.type="string"/>
             <key id="diff" for="node" attr.name="diff" attr.type="string"/>
             <key id="diffs" for="node" attr.name="diffs" attr.type="string"/>
             <key id="IPv6Forwarding" for="node" attr.name="IPv6Forwarding" attr.type="string"/>
             <key id="IPv4Forwarding" for="node" attr.name="IPv4Forwarding" attr.type="string"/>
+            <key id="SubnetPrefix" for="node" attr.name="SubnetPrefix" attr.type="string"/>
 
             <key id="name" for="edge" attr.name="name" attr.type="string"/>
             <key id="method" for="edge" attr.name="method" attr.type="string"/>
@@ -72,12 +55,11 @@
                     <xsl:value-of select="//DiscoveredDevice/parameters/parameter[name='Device Type']/value"/>
                 </xsl:variable>
 
-                <xsl:variable name="deviceStatus"
-                              select="//DiscoveredDevice/parameters/parameter[name='Device State']/value"/>
+
                 <xsl:variable name="siteID">
                     <xsl:value-of select="//DiscoveredDevice/parameters/parameter[name='siteID']/value"/>
                 </xsl:variable>
-                <xsl:variable name="ManagementIPAddress">
+                <xsl:variable name="DiscoveredIPv4Address">
                     <xsl:value-of select="//DiscoveredDevice/parameters/parameter[name='Management IP Address']/value"/>
                 </xsl:variable>
                 <xsl:variable name="BGPLocalASInfo">
@@ -107,11 +89,9 @@
                     <data key="deviceType">
                         <xsl:value-of select="$deviceType"/>
                     </data>
-                    <data key="deviceStatus">
-                        <xsl:value-of select="$deviceStatus"/>
-                    </data>
-                    <data key="ManagementIPAddress">
-                        <xsl:value-of select="$ManagementIPAddress"/>
+
+                    <data key="DiscoveredIPv4Address">
+                        <xsl:value-of select="$DiscoveredIPv4Address"/>
                     </data>
                     <data key="bgpLocalAS"><xsl:value-of select="$BGPLocalASInfo"/></data>
                     <data key="site">
@@ -126,7 +106,7 @@
                     <data key="IPv4Forwarding">
                         <xsl:value-of select="$IPv4Forwarding"/>
                     </data>
-                    <data key="nodeInfo" diffignore="YES">
+                    <!--data key="nodeInfo" diffignore="YES">
                         <xsl:text disable-output-escaping="yes">&lt;![CDATA[ &lt;html&gt;</xsl:text>
                         <xsl:text disable-output-escaping="yes">&lt;b&gt;Type: &lt;/b&gt;</xsl:text>
                         <xsl:value-of select="$deviceType"/>
@@ -144,11 +124,13 @@
                         <xsl:text disable-output-escaping="yes">&lt;b&gt;BGPLocalASInfo:&lt;/b&gt; </xsl:text>
                         <xsl:value-of select="$BGPLocalASInfo"/>
                         <xsl:text disable-output-escaping="yes">&lt;/html&gt;]]&gt;</xsl:text>
-                    </data>
+                    </data-->
                 </node>
                 <xsl:variable name="nodeIDs"
                               select="distinct-values($root//object[objectType='Discovery Interface']/object[objectType='Discovered Neighbor']/name)"/>
+
                 <xsl:for-each select="$nodeIDs">
+
                     <xsl:variable name="neighID">
                         <xsl:value-of select="."/>
                     </xsl:variable>
@@ -193,249 +175,99 @@
                                 <xsl:value-of select="."/>
                                 <xsl:text>,</xsl:text>
                             </xsl:for-each>
-                            <xsl:for-each select="$neighborIDs">
-                                <xsl:variable name="neighID" select="."/>
-                                <xsl:for-each
-                                        select="distinct-values($root//object[objectType='DeviceLogicalData']/object[name=$neighID]/parameters/parameter[name='Discovery Method']/value)">
-                                    <xsl:value-of select="."/>
-                                    <xsl:text>,</xsl:text>
-                                </xsl:for-each>
-                            </xsl:for-each>
+                            <!--<xsl:for-each select="$neighborIDs">-->
+                                <!--<xsl:variable name="neighID" select="."/>-->
+                                <!--<xsl:for-each-->
+                                        <!--select="distinct-values($root//object[objectType='DeviceLogicalData']/object[name=$neighID]/parameters/parameter[name='Discovery Method']/value)">-->
+                                    <!--<xsl:value-of select="."/>-->
+                                    <!--<xsl:text>,</xsl:text>-->
+                                <!--</xsl:for-each>-->
+                            <!--</xsl:for-each>-->
                         </xsl:variable>
                         <xsl:variable name="bgpRemoteAs">
-                            <xsl:for-each select="$neighborIDs">
-                                <xsl:variable name="neighID" select="."/>
-                                <xsl:for-each
-                                        select="distinct-values($root//object[objectType='DeviceLogicalData']/object[name=$neighID]/parameters/parameter[name='bgpPeerRemoteAs']/value)">
-                                    <xsl:value-of select="."/>
-                                </xsl:for-each>
-                            </xsl:for-each>
+                            <!--<xsl:for-each select="$neighborIDs">-->
+                                <!--<xsl:variable name="neighID" select="."/>-->
+                                <!--<xsl:for-each-->
+                                        <!--select="distinct-values($root//object[objectType='DeviceLogicalData']/object[name=$neighID]/parameters/parameter[name='bgpPeerRemoteAs']/value)">-->
+                                    <!--<xsl:value-of select="."/>-->
+                                <!--</xsl:for-each>-->
+                            <!--</xsl:for-each>-->
                         </xsl:variable>
                         <xsl:variable name="neighborCount"
                                       select="count(distinct-values($root//object[name=$interface]/object[objectType='Discovered Neighbor']/name))">
                         </xsl:variable>
-                        <xsl:variable name="node">
-                            <xsl:choose>
-                                <xsl:when test="$neighborCount>1">
-                                    <xsl:value-of
-                                            select="object[objectType='IPv4 Address']/parameters/parameter[name='ipv4Subnet']/value"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:value-of select="$nodeID"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:variable>
+                        <!--xsl:variable name="subnetId" select="fn:substring-before(object[objectType='IPv4 Address']/parameters/parameter[name='ipv4Subnet']/value,'/')"/-->
+                        <xsl:variable name="subnetPrefix" select="object[objectType='IPv4 Address']/parameters/parameter[name='ipv4Subnet']/value"/>
+
+                        <xsl:variable name="node" select="$nodeID"/>
+
                         <xsl:choose>
                             <xsl:when test="$neighborCount>1">
                                 <node>
                                     <xsl:attribute name="id">
-                                        <xsl:value-of select="$node"/>
+                                        <xsl:value-of select="$subnetPrefix"/>
                                     </xsl:attribute>
-                                    <data key="deviceStatus">passive</data>
-                                    <data key="nodeInfo">
-                                        <xsl:value-of select="$node"/>
-                                    </data>
+                                    <data key="deviceType">Subnet</data>
                                     <data key="deviceModel">passiveHub</data>
+                                    <data key="SubnetPrefix"><xsl:value-of select="$subnetPrefix"/></data>
 
                                 </node>
-                                <xsl:call-template name="neighbor">
+                                <xsl:call-template name="subnet-to-node">
                                     <xsl:with-param name="localInterface" select="$interface"/>
-                                    <xsl:with-param name="remoteInterface"/>
+                                    <xsl:with-param name="nodeIDDeviceType" select="$deviceType"/>
+
+
                                     <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
                                     <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
-                                    <xsl:with-param name="nodeID" select="$nodeID"/>
-                                    <xsl:with-param name="neighID" select="$node"/>
-                                    <xsl:with-param name="localIP"></xsl:with-param>
-                                    <xsl:with-param name="remoteIP"></xsl:with-param>
+
+                                    <xsl:with-param name="nodeID" select="$node"/>
+
+                                    <xsl:with-param name="subnetPrefix" select="$subnetPrefix"/>
+                                    <xsl:with-param name="localIP"
+                                                    select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
                                     <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
-                                    <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
                                     <xsl:with-param name="methods" select="$methods_all"/>
+                                </xsl:call-template>
+
+                                <xsl:call-template name="subnet_to_neighbour_assembly">
+
+                                    <xsl:with-param name="subnetPrefix" select="$subnetPrefix"/>
+
+                                    <xsl:with-param name="BGPLocalASInfo" select="$BGPLocalASInfo"/>
+                                    <xsl:with-param name="deviceType" select="$deviceType"/>
+                                    <xsl:with-param name="interface" select="$interface"/>
+                                    <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                                    <xsl:with-param name="bgpRemoteAs" select="$bgpRemoteAs"/>
+                                    <xsl:with-param name="IPv6Forwarding"  select="$IPv6Forwarding"/>
+                                    <xsl:with-param name="methods_all" select="$methods_all"/>
+                                    <xsl:with-param name="root" select="$root"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:variable name="cdp_check">
-                                    <xsl:choose>
-                                        <xsl:when test="contains($methods_all,'CDP')">YES</xsl:when>
-                                        <xsl:otherwise>NO</xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:variable>
-                                <xsl:variable name="lldp_check">
-                                    <xsl:choose>
-                                        <xsl:when test="contains($methods_all,'LLDP')">YES</xsl:when>
-                                        <xsl:otherwise>NO</xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:variable>
-                                <xsl:variable name="SLASH30">
-                                    <xsl:choose>
-                                        <xsl:when test="contains($methods_all,'Slash30')">YES</xsl:when>
-                                        <xsl:otherwise>NO</xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:variable>
-                                <xsl:variable name="SLASH31">
-                                    <xsl:choose>
-                                        <xsl:when test="contains($methods_all,'Slash31')">YES</xsl:when>
-                                        <xsl:otherwise>NO</xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:variable>
-                                <xsl:variable name="next_hop">
-                                    <xsl:choose>
-                                        <xsl:when test="contains($methods_all,'r_')">YES</xsl:when>
-                                        <xsl:otherwise>NO</xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:variable>
-                                <xsl:variable name="c_next_hop">
-                                    <xsl:choose>
-                                        <xsl:when test="contains($methods_all,'c_')">YES</xsl:when>
-                                        <xsl:otherwise>NO</xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:variable>
-                                <xsl:variable name="MAC">
-                                    <xsl:choose>
-                                        <xsl:when test="contains($methods_all,'MAC')">YES</xsl:when>
-                                        <xsl:otherwise>NO</xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:variable>
-                                <xsl:variable name="ARP">
-                                    <xsl:choose>
-                                        <xsl:when test="contains($methods_all,'ARP')">YES</xsl:when>
-                                        <xsl:otherwise>NO</xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:variable>
-                                <xsl:variable name="OSPF">
-                                    <xsl:choose>
-                                        <xsl:when test="contains($methods_all,'OSPF')">YES</xsl:when>
-                                        <xsl:otherwise>NO</xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:variable>
-                                <xsl:variable name="BGP">
-                                    <xsl:choose>
-                                        <xsl:when test="contains($methods_all,'BGP')">YES</xsl:when>
-                                        <xsl:otherwise>NO</xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:variable>
-
-
-                                <!--methods>
-                                    <xsl:value-of select="$methods_all"/>
-                                </methods-->
-                                <!--flags>
-                                    <cdp><xsl:value-of select="$cdp_check"/></cdp>
-                                </flags-->
-                                <xsl:choose>
-                                    <xsl:when test="$cdp_check='YES' or $lldp_check = 'YES'">
-                                        <xsl:for-each select="object[objectType='Discovered Neighbor']/name">
-                                            <xsl:call-template name="neighbor">
-                                                <xsl:with-param name="localInterface" select="$interface"/>
-                                                <xsl:with-param name="remoteInterface"
-                                                                select="../parameters/parameter[name='Neighbor Port']/value"/>
-                                                <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
-                                                <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
-
-                                                <xsl:with-param name="nodeID" select="$node"/>
-                                                <xsl:with-param name="neighID" select="."/>
-                                                <xsl:with-param name="localIP"
-                                                                select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
-                                                <xsl:with-param name="remoteIP"
-                                                                select="../parameters/parameter[name='Neighbor IP Address']/value"/>
-                                                <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
-                                                <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
-
-                                                <xsl:with-param name="methods" select="$methods_all"/>
-                                            </xsl:call-template>
-                                        </xsl:for-each>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:choose>
-                                            <xsl:when test="$SLASH30='YES' or $SLASH31='YES'">
-                                                <xsl:for-each select="object[objectType='Discovered Neighbor']/name">
-                                                    <xsl:variable name="neighID">
-                                                        <xsl:value-of select="."/>
-                                                    </xsl:variable>
-                                                    <xsl:call-template name="neighbor">
-                                                        <xsl:with-param name="localInterface" select="$interface"/>
-                                                        <xsl:with-param name="remoteInterface"/>
-                                                        <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
-                                                        <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
-
-                                                        <xsl:with-param name="nodeID" select="$node"/>
-                                                        <xsl:with-param name="neighID" select="$neighID"/>
-                                                        <xsl:with-param name="localIP"
-                                                                        select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
-                                                        <xsl:with-param name="remoteIP"
-                                                                        select="../parameters/parameter[name='Neighbor IP Address']/value"/>
-                                                        <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
-                                                        <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
-
-                                                        <xsl:with-param name="methods" select="$methods_all"/>
-                                                    </xsl:call-template>
-                                                </xsl:for-each>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:choose>
-                                                    <xsl:when test="$next_hop='YES' or $c_next_hop ='YES'">
-                                                        <!--xsl:for-each select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method' and (contains(value, 'NEXT') or contains(value,'c_NEXT') or contains(value,'ARP') or contains(value,'MAC'))]]/name"-->
-                                                        <xsl:for-each
-                                                                select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method' and (contains(value, 'NEXT') or contains(value,'c_') or contains(value,'r_'))]]/name">
-                                                            <xsl:variable name="neighID">
-                                                                <xsl:value-of select="."/>
-                                                            </xsl:variable>
-                                                            <xsl:call-template name="neighbor">
-                                                                <xsl:with-param name="localInterface"
-                                                                                select="$interface"/>
-                                                                <xsl:with-param name="remoteInterface"/>
-                                                                <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
-                                                                <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
-
-                                                                <xsl:with-param name="nodeID" select="$node"/>
-                                                                <xsl:with-param name="neighID" select="$neighID"/>
-                                                                <xsl:with-param name="localIP">
-                                                                    <xsl:value-of
-                                                                            select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
-                                                                </xsl:with-param>
-                                                                <xsl:with-param name="remoteIP"
-                                                                                select="../parameters/parameter[name='Neighbor IP Address']/value"/>
-                                                                <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
-                                                                <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
-
-                                                                <xsl:with-param name="methods" select="$methods_all"/>
-                                                            </xsl:call-template>
-                                                        </xsl:for-each>
-                                                    </xsl:when>
-                                                    <xsl:otherwise>
-                                                        <!--xsl:for-each
-                                                                select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method'  and contains(value,'MAC')]]/name"-->
-                                                            <xsl:for-each select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method']]/name">
-                                                            <xsl:variable name="neighID">
-                                                                <xsl:value-of select="."/>
-                                                            </xsl:variable>
-                                                            <xsl:call-template name="neighbor">
-                                                                <xsl:with-param name="localInterface"
-                                                                                select="$interface"/>
-                                                                <xsl:with-param name="remoteInterface"/>
-                                                                <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
-                                                                <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
-
-                                                                <xsl:with-param name="nodeID" select="$node"/>
-                                                                <xsl:with-param name="neighID" select="$neighID"/>
-                                                                <xsl:with-param name="localIP"
-                                                                                select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
-                                                                <xsl:with-param name="remoteIP"
-                                                                                select="../parameters/parameter[name='Neighbor IP Address']/value"/>
-                                                                <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
-                                                                <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
-
-                                                                <xsl:with-param name="methods" select="$methods_all"/>
-                                                            </xsl:call-template>
-                                                        </xsl:for-each>
-                                                    </xsl:otherwise>
-                                                </xsl:choose>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </xsl:otherwise>
-
-                                </xsl:choose>
+                             <xsl:call-template name="neighbour_assembly">
+                                 <xsl:with-param name="node" select="$node"/>
+                                 <xsl:with-param name="BGPLocalASInfo" select="$BGPLocalASInfo"/>
+                                 <xsl:with-param name="deviceType" select="$deviceType"/>
+                                 <xsl:with-param name="interface" select="$interface"/>
+                                 <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                                 <xsl:with-param name="bgpRemoteAs" select="$bgpRemoteAs"/>
+                                 <xsl:with-param name="IPv6Forwarding"  select="$IPv6Forwarding"/>
+                                 <xsl:with-param name="methods_all" select="$methods_all"/>
+                                 <xsl:with-param name="root" select="$root"/>
+                             </xsl:call-template>
                             </xsl:otherwise>
                         </xsl:choose>
+                    </xsl:for-each>
+                </xsl:variable>
+
+                <xsl:variable name="logicalDataEdges">
+                    <xsl:for-each select="$root//object[objectType='DeviceLogicalData']/object[objectType='Discovered Neighbor']/name">
+                        <xsl:variable name="method" select="parameters/parameter[name='Discovery Method']/value"/>
+                        <xsl:variable name="neighborIP" select="parameters/parameter[name='Neighbor IP Address']/value"/>
+                        <xsl:variable name="neighborHostname" select="parameters/parameter[name='Neighbor hostname']/value"/>
+                        <xsl:variable name="neighborDeviceType" select="parameters/parameter[name='Neighbor Device Type']/value"/>
+
+
                     </xsl:for-each>
 
                 </xsl:variable>
@@ -455,8 +287,11 @@
         <xsl:value-of select="."/>
         <xsl:text> </xsl:text>
     </xsl:template>
+
     <xsl:template name="neighbor">
         <xsl:param name="nodeID"/>
+        <xsl:param name="nodeIDDeviceType"/>
+
         <xsl:param name="neighID"/>
         <xsl:param name="localInterface"/>
         <xsl:param name="remoteInterface"/>
@@ -567,15 +402,7 @@
             <xsl:attribute name="target">
                 <xsl:value-of select="$neighID"/>
             </xsl:attribute>
-            <data>
-                <xsl:attribute name="key">edgeTooltip</xsl:attribute>
-                <xsl:text disable-output-escaping="yes">&lt;p&gt;&lt;b&gt;</xsl:text><xsl:value-of select="$nodeID"/><xsl:text
-                    disable-output-escaping="yes">&lt;/b&gt; </xsl:text>
-                <xsl:value-of select="$localInterface"/><xsl:text
-                    disable-output-escaping="yes">&lt;b&gt;&lt;/b&gt; ( </xsl:text><xsl:value-of select="$localIP"/> )
-                <xsl:text>| </xsl:text><xsl:value-of select="functx:substring-before-last-match($methods,',')"/>
-                <xsl:text disable-output-escaping="yes">&lt;/p&gt; </xsl:text>
-            </data>
+
             <data>
                 <xsl:attribute name="key">InterfaceNameA</xsl:attribute>
                 <xsl:value-of select="$interfaceSort/root//node[contains($first,@name)]"/>
@@ -607,7 +434,7 @@
             <data>
                 <xsl:attribute name="key">ipLink</xsl:attribute>
                 <xsl:choose>
-                    <xsl:when test="$localIP!=''">YES</xsl:when>
+                    <xsl:when test="$localIP!='' or $nodeIDDeviceType='Subnet'">YES</xsl:when>
                     <xsl:otherwise>NO</xsl:otherwise>
                 </xsl:choose>
             </data>
@@ -634,6 +461,605 @@
             </data>
         </edge>
     </xsl:template>
+
+
+    <xsl:template name="neighbour_assembly">
+        <xsl:param name="node"/>
+        <xsl:param name="root"/>
+        <xsl:param name="deviceType"/>
+        <xsl:param name="interface"/>
+        <xsl:param name="IPv4Forwarding"/>
+        <xsl:param name="IPv6Forwarding"/>
+        <xsl:param name="BGPLocalASInfo"/>
+        <xsl:param name="bgpRemoteAs"/>
+        <xsl:param name="methods_all"/>
+
+        <xsl:variable name="cdp_check">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'CDP')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="lldp_check">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'LLDP')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="SLASH30">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'Slash30')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="SLASH31">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'Slash31')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="next_hop">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'r_')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="c_next_hop">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'c_')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="MAC">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'MAC')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="ARP">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'ARP')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="OSPF">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'OSPF')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="BGP">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'BGP')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+
+        <!--methods>
+            <xsl:value-of select="$methods_all"/>
+        </methods-->
+        <!--flags>
+            <cdp><xsl:value-of select="$cdp_check"/></cdp>
+        </flags-->
+        <xsl:choose>
+            <xsl:when test="$cdp_check='YES' or $lldp_check = 'YES'">
+                <xsl:for-each select="object[objectType='Discovered Neighbor']/name">
+                    <xsl:call-template name="neighbor">
+                        <xsl:with-param name="localInterface" select="$interface"/>
+                        <xsl:with-param name="nodeIDDeviceType" select="$deviceType"/>
+
+                        <xsl:with-param name="remoteInterface"
+                                        select="../parameters/parameter[name='Neighbor Port']/value"/>
+                        <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                        <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
+
+                        <xsl:with-param name="nodeID" select="$node"/>
+                        <xsl:with-param name="neighID" select="."/>
+                        <xsl:with-param name="localIP"
+                                        select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
+                        <xsl:with-param name="remoteIP"
+                                        select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                        <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
+                        <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
+
+                        <xsl:with-param name="methods" select="$methods_all"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="$SLASH30='YES' or $SLASH31='YES'">
+                        <xsl:for-each select="object[objectType='Discovered Neighbor']/name">
+                            <xsl:variable name="neighID">
+                                <xsl:value-of select="."/>
+                            </xsl:variable>
+                            <xsl:call-template name="neighbor">
+                                <xsl:with-param name="localInterface" select="$interface"/>
+                                <xsl:with-param name="nodeIDDeviceType" select="$deviceType"/>
+
+                                <xsl:with-param name="remoteInterface"/>
+                                <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                                <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
+
+                                <xsl:with-param name="nodeID" select="$node"/>
+                                <xsl:with-param name="neighID" select="$neighID"/>
+                                <xsl:with-param name="localIP"
+                                                select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
+                                <xsl:with-param name="remoteIP"
+                                                select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                                <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
+                                <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
+
+                                <xsl:with-param name="methods" select="$methods_all"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="$next_hop='YES' or $c_next_hop ='YES'">
+                                <!--xsl:for-each select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method' and (contains(value, 'NEXT') or contains(value,'c_NEXT') or contains(value,'ARP') or contains(value,'MAC'))]]/name"-->
+                                <xsl:for-each
+                                        select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method' and (contains(value, 'NEXT') or contains(value,'c_') or contains(value,'r_'))]]/name">
+                                    <xsl:variable name="neighID">
+                                        <xsl:value-of select="."/>
+                                    </xsl:variable>
+                                    <xsl:call-template name="neighbor">
+                                        <xsl:with-param name="localInterface"
+                                                        select="$interface"/>
+                                        <xsl:with-param name="remoteInterface"/>
+                                        <xsl:with-param name="nodeIDDeviceType" select="$deviceType"/>
+
+                                        <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                                        <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
+
+                                        <xsl:with-param name="nodeID" select="$node"/>
+                                        <xsl:with-param name="neighID" select="$neighID"/>
+                                        <xsl:with-param name="localIP">
+                                            <xsl:value-of
+                                                    select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
+                                        </xsl:with-param>
+                                        <xsl:with-param name="remoteIP"
+                                                        select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                                        <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
+                                        <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
+
+                                        <xsl:with-param name="methods" select="$methods_all"/>
+                                    </xsl:call-template>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <!--xsl:for-each
+                         select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method'  and contains(value,'MAC')]]/name"-->
+                                <xsl:for-each select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method']]/name">
+                                    <xsl:variable name="neighID">
+                                        <xsl:value-of select="."/>
+                                    </xsl:variable>
+                                    <xsl:choose>
+                                        <xsl:when test="$deviceType='Subnet'">
+                                            <xsl:call-template name="neighbor">
+                                                <xsl:with-param name="localInterface"
+                                                                select="$interface"/>
+                                                <xsl:with-param name="nodeIDDeviceType" select="$deviceType"/>
+
+                                                <xsl:with-param name="remoteInterface"/>
+                                                <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                                                <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
+
+                                                <xsl:with-param name="nodeID" select="$node"/>
+                                                <xsl:with-param name="neighID" select="$neighID"/>
+                                                <xsl:with-param name="localIP"
+                                                                select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
+                                                <xsl:with-param name="remoteIP"
+                                                                select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                                                <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
+                                                <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
+
+                                                <xsl:with-param name="methods" select="$methods_all"/>
+                                            </xsl:call-template>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:call-template name="neighbor">
+                                                <xsl:with-param name="localInterface"
+                                                                select="$interface"/>
+                                                <xsl:with-param name="nodeIDDeviceType" select="$deviceType"/>
+
+                                                <xsl:with-param name="remoteInterface"/>
+                                                <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                                                <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
+
+                                                <xsl:with-param name="nodeID" select="$node"/>
+                                                <xsl:with-param name="neighID" select="$neighID"/>
+                                                <xsl:with-param name="localIP"
+                                                                select="../../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value"/>
+                                                <xsl:with-param name="remoteIP"
+                                                                select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                                                <xsl:with-param name="bgpLocalAS" select="$BGPLocalASInfo"/>
+                                                <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
+
+                                                <xsl:with-param name="methods" select="$methods_all"/>
+                                            </xsl:call-template>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+
+                                </xsl:for-each>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="subnet_to_neighbour_assembly">
+
+
+
+
+        <xsl:param name="subnetPrefix"/>
+        <xsl:param name="root"/>
+        <xsl:param name="deviceType"/>
+        <xsl:param name="interface"/>
+        <xsl:param name="IPv4Forwarding"/>
+        <xsl:param name="IPv6Forwarding"/>
+        <xsl:param name="BGPLocalASInfo"/>
+        <xsl:param name="bgpRemoteAs"/>
+        <xsl:param name="methods_all"/>
+
+        <xsl:variable name="cdp_check">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'CDP')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="lldp_check">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'LLDP')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="SLASH30">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'Slash30')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="SLASH31">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'Slash31')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="next_hop">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'r_')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="c_next_hop">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'c_')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="MAC">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'MAC')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="ARP">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'ARP')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="OSPF">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'OSPF')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="BGP">
+            <xsl:choose>
+                <xsl:when test="contains($methods_all,'BGP')">YES</xsl:when>
+                <xsl:otherwise>NO</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+
+        <!--methods>
+            <xsl:value-of select="$methods_all"/>
+        </methods-->
+        <!--flags>
+            <cdp><xsl:value-of select="$cdp_check"/></cdp>
+        </flags-->
+        <xsl:choose>
+            <xsl:when test="$cdp_check='YES' or $lldp_check = 'YES'">
+                <xsl:for-each select="object[objectType='Discovered Neighbor']/name">
+                    <xsl:call-template name="subnet-to-neighbour">
+                        <xsl:with-param name="neighIDDeviceType" select="$deviceType"/>
+
+                        <xsl:with-param name="remoteInterface"
+                                        select="../parameters/parameter[name='Neighbor Port']/value"/>
+                        <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                        <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
+
+                        <xsl:with-param name="subnetPrefix" select="$subnetPrefix"/>
+                        <xsl:with-param name="neighID" select="."/>
+                        <xsl:with-param name="remoteIP"
+                                        select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                        <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
+
+                        <xsl:with-param name="methods" select="$methods_all"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="$SLASH30='YES' or $SLASH31='YES'">
+                        <xsl:for-each select="object[objectType='Discovered Neighbor']/name">
+
+                            <xsl:call-template name="subnet-to-neighbour">
+                                <xsl:with-param name="neighIDDeviceType" select="$deviceType"/>
+
+                                <xsl:with-param name="remoteInterface"
+                                                select="../parameters/parameter[name='Neighbor Port']/value"/>
+                                <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                                <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
+
+                                <xsl:with-param name="subnetPrefix" select="$subnetPrefix"/>
+                                <xsl:with-param name="neighID" select="."/>
+                                <xsl:with-param name="remoteIP"
+                                                select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                                <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
+
+                                <xsl:with-param name="methods" select="$methods_all"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="$next_hop='YES' or $c_next_hop ='YES'">
+                                <!--xsl:for-each select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method' and (contains(value, 'NEXT') or contains(value,'c_NEXT') or contains(value,'ARP') or contains(value,'MAC'))]]/name"-->
+                                <xsl:for-each
+                                        select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method' and (contains(value, 'NEXT') or contains(value,'c_') or contains(value,'r_'))]]/name">
+                                    <xsl:variable name="neighID">
+                                        <xsl:value-of select="."/>
+                                    </xsl:variable>
+                                    <xsl:call-template name="subnet-to-neighbour">
+                                        <xsl:with-param name="neighIDDeviceType" select="$deviceType"/>
+
+                                        <xsl:with-param name="remoteInterface"
+                                                        select="../parameters/parameter[name='Neighbor Port']/value"/>
+                                        <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                                        <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
+
+                                        <xsl:with-param name="subnetPrefix" select="$subnetPrefix"/>
+                                        <xsl:with-param name="neighID" select="$neighID"/>
+                                        <xsl:with-param name="remoteIP"
+                                                        select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                                        <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
+
+                                        <xsl:with-param name="methods" select="$methods_all"/>
+                                    </xsl:call-template>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <!--xsl:for-each
+                         select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method'  and contains(value,'MAC')]]/name"-->
+                                <xsl:for-each select="$root//object[name=$interface]/object[objectType='Discovered Neighbor' and parameters/parameter[name='Discovery Method']]/name">
+                                    <xsl:variable name="neighID">
+                                        <xsl:value-of select="."/>
+                                    </xsl:variable>
+
+
+                                    <xsl:call-template name="subnet-to-neighbour">
+                                        <xsl:with-param name="neighIDDeviceType" select="$deviceType"/>
+
+                                        <xsl:with-param name="remoteInterface"
+                                                        select="../parameters/parameter[name='Neighbor Port']/value"/>
+                                        <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
+                                        <xsl:with-param name="IPv6Forwarding" select="$IPv6Forwarding"/>
+
+                                        <xsl:with-param name="subnetPrefix" select="$subnetPrefix"/>
+                                        <xsl:with-param name="neighID" select="$neighID"/>
+                                        <xsl:with-param name="remoteIP"
+                                                        select="../parameters/parameter[name='Neighbor IP Address']/value"/>
+                                        <xsl:with-param name="bgpRemoteAS" select="$bgpRemoteAs"/>
+
+                                        <xsl:with-param name="methods" select="$methods_all"/>
+                                    </xsl:call-template>
+
+
+                                </xsl:for-each>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+
+        </xsl:choose>
+    </xsl:template>
+
+
+    <xsl:template name="subnet-to-node">
+        <xsl:param name="nodeID"/>
+        <xsl:param name="nodeIDDeviceType"/>
+        <xsl:param name="subnetPrefix"/>
+        <xsl:param name="localInterface"/>
+        <xsl:param name="IPv4Forwarding"/>
+        <xsl:param name="IPv6Forwarding"/>
+        <xsl:param name="localIP"/>
+        <xsl:param name="bgpLocalAS"/>
+        <xsl:param name="methods"/>
+        <xsl:variable name="sort">
+            <root>
+                <test>
+                    <node>
+                        <xsl:value-of select="$nodeID"/>
+                    </node>
+                </test>
+                <test>
+                    <node>
+                        <xsl:value-of select="$subnetPrefix"/>
+                    </node>
+                </test>
+            </root>
+        </xsl:variable>
+        <xsl:variable name="sorted">
+            <xsl:apply-templates select="$sort//root/test"><xsl:sort select="node"/></xsl:apply-templates>
+        </xsl:variable>
+        <!--<xsl:message>DEBUG: <xsl:value-of select="$sorted"/></xsl:message>-->
+        <xsl:variable name="first" select="substring-before($sorted,' ')"/>;
+        <xsl:variable name="second" select="substring-after($sorted,' ')"/>;
+        <!--<xsl:message>DEBUG:first <xsl:value-of select="$first"/></xsl:message>-->
+        <!--<xsl:message>DEBUG:second <xsl:value-of select="$second"/></xsl:message>-->
+
+
+
+
+        <xsl:variable name="edgeId"><xsl:value-of select="$first"/>-<xsl:value-of select="$second"/></xsl:variable>
+        <xsl:message>DEBUG: Edge ID -> <xsl:value-of select="$edgeId"/> </xsl:message>
+        <edge>
+            <xsl:attribute name="id"><xsl:value-of select="$edgeId"/></xsl:attribute>
+            <xsl:attribute name="label"><xsl:value-of select="$edgeId"/></xsl:attribute>
+            <xsl:attribute name="source">
+                <xsl:value-of select="$nodeID"/>
+            </xsl:attribute>
+            <xsl:attribute name="target">
+                <xsl:value-of select="$subnetPrefix"/>
+            </xsl:attribute>
+
+            <data>
+                <xsl:attribute name="key">InterfaceNameA</xsl:attribute>
+                <xsl:value-of select="$localInterface"/>
+            </data>
+
+            <data>
+                <xsl:attribute name="key">IPv4Forwarding</xsl:attribute>
+                <xsl:value-of select="$IPv4Forwarding"/>
+            </data>
+            <data>
+                <xsl:attribute name="key">IPv6Forwarding</xsl:attribute>
+                <xsl:value-of select="$IPv6Forwarding"/>
+            </data>
+            <data>
+                <xsl:attribute name="key">IPv4AddressA</xsl:attribute>
+                <xsl:value-of select="$localIP"/>
+            </data>
+
+            <data>
+                <xsl:attribute name="key">method</xsl:attribute>
+                <xsl:value-of select="distinct-values($methods)"/>
+            </data>
+            <data>
+                <xsl:attribute name="key">ipLink</xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="$localIP!='' or $nodeIDDeviceType='Subnet'">YES</xsl:when>
+                    <xsl:otherwise>NO</xsl:otherwise>
+                </xsl:choose>
+            </data>
+            <data>
+                <xsl:attribute name="key">dataLink</xsl:attribute>YES
+            </data>
+            <data>
+                <xsl:attribute name="key">bgpAutonomousSystemA</xsl:attribute>
+                <xsl:value-of select="$bgpLocalAS"/>
+            </data>
+
+        </edge>
+    </xsl:template>
+
+    <xsl:template name="subnet-to-neighbour">
+        <xsl:param name="neighID"/>
+        <xsl:param name="neighIDDeviceType"/>
+        <xsl:param name="subnetPrefix"/>
+        <xsl:param name="remoteInterface"/>
+        <xsl:param name="IPv4Forwarding"/>
+        <xsl:param name="IPv6Forwarding"/>
+        <xsl:param name="remoteIP"/>
+        <xsl:param name="bgpRemoteAS"/>
+        <xsl:param name="methods"/>
+        <xsl:variable name="sort">
+            <root>
+                <test>
+                    <node>
+                        <xsl:value-of select="$neighID"/>
+                    </node>
+                </test>
+                <test>
+                    <node>
+                        <xsl:value-of select="$subnetPrefix"/>
+                    </node>
+                </test>
+            </root>
+        </xsl:variable>
+        <xsl:variable name="sorted">
+            <xsl:apply-templates select="$sort//root/test"><xsl:sort select="node"/></xsl:apply-templates>
+        </xsl:variable>
+        <!--<xsl:message>DEBUG: <xsl:value-of select="$sorted"/></xsl:message>-->
+        <xsl:variable name="first" select="substring-before($sorted,' ')"/>;
+        <xsl:variable name="second" select="substring-after($sorted,' ')"/>;
+        <!--<xsl:message>DEBUG:first <xsl:value-of select="$first"/></xsl:message>-->
+        <!--<xsl:message>DEBUG:second <xsl:value-of select="$second"/></xsl:message>-->
+
+
+
+
+        <xsl:variable name="edgeId"><xsl:value-of select="$first"/>-<xsl:value-of select="$second"/></xsl:variable>
+        <xsl:message>DEBUG: Edge ID -> <xsl:value-of select="$edgeId"/> </xsl:message>
+        <edge>
+            <xsl:attribute name="id"><xsl:value-of select="$edgeId"/></xsl:attribute>
+            <xsl:attribute name="label"><xsl:value-of select="$edgeId"/></xsl:attribute>
+            <xsl:attribute name="source">
+                <xsl:value-of select="$neighID"/>
+            </xsl:attribute>
+            <xsl:attribute name="target">
+                <xsl:value-of select="$subnetPrefix"/>
+            </xsl:attribute>
+            <data>
+                <xsl:attribute name="key">InterfaceNameA</xsl:attribute>
+                <xsl:value-of select="$remoteInterface"/>
+            </data>
+
+            <data>
+                <xsl:attribute name="key">IPv4Forwarding</xsl:attribute>
+                <xsl:value-of select="$IPv4Forwarding"/>
+            </data>
+            <data>
+                <xsl:attribute name="key">IPv6Forwarding</xsl:attribute>
+                <xsl:value-of select="$IPv6Forwarding"/>
+            </data>
+            <data>
+                <xsl:attribute name="key">IPv4AddressA</xsl:attribute>
+                <xsl:value-of select="$remoteIP"/>
+            </data>
+
+            <data>
+                <xsl:attribute name="key">method</xsl:attribute>
+                <xsl:value-of select="distinct-values($methods)"/>
+            </data>
+            <data>
+                <xsl:attribute name="key">ipLink</xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="$remoteIP!='' or $neighIDDeviceType='Subnet'">YES</xsl:when>
+                    <xsl:otherwise>NO</xsl:otherwise>
+                </xsl:choose>
+            </data>
+            <data>
+                <xsl:attribute name="key">dataLink</xsl:attribute>YES
+            </data>
+            <data>
+                <xsl:attribute name="key">bgpAutonomousSystemA</xsl:attribute>
+                <xsl:value-of select="$bgpRemoteAS"/>
+            </data>
+
+        </edge>
+    </xsl:template>
+
+
     <xsl:function name="functx:is-node-in-sequence" as="xs:boolean" xmlns:functx="http://www.functx.com">
         <xsl:param name="node" as="node()?"/>
         <xsl:param name="seq" as="node()*"/>

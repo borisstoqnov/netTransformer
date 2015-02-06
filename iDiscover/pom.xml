@@ -24,9 +24,9 @@
             <!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>iTransformers.iTransformer</groupId>
+            <groupId>iTransformers.snmp2xml4j</groupId>
             <artifactId>snmptoolkit</artifactId>
-            <version>0.7-SNAPSHOT</version>
+            <version>1.0</version>
             <!--Change for new version-->
         </dependency>
         <dependency>
@@ -72,6 +72,11 @@
             <artifactId>openstack4j</artifactId>
             <version>1.0.2</version>
         </dependency>
+        <dependency>
+            <groupId>dnsjava</groupId>
+            <artifactId>dnsjava</artifactId>
+            <version>2.1.6</version>
+        </dependency>
         <!--<dependency>-->
         <!--<groupId>org.neo4j.app</groupId>-->
         <!--<artifactId>neo4j-server</artifactId>-->
@@ -116,6 +121,11 @@
             <version>3.5</version>
             <type>jar</type>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.4.0</version>
         </dependency>
         <!--<dependency>-->
             <!--<groupId>com.googlecode.sli4j</groupId>-->
