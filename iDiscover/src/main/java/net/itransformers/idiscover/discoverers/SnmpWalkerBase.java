@@ -27,7 +27,6 @@ import net.itransformers.idiscover.core.Resource;
 import net.itransformers.snmptoolkit.*;
 import net.itransformers.snmptoolkit.messagedispacher.MessageDispatcherAbstractFactory;
 import net.itransformers.snmptoolkit.transport.TransportMappingAbstractFactory;
-//import net.percederberg.mibble.MibLoaderException;
 import org.apache.log4j.Logger;
 import org.snmp4j.log.Log4jLogFactory;
 import org.snmp4j.log.LogFactory;
@@ -38,6 +37,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
+
+//import net.percederberg.mibble.MibLoaderException;
 
 public class SnmpWalkerBase implements Discoverer {
     static Logger logger = Logger.getLogger(SnmpWalkerBase.class);
@@ -222,8 +223,23 @@ public class SnmpWalkerBase implements Discoverer {
     }
     private RawDeviceData snmpWalk(Resource resource, String[] params) throws Exception {//}, MibLoaderException {
         Properties parameters = new Properties();
+
+        String address;
         if (resource.getAddress() == null) throw new RuntimeException("Resource Address is null");
-        parameters.put(SnmpConfigurator.O_ADDRESS, Arrays.asList(resource.getAddress()));
+
+        if (resource.getAddress().contains(" ")){
+
+            logger.debug("Address not in the right format"+resource.getAddress());
+            String [] addresses  =   resource.getAddress().split(" ");
+            address = addresses[addresses.length -1];
+
+        } else{
+            address=resource.getAddress();
+        }
+
+
+        parameters.put(SnmpConfigurator.O_ADDRESS, Arrays.asList(address));
+
 //        parameters.put(SnmpConfigurator.O_PORT, Arrays.asList(resource.getAddress()));
         parameters.put(SnmpConfigurator.O_COMMUNITY, Arrays.asList(resource.getAttributes().get("community-ro")));
         //parameters.put(SnmpConfigurator.O_VERSION, Arrays.asList("2c"));// TODO
@@ -242,6 +258,7 @@ public class SnmpWalkerBase implements Discoverer {
         parameters.put(SnmpConfigurator.O_MAX_REPETITIONS, Arrays.asList(maxrepetitions));
 
         Node root = walker.walk(params, parameters);
+
         String xml = Walk.printTreeAsXML(root);
         return new RawDeviceData(xml.getBytes());
     }

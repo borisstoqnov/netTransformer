@@ -450,6 +450,10 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                 <value><xsl:value-of select="SnmpForXslt:getSubnetFromPrefix($ipPrefix)"/></value>
                                             </parameter>
                                             <parameter>
+                                                <name>ipv4SubnetPrefix</name>
+                                                <value><xsl:value-of select="$subnetBitCount"/></value>
+                                            </parameter>
+                                            <parameter>
                                                 <name>ipv4SubnetBroadcast</name>
                                                 <value><xsl:value-of select="SnmpForXslt:getBroadCastFromPrefix($ipPrefix)"/></value>
                                             </parameter>
@@ -645,7 +649,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <!--</xsl:for-each>-->
                             </xsl:variable>
                             <xsl:message>TRACE: <xsl:copy-of select="$interface-neighbors"/> </xsl:message>
-                            <xsl:copy-of select="$interface-neighbors"/>
+                            <!--<xsl:copy-of select="$interface-neighbors"/>-->
                             <xsl:for-each select="distinct-values($interface-neighbors/object/name)">
                                 <xsl:variable name="name" select="."/>
 
@@ -664,9 +668,9 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                     <xsl:value-of select="."/>
                                                 </xsl:for-each>
                                             </xsl:variable>
-                                            <Reachable>
-                                                <xsl:copy-of select="$Reachable"/>
-                                            </Reachable>
+                                            <!--<Reachable>-->
+                                                <!--<xsl:copy-of select="$Reachable"/>-->
+                                            <!--</Reachable>-->
                                             <xsl:choose>
                                                 <xsl:when test="contains($Reachable,'YES')">
                                                     <parameter>
@@ -694,7 +698,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                     <parameter>
                                                         <name>Neighbor IP Address</name>
                                                         <value>
-                                                            <xsl:value-of select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable' and value='YES']/../parameter[name='Neighbor IP Address'][1]/value)[1]"/>
+                                                            <xsl:value-of select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable' and value='YES'][1]/../parameter[name='Neighbor IP Address']/value"/>
                                                         </value>
                                                     </parameter>
                                                     <parameter>

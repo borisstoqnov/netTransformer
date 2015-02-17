@@ -822,9 +822,18 @@
 					</value>
 				</parameter>
 				<parameter>
-					<name>Discovery Method</name>
-					<value>OSPF</value>
+					<name>Local IP address</name>
+					<value><xsl:value-of select="$ospfNbr/ospfIfIpAddress"/></value>
 				</parameter>
+
+                <parameter>
+                    <name>OSPF Area</name>
+                    <value><xsl:value-of select="$ospfNbr/ospfIfAreaId"/></value>
+                </parameter>
+                <parameter>
+                    <name>Discovery Method</name>
+                    <value>OSPF</value>
+                </parameter>
 				<xsl:call-template name="return-neighbor-params">
 					<xsl:with-param name="neighborIP" select="$ospfNbrIpAddr"/>
 					<xsl:with-param name="neighborHostname" select="$neighID"/>
@@ -896,6 +905,10 @@
 						<xsl:value-of select="$bgpPeer/bgpPeerState"/>
 					</value>
 				</parameter>
+                <parameter>
+                    <name>Local IP address</name>
+                    <value><xsl:value-of select="$bgpPeer/bgpPeerLocalAddr"/></value>
+                </parameter>
 				<parameter>
 					<name>bgpPeerAdminStatus</name>
 					<value>
@@ -906,6 +919,7 @@
 					<xsl:with-param name="neighborHostname" select="$neighID"/>
 					<xsl:with-param name="comm" select="$snmp-community"/>
 				</xsl:call-template></parameters>
+
 		</object>
 	</xsl:template>
 </xsl:stylesheet>
