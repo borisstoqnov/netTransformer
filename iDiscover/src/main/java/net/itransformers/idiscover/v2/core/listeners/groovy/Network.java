@@ -11,6 +11,7 @@ public class Network {
     String IPv4Address;
     String prefix;
     String ipv4SubnetMaskPrefix;
+    String localInterface;
 
     public String getIpv4SubnetMaskPrefix() {
         return ipv4SubnetMaskPrefix;
@@ -58,6 +59,14 @@ public class Network {
 
     public void setNeighbours(HashMap<String, DeviceNeighbour> neighbours) {
         this.neighbours = neighbours;
+    }
+
+    public String getLocalInterface() {
+        return localInterface;
+    }
+
+    public void setLocalInterface(String localInterface) {
+        this.localInterface = localInterface;
     }
 
     @Override

@@ -114,6 +114,10 @@ output << """\
 //                </node>
 //                """
 
+String deviceName = input.name;
+
+Device device = new Device(deviceName)
+
 output << "<node id=\"${input.name}\" label=\"${input.name}\">\n"
 
 
@@ -131,11 +135,11 @@ output <<
         }.value.text() +
         "</data>\n"
 
-
-
 output << "</node>\n"
 
 
+
+//Populate Neighbour Ids
 def foundNeighbours = [] as Set
 
 input.object.findAll {
@@ -151,57 +155,37 @@ input.object.findAll {
 
 
 
-Device device = new Device(""); // TODO put name here
-
-private String calcSubnet(ipv4Address) {
-    String[] ipAndSubnetPrefix = ipv4Address.split("/")
-    if (ipAndSubnetPrefix.length == 2) {
-        try {
-            int subnetPrefix = Integer.parseInt(ipAndSubnetPrefix[1])
-            if (subnetPrefix < 30) {
-                return ipv4Address
-            }
-        } catch (NumberFormatException nfe) {
-            println(nfe.toString())
-        }
-    }
-    return null;
-}
-
-for (String node : foundNeighbours) {
-    output << "<node id=\"${node}\" label=\"${node}\">\n"
-
-}
-
 
 
 def foundSubnets = [] as Set
 
 input.object.findAll {
-    it.objectType.text() == "Discovery Interface"   || it.objectType.text() == "DeviceLogicalData"
+    it.objectType.text() == "Discovery Interface"
 }.each { discoveryInterface ->
 
+    //Capture localInterface Name
+    String localInterfaceName = discoveryInterface.name;
+    //Populate subnets
     def subnets = [] as Set
-
     discoveryInterface.object.findAll {
         it.objectType.text() == 'IPv4 Address'
 
     }.each {
         def Network subnet = new Network()
+        String subnetId
 
+        String ipv4Address
         it.parameters.parameter.findAll {
             it.name.text() == 'ipv4Subnet'
         }.each {
-            String subnetPrefix = it.value.text()
-            subnets.add(subnetPrefix)
-            foundSubnets.add(subnetPrefix)
-            subnet.setName(subnetPrefix)
+            subnet = it.value.text()
+
         }
         it.parameters.parameter.findAll {
             it.name.text() == 'IPv4Address'
         }.each {
-            String ipv4Address = it.value.text()
-            subnet.setIPv4Address(ipv4Address)
+             ipv4Address = it.value.text()
+
 
         }
         it.parameters.parameter.findAll {
@@ -209,18 +193,24 @@ input.object.findAll {
         }.each {
             String ipv4SubnetMaskPrefix = it.value.text()
             subnet.setIpv4SubnetMaskPrefix(ipv4SubnetMaskPrefix)
+            subnets.add(subnetPrefix)
+            foundSubnets.add(subnetPrefix)
+            subnet.setName(subnetPrefix)
+            subnet.setPrefix(subnetPrefix)
         }
+        subnet.setLocalInterface(localInterfaceName)
         device.addSubnet(subnet)
-
-
     }
-
+   //Populate Neighbours
     discoveryInterface.object.findAll {
         it.objectType.text() == 'Discovered Neighbor'
+
     }.each {
+
         def neighborName = it.name.text();
         DeviceNeighbour neighbour = new DeviceNeighbour(neighborName);
         def neighborParams = neighbour.getProperties()
+        boolean subnetFlag = false;
 
         it.parameters.parameter.find {
             it.name.text() == 'Discovery Method'
@@ -233,12 +223,14 @@ input.object.findAll {
         }.each {
             def neighbourIp = it.value.text()
             neighborParams.put('Neighbor IP Address', neighbourIp)
-
             for (String subnet : subnets) {
                 CIDRUtils cidrUtils = new CIDRUtils(subnet)
-                cidrUtils.isInRange(neighbourIp);
-                device.getSubnets().get(subnet).addNeighbour(neighbour)
+               if ( cidrUtils.isInRange(neighbourIp)) {
+                    device.getSubnets().get(subnet).addNeighbour(neighbour)
+                    subnetFlag = true;
+               }
             }
+
         }
 
         it.parameters.parameter.find {
@@ -259,81 +251,112 @@ input.object.findAll {
             neighborParams.put('Neighbor Device Type', it.value.text())
 
         }
+        neighborParams.put('Local Interface Name',localInterfaceName)
+        if (!subnetFlag){
+            device.addPhysicalNeighbour(neighbour)
+        }
 
     }
 }
 
 
 
+//Dump found end node neighbours
 
-for (String subnet : foundSubnets) {
-    output << "<node id=\"${subnet}\" label=\"${subnet}\">\n"
+for (String node : foundNeighbours) {
+    output << "<node id=\"${node}\" label=\"${node}\">\n"
+
+}
+
+//Dump node subnets
+for (Map.Entry<String, Network> subnetEntry : device.getSubnets()) {
+   // output << subnetEntry
+
+    output << "<node id=\"" << subnetEntry.getKey() << "\" label=\"" << subnetEntry.getKey() << "\">\n"
     output << "\t<data key=\"deviceType\">Subnet</data>\"\n"
     output << "\t<data key=\"deviceModel\">passiveHub</data>\"\n"
-    output << "\t<data key=\"SubnetPrefix\">${subnet}</data>\"\n"
+    output << "\t<data key=\"SubnetPrefix\">" << subnetEntry.getValue().getPrefix() << "</data>\"\n"
     output << "</node>\n"
 
 }
 
-String nodeID ="nnnn"
+//Dump node direct edges to the subnet
 
+
+
+
+//Dump edges between main node and subnets
 for (Map.Entry<String, Network> subnetEntry : device.getSubnets()) {
 
-    Network subnet  = subnetEntry.getValue()
-    output << "Subnet: " << subnet.getName() << "\n"
-    output << "SubnetPrefix: " << subnet.getIpv4SubnetMaskPrefix() << "\n"
+     Network subnet  = subnetEntry.getValue()
+//    output << "Subnet: " << subnet.getName() << "\n"
+//    output << "SubnetPrefix: " << subnet.getIpv4SubnetMaskPrefix() << "\n"
+      String subnetId = subnet.getPrefix();
+
+    String SubnetEdgeId= subnetEntry.getKey()+"-" +deviceName;
+    output << "<edge id=\"" << SubnetEdgeId << "\" source=\"" << subnetEntry.getKey() << " target=\""<<deviceName << "\" label=\"" << SubnetEdgeId << "\">\n"
+    output << "\t<data key=\"Interface\">" <<  subnetEntry.getValue().getLocalInterface() << "</data>\n"
+
+    def discoveryMethods = [] as Set
+
+
+    for (Map.Entry<String, DeviceNeighbour> neighboursEntry  : subnet.getNeighbours()) {
+        DeviceNeighbour neighbour = neighboursEntry.getValue();
+
+        for (Map.Entry<String, String> neighbourProps  : neighbour.getProperties()) {
+                 if (neighbourProps.getKey()=='Discovery Method'){
+                     discoveryMethods.add(neighbourProps.getValue())
+                     break;
+                 }
+
+            }
+        }
+    if (discoveryMethods.size()!=0)
+        output << "\t<data key=\"Discovery Method\">"
+        for (String method : discoveryMethods) {
+            output << method
+        }
+//    idiscoveryMethods.addAll()
+
+    output << "</data>\n"
+
+    output << "</edge>\n"
 
 
     for (Map.Entry<String, DeviceNeighbour> neighboursEntry  : subnet.getNeighbours()) {
 
-        output << "   neighbour: " << neighboursEntry.getKey() << "\n"
+        String neighbourId = neighboursEntry.getKey();
+        String edgeId = subnetId+"-"+neighbourId
+
+        output << "<edge id=\"" << edgeId<<"\" source=\"" << subnetId<< " target=\""<<neighbourId <<" label=\"" << edgeId <<"\">\n"
 
         DeviceNeighbour neighbour = neighboursEntry.getValue();
 
 
-
         for (Map.Entry<String, String> neighbourProps  : neighbour.getProperties()) {
-
-            output << "       param: " << neighbourProps.getKey() << " = " <<  neighbourProps.getValue() << "\n"
+            if (neighbourProps.getValue()!=null && !neighbourProps.getValue().toString().equals("") && !neighbourProps.getKey().toString().equals('Local Interface Name'))
+                   output << "\t<data key=\"" << neighbourProps.getKey() << "\">" <<  neighbourProps.getValue() << "</data>\n"
 
         }
-////        $neighbourPort=""""";
-////        $neighbourIPaddress = """;
-////        $myPort="";
-////        $myIPaddress = "";
-////        neighbourID;
-//
-//        if (nodeID.compareTo(neighbourID)){
-//            edgeId = neighbourID + "-" + nodeID;
-//        } else {
-//            edgeId = nodeID + "-" + neighbourID;
-//        }
-//        output << "<edge id=\"{$edgeId}\" source=${} />"
-
-
-
-
-
+        output << "</edge>\n"
     }
 
 }
-//parameters.parameter.findAll {
-//    it.name.text() == 'Neighbor IP Address'
-//}.each {
-//
-//    output << "Neighbor IP Address: " << it.value.text() << "\n"
-//
-//
-//}
-
-//if (foundNeighbours.contains())
-//        it.objectType.text() == 'Discovery Interface'
-//    }.object.findAll {
-//        it.objectType.text() == 'IPv4 Address'
-//    }.parameters.parameter.findAll {
-//        it.name.text() == 'IPv4Address'
-//    }.eachWithIndex { ip, i ->
-//        output << "IP_${i+1}: " << ip.value.text() << "\n"
-//    }
 
 output << "</graphml>\n"
+
+
+private String calcSubnet(ipv4Address) {
+    String[] ipAndSubnetPrefix = ipv4Address.split("/")
+    if (ipAndSubnetPrefix.length == 2) {
+        try {
+            int subnetPrefix = Integer.parseInt(ipAndSubnetPrefix[1])
+            if (subnetPrefix < 30) {
+                return ipv4Address
+            }
+        } catch (NumberFormatException nfe) {
+            println(nfe.toString())
+        }
+    }
+    return null;
+}

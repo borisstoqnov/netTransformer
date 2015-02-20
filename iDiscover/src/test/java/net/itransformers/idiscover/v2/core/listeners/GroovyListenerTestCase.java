@@ -16,7 +16,7 @@ public class GroovyListenerTestCase {
     @Test
     public void testTransformRawData() throws IOException {
         GraphmlFileLogGroovyDiscoveryListener listener = new GraphmlFileLogGroovyDiscoveryListener();
-        InputStream in = this.getClass().getResourceAsStream("/bfogal54-peer.xml");
+        InputStream in = this.getClass().getResourceAsStream("/device-data-R1.xml");
 
         StringReader reader = new StringReader(readInputStreamToString(in));
         StringWriter writer = new StringWriter();

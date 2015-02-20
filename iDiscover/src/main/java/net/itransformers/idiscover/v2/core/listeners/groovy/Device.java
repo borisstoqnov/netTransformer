@@ -8,6 +8,8 @@ import java.util.HashMap;
 public class Device {
     String name;
     HashMap<String, Network> subnets = new HashMap<String, Network>();
+    HashMap<String, DeviceNeighbour> physicalNeighbours = new HashMap<String, DeviceNeighbour>();
+
 
     public Device(String name) {
         this.name = name;
@@ -28,4 +30,14 @@ public class Device {
         return subnets;
     }
 
+    public HashMap<String, DeviceNeighbour> getPhysicalNeighbours() {
+        return physicalNeighbours;
+    }
+
+    public void setPhysicalNeighbours(HashMap<String, DeviceNeighbour> physicalNeighbours) {
+        this.physicalNeighbours = physicalNeighbours;
+    }
+    public void addPhysicalNeighbour(DeviceNeighbour neighbour){
+          physicalNeighbours.put(neighbour.getName(), neighbour);
+    }
 }
