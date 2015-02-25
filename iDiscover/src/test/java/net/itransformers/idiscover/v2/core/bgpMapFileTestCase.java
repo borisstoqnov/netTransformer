@@ -44,7 +44,7 @@ public class bgpMapFileTestCase {
     public void setUp(){
         //networkDiscoverer = new NetworkDiscoverer();
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-        "discovery.xml","connectionsDetails.xml");
+        "discovery.xml", "conf/xml/connectionsDetails.xml");
         networkNodeDiscovererImpl = applicationContext.getBean("bgpPeeringMapDiscovery", NetworkNodeDiscovererImpl.class);
         String connectionDetailsFileName = "iDiscover/src/test/resources/bgp-connection-details.txt";
         connectionList = (List) applicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
