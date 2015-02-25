@@ -21,42 +21,72 @@ package net.itransformers.idiscover.v2.core;
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.utils.CmdLineParser;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MalformedURLException {
         Map<String, String> params = CmdLineParser.parseCmdLine(args);
         String connectionDetailsFileName = params.get("-f");
         if (connectionDetailsFileName == null) {
             printUsage("fileName"); return;
         }
         String depthCmdArg = params.get("-d");
-        if (connectionDetailsFileName == null) {
-            printUsage("depth"); return;
-        }
+//        if (depthCmdArg == null) {
+//            printUsage("depth"); return;
+//        }
         String projectPath = params.get("-p");
 
         if (projectPath == null) {
-            printUsage("path"); return;
+            File cwd = new File(".");
+            System.out.println("Project path is not specified. Will use current dir: "+ cwd.getAbsolutePath());
+            projectPath = cwd.getAbsolutePath();
         }
+
         File workingDir = new File(projectPath);
         if (!workingDir.exists()){
             System.out.println("Invalid project path!");
             return;
         }
         System.out.println("Loading beans!!");
-        //File generic = new File(project,"iDiscover/conf/xml/generic.xml");
-        //,project.getAbsolutePath()+project.getAbsolutePath()+File.separator+"iDiscover/conf/xml/snmpNetworkDiscovery.xml", project.getAbsolutePath()+File.separator+"iDiscover/src/main/resources/connectionsDetails.xml"
-        //FileSystemXmlApplicationContext fileApplicationContext= new FileSystemXmlApplicationContext(generic.getAbsolutePath());
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(workingDir+File.separator+"iDiscover/conf/xml/generic.xml",workingDir+File.separator+"/iDiscover/conf/xml/snmpNetworkDiscovery.xml","connectionsDetails.xml");
+
+        File conDetails =new File(projectPath,"iDiscover/conf/txt/connection-details.txt");
+
+        File generic = new File(projectPath,"iDiscover/conf/xml/generic.xml");
+        String genericContextPath = generic.toURI().toURL().toString();
+
+        File snmpDiscovery = new File(projectPath,"iDiscover/conf/xml/snmpNetworkDiscovery.xml");
+        String snmpDiscoveryContextPath = snmpDiscovery.toURI().toURL().toString();
+
+        File connectionsDetails = new File(projectPath,"iDiscover/conf/xml/connectionsDetails.xml");
+        String connectionsDetailsContextPath = connectionsDetails.toURI().toURL().toString();
+
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        BeanDefinition beanDefinition = BeanDefinitionBuilder.
+                rootBeanDefinition(String.class)
+                .addConstructorArgValue(projectPath).getBeanDefinition();
+        beanFactory.registerBeanDefinition("projectPath", beanDefinition);
+        GenericApplicationContext cmdArgCxt = new GenericApplicationContext(beanFactory);
+        // Must call refresh to initialize context
+        cmdArgCxt.refresh();
+
+        String[] paths = new String[]{genericContextPath, snmpDiscoveryContextPath, connectionsDetailsContextPath};
+//        ,project.getAbsolutePath()+project.getAbsolutePath()+File.separator+"iDiscover/conf/xml/snmpNetworkDiscovery.xml", project.getAbsolutePath()+File.separator+"iDiscover/src/main/resources/connectionsDetails.xml"
+        FileSystemXmlApplicationContext applicationContext= new FileSystemXmlApplicationContext(paths, cmdArgCxt);
+//        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(workingDir+File.separator+"iDiscover/conf/xml/generic.xml",workingDir+File.separator+"/iDiscover/conf/xml/snmpNetworkDiscovery.xml","connectionsDetails.xml");
         // NetworkDiscoverer discoverer = fileApplicationContext.getBean("bgpPeeringMapDiscovery", NetworkDiscoverer.class);
         //NetworkDiscoverer discoverer = fileApplicationContext.getBean("floodLightNodeDiscoverer", NetworkDiscoverer.class);
         NetworkDiscoverer discoverer =applicationContext.getBean("snmpDiscovery", NetworkDiscoverer.class);
-        LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
-        int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1":depthCmdArg);
+        LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", conDetails);
+        int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1" : depthCmdArg);
         List<ConnectionDetails> connectionDetails2 = new LinkedList<ConnectionDetails>();
 
         for (String s : connectionList.keySet()) {

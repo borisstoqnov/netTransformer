@@ -19,11 +19,11 @@ public class GraphmlFileLogDiscoveryListener implements NodeDiscoveryListener {
     String labelDirName;
     String graphmDirName;
     String xsltFileName;
-
+    String projectPath;
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
-        File baseDir = new File(labelDirName);
-        File xsltFile = new File(xsltFileName);
+        File baseDir = new File(projectPath,labelDirName);
+        File xsltFile = new File(projectPath,xsltFileName);
         File graphmlDir = new File(baseDir,graphmDirName);
         if (!graphmlDir.exists()) graphmlDir.mkdir();
 
@@ -84,5 +84,13 @@ public class GraphmlFileLogDiscoveryListener implements NodeDiscoveryListener {
 
     public void setGraphmDirName(String graphmDirName) {
         this.graphmDirName = graphmDirName;
+    }
+
+    public String getProjectPath() {
+        return projectPath;
+    }
+
+    public void setProjectPath(String projectPath) {
+        this.projectPath = projectPath;
     }
 }

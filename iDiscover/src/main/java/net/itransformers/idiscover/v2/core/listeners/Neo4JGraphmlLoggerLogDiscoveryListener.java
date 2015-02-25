@@ -44,10 +44,10 @@ public class Neo4JGraphmlLoggerLogDiscoveryListener implements NodeDiscoveryList
     String xsltFileName;
     String graphDbUrl;
     String dataType;
-
+    String projectPath;
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
-        File baseDir = new File(labelDirName);
+        File baseDir = new File(projectPath,labelDirName);
         File xsltFile = new File(xsltFileName);
         File graphmlDir = new File(baseDir,graphmDirName);
 
@@ -142,5 +142,13 @@ public class Neo4JGraphmlLoggerLogDiscoveryListener implements NodeDiscoveryList
 
     public void setDataType(String dataType) {
         this.dataType = dataType;
+    }
+
+    public String getProjectPath() {
+        return projectPath;
+    }
+
+    public void setProjectPath(String projectPath) {
+        this.projectPath = projectPath;
     }
 }

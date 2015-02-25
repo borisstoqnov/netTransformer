@@ -16,6 +16,8 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
 
     String labelDirName;
 
+    String projectPath;
+    String networkDir;
 
 
     public String getGraphmlDataDirName() {
@@ -28,6 +30,22 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
 
     public String getLabelDirName() {
         return labelDirName;
+    }
+
+    public String getNetworkDir() {
+        return networkDir;
+    }
+
+    public void setNetworkDir(String networkDir) {
+        this.networkDir = networkDir;
+    }
+
+    public String getProjectPath() {
+        return projectPath;
+    }
+
+    public void setProjectPath(String projectPath) {
+        this.projectPath = projectPath;
     }
 
     public void setLabelDirName(String labelDirName) {
@@ -143,15 +161,18 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
 
     @Override
     public void networkDiscovered(NetworkDiscoveryResult result) {
-        File outFile = new File(labelDirName+File.separator+graphmlDataDirName+File.separator+"entire-network.graphml");
-        File dir = new File(labelDirName+File.separator+graphmlDataDirName);
+        File outFile = new File(projectPath, labelDirName+File.separator+graphmlDataDirName+File.separator+"entire-network.graphml");
+        File dir = new File(projectPath, labelDirName+File.separator+graphmlDataDirName);
         File[] files = dir.listFiles(new FileFilter() {
             @Override
             public boolean accept(File pathname) {
                 return pathname.getName().endsWith(".graphml");
             }
         });
-
+        if (files == null) {
+            // some log
+            return;
+        }
         try {
             Map<String, String> edgesTypes = new HashMap<String, String>();
             edgesTypes.put("name","string");

@@ -24,14 +24,14 @@ public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListe
     String labelDirName;
     String graphmDirName;
     String rawData2GraphmlGroovyTransformer;
-
+    String projectPath;
     public GraphmlFileLogGroovyDiscoveryListener() {
         rawData2GraphmlGroovyTransformer = "net.itransformers.idiscover.v2.core.listeners.groovy.RawData2GraphmlTransformer";
     }
 
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
-        File baseDir = new File(labelDirName);
+        File baseDir = new File(projectPath,labelDirName);
         File graphmlDir = new File(baseDir,graphmDirName);
         if (!graphmlDir.exists()) graphmlDir.mkdir();
 
@@ -107,5 +107,13 @@ public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListe
 
     public void setRawData2GraphmlGroovyTransformer(String rawData2GraphmlGroovyTransformer) {
         this.rawData2GraphmlGroovyTransformer = rawData2GraphmlGroovyTransformer;
+    }
+
+    public String getProjectPath() {
+        return projectPath;
+    }
+
+    public void setProjectPath(String projectPath) {
+        this.projectPath = projectPath;
     }
 }

@@ -49,10 +49,11 @@ public class DeviceDataFileLogDiscoveryListener implements NodeDiscoveryListener
     static Logger logger = Logger.getLogger(DeviceDataFileLogDiscoveryListener.class);
     String labelDirName;
     String deviceDataDirName;
+    String projectPath;
 
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
-        File baseDir = new File(labelDirName);
+        File baseDir = new File(projectPath, labelDirName);
         if (!baseDir.exists()) baseDir.mkdir();
         File deviceDataDir = new File(baseDir, deviceDataDirName);
         if (!deviceDataDir.exists()) deviceDataDir.mkdir();
@@ -91,5 +92,11 @@ public class DeviceDataFileLogDiscoveryListener implements NodeDiscoveryListener
         this.deviceDataDirName = deviceDataDirName;
     }
 
+    public String getProjectPath() {
+        return projectPath;
+    }
 
+    public void setProjectPath(String projectPath) {
+        this.projectPath = projectPath;
+    }
 }

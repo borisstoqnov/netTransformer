@@ -22,9 +22,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-
-
-
     <bean id="snmpDiscovery" class="net.itransformers.idiscover.v2.core.NetworkNodeDiscovererImpl">
 
         <property name="nodeDiscoverers">
@@ -55,6 +52,7 @@
 
 
     <bean id="SnmpNetworkDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SnmpNetworkDiscoveryListener">
+        <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" value="version1"/>
         <property name="graphmlDataDirName" value="undirected"/>
     </bean>
