@@ -222,6 +222,11 @@
                         <filtered>true</filtered>
                         <fileMode>0755</fileMode>
                     </fileSet>
+                    <fileSet>
+                        <directory>conf/txt</directory>
+                        <outputDirectory>iDiscover/conf/txt</outputDirectory>
+
+                    </fileSet>
                 </fileSets>
             </sources>
         </moduleSet>
