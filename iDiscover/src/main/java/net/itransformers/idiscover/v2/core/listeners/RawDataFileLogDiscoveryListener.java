@@ -30,13 +30,17 @@ import java.io.IOException;
 public class RawDataFileLogDiscoveryListener implements NodeDiscoveryListener {
     static Logger logger = Logger.getLogger(RawDataFileLogDiscoveryListener.class);
     String labelDirName;
+    String rawDataDirName;
+    String projectPath;
+
 
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
-        File baseDir = new File(labelDirName);
-        File rawDataDir = new File(baseDir, "raw-data");
-        if (!rawDataDir.exists()) rawDataDir.mkdir();
 
+        File baseDir = new File(projectPath, labelDirName);
+        if (!baseDir.exists()) baseDir.mkdir();
+        File rawDataDir = new File(baseDir, rawDataDirName);
+        if (!rawDataDir.exists()) rawDataDir.mkdir();
         String deviceName = discoveryResult.getNodeId();
         File file = new File(rawDataDir, deviceName+".xml");
         String rawDataXml = new String((byte[]) discoveryResult.getDiscoveredData("rawData"));
@@ -53,5 +57,21 @@ public class RawDataFileLogDiscoveryListener implements NodeDiscoveryListener {
 
     public void setLabelDirName(String labelDirName) {
         this.labelDirName = labelDirName;
+    }
+
+    public String getRawDataDirName() {
+        return rawDataDirName;
+    }
+
+    public void setRawDataDirName(String rawDataDirName) {
+        this.rawDataDirName = rawDataDirName;
+    }
+
+    public String getProjectPath() {
+        return projectPath;
+    }
+
+    public void setProjectPath(String projectPath) {
+        this.projectPath = projectPath;
     }
 }

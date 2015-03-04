@@ -35,9 +35,9 @@
                 <ref bean="sampleNodeDiscoveryListener"/>
                 <ref bean="rawDataFileLogDiscoveryListener"/>
                 <ref bean="deviceDataFileLogDiscoveryListener"/>
-                <ref bean="GraphmlFileLogDiscoveryListener"/>
-                <ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>
-                <ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>
+                <!--<ref bean="GraphmlFileLogDiscoveryListener"/>-->
+                <!--<ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>-->
+                <!--<ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>-->
                 <ref bean="GraphmlFileLogGroovyDiscoveryListener"/>
             </list>
         </property>
@@ -53,7 +53,7 @@
 
     <bean id="SnmpNetworkDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SnmpNetworkDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
-        <property name="labelDirName" value="version1"/>
+        <property name="labelDirName" ref="labelDirName"/>
         <property name="graphmlDataDirName" value="undirected"/>
     </bean>
 

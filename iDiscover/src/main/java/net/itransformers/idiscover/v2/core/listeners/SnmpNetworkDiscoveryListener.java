@@ -71,18 +71,15 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
         try {
             Map<String, String> edgesTypes = new HashMap<String, String>();
             edgesTypes.put("name","string");
-            edgesTypes.put("method","string");
-            edgesTypes.put("dataLink","string");
-            edgesTypes.put("ipLink","string");
-            edgesTypes.put("IPv4Forwarding","string");
-            edgesTypes.put("IPv6Forwarding","string");
-            edgesTypes.put("InterfaceNameA","string");
-            edgesTypes.put("InterfaceNameB","string");
-            edgesTypes.put("IPv4AddressA","string");
-            edgesTypes.put("IPv4AddressB","string");
-            edgesTypes.put("edgeTooltip","string");
+//            edgesTypes.put("IPv4Forwarding","string");
+//            edgesTypes.put("IPv6Forwarding","string");
+            edgesTypes.put("Interface","string");
+            edgesTypes.put("Discovery Method","string");
+            edgesTypes.put("Neighbor IP Address","string");
+            edgesTypes.put("Neighbor Device Type","string");
             edgesTypes.put("diff","string");
             edgesTypes.put("diffs","string");
+
 
             Map<String, String> vertexTypes = new HashMap<String, String>();
             vertexTypes.put("deviceModel","string");
@@ -98,6 +95,7 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
             vertexTypes.put("diffs","string");
             vertexTypes.put("IPv6Forwarding","string");
             vertexTypes.put("IPv4Forwarding","string");
+            vertexTypes.put("SubnetPrefix","string");
 
             new GrahmlMerge().merge(files,outFile,vertexTypes, edgesTypes, "undirected");
         } catch (IOException e) {
@@ -124,18 +122,15 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
         try {
             Map<String, String> edgesTypes = new HashMap<String, String>();
             edgesTypes.put("name","string");
-            edgesTypes.put("method","string");
-            edgesTypes.put("dataLink","string");
-            edgesTypes.put("ipLink","string");
-            edgesTypes.put("IPv4Forwarding","string");
-            edgesTypes.put("IPv6Forwarding","string");
-            edgesTypes.put("InterfaceNameA","string");
-            edgesTypes.put("InterfaceNameB","string");
-            edgesTypes.put("IPv4AddressA","string");
-            edgesTypes.put("IPv4AddressB","string");
-            edgesTypes.put("edgeTooltip","string");
+//            edgesTypes.put("IPv4Forwarding","string");
+//            edgesTypes.put("IPv6Forwarding","string");
+            edgesTypes.put("Interface","string");
+            edgesTypes.put("Discovery Method","string");
+            edgesTypes.put("Neighbor IP Address","string");
+            edgesTypes.put("Neighbor Device Type","string");
             edgesTypes.put("diff","string");
             edgesTypes.put("diffs","string");
+
 
             Map<String, String> vertexTypes = new HashMap<String, String>();
             vertexTypes.put("deviceModel","string");
@@ -151,6 +146,8 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
             vertexTypes.put("diffs","string");
             vertexTypes.put("IPv6Forwarding","string");
             vertexTypes.put("IPv4Forwarding","string");
+            vertexTypes.put("SubnetPrefix","string");
+
 
             new GrahmlMerge().merge(files,outFile,vertexTypes, edgesTypes, "undirected");
         } catch (IOException e) {
@@ -161,7 +158,7 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
 
     @Override
     public void networkDiscovered(NetworkDiscoveryResult result) {
-        File outFile = new File(projectPath, labelDirName+File.separator+graphmlDataDirName+File.separator+"entire-network.graphml");
+        File outFile = new File(projectPath, labelDirName+File.separator+graphmlDataDirName+File.separator+"network.graphml");
         File dir = new File(projectPath, labelDirName+File.separator+graphmlDataDirName);
         File[] files = dir.listFiles(new FileFilter() {
             @Override
@@ -176,20 +173,15 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
         try {
             Map<String, String> edgesTypes = new HashMap<String, String>();
             edgesTypes.put("name","string");
-            edgesTypes.put("method","string");
-            edgesTypes.put("dataLink","string");
-            edgesTypes.put("ipLink","string");
-            edgesTypes.put("IPv4Forwarding","string");
-            edgesTypes.put("IPv6Forwarding","string");
-            edgesTypes.put("InterfaceNameA","string");
-            edgesTypes.put("InterfaceNameB","string");
-            edgesTypes.put("IPv4AddressA","string");
-            edgesTypes.put("IPv4AddressB","string");
-            edgesTypes.put("edgeTooltip","string");
+//            edgesTypes.put("IPv4Forwarding","string");
+//            edgesTypes.put("IPv6Forwarding","string");
+            edgesTypes.put("Interface","string");
+            edgesTypes.put("Discovery Method","string");
+            edgesTypes.put("Neighbor IP Address","string");
+            edgesTypes.put("Neighbor Device Type","string");
             edgesTypes.put("diff","string");
             edgesTypes.put("diffs","string");
-            edgesTypes.put("bgpAutonomousSystemA","string");
-            edgesTypes.put("bgpAutonomousSystemB","string");
+
 
             Map<String, String> vertexTypes = new HashMap<String, String>();
             vertexTypes.put("deviceModel","string");
@@ -205,7 +197,7 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
             vertexTypes.put("diffs","string");
             vertexTypes.put("IPv6Forwarding","string");
             vertexTypes.put("IPv4Forwarding","string");
-            vertexTypes.put("bgpLocalAS","string");
+            vertexTypes.put("SubnetPrefix","string");
 
             new GrahmlMerge().merge(files,outFile,vertexTypes, edgesTypes, "undirected");
         } catch (IOException e) {

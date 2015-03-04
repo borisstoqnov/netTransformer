@@ -61,7 +61,7 @@ public class DeviceDataFileLogDiscoveryListener implements NodeDiscoveryListener
         String deviceName = discoveryResult.getNodeId();
         File file = new File(deviceDataDir, deviceName+".xml");
         DiscoveredDeviceData discoveredDeviceData = (DiscoveredDeviceData) discoveryResult.getDiscoveredData("deviceData");
-        ByteArrayOutputStream graphMLOutputStream = new ByteArrayOutputStream();
+      //  ByteArrayOutputStream graphMLOutputStream = new ByteArrayOutputStream();
         OutputStream os  = null;
 
         try {

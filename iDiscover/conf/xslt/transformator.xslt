@@ -586,12 +586,12 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                     <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr"/>
                                 </xsl:call-template>
                                 <!--Check for ARP neighbors-->
-                                <!--xsl:call-template name="ARP">
+                                <xsl:call-template name="ARP">
                                     <xsl:with-param name="ipNetToMediaIfNeighbors"
                                                     select="//root/iso/org/dod/internet/mgmt/mib-2/ip/ipNetToMediaTable/ipNetToMediaEntry[ipNetToMediaIfIndex = $ifIndex]"/>
                                     <xsl:with-param name="sysName" select="$sysName"/>
                                     <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr"/>
-                                </xsl:call-template-->
+                                </xsl:call-template>
                                 <!--Check for MAC neighbors-->
                                 <xsl:variable name="brdPort">
                                     <xsl:value-of

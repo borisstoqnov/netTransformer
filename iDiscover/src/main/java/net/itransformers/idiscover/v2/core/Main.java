@@ -33,12 +33,13 @@ import java.net.MalformedURLException;
 import java.util.*;
 
 public class Main {
+    public static final String VERSION_LABEL = "version";
     public static void main(String[] args) throws MalformedURLException {
         Map<String, String> params = CmdLineParser.parseCmdLine(args);
-        String connectionDetailsFileName = params.get("-f");
-        if (connectionDetailsFileName == null) {
-            printUsage("fileName"); return;
-        }
+//        String connectionDetailsFileName = params.get("-f");
+//        if (connectionDetailsFileName == null) {
+//            printUsage("fileName"); return;
+//        }
         String depthCmdArg = params.get("-d");
 //        if (depthCmdArg == null) {
 //            printUsage("depth"); return;
@@ -73,7 +74,17 @@ public class Main {
         BeanDefinition beanDefinition = BeanDefinitionBuilder.
                 rootBeanDefinition(String.class)
                 .addConstructorArgValue(projectPath).getBeanDefinition();
+
+        String labelDirName = autolabel(projectPath);
+
+        BeanDefinition beanDefinition2 = BeanDefinitionBuilder.
+                rootBeanDefinition(String.class)
+                .addConstructorArgValue(labelDirName).getBeanDefinition();
+
         beanFactory.registerBeanDefinition("projectPath", beanDefinition);
+
+        beanFactory.registerBeanDefinition("labelDirName", beanDefinition2);
+
         GenericApplicationContext cmdArgCxt = new GenericApplicationContext(beanFactory);
         // Must call refresh to initialize context
         cmdArgCxt.refresh();
@@ -154,8 +165,29 @@ public class Main {
         System.out.println(result);
     }
     private static void printUsage(String param){
-        System.out.println("Usage:   iDiscoverv2.sh -f bgp-connection-details.txt -p ~/Projects/MyDiscoveryProject -d 10");
+        System.out.println("Usage:   iDiscoverv2.sh -p ~/Projects/MyDiscoveryProject -d 10");
         System.out.println("Missing parameter: "+param);
+    }
+
+    public static String autolabel(String projectPath){
+        File networkPath = new File(projectPath,"network");
+
+        if (!networkPath.exists()) {
+             networkPath.mkdir();
+
+            File labelDir = new File(networkPath,"version1");
+            labelDir.mkdir();
+            return "network"+File.separator+"version1";
+        }
+        String[] fileList = new File(projectPath,"network").list();
+        int max = 0;
+        for (String fName : fileList) {
+            if (fName.matches(VERSION_LABEL+"\\d+")){
+                int curr = Integer.parseInt(fName.substring(VERSION_LABEL.length()));
+                if (max < curr ) max = curr;
+            }
+        }
+        return "network"+File.separator+VERSION_LABEL +(max+1);
     }
 
 }

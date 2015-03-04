@@ -6,7 +6,6 @@ import net.itransformers.utils.CIDRUtils
  * Created by vasko on 1/29/2015.
  */
 
-output << "<graphml>\n"
 output << """\
         <graphml>
             <key id="hostname" for="node" attr.name="hostname" attr.type="string"/>
@@ -118,24 +117,24 @@ String deviceName = input.name;
 
 Device device = new Device(deviceName)
 
-output << "<node id=\"${input.name}\" label=\"${input.name}\">\n"
+output << "\t\t<node id=\"${input.name}\" label=\"${input.name}\">\n"
 
 
-output << "\t<data key=\"hostname\">${input.name}</data>\n"
+output << "\t\t\t<data key=\"hostname\">${input.name}</data>\n"
 output <<
-        "\t<data key=\"deviceModel\">" +
+        "\t\t\t<data key=\"deviceModel\">" +
         input.parameters.parameter.findAll {
             it.name.text() == "Device Model"
         }.value.text() +
         "</data>\n"
 output <<
-        "\t<data key=\"deviceType\">" +
+        "\t\t\t<data key=\"deviceType\">" +
         input.parameters.parameter.findAll {
             it.name.text() == "Device Type"
         }.value.text() +
         "</data>\n"
 
-output << "</node>\n"
+output << "\t\t</node>\n"
 
 
 
@@ -265,7 +264,7 @@ input.object.findAll {
 //Dump found end node neighbours
 
 for (String node : foundNeighbours) {
-    output << "<node id=\"${node}\" label=\"${node}\">\n"
+    output << "\t\t<node id=\"${node}\" label=\"${node}\"/>\n"
 
 }
 
@@ -273,11 +272,11 @@ for (String node : foundNeighbours) {
 for (Map.Entry<String, Network> subnetEntry : device.getSubnets()) {
    // output << subnetEntry
 
-    output << "<node id=\"" << subnetEntry.getKey() << "\" label=\"" << subnetEntry.getKey() << "\">\n"
-    output << "\t<data key=\"deviceType\">Subnet</data>\"\n"
-    output << "\t<data key=\"deviceModel\">passiveHub</data>\"\n"
-    output << "\t<data key=\"SubnetPrefix\">" << subnetEntry.getValue().getPrefix() << "</data>\"\n"
-    output << "</node>\n"
+    output << "\t\t<node id=\"" << subnetEntry.getKey() << "\" label=\"" << subnetEntry.getKey() << "\">\n"
+    output << "\t\t\t<data key=\"deviceType\">Subnet</data>\n"
+    output << "\t\t\t<data key=\"deviceModel\">passiveHub</data>\n"
+    output << "\t\t\t<data key=\"SubnetPrefix\">" << subnetEntry.getValue().getPrefix() << "</data>\n"
+    output << "\t\t</node>\n"
 
 }
 
@@ -295,8 +294,8 @@ for (Map.Entry<String, Network> subnetEntry : device.getSubnets()) {
       String subnetId = subnet.getPrefix();
 
     String SubnetEdgeId= subnetEntry.getKey()+"-" +deviceName;
-    output << "<edge id=\"" << SubnetEdgeId << "\" source=\"" << subnetEntry.getKey() << " target=\""<<deviceName << "\" label=\"" << SubnetEdgeId << "\">\n"
-    output << "\t<data key=\"Interface\">" <<  subnetEntry.getValue().getLocalInterface() << "</data>\n"
+    output << "\t\t<edge id=\"" << SubnetEdgeId << "\" source=\"" << subnetEntry.getKey() <<"\" target=\""<<deviceName << "\" label=\"" << SubnetEdgeId << "\">\n"
+    output << "\t\t\t<data key=\"Interface\">" <<  subnetEntry.getValue().getLocalInterface() << "</data>\n"
 
     def discoveryMethods = [] as Set
 
@@ -312,16 +311,18 @@ for (Map.Entry<String, Network> subnetEntry : device.getSubnets()) {
 
             }
         }
-    if (discoveryMethods.size()!=0)
-        output << "\t<data key=\"Discovery Method\">"
+    if (discoveryMethods.size()!=0){
+        output << "\t\t\t<data key=\"Discovery Method\">"
         for (String method : discoveryMethods) {
             output << method
         }
+        output << "</data>\n"
+
+    }
 //    idiscoveryMethods.addAll()
 
-    output << "</data>\n"
 
-    output << "</edge>\n"
+    output << "\t\t\t</edge>\n"
 
 
     for (Map.Entry<String, DeviceNeighbour> neighboursEntry  : subnet.getNeighbours()) {
@@ -329,20 +330,21 @@ for (Map.Entry<String, Network> subnetEntry : device.getSubnets()) {
         String neighbourId = neighboursEntry.getKey();
         String edgeId = subnetId+"-"+neighbourId
 
-        output << "<edge id=\"" << edgeId<<"\" source=\"" << subnetId<< " target=\""<<neighbourId <<" label=\"" << edgeId <<"\">\n"
+        output << "\t\t<edge id=\"" << edgeId<<"\" source=\"" << subnetId<< "\" target=\""<<neighbourId <<"\" label=\"" << edgeId <<"\">\n"
 
         DeviceNeighbour neighbour = neighboursEntry.getValue();
 
 
         for (Map.Entry<String, String> neighbourProps  : neighbour.getProperties()) {
             if (neighbourProps.getValue()!=null && !neighbourProps.getValue().toString().equals("") && !neighbourProps.getKey().toString().equals('Local Interface Name'))
-                   output << "\t<data key=\"" << neighbourProps.getKey() << "\">" <<  neighbourProps.getValue() << "</data>\n"
+                   output << "\t\t\t<data key=\"" << neighbourProps.getKey() << "\">" <<  neighbourProps.getValue() << "</data>\n"
 
         }
-        output << "</edge>\n"
+        output << "\t\t</edge>\n"
     }
 
 }
+output << "\t</graph>\n"
 
 output << "</graphml>\n"
 

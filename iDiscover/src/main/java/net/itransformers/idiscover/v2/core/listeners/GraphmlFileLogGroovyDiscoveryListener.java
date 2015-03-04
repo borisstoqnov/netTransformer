@@ -3,7 +3,7 @@
 package net.itransformers.idiscover.v2.core.listeners;
 
 import groovy.lang.Binding;
-import groovy.lang.Script;
+import groovy.util.GroovyScriptEngine;
 import groovy.util.XmlSlurper;
 import groovy.util.slurpersupport.GPathResult;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
@@ -17,7 +17,6 @@ import org.xml.sax.InputSource;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
-import java.lang.reflect.Constructor;
 
 public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListener {
     static Logger logger = Logger.getLogger(GraphmlFileLogGroovyDiscoveryListener.class);
@@ -55,12 +54,19 @@ public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListe
             final String fileName = "node-" + deviceName + ".graphml";
 //            String fullFileName = path + File.separator + fileName;
             final File nodeFile = new File(graphmlDir,fileName);
-//            System.out.println(new String(graphMLOutputStream.toByteArray()));
+            System.out.println(new String(graphmlWriter.toString()));
             String graphml = new XmlFormatter().format(graphmlWriter.toString());
             FileUtils.writeStringToFile(nodeFile, graphml);
-            FileWriter writer = new FileWriter(new File(labelDirName,"undirected"+".graphmls"),true);
-            writer.append(String.valueOf(fileName)).append("\n");
-            writer.close();
+            File undirectedGraphmls = new File(graphmlDir.getParent(),"undirected"+".graphmls");
+            if (!undirectedGraphmls.exists()){
+                undirectedGraphmls.createNewFile();
+            }
+                FileWriter writer = new FileWriter(undirectedGraphmls,true);
+
+                writer.append(String.valueOf(fileName)).append("\n");
+                writer.close();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,10 +82,19 @@ public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListe
             binding.setProperty("input", response);
             binding.setProperty("output", out);
 
-            Class clazz = Class.forName(rawData2GraphmlGroovyTransformer);
-            Constructor constructor = clazz.getDeclaredConstructor(Binding.class);
-            Script script = (Script) constructor.newInstance(binding);
-            script.run();
+           // binding = new Binding();
+           // Expect4Groovy.createBindings(connection, binding, true);
+           // binding.setProperty("params", params);
+
+           // String gseRoots = new File().toURI().toURL().toString();
+            String[] roots =  new String[]{projectPath+"/iDiscover/conf/groovy/"+File.separator};
+            GroovyScriptEngine gse = new GroovyScriptEngine(roots);
+            gse.run("RawData2GraphmlTransformer.groovy", binding);
+
+//            Class clazz = Class.forName(new File(projectPath,rawData2GraphmlGroovyTransformer).toURI().toURL().toString());
+//            Constructor constructor = clazz.getDeclaredConstructor(Binding.class);
+//            Script script = (Script) constructor.newInstance(binding);
+//            script.run();
         } catch (Exception e) {
             e.printStackTrace();
         }
