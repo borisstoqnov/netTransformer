@@ -3,7 +3,8 @@
 #name=mrt3,type=javaMRT: nodeId=routeviews3,vv=22,pathToFile=/Users/niau/Projects/java-mrt/ribs/arhieve2/rib.20141027.1800.bz2,version=201411027
 #name=noIdea,type=SNMP:  ipAddress=192.168.137.102,deviceType=DEFAULT,version=1,community-ro=test,community-rw=test-rw,timeout=500,retries=1,port=161,max-repetitions=65535
 
-name=test,type=SNMP:nodeId=stack1,ipAddress=192.168.54.3,version=2c,community-ro=test,community-rw=test,timeout=1500,retries=1,port=161,max-repetitions=65535
+name=stack1,type=SNMP:nodeId=stack1,ipAddress=192.168.54.3,version=2c,community-ro=public,community-rw=sevone,timeout=1500,retries=1,port=161,max-repetitions=65535
+name=core1,type=SNMP:nodeId=core1,ipAddress=192.168.10.1,version=2c,community-ro=$secure$string,community-rw=public,timeout=1500,retries=1,port=161,max-repetitions=65535
 
 #name=MyCtl2Router,type=SNMP:nodeId=ctl2,ipAddress=88.203.203.226,version=1,community-ro=$ecre7$tring,community-rw= $ecre7$tring,timeout=500,retries=1,port=161,max-repetitions=65535
 #type=SNMP,ipAddress=10.17.1.13,version=2c,deviceType=CISCO,community-ro=netTransformer-r,community-rw=netTransformer-rw,timeout=500,retries=1,port=161,max-repetitions=65535

@@ -22,7 +22,7 @@ output << """\
             <key id="SubnetPrefix" for="node" attr.name="SubnetPrefix" attr.type="string"/>
 
             <key id="name" for="edge" attr.name="name" attr.type="string"/>
-            <key id="method" for="edge" attr.name="method" attr.type="string"/>
+            <key id="Discovery Method" for="edge" attr.name="Discovery Method" attr.type="string"/>
             <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string"/>
             <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string"/>
             <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string"/>
@@ -33,7 +33,7 @@ output << """\
             <key id="bgpAutonomousSystemA" for="edge" attr.name="bgpAutonomousSystemA" attr.type="string"/>
             <key id="bgpAutonomousSystemB" for="edge" attr.name="bgpAutonomousSystemB" attr.type="string"/>
 
-            <key id="InterfaceNameA" for="edge" attr.name="InterfaceNameA" attr.type="string"/>
+            <key id="Interface" for="edge" attr.name="Interface" attr.type="string"/>
             <key id="InterfaceNameB" for="edge" attr.name="InterfaceNameB" attr.type="string"/>
             <key id="IPv4AddressA" for="edge" attr.name="IPv4AddressA" attr.type="string"/>
             <key id="IPv4AddressB" for="edge" attr.name="IPv4AddressB" attr.type="string"/>
@@ -44,74 +44,6 @@ output << """\
             <graph edgedefault="undirected">
 """
 
-
-"""/
-//
-//                <xsl:variable name="nodeID">
-//                    <xsl:value-of select="/DiscoveredDevice/name"/>
-//                </xsl:variable>
-//                <xsl:variable name="root" select="/DiscoveredDevice"/>
-//                <xsl:variable name="deviceModel">
-//                    <xsl:value-of select="//DiscoveredDevice/parameters/parameter[name='Device Model']/value"/>
-//                </xsl:variable>
-//                <xsl:variable name="deviceType">
-//                    <xsl:value-of select="//DiscoveredDevice/parameters/parameter[name='Device Type']/value"/>
-//                </xsl:variable>
-//
-//
-//                <xsl:variable name="siteID">
-//                    <xsl:value-of select="//DiscoveredDevice/parameters/parameter[name='siteID']/value"/>
-//                </xsl:variable>
-//                <xsl:variable name="DiscoveredIPv4Address">
-//                    <xsl:value-of select="//DiscoveredDevice/parameters/parameter[name='Management IP Address']/value"/>
-//                </xsl:variable>
-//                <xsl:variable name="BGPLocalASInfo">
-//                    <xsl:value-of select="//DiscoveredDevice/parameters/parameter[name='BGPLocalASInfo']/value"/>
-//                </xsl:variable>
-//                <xsl:variable name="X" select="//DiscoveredDevice/parameters/parameter[name='X Coordinate']/value"/>
-//                <xsl:variable name="Y" select="//DiscoveredDevice/parameters/parameter[name='Y Coordinate']/value"/>
-//                <xsl:variable name="IPv6Forwarding"
-//                              select="//DiscoveredDevice/parameters/parameter[name='ipv6Forwarding']/value"/>
-//                <xsl:variable name="IPv4Forwarding"
-//                              select="//DiscoveredDevice/parameters/parameter[name='ipv4Forwarding']/value"/>
-//                <!--Prepare Central Node-->
-//                <node>
-//                    <xsl:attribute name="id">
-//                        <xsl:value-of select="\$nodeID"/>
-//                    </xsl:attribute>
-//                    <xsl:attribute name="label">
-//                        <xsl:value-of select="\$nodeID"/>
-//                    </xsl:attribute>
-//
-//                    <data key="hostname">
-//                        <xsl:value-of select="\$nodeID"/>
-//                    </data>
-//                    <data key="deviceModel">
-//                        <xsl:value-of select="\$deviceModel"/>
-//                    </data>
-//                    <data key="deviceType">
-//                        <xsl:value-of select="\$deviceType"/>
-//                    </data>
-//
-//                    <data key="DiscoveredIPv4Address">
-//                        <xsl:value-of select="\$DiscoveredIPv4Address"/>
-//                    </data>
-//                    <data key="bgpLocalAS"><xsl:value-of select="\$BGPLocalASInfo"/></data>
-//                    <data key="site">
-//                        <xsl:value-of select="\$siteID"/>
-//                    </data>
-//                    <data key="geoCoordinates">
-//                        <xsl:value-of select="\$Y"/>,<xsl:value-of select="\$X"/>
-//                    </data>
-//                    <data key="IPv6Forwarding">
-//                        <xsl:value-of select="\$IPv6Forwarding"/>
-//                    </data>
-//                    <data key="IPv4Forwarding">
-//                        <xsl:value-of select="\$IPv4Forwarding"/>
-//                    </data>
-//
-//                </node>
-//                """
 
 String deviceName = input.name;
 
@@ -172,7 +104,8 @@ input.object.findAll {
     }.each {
         def Network subnet = new Network()
         String subnetId
-
+        boolean bogon = false
+        boolean hostOnly = false;
         String ipv4Address
         it.parameters.parameter.findAll {
             it.name.text() == 'ipv4Subnet'
@@ -184,6 +117,43 @@ input.object.findAll {
             it.name.text() == 'IPv4Address'
         }.each {
              ipv4Address = it.value.text()
+            cidrUtils = new CIDRUtils("0.0.0.0/8");
+
+            if (cidrUtils.isInRange(ipv4Address)){
+                bogon=true;
+            }
+            cidrUtils = new CIDRUtils("127.0.0.0/8");
+            if (cidrUtils.isInRange(ipv4Address)){
+                bogon = true;
+            }
+            cidrUtils = new CIDRUtils("128.0.0.0/8");
+            if (cidrUtils.isInRange(ipv4Address)){
+                bogon = true;
+            }
+            cidrUtils = new CIDRUtils("169.254.0.0/16");
+            if (cidrUtils.isInRange(ipv4Address)){
+                bogon = true;
+            }
+            cidrUtils = new CIDRUtils("192.0.0.0/24");
+            if (cidrUtils.isInRange(ipv4Address)){
+                bogon = true;
+            }
+            cidrUtils = new CIDRUtils("192.0.2.0/24");
+            if (cidrUtils.isInRange(ipv4Address)){
+                bogon = true;
+            }
+            cidrUtils = new CIDRUtils("224.0.0.0/4");
+            if (cidrUtils.isInRange(ipv4Address)){
+                bogon = true;
+            }
+            cidrUtils = new CIDRUtils("240.0.0.0/4");
+            if (cidrUtils.isInRange(ipv4Address)){
+                bogon = true;
+            }
+            cidrUtils = new CIDRUtils("255.255.255.255/32");
+            if (cidrUtils.isInRange(ipv4Address)){
+                bogon = true;
+            }
 
 
         }
@@ -191,15 +161,22 @@ input.object.findAll {
             it.name.text() == 'ipv4SubnetPrefix'
         }.each {
            // subnet = subnetId
-            String ipv4SubnetMaskPrefix = it.value.text()
-            String subnetPrefix = subnetId+"/"+ipv4SubnetMaskPrefix
-            subnet.setName(subnetPrefix)
-            subnet.setPrefix(subnetPrefix)
-            subnet.setIpv4SubnetMaskPrefix(ipv4SubnetMaskPrefix)
-            subnets.add(subnetPrefix)
+            if (bogon==false){
+                String ipv4SubnetMaskPrefix = it.value.text()
+                if (ipv4SubnetMaskPrefix=="32"){
+                    hostOnly=true;
+                }
+                String subnetPrefix = subnetId+"/"+ipv4SubnetMaskPrefix
+                subnet.setName(subnetPrefix)
+                subnet.setPrefix(subnetPrefix)
+                subnet.setIpv4SubnetMaskPrefix(ipv4SubnetMaskPrefix)
+                subnets.add(subnetPrefix)
+            }
         }
-        subnet.setLocalInterface(localInterfaceName)
-        device.addSubnet(subnet)
+        if (bogon==false&&hostOnly==false){
+            subnet.setLocalInterface(localInterfaceName)
+            device.addSubnet(subnet)
+        }
     }
    //Populate Neighbours
     discoveryInterface.object.findAll {
@@ -268,7 +245,7 @@ for (String node : foundNeighbours) {
 
 }
 
-//Dump node subnets
+//Dump subnet nodes
 for (Map.Entry<String, Network> subnetEntry : device.getSubnets()) {
    // output << subnetEntry
 
@@ -289,9 +266,7 @@ for (Map.Entry<String, Network> subnetEntry : device.getSubnets()) {
 for (Map.Entry<String, Network> subnetEntry : device.getSubnets()) {
 
      Network subnet  = subnetEntry.getValue()
-//    output << "Subnet: " << subnet.getName() << "\n"
-//    output << "SubnetPrefix: " << subnet.getIpv4SubnetMaskPrefix() << "\n"
-      String subnetId = subnet.getPrefix();
+     String subnetId = subnet.getPrefix();
 
     String SubnetEdgeId= subnetEntry.getKey()+"-" +deviceName;
     output << "\t\t<edge id=\"" << SubnetEdgeId << "\" source=\"" << subnetEntry.getKey() <<"\" target=\""<<deviceName << "\" label=\"" << SubnetEdgeId << "\">\n"

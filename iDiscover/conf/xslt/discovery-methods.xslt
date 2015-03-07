@@ -594,7 +594,7 @@
 				<xsl:value-of select="ipNetToMediaNetAddress"/>
 			</xsl:variable>
             <xsl:if test="$ipNetToMediaNetAddress  ">
-            <xsl:if test="SnmpForXslt:checkBogons($ipNetToMediaNetAddress)=$ipNetToMediaNetAddress and count($ipv4addresses[ipAdEntAddr=$ipNetToMediaNetAddress])=0 and count($ipv4addresses[(subnetBitCount != 30 and subnetBitCount !=31) and ipv4Subnet=$ipNetToMediaNetAddress]) = 0 and  count($ipv4addresses[(subnetBitCount != 30 and subnetBitCount !=31) and ipv4SubnetBroadcast=$ipNetToMediaNetAddress]) = 0 ">
+                <xsl:if test="SnmpForXslt:checkBogons($ipNetToMediaNetAddress)=$ipNetToMediaNetAddress and count($ipv4addresses[ipAdEntAddr=$ipNetToMediaNetAddress])=0 and count($ipv4addresses[(subnetBitCount != 30 and subnetBitCount !=31) and ipv4Subnet=$ipNetToMediaNetAddress]) = 0 and  count($ipv4addresses[(subnetBitCount != 30 and subnetBitCount !=31) and ipv4SubnetBroadcast=$ipNetToMediaNetAddress]) = 0 ">
 
             <!--<xsl:if test="SnmpForXslt:checkBogons($ipNetToMediaNetAddress)=$ipNetToMediaNetAddress and count($ipv4addresses[ipAdEntAddr=$ipNetToMediaNetAddress])=0 ">-->
                     <xsl:variable name="neighID-community">

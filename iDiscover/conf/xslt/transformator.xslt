@@ -649,7 +649,9 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <!--</xsl:for-each>-->
                             </xsl:variable>
                             <xsl:message>TRACE: <xsl:copy-of select="$interface-neighbors"/> </xsl:message>
-                            <!--<xsl:copy-of select="$interface-neighbors"/>-->
+                            <ifNeighbours>
+                            <xsl:copy-of select="$interface-neighbors"/>
+                            </ifNeighbours>
                             <xsl:for-each select="distinct-values($interface-neighbors/object/name)">
                                 <xsl:variable name="name" select="."/>
 

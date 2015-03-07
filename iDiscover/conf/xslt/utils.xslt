@@ -354,11 +354,13 @@
 	</xsl:template>
 	<xsl:template name="determine-ifType">
 		<xsl:param name="ifType"/>
-		<xsl:choose>
+
+        <xsl:choose>
 			<xsl:when test="$ifType='150'">mplsTunnel</xsl:when>
 			<xsl:when test="$ifType='166'">mpls</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="$ifType"/>
+                <xsl:variable name="oid">1.3.6.1.2.1.30.<xsl:value-of select="$ifType"/></xsl:variable>
+                <xsl:value-of select="SnmpForXslt:getSymbolByOid('IANAifType-MIB', $oid)"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>

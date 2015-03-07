@@ -21,6 +21,7 @@ package net.itransformers.idiscover.v2.core;
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.utils.CmdLineParser;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -34,7 +35,9 @@ import java.util.*;
 
 public class Main {
     public static final String VERSION_LABEL = "version";
+    static Logger logger = Logger.getLogger(Main.class);
     public static void main(String[] args) throws MalformedURLException {
+        logger.debug("iDiscover v2. gearing up");
         Map<String, String> params = CmdLineParser.parseCmdLine(args);
 //        String connectionDetailsFileName = params.get("-f");
 //        if (connectionDetailsFileName == null) {
