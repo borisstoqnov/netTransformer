@@ -22,7 +22,7 @@
 // It has been done as a test for issue https://sourceforge.net/p/itransformer/tickets/8/
 
 
-package net.itransformers.idiscover.v2.core;
+package net.itransformers.idiscover.v2.core.discovererIntegrationTest.metroE;
 
 import net.itransformers.idiscover.core.DiscoveryHelper;
 import net.itransformers.idiscover.core.DiscoveryTypes;
@@ -36,6 +36,8 @@ import net.itransformers.idiscover.discoverylisteners.XmlTopologyDeviceLogger;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.networkmodel.ObjectType;
 import net.itransformers.idiscover.networkmodel.ParameterType;
+import net.itransformers.idiscover.v2.core.NodeDiscoverer;
+import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
@@ -54,7 +56,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class IntegrationTestCiscoNexusN7000 {
+public class IntegrationTestMetroM238 {
     private SnmpWalker walker;
     private String[] discoveryTypes = new String[5];
     private DiscoveryHelper discoveryHelper;
@@ -67,10 +69,11 @@ public class IntegrationTestCiscoNexusN7000 {
     @Before
     public void setUp() throws Exception {
 
-        File IntegrationTestCiscoNexusN7000 = new File(baseDir + File.separator + "iDiscover/src/test/resources/test/IntegrationTestCiscoNexusN7000");
-        if (IntegrationTestCiscoNexusN7000.exists()){
+
+        File IntegrationTestCiscoASR1000 = new File(baseDir + File.separator + "iDiscover/src/test/resources/test/metroELab");
+        if (IntegrationTestCiscoASR1000.exists()){
             try {
-                FileUtils.deleteDirectory(new File(baseDir + File.separator + "iDiscover/src/test/resources/test/IntegrationTestCiscoNexusN7000"));
+                FileUtils.deleteDirectory(new File(baseDir + File.separator + "iDiscover/src/test/resources/test/metroELab"));
             } catch (IOException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -93,28 +96,28 @@ public class IntegrationTestCiscoNexusN7000 {
             params1.put("raw-data-logging-path","raw-data");
             params1.put("device-centric-logging-path","device-centric");
             params1.put("network-centric-logging-path","undirected");
-            params1.put("xslt","iDiscover/conf/xslt/transformator-undirected2.xslt");
+           // params1.put("xslt","iDiscover/conf/xslt/transformator-undirected2.xslt");
 
 
 
-            deviceLogger = new DeviceFileLogger(params1,new File(baseDir),"CiscoNexusn7000Test");
-            xmlTopologyDeviceLogger = new XmlTopologyDeviceLogger(params1,new File(baseDir),"CiscoNexusn7000Test");
+            deviceLogger = new DeviceFileLogger(params1,new File(baseDir),"metroE-M-238");
+        //    xmlTopologyDeviceLogger = new XmlTopologyDeviceLogger(params1,new File(baseDir),"CiscoASR1000Test");
 
 
         discoveryTypes[0] = DiscoveryTypes.ADDITIONAL;
         Map<String, String> resourceParams = new HashMap<String, String>();
-        resourceParams.put("community", "sevone");
+        resourceParams.put("community", "netTransformer-r");
         resourceParams.put("version", "2c");
         resourceParams.put("retries", "1");
         resourceParams.put("timeout", "100");
 
         resourceParams.put("mibDir", "snmptoolkit/mibs");
-        resource = new Resource("R1", "10.17.1.13", resourceParams);
+        resource = new Resource("M-238", "10.17.1.13", resourceParams);
         resource.setDeviceType("CISCO");
         walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
         discoveryHelper = discoveryHelperFactory.createDiscoveryHelper("CISCO");
 
-        FileInputStream is = new FileInputStream("iDiscover/src/test/resources/raw-data-cisco-nexus-n7000.xml");
+        FileInputStream is = new FileInputStream("iDiscover/src/test/resources/metroE/raw-data-M-238.xml");
         byte[] data = new byte[is.available()];
         is.read(data);
         rawdata.setData(data);
@@ -139,7 +142,7 @@ public class IntegrationTestCiscoNexusN7000 {
                 List<ObjectType> objects = discoveredDeviceData.getObject();
                 int discoveredInterfaceCounter = 0;
 
-                int discoveredNeighboursCounter = 0;
+                Map<String,Integer> neighbourTypeCounts = new HashMap<String, Integer>();
 
                 for (ObjectType object : objects) {
                     if(object.getObjectType().equals("Discovery Interface")){
@@ -151,15 +154,30 @@ public class IntegrationTestCiscoNexusN7000 {
                         for (ObjectType interfaceObject : interfaceObjects) {
 
                             System.out.println("\t"+interfaceObject.getName());
+                            System.out.println("\t"+interfaceObject.getObjectType());
+
                             if (interfaceObject.getObjectType().equals("Discovered Neighbor")){
+                                System.out.println("\t"+interfaceObject.getObjectType());
+
+
                                 System.out.println("\t"+interfaceObject.getName());
-                                discoveredNeighboursCounter++;
 
 
                                 List<ParameterType> parameters =  interfaceObject.getParameters().getParameter();
                                 for (ParameterType parameterType : parameters) {
                                     if(parameterType.getName().equals("Discovery Method")){
                                         System.out.println("\t\t"+parameterType.getValue());
+                                        String [] methods = parameterType.getValue().split(",");
+
+                                        for (String method : methods) {
+                                            if (neighbourTypeCounts.get(method)==null){
+                                                neighbourTypeCounts.put(method,1);
+                                            }else {
+                                                int currentCount=neighbourTypeCounts.get(method);
+                                                neighbourTypeCounts.put(method,++currentCount);
+                                            }
+                                        }
+
                                     }
                                     if(parameterType.getName().equals("Neighbor IP Address")){
                                         System.out.println("\t\t"+parameterType.getValue());
@@ -174,18 +192,16 @@ public class IntegrationTestCiscoNexusN7000 {
 
 
                 deviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
-                xmlTopologyDeviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
+               // xmlTopologyDeviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
+
+                System.out.println(neighbourTypeCounts);
+                Assert.assertEquals(29,discoveredInterfaceCounter);
+
+                Assert.assertEquals((Object) 2,neighbourTypeCounts.get("CDP"));
+                Assert.assertEquals((Object) 1,neighbourTypeCounts.get("MAC"));
 
 
-                Assert.assertEquals(237,discoveredInterfaceCounter);
 
-                Assert.assertEquals(2893,discoveredNeighboursCounter);
-                if(new File(baseDir+File.separator+"iDiscover/src/test/resources/test/CiscoNexusn7000Test").exists())
-                try {
-                    FileUtils.deleteDirectory(new File(baseDir+File.separator+"iDiscover/src/test/resources/test/CiscoNexusn7000Test"));
-                } catch (IOException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                }
 
                 return result;
             }
