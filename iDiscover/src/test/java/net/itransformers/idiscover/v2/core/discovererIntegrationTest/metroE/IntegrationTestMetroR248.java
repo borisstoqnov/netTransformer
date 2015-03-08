@@ -56,7 +56,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class IntegrationTestMetroM238 {
+public class IntegrationTestMetroR248 {
     private SnmpWalker walker;
     private String[] discoveryTypes = new String[5];
     private DiscoveryHelper discoveryHelper;
@@ -100,7 +100,7 @@ public class IntegrationTestMetroM238 {
 
 
 
-            deviceLogger = new DeviceFileLogger(params1,new File(baseDir),"raw-data-metroE-M-238");
+            deviceLogger = new DeviceFileLogger(params1,new File(baseDir),"raw-data-metroE-R-248");
         //    xmlTopologyDeviceLogger = new XmlTopologyDeviceLogger(params1,new File(baseDir),"CiscoASR1000Test");
 
 
@@ -112,12 +112,12 @@ public class IntegrationTestMetroM238 {
         resourceParams.put("timeout", "100");
 
         resourceParams.put("mibDir", "snmptoolkit/mibs");
-        resource = new Resource("M-238", "10.17.1.13", resourceParams);
+        resource = new Resource("R-248", "10.17.1.13", resourceParams);
         resource.setDeviceType("CISCO");
         walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
         discoveryHelper = discoveryHelperFactory.createDiscoveryHelper("CISCO");
 
-        FileInputStream is = new FileInputStream("iDiscover/src/test/resources/raw-data-metroE/raw-data-M-238.xml");
+        FileInputStream is = new FileInputStream("iDiscover/src/test/resources/raw-data-metroE/raw-data-R-248.xml");
         byte[] data = new byte[is.available()];
         is.read(data);
         rawdata.setData(data);
@@ -195,10 +195,11 @@ public class IntegrationTestMetroM238 {
                // xmlTopologyDeviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
 
                 System.out.println(neighbourTypeCounts);
-                Assert.assertEquals(29,discoveredInterfaceCounter);
+                Assert.assertEquals(571,discoveredInterfaceCounter);
 
-                Assert.assertEquals((Object) 2,neighbourTypeCounts.get("CDP"));
-                Assert.assertEquals((Object) 1,neighbourTypeCounts.get("MAC"));
+                Assert.assertEquals((Object) 52,neighbourTypeCounts.get("c_OSPF"));
+                Assert.assertEquals((Object) 8,neighbourTypeCounts.get("CDP"));
+                Assert.assertEquals((Object) 79,neighbourTypeCounts.get("Slash30"));
 
 
 
