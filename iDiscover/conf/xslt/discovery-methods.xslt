@@ -433,7 +433,7 @@
         <xsl:param name="ipv4addresses"/>
 		<xsl:for-each select="distinct-values($ipRouteTable/ipRouteNextHop)">
 			<xsl:variable name="next-hop-ip" select="."/>
-            <xsl:if test="SnmpForXslt:checkBogons($next-hop-ip)=$next-hop-ip and count($ipv4addresses[ipAdEntAddr=$next-hop-ip])=0 and count($ipv4addresses[subnetBitCount !=31 and ipv4Subnet=$next-hop-ip]) = 0 and  count($ipv4addresses[subnetBitCount !=31 and ipv4SubnetBroadcast=$next-hop-ip]) = 0
+            <xsl:if test="SnmpForXslt:checkBogons($next-hop-ip)=$next-hop-ip and count($ipv4addresses[ipAdEntAddr=$next-hop-ip])=0 and  count($ipv4addresses[ipv4SubnetBroadcast=$next-hop-ip]) = 0
 ">
 
                 <xsl:variable name="neighID-community">
@@ -512,7 +512,7 @@
         <xsl:variable name="next-hop-ips" select="distinct-values($ipCidrRouteTable/ipCidrRouteNextHop)"/>
 		<xsl:for-each select="$next-hop-ips">
 			<xsl:variable name="next-hop-ip" select="."/>
-			<xsl:if test="SnmpForXslt:checkBogons($next-hop-ip)=$next-hop-ip and count($ipv4addresses[ipAdEntAddr=$next-hop-ip])=0 and count($ipv4addresses[(subnetBitCount != 30 and subnetBitCount !=31) and ipv4Subnet=$next-hop-ip]) = 0 and  count($ipv4addresses[(subnetBitCount != 30 and subnetBitCount !=31) and ipv4SubnetBroadcast=$next-hop-ip]) = 0 ">
+			<xsl:if test="SnmpForXslt:checkBogons($next-hop-ip)=$next-hop-ip and count($ipv4addresses[ipAdEntAddr=$next-hop-ip])=0 and  count($ipv4addresses[ipv4SubnetBroadcast=$next-hop-ip]) = 0 ">
 				<xsl:variable name="neighID-community">
 					<xsl:call-template name="neighIDCommunity">
 						<xsl:with-param name="neighIP" select="$next-hop-ip"/>
@@ -594,7 +594,7 @@
 				<xsl:value-of select="ipNetToMediaNetAddress"/>
 			</xsl:variable>
             <xsl:if test="$ipNetToMediaNetAddress  ">
-                <xsl:if test="SnmpForXslt:checkBogons($ipNetToMediaNetAddress)=$ipNetToMediaNetAddress and count($ipv4addresses[ipAdEntAddr=$ipNetToMediaNetAddress])=0 and count($ipv4addresses[(subnetBitCount != 30 and subnetBitCount !=31) and ipv4Subnet=$ipNetToMediaNetAddress]) = 0 and  count($ipv4addresses[(subnetBitCount != 30 and subnetBitCount !=31) and ipv4SubnetBroadcast=$ipNetToMediaNetAddress]) = 0 ">
+                <xsl:if test="SnmpForXslt:checkBogons($ipNetToMediaNetAddress)=$ipNetToMediaNetAddress and count($ipv4addresses[ipAdEntAddr=$ipNetToMediaNetAddress])=0 and count($ipv4addresses[ipv4Subnet=$ipNetToMediaNetAddress]) = 0 and  count($ipv4addresses[ipv4SubnetBroadcast=$ipNetToMediaNetAddress]) = 0 ">
 
             <!--<xsl:if test="SnmpForXslt:checkBogons($ipNetToMediaNetAddress)=$ipNetToMediaNetAddress and count($ipv4addresses[ipAdEntAddr=$ipNetToMediaNetAddress])=0 ">-->
                     <xsl:variable name="neighID-community">
@@ -728,8 +728,7 @@
 						</parameters>
 					</xsl:when>
 					<xsl:otherwise>
-						<name>Unknown-<xsl:value-of select="$neighborMACAddress"/>
-						</name>
+						<name><xsl:value-of select="$neighborMACAddress"/></name>
 						<parameters>
 							<parameter>
 								<name>Reachable</name>

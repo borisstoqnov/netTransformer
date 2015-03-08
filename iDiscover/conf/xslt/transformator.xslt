@@ -607,8 +607,8 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                 select="//root/iso/org/dod/internet/mgmt/mib-2/ip/ipNetToMediaTable/ipNetToMediaEntry[ipNetToMediaPhysAddress=$neighborMACAddress][1]/ipNetToMediaNetAddress"/>
 
                                     </xsl:variable>
-                                    <xsl:message>TRACE: NEIGHBOR MAC: <xsl:copy-of select="$neighborMACAddress"/> </xsl:message>
-                                    <xsl:message>TRACE: NEIGHBOR IP: <xsl:copy-of select="$neighborIPAddress"/> </xsl:message>
+                                    <xsl:message>DEBUG: NEIGHBOR MAC: <xsl:copy-of select="$neighborMACAddress"/> </xsl:message>
+                                    <xsl:message>DEBUG: NEIGHBOR IP: <xsl:copy-of select="$neighborIPAddress"/> </xsl:message>
 
                                     <xsl:call-template name="MAC">
                                         <xsl:with-param name="neighborMACAddress" select="dot1dTpFdbAddress"/>
@@ -648,25 +648,24 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <!--</xsl:choose>-->
                                 <!--</xsl:for-each>-->
                             </xsl:variable>
-                            <xsl:message>TRACE: <xsl:copy-of select="$interface-neighbors"/> </xsl:message>
-                            <ifNeighbours>
-                            <xsl:copy-of select="$interface-neighbors"/>
-                            </ifNeighbours>
+                            <xsl:message>DEBUG: NEIGHBORS </xsl:message>
+                            <xsl:message>DEBUG: <xsl:copy-of select="$interface-neighbors"/>
+                            </xsl:message>
                             <xsl:for-each select="distinct-values($interface-neighbors/object/name)">
-                                <xsl:variable name="name" select="."/>
+                                <xsl:variable name="name1" select="."/>
 
-                                <xsl:if test="$ipv4Addresses/ipv4/ipv4addr[ipAdEntAddr!=$name]">
+                                <xsl:message>DEBUG: DDDDDD<xsl:value-of select="$name1"/> </xsl:message>
 
                                     <object>
-                                        <test><xsl:value-of select="$ipv4Addresses/ipv4/ipv4addr/ipAdEntAddr"/></test>
+                                        <!--<test><xsl:value-of select="$ipv4Addresses/ipv4/ipv4addr/ipAdEntAddr"/></test>-->
                                         <name>
-                                            <xsl:value-of select="$name"/>
+                                            <xsl:value-of select="$name1"/>
                                         </name>
                                         <objectType>Discovered Neighbor</objectType>
                                         <parameters>
                                             <xsl:variable name="Reachable">
                                                 <xsl:for-each
-                                                        select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable']/value">
+                                                        select="$interface-neighbors/object[name=$name1]/parameters/parameter[name='Reachable']/value">
                                                     <xsl:value-of select="."/>
                                                 </xsl:for-each>
                                             </xsl:variable>
@@ -683,31 +682,31 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                         <name>SNMP Community</name>
                                                         <value>
                                                             <xsl:value-of
-                                                                    select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable' and value='YES']/../parameter[name='SNMP Community']/value)"/>
+                                                                    select="distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Reachable' and value='YES']/../parameter[name='SNMP Community']/value)"/>
                                                         </value>
                                                     </parameter>
                                                     <parameter>
                                                         <name>Discovery Method</name>
-                                                        <xsl:variable name="discoveryMethods"><xsl:for-each select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Discovery Method']/value)"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
+                                                        <xsl:variable name="discoveryMethods"><xsl:for-each select="distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Discovery Method']/value)"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
                                                         <value><xsl:value-of select="functx:substring-before-last-match($discoveryMethods,',')"/></value>
                                                     </parameter>
                                                     <parameter>
                                                         <name>Neighbor Port</name>
                                                         <value>
-                                                            <xsl:value-of select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Port']/value)"/>
+                                                            <xsl:value-of select="distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Neighbor Port']/value)"/>
                                                         </value>
                                                     </parameter>
                                                     <parameter>
                                                         <name>Neighbor IP Address</name>
                                                         <value>
-                                                            <xsl:value-of select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Reachable' and value='YES'][1]/../parameter[name='Neighbor IP Address']/value"/>
+                                                            <xsl:value-of select="$interface-neighbors/object[name=$name1]/parameters/parameter[name='Reachable' and value='YES'][1]/../parameter[name='Neighbor IP Address']/value"/>
                                                         </value>
                                                     </parameter>
                                                     <parameter>
                                                         <name>Neighbor hostname</name>
                                                         <value>
                                                             <xsl:value-of
-                                                                    select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor hostname']/value)"/>
+                                                                    select="distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Neighbor hostname']/value)"/>
                                                         </value>
                                                     </parameter>
                                                     <parameter>
@@ -716,7 +715,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                             <xsl:variable name="devType">
                                                                 <devtypes>
                                                                     <xsl:for-each
-                                                                            select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Device Type']/value)">
+                                                                            select="distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Neighbor Device Type']/value)">
                                                                         <devtype>
                                                                             <xsl:value-of select="."/>
                                                                         </devtype>
@@ -745,49 +744,48 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                     </parameter>
                                                     <parameter>
                                                         <name>Discovery Method</name>
-                                                        <xsl:variable name="discoveryMethods"><xsl:for-each select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Discovery Method']/value"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
+                                                        <xsl:variable name="discoveryMethods"><xsl:for-each select="$interface-neighbors/object[name=$name1]/parameters/parameter[name='Discovery Method']/value"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
                                                         <value><xsl:value-of select="functx:substring-before-last-match($discoveryMethods,',')"/></value>
                                                     </parameter>
                                                     <parameter>
                                                         <name>Neighbor Port</name>
                                                         <value>
                                                             <xsl:value-of
-                                                                    select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Port']/value)"/>
+                                                                    select="distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Neighbor Port']/value)"/>
                                                         </value>
                                                     </parameter>
                                                     <parameter>
                                                         <name>Neighbor Platform</name>
                                                         <value>
                                                             <xsl:value-of
-                                                                    select="$interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Platform']/value"/>
+                                                                    select="$interface-neighbors/object[name=$name1]/parameters/parameter[name='Neighbor Platform']/value"/>
                                                         </value>
                                                     </parameter>
                                                     <parameter>
                                                         <name>Neighbor IP Address</name>
                                                         <value>
                                                             <xsl:value-of
-                                                                    select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor IP Address']/value)"/>
+                                                                    select="distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Neighbor IP Address']/value)"/>
                                                         </value>
                                                     </parameter>
                                                     <parameter>
                                                         <name>Neighbor hostname</name>
                                                         <value>
                                                             <xsl:value-of
-                                                                    select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor hostname']/value)"/>
+                                                                    select="distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Neighbor hostname']/value)"/>
                                                         </value>
                                                     </parameter>
                                                     <parameter>
                                                         <name>Neighbor Device Type</name>
                                                         <value>
                                                             <xsl:value-of
-                                                                    select="distinct-values($interface-neighbors/object[name=$name]/parameters/parameter[name='Neighbor Device Type']/value)"/>
+                                                                    select="distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Neighbor Device Type']/value)"/>
                                                         </value>
                                                     </parameter>
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                         </parameters>
                                     </object>
-                                </xsl:if>
                             </xsl:for-each>
 
                         </object>
