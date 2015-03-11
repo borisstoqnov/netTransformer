@@ -62,7 +62,8 @@ public class NetworkNodeDiscovererImplTestCase {
 //    @Test
     public void testDoDiscoverNodes(){
         Map<String, Node> nodes = new HashMap<String, Node>();
-        networkNodeDiscovererImpl.doDiscoverNodes(Arrays.asList(connectionDetailsToA), nodes, null, 0, -1);
+        NetworkDiscoveryResult result = new NetworkDiscoveryResult();
+        networkNodeDiscovererImpl.doDiscoverNodes(Arrays.asList(connectionDetailsToA), nodes, null, 0, -1, result);
         System.out.println(nodes.size());
         Assert.assertEquals("discovered nodes are different",
                 "{D=Node{id='D', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=D}}], neighbours=[]}, A=Node{id='A', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=A}}], neighbours=[B,C,]}, B=Node{id='B', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=B}}], neighbours=[D,]}, C=Node{id='C', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=C}}], neighbours=[]}}",
@@ -71,7 +72,8 @@ public class NetworkNodeDiscovererImplTestCase {
 //    @Test
     public void testDoDiscoverNodesOneLevel(){
         Map<String, Node> nodes = new HashMap<String, Node>();
-        networkNodeDiscovererImpl.doDiscoverNodes(Arrays.asList(connectionDetailsToA), nodes, null, 0, 1);
+        NetworkDiscoveryResult result = new NetworkDiscoveryResult();
+        networkNodeDiscovererImpl.doDiscoverNodes(Arrays.asList(connectionDetailsToA), nodes, null, 0, 1, result);
         Assert.assertEquals("discovered nodes are different",
                 "{A=Node{id='A', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=A}}], neighbours=[]}}",
                 nodes.toString());
@@ -79,7 +81,8 @@ public class NetworkNodeDiscovererImplTestCase {
 //    @Test
     public void testDoDiscoverNodesTwoLevel(){
         Map<String, Node> nodes = new HashMap<String, Node>();
-        networkNodeDiscovererImpl.doDiscoverNodes(Arrays.asList(connectionDetailsToA), nodes, null, 0, 2);
+        NetworkDiscoveryResult result = new NetworkDiscoveryResult();
+        networkNodeDiscovererImpl.doDiscoverNodes(Arrays.asList(connectionDetailsToA), nodes, null, 0, 2, result);
         Assert.assertEquals("discovered nodes are different",
                 "{A=Node{id='A', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=A}}], neighbours=[B,C,]}, B=Node{id='B', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=B}}], neighbours=[]}, C=Node{id='C', connectionDetailsList=[ConnectionDetails{connectionType='mock', params={node=C}}], neighbours=[]}}",
                 nodes.toString());

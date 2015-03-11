@@ -131,10 +131,7 @@ public class IntegrationTestJuniperOlive {
     @Test
     public void testDoTransform() throws TransformerException, IOException, SAXException, ParserConfigurationException {
         new NodeDiscoverer(){
-            @Override
-            public String probe(ConnectionDetails connectionDetails) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
-            }
+
 
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {

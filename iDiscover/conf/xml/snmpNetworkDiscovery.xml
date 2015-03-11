@@ -26,7 +26,7 @@
 
         <property name="nodeDiscoverers">
             <map>
-                <entry key="SNMP" value-ref="snmpNodeDiscoverer"/>
+                <entry key="snmp" value-ref="snmpNodeDiscoverer"/>
             </map>
         </property>
         <property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>

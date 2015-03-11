@@ -3,6 +3,7 @@
 package net.itransformers.idiscover.v2.core;
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.idiscover.v2.core.model.Node;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,7 @@ public class NetworkDiscoveryResult {
     Map<String,NodeDiscoveryResult> discoveredData = new HashMap<String,  NodeDiscoveryResult>();
 
     Map<String,ConnectionDetails> sourceConnectionDetails = new HashMap<String,  ConnectionDetails>();
+    Map<String, Node> nodes = new HashMap<String, Node>();
 
     public Object getDiscoveredData(String sourceId){
         return discoveredData.get(sourceId);
@@ -33,6 +35,14 @@ public class NetworkDiscoveryResult {
 
     public void setSourceConnectionDetails(Map<String, ConnectionDetails> sourceConnectionDetails) {
         this.sourceConnectionDetails = sourceConnectionDetails;
+    }
+
+    public Map<String, Node> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(Map<String, Node> nodes) {
+        this.nodes = nodes;
     }
 
     @Override

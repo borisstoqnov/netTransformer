@@ -101,16 +101,9 @@ public class Main {
         NetworkDiscoverer discoverer =applicationContext.getBean("snmpDiscovery", NetworkDiscoverer.class);
         LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", conDetails);
         int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1" : depthCmdArg);
-        List<ConnectionDetails> connectionDetails2 = new LinkedList<ConnectionDetails>();
-
-        for (String s : connectionList.keySet()) {
-            System.out.println(s);
-
-            connectionDetails2.add(connectionList.get(s));
-        }
-            NetworkDiscoveryResult result = discoverer.discoverNetwork(connectionDetails2, depth);
+        NetworkDiscoveryResult result = discoverer.discoverNetwork(new ArrayList<ConnectionDetails>(connectionList.values()), depth);
         if(result!=null) {
-            for (String s : result.getDiscoveredData().keySet()) {
+            for (String s : result.getNodes().keySet()) {
                 System.out.println("\nNode: "+ s);
 
             }

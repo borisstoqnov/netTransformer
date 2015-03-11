@@ -67,75 +67,48 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
     }
 
-    @Override
-    public String probe(ConnectionDetails connectionDetails) {
+    private String probe(ConnectionDetails connectionDetails) {
         String hostName = connectionDetails.getParam("nodeId");
-        String snmpRoCommunity = connectionDetails.getParam("community-ro");
 
-        if(hostName == null ){
-            IPv4Address ipAddress = new IPv4Address(connectionDetails.getParam("ipAddress"), connectionDetails.getParam("netMask"));
-            Map<String,String> params1 = new HashMap<String, String>();
-            params1.put("DeviceName",hostName);
-            //params1.put("DeviceType",params.get("deviceType"));
-            params1.put("protocol","SNMP");
+        IPv4Address ipAddress = new IPv4Address(connectionDetails.getParam("ipAddress"), connectionDetails.getParam("netMask"));
+        Map<String,String> params1 = new HashMap<String, String>();
+        params1.put("deviceName",hostName);
+        params1.put("deviceType",connectionDetails.getParam("deviceType"));
+        params1.put("ipAddress",connectionDetails.getParam("ipAddress"));
 
-            ResourceType SNMP = this.discoveryResource.ReturnResourceByParam(params1);
-            Map<String, String> SNMPconnParams;
-            SNMPconnParams = this.discoveryResource.getParamMap(SNMP);
-            Resource resource = new Resource(hostName,ipAddress,connectionDetails.getParam("deviceType"), Integer.parseInt(SNMPconnParams.get("port")), SNMPconnParams);
-            hostName = walker.getDeviceName(resource);
-            if  (hostName!=null && hostName.indexOf(".") != -1){
-                hostName=hostName.substring(0,hostName.indexOf("."));
-            }
-            String deviceType = connectionDetails.getParam("deviceType");
-            if(deviceType==null){
-                deviceType = walker.getDeviceType(resource);
-                connectionDetails.put("deviceType",deviceType);
-            }
-
+        ResourceType snmp = this.discoveryResource.returnResourceByParam(params1);
+        Map<String, String> snmpConnParams = this.discoveryResource.getParamMap(snmp,"snmp");
+        Resource resource = new Resource(hostName,ipAddress,connectionDetails.getParam("deviceType"), Integer.parseInt(snmpConnParams.get("port")), snmpConnParams);
+        hostName = walker.getDeviceName(resource);
+        if  (hostName!=null && hostName.contains(".")){
+            hostName=hostName.substring(0,hostName.indexOf("."));
         }
-        return hostName;  //To change body of implemented methods use File | Settings | File Templates.
+        String deviceType = connectionDetails.getParam("deviceType");
+        if(deviceType==null){
+            deviceType = walker.getDeviceType(resource);
+            connectionDetails.put("deviceType",deviceType);
+        }
+
+        return hostName;
     }
 
     @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
+        String hostName = probe(connectionDetails);
+        if (hostName == null) {
+            return null;
+        }
         NodeDiscoveryResult result = new NodeDiscoveryResult();
-
-        //esource resource = new Resource(params.get("ipAddress"),params.get("deviceType"),params);
         Map<String,String> params1 = new HashMap<String, String>();
+        params1.put("deviceName",hostName);
+        params1.put("deviceType",connectionDetails.getParam("deviceType"));
+        String ipAddressStr = connectionDetails.getParam("ipAddress");
+        params1.put("ipAddress", ipAddressStr);
+        IPv4Address ipAddress = new IPv4Address(ipAddressStr, null);
 
-        String hostName = connectionDetails.getParam("nodeId");
-        String snmpRoCommunity = connectionDetails.getParam("community-ro");
-        IPv4Address ipAddress = new IPv4Address(connectionDetails.getParam("ipAddress"), connectionDetails.getParam("netMask"));
-        String snmpVersion = connectionDetails.getParam("version");
-        String snmpTimeout=connectionDetails.getParam("timeout");
-        String retries = connectionDetails.getParam("retries");
-        String snmpPort=connectionDetails.getParam("port");
-
-        Resource resource;
-
-        if(hostName!=null && snmpRoCommunity!=null && snmpVersion!=null &&snmpTimeout!=null && retries!=null && snmpPort!=null ){
-            params1.put("DeviceName",hostName);
-            params1.put("community-ro",snmpRoCommunity);
-            params1.put("port",snmpPort);
-            params1.put("version",snmpVersion);
-
-            params1.put("timeout", snmpTimeout);
-
-            params1.put("retries", retries);
-            resource = new Resource(hostName,ipAddress,connectionDetails.getParam("deviceType"), Integer.parseInt(snmpPort), params1);
-
-        }else{
-            params1.put("protocol","SNMP");
-            ResourceType SNMP = this.discoveryResource.ReturnResourceByParam(params1);
-            Map<String, String> SNMPconnParams;
-            SNMPconnParams = this.discoveryResource.getParamMap(SNMP);
-            resource = new Resource(hostName,ipAddress,connectionDetails.getParam("deviceType"), Integer.parseInt(SNMPconnParams.get("port")), SNMPconnParams);
-        }    //params1.put("DeviceType",params.get("deviceType"));
-
-//        ResourceType SNMP = this.discoveryResource.ReturnResourceByParam(params1);
-//        Map<String, String> SNMPconnParams;
-//        SNMPconnParams = this.discoveryResource.getParamMap(SNMP);
+        ResourceType snmpResource = this.discoveryResource.returnResourceByParam(params1);
+        Map<String, String> snmpConnParams = this.discoveryResource.getParamMap(snmpResource, "snmp");
+        Resource resource = new Resource(hostName,ipAddress,connectionDetails.getParam("deviceType"), Integer.parseInt(snmpConnParams.get("port")), snmpConnParams);
 
         String devName = walker.getDeviceName(resource);
         if (devName == null) {
@@ -170,11 +143,9 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
             ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
             neighbourConnectionDetails.put("deviceType",neighbour.getDeviceType());
             if (neighbour.getStatus()){ // if reachable
-                neighbourConnectionDetails.put("host",neighbour.getHostName());
+                neighbourConnectionDetails.put("deviceName",neighbour.getHostName());
                 neighbourConnectionDetails.put("ipAddress",neighbour.getIpAddress().getIpAddress());
-                neighbourConnectionDetails.put("netMask",neighbour.getIpAddress().getNetMask());
-                neighbourConnectionDetails.put("community-ro",""+neighbour.getROCommunity());
-                neighbourConnectionDetails.setConnectionType("SNMP");
+                neighbourConnectionDetails.setConnectionType("snmp");
                 neighboursConnDetails.add(neighbourConnectionDetails);
             }
         }

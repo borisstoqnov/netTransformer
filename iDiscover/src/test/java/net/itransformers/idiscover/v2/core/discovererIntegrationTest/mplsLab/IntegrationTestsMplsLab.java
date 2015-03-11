@@ -103,10 +103,6 @@ public class IntegrationTestsMplsLab {
     @Test
     public void testR1() throws TransformerException, IOException, SAXException, ParserConfigurationException {
         new NodeDiscoverer(){
-            @Override
-            public String probe(ConnectionDetails connectionDetails) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
-            }
 
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
@@ -173,10 +169,6 @@ public class IntegrationTestsMplsLab {
     @Test
     public void testR2() throws TransformerException, IOException, SAXException, ParserConfigurationException {
         new NodeDiscoverer(){
-            @Override
-            public String probe(ConnectionDetails connectionDetails) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
-            }
 
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
@@ -234,10 +226,6 @@ public class IntegrationTestsMplsLab {
     }
     public void testR3() throws TransformerException, IOException, SAXException, ParserConfigurationException {
         new NodeDiscoverer(){
-            @Override
-            public String probe(ConnectionDetails connectionDetails) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
-            }
 
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
@@ -297,11 +285,6 @@ public class IntegrationTestsMplsLab {
     public void testR4() throws TransformerException, IOException, SAXException, ParserConfigurationException {
         new NodeDiscoverer(){
             @Override
-            public String probe(ConnectionDetails connectionDetails) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
 
                 resource = new Resource("R4", "10.17.1.13", resourceParams);
@@ -356,11 +339,6 @@ public class IntegrationTestsMplsLab {
     }
     public void testR5() throws TransformerException, IOException, SAXException, ParserConfigurationException {
         new NodeDiscoverer(){
-            @Override
-            public String probe(ConnectionDetails connectionDetails) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
-            }
-
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
                 resource = new Resource("R5", "10.17.1.13", resourceParams);

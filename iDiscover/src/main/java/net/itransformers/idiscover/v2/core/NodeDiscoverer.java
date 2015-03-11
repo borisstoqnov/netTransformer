@@ -22,6 +22,5 @@ package net.itransformers.idiscover.v2.core;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 
 public interface NodeDiscoverer {
-    public String probe(ConnectionDetails connectionDetails);
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails);
 }
