@@ -100,8 +100,7 @@
             <tooltip dataKey="edgeID" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.DashEdgeTooltipTransformer"/>
         </filter>
 
-
-        <filter name="diff">
+         <filter name="diff">
             <include dataKey="AS" dataValue="YES" for="node"/>
             <include dataKey="edge" dataValue="YES" for="edge"/>
 
@@ -110,7 +109,11 @@
 
         </filter>
 
-
+         <filter name="ALL">
+            <include for="edge"/>
+            <include for="node"/>
+           
+        </filter>
 
 
     </filters>

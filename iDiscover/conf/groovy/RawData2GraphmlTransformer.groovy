@@ -52,7 +52,7 @@ Device device = new Device(deviceName)
 output << "\t\t<node id=\"${input.name}\" label=\"${input.name}\">\n"
 
 
-output << "\t\t\t<data key=\"hostname\">${input.name}</data>\n"
+output << "\t\t\t<data key=\"deviceName\">${input.name}</data>\n"
 output <<
         "\t\t\t<data key=\"deviceModel\">" +
         input.parameters.parameter.findAll {
@@ -63,6 +63,12 @@ output <<
         "\t\t\t<data key=\"deviceType\">" +
         input.parameters.parameter.findAll {
             it.name.text() == "Device Type"
+        }.value.text() +
+        "</data>\n"
+output <<
+        "\t\t\t<data key=\"DiscoveredIPv4Address\">" +
+        input.parameters.parameter.findAll {
+            it.name.text() == "Management IP Address"
         }.value.text() +
         "</data>\n"
 

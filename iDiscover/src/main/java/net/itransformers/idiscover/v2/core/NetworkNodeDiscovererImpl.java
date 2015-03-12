@@ -49,27 +49,35 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
             if (isPaused) doPause();
             String connectionType = connectionDetails.getConnectionType();
             NodeDiscoverer nodeDiscoverer = nodeDiscoverers.get(connectionType);
-            if (nodeDiscoverer == null) {
-                logger.info("No Node Discoverers found");
+            String nodeId = connectionDetails.getParam("deviceName");
+            if (nodes.get(nodeId)==null){
 
-                return;
-            }
-            if (level == depth) return;
+                    if (nodeDiscoverer == null) {
+                    logger.info("No Node Discoverers found");
 
-            if (nodeDiscoverFilter != null && nodeDiscoverFilter.match(connectionDetails)) return;
-            NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
-            if (discoveryResult == null) return; // in case some error during snmpDiscovery
-//            if (result != null) result.addDiscoveredData(discoveryResult.getNodeId(),discoveryResult);
-            fireNodeDiscoveredEvent(discoveryResult);
-            String nodeId = discoveryResult.getNodeId();
-            Node currentNode = new Node(nodeId, Arrays.asList(connectionDetails));
-            nodes.put(nodeId, currentNode);
-            if (initialNode != null) initialNode.addNeighbour(currentNode);
-            List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
-            logger.debug("Found Neighbours, connection details: " + neighboursConnectionDetails);
-            if (neighboursConnectionDetails != null) {
-                doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode, level + 1, depth, result);
+                    return;
+                }
+                if (level == depth) return;
+
+                if (nodeDiscoverFilter != null && nodeDiscoverFilter.match(connectionDetails)) return;
+                NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
+                if (discoveryResult == null) return; // in case some error during snmpDiscovery
+    //            if (result != null) result.addDiscoveredData(discoveryResult.getNodeId(),discoveryResult);
+                fireNodeDiscoveredEvent(discoveryResult);
+                if (nodeId ==null) nodeId = discoveryResult.getNodeId();
+                Node currentNode = new Node(nodeId, Arrays.asList(connectionDetails));
+                nodes.put(nodeId, currentNode);
+                if (initialNode != null) initialNode.addNeighbour(currentNode);
+                List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
+                logger.debug("Found Neighbours, connection details: " + neighboursConnectionDetails);
+                if (neighboursConnectionDetails != null) {
+                    doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode, level + 1, depth, result);
+                }
+            }else {
+                logger.debug("Node: "+nodeId+" is already discovered!");
             }
+
+
         }
     }
 
