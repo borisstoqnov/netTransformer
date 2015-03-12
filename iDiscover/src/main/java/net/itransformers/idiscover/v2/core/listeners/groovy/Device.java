@@ -9,6 +9,7 @@ public class Device {
     String name;
     HashMap<String, Network> subnets = new HashMap<String, Network>();
     HashMap<String, DeviceNeighbour> physicalNeighbours = new HashMap<String, DeviceNeighbour>();
+    HashMap<String, DeviceNeighbour> logicalNeighbours = new HashMap<String, DeviceNeighbour>();
 
 
     public Device(String name) {
@@ -39,5 +40,17 @@ public class Device {
     }
     public void addPhysicalNeighbour(DeviceNeighbour neighbour){
           physicalNeighbours.put(neighbour.getName(), neighbour);
+    }
+
+    public HashMap<String, DeviceNeighbour> getLogicalNeighbours() {
+        return logicalNeighbours;
+    }
+
+    public void setLogicalNeighbours(HashMap<String, DeviceNeighbour> logicalNeighbours) {
+        this.logicalNeighbours = logicalNeighbours;
+    }
+
+    public void addLogicalNeighbour(DeviceNeighbour neighbour){
+        logicalNeighbours.put(neighbour.getName(), neighbour);
     }
 }

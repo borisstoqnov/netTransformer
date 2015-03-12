@@ -12,4 +12,11 @@ import java.util.HashMap;
 public class LogicalData {
     HashMap<String, DeviceNeighbour> neighbours = new HashMap<String, DeviceNeighbour>();
 
+    public HashMap<String, DeviceNeighbour> getNeighbours() {
+        return neighbours;
+    }
+
+    public void setNeighbours(HashMap<String, DeviceNeighbour> neighbours) {
+        this.neighbours = neighbours;
+    }
 }
