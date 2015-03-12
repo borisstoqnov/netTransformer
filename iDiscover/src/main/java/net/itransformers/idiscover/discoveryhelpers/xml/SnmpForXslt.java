@@ -42,11 +42,12 @@ public class SnmpForXslt {
     private static CIDRUtils cidrUtils;
 
     private static Map<String, HashMap<String, String>> discoveredDevices = new HashMap<String, HashMap<String, String>>();
+    private static MockSnmpForXslt mockSnmpForXslt = null;
 
-
+    public static void setMockSnmpForXslt(MockSnmpForXslt mockSnmpForXslt){
+        SnmpForXslt.mockSnmpForXslt = mockSnmpForXslt;
+    }
     public static String checkBogons(String ipAddress) {
-
-
         try {
             cidrUtils = new CIDRUtils("0.0.0.0/8");
 
@@ -101,6 +102,7 @@ public class SnmpForXslt {
     }
 
     public static String getBroadCastFromPrefix(String prefix) {
+
         try {
             CIDRUtils cidrUtils = new CIDRUtils(prefix);
             return  cidrUtils.getBroadcastAddress();
@@ -112,6 +114,9 @@ public class SnmpForXslt {
     }
 
     public static String getNameByDNS(String ipAddress)  {
+        if (mockSnmpForXslt != null) {
+            return mockSnmpForXslt.getNameByDNS(ipAddress);
+        }
 
 //        InetAddress inetAddress = new InetAddress();
         InetAddress address = null;
@@ -131,9 +136,10 @@ public class SnmpForXslt {
     }
 
         public static String getName(String ipAddress, String community,String timeout, String retries) throws Exception {
-        //if (mock)
-        //    return SnmpForXsltMock.getName(ipAddress,community);
-//        System.out.println(ipAddress);
+            if (mockSnmpForXslt != null) {
+                return mockSnmpForXslt.getName(ipAddress, community, timeout, retries);
+            }
+        //        System.out.println(ipAddress);
         if(!ipAddressValidator.isValidInet4Address(ipAddress))
             return  null;
 
@@ -182,7 +188,9 @@ public class SnmpForXslt {
     }
 
     public static String getSymbolByOid(String mibName, String oid) throws Exception {
-
+        if (mockSnmpForXslt != null) {
+            return mockSnmpForXslt.getSymbolByOid(mibName, oid);
+        }
 
         discovererFactory = new DefaultDiscovererFactory();
         SnmpWalker discoverer = (SnmpWalker) discovererFactory.createDiscoverer(null);
@@ -190,8 +198,9 @@ public class SnmpForXslt {
     }
 
     public static String getByOid(String ipAddress, String oid, String community,String timeout, String retries) throws Exception {
-
-
+        if (mockSnmpForXslt != null) {
+            return mockSnmpForXslt.getByOid(ipAddress, oid, community, timeout, retries);
+        }
 
         HashMap<String, String> deviceNameMap = discoveredDevices.get(ipAddress);
 
@@ -228,7 +237,9 @@ public class SnmpForXslt {
     }
 
     public boolean setByOID(String hostName, String oid, String community, String value) throws Exception {
-
+        if (mockSnmpForXslt != null) {
+            return mockSnmpForXslt.setByOID(hostName, oid, community, value);
+        }
 
 
         Map<String, String> resourceParams = new HashMap<String, String>();
@@ -244,7 +255,9 @@ public class SnmpForXslt {
     }
 
     public String walkByString(String hostName, String[] params, String community) throws Exception {
-
+        if (mockSnmpForXslt != null) {
+            return mockSnmpForXslt.walkByString(hostName, params, community);
+        }
         Map<String, String> resourceParams = new HashMap<String, String>();
         resourceParams.put("community-rw", community);
         resourceParams.put("version", "1");

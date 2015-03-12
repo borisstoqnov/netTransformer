@@ -32,13 +32,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DiscoveryResourceManager {
   private ResourceManager resourceManager;
-   public  DiscoveryResourceManager  (ResourceManager resourceManager){
-       this.resourceManager = resourceManager;
-   }
+
     public DiscoveryResourceManager(File projectDir, String label, String PathToXML) {
         String xml = null;
         try {
@@ -54,47 +53,28 @@ public class DiscoveryResourceManager {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         this.resourceManager = new ResourceManager(deviceGroupsType);
-
-
     }
 
     public ResourceManager getResourceManager() {
         return resourceManager;
     }
 
-    public ResourceType ReturnResourceByParam(Map params){
-        ResourceType result = resourceManager.findResource(params);
-        return result;
-    }
-    public ResourceType ReturnResourceByName(String name){
-        ResourceType result = resourceManager.getResource(name);
-        return result;
+    public ResourceType returnResourceByParam(Map params){
+        return resourceManager.findResource(params);
     }
 
-    public Map<String, String> getParamMap(ResourceType resourceType) {
+    public Map<String, String> getParamMap(ResourceType resourceType,String connectionType) {
         Map<String, String> connParams = new HashMap<String, String>();
-        ConnectionParamsType connParamsType = resourceType.getConnectionParams().get(0);
-        for (ParamType param : connParamsType.getParam()) {
-            connParams.put(param.getName(), param.getValue());
+        List<ConnectionParamsType> connectionParams = resourceType.getConnectionParams();
+        for (ConnectionParamsType connectionParam : connectionParams) {
+            if (connectionParam.getConnectionType().equals(connectionType)) {
+                for (ParamType param : connectionParam.getParam()) {
+                    connParams.put(param.getName(), param.getValue());
+                }
+                return connParams;
+            }
         }
-        return connParams;
+        return null;
     }
 
-    public static void main(String[] args){
-        System.setProperty("base.dir", System.getProperty("user.dir"));
-        DiscoveryResourceManager Discover = new DiscoveryResourceManager(null,null, "resourceManager/conf/xml/resource.xml");
-        ResourceManager Test = Discover.getResourceManager();
-//        Get CLI parameters
-        ResourceType CLI = Discover.ReturnResourceByName("CLI");
-
-         Map<String, String> CLIconnParams = new HashMap<String, String>();
-         CLIconnParams = Discover.getParamMap(CLI);
-
-        Map<String,String> params = new HashMap<String, String>();
-        params.put("protocol","SNMP");
-        ResourceType SNMP = Discover.ReturnResourceByParam(params);
-        Map<String, String> SNMPconnParams = new HashMap<String, String>();
-        SNMPconnParams = Discover.getParamMap(SNMP);
-
-    }
 }

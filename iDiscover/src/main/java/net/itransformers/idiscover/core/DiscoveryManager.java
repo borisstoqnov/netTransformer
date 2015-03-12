@@ -266,15 +266,15 @@ public class DiscoveryManager {
                         params.put("deviceType",deviceType);
                     }
                     params.put("protocol","SNMP");
-                    ResourceType SNMP = this.discoveryResource.ReturnResourceByParam(params);
+                    ResourceType SNMP = this.discoveryResource.returnResourceByParam(params);
 
-                    SNMPconnParams = this.discoveryResource.getParamMap(SNMP);
+                    SNMPconnParams = this.discoveryResource.getParamMap(SNMP, "snmp");
                 } else {
 
                     params.put("protocol","SNMP");
-                    ResourceType SNMP = this.discoveryResource.ReturnResourceByParam(params);
+                    ResourceType SNMP = this.discoveryResource.returnResourceByParam(params);
 
-                    SNMPconnParams = this.discoveryResource.getParamMap(SNMP);
+                    SNMPconnParams = this.discoveryResource.getParamMap(SNMP, "snmp");
 
 
                     SNMPconnParams.put("community-ro",SnmpCommunity);
@@ -353,10 +353,10 @@ public class DiscoveryManager {
 
         Map<String,String> resourceSelectionParams = new HashMap<String, String>();
         resourceSelectionParams.put("protocol","SNMP");
-        ResourceType snmp = manager.discoveryResource.ReturnResourceByParam(resourceSelectionParams);
+        ResourceType snmp = manager.discoveryResource.returnResourceByParam(resourceSelectionParams);
 
         Map<String, String> snmpConnParams = new HashMap<String, String>();
-        snmpConnParams = manager.discoveryResource.getParamMap(snmp);
+        snmpConnParams = manager.discoveryResource.getParamMap(snmp, "snmp");
 
         String host = params.get("-h");
         IPv4Address initialIPaddress= new IPv4Address(host,null);

@@ -276,7 +276,7 @@ public class DiscoveryManagerDialog extends JDialog {
 
         Map<String,String> resourceSelectionParams = new HashMap<String, String>();
         resourceSelectionParams.put("protocol","SNMP");
-        ResourceType snmp = manager.discoveryResource.ReturnResourceByParam(resourceSelectionParams);
+        ResourceType snmp = manager.discoveryResource.returnResourceByParam(resourceSelectionParams);
         discoveredDevices = 0;
         lblDiscoveredDevices.setText(DISCOVERED_DEVICES+discoveredDevices);
         manager.addDiscoveryManagerListener(new DiscoveryListener() {
@@ -288,7 +288,7 @@ public class DiscoveryManagerDialog extends JDialog {
             }
         });
         Map<String, String> snmpConnParams = new HashMap<String, String>();
-        snmpConnParams = manager.discoveryResource.getParamMap(snmp);
+        snmpConnParams = manager.discoveryResource.getParamMap(snmp, "snmp");
 
         IPv4Address initialIPaddress= new IPv4Address(addressTextField.getText(),null);
         snmpConnParams.put("status", "initial");

@@ -1,7 +1,5 @@
 package net.itransformers.utils;
 
-import net.itransformers.snmptoolkit.CmdOptions;
-import net.itransformers.snmptoolkit.CmdParser;
 
 import java.io.*;
 import java.util.Map;

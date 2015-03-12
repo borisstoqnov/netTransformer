@@ -65,13 +65,6 @@ public class MrtCrawlController implements NodeDiscoverer {
   }
 
     @Override
-    public String probe(ConnectionDetails connectionDetails) {
-        String nodeId = connectionDetails.getParam("nodeId");
-
-        return nodeId;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
         NodeDiscoveryResult result = new NodeDiscoveryResult();
         String[] args = new String[4];

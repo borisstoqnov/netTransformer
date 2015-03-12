@@ -53,10 +53,6 @@ public class MockNetworkDiscoverer implements NodeDiscoverer{
         links.add(new Pair<String,String>("B","D"));
     }
 
-    @Override
-    public String probe(ConnectionDetails connectionDetails) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
 
     @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {

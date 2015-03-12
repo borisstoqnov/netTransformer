@@ -103,10 +103,7 @@ public class IntegrationTestsMetroE {
     @Test
     public void testM238() throws TransformerException, IOException, SAXException, ParserConfigurationException {
         new NodeDiscoverer(){
-            @Override
-            public String probe(ConnectionDetails connectionDetails) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
-            }
+
 
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
@@ -168,10 +165,7 @@ public class IntegrationTestsMetroE {
     @Test
     public void testMAG123() throws TransformerException, IOException, SAXException, ParserConfigurationException {
         new NodeDiscoverer(){
-            @Override
-            public String probe(ConnectionDetails connectionDetails) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
-            }
+
 
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
@@ -237,10 +231,7 @@ public class IntegrationTestsMetroE {
     @Test
     public void testMAGRTI0() throws TransformerException, IOException, SAXException, ParserConfigurationException {
         new NodeDiscoverer(){
-            @Override
-            public String probe(ConnectionDetails connectionDetails) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
-            }
+
 
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
@@ -306,10 +297,7 @@ public class IntegrationTestsMetroE {
     @Test
     public void testR112() throws TransformerException, IOException, SAXException, ParserConfigurationException {
         new NodeDiscoverer(){
-            @Override
-            public String probe(ConnectionDetails connectionDetails) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
-            }
+
 
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
@@ -372,10 +360,7 @@ public class IntegrationTestsMetroE {
     @Test
     public void testR248() throws TransformerException, IOException, SAXException, ParserConfigurationException {
         new NodeDiscoverer(){
-            @Override
-            public String probe(ConnectionDetails connectionDetails) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
-            }
+
 
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
@@ -438,10 +423,7 @@ public class IntegrationTestsMetroE {
     @Test
     public void testRRRTI() throws TransformerException, IOException, SAXException, ParserConfigurationException {
         new NodeDiscoverer(){
-            @Override
-            public String probe(ConnectionDetails connectionDetails) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
-            }
+
 
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
@@ -504,10 +486,7 @@ public class IntegrationTestsMetroE {
     @Test
     public void testS2097() throws TransformerException, IOException, SAXException, ParserConfigurationException {
         new NodeDiscoverer(){
-            @Override
-            public String probe(ConnectionDetails connectionDetails) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
-            }
+
 
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
