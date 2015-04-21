@@ -12,21 +12,26 @@ import java.io.*;
  * Time: 4:08 PM
  * To change this template use File | Settings | File Templates.
  */
-public class GroovyListenerTestCase {
+public class GroovyListenerTestCaseNexus {
     @Test
     public void testTransformRawData() throws IOException {
         GraphmlFileLogGroovyDiscoveryListener listener = new GraphmlFileLogGroovyDiscoveryListener();
         listener.setProjectPath(".");
-        InputStream in = this.getClass().getResourceAsStream("/device-data-R1.xml");
+        InputStream inn = this.getClass().getClassLoader().getResourceAsStream("/device-data-shit.xml");
+        InputStream in = this.getClass().getResourceAsStream("/device-data-shit.xml");
 
-        StringReader reader = new StringReader(readInputStreamToString(in));
-        StringWriter writer = new StringWriter();
-        listener.transformRawDataToGraphml(reader, writer);
+        if (in != null) {
+            StringReader reader = new StringReader(readInputStreamToString(in));
+            StringWriter writer = new StringWriter();
+            listener.transformRawDataToGraphml(reader, writer);
 
-        InputStream expectedResultStream = this.getClass().getResourceAsStream("/expected.graphml");
-        String expectedResult = readInputStreamToString(expectedResultStream);
-        String actualResult = writer.toString();
-        Assert.assertEquals(expectedResult, actualResult);
+            InputStream expectedResultStream = this.getClass().getResourceAsStream("/expected.graphml");
+            String expectedResult = readInputStreamToString(expectedResultStream);
+            String actualResult = writer.toString();
+            Assert.assertEquals(expectedResult, actualResult);
+        }else {
+            System.out.println("Can't load an resource");
+        }
     }
 
     String readInputStreamToString(InputStream inputStream) throws IOException {

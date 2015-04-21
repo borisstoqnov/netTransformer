@@ -9,8 +9,10 @@ import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.resourcemanager.config.ResourcesType;
 import net.itransformers.utils.JaxbMarshalar;
 import org.apache.commons.io.FileUtils;
+import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
@@ -75,7 +77,13 @@ public class Main {
         }
 
         ReportManager reportManager = new ReportManager(reportGenerator,"postDiscoverer/conf/groovy/",projectDir,new File(projectDir,"iTopologyManager/rightClick/conf/xslt/table_creator.xslt"));
-        StringBuffer report = reportManager.reportExecutor(new File("/Users/niau/trunk/version1/post-discovery"),params);
+        try {
+            StringBuffer report = reportManager.reportExecutor(new File("/Users/niau/trunk/version1/post-discovery"),params);
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -10,8 +10,10 @@ import net.itransformers.utils.XmlFormatter;
 import net.itransformers.utils.XsltTransformer;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 
 public class GraphmlFileLogDiscoveryListener implements NodeDiscoveryListener {
@@ -57,6 +59,10 @@ public class GraphmlFileLogDiscoveryListener implements NodeDiscoveryListener {
             writer.append(String.valueOf(fileName)).append("\n");
             writer.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
             e.printStackTrace();
         }
 

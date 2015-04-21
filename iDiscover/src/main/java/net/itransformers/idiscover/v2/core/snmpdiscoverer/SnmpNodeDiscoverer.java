@@ -39,6 +39,7 @@ package net.itransformers.idiscover.v2.core.snmpdiscoverer;/*
 import net.itransformers.idiscover.core.*;
 import net.itransformers.idiscover.discoverers.DefaultDiscovererFactory;
 import net.itransformers.idiscover.discoverers.SnmpWalker;
+import net.itransformers.idiscover.discoveryhelpers.xml.SnmpForXslt;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
@@ -68,7 +69,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
     }
 
     private String probe(ConnectionDetails connectionDetails) {
-        String hostName = connectionDetails.getParam("nodeId");
+        String hostName = connectionDetails.getParam("deviceName");
 
         IPv4Address ipAddress = new IPv4Address(connectionDetails.getParam("ipAddress"), connectionDetails.getParam("netMask"));
         Map<String,String> params1 = new HashMap<String, String>();
@@ -106,9 +107,16 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         params1.put("ipAddress", ipAddressStr);
         IPv4Address ipAddress = new IPv4Address(ipAddressStr, null);
 
+        //Set neighbourDryRun
+     //   params1.put("neighbourIPDryRun","true");
+
         ResourceType snmpResource = this.discoveryResource.returnResourceByParam(params1);
         Map<String, String> snmpConnParams = this.discoveryResource.getParamMap(snmpResource, "snmp");
+
+
         Resource resource = new Resource(hostName,ipAddress,connectionDetails.getParam("deviceType"), Integer.parseInt(snmpConnParams.get("port")), snmpConnParams);
+
+        resource.getAttributes().put("neighbourIPDryRun","true");
 
         String devName = walker.getDeviceName(resource);
         if (devName == null) {
@@ -126,7 +134,21 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
         RawDeviceData rawData = walker.getRawDeviceData(resource, requestParamsList);
         result.setDiscoveredData("rawData", rawData.getData());
+
+
+        discoveryHelper.setDryRun(true);
+
+
+        discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
+
+        SnmpForXslt.resolveIPAddresses(discoveryResource,"snmp");
+
+
+        discoveryHelper.setDryRun(false);
+
         DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
+
+
         result.setDiscoveredData("deviceData", discoveredDeviceData);
         Device device = discoveryHelper.createDevice(discoveredDeviceData);
 

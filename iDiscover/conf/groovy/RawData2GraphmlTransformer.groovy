@@ -46,31 +46,21 @@ output << """\
 
 
 String deviceName = input.name;
+String deviceModel = input.parameters.parameter.findAll {
+    it.name.text() == "Device Model"
+}.value.text();
+String deviceType = input.parameters.parameter.findAll { it.name.text() == "Device Type"}.value.text();
+String discoveredIPv4Address = input.parameters.parameter.findAll { it.name.text() == "Management IP Address"}.value.text();
+
+
 
 Device device = new Device(deviceName)
 
-output << "\t\t<node id=\"${input.name}\" label=\"${input.name}\">\n"
-
-
-output << "\t\t\t<data key=\"deviceName\">${input.name}</data>\n"
-output <<
-        "\t\t\t<data key=\"deviceModel\">" +
-        input.parameters.parameter.findAll {
-            it.name.text() == "Device Model"
-        }.value.text() +
-        "</data>\n"
-output <<
-        "\t\t\t<data key=\"deviceType\">" +
-        input.parameters.parameter.findAll {
-            it.name.text() == "Device Type"
-        }.value.text() +
-        "</data>\n"
-output <<
-        "\t\t\t<data key=\"DiscoveredIPv4Address\">" +
-        input.parameters.parameter.findAll {
-            it.name.text() == "Management IP Address"
-        }.value.text() +
-        "</data>\n"
+output << "\t\t<node id=\""+deviceName+"\" label=\""+deviceName+"\">\n"
+output << "\t\t\t<data key=\"deviceName\">" +deviceName + "</data>\n"
+output << "\t\t\t<data key=\"deviceModel\">" + deviceModel+ "</data>\n"
+output << "\t\t\t<data key=\"deviceType\">" + deviceType+ "</data>\n"
+output << "\t\t\t<data key=\"DiscoveredIPv4Address\">" + discoveredIPv4Address + "</data>\n"
 
 output << "\t\t</node>\n"
 
@@ -87,8 +77,6 @@ input.object.findAll {
     foundNeighbours.add(name)
 
 }
-
-
 
 
 

@@ -47,6 +47,10 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
     private DeviceType deviceType;
     private Map<String, DiscoveryMethodType> discoveryMethodTypeMap = new HashMap<String, DiscoveryMethodType>();
     private StopCriteriaType stopCriteria;
+    private boolean dryRun;
+
+
+
 
     public XmlDiscoveryHelper(DeviceType deviceType, StopCriteriaType stopCriteria) {
         this.deviceType = deviceType;
@@ -56,6 +60,13 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
             discoveryMethodTypeMap.put(discoveryMethod.getName(),discoveryMethod);
         }
     }
+
+    @Override
+    public void setDryRun(boolean dryRun) {
+        this.dryRun = dryRun;
+    }
+
+
 
     public DiscoveredDeviceData parseDeviceRawData(RawDeviceData rawData, String[] discoveryTypes, Resource resource) {
 
@@ -132,6 +143,11 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
 
     private void parseDeviceRawData(byte[] rawData, OutputStream outputStream, String xsltFileName, Resource resource) {
         XsltTransformer transformer = new XsltTransformer();
+
+        if(dryRun)
+            resource.getAttributes().put("neighbourIPDryRun","true");
+        else
+            resource.getAttributes().put("neighbourIPDryRun",null);
 
         try {
             if (resource.getIpAddress()!=null){

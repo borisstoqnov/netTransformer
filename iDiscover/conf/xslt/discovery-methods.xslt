@@ -93,8 +93,6 @@
 					<xsl:with-param name="neighIP" select="$neighborIP"/>
 					<xsl:with-param name="comm" select="$comm"/>
 					<xsl:with-param name="comm2" select="$comm2"/>
-                    <xsl:with-param name="timeout" select="$timeout"/>
-                    <xsl:with-param name="retries" select="$retries"/>
 
                 </xsl:call-template>
 			</xsl:variable>
@@ -191,8 +189,6 @@
 				<xsl:with-param name="neighIP" select="$lldpNeighbor-rough"/>
 				<xsl:with-param name="comm" select="$comm"/>
 				<xsl:with-param name="comm2" select="$comm2"/>
-                <xsl:with-param name="timeout" select="$timeout"/>
-                <xsl:with-param name="retries" select="$retries"/>
 			</xsl:call-template>
 		</xsl:variable>
 		<xsl:variable name="neighID" select="substring-before($neighID-community,'+-')"/>
@@ -281,8 +277,6 @@
 					<xsl:with-param name="neighIP" select="$otherIp"/>
 					<xsl:with-param name="comm" select="$comm"/>
 					<xsl:with-param name="comm2" select="$comm2"/>
-                    <xsl:with-param name="timeout" select="$timeout"/>
-                    <xsl:with-param name="retries" select="$retries"/>
 
                 </xsl:call-template>
 			</xsl:variable>
@@ -369,8 +363,6 @@
 					<xsl:with-param name="neighIP" select="$otherIp"/>
 					<xsl:with-param name="comm" select="$comm"/>
 					<xsl:with-param name="comm2" select="$comm2"/>
-                    <xsl:with-param name="timeout" select="$timeout"/>
-                    <xsl:with-param name="retries" select="$retries"/>
 
                 </xsl:call-template>
 			</xsl:variable>
@@ -422,7 +414,10 @@
 						<xsl:with-param name="neighborIP" select="$otherIp"/>
 						<xsl:with-param name="neighborHostname" select="$neighID"/>
 						<xsl:with-param name="comm" select="$snmp-community"/>
+
 					</xsl:call-template>
+
+
 				</parameters>
 			</object>
 		</xsl:if>
@@ -441,8 +436,6 @@
 						<xsl:with-param name="neighIP" select="$next-hop-ip"/>
 						<xsl:with-param name="comm" select="$comm"/>
 						<xsl:with-param name="comm2" select="$comm2"/>
-                        <xsl:with-param name="timeout" select="$timeout"/>
-                        <xsl:with-param name="retries" select="$retries"/>
 
                     </xsl:call-template>
 				</xsl:variable>
@@ -518,8 +511,6 @@
 						<xsl:with-param name="neighIP" select="$next-hop-ip"/>
 						<xsl:with-param name="comm" select="$comm"/>
 						<xsl:with-param name="comm2" select="$comm2"/>
-                        <xsl:with-param name="timeout" select="$timeout"/>
-                        <xsl:with-param name="retries" select="$retries"/>
 
                     </xsl:call-template>
 				</xsl:variable>
@@ -602,8 +593,6 @@
                             <xsl:with-param name="neighIP" select="$ipNetToMediaNetAddress"/>
                             <xsl:with-param name="comm" select="$comm"/>
                             <xsl:with-param name="comm2" select="$comm2"/>
-                            <xsl:with-param name="timeout" select="$timeout"/>
-                            <xsl:with-param name="retries" select="$retries"/>
 
                         </xsl:call-template>
                     </xsl:variable>
@@ -671,8 +660,6 @@
 					<xsl:with-param name="neighIP" select="$neighborIPAddress"/>
 					<xsl:with-param name="comm" select="$comm"/>
 					<xsl:with-param name="comm2" select="$comm2"/>
-                    <xsl:with-param name="timeout" select="$timeout"/>
-                    <xsl:with-param name="retries" select="$retries"/>
 
                 </xsl:call-template>
 			</xsl:variable>
@@ -784,8 +771,6 @@
 					<xsl:with-param name="neighIP" select="$ospfNbrIpAddr"/>
 					<xsl:with-param name="comm" select="$comm"/>
 					<xsl:with-param name="comm2" select="$comm2"/>
-                    <xsl:with-param name="timeout" select="$timeout"/>
-                    <xsl:with-param name="retries" select="$retries"/>
 
                 </xsl:call-template>
 			</xsl:variable>
@@ -852,8 +837,6 @@
 					<xsl:with-param name="neighIP" select="$bgpPeerRemoteAddr"/>
 					<xsl:with-param name="comm" select="$comm"/>
 					<xsl:with-param name="comm2" select="$comm2"/>
-                    <xsl:with-param name="timeout" select="$timeout"/>
-                    <xsl:with-param name="retries" select="$retries"/>
 
                 </xsl:call-template>
 			</xsl:variable>

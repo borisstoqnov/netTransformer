@@ -29,8 +29,8 @@ public class XmlFormatter {
     public XmlFormatter() {
     }
 
-    public String format(String unformattedXml) {
-        try {
+    public String format(String unformattedXml) throws IOException, ParserConfigurationException, SAXException {
+
             final Document document = parseXmlFile(unformattedXml);
 
             OutputFormat format = new OutputFormat(document);
@@ -42,27 +42,19 @@ public class XmlFormatter {
             serializer.serialize(document);
 
             return out.toString();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
-    private Document parseXmlFile(String in) {
-        try {
+    private Document parseXmlFile(String in) throws ParserConfigurationException, IOException, SAXException {
+
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             InputSource is = new InputSource(new StringReader(in));
             return db.parse(is);
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        } catch (SAXException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParserConfigurationException, SAXException {
         String unformattedXml =
         "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                 "        <DiscoveredDevice>\n" +
@@ -841,7 +833,12 @@ public class XmlFormatter {
                 "        </object>\n" +
                 "        </DiscoveredDevice>";
 
-        System.out.println(new XmlFormatter().format(unformattedXml));
+        try {
+            System.out.println(new XmlFormatter().format(unformattedXml));
+        } catch (IOException e) {
+
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
 }

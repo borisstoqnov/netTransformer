@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resources>
     <resource name="misho">
-        <param name="deviceName">misho</param>
+        <param name="deviceName">CE1</param>
         <param name="deviceType">CISCO</param>
         <connection-params connection-type="ssh">
             <param name="username">misho</param>
@@ -21,10 +21,10 @@
         </connection-params>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
-            <param name="community-ro">test-r</param>
+            <param name="community-ro">europack-r</param>
             <param name="community-rw">test-rw</param>
-            <param name="timeout">3000</param>
-            <param name="retries">3</param>
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
             <param name="port">161</param>
         </connection-params>
     </resource>
@@ -182,9 +182,9 @@
     <resource name="DEFAULT">
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
-            <param name="community-ro">public</param>
-            <param name="community-rw">private</param>
-            <param name="timeout">800</param>
+            <param name="community-ro">netTransformer-r</param>
+            <param name="community-rw">publicw</param>
+            <param name="timeout">3000</param>
             <param name="retries">1</param>
             <param name="port">161</param>
         </connection-params>

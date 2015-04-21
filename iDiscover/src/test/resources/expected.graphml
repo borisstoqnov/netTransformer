@@ -1,6 +1,3115 @@
 <graphml>
-bfogal54-peer
-bfogal54-peer
-IP_1: 127.0.0.1
-IP_2: 192.168.142.117
+    <key id="hostname" for="node" attr.name="hostname" attr.type="string"/>
+    <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string"/>
+    <key id="deviceType" for="node" attr.name="deviceType" attr.type="string"/>
+    <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string"/>
+    <key id="DiscoveredIPv4Address" for="node" attr.name="DiscoveredIPv4Address" attr.type="string"/>
+    <key id="geoCoordinates" for="node" attr.name="geoCoordinates" attr.type="string"/>
+    <key id="site" for="node" attr.name="site" attr.type="string"/>
+    <key id="diff" for="node" attr.name="diff" attr.type="string"/>
+    <key id="diffs" for="node" attr.name="diffs" attr.type="string"/>
+    <key id="IPv6Forwarding" for="node" attr.name="IPv6Forwarding" attr.type="string"/>
+    <key id="IPv4Forwarding" for="node" attr.name="IPv4Forwarding" attr.type="string"/>
+    <key id="SubnetPrefix" for="node" attr.name="SubnetPrefix" attr.type="string"/>
+
+    <key id="name" for="edge" attr.name="name" attr.type="string"/>
+    <key id="Discovery Method" for="edge" attr.name="Discovery Method" attr.type="string"/>
+    <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string"/>
+    <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string"/>
+    <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string"/>
+    <key id="IPv6Forwarding" for="edge" attr.name="IPv6Forwarding" attr.type="string"/>
+    <key id="IPv4Forwarding" for="edge" attr.name="IPv4Forwarding" attr.type="string"/>
+
+    <key id="bgpLocalAS" for="node" attr.name="bgpLocalAS" attr.type="string"/>
+    <key id="bgpAutonomousSystemA" for="edge" attr.name="bgpAutonomousSystemA" attr.type="string"/>
+    <key id="bgpAutonomousSystemB" for="edge" attr.name="bgpAutonomousSystemB" attr.type="string"/>
+
+    <key id="Interface" for="edge" attr.name="Interface" attr.type="string"/>
+    <key id="InterfaceNameB" for="edge" attr.name="InterfaceNameB" attr.type="string"/>
+    <key id="IPv4AddressA" for="edge" attr.name="IPv4AddressA" attr.type="string"/>
+    <key id="IPv4AddressB" for="edge" attr.name="IPv4AddressB" attr.type="string"/>
+    <key id="edgeTooltip" for="edge" attr.name="edgeTooltip" attr.type="string"/>
+    <key id="diff" for="edge" attr.name="diff" attr.type="string"/>
+    <key id="diffs" for="edge" attr.name="diffs" attr.type="string"/>
+
+    <graph edgedefault="undirected">
+        <node id="DC-CR3-NX1" label="DC-CR3-NX1">
+            <data key="deviceName">DC-CR3-NX1</data>
+            <data key="deviceModel"></data>
+            <data key="deviceType">CISCO</data>
+            <data key="DiscoveredIPv4Address">10.106.200.7</data>
+        </node>
+        <node id="DC-CR2-NX2" label="DC-CR2-NX2"/>
+        <node id="10.107.7.5" label="10.107.7.5"/>
+        <node id="GW-IP2IP" label="GW-IP2IP"/>
+        <node id="10.107.128.6" label="10.107.128.6"/>
+        <node id="10.107.128.7" label="10.107.128.7"/>
+        <node id="GW-BTC" label="GW-BTC"/>
+        <node id="GW-CallCenter" label="GW-CallCenter"/>
+        <node id="10.107.128.10" label="10.107.128.10"/>
+        <node id="10.107.128.11" label="10.107.128.11"/>
+        <node id="10.107.128.12" label="10.107.128.12"/>
+        <node id="GW-Mtel2" label="GW-Mtel2"/>
+        <node id="10.107.128.14" label="10.107.128.14"/>
+        <node id="GW-Mobiltel" label="GW-Mobiltel"/>
+        <node id="10.107.128.16" label="10.107.128.16"/>
+        <node id="10.107.128.17" label="10.107.128.17"/>
+        <node id="10.107.128.18" label="10.107.128.18"/>
+        <node id="10.107.128.20" label="10.107.128.20"/>
+        <node id="10.107.128.21" label="10.107.128.21"/>
+        <node id="10.107.128.23" label="10.107.128.23"/>
+        <node id="10.107.128.24" label="10.107.128.24"/>
+        <node id="10.107.128.25" label="10.107.128.25"/>
+        <node id="10.107.128.26" label="10.107.128.26"/>
+        <node id="10.107.128.28" label="10.107.128.28"/>
+        <node id="10.107.128.29" label="10.107.128.29"/>
+        <node id="10.107.128.30" label="10.107.128.30"/>
+        <node id="10.107.128.32" label="10.107.128.32"/>
+        <node id="10.107.128.34" label="10.107.128.34"/>
+        <node id="10.107.128.36" label="10.107.128.36"/>
+        <node id="10.107.128.40" label="10.107.128.40"/>
+        <node id="10.107.128.41" label="10.107.128.41"/>
+        <node id="10.107.128.42" label="10.107.128.42"/>
+        <node id="10.107.128.44" label="10.107.128.44"/>
+        <node id="10.107.128.45" label="10.107.128.45"/>
+        <node id="10.107.128.46" label="10.107.128.46"/>
+        <node id="10.107.128.47" label="10.107.128.47"/>
+        <node id="10.107.128.48" label="10.107.128.48"/>
+        <node id="10.107.128.49" label="10.107.128.49"/>
+        <node id="10.107.128.50" label="10.107.128.50"/>
+        <node id="10.107.128.51" label="10.107.128.51"/>
+        <node id="10.107.128.52" label="10.107.128.52"/>
+        <node id="10.107.128.57" label="10.107.128.57"/>
+        <node id="10.107.128.59" label="10.107.128.59"/>
+        <node id="10.107.128.60" label="10.107.128.60"/>
+        <node id="10.107.128.64" label="10.107.128.64"/>
+        <node id="10.107.128.66" label="10.107.128.66"/>
+        <node id="10.107.128.68" label="10.107.128.68"/>
+        <node id="10.107.128.70" label="10.107.128.70"/>
+        <node id="10.107.128.71" label="10.107.128.71"/>
+        <node id="10.107.128.73" label="10.107.128.73"/>
+        <node id="10.107.128.74" label="10.107.128.74"/>
+        <node id="10.107.128.75" label="10.107.128.75"/>
+        <node id="10.107.128.76" label="10.107.128.76"/>
+        <node id="10.107.128.78" label="10.107.128.78"/>
+        <node id="10.107.128.79" label="10.107.128.79"/>
+        <node id="10.107.128.80" label="10.107.128.80"/>
+        <node id="10.107.128.81" label="10.107.128.81"/>
+        <node id="10.107.128.82" label="10.107.128.82"/>
+        <node id="10.107.128.83" label="10.107.128.83"/>
+        <node id="NPI38EECE" label="NPI38EECE"/>
+        <node id="10.107.128.85" label="10.107.128.85"/>
+        <node id="10.107.128.86" label="10.107.128.86"/>
+        <node id="10.107.128.87" label="10.107.128.87"/>
+        <node id="10.107.128.88" label="10.107.128.88"/>
+        <node id="NPI81FB46" label="NPI81FB46"/>
+        <node id="NPIABA449" label="NPIABA449"/>
+        <node id="NPI60C7DB" label="NPI60C7DB"/>
+        <node id="NPI156981" label="NPI156981"/>
+        <node id="NPI810CEA" label="NPI810CEA"/>
+        <node id="NPI150FEA" label="NPI150FEA"/>
+        <node id="10.107.128.96" label="10.107.128.96"/>
+        <node id="10.107.128.97" label="10.107.128.97"/>
+        <node id="10.107.128.99" label="10.107.128.99"/>
+        <node id="10.107.128.100" label="10.107.128.100"/>
+        <node id="10.107.128.101" label="10.107.128.101"/>
+        <node id="10.107.128.102" label="10.107.128.102"/>
+        <node id="10.107.128.118" label="10.107.128.118"/>
+        <node id="10.107.128.119" label="10.107.128.119"/>
+        <node id="10.107.128.128" label="10.107.128.128"/>
+        <node id="10.107.128.132" label="10.107.128.132"/>
+        <node id="10.107.128.141" label="10.107.128.141"/>
+        <node id="10.107.128.142" label="10.107.128.142"/>
+        <node id="10.107.128.143" label="10.107.128.143"/>
+        <node id="10.107.128.144" label="10.107.128.144"/>
+        <node id="NPI60C78A" label="NPI60C78A"/>
+        <node id="10.107.128.153" label="10.107.128.153"/>
+        <node id="10.107.128.158" label="10.107.128.158"/>
+        <node id="10.107.128.159" label="10.107.128.159"/>
+        <node id="10.107.128.162" label="10.107.128.162"/>
+        <node id="10.107.128.166" label="10.107.128.166"/>
+        <node id="10.107.128.167" label="10.107.128.167"/>
+        <node id="10.107.128.170" label="10.107.128.170"/>
+        <node id="10.107.128.171" label="10.107.128.171"/>
+        <node id="10.107.128.175" label="10.107.128.175"/>
+        <node id="10.107.128.183" label="10.107.128.183"/>
+        <node id="10.107.128.185" label="10.107.128.185"/>
+        <node id="10.107.128.186" label="10.107.128.186"/>
+        <node id="10.107.128.188" label="10.107.128.188"/>
+        <node id="10.107.128.192" label="10.107.128.192"/>
+        <node id="10.107.128.200" label="10.107.128.200"/>
+        <node id="10.107.128.212" label="10.107.128.212"/>
+        <node id="10.107.128.217" label="10.107.128.217"/>
+        <node id="10.107.128.220" label="10.107.128.220"/>
+        <node id="NPIF5C004" label="NPIF5C004"/>
+        <node id="10.107.128.240" label="10.107.128.240"/>
+        <node id="10.107.128.254" label="10.107.128.254"/>
+        <node id="10.107.129.0" label="10.107.129.0"/>
+        <node id="Piraeus-0179-BranchATM" label="Piraeus-0179-BranchATM"/>
+        <node id="10.107.129.17" label="10.107.129.17"/>
+        <node id="10.107.129.20" label="10.107.129.20"/>
+        <node id="10.107.129.22" label="10.107.129.22"/>
+        <node id="10.107.129.23" label="10.107.129.23"/>
+        <node id="10.107.129.24" label="10.107.129.24"/>
+        <node id="10.107.129.25" label="10.107.129.25"/>
+        <node id="10.107.129.26" label="10.107.129.26"/>
+        <node id="10.107.129.29" label="10.107.129.29"/>
+        <node id="10.107.129.30" label="10.107.129.30"/>
+        <node id="10.107.129.31" label="10.107.129.31"/>
+        <node id="10.107.129.32" label="10.107.129.32"/>
+        <node id="10.107.129.33" label="10.107.129.33"/>
+        <node id="10.107.129.34" label="10.107.129.34"/>
+        <node id="10.107.129.35" label="10.107.129.35"/>
+        <node id="10.107.129.36" label="10.107.129.36"/>
+        <node id="10.107.129.37" label="10.107.129.37"/>
+        <node id="10.107.129.38" label="10.107.129.38"/>
+        <node id="10.107.129.39" label="10.107.129.39"/>
+        <node id="10.107.129.40" label="10.107.129.40"/>
+        <node id="10.107.129.41" label="10.107.129.41"/>
+        <node id="10.107.129.42" label="10.107.129.42"/>
+        <node id="10.107.129.43" label="10.107.129.43"/>
+        <node id="10.107.129.47" label="10.107.129.47"/>
+        <node id="10.107.129.49" label="10.107.129.49"/>
+        <node id="10.107.129.50" label="10.107.129.50"/>
+        <node id="10.107.129.51" label="10.107.129.51"/>
+        <node id="10.107.129.52" label="10.107.129.52"/>
+        <node id="10.107.129.53" label="10.107.129.53"/>
+        <node id="10.107.129.54" label="10.107.129.54"/>
+        <node id="10.107.129.55" label="10.107.129.55"/>
+        <node id="10.107.129.70" label="10.107.129.70"/>
+        <node id="10.107.129.79" label="10.107.129.79"/>
+        <node id="10.107.129.88" label="10.107.129.88"/>
+        <node id="10.107.129.89" label="10.107.129.89"/>
+        <node id="10.107.129.90" label="10.107.129.90"/>
+        <node id="NPI3DAC30" label="NPI3DAC30"/>
+        <node id="10.107.129.93" label="10.107.129.93"/>
+        <node id="NPI812910" label="NPI812910"/>
+        <node id="NPIABB4C0" label="NPIABB4C0"/>
+        <node id="10.107.129.100" label="10.107.129.100"/>
+        <node id="10.107.129.101" label="10.107.129.101"/>
+        <node id="10.107.129.102" label="10.107.129.102"/>
+        <node id="10.107.129.104" label="10.107.129.104"/>
+        <node id="10.107.129.106" label="10.107.129.106"/>
+        <node id="10.107.129.108" label="10.107.129.108"/>
+        <node id="10.107.129.109" label="10.107.129.109"/>
+        <node id="10.107.129.113" label="10.107.129.113"/>
+        <node id="10.107.129.114" label="10.107.129.114"/>
+        <node id="10.107.129.115" label="10.107.129.115"/>
+        <node id="10.107.129.116" label="10.107.129.116"/>
+        <node id="10.107.129.117" label="10.107.129.117"/>
+        <node id="10.107.129.118" label="10.107.129.118"/>
+        <node id="10.107.129.119" label="10.107.129.119"/>
+        <node id="10.107.129.120" label="10.107.129.120"/>
+        <node id="10.107.129.121" label="10.107.129.121"/>
+        <node id="10.107.129.122" label="10.107.129.122"/>
+        <node id="10.107.129.123" label="10.107.129.123"/>
+        <node id="10.107.129.124" label="10.107.129.124"/>
+        <node id="10.107.129.125" label="10.107.129.125"/>
+        <node id="10.107.129.128" label="10.107.129.128"/>
+        <node id="10.107.129.129" label="10.107.129.129"/>
+        <node id="10.107.129.133" label="10.107.129.133"/>
+        <node id="10.107.129.134" label="10.107.129.134"/>
+        <node id="10.107.129.136" label="10.107.129.136"/>
+        <node id="10.107.129.138" label="10.107.129.138"/>
+        <node id="10.107.129.139" label="10.107.129.139"/>
+        <node id="10.107.129.140" label="10.107.129.140"/>
+        <node id="10.107.129.141" label="10.107.129.141"/>
+        <node id="10.107.129.142" label="10.107.129.142"/>
+        <node id="10.107.129.144" label="10.107.129.144"/>
+        <node id="10.107.129.147" label="10.107.129.147"/>
+        <node id="10.107.129.159" label="10.107.129.159"/>
+        <node id="10.107.129.161" label="10.107.129.161"/>
+        <node id="10.107.129.163" label="10.107.129.163"/>
+        <node id="10.107.129.166" label="10.107.129.166"/>
+        <node id="10.107.129.175" label="10.107.129.175"/>
+        <node id="10.107.129.179" label="10.107.129.179"/>
+        <node id="10.107.129.183" label="10.107.129.183"/>
+        <node id="10.107.129.185" label="10.107.129.185"/>
+        <node id="10.107.129.187" label="10.107.129.187"/>
+        <node id="NPI39910E" label="NPI39910E"/>
+        <node id="10.107.129.192" label="10.107.129.192"/>
+        <node id="10.107.129.198" label="10.107.129.198"/>
+        <node id="10.107.129.200" label="10.107.129.200"/>
+        <node id="HPCE3A71" label="HPCE3A71"/>
+        <node id="10.107.129.204" label="10.107.129.204"/>
+        <node id="10.107.129.209" label="10.107.129.209"/>
+        <node id="10.107.129.221" label="10.107.129.221"/>
+        <node id="10.107.129.236" label="10.107.129.236"/>
+        <node id="NPI0478AC" label="NPI0478AC"/>
+        <node id="10.107.129.249" label="10.107.129.249"/>
+        <node id="10.107.129.250" label="10.107.129.250"/>
+        <node id="10.107.129.253" label="10.107.129.253"/>
+        <node id="10.107.129.254" label="10.107.129.254"/>
+        <node id="10.107.10.10" label="10.107.10.10"/>
+        <node id="10.107.10.18" label="10.107.10.18"/>
+        <node id="10.107.10.61" label="10.107.10.61"/>
+        <node id="10.107.10.74" label="10.107.10.74"/>
+        <node id="10.107.10.75" label="10.107.10.75"/>
+        <node id="10.106.200.2" label="10.106.200.2"/>
+        <node id="10.106.200.3" label="10.106.200.3"/>
+        <node id="10.106.200.4" label="10.106.200.4"/>
+        <node id="10.106.200.5" label="10.106.200.5"/>
+        <node id="10.106.200.6" label="10.106.200.6"/>
+        <node id="10.106.200.9" label="10.106.200.9"/>
+        <node id="10.106.200.10" label="10.106.200.10"/>
+        <node id="10.106.200.11" label="10.106.200.11"/>
+        <node id="PiraeusBank-MAIN" label="PiraeusBank-MAIN"/>
+        <node id="Piraeus_MAIN1" label="Piraeus_MAIN1"/>
+        <node id="Piraeus_MAIN2" label="Piraeus_MAIN2"/>
+        <node id="10.106.200.204" label="10.106.200.204"/>
+        <node id="10.106.200.205" label="10.106.200.205"/>
+        <node id="10.106.200.206" label="10.106.200.206"/>
+        <node id="DC-CR2-SW3-OldBranchServers" label="DC-CR2-SW3-OldBranchServers"/>
+        <node id="0179-Sw2-2950" label="0179-Sw2-2950"/>
+        <node id="AR-SW7-3560G" label="AR-SW7-3560G"/>
+        <node id="SW-InstallationPlace" label="SW-InstallationPlace"/>
+        <node id="SW-IronPort-MGM" label="SW-IronPort-MGM"/>
+        <node id="AR-Sw5-2950-CashCenter" label="AR-Sw5-2950-CashCenter"/>
+        <node id="AR-Sw4-2960" label="AR-Sw4-2960"/>
+        <node id="0179-Sw1-2950-Branch" label="0179-Sw1-2950-Branch"/>
+        <node id="ODC-Sw4-2950leftRbellow" label="ODC-Sw4-2950leftRbellow"/>
+        <node id="AR-Sw3-2960" label="AR-Sw3-2960"/>
+        <node id="AR-Sw2-3560down" label="AR-Sw2-3560down"/>
+        <node id="AR-Sw1-3560up" label="AR-Sw1-3560up"/>
+        <node id="DC-CR3-Sw1-2960" label="DC-CR3-Sw1-2960"/>
+        <node id="ODC-Sw2-3560down" label="ODC-Sw2-3560down"/>
+        <node id="ODC-Sw1-3560up" label="ODC-Sw1-3560up"/>
+        <node id="DC-CR2-Sw1-Imperva" label="DC-CR2-Sw1-Imperva"/>
+        <node id="DC-Sw-4503-CR2" label="DC-Sw-4503-CR2"/>
+        <node id="DC-Sw-4507R-CR3" label="DC-Sw-4507R-CR3"/>
+        <node id="10.107.5.11" label="10.107.5.11"/>
+        <node id="10.107.5.12" label="10.107.5.12"/>
+        <node id="10.107.5.21" label="10.107.5.21"/>
+        <node id="10.107.100.10" label="10.107.100.10"/>
+        <node id="10.107.100.15" label="10.107.100.15"/>
+        <node id="10.107.100.16" label="10.107.100.16"/>
+        <node id="10.107.100.18" label="10.107.100.18"/>
+        <node id="10.107.100.19" label="10.107.100.19"/>
+        <node id="10.107.100.20" label="10.107.100.20"/>
+        <node id="10.107.100.21" label="10.107.100.21"/>
+        <node id="10.107.100.24" label="10.107.100.24"/>
+        <node id="10.107.100.25" label="10.107.100.25"/>
+        <node id="10.107.100.26" label="10.107.100.26"/>
+        <node id="10.107.100.27" label="10.107.100.27"/>
+        <node id="10.107.100.28" label="10.107.100.28"/>
+        <node id="10.107.100.29" label="10.107.100.29"/>
+        <node id="10.107.100.30" label="10.107.100.30"/>
+        <node id="10.107.100.31" label="10.107.100.31"/>
+        <node id="10.107.100.32" label="10.107.100.32"/>
+        <node id="10.107.100.33" label="10.107.100.33"/>
+        <node id="10.107.100.34" label="10.107.100.34"/>
+        <node id="10.107.100.35" label="10.107.100.35"/>
+        <node id="10.107.100.36" label="10.107.100.36"/>
+        <node id="10.107.100.37" label="10.107.100.37"/>
+        <node id="10.107.100.38" label="10.107.100.38"/>
+        <node id="10.107.100.39" label="10.107.100.39"/>
+        <node id="10.107.100.40" label="10.107.100.40"/>
+        <node id="10.107.100.41" label="10.107.100.41"/>
+        <node id="10.107.100.42" label="10.107.100.42"/>
+        <node id="10.107.100.43" label="10.107.100.43"/>
+        <node id="10.107.100.44" label="10.107.100.44"/>
+        <node id="10.107.100.45" label="10.107.100.45"/>
+        <node id="10.107.100.46" label="10.107.100.46"/>
+        <node id="10.107.100.47" label="10.107.100.47"/>
+        <node id="10.107.100.48" label="10.107.100.48"/>
+        <node id="10.107.100.49" label="10.107.100.49"/>
+        <node id="10.107.100.50" label="10.107.100.50"/>
+        <node id="10.107.100.51" label="10.107.100.51"/>
+        <node id="10.107.100.52" label="10.107.100.52"/>
+        <node id="10.107.100.53" label="10.107.100.53"/>
+        <node id="10.107.100.54" label="10.107.100.54"/>
+        <node id="10.107.100.55" label="10.107.100.55"/>
+        <node id="10.107.100.56" label="10.107.100.56"/>
+        <node id="10.107.100.57" label="10.107.100.57"/>
+        <node id="10.107.100.58" label="10.107.100.58"/>
+        <node id="10.107.100.59" label="10.107.100.59"/>
+        <node id="10.107.100.60" label="10.107.100.60"/>
+        <node id="10.107.100.61" label="10.107.100.61"/>
+        <node id="10.107.100.62" label="10.107.100.62"/>
+        <node id="10.107.100.63" label="10.107.100.63"/>
+        <node id="10.107.100.65" label="10.107.100.65"/>
+        <node id="10.107.100.66" label="10.107.100.66"/>
+        <node id="10.107.100.67" label="10.107.100.67"/>
+        <node id="10.107.100.68" label="10.107.100.68"/>
+        <node id="10.107.100.69" label="10.107.100.69"/>
+        <node id="10.107.100.70" label="10.107.100.70"/>
+        <node id="10.107.100.71" label="10.107.100.71"/>
+        <node id="10.107.100.72" label="10.107.100.72"/>
+        <node id="10.107.100.73" label="10.107.100.73"/>
+        <node id="10.107.100.79" label="10.107.100.79"/>
+        <node id="10.107.100.80" label="10.107.100.80"/>
+        <node id="10.107.100.82" label="10.107.100.82"/>
+        <node id="10.107.100.94" label="10.107.100.94"/>
+        <node id="10.107.100.95" label="10.107.100.95"/>
+        <node id="10.107.100.96" label="10.107.100.96"/>
+        <node id="10.107.100.97" label="10.107.100.97"/>
+        <node id="10.107.100.98" label="10.107.100.98"/>
+        <node id="10.107.100.100" label="10.107.100.100"/>
+        <node id="10.107.100.103" label="10.107.100.103"/>
+        <node id="10.107.100.104" label="10.107.100.104"/>
+        <node id="10.107.100.105" label="10.107.100.105"/>
+        <node id="10.107.100.106" label="10.107.100.106"/>
+        <node id="10.107.100.108" label="10.107.100.108"/>
+        <node id="10.107.100.197" label="10.107.100.197"/>
+        <node id="10.107.100.198" label="10.107.100.198"/>
+        <node id="10.107.100.230" label="10.107.100.230"/>
+        <node id="10.107.100.231" label="10.107.100.231"/>
+        <node id="10.107.100.232" label="10.107.100.232"/>
+        <node id="10.107.100.233" label="10.107.100.233"/>
+        <node id="10.107.100.234" label="10.107.100.234"/>
+        <node id="10.107.100.235" label="10.107.100.235"/>
+        <node id="10.107.100.240" label="10.107.100.240"/>
+        <node id="10.107.100.241" label="10.107.100.241"/>
+        <node id="10.107.100.242" label="10.107.100.242"/>
+        <node id="10.107.100.243" label="10.107.100.243"/>
+        <node id="10.107.100.244" label="10.107.100.244"/>
+        <node id="10.107.100.245" label="10.107.100.245"/>
+        <node id="10.107.126.7" label="10.107.126.7"/>
+        <node id="10.107.126.13" label="10.107.126.13"/>
+        <node id="10.107.126.17" label="10.107.126.17"/>
+        <node id="10.107.126.19" label="10.107.126.19"/>
+        <node id="10.107.126.20" label="10.107.126.20"/>
+        <node id="10.107.126.24" label="10.107.126.24"/>
+        <node id="10.107.126.25" label="10.107.126.25"/>
+        <node id="10.107.126.26" label="10.107.126.26"/>
+        <node id="10.107.126.27" label="10.107.126.27"/>
+        <node id="10.107.126.28" label="10.107.126.28"/>
+        <node id="10.107.126.29" label="10.107.126.29"/>
+        <node id="10.107.126.41" label="10.107.126.41"/>
+        <node id="10.107.126.75" label="10.107.126.75"/>
+        <node id="10.107.126.80" label="10.107.126.80"/>
+        <node id="10.107.126.93" label="10.107.126.93"/>
+        <node id="10.107.126.94" label="10.107.126.94"/>
+        <node id="10.107.126.96" label="10.107.126.96"/>
+        <node id="10.107.126.97" label="10.107.126.97"/>
+        <node id="10.107.126.98" label="10.107.126.98"/>
+        <node id="10.107.126.99" label="10.107.126.99"/>
+        <node id="10.107.126.100" label="10.107.126.100"/>
+        <node id="10.107.126.101" label="10.107.126.101"/>
+        <node id="10.107.126.102" label="10.107.126.102"/>
+        <node id="10.107.126.104" label="10.107.126.104"/>
+        <node id="10.107.126.105" label="10.107.126.105"/>
+        <node id="10.107.126.106" label="10.107.126.106"/>
+        <node id="10.107.126.107" label="10.107.126.107"/>
+        <node id="10.107.126.108" label="10.107.126.108"/>
+        <node id="10.107.126.109" label="10.107.126.109"/>
+        <node id="10.107.126.110" label="10.107.126.110"/>
+        <node id="10.107.126.111" label="10.107.126.111"/>
+        <node id="10.107.126.112" label="10.107.126.112"/>
+        <node id="10.107.126.113" label="10.107.126.113"/>
+        <node id="10.107.126.114" label="10.107.126.114"/>
+        <node id="10.107.126.115" label="10.107.126.115"/>
+        <node id="10.107.126.117" label="10.107.126.117"/>
+        <node id="10.107.126.118" label="10.107.126.118"/>
+        <node id="10.107.126.119" label="10.107.126.119"/>
+        <node id="10.107.126.120" label="10.107.126.120"/>
+        <node id="10.107.126.122" label="10.107.126.122"/>
+        <node id="10.107.126.123" label="10.107.126.123"/>
+        <node id="10.107.126.124" label="10.107.126.124"/>
+        <node id="10.107.126.125" label="10.107.126.125"/>
+        <node id="10.107.126.126" label="10.107.126.126"/>
+        <node id="10.107.126.127" label="10.107.126.127"/>
+        <node id="10.107.126.129" label="10.107.126.129"/>
+        <node id="10.107.126.130" label="10.107.126.130"/>
+        <node id="10.107.126.131" label="10.107.126.131"/>
+        <node id="10.107.126.133" label="10.107.126.133"/>
+        <node id="10.107.126.134" label="10.107.126.134"/>
+        <node id="10.107.126.135" label="10.107.126.135"/>
+        <node id="10.107.126.136" label="10.107.126.136"/>
+        <node id="10.107.126.138" label="10.107.126.138"/>
+        <node id="10.107.126.140" label="10.107.126.140"/>
+        <node id="10.107.126.141" label="10.107.126.141"/>
+        <node id="10.107.126.143" label="10.107.126.143"/>
+        <node id="10.107.126.144" label="10.107.126.144"/>
+        <node id="10.107.126.145" label="10.107.126.145"/>
+        <node id="10.107.126.146" label="10.107.126.146"/>
+        <node id="10.107.126.147" label="10.107.126.147"/>
+        <node id="10.107.126.148" label="10.107.126.148"/>
+        <node id="10.107.126.149" label="10.107.126.149"/>
+        <node id="10.107.126.151" label="10.107.126.151"/>
+        <node id="10.107.126.153" label="10.107.126.153"/>
+        <node id="10.107.126.154" label="10.107.126.154"/>
+        <node id="10.107.126.155" label="10.107.126.155"/>
+        <node id="10.107.126.156" label="10.107.126.156"/>
+        <node id="10.107.126.157" label="10.107.126.157"/>
+        <node id="10.107.126.159" label="10.107.126.159"/>
+        <node id="10.107.126.160" label="10.107.126.160"/>
+        <node id="10.107.126.161" label="10.107.126.161"/>
+        <node id="10.107.126.167" label="10.107.126.167"/>
+        <node id="10.107.126.176" label="10.107.126.176"/>
+        <node id="10.107.126.179" label="10.107.126.179"/>
+        <node id="10.107.126.184" label="10.107.126.184"/>
+        <node id="10.107.126.190" label="10.107.126.190"/>
+        <node id="10.107.126.191" label="10.107.126.191"/>
+        <node id="10.107.126.192" label="10.107.126.192"/>
+        <node id="10.107.126.214" label="10.107.126.214"/>
+        <node id="10.107.126.215" label="10.107.126.215"/>
+        <node id="10.107.126.216" label="10.107.126.216"/>
+        <node id="10.107.126.217" label="10.107.126.217"/>
+        <node id="10.107.126.218" label="10.107.126.218"/>
+        <node id="10.107.126.223" label="10.107.126.223"/>
+        <node id="10.107.126.225" label="10.107.126.225"/>
+        <node id="10.107.126.232" label="10.107.126.232"/>
+        <node id="10.107.126.235" label="10.107.126.235"/>
+        <node id="10.107.126.239" label="10.107.126.239"/>
+        <node id="10.107.126.245" label="10.107.126.245"/>
+        <node id="10.107.126.249" label="10.107.126.249"/>
+        <node id="10.107.100.0/24" label="10.107.100.0/24">
+            <data key="deviceType">Subnet</data>
+            <data key="deviceModel">passiveHub</data>
+            <data key="SubnetPrefix">10.107.100.0/24</data>
+        </node>
+        <node id="100.100.100.1/32" label="100.100.100.1/32">
+            <data key="deviceType">Subnet</data>
+            <data key="deviceModel">passiveHub</data>
+            <data key="SubnetPrefix">100.100.100.1/32</data>
+        </node>
+        <node id="10.106.200.1/32" label="10.106.200.1/32">
+            <data key="deviceType">Subnet</data>
+            <data key="deviceModel">passiveHub</data>
+            <data key="SubnetPrefix">10.106.200.1/32</data>
+        </node>
+        <node id="10.107.128.0/23" label="10.107.128.0/23">
+            <data key="deviceType">Subnet</data>
+            <data key="deviceModel">passiveHub</data>
+            <data key="SubnetPrefix">10.107.128.0/23</data>
+        </node>
+        <node id="10.107.7.0/24" label="10.107.7.0/24">
+            <data key="deviceType">Subnet</data>
+            <data key="deviceModel">passiveHub</data>
+            <data key="SubnetPrefix">10.107.7.0/24</data>
+        </node>
+        <node id="10.107.128.1/32" label="10.107.128.1/32">
+            <data key="deviceType">Subnet</data>
+            <data key="deviceModel">passiveHub</data>
+            <data key="SubnetPrefix">10.107.128.1/32</data>
+        </node>
+        <node id="10.107.0.24/30" label="10.107.0.24/30">
+            <data key="deviceType">Subnet</data>
+            <data key="deviceModel">passiveHub</data>
+            <data key="SubnetPrefix">10.107.0.24/30</data>
+        </node>
+        <node id="10.107.0.36/30" label="10.107.0.36/30">
+            <data key="deviceType">Subnet</data>
+            <data key="deviceModel">passiveHub</data>
+            <data key="SubnetPrefix">10.107.0.36/30</data>
+        </node>
+        <node id="10.107.5.0/24" label="10.107.5.0/24">
+            <data key="deviceType">Subnet</data>
+            <data key="deviceModel">passiveHub</data>
+            <data key="SubnetPrefix">10.107.5.0/24</data>
+        </node>
+        <node id="10.107.10.0/24" label="10.107.10.0/24">
+            <data key="deviceType">Subnet</data>
+            <data key="deviceModel">passiveHub</data>
+            <data key="SubnetPrefix">10.107.10.0/24</data>
+        </node>
+        <node id="10.107.5.1/32" label="10.107.5.1/32">
+            <data key="deviceType">Subnet</data>
+            <data key="deviceModel">passiveHub</data>
+            <data key="SubnetPrefix">10.107.5.1/32</data>
+        </node>
+        <node id="10.107.126.0/23" label="10.107.126.0/23">
+            <data key="deviceType">Subnet</data>
+            <data key="deviceModel">passiveHub</data>
+            <data key="SubnetPrefix">10.107.126.0/23</data>
+        </node>
+        <node id="10.106.200.0/24" label="10.106.200.0/24">
+            <data key="deviceType">Subnet</data>
+            <data key="deviceModel">passiveHub</data>
+            <data key="SubnetPrefix">10.106.200.0/24</data>
+        </node>
+        <edge id="10.107.100.0/24-DC-CR3-NX1" source="10.107.100.0/24" target="DC-CR3-NX1" label="10.107.100.0/24-DC-CR3-NX1">
+            <data key="Interface">Vlan100</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.40" source="10.107.100.0/24" target="10.107.100.40" label="10.107.100.0/24-10.107.100.40">
+            <data key="Neighbor IP Address">10.107.100.40</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.234" source="10.107.100.0/24" target="10.107.100.234" label="10.107.100.0/24-10.107.100.234">
+            <data key="Neighbor IP Address">10.107.100.234</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.41" source="10.107.100.0/24" target="10.107.100.41" label="10.107.100.0/24-10.107.100.41">
+            <data key="Neighbor IP Address">10.107.100.41</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.233" source="10.107.100.0/24" target="10.107.100.233" label="10.107.100.0/24-10.107.100.233">
+            <data key="Neighbor IP Address">10.107.100.233</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.82" source="10.107.100.0/24" target="10.107.100.82" label="10.107.100.0/24-10.107.100.82">
+            <data key="Neighbor IP Address">10.107.100.82</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.235" source="10.107.100.0/24" target="10.107.100.235" label="10.107.100.0/24-10.107.100.235">
+            <data key="Neighbor IP Address">10.107.100.235</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.80" source="10.107.100.0/24" target="10.107.100.80" label="10.107.100.0/24-10.107.100.80">
+            <data key="Neighbor IP Address">10.107.100.80</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.37" source="10.107.100.0/24" target="10.107.100.37" label="10.107.100.0/24-10.107.100.37">
+            <data key="Neighbor IP Address">10.107.100.37</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.38" source="10.107.100.0/24" target="10.107.100.38" label="10.107.100.0/24-10.107.100.38">
+            <data key="Neighbor IP Address">10.107.100.38</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.35" source="10.107.100.0/24" target="10.107.100.35" label="10.107.100.0/24-10.107.100.35">
+            <data key="Neighbor IP Address">10.107.100.35</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.79" source="10.107.100.0/24" target="10.107.100.79" label="10.107.100.0/24-10.107.100.79">
+            <data key="Neighbor IP Address">10.107.100.79</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.36" source="10.107.100.0/24" target="10.107.100.36" label="10.107.100.0/24-10.107.100.36">
+            <data key="Neighbor IP Address">10.107.100.36</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.33" source="10.107.100.0/24" target="10.107.100.33" label="10.107.100.0/24-10.107.100.33">
+            <data key="Neighbor IP Address">10.107.100.33</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.197" source="10.107.100.0/24" target="10.107.100.197" label="10.107.100.0/24-10.107.100.197">
+            <data key="Neighbor IP Address">10.107.100.197</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.230" source="10.107.100.0/24" target="10.107.100.230" label="10.107.100.0/24-10.107.100.230">
+            <data key="Neighbor IP Address">10.107.100.230</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.34" source="10.107.100.0/24" target="10.107.100.34" label="10.107.100.0/24-10.107.100.34">
+            <data key="Neighbor IP Address">10.107.100.34</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.31" source="10.107.100.0/24" target="10.107.100.31" label="10.107.100.0/24-10.107.100.31">
+            <data key="Neighbor IP Address">10.107.100.31</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.232" source="10.107.100.0/24" target="10.107.100.232" label="10.107.100.0/24-10.107.100.232">
+            <data key="Neighbor IP Address">10.107.100.232</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.32" source="10.107.100.0/24" target="10.107.100.32" label="10.107.100.0/24-10.107.100.32">
+            <data key="Neighbor IP Address">10.107.100.32</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.198" source="10.107.100.0/24" target="10.107.100.198" label="10.107.100.0/24-10.107.100.198">
+            <data key="Neighbor IP Address">10.107.100.198</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.231" source="10.107.100.0/24" target="10.107.100.231" label="10.107.100.0/24-10.107.100.231">
+            <data key="Neighbor IP Address">10.107.100.231</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.39" source="10.107.100.0/24" target="10.107.100.39" label="10.107.100.0/24-10.107.100.39">
+            <data key="Neighbor IP Address">10.107.100.39</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.73" source="10.107.100.0/24" target="10.107.100.73" label="10.107.100.0/24-10.107.100.73">
+            <data key="Neighbor IP Address">10.107.100.73</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.245" source="10.107.100.0/24" target="10.107.100.245" label="10.107.100.0/24-10.107.100.245">
+            <data key="Neighbor IP Address">10.107.100.245</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.30" source="10.107.100.0/24" target="10.107.100.30" label="10.107.100.0/24-10.107.100.30">
+            <data key="Neighbor IP Address">10.107.100.30</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.244" source="10.107.100.0/24" target="10.107.100.244" label="10.107.100.0/24-10.107.100.244">
+            <data key="Neighbor IP Address">10.107.100.244</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.71" source="10.107.100.0/24" target="10.107.100.71" label="10.107.100.0/24-10.107.100.71">
+            <data key="Neighbor IP Address">10.107.100.71</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.72" source="10.107.100.0/24" target="10.107.100.72" label="10.107.100.0/24-10.107.100.72">
+            <data key="Neighbor IP Address">10.107.100.72</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.70" source="10.107.100.0/24" target="10.107.100.70" label="10.107.100.0/24-10.107.100.70">
+            <data key="Neighbor IP Address">10.107.100.70</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.26" source="10.107.100.0/24" target="10.107.100.26" label="10.107.100.0/24-10.107.100.26">
+            <data key="Neighbor IP Address">10.107.100.26</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.27" source="10.107.100.0/24" target="10.107.100.27" label="10.107.100.0/24-10.107.100.27">
+            <data key="Neighbor IP Address">10.107.100.27</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.24" source="10.107.100.0/24" target="10.107.100.24" label="10.107.100.0/24-10.107.100.24">
+            <data key="Neighbor IP Address">10.107.100.24</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.68" source="10.107.100.0/24" target="10.107.100.68" label="10.107.100.0/24-10.107.100.68">
+            <data key="Neighbor IP Address">10.107.100.68</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.25" source="10.107.100.0/24" target="10.107.100.25" label="10.107.100.0/24-10.107.100.25">
+            <data key="Neighbor IP Address">10.107.100.25</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.69" source="10.107.100.0/24" target="10.107.100.69" label="10.107.100.0/24-10.107.100.69">
+            <data key="Neighbor IP Address">10.107.100.69</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.66" source="10.107.100.0/24" target="10.107.100.66" label="10.107.100.0/24-10.107.100.66">
+            <data key="Neighbor IP Address">10.107.100.66</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.241" source="10.107.100.0/24" target="10.107.100.241" label="10.107.100.0/24-10.107.100.241">
+            <data key="Neighbor IP Address">10.107.100.241</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-DC-CR2-NX2" source="10.107.100.0/24" target="DC-CR2-NX2" label="10.107.100.0/24-DC-CR2-NX2">
+            <data key="Neighbor IP Address">10.107.100.1 10.107.100.3 10.107.100.3</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.67" source="10.107.100.0/24" target="10.107.100.67" label="10.107.100.0/24-10.107.100.67">
+            <data key="Neighbor IP Address">10.107.100.67</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.240" source="10.107.100.0/24" target="10.107.100.240" label="10.107.100.0/24-10.107.100.240">
+            <data key="Neighbor IP Address">10.107.100.240</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.20" source="10.107.100.0/24" target="10.107.100.20" label="10.107.100.0/24-10.107.100.20">
+            <data key="Neighbor IP Address">10.107.100.20</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.243" source="10.107.100.0/24" target="10.107.100.243" label="10.107.100.0/24-10.107.100.243">
+            <data key="Neighbor IP Address">10.107.100.243</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.21" source="10.107.100.0/24" target="10.107.100.21" label="10.107.100.0/24-10.107.100.21">
+            <data key="Neighbor IP Address">10.107.100.21</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.65" source="10.107.100.0/24" target="10.107.100.65" label="10.107.100.0/24-10.107.100.65">
+            <data key="Neighbor IP Address">10.107.100.65</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.242" source="10.107.100.0/24" target="10.107.100.242" label="10.107.100.0/24-10.107.100.242">
+            <data key="Neighbor IP Address">10.107.100.242</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.28" source="10.107.100.0/24" target="10.107.100.28" label="10.107.100.0/24-10.107.100.28">
+            <data key="Neighbor IP Address">10.107.100.28</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.29" source="10.107.100.0/24" target="10.107.100.29" label="10.107.100.0/24-10.107.100.29">
+            <data key="Neighbor IP Address">10.107.100.29</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.62" source="10.107.100.0/24" target="10.107.100.62" label="10.107.100.0/24-10.107.100.62">
+            <data key="Neighbor IP Address">10.107.100.62</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.63" source="10.107.100.0/24" target="10.107.100.63" label="10.107.100.0/24-10.107.100.63">
+            <data key="Neighbor IP Address">10.107.100.63</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.60" source="10.107.100.0/24" target="10.107.100.60" label="10.107.100.0/24-10.107.100.60">
+            <data key="Neighbor IP Address">10.107.100.60</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.61" source="10.107.100.0/24" target="10.107.100.61" label="10.107.100.0/24-10.107.100.61">
+            <data key="Neighbor IP Address">10.107.100.61</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.15" source="10.107.100.0/24" target="10.107.100.15" label="10.107.100.0/24-10.107.100.15">
+            <data key="Neighbor IP Address">10.107.100.15</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.59" source="10.107.100.0/24" target="10.107.100.59" label="10.107.100.0/24-10.107.100.59">
+            <data key="Neighbor IP Address">10.107.100.59</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.16" source="10.107.100.0/24" target="10.107.100.16" label="10.107.100.0/24-10.107.100.16">
+            <data key="Neighbor IP Address">10.107.100.16</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.57" source="10.107.100.0/24" target="10.107.100.57" label="10.107.100.0/24-10.107.100.57">
+            <data key="Neighbor IP Address">10.107.100.57</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.58" source="10.107.100.0/24" target="10.107.100.58" label="10.107.100.0/24-10.107.100.58">
+            <data key="Neighbor IP Address">10.107.100.58</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.55" source="10.107.100.0/24" target="10.107.100.55" label="10.107.100.0/24-10.107.100.55">
+            <data key="Neighbor IP Address">10.107.100.55</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.56" source="10.107.100.0/24" target="10.107.100.56" label="10.107.100.0/24-10.107.100.56">
+            <data key="Neighbor IP Address">10.107.100.56</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.53" source="10.107.100.0/24" target="10.107.100.53" label="10.107.100.0/24-10.107.100.53">
+            <data key="Neighbor IP Address">10.107.100.53</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.97" source="10.107.100.0/24" target="10.107.100.97" label="10.107.100.0/24-10.107.100.97">
+            <data key="Neighbor IP Address">10.107.100.97</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.10" source="10.107.100.0/24" target="10.107.100.10" label="10.107.100.0/24-10.107.100.10">
+            <data key="Neighbor IP Address">10.107.100.10</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.54" source="10.107.100.0/24" target="10.107.100.54" label="10.107.100.0/24-10.107.100.54">
+            <data key="Neighbor IP Address">10.107.100.54</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.98" source="10.107.100.0/24" target="10.107.100.98" label="10.107.100.0/24-10.107.100.98">
+            <data key="Neighbor IP Address">10.107.100.98</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.19" source="10.107.100.0/24" target="10.107.100.19" label="10.107.100.0/24-10.107.100.19">
+            <data key="Neighbor IP Address">10.107.100.19</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.18" source="10.107.100.0/24" target="10.107.100.18" label="10.107.100.0/24-10.107.100.18">
+            <data key="Neighbor IP Address">10.107.100.18</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.51" source="10.107.100.0/24" target="10.107.100.51" label="10.107.100.0/24-10.107.100.51">
+            <data key="Neighbor IP Address">10.107.100.51</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.95" source="10.107.100.0/24" target="10.107.100.95" label="10.107.100.0/24-10.107.100.95">
+            <data key="Neighbor IP Address">10.107.100.95</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.52" source="10.107.100.0/24" target="10.107.100.52" label="10.107.100.0/24-10.107.100.52">
+            <data key="Neighbor IP Address">10.107.100.52</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.96" source="10.107.100.0/24" target="10.107.100.96" label="10.107.100.0/24-10.107.100.96">
+            <data key="Neighbor IP Address">10.107.100.96</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.104" source="10.107.100.0/24" target="10.107.100.104" label="10.107.100.0/24-10.107.100.104">
+            <data key="Neighbor IP Address">10.107.100.104</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.50" source="10.107.100.0/24" target="10.107.100.50" label="10.107.100.0/24-10.107.100.50">
+            <data key="Neighbor IP Address">10.107.100.50</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.94" source="10.107.100.0/24" target="10.107.100.94" label="10.107.100.0/24-10.107.100.94">
+            <data key="Neighbor IP Address">10.107.100.94</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.103" source="10.107.100.0/24" target="10.107.100.103" label="10.107.100.0/24-10.107.100.103">
+            <data key="Neighbor IP Address">10.107.100.103</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.106" source="10.107.100.0/24" target="10.107.100.106" label="10.107.100.0/24-10.107.100.106">
+            <data key="Neighbor IP Address">10.107.100.106</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.105" source="10.107.100.0/24" target="10.107.100.105" label="10.107.100.0/24-10.107.100.105">
+            <data key="Neighbor IP Address">10.107.100.105</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.108" source="10.107.100.0/24" target="10.107.100.108" label="10.107.100.0/24-10.107.100.108">
+            <data key="Neighbor IP Address">10.107.100.108</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.48" source="10.107.100.0/24" target="10.107.100.48" label="10.107.100.0/24-10.107.100.48">
+            <data key="Neighbor IP Address">10.107.100.48</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.49" source="10.107.100.0/24" target="10.107.100.49" label="10.107.100.0/24-10.107.100.49">
+            <data key="Neighbor IP Address">10.107.100.49</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.46" source="10.107.100.0/24" target="10.107.100.46" label="10.107.100.0/24-10.107.100.46">
+            <data key="Neighbor IP Address">10.107.100.46</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.47" source="10.107.100.0/24" target="10.107.100.47" label="10.107.100.0/24-10.107.100.47">
+            <data key="Neighbor IP Address">10.107.100.47</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.44" source="10.107.100.0/24" target="10.107.100.44" label="10.107.100.0/24-10.107.100.44">
+            <data key="Neighbor IP Address">10.107.100.44</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.45" source="10.107.100.0/24" target="10.107.100.45" label="10.107.100.0/24-10.107.100.45">
+            <data key="Neighbor IP Address">10.107.100.45</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.42" source="10.107.100.0/24" target="10.107.100.42" label="10.107.100.0/24-10.107.100.42">
+            <data key="Neighbor IP Address">10.107.100.42</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.100" source="10.107.100.0/24" target="10.107.100.100" label="10.107.100.0/24-10.107.100.100">
+            <data key="Neighbor IP Address">10.107.100.100</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.100.0/24-10.107.100.43" source="10.107.100.0/24" target="10.107.100.43" label="10.107.100.0/24-10.107.100.43">
+            <data key="Neighbor IP Address">10.107.100.43</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="100.100.100.1/32-DC-CR3-NX1" source="100.100.100.1/32" target="DC-CR3-NX1" label="100.100.100.1/32-DC-CR3-NX1">
+            <data key="Interface">loopback100</data>
+        </edge>
+        <edge id="10.106.200.1/32-DC-CR3-NX1" source="10.106.200.1/32" target="DC-CR3-NX1" label="10.106.200.1/32-DC-CR3-NX1">
+            <data key="Interface">Vlan33</data>
+        </edge>
+        <edge id="10.107.128.0/23-DC-CR3-NX1" source="10.107.128.0/23" target="DC-CR3-NX1" label="10.107.128.0/23-DC-CR3-NX1">
+            <data key="Interface">Vlan10</data>
+            <data key="Discovery Method">r_OTHER,ARPr_OTHER,ARP,OSPFr_OTHER,LOCAL,ARPr_OTHER,OSPF,ARP,OSPF</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.50" source="10.107.128.0/23" target="10.107.128.50" label="10.107.128.0/23-10.107.128.50">
+            <data key="Neighbor IP Address">10.107.128.50</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.166" source="10.107.128.0/23" target="10.107.128.166" label="10.107.128.0/23-10.107.128.166">
+            <data key="Neighbor IP Address">10.107.128.166</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.167" source="10.107.128.0/23" target="10.107.128.167" label="10.107.128.0/23-10.107.128.167">
+            <data key="Neighbor IP Address">10.107.128.167</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.162" source="10.107.128.0/23" target="10.107.128.162" label="10.107.128.0/23-10.107.128.162">
+            <data key="Neighbor IP Address">10.107.128.162</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.57" source="10.107.128.0/23" target="10.107.128.57" label="10.107.128.0/23-10.107.128.57">
+            <data key="Neighbor IP Address">10.107.128.57</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.25" source="10.107.128.0/23" target="10.107.129.25" label="10.107.128.0/23-10.107.129.25">
+            <data key="Neighbor IP Address">10.107.129.25</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.26" source="10.107.128.0/23" target="10.107.129.26" label="10.107.128.0/23-10.107.129.26">
+            <data key="Neighbor IP Address">10.107.129.26</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.23" source="10.107.128.0/23" target="10.107.129.23" label="10.107.128.0/23-10.107.129.23">
+            <data key="Neighbor IP Address">10.107.129.23</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.24" source="10.107.128.0/23" target="10.107.129.24" label="10.107.128.0/23-10.107.129.24">
+            <data key="Neighbor IP Address">10.107.129.24</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.22" source="10.107.128.0/23" target="10.107.129.22" label="10.107.128.0/23-10.107.129.22">
+            <data key="Neighbor IP Address">10.107.129.22</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.51" source="10.107.128.0/23" target="10.107.128.51" label="10.107.128.0/23-10.107.128.51">
+            <data key="Neighbor IP Address">10.107.128.51</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.52" source="10.107.128.0/23" target="10.107.128.52" label="10.107.128.0/23-10.107.128.52">
+            <data key="Neighbor IP Address">10.107.128.52</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.20" source="10.107.128.0/23" target="10.107.129.20" label="10.107.128.0/23-10.107.129.20">
+            <data key="Neighbor IP Address">10.107.129.20</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.48" source="10.107.128.0/23" target="10.107.128.48" label="10.107.128.0/23-10.107.128.48">
+            <data key="Neighbor IP Address">10.107.128.48</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.49" source="10.107.128.0/23" target="10.107.128.49" label="10.107.128.0/23-10.107.128.49">
+            <data key="Neighbor IP Address">10.107.128.49</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.17" source="10.107.128.0/23" target="10.107.129.17" label="10.107.128.0/23-10.107.129.17">
+            <data key="Neighbor IP Address">10.107.129.17</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.60" source="10.107.128.0/23" target="10.107.128.60" label="10.107.128.0/23-10.107.128.60">
+            <data key="Neighbor IP Address">10.107.128.60</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.153" source="10.107.128.0/23" target="10.107.128.153" label="10.107.128.0/23-10.107.128.153">
+            <data key="Neighbor IP Address">10.107.128.153</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.68" source="10.107.128.0/23" target="10.107.128.68" label="10.107.128.0/23-10.107.128.68">
+            <data key="Neighbor IP Address">10.107.128.68</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.36" source="10.107.128.0/23" target="10.107.129.36" label="10.107.128.0/23-10.107.129.36">
+            <data key="Neighbor IP Address">10.107.129.36</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.37" source="10.107.128.0/23" target="10.107.129.37" label="10.107.128.0/23-10.107.129.37">
+            <data key="Neighbor IP Address">10.107.129.37</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.66" source="10.107.128.0/23" target="10.107.128.66" label="10.107.128.0/23-10.107.128.66">
+            <data key="Neighbor IP Address">10.107.128.66</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.34" source="10.107.128.0/23" target="10.107.129.34" label="10.107.128.0/23-10.107.129.34">
+            <data key="Neighbor IP Address">10.107.129.34</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.35" source="10.107.128.0/23" target="10.107.129.35" label="10.107.128.0/23-10.107.129.35">
+            <data key="Neighbor IP Address">10.107.129.35</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.64" source="10.107.128.0/23" target="10.107.128.64" label="10.107.128.0/23-10.107.128.64">
+            <data key="Neighbor IP Address">10.107.128.64</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.158" source="10.107.128.0/23" target="10.107.128.158" label="10.107.128.0/23-10.107.128.158">
+            <data key="Neighbor IP Address">10.107.128.158</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.32" source="10.107.128.0/23" target="10.107.129.32" label="10.107.128.0/23-10.107.129.32">
+            <data key="Neighbor IP Address">10.107.129.32</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.159" source="10.107.128.0/23" target="10.107.128.159" label="10.107.128.0/23-10.107.128.159">
+            <data key="Neighbor IP Address">10.107.128.159</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.33" source="10.107.128.0/23" target="10.107.129.33" label="10.107.128.0/23-10.107.129.33">
+            <data key="Neighbor IP Address">10.107.129.33</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.30" source="10.107.128.0/23" target="10.107.129.30" label="10.107.128.0/23-10.107.129.30">
+            <data key="Neighbor IP Address">10.107.129.30</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.31" source="10.107.128.0/23" target="10.107.129.31" label="10.107.128.0/23-10.107.129.31">
+            <data key="Neighbor IP Address">10.107.129.31</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.29" source="10.107.128.0/23" target="10.107.129.29" label="10.107.128.0/23-10.107.129.29">
+            <data key="Neighbor IP Address">10.107.129.29</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-DC-CR2-NX2" source="10.107.128.0/23" target="DC-CR2-NX2" label="10.107.128.0/23-DC-CR2-NX2">
+            <data key="Neighbor IP Address">10.107.128.3 10.107.128.3</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP,OSPF</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.59" source="10.107.128.0/23" target="10.107.128.59" label="10.107.128.0/23-10.107.128.59">
+            <data key="Neighbor IP Address">10.107.128.59</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-GW-CallCenter" source="10.107.128.0/23" target="GW-CallCenter" label="10.107.128.0/23-GW-CallCenter">
+            <data key="Neighbor IP Address">10.107.128.9 10.107.128.9</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.71" source="10.107.128.0/23" target="10.107.128.71" label="10.107.128.0/23-10.107.128.71">
+            <data key="Neighbor IP Address">10.107.128.71</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.188" source="10.107.128.0/23" target="10.107.128.188" label="10.107.128.0/23-10.107.128.188">
+            <data key="Neighbor IP Address">10.107.128.188</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.40" source="10.107.128.0/23" target="10.107.129.40" label="10.107.128.0/23-10.107.129.40">
+            <data key="Neighbor IP Address">10.107.129.40</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.70" source="10.107.128.0/23" target="10.107.128.70" label="10.107.128.0/23-10.107.128.70">
+            <data key="Neighbor IP Address">10.107.128.70</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.183" source="10.107.128.0/23" target="10.107.128.183" label="10.107.128.0/23-10.107.128.183">
+            <data key="Neighbor IP Address">10.107.128.183</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.185" source="10.107.128.0/23" target="10.107.128.185" label="10.107.128.0/23-10.107.128.185">
+            <data key="Neighbor IP Address">10.107.128.185</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.186" source="10.107.128.0/23" target="10.107.128.186" label="10.107.128.0/23-10.107.128.186">
+            <data key="Neighbor IP Address">10.107.128.186</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.79" source="10.107.128.0/23" target="10.107.128.79" label="10.107.128.0/23-10.107.128.79">
+            <data key="Neighbor IP Address">10.107.128.79</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.47" source="10.107.128.0/23" target="10.107.129.47" label="10.107.128.0/23-10.107.129.47">
+            <data key="Neighbor IP Address">10.107.129.47</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.78" source="10.107.128.0/23" target="10.107.128.78" label="10.107.128.0/23-10.107.128.78">
+            <data key="Neighbor IP Address">10.107.128.78</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.75" source="10.107.128.0/23" target="10.107.128.75" label="10.107.128.0/23-10.107.128.75">
+            <data key="Neighbor IP Address">10.107.128.75</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.43" source="10.107.128.0/23" target="10.107.129.43" label="10.107.128.0/23-10.107.129.43">
+            <data key="Neighbor IP Address">10.107.129.43</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.76" source="10.107.128.0/23" target="10.107.128.76" label="10.107.128.0/23-10.107.128.76">
+            <data key="Neighbor IP Address">10.107.128.76</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.192" source="10.107.128.0/23" target="10.107.129.192" label="10.107.128.0/23-10.107.129.192">
+            <data key="Neighbor IP Address">10.107.129.192</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.73" source="10.107.128.0/23" target="10.107.128.73" label="10.107.128.0/23-10.107.128.73">
+            <data key="Neighbor IP Address">10.107.128.73</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.41" source="10.107.128.0/23" target="10.107.129.41" label="10.107.128.0/23-10.107.129.41">
+            <data key="Neighbor IP Address">10.107.129.41</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.74" source="10.107.128.0/23" target="10.107.128.74" label="10.107.128.0/23-10.107.128.74">
+            <data key="Neighbor IP Address">10.107.128.74</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.42" source="10.107.128.0/23" target="10.107.129.42" label="10.107.128.0/23-10.107.129.42">
+            <data key="Neighbor IP Address">10.107.129.42</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.0" source="10.107.128.0/23" target="10.107.129.0" label="10.107.128.0/23-10.107.129.0">
+            <data key="Neighbor IP Address">10.107.129.0</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-NPI60C78A" source="10.107.128.0/23" target="NPI60C78A" label="10.107.128.0/23-NPI60C78A">
+            <data key="Neighbor IP Address">10.107.128.151 10.107.128.151</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.38" source="10.107.128.0/23" target="10.107.129.38" label="10.107.128.0/23-10.107.129.38">
+            <data key="Neighbor IP Address">10.107.129.38</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.39" source="10.107.128.0/23" target="10.107.129.39" label="10.107.128.0/23-10.107.129.39">
+            <data key="Neighbor IP Address">10.107.129.39</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.198" source="10.107.128.0/23" target="10.107.129.198" label="10.107.128.0/23-10.107.129.198">
+            <data key="Neighbor IP Address">10.107.129.198</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.82" source="10.107.128.0/23" target="10.107.128.82" label="10.107.128.0/23-10.107.128.82">
+            <data key="Neighbor IP Address">10.107.128.82</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.50" source="10.107.128.0/23" target="10.107.129.50" label="10.107.128.0/23-10.107.129.50">
+            <data key="Neighbor IP Address">10.107.129.50</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.83" source="10.107.128.0/23" target="10.107.128.83" label="10.107.128.0/23-10.107.128.83">
+            <data key="Neighbor IP Address">10.107.128.83</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.51" source="10.107.128.0/23" target="10.107.129.51" label="10.107.128.0/23-10.107.129.51">
+            <data key="Neighbor IP Address">10.107.129.51</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.80" source="10.107.128.0/23" target="10.107.128.80" label="10.107.128.0/23-10.107.128.80">
+            <data key="Neighbor IP Address">10.107.128.80</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.81" source="10.107.128.0/23" target="10.107.128.81" label="10.107.128.0/23-10.107.128.81">
+            <data key="Neighbor IP Address">10.107.128.81</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.175" source="10.107.128.0/23" target="10.107.128.175" label="10.107.128.0/23-10.107.128.175">
+            <data key="Neighbor IP Address">10.107.128.175</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.88" source="10.107.128.0/23" target="10.107.128.88" label="10.107.128.0/23-10.107.128.88">
+            <data key="Neighbor IP Address">10.107.128.88</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.86" source="10.107.128.0/23" target="10.107.128.86" label="10.107.128.0/23-10.107.128.86">
+            <data key="Neighbor IP Address">10.107.128.86</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.54" source="10.107.128.0/23" target="10.107.129.54" label="10.107.128.0/23-10.107.129.54">
+            <data key="Neighbor IP Address">10.107.129.54</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.87" source="10.107.128.0/23" target="10.107.128.87" label="10.107.128.0/23-10.107.128.87">
+            <data key="Neighbor IP Address">10.107.128.87</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.55" source="10.107.128.0/23" target="10.107.129.55" label="10.107.128.0/23-10.107.129.55">
+            <data key="Neighbor IP Address">10.107.129.55</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.52" source="10.107.128.0/23" target="10.107.129.52" label="10.107.128.0/23-10.107.129.52">
+            <data key="Neighbor IP Address">10.107.129.52</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.85" source="10.107.128.0/23" target="10.107.128.85" label="10.107.128.0/23-10.107.128.85">
+            <data key="Neighbor IP Address">10.107.128.85</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.53" source="10.107.128.0/23" target="10.107.129.53" label="10.107.128.0/23-10.107.129.53">
+            <data key="Neighbor IP Address">10.107.129.53</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.49" source="10.107.128.0/23" target="10.107.129.49" label="10.107.128.0/23-10.107.129.49">
+            <data key="Neighbor IP Address">10.107.129.49</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.170" source="10.107.128.0/23" target="10.107.128.170" label="10.107.128.0/23-10.107.128.170">
+            <data key="Neighbor IP Address">10.107.128.170</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.171" source="10.107.128.0/23" target="10.107.128.171" label="10.107.128.0/23-10.107.128.171">
+            <data key="Neighbor IP Address">10.107.128.171</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.209" source="10.107.128.0/23" target="10.107.129.209" label="10.107.128.0/23-10.107.129.209">
+            <data key="Neighbor IP Address">10.107.129.209</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.14" source="10.107.128.0/23" target="10.107.128.14" label="10.107.128.0/23-10.107.128.14">
+            <data key="Neighbor IP Address">10.107.128.14</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.11" source="10.107.128.0/23" target="10.107.128.11" label="10.107.128.0/23-10.107.128.11">
+            <data key="Neighbor IP Address">10.107.128.11</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,LOCAL,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-NPIABA449" source="10.107.128.0/23" target="NPIABA449" label="10.107.128.0/23-NPIABA449">
+            <data key="Neighbor IP Address">10.107.128.91 10.107.128.91</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.12" source="10.107.128.0/23" target="10.107.128.12" label="10.107.128.0/23-10.107.128.12">
+            <data key="Neighbor IP Address">10.107.128.12</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.10" source="10.107.128.0/23" target="10.107.128.10" label="10.107.128.0/23-10.107.128.10">
+            <data key="Neighbor IP Address">10.107.128.10</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-NPIF5C004" source="10.107.128.0/23" target="NPIF5C004" label="10.107.128.0/23-NPIF5C004">
+            <data key="Neighbor IP Address">10.107.128.232 10.107.128.232</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.7" source="10.107.128.0/23" target="10.107.128.7" label="10.107.128.0/23-10.107.128.7">
+            <data key="Neighbor IP Address">10.107.128.7</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.6" source="10.107.128.0/23" target="10.107.128.6" label="10.107.128.0/23-10.107.128.6">
+            <data key="Neighbor IP Address">10.107.128.6</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.24" source="10.107.128.0/23" target="10.107.128.24" label="10.107.128.0/23-10.107.128.24">
+            <data key="Neighbor IP Address">10.107.128.24</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.25" source="10.107.128.0/23" target="10.107.128.25" label="10.107.128.0/23-10.107.128.25">
+            <data key="Neighbor IP Address">10.107.128.25</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.23" source="10.107.128.0/23" target="10.107.128.23" label="10.107.128.0/23-10.107.128.23">
+            <data key="Neighbor IP Address">10.107.128.23</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.20" source="10.107.128.0/23" target="10.107.128.20" label="10.107.128.0/23-10.107.128.20">
+            <data key="Neighbor IP Address">10.107.128.20</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.21" source="10.107.128.0/23" target="10.107.128.21" label="10.107.128.0/23-10.107.128.21">
+            <data key="Neighbor IP Address">10.107.128.21</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-NPIABB4C0" source="10.107.128.0/23" target="NPIABB4C0" label="10.107.128.0/23-NPIABB4C0">
+            <data key="Neighbor IP Address">10.107.129.95 10.107.129.95</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.17" source="10.107.128.0/23" target="10.107.128.17" label="10.107.128.0/23-10.107.128.17">
+            <data key="Neighbor IP Address">10.107.128.17</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.100" source="10.107.128.0/23" target="10.107.129.100" label="10.107.128.0/23-10.107.129.100">
+            <data key="Neighbor IP Address">10.107.129.100</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.221" source="10.107.128.0/23" target="10.107.129.221" label="10.107.128.0/23-10.107.129.221">
+            <data key="Neighbor IP Address">10.107.129.221</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.18" source="10.107.128.0/23" target="10.107.128.18" label="10.107.128.0/23-10.107.128.18">
+            <data key="Neighbor IP Address">10.107.128.18</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-NPI3DAC30" source="10.107.128.0/23" target="NPI3DAC30" label="10.107.128.0/23-NPI3DAC30">
+            <data key="Neighbor IP Address">10.107.129.92 10.107.129.92</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.101" source="10.107.128.0/23" target="10.107.129.101" label="10.107.128.0/23-10.107.129.101">
+            <data key="Neighbor IP Address">10.107.129.101</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.16" source="10.107.128.0/23" target="10.107.128.16" label="10.107.128.0/23-10.107.128.16">
+            <data key="Neighbor IP Address">10.107.128.16</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.104" source="10.107.128.0/23" target="10.107.129.104" label="10.107.128.0/23-10.107.129.104">
+            <data key="Neighbor IP Address">10.107.129.104</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.192" source="10.107.128.0/23" target="10.107.128.192" label="10.107.128.0/23-10.107.128.192">
+            <data key="Neighbor IP Address">10.107.128.192</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.102" source="10.107.128.0/23" target="10.107.129.102" label="10.107.128.0/23-10.107.129.102">
+            <data key="Neighbor IP Address">10.107.129.102</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.108" source="10.107.128.0/23" target="10.107.129.108" label="10.107.128.0/23-10.107.129.108">
+            <data key="Neighbor IP Address">10.107.129.108</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.109" source="10.107.128.0/23" target="10.107.129.109" label="10.107.128.0/23-10.107.129.109">
+            <data key="Neighbor IP Address">10.107.129.109</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.106" source="10.107.128.0/23" target="10.107.129.106" label="10.107.128.0/23-10.107.129.106">
+            <data key="Neighbor IP Address">10.107.129.106</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-GW-Mtel2" source="10.107.128.0/23" target="GW-Mtel2" label="10.107.128.0/23-GW-Mtel2">
+            <data key="Neighbor IP Address">10.107.128.13 10.107.128.13</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.36" source="10.107.128.0/23" target="10.107.128.36" label="10.107.128.0/23-10.107.128.36">
+            <data key="Neighbor IP Address">10.107.128.36</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.34" source="10.107.128.0/23" target="10.107.128.34" label="10.107.128.0/23-10.107.128.34">
+            <data key="Neighbor IP Address">10.107.128.34</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.32" source="10.107.128.0/23" target="10.107.128.32" label="10.107.128.0/23-10.107.128.32">
+            <data key="Neighbor IP Address">10.107.128.32</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.30" source="10.107.128.0/23" target="10.107.128.30" label="10.107.128.0/23-10.107.128.30">
+            <data key="Neighbor IP Address">10.107.128.30</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.28" source="10.107.128.0/23" target="10.107.128.28" label="10.107.128.0/23-10.107.128.28">
+            <data key="Neighbor IP Address">10.107.128.28</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.29" source="10.107.128.0/23" target="10.107.128.29" label="10.107.128.0/23-10.107.128.29">
+            <data key="Neighbor IP Address">10.107.128.29</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.26" source="10.107.128.0/23" target="10.107.128.26" label="10.107.128.0/23-10.107.128.26">
+            <data key="Neighbor IP Address">10.107.128.26</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-NPI810CEA" source="10.107.128.0/23" target="NPI810CEA" label="10.107.128.0/23-NPI810CEA">
+            <data key="Neighbor IP Address">10.107.128.94 10.107.128.94</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-NPI60C7DB" source="10.107.128.0/23" target="NPI60C7DB" label="10.107.128.0/23-NPI60C7DB">
+            <data key="Neighbor IP Address">10.107.128.92 10.107.128.92</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.46" source="10.107.128.0/23" target="10.107.128.46" label="10.107.128.0/23-10.107.128.46">
+            <data key="Neighbor IP Address">10.107.128.46</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.47" source="10.107.128.0/23" target="10.107.128.47" label="10.107.128.0/23-10.107.128.47">
+            <data key="Neighbor IP Address">10.107.128.47</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.44" source="10.107.128.0/23" target="10.107.128.44" label="10.107.128.0/23-10.107.128.44">
+            <data key="Neighbor IP Address">10.107.128.44</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.45" source="10.107.128.0/23" target="10.107.128.45" label="10.107.128.0/23-10.107.128.45">
+            <data key="Neighbor IP Address">10.107.128.45</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.42" source="10.107.128.0/23" target="10.107.128.42" label="10.107.128.0/23-10.107.128.42">
+            <data key="Neighbor IP Address">10.107.128.42</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.40" source="10.107.128.0/23" target="10.107.128.40" label="10.107.128.0/23-10.107.128.40">
+            <data key="Neighbor IP Address">10.107.128.40</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.41" source="10.107.128.0/23" target="10.107.128.41" label="10.107.128.0/23-10.107.128.41">
+            <data key="Neighbor IP Address">10.107.128.41</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.200" source="10.107.128.0/23" target="10.107.129.200" label="10.107.128.0/23-10.107.129.200">
+            <data key="Neighbor IP Address">10.107.129.200</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.204" source="10.107.128.0/23" target="10.107.129.204" label="10.107.128.0/23-10.107.129.204">
+            <data key="Neighbor IP Address">10.107.129.204</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.200" source="10.107.128.0/23" target="10.107.128.200" label="10.107.128.0/23-10.107.128.200">
+            <data key="Neighbor IP Address">10.107.128.200</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.250" source="10.107.128.0/23" target="10.107.129.250" label="10.107.128.0/23-10.107.129.250">
+            <data key="Neighbor IP Address">10.107.129.250</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.133" source="10.107.128.0/23" target="10.107.129.133" label="10.107.128.0/23-10.107.129.133">
+            <data key="Neighbor IP Address">10.107.129.133</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.254" source="10.107.128.0/23" target="10.107.129.254" label="10.107.128.0/23-10.107.129.254">
+            <data key="Neighbor IP Address">10.107.129.254</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.134" source="10.107.128.0/23" target="10.107.129.134" label="10.107.128.0/23-10.107.129.134">
+            <data key="Neighbor IP Address">10.107.129.134</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.253" source="10.107.128.0/23" target="10.107.129.253" label="10.107.128.0/23-10.107.129.253">
+            <data key="Neighbor IP Address">10.107.129.253</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.138" source="10.107.128.0/23" target="10.107.129.138" label="10.107.128.0/23-10.107.129.138">
+            <data key="Neighbor IP Address">10.107.129.138</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.136" source="10.107.128.0/23" target="10.107.129.136" label="10.107.128.0/23-10.107.129.136">
+            <data key="Neighbor IP Address">10.107.129.136</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.139" source="10.107.128.0/23" target="10.107.129.139" label="10.107.128.0/23-10.107.129.139">
+            <data key="Neighbor IP Address">10.107.129.139</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-NPI156981" source="10.107.128.0/23" target="NPI156981" label="10.107.128.0/23-NPI156981">
+            <data key="Neighbor IP Address">10.107.128.93 10.107.128.93</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.140" source="10.107.128.0/23" target="10.107.129.140" label="10.107.128.0/23-10.107.129.140">
+            <data key="Neighbor IP Address">10.107.129.140</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.141" source="10.107.128.0/23" target="10.107.129.141" label="10.107.128.0/23-10.107.129.141">
+            <data key="Neighbor IP Address">10.107.129.141</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.144" source="10.107.128.0/23" target="10.107.129.144" label="10.107.128.0/23-10.107.129.144">
+            <data key="Neighbor IP Address">10.107.129.144</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.142" source="10.107.128.0/23" target="10.107.129.142" label="10.107.128.0/23-10.107.129.142">
+            <data key="Neighbor IP Address">10.107.129.142</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-NPI39910E" source="10.107.128.0/23" target="NPI39910E" label="10.107.128.0/23-NPI39910E">
+            <data key="Neighbor IP Address">10.107.129.191 10.107.129.191</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.147" source="10.107.128.0/23" target="10.107.129.147" label="10.107.128.0/23-10.107.129.147">
+            <data key="Neighbor IP Address">10.107.129.147</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.220" source="10.107.128.0/23" target="10.107.128.220" label="10.107.128.0/23-10.107.128.220">
+            <data key="Neighbor IP Address">10.107.128.220</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.100" source="10.107.128.0/23" target="10.107.128.100" label="10.107.128.0/23-10.107.128.100">
+            <data key="Neighbor IP Address">10.107.128.100</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.101" source="10.107.128.0/23" target="10.107.128.101" label="10.107.128.0/23-10.107.128.101">
+            <data key="Neighbor IP Address">10.107.128.101</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.102" source="10.107.128.0/23" target="10.107.128.102" label="10.107.128.0/23-10.107.128.102">
+            <data key="Neighbor IP Address">10.107.128.102</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.115" source="10.107.128.0/23" target="10.107.129.115" label="10.107.128.0/23-10.107.129.115">
+            <data key="Neighbor IP Address">10.107.129.115</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.236" source="10.107.128.0/23" target="10.107.129.236" label="10.107.128.0/23-10.107.129.236">
+            <data key="Neighbor IP Address">10.107.129.236</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.116" source="10.107.128.0/23" target="10.107.129.116" label="10.107.128.0/23-10.107.129.116">
+            <data key="Neighbor IP Address">10.107.129.116</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.113" source="10.107.128.0/23" target="10.107.129.113" label="10.107.128.0/23-10.107.129.113">
+            <data key="Neighbor IP Address">10.107.129.113</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-GW-Mobiltel" source="10.107.128.0/23" target="GW-Mobiltel" label="10.107.128.0/23-GW-Mobiltel">
+            <data key="Neighbor IP Address">10.107.128.15 10.107.128.15</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.114" source="10.107.128.0/23" target="10.107.129.114" label="10.107.128.0/23-10.107.129.114">
+            <data key="Neighbor IP Address">10.107.129.114</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.119" source="10.107.128.0/23" target="10.107.129.119" label="10.107.128.0/23-10.107.129.119">
+            <data key="Neighbor IP Address">10.107.129.119</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.117" source="10.107.128.0/23" target="10.107.129.117" label="10.107.128.0/23-10.107.129.117">
+            <data key="Neighbor IP Address">10.107.129.117</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.118" source="10.107.128.0/23" target="10.107.129.118" label="10.107.128.0/23-10.107.129.118">
+            <data key="Neighbor IP Address">10.107.129.118</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.212" source="10.107.128.0/23" target="10.107.128.212" label="10.107.128.0/23-10.107.128.212">
+            <data key="Neighbor IP Address">10.107.128.212</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.217" source="10.107.128.0/23" target="10.107.128.217" label="10.107.128.0/23-10.107.128.217">
+            <data key="Neighbor IP Address">10.107.128.217</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.122" source="10.107.128.0/23" target="10.107.129.122" label="10.107.128.0/23-10.107.129.122">
+            <data key="Neighbor IP Address">10.107.129.122</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-NPI38EECE" source="10.107.128.0/23" target="NPI38EECE" label="10.107.128.0/23-NPI38EECE">
+            <data key="Neighbor IP Address">10.107.128.84 10.107.128.84</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.123" source="10.107.128.0/23" target="10.107.129.123" label="10.107.128.0/23-10.107.129.123">
+            <data key="Neighbor IP Address">10.107.129.123</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.120" source="10.107.128.0/23" target="10.107.129.120" label="10.107.128.0/23-10.107.129.120">
+            <data key="Neighbor IP Address">10.107.129.120</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.121" source="10.107.128.0/23" target="10.107.129.121" label="10.107.128.0/23-10.107.129.121">
+            <data key="Neighbor IP Address">10.107.129.121</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.124" source="10.107.128.0/23" target="10.107.129.124" label="10.107.128.0/23-10.107.129.124">
+            <data key="Neighbor IP Address">10.107.129.124</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.125" source="10.107.128.0/23" target="10.107.129.125" label="10.107.128.0/23-10.107.129.125">
+            <data key="Neighbor IP Address">10.107.129.125</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.128" source="10.107.128.0/23" target="10.107.129.128" label="10.107.128.0/23-10.107.129.128">
+            <data key="Neighbor IP Address">10.107.129.128</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.249" source="10.107.128.0/23" target="10.107.129.249" label="10.107.128.0/23-10.107.129.249">
+            <data key="Neighbor IP Address">10.107.129.249</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-NPI81FB46" source="10.107.128.0/23" target="NPI81FB46" label="10.107.128.0/23-NPI81FB46">
+            <data key="Neighbor IP Address">10.107.128.90 10.107.128.90</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.129" source="10.107.128.0/23" target="10.107.129.129" label="10.107.128.0/23-10.107.129.129">
+            <data key="Neighbor IP Address">10.107.129.129</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.240" source="10.107.128.0/23" target="10.107.128.240" label="10.107.128.0/23-10.107.128.240">
+            <data key="Neighbor IP Address">10.107.128.240</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.99" source="10.107.128.0/23" target="10.107.128.99" label="10.107.128.0/23-10.107.128.99">
+            <data key="Neighbor IP Address">10.107.128.99</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.97" source="10.107.128.0/23" target="10.107.128.97" label="10.107.128.0/23-10.107.128.97">
+            <data key="Neighbor IP Address">10.107.128.97</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.96" source="10.107.128.0/23" target="10.107.128.96" label="10.107.128.0/23-10.107.128.96">
+            <data key="Neighbor IP Address">10.107.128.96</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.128" source="10.107.128.0/23" target="10.107.128.128" label="10.107.128.0/23-10.107.128.128">
+            <data key="Neighbor IP Address">10.107.128.128</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-GW-IP2IP" source="10.107.128.0/23" target="GW-IP2IP" label="10.107.128.0/23-GW-IP2IP">
+            <data key="Neighbor IP Address">10.107.128.5 10.107.128.5</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP,OSPF</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.175" source="10.107.128.0/23" target="10.107.129.175" label="10.107.128.0/23-10.107.129.175">
+            <data key="Neighbor IP Address">10.107.129.175</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.179" source="10.107.128.0/23" target="10.107.129.179" label="10.107.128.0/23-10.107.129.179">
+            <data key="Neighbor IP Address">10.107.129.179</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-NPI812910" source="10.107.128.0/23" target="NPI812910" label="10.107.128.0/23-NPI812910">
+            <data key="Neighbor IP Address">10.107.129.94 10.107.129.94</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-NPI150FEA" source="10.107.128.0/23" target="NPI150FEA" label="10.107.128.0/23-NPI150FEA">
+            <data key="Neighbor IP Address">10.107.128.95 10.107.128.95</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.70" source="10.107.128.0/23" target="10.107.129.70" label="10.107.128.0/23-10.107.129.70">
+            <data key="Neighbor IP Address">10.107.129.70</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.118" source="10.107.128.0/23" target="10.107.128.118" label="10.107.128.0/23-10.107.128.118">
+            <data key="Neighbor IP Address">10.107.128.118</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.119" source="10.107.128.0/23" target="10.107.128.119" label="10.107.128.0/23-10.107.128.119">
+            <data key="Neighbor IP Address">10.107.128.119</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.79" source="10.107.128.0/23" target="10.107.129.79" label="10.107.128.0/23-10.107.129.79">
+            <data key="Neighbor IP Address">10.107.129.79</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.185" source="10.107.128.0/23" target="10.107.129.185" label="10.107.128.0/23-10.107.129.185">
+            <data key="Neighbor IP Address">10.107.129.185</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-HPCE3A71" source="10.107.128.0/23" target="HPCE3A71" label="10.107.128.0/23-HPCE3A71">
+            <data key="Neighbor IP Address">10.107.129.202 10.107.129.202</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.183" source="10.107.128.0/23" target="10.107.129.183" label="10.107.128.0/23-10.107.129.183">
+            <data key="Neighbor IP Address">10.107.129.183</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.187" source="10.107.128.0/23" target="10.107.129.187" label="10.107.128.0/23-10.107.129.187">
+            <data key="Neighbor IP Address">10.107.129.187</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-Piraeus-0179-BranchATM" source="10.107.128.0/23" target="Piraeus-0179-BranchATM" label="10.107.128.0/23-Piraeus-0179-BranchATM">
+            <data key="Neighbor IP Address">10.107.129.1 10.107.129.1</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,OSPF,ARP,OSPF</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.143" source="10.107.128.0/23" target="10.107.128.143" label="10.107.128.0/23-10.107.128.143">
+            <data key="Neighbor IP Address">10.107.128.143</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.144" source="10.107.128.0/23" target="10.107.128.144" label="10.107.128.0/23-10.107.128.144">
+            <data key="Neighbor IP Address">10.107.128.144</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.141" source="10.107.128.0/23" target="10.107.128.141" label="10.107.128.0/23-10.107.128.141">
+            <data key="Neighbor IP Address">10.107.128.141</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.142" source="10.107.128.0/23" target="10.107.128.142" label="10.107.128.0/23-10.107.128.142">
+            <data key="Neighbor IP Address">10.107.128.142</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.89" source="10.107.128.0/23" target="10.107.129.89" label="10.107.128.0/23-10.107.129.89">
+            <data key="Neighbor IP Address">10.107.129.89</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.88" source="10.107.128.0/23" target="10.107.129.88" label="10.107.128.0/23-10.107.129.88">
+            <data key="Neighbor IP Address">10.107.129.88</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-GW-BTC" source="10.107.128.0/23" target="GW-BTC" label="10.107.128.0/23-GW-BTC">
+            <data key="Neighbor IP Address">10.107.128.8 10.107.128.8</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP,OSPF</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.159" source="10.107.128.0/23" target="10.107.129.159" label="10.107.128.0/23-10.107.129.159">
+            <data key="Neighbor IP Address">10.107.129.159</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.132" source="10.107.128.0/23" target="10.107.128.132" label="10.107.128.0/23-10.107.128.132">
+            <data key="Neighbor IP Address">10.107.128.132</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.128.254" source="10.107.128.0/23" target="10.107.128.254" label="10.107.128.0/23-10.107.128.254">
+            <data key="Neighbor IP Address">10.107.128.254</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.93" source="10.107.128.0/23" target="10.107.129.93" label="10.107.128.0/23-10.107.129.93">
+            <data key="Neighbor IP Address">10.107.129.93</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.90" source="10.107.128.0/23" target="10.107.129.90" label="10.107.128.0/23-10.107.129.90">
+            <data key="Neighbor IP Address">10.107.129.90</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.163" source="10.107.128.0/23" target="10.107.129.163" label="10.107.128.0/23-10.107.129.163">
+            <data key="Neighbor IP Address">10.107.129.163</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.161" source="10.107.128.0/23" target="10.107.129.161" label="10.107.128.0/23-10.107.129.161">
+            <data key="Neighbor IP Address">10.107.129.161</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-NPI0478AC" source="10.107.128.0/23" target="NPI0478AC" label="10.107.128.0/23-NPI0478AC">
+            <data key="Neighbor IP Address">10.107.129.238 10.107.129.238</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.0/23-10.107.129.166" source="10.107.128.0/23" target="10.107.129.166" label="10.107.128.0/23-10.107.129.166">
+            <data key="Neighbor IP Address">10.107.129.166</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.7.0/24-DC-CR3-NX1" source="10.107.7.0/24" target="DC-CR3-NX1" label="10.107.7.0/24-DC-CR3-NX1">
+            <data key="Interface">Vlan7</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.7.0/24-DC-CR2-NX2" source="10.107.7.0/24" target="DC-CR2-NX2" label="10.107.7.0/24-DC-CR2-NX2">
+            <data key="Neighbor IP Address">10.107.7.1 10.107.7.3 10.107.7.3</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.7.0/24-10.107.7.5" source="10.107.7.0/24" target="10.107.7.5" label="10.107.7.0/24-10.107.7.5">
+            <data key="Neighbor IP Address">10.107.7.5</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.128.1/32-DC-CR3-NX1" source="10.107.128.1/32" target="DC-CR3-NX1" label="10.107.128.1/32-DC-CR3-NX1">
+            <data key="Interface">Vlan10</data>
+        </edge>
+        <edge id="10.107.0.24/30-DC-CR3-NX1" source="10.107.0.24/30" target="DC-CR3-NX1" label="10.107.0.24/30-DC-CR3-NX1">
+            <data key="Interface">Ethernet1/25</data>
+            <data key="Discovery Method">Slash30,r_OSPF,OTHER,ARP,OSPF</data>
+        </edge>
+        <edge id="10.107.0.24/30-Piraeus_MAIN1" source="10.107.0.24/30" target="Piraeus_MAIN1" label="10.107.0.24/30-Piraeus_MAIN1">
+            <data key="Neighbor IP Address">10.107.0.25 10.107.0.25 10.107.0.25</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">Slash30,r_OSPF,OTHER,ARP,OSPF</data>
+        </edge>
+        <edge id="10.107.0.36/30-DC-CR3-NX1" source="10.107.0.36/30" target="DC-CR3-NX1" label="10.107.0.36/30-DC-CR3-NX1">
+            <data key="Interface">Ethernet1/26</data>
+            <data key="Discovery Method">Slash30,r_OSPF,OTHER,ARP,OSPF</data>
+        </edge>
+        <edge id="10.107.0.36/30-Piraeus_MAIN2" source="10.107.0.36/30" target="Piraeus_MAIN2" label="10.107.0.36/30-Piraeus_MAIN2">
+            <data key="Neighbor IP Address">10.107.0.37 10.107.0.37 10.107.0.37</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">Slash30,r_OSPF,OTHER,ARP,OSPF</data>
+        </edge>
+        <edge id="10.107.5.0/24-DC-CR3-NX1" source="10.107.5.0/24" target="DC-CR3-NX1" label="10.107.5.0/24-DC-CR3-NX1">
+            <data key="Interface">Vlan66</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.5.0/24-DC-CR2-NX2" source="10.107.5.0/24" target="DC-CR2-NX2" label="10.107.5.0/24-DC-CR2-NX2">
+            <data key="Neighbor IP Address">10.107.5.3 10.107.5.3</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.5.0/24-10.107.5.12" source="10.107.5.0/24" target="10.107.5.12" label="10.107.5.0/24-10.107.5.12">
+            <data key="Neighbor IP Address">10.107.5.12</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.5.0/24-10.107.5.11" source="10.107.5.0/24" target="10.107.5.11" label="10.107.5.0/24-10.107.5.11">
+            <data key="Neighbor IP Address">10.107.5.11</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.5.0/24-10.107.5.21" source="10.107.5.0/24" target="10.107.5.21" label="10.107.5.0/24-10.107.5.21">
+            <data key="Neighbor IP Address">10.107.5.21</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.10.0/24-DC-CR3-NX1" source="10.107.10.0/24" target="DC-CR3-NX1" label="10.107.10.0/24-DC-CR3-NX1">
+            <data key="Interface">Vlan11</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.10.0/24-10.107.10.61" source="10.107.10.0/24" target="10.107.10.61" label="10.107.10.0/24-10.107.10.61">
+            <data key="Neighbor IP Address">10.107.10.61</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.10.0/24-10.107.10.74" source="10.107.10.0/24" target="10.107.10.74" label="10.107.10.0/24-10.107.10.74">
+            <data key="Neighbor IP Address">10.107.10.74</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.10.0/24-DC-CR2-NX2" source="10.107.10.0/24" target="DC-CR2-NX2" label="10.107.10.0/24-DC-CR2-NX2">
+            <data key="Neighbor IP Address">10.107.10.1 10.107.10.3 10.107.10.3</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.10.0/24-10.107.10.18" source="10.107.10.0/24" target="10.107.10.18" label="10.107.10.0/24-10.107.10.18">
+            <data key="Neighbor IP Address">10.107.10.18</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.10.0/24-10.107.10.75" source="10.107.10.0/24" target="10.107.10.75" label="10.107.10.0/24-10.107.10.75">
+            <data key="Neighbor IP Address">10.107.10.75</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.10.0/24-10.107.10.10" source="10.107.10.0/24" target="10.107.10.10" label="10.107.10.0/24-10.107.10.10">
+            <data key="Neighbor IP Address">10.107.10.10</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.5.1/32-DC-CR3-NX1" source="10.107.5.1/32" target="DC-CR3-NX1" label="10.107.5.1/32-DC-CR3-NX1">
+            <data key="Interface">Vlan66</data>
+        </edge>
+        <edge id="10.107.126.0/23-DC-CR3-NX1" source="10.107.126.0/23" target="DC-CR3-NX1" label="10.107.126.0/23-DC-CR3-NX1">
+            <data key="Interface">Vlan555</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.117" source="10.107.126.0/23" target="10.107.126.117" label="10.107.126.0/23-10.107.126.117">
+            <data key="Neighbor IP Address">10.107.126.117</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.118" source="10.107.126.0/23" target="10.107.126.118" label="10.107.126.0/23-10.107.126.118">
+            <data key="Neighbor IP Address">10.107.126.118</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.239" source="10.107.126.0/23" target="10.107.126.239" label="10.107.126.0/23-10.107.126.239">
+            <data key="Neighbor IP Address">10.107.126.239</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.119" source="10.107.126.0/23" target="10.107.126.119" label="10.107.126.0/23-10.107.126.119">
+            <data key="Neighbor IP Address">10.107.126.119</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.75" source="10.107.126.0/23" target="10.107.126.75" label="10.107.126.0/23-10.107.126.75">
+            <data key="Neighbor IP Address">10.107.126.75</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.153" source="10.107.126.0/23" target="10.107.126.153" label="10.107.126.0/23-10.107.126.153">
+            <data key="Neighbor IP Address">10.107.126.153</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.110" source="10.107.126.0/23" target="10.107.126.110" label="10.107.126.0/23-10.107.126.110">
+            <data key="Neighbor IP Address">10.107.126.110</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.154" source="10.107.126.0/23" target="10.107.126.154" label="10.107.126.0/23-10.107.126.154">
+            <data key="Neighbor IP Address">10.107.126.154</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.111" source="10.107.126.0/23" target="10.107.126.111" label="10.107.126.0/23-10.107.126.111">
+            <data key="Neighbor IP Address">10.107.126.111</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.155" source="10.107.126.0/23" target="10.107.126.155" label="10.107.126.0/23-10.107.126.155">
+            <data key="Neighbor IP Address">10.107.126.155</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.232" source="10.107.126.0/23" target="10.107.126.232" label="10.107.126.0/23-10.107.126.232">
+            <data key="Neighbor IP Address">10.107.126.232</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.112" source="10.107.126.0/23" target="10.107.126.112" label="10.107.126.0/23-10.107.126.112">
+            <data key="Neighbor IP Address">10.107.126.112</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.156" source="10.107.126.0/23" target="10.107.126.156" label="10.107.126.0/23-10.107.126.156">
+            <data key="Neighbor IP Address">10.107.126.156</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.113" source="10.107.126.0/23" target="10.107.126.113" label="10.107.126.0/23-10.107.126.113">
+            <data key="Neighbor IP Address">10.107.126.113</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.157" source="10.107.126.0/23" target="10.107.126.157" label="10.107.126.0/23-10.107.126.157">
+            <data key="Neighbor IP Address">10.107.126.157</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.114" source="10.107.126.0/23" target="10.107.126.114" label="10.107.126.0/23-10.107.126.114">
+            <data key="Neighbor IP Address">10.107.126.114</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.235" source="10.107.126.0/23" target="10.107.126.235" label="10.107.126.0/23-10.107.126.235">
+            <data key="Neighbor IP Address">10.107.126.235</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.115" source="10.107.126.0/23" target="10.107.126.115" label="10.107.126.0/23-10.107.126.115">
+            <data key="Neighbor IP Address">10.107.126.115</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.159" source="10.107.126.0/23" target="10.107.126.159" label="10.107.126.0/23-10.107.126.159">
+            <data key="Neighbor IP Address">10.107.126.159</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.29" source="10.107.126.0/23" target="10.107.126.29" label="10.107.126.0/23-10.107.126.29">
+            <data key="Neighbor IP Address">10.107.126.29</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.28" source="10.107.126.0/23" target="10.107.126.28" label="10.107.126.0/23-10.107.126.28">
+            <data key="Neighbor IP Address">10.107.126.28</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.190" source="10.107.126.0/23" target="10.107.126.190" label="10.107.126.0/23-10.107.126.190">
+            <data key="Neighbor IP Address">10.107.126.190</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.191" source="10.107.126.0/23" target="10.107.126.191" label="10.107.126.0/23-10.107.126.191">
+            <data key="Neighbor IP Address">10.107.126.191</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.25" source="10.107.126.0/23" target="10.107.126.25" label="10.107.126.0/23-10.107.126.25">
+            <data key="Neighbor IP Address">10.107.126.25</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.192" source="10.107.126.0/23" target="10.107.126.192" label="10.107.126.0/23-10.107.126.192">
+            <data key="Neighbor IP Address">10.107.126.192</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.24" source="10.107.126.0/23" target="10.107.126.24" label="10.107.126.0/23-10.107.126.24">
+            <data key="Neighbor IP Address">10.107.126.24</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.27" source="10.107.126.0/23" target="10.107.126.27" label="10.107.126.0/23-10.107.126.27">
+            <data key="Neighbor IP Address">10.107.126.27</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.26" source="10.107.126.0/23" target="10.107.126.26" label="10.107.126.0/23-10.107.126.26">
+            <data key="Neighbor IP Address">10.107.126.26</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.151" source="10.107.126.0/23" target="10.107.126.151" label="10.107.126.0/23-10.107.126.151">
+            <data key="Neighbor IP Address">10.107.126.151</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.7" source="10.107.126.0/23" target="10.107.126.7" label="10.107.126.0/23-10.107.126.7">
+            <data key="Neighbor IP Address">10.107.126.7</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.127" source="10.107.126.0/23" target="10.107.126.127" label="10.107.126.0/23-10.107.126.127">
+            <data key="Neighbor IP Address">10.107.126.127</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.249" source="10.107.126.0/23" target="10.107.126.249" label="10.107.126.0/23-10.107.126.249">
+            <data key="Neighbor IP Address">10.107.126.249</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.129" source="10.107.126.0/23" target="10.107.126.129" label="10.107.126.0/23-10.107.126.129">
+            <data key="Neighbor IP Address">10.107.126.129</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.80" source="10.107.126.0/23" target="10.107.126.80" label="10.107.126.0/23-10.107.126.80">
+            <data key="Neighbor IP Address">10.107.126.80</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.120" source="10.107.126.0/23" target="10.107.126.120" label="10.107.126.0/23-10.107.126.120">
+            <data key="Neighbor IP Address">10.107.126.120</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.122" source="10.107.126.0/23" target="10.107.126.122" label="10.107.126.0/23-10.107.126.122">
+            <data key="Neighbor IP Address">10.107.126.122</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.123" source="10.107.126.0/23" target="10.107.126.123" label="10.107.126.0/23-10.107.126.123">
+            <data key="Neighbor IP Address">10.107.126.123</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.167" source="10.107.126.0/23" target="10.107.126.167" label="10.107.126.0/23-10.107.126.167">
+            <data key="Neighbor IP Address">10.107.126.167</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.124" source="10.107.126.0/23" target="10.107.126.124" label="10.107.126.0/23-10.107.126.124">
+            <data key="Neighbor IP Address">10.107.126.124</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.245" source="10.107.126.0/23" target="10.107.126.245" label="10.107.126.0/23-10.107.126.245">
+            <data key="Neighbor IP Address">10.107.126.245</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.41" source="10.107.126.0/23" target="10.107.126.41" label="10.107.126.0/23-10.107.126.41">
+            <data key="Neighbor IP Address">10.107.126.41</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.125" source="10.107.126.0/23" target="10.107.126.125" label="10.107.126.0/23-10.107.126.125">
+            <data key="Neighbor IP Address">10.107.126.125</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.126" source="10.107.126.0/23" target="10.107.126.126" label="10.107.126.0/23-10.107.126.126">
+            <data key="Neighbor IP Address">10.107.126.126</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-DC-CR2-NX2" source="10.107.126.0/23" target="DC-CR2-NX2" label="10.107.126.0/23-DC-CR2-NX2">
+            <data key="Neighbor IP Address">10.107.126.1 10.107.126.3 10.107.126.3</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.160" source="10.107.126.0/23" target="10.107.126.160" label="10.107.126.0/23-10.107.126.160">
+            <data key="Neighbor IP Address">10.107.126.160</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.161" source="10.107.126.0/23" target="10.107.126.161" label="10.107.126.0/23-10.107.126.161">
+            <data key="Neighbor IP Address">10.107.126.161</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.138" source="10.107.126.0/23" target="10.107.126.138" label="10.107.126.0/23-10.107.126.138">
+            <data key="Neighbor IP Address">10.107.126.138</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.215" source="10.107.126.0/23" target="10.107.126.215" label="10.107.126.0/23-10.107.126.215">
+            <data key="Neighbor IP Address">10.107.126.215</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.216" source="10.107.126.0/23" target="10.107.126.216" label="10.107.126.0/23-10.107.126.216">
+            <data key="Neighbor IP Address">10.107.126.216</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.217" source="10.107.126.0/23" target="10.107.126.217" label="10.107.126.0/23-10.107.126.217">
+            <data key="Neighbor IP Address">10.107.126.217</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.218" source="10.107.126.0/23" target="10.107.126.218" label="10.107.126.0/23-10.107.126.218">
+            <data key="Neighbor IP Address">10.107.126.218</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.98" source="10.107.126.0/23" target="10.107.126.98" label="10.107.126.0/23-10.107.126.98">
+            <data key="Neighbor IP Address">10.107.126.98</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.130" source="10.107.126.0/23" target="10.107.126.130" label="10.107.126.0/23-10.107.126.130">
+            <data key="Neighbor IP Address">10.107.126.130</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.97" source="10.107.126.0/23" target="10.107.126.97" label="10.107.126.0/23-10.107.126.97">
+            <data key="Neighbor IP Address">10.107.126.97</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.131" source="10.107.126.0/23" target="10.107.126.131" label="10.107.126.0/23-10.107.126.131">
+            <data key="Neighbor IP Address">10.107.126.131</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.176" source="10.107.126.0/23" target="10.107.126.176" label="10.107.126.0/23-10.107.126.176">
+            <data key="Neighbor IP Address">10.107.126.176</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.99" source="10.107.126.0/23" target="10.107.126.99" label="10.107.126.0/23-10.107.126.99">
+            <data key="Neighbor IP Address">10.107.126.99</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.133" source="10.107.126.0/23" target="10.107.126.133" label="10.107.126.0/23-10.107.126.133">
+            <data key="Neighbor IP Address">10.107.126.133</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.94" source="10.107.126.0/23" target="10.107.126.94" label="10.107.126.0/23-10.107.126.94">
+            <data key="Neighbor IP Address">10.107.126.94</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.134" source="10.107.126.0/23" target="10.107.126.134" label="10.107.126.0/23-10.107.126.134">
+            <data key="Neighbor IP Address">10.107.126.134</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.93" source="10.107.126.0/23" target="10.107.126.93" label="10.107.126.0/23-10.107.126.93">
+            <data key="Neighbor IP Address">10.107.126.93</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.135" source="10.107.126.0/23" target="10.107.126.135" label="10.107.126.0/23-10.107.126.135">
+            <data key="Neighbor IP Address">10.107.126.135</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.179" source="10.107.126.0/23" target="10.107.126.179" label="10.107.126.0/23-10.107.126.179">
+            <data key="Neighbor IP Address">10.107.126.179</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.96" source="10.107.126.0/23" target="10.107.126.96" label="10.107.126.0/23-10.107.126.96">
+            <data key="Neighbor IP Address">10.107.126.96</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.136" source="10.107.126.0/23" target="10.107.126.136" label="10.107.126.0/23-10.107.126.136">
+            <data key="Neighbor IP Address">10.107.126.136</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.214" source="10.107.126.0/23" target="10.107.126.214" label="10.107.126.0/23-10.107.126.214">
+            <data key="Neighbor IP Address">10.107.126.214</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-GW-BTC" source="10.107.126.0/23" target="GW-BTC" label="10.107.126.0/23-GW-BTC">
+            <data key="Neighbor IP Address">10.107.126.5 10.107.126.5</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.105" source="10.107.126.0/23" target="10.107.126.105" label="10.107.126.0/23-10.107.126.105">
+            <data key="Neighbor IP Address">10.107.126.105</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.149" source="10.107.126.0/23" target="10.107.126.149" label="10.107.126.0/23-10.107.126.149">
+            <data key="Neighbor IP Address">10.107.126.149</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.106" source="10.107.126.0/23" target="10.107.126.106" label="10.107.126.0/23-10.107.126.106">
+            <data key="Neighbor IP Address">10.107.126.106</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.107" source="10.107.126.0/23" target="10.107.126.107" label="10.107.126.0/23-10.107.126.107">
+            <data key="Neighbor IP Address">10.107.126.107</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.108" source="10.107.126.0/23" target="10.107.126.108" label="10.107.126.0/23-10.107.126.108">
+            <data key="Neighbor IP Address">10.107.126.108</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.109" source="10.107.126.0/23" target="10.107.126.109" label="10.107.126.0/23-10.107.126.109">
+            <data key="Neighbor IP Address">10.107.126.109</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.141" source="10.107.126.0/23" target="10.107.126.141" label="10.107.126.0/23-10.107.126.141">
+            <data key="Neighbor IP Address">10.107.126.141</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.20" source="10.107.126.0/23" target="10.107.126.20" label="10.107.126.0/23-10.107.126.20">
+            <data key="Neighbor IP Address">10.107.126.20</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.143" source="10.107.126.0/23" target="10.107.126.143" label="10.107.126.0/23-10.107.126.143">
+            <data key="Neighbor IP Address">10.107.126.143</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.100" source="10.107.126.0/23" target="10.107.126.100" label="10.107.126.0/23-10.107.126.100">
+            <data key="Neighbor IP Address">10.107.126.100</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.144" source="10.107.126.0/23" target="10.107.126.144" label="10.107.126.0/23-10.107.126.144">
+            <data key="Neighbor IP Address">10.107.126.144</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.101" source="10.107.126.0/23" target="10.107.126.101" label="10.107.126.0/23-10.107.126.101">
+            <data key="Neighbor IP Address">10.107.126.101</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.145" source="10.107.126.0/23" target="10.107.126.145" label="10.107.126.0/23-10.107.126.145">
+            <data key="Neighbor IP Address">10.107.126.145</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.102" source="10.107.126.0/23" target="10.107.126.102" label="10.107.126.0/23-10.107.126.102">
+            <data key="Neighbor IP Address">10.107.126.102</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.146" source="10.107.126.0/23" target="10.107.126.146" label="10.107.126.0/23-10.107.126.146">
+            <data key="Neighbor IP Address">10.107.126.146</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.223" source="10.107.126.0/23" target="10.107.126.223" label="10.107.126.0/23-10.107.126.223">
+            <data key="Neighbor IP Address">10.107.126.223</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.147" source="10.107.126.0/23" target="10.107.126.147" label="10.107.126.0/23-10.107.126.147">
+            <data key="Neighbor IP Address">10.107.126.147</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.104" source="10.107.126.0/23" target="10.107.126.104" label="10.107.126.0/23-10.107.126.104">
+            <data key="Neighbor IP Address">10.107.126.104</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.148" source="10.107.126.0/23" target="10.107.126.148" label="10.107.126.0/23-10.107.126.148">
+            <data key="Neighbor IP Address">10.107.126.148</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.225" source="10.107.126.0/23" target="10.107.126.225" label="10.107.126.0/23-10.107.126.225">
+            <data key="Neighbor IP Address">10.107.126.225</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.17" source="10.107.126.0/23" target="10.107.126.17" label="10.107.126.0/23-10.107.126.17">
+            <data key="Neighbor IP Address">10.107.126.17</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.19" source="10.107.126.0/23" target="10.107.126.19" label="10.107.126.0/23-10.107.126.19">
+            <data key="Neighbor IP Address">10.107.126.19</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.13" source="10.107.126.0/23" target="10.107.126.13" label="10.107.126.0/23-10.107.126.13">
+            <data key="Neighbor IP Address">10.107.126.13</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.140" source="10.107.126.0/23" target="10.107.126.140" label="10.107.126.0/23-10.107.126.140">
+            <data key="Neighbor IP Address">10.107.126.140</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.107.126.0/23-10.107.126.184" source="10.107.126.0/23" target="10.107.126.184" label="10.107.126.0/23-10.107.126.184">
+            <data key="Neighbor IP Address">10.107.126.184</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-DC-CR3-NX1" source="10.106.200.0/24" target="DC-CR3-NX1" label="10.106.200.0/24-DC-CR3-NX1">
+            <data key="Interface">Vlan33</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-PiraeusBank-MAIN" source="10.106.200.0/24" target="PiraeusBank-MAIN" label="10.106.200.0/24-PiraeusBank-MAIN">
+            <data key="Neighbor IP Address">10.106.200.200 10.106.200.200</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-DC-CR2-SW3-OldBranchServers" source="10.106.200.0/24" target="DC-CR2-SW3-OldBranchServers" label="10.106.200.0/24-DC-CR2-SW3-OldBranchServers">
+            <data key="Neighbor IP Address">10.106.200.232 10.106.200.232</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-0179-Sw1-2950-Branch" source="10.106.200.0/24" target="0179-Sw1-2950-Branch" label="10.106.200.0/24-0179-Sw1-2950-Branch">
+            <data key="Neighbor IP Address">10.106.200.240 10.106.200.240</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-DC-CR3-Sw1-2960" source="10.106.200.0/24" target="DC-CR3-Sw1-2960" label="10.106.200.0/24-DC-CR3-Sw1-2960">
+            <data key="Neighbor IP Address">10.106.200.248 10.106.200.248</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-AR-Sw3-2960" source="10.106.200.0/24" target="AR-Sw3-2960" label="10.106.200.0/24-AR-Sw3-2960">
+            <data key="Neighbor IP Address">10.106.200.243 10.106.200.243</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-SW-IronPort-MGM" source="10.106.200.0/24" target="SW-IronPort-MGM" label="10.106.200.0/24-SW-IronPort-MGM">
+            <data key="Neighbor IP Address">10.106.200.237 10.106.200.237</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-DC-Sw-4503-CR2" source="10.106.200.0/24" target="DC-Sw-4503-CR2" label="10.106.200.0/24-DC-Sw-4503-CR2">
+            <data key="Neighbor IP Address">10.106.200.253 10.106.200.253</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-0179-Sw2-2950" source="10.106.200.0/24" target="0179-Sw2-2950" label="10.106.200.0/24-0179-Sw2-2950">
+            <data key="Neighbor IP Address">10.106.200.233 10.106.200.233</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-10.106.200.206" source="10.106.200.0/24" target="10.106.200.206" label="10.106.200.0/24-10.106.200.206">
+            <data key="Neighbor IP Address">10.106.200.206</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-10.106.200.205" source="10.106.200.0/24" target="10.106.200.205" label="10.106.200.0/24-10.106.200.205">
+            <data key="Neighbor IP Address">10.106.200.205</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-10.106.200.204" source="10.106.200.0/24" target="10.106.200.204" label="10.106.200.0/24-10.106.200.204">
+            <data key="Neighbor IP Address">10.106.200.204</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-AR-Sw5-2950-CashCenter" source="10.106.200.0/24" target="AR-Sw5-2950-CashCenter" label="10.106.200.0/24-AR-Sw5-2950-CashCenter">
+            <data key="Neighbor IP Address">10.106.200.238 10.106.200.238</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-AR-Sw2-3560down" source="10.106.200.0/24" target="AR-Sw2-3560down" label="10.106.200.0/24-AR-Sw2-3560down">
+            <data key="Neighbor IP Address">10.106.200.245 10.106.200.245</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-ODC-Sw1-3560up" source="10.106.200.0/24" target="ODC-Sw1-3560up" label="10.106.200.0/24-ODC-Sw1-3560up">
+            <data key="Neighbor IP Address">10.106.200.250 10.106.200.250</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-Piraeus_MAIN1" source="10.106.200.0/24" target="Piraeus_MAIN1" label="10.106.200.0/24-Piraeus_MAIN1">
+            <data key="Neighbor IP Address">10.106.200.201 10.106.200.201</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-Piraeus_MAIN2" source="10.106.200.0/24" target="Piraeus_MAIN2" label="10.106.200.0/24-Piraeus_MAIN2">
+            <data key="Neighbor IP Address">10.106.200.202 10.106.200.202</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-10.106.200.11" source="10.106.200.0/24" target="10.106.200.11" label="10.106.200.0/24-10.106.200.11">
+            <data key="Neighbor IP Address">10.106.200.11</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-AR-Sw1-3560up" source="10.106.200.0/24" target="AR-Sw1-3560up" label="10.106.200.0/24-AR-Sw1-3560up">
+            <data key="Neighbor IP Address">10.106.200.246 10.106.200.246</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-AR-Sw4-2960" source="10.106.200.0/24" target="AR-Sw4-2960" label="10.106.200.0/24-AR-Sw4-2960">
+            <data key="Neighbor IP Address">10.106.200.239 10.106.200.239</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-10.106.200.10" source="10.106.200.0/24" target="10.106.200.10" label="10.106.200.0/24-10.106.200.10">
+            <data key="Neighbor IP Address">10.106.200.10</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-ODC-Sw4-2950leftRbellow" source="10.106.200.0/24" target="ODC-Sw4-2950leftRbellow" label="10.106.200.0/24-ODC-Sw4-2950leftRbellow">
+            <data key="Neighbor IP Address">10.106.200.242 10.106.200.242</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-DC-CR2-NX2" source="10.106.200.0/24" target="DC-CR2-NX2" label="10.106.200.0/24-DC-CR2-NX2">
+            <data key="Neighbor IP Address">10.106.200.8 10.106.200.8</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-AR-SW7-3560G" source="10.106.200.0/24" target="AR-SW7-3560G" label="10.106.200.0/24-AR-SW7-3560G">
+            <data key="Neighbor IP Address">10.106.200.234 10.106.200.234</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-DC-CR2-Sw1-Imperva" source="10.106.200.0/24" target="DC-CR2-Sw1-Imperva" label="10.106.200.0/24-DC-CR2-Sw1-Imperva">
+            <data key="Neighbor IP Address">10.106.200.252 10.106.200.252</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-DC-Sw-4507R-CR3" source="10.106.200.0/24" target="DC-Sw-4507R-CR3" label="10.106.200.0/24-DC-Sw-4507R-CR3">
+            <data key="Neighbor IP Address">10.106.200.254 10.106.200.254</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-10.106.200.6" source="10.106.200.0/24" target="10.106.200.6" label="10.106.200.0/24-10.106.200.6">
+            <data key="Neighbor IP Address">10.106.200.6</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-ODC-Sw2-3560down" source="10.106.200.0/24" target="ODC-Sw2-3560down" label="10.106.200.0/24-ODC-Sw2-3560down">
+            <data key="Neighbor IP Address">10.106.200.249 10.106.200.249</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-10.106.200.9" source="10.106.200.0/24" target="10.106.200.9" label="10.106.200.0/24-10.106.200.9">
+            <data key="Neighbor IP Address">10.106.200.9</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-10.106.200.2" source="10.106.200.0/24" target="10.106.200.2" label="10.106.200.0/24-10.106.200.2">
+            <data key="Neighbor IP Address">10.106.200.2</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-10.106.200.3" source="10.106.200.0/24" target="10.106.200.3" label="10.106.200.0/24-10.106.200.3">
+            <data key="Neighbor IP Address">10.106.200.3</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-SW-InstallationPlace" source="10.106.200.0/24" target="SW-InstallationPlace" label="10.106.200.0/24-SW-InstallationPlace">
+            <data key="Neighbor IP Address">10.106.200.235 10.106.200.235</data>
+            <data key="Reachable">YES</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-10.106.200.4" source="10.106.200.0/24" target="10.106.200.4" label="10.106.200.0/24-10.106.200.4">
+            <data key="Neighbor IP Address">10.106.200.4</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+        <edge id="10.106.200.0/24-10.106.200.5" source="10.106.200.0/24" target="10.106.200.5" label="10.106.200.0/24-10.106.200.5">
+            <data key="Neighbor IP Address">10.106.200.5</data>
+            <data key="Reachable">NO</data>
+            <data key="Neighbor Device Type">DEFAULT</data>
+            <data key="Discovery Method">r_OTHER,ARP</data>
+        </edge>
+    </graph>
 </graphml>

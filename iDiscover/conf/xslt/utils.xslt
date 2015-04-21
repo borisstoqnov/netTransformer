@@ -69,12 +69,10 @@
 		<xsl:param name="neighIP"/>
 		<xsl:param name="comm"/>
 		<xsl:param name="comm2"/>
-        <xsl:param name="timeout"/>
-        <xsl:param name="retries"/>
 		<xsl:if test="$neighIP!=''">
 		<xsl:variable name="temp">
 			<xsl:call-template name="return-hostname">
-				<xsl:with-param name="hostname-unformated" select="SnmpForXslt:getName($neighIP, $comm,$timeout,$retries)"/>
+				<xsl:with-param name="hostname-unformated" select="SnmpForXslt:getName($neighIP, $comm,$timeout,$retries,$neighbourIPDryRun)"/>
 			</xsl:call-template>
 		</xsl:variable>
 		<xsl:choose>
@@ -84,7 +82,7 @@
 			<xsl:otherwise>
 				<xsl:variable name="temp2">
 					<xsl:call-template name="return-hostname">
-						<xsl:with-param name="hostname-unformated" select="SnmpForXslt:getName($neighIP, $comm2,$timeout,$retries)"/>
+						<xsl:with-param name="hostname-unformated" select="SnmpForXslt:getName($neighIP, $comm2,$timeout,$retries,$neighbourIPDryRun)"/>
 					</xsl:call-template>
 				</xsl:variable>
 				<xsl:choose>
@@ -298,8 +296,6 @@
 		<xsl:param name="neighborIP"/>
 		<xsl:param name="neighborHostname"/>
 		<xsl:param name="comm"/>
-        <xsl:param name="timeout"/>
-        <xsl:param name="retries"/>
 
         <!--Get Neighbor hostname and format it-->
 		<parameter>
@@ -472,5 +468,18 @@
      "/>
 
 </xsl:function>
+
+	<xsl:function name="functx:substring-before-if-contains" as="xs:string?"
+				  xmlns:functx="http://www.functx.com">
+		<xsl:param name="arg" as="xs:string?"/>
+		<xsl:param name="delim" as="xs:string"/>
+
+		<xsl:sequence select="
+   if (contains($arg,$delim))
+   then substring-before($arg,$delim)
+   else $arg
+ "/>
+
+	</xsl:function>
 
 </xsl:stylesheet>

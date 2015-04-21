@@ -14,8 +14,10 @@ import net.itransformers.utils.XsltTransformer;
 import net.itransformers.utils.cli.Expect4GroovyScriptLauncher;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +40,7 @@ public class ReportManager {
         this.xsltTransformator = xsltTransformator;
     }
 
-    public StringBuffer reportExecutor(File postDiscoveryPath, Map<String, String> params) {
+    public StringBuffer reportExecutor(File postDiscoveryPath, Map<String, String> params) throws ParserConfigurationException, SAXException {
 
         List<ReportEntryType> reportEnties = reportGenerator.getReportEntry();
         StringBuffer sb = new StringBuffer();
@@ -229,7 +231,14 @@ public class ReportManager {
         }
 
         ReportManager reportManager = new ReportManager(reportGenerator, "postDiscoverer/conf/groovy/",projectDir,new File(projectDir,"iTopologyManager/rightClick/conf/xslt/table_creator.xslt"));
-        StringBuffer report = reportManager.reportExecutor(new File("/Users/niau/trunk/version1/post-discovery"),params);
+        StringBuffer report = null;
+        try {
+            report = reportManager.reportExecutor(new File("/Users/niau/trunk/version1/post-discovery"),params);
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
         if(report!=null){
                    System.out.println(report.toString());
 

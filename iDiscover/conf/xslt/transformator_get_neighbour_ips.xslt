@@ -31,15 +31,12 @@
     <xsl:param name="community-rw"/>
     <xsl:param name="timeout"/>
     <xsl:param name="retries"/>
-    <xsl:param name="neighbourIPDryRun"/>
-
     <xsl:include href="utils.xslt"/>
     <xsl:include href="discovery-methods.xslt"/>
     <xsl:variable name="comm" select="$community-ro"/>
     <xsl:variable name="comm2" select="$community-rw"/>
     <xsl:variable name="deviceIPv4Address" select="$ipAddress"/>
     <xsl:variable name="dev_state" select="$status"/>
-
     <xsl:template match="/">
         <!--
     <xsl:output method="xml" omit-xml-declaration="yes"/>
@@ -96,7 +93,7 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                     <xsl:variable name="temp">
                         <xsl:call-template name="return-hostname">
                             <xsl:with-param name="hostname-unformated"
-                                            select="SnmpForXslt:getName($deviceIPv4Address, $comm,$timeout,$retries,$neighbourIPDryRun)"/>
+                                            select="SnmpForXslt:getName($deviceIPv4Address, $comm,$timeout,$retries)"/>
                         </xsl:call-template>
                     </xsl:variable>
                     <xsl:value-of select="$temp"/>
@@ -702,7 +699,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                     <parameter>
                                                         <name>Neighbor IP Address</name>
                                                         <value>
-                                                            <xsl:value-of select="functx:substring-before-if-contains(distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Reachable' and value='YES']/../parameter[name='Neighbor IP Address']/value), '\s')"/>
+                                                            <xsl:value-of select="$interface-neighbors/object[name=$name1]/parameters/parameter[name='Reachable' and value='YES'][1]/../parameter[name='Neighbor IP Address']/value"/>
                                                         </value>
                                                     </parameter>
                                                     <parameter>

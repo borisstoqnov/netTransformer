@@ -32,8 +32,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.*;
 
@@ -95,7 +97,14 @@ public class XmlTopologyDeviceLogger implements DiscoveryListener{
             final String fileName = "node-" + deviceName + ".graphml";
 //            String fullFileName = path + File.separator + fileName;
             final File nodeFile = new File(deviceCentricPath,fileName);
-           String graphml = new XmlFormatter().format(new String(graphMLOutputStream.toByteArray()));
+            String graphml = null;
+            try {
+                graphml = new XmlFormatter().format(new String(graphMLOutputStream.toByteArray()));
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
+                e.printStackTrace();
+            }
             FileUtils.writeStringToFile(nodeFile, graphml);
 
             try {

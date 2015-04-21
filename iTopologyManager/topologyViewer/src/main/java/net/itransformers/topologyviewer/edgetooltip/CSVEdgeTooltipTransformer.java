@@ -35,10 +35,12 @@ public class CSVEdgeTooltipTransformer extends EdgeTooltipTransformerBase{
              StringBuilder sb = new StringBuilder();
              Set<String> valueSet = new HashSet<String>();
              GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadatas.get(tooltipType.getDataKey());
-             Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
-             final String value = transformer.transform(edge);
-             if (value != null){
-                 valueSet.addAll(Arrays.asList(value.split(",")));
+             if(stringGraphMLMetadata!=null){
+                Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
+                 final String value = transformer.transform(edge);
+                 if (value != null){
+                     valueSet.addAll(Arrays.asList(value.split(",")));
+                 }
              }
             sb.append(valueSet);
             return sb.toString();

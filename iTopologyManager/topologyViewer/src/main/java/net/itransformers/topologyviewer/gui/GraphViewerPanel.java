@@ -528,7 +528,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Set<String> vertexes = new HashSet<String>(currentGraph.getVertices());
                 applyFilter(currentFilter, currentHops, vertexes);
-                refreshComboFilters();
+//                refreshComboFilters();
 //                vv.repaint();
             }
         });
@@ -547,7 +547,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
                 }
                 Set<String> vertexes = new HashSet<String>(currentGraph.getVertices());
                 applyFilter(currentFilter, currentHops, vertexes);
-                refreshComboFilters();
+                //refreshComboFilters();
                 vv.repaint();
             }
         });
@@ -563,7 +563,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
                 if (pickedVertexes.iterator().next() != null) {
                     Animator(pickedVertexes.iterator().next());
                 }
-                refreshComboFilters();
+                //refreshComboFilters();
 
 
             }
@@ -819,24 +819,24 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
 
         int vertexCount = currentGraph.getVertexCount();
 //        final ScalingControl scaler = new CrossoverScalingControl();
-        final double nodeDensity = 0.001;
+        final double nodeDensity = 0.0001;
         Dimension parent1 = parent.getSize();
-         int  x=parent.getWidth();
-         int  y= (int) (parent.getHeight() - 150);
+//         int  x=parent.getWidth();
+//         int  y= (int) (parent.getHeight() - 150);
 //
-//        int x = (int) (Math.sqrt(vertexCount / nodeDensity));
-//        int y = (int) (Math.sqrt(vertexCount / nodeDensity));
-//        if (x < parent1.width) {
-//            x = parent1.width - 50;
-//        } else {
-//            x = x * (parent1.width - 50) / 1000;
-//        }
-//
-//        if (y < parent1.height) {
-//            y = parent1.height - 150;
-//        } else {
-//            y = y * (parent1.height - 150) / 1000;
-//        }
+        int x = (int) (Math.sqrt(vertexCount / nodeDensity));
+        int y = (int) (Math.sqrt(vertexCount / nodeDensity));
+        if (x < parent1.width) {
+            x = parent1.width - 50;
+        } else {
+            x = x * (parent1.width - 50) / 1000;
+        }
+
+        if (y < parent1.height) {
+            y = parent1.height - 150;
+        } else {
+            y = y * (parent1.height - 150) / 1000;
+        }
 
         System.out.println("X: " + x + "Y: " + y + "width: " + parent1.width + "heigth: " + parent1.height);
         test.setSize(new Dimension(new Dimension(x, y)));
@@ -1142,10 +1142,10 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
             if (isSelected) setForeground(pickedVertexLabelColor);
             super.setBackground(vv.getBackground());
             if (font != null) {
-                Font font1 = new Font(font.getName(), font.getStyle() + Font.BOLD, font.getSize() + 2);
+                Font font1 = new Font(font.getName(), font.getStyle(), font.getSize() - 2);
                 setFont(font1);
             } else {
-                Font font1 = new Font(vv.getFont().getName(), vv.getFont().getStyle() + Font.BOLD, vv.getFont().getSize() + 2);
+                Font font1 = new Font(vv.getFont().getName(), vv.getFont().getStyle(), vv.getFont().getSize() - 2);
                 setFont(font1);
             }
             setIcon(null);

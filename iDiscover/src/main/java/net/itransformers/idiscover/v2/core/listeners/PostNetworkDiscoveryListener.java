@@ -13,8 +13,10 @@ import net.itransformers.resourcemanager.config.ResourcesType;
 import net.itransformers.utils.JaxbMarshalar;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
@@ -124,7 +126,13 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    reportManager.reportExecutor(new File(labelDirName),params);
+                    try {
+                        reportManager.reportExecutor(new File(labelDirName),params);
+                    } catch (ParserConfigurationException e) {
+                        e.printStackTrace();
+                    } catch (SAXException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
            // threads.add(thread);

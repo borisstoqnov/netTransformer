@@ -21,10 +21,13 @@ package net.itransformers.idiscover.discoveryhelpers.xml;
 
 import net.itransformers.idiscover.core.Discoverer;
 import net.itransformers.idiscover.core.DiscovererFactory;
+import net.itransformers.idiscover.core.DiscoveryResourceManager;
 import net.itransformers.idiscover.core.Resource;
 import net.itransformers.idiscover.discoverers.DefaultDiscovererFactory;
 import net.itransformers.idiscover.discoverers.SnmpWalker;
-import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.resourcemanager.config.ConnectionParamsType;
+import net.itransformers.resourcemanager.config.ParamType;
+import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.utils.CIDRUtils;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.log4j.Logger;
@@ -32,12 +35,14 @@ import org.apache.log4j.Logger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SnmpForXslt {
+
     static Logger logger = Logger.getLogger(SnmpForXslt.class);
+
     private static DiscovererFactory discovererFactory;
-    private static ResourceManager resourceManager;
     private static InetAddressValidator ipAddressValidator = new InetAddressValidator();
     private static CIDRUtils cidrUtils;
 
@@ -47,6 +52,8 @@ public class SnmpForXslt {
     public static void setMockSnmpForXslt(MockSnmpForXslt mockSnmpForXslt){
         SnmpForXslt.mockSnmpForXslt = mockSnmpForXslt;
     }
+
+
     public static String checkBogons(String ipAddress) {
         try {
             cidrUtils = new CIDRUtils("0.0.0.0/8");
@@ -92,8 +99,8 @@ public class SnmpForXslt {
 
     public static String getSubnetFromPrefix(String prefix) {
         try {
-           cidrUtils = new CIDRUtils(prefix);
-           return  cidrUtils.getNetworkAddress();
+            cidrUtils = new CIDRUtils(prefix);
+            return  cidrUtils.getNetworkAddress();
         } catch (UnknownHostException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -135,56 +142,47 @@ public class SnmpForXslt {
 
     }
 
-        public static String getName(String ipAddress, String community,String timeout, String retries) throws Exception {
-            if (mockSnmpForXslt != null) {
-                return mockSnmpForXslt.getName(ipAddress, community, timeout, retries);
-            }
+    public static String getName(String ipAddress, String community,String timeout, String retries, String neighbourIPDryRun) throws Exception {
+        if (mockSnmpForXslt != null) {
+            return mockSnmpForXslt.getName(ipAddress, community, timeout, retries);
+        }
         //        System.out.println(ipAddress);
         if(!ipAddressValidator.isValidInet4Address(ipAddress))
             return  null;
 
+
         HashMap<String, String> deviceNameMap = discoveredDevices.get(ipAddress);
+
+        if(neighbourIPDryRun.equals("true")){
+
+            String deviceName = null;
+
+            if (deviceNameMap != null) {
+
+                return null;
+            } else {
+                deviceNameMap = new HashMap<String, String>();
+                discoveredDevices.put(ipAddress,deviceNameMap);
+                return null;
+            }
+
+        }
 
         String deviceName = null;
 
         if (deviceNameMap != null) {
-            deviceName = deviceNameMap.get(community);
-        } else {
-            deviceNameMap = new HashMap<String, String>();
-
+            for (String s : deviceNameMap.keySet()) {
+                deviceName = deviceNameMap.get(s);
+                break;
+            }
         }
 
-        if ("".equals(deviceName)) {
+        if ("".equals(deviceName) || deviceName == null) {
             return null;
-        } else if (deviceName != null) {
+        } else  {
             return deviceName;
         }
-        if ("".equals(retries) || retries==null) retries = "1";
-        if ("".equals(timeout) || timeout==null) timeout = "300";
 
-        Map<String, String> resourceParams = new HashMap<String, String>();
-        resourceParams.put("community-ro", community);
-        resourceParams.put("version", "1");
-        resourceParams.put("retries", retries);
-        resourceParams.put("timeout", timeout);
-
-        Resource resource = new Resource(ipAddress, null, resourceParams);// TODO specify port
-        discovererFactory = new DefaultDiscovererFactory();
-
-        Discoverer discoverer = discovererFactory.createDiscoverer(resource);
-        final String deviceNameFromSNMP = discoverer.getDeviceName(resource);
-        logger.debug("hostname:" + ipAddress + ", community: " + community + ", found deviceName:" + deviceName);
-
-
-        if (deviceNameFromSNMP != null) {
-
-            deviceNameMap.put(community, deviceNameFromSNMP);
-            discoveredDevices.put(ipAddress, deviceNameMap);
-        } else {
-            deviceNameMap.put(community, "");
-            discoveredDevices.put(ipAddress, deviceNameMap);
-        }
-        return deviceNameFromSNMP;
     }
 
     public static String getSymbolByOid(String mibName, String oid) throws Exception {
@@ -270,4 +268,69 @@ public class SnmpForXslt {
 
     }
 
+    public static Map<String, HashMap<String, String>> getDiscoveredDevices() {
+        return discoveredDevices;
+    }
+
+    public static void setDiscoveredDevices(Map<String, HashMap<String, String>> discoveredDevices) {
+        SnmpForXslt.discoveredDevices = discoveredDevices;
+    }
+    public static void resolveIPAddresses(DiscoveryResourceManager resourceManager, String connectionType){
+        for (String ipAddress : discoveredDevices.keySet()) {
+
+            HashMap<String, String> deviceNameMap = discoveredDevices.get(ipAddress);
+            if (deviceNameMap==null){
+
+                deviceNameMap = new HashMap<String, String>();
+
+            }else if (deviceNameMap.size()==0) {
+                deviceNameMap = new HashMap<String, String>();
+
+            }else {
+
+                System.out.println("ipAddress"+deviceNameMap);
+                continue;
+            }
+
+            Map<String,String> resourceParameters = new HashMap<String, String>();
+            resourceParameters.put("ipAddress", ipAddress);
+
+            ResourceType resourceType = resourceManager.returnResourceByParam(resourceParameters);
+
+
+            Map<String, String> connParams = new HashMap<String, String>();
+            List<ConnectionParamsType> connectionParams = resourceType.getConnectionParams();
+            for (ConnectionParamsType connectionParam : connectionParams) {
+                if (connectionParam.getConnectionType().equals(connectionType)) {
+                    for (ParamType param : connectionParam.getParam()) {
+                        connParams.put(param.getName(), param.getValue());
+                    }
+                    break;
+                }
+            }
+
+            Resource resource = new Resource(ipAddress, null, connParams);// TODO specify port
+            discovererFactory = new DefaultDiscovererFactory();
+
+            Discoverer discoverer = null;
+            try {
+                discoverer = discovererFactory.createDiscoverer(resource);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            final String deviceNameFromSNMP = discoverer.getDeviceName(resource);
+            logger.debug("hostname:" + ipAddress + deviceNameFromSNMP);
+
+            if (deviceNameFromSNMP != null) {
+
+                deviceNameMap.put(connParams.get("community-ro"), deviceNameFromSNMP);
+                discoveredDevices.put(ipAddress, deviceNameMap);
+            } else {
+                deviceNameMap.put(connParams.get("community-ro"), "");
+                discoveredDevices.put(ipAddress, deviceNameMap);
+            }
+
+        }
+
+    }
 }

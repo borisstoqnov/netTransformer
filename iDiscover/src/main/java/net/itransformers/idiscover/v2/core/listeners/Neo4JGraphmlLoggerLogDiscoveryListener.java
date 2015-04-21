@@ -30,8 +30,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
+import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 
 //import org.neo4j.graphdb.GraphDatabaseService;
@@ -77,13 +79,21 @@ public class Neo4JGraphmlLoggerLogDiscoveryListener implements NodeDiscoveryList
 
             final String fileName = "node-" + deviceName + ".graphml";
             final File nodeFile = new File(graphmlDir,fileName);
-            String graphml = new XmlFormatter().format(new String(graphMLOutputStream.toByteArray()));
+        String unformatedGraphml = new String(graphMLOutputStream.toByteArray());
+
         try {
+            String graphml = new XmlFormatter().format(unformatedGraphml);
+
             FileUtils.writeStringToFile(nodeFile, graphml);
             FileWriter writer = new FileWriter(new File(labelDirName,"undirected"+".graphmls"),true);
             writer.append(String.valueOf(fileName)).append("\n");
             writer.close();
         } catch (IOException e) {
+            logger.debug("Unformated xml is not in correct format: \n"+unformatedGraphml);
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
             e.printStackTrace();
         }
 

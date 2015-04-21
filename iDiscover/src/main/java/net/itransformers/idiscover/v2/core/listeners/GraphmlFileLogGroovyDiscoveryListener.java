@@ -14,8 +14,10 @@ import net.itransformers.utils.XmlFormatter;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 
 public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListener {
@@ -55,7 +57,10 @@ public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListe
 //            String fullFileName = path + File.separator + fileName;
             final File nodeFile = new File(graphmlDir,fileName);
             System.out.println(new String(graphmlWriter.toString()));
-            String graphml = new XmlFormatter().format(graphmlWriter.toString());
+            String graphml;
+
+            graphml = new XmlFormatter().format(graphmlWriter.toString());
+
             FileUtils.writeStringToFile(nodeFile, graphml);
             File undirectedGraphmls = new File(graphmlDir.getParent(),"undirected"+".graphmls");
             if (!undirectedGraphmls.exists()){
@@ -68,6 +73,15 @@ public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListe
 
 
         } catch (IOException e) {
+            logger.debug("Unformated xml is not in correct format: \n"+graphmlWriter.toString());
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+
+            logger.debug("Unformated xml is not in correct format: \n"+graphmlWriter.toString());
+
+            e.printStackTrace();
+        } catch (SAXException e) {
+            logger.debug("Unformated xml is not in correct format: \n"+graphmlWriter.toString());
             e.printStackTrace();
         }
 
