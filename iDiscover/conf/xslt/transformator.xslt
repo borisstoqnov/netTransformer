@@ -200,6 +200,10 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                     </value>
                 </parameter>
                 <parameter>
+                    <name>Total Interface Count</name>
+                    <value><xsl:value-of select="//root/iso/org/dod/internet/mgmt/mib-2/interfaces/ifNumber"/></value>
+                </parameter>
+                <parameter>
                     <name>ipv6Forwarding</name>
                     <value>
                         <xsl:value-of select="$IPv6"/>

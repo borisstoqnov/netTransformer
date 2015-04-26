@@ -12,31 +12,31 @@ output << """\
             <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string"/>
             <key id="deviceType" for="node" attr.name="deviceType" attr.type="string"/>
             <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string"/>
-            <key id="DiscoveredIPv4Address" for="node" attr.name="DiscoveredIPv4Address" attr.type="string"/>
+            <key id="discoveredIPv4Address" for="node" attr.name="discoveredIPv4Address" attr.type="string"/>
             <key id="geoCoordinates" for="node" attr.name="geoCoordinates" attr.type="string"/>
             <key id="site" for="node" attr.name="site" attr.type="string"/>
             <key id="diff" for="node" attr.name="diff" attr.type="string"/>
             <key id="diffs" for="node" attr.name="diffs" attr.type="string"/>
-            <key id="IPv6Forwarding" for="node" attr.name="IPv6Forwarding" attr.type="string"/>
-            <key id="IPv4Forwarding" for="node" attr.name="IPv4Forwarding" attr.type="string"/>
-            <key id="SubnetPrefix" for="node" attr.name="SubnetPrefix" attr.type="string"/>
+            <key id="ip6Forwarding" for="node" attr.name="ipv6Forwarding" attr.type="string"/>
+            <key id="ipv4Forwarding" for="node" attr.name="ipv4Forwarding" attr.type="string"/>
+            <key id="subnetPrefix" for="node" attr.name="subnetPrefix" attr.type="string"/>
+            <key id="subnetRangeType" for="node" attr.name="subnetRangeType" attr.type="string"/>
+            <key id="ipProtocolType" for="node" attr.name="ipProtocolType" attr.type="string"/>
+            <key id="totalInterfaceCount" for="node" attr.name="totalInterfaceCount" attr.type="string"/>
 
             <key id="name" for="edge" attr.name="name" attr.type="string"/>
             <key id="Discovery Method" for="edge" attr.name="Discovery Method" attr.type="string"/>
             <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string"/>
             <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string"/>
             <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string"/>
-            <key id="IPv6Forwarding" for="edge" attr.name="IPv6Forwarding" attr.type="string"/>
-            <key id="IPv4Forwarding" for="edge" attr.name="IPv4Forwarding" attr.type="string"/>
+            <key id="ipv6Forwarding" for="edge" attr.name="IPv6Forwarding" attr.type="string"/>
+            <key id="ipv4Forwarding" for="edge" attr.name="IPv4Forwarding" attr.type="string"/>
 
             <key id="bgpLocalAS" for="node" attr.name="bgpLocalAS" attr.type="string"/>
             <key id="bgpAutonomousSystemA" for="edge" attr.name="bgpAutonomousSystemA" attr.type="string"/>
             <key id="bgpAutonomousSystemB" for="edge" attr.name="bgpAutonomousSystemB" attr.type="string"/>
 
             <key id="Interface" for="edge" attr.name="Interface" attr.type="string"/>
-            <key id="InterfaceNameB" for="edge" attr.name="InterfaceNameB" attr.type="string"/>
-            <key id="IPv4AddressA" for="edge" attr.name="IPv4AddressA" attr.type="string"/>
-            <key id="IPv4AddressB" for="edge" attr.name="IPv4AddressB" attr.type="string"/>
             <key id="edgeTooltip" for="edge" attr.name="edgeTooltip" attr.type="string"/>
             <key id="diff" for="edge" attr.name="diff" attr.type="string"/>
             <key id="diffs" for="edge" attr.name="diffs" attr.type="string"/>
@@ -54,6 +54,8 @@ String discoveredIPv4Address = input.parameters.parameter.findAll { it.name.text
 String ipv4Forwarding = input.parameters.parameter.findAll { it.name.text() == "ipv4Forwarding"}.value.text();
 
 String ipv6Forwarding = input.parameters.parameter.findAll { it.name.text() == "ipv6Forwarding"}.value.text();
+String totalInterfaceCount = input.parameters.parameter.findAll { it.name.text() == "Total Interface Count"}.value.text();
+
 
 
 
@@ -65,9 +67,10 @@ output << "\t\t<node id=\""+deviceName+"\" label=\""+deviceName+"\">\n"
 output << "\t\t\t<data key=\"deviceName\">" +deviceName + "</data>\n"
 output << "\t\t\t<data key=\"deviceModel\">" + deviceModel+ "</data>\n"
 output << "\t\t\t<data key=\"deviceType\">" + deviceType+ "</data>\n"
-output << "\t\t\t<data key=\"DiscoveredIPv4Address\">" + discoveredIPv4Address + "</data>\n"
-output << "\t\t\t<data key=\"IPv4Forwarding\">" + ipv4Forwarding + "</data>\n"
-output << "\t\t\t<data key=\"IPv6Forwarding\">" + ipv6Forwarding + "</data>\n"
+output << "\t\t\t<data key=\"discoveredIPv4Address\">" + discoveredIPv4Address + "</data>\n"
+output << "\t\t\t<data key=\"ipv4Forwarding\">" + ipv4Forwarding + "</data>\n"
+output << "\t\t\t<data key=\"ipv6Forwarding\">" + ipv6Forwarding + "</data>\n"
+output << "\t\t\t<data key=\"totalInterfaceCount\">" + totalInterfaceCount + "</data>\n"
 
 
 output << "\t\t</node>\n"
@@ -108,6 +111,7 @@ input.object.findAll {
         String subnetId
         boolean bogon = false
         boolean hostOnly = false;
+        boolean privateSubnet = false;
         String ipv4Address
         it.parameters.parameter.findAll {
             it.name.text() == 'ipv4Subnet'
@@ -156,6 +160,18 @@ input.object.findAll {
             if (cidrUtils.isInRange(ipv4Address)) {
                 bogon = true;
             }
+            cidrUtils = new CIDRUtils("192.168.0.0/16")
+            if (cidrUtils.isInRange(ipv4Address)){
+                privateSubnet = true;
+            }
+            cidrUtils = new CIDRUtils("172.16.0.0/12")
+            if (cidrUtils.isInRange(ipv4Address)){
+                privateSubnet = true;
+            }
+            cidrUtils = new CIDRUtils("10.0.0.0/8")
+            if (cidrUtils.isInRange(ipv4Address)){
+                privateSubnet = true;
+            }
 
 
         }
@@ -171,14 +187,22 @@ input.object.findAll {
                 String subnetPrefix = subnetId + "/" + ipv4SubnetMaskPrefix
                 subnet.setName(subnetPrefix)
                 subnet.setPrefix(subnetPrefix)
-                subnet.setIpv4SubnetMaskPrefix(ipv4SubnetMaskPrefix)
+                subnet.setSubnetPrefix(ipv4SubnetMaskPrefix)
                 subnets.add(subnetPrefix)
+                subnet.setSubnetProtocolType("IPv4")
             }
         }
         if (bogon == false && hostOnly == false) {
             subnet.setLocalInterface(localInterfaceName)
             device.addSubnet(subnet)
         }
+        if (privateSubnet == false){
+            subnet.setSubnetType("public");
+        }else{
+            subnet.setSubnetType("private");
+
+        }
+
     }
     //Populate Neighbours
     discoveryInterface.object.findAll {
@@ -311,7 +335,11 @@ for (Map.Entry<String, Network> subnetEntry : device.getSubnets()) {
     output << "\t\t<node id=\"" << subnetEntry.getKey() << "\" label=\"" << subnetEntry.getKey() << "\">\n"
     output << "\t\t\t<data key=\"deviceType\">Subnet</data>\n"
     output << "\t\t\t<data key=\"deviceModel\">passiveHub</data>\n"
-    output << "\t\t\t<data key=\"SubnetPrefix\">" << subnetEntry.getValue().getPrefix() << "</data>\n"
+    output << "\t\t\t<data key=\"subnetPrefix\">" << subnetEntry.getValue().getPrefix() << "</data>\n"
+    output << "\t\t\t<data key=\"ipProtocolType\">" << subnetEntry.getValue().getSubnetProtocolType() << "</data>\n"
+    output << "\t\t\t<data key=\"subnetRangeType\">" << subnetEntry.getValue().getSubnetType() << "</data>\n"
+
+
     output << "\t\t</node>\n"
 
 }

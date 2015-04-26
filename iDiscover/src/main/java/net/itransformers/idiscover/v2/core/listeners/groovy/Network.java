@@ -8,25 +8,27 @@ import java.util.HashMap;
 public class Network {
     String name;
     HashMap<String, DeviceNeighbour> neighbours = new HashMap<String, DeviceNeighbour>();
-    String IPv4Address;
+    String ipAddress;
     String prefix;
-    String ipv4SubnetMaskPrefix;
+    String subnetPrefix;
     String localInterface;
+    String subnetProtocolType;
+    String subnetType;
 
-    public String getIpv4SubnetMaskPrefix() {
-        return ipv4SubnetMaskPrefix;
+    public String getSubnetPrefix() {
+        return subnetPrefix;
     }
 
-    public void setIpv4SubnetMaskPrefix(String ipv4SubnetMaskPrefix) {
-        this.ipv4SubnetMaskPrefix = ipv4SubnetMaskPrefix;
+    public void setSubnetPrefix(String subnetPrefix) {
+        this.subnetPrefix = subnetPrefix;
     }
 
-    public String getIPv4Address() {
-        return IPv4Address;
+    public String getIpAddress() {
+        return ipAddress;
     }
 
-    public void setIPv4Address(String IPv4Address) {
-        this.IPv4Address = IPv4Address;
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 
     public String getPrefix() {
@@ -67,6 +69,22 @@ public class Network {
 
     public void setLocalInterface(String localInterface) {
         this.localInterface = localInterface;
+    }
+
+    public String getSubnetProtocolType() {
+        return subnetProtocolType;
+    }
+
+    public void setSubnetProtocolType(String subnetProtocolType) {
+        this.subnetProtocolType = subnetProtocolType;
+    }
+
+    public String getSubnetType() {
+        return subnetType;
+    }
+
+    public void setSubnetType(String subnetType) {
+        this.subnetType = subnetType;
     }
 
     @Override
