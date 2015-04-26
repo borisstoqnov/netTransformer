@@ -24,12 +24,14 @@ import net.itransformers.resourcemanager.config.ParamType;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.resourcemanager.config.ResourcesType;
 import net.itransformers.resourcemanager.util.JaxbMarshalar;
+import net.itransformers.utils.CIDRUtils;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +59,98 @@ public class ResourceManager {
         }
     }
 
+
+
+    public ResourceType findResourceByIPrange(Map<String, String> deviceParams) {
+        logger.debug("finding resource for device params: "+deviceParams);
+        List<ResourceType> list = resource.getResource();
+        int matchCount = -1;
+        ResourceType resourceType = null;
+        for (ResourceType currResourceType : list) {
+            HashMap<String, String> map = getParamMap(currResourceType);
+            Set<String> paramSet = map.keySet();
+            logger.debug("Trying resource: "+currResourceType.getName() +", param keySet: "+paramSet);
+
+            if (map.get("ipv4Range")!=null){
+
+                String ipv4Address = deviceParams.get("ipv4Address");
+
+                try {
+                    CIDRUtils cidrUtils = new CIDRUtils(map.get("ipv4Range"));
+
+                    if (cidrUtils.isInRange(ipv4Address)){
+                        matchCount++;
+                    } else {
+
+                    }
+
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            if (map.get("ipv6Range")!=null){
+
+                String ipv4Address = deviceParams.get("ipv4Address");
+
+                try {
+                    CIDRUtils cidrUtils = new CIDRUtils(map.get("ipv4Range"));
+
+                    if (cidrUtils.isInRange(ipv4Address)){
+                        matchCount++;
+                    } else {
+
+                    }
+
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            if (map.get("ipv6Range")!=null){
+
+                String ipv6Address = deviceParams.get("ipv46ddress");
+
+            }
+
+            if (deviceParams.keySet().containsAll(paramSet)) {
+                boolean found = true;
+                for (String key : paramSet) {
+                    if(deviceParams.get(key)!=null){
+                        if (!deviceParams.get(key).equals(map.get(key))) {
+                            found = false;
+                            break;
+                        }
+
+                    }   else{
+                        found = false;
+                        break;
+                    }
+                }
+                if (found) {
+                    logger.debug("device params contains all resource param key and match, match count="+matchCount+", param set size="+paramSet.size());
+                    if (matchCount < paramSet.size()) {
+                        matchCount = paramSet.size();
+                        resourceType = currResourceType;
+                    }
+                } else {
+                    logger.debug("device params contains all resource param key but does not match by values");
+                }
+            } else {
+                logger.debug("device params does not contain all resource param key");
+            }
+        }
+        if (resourceType != null) {
+            logger.debug("match Resource=" + resourceType.getName() + ", device params: " + deviceParams);
+        }
+        return resourceType;
+    }
+
+
     public ResourceType findResource(Map<String, String> deviceParams) {
         logger.debug("finding resource for device params: "+deviceParams);
         List<ResourceType> list = resource.getResource();
@@ -66,6 +160,7 @@ public class ResourceManager {
             HashMap<String, String> map = getParamMap(currResourceType);
             Set<String> paramSet = map.keySet();
             logger.debug("Trying resource: "+currResourceType.getName() +", param keySet: "+paramSet);
+
             if (deviceParams.keySet().containsAll(paramSet)) {
                 boolean found = true;
                 for (String key : paramSet) {

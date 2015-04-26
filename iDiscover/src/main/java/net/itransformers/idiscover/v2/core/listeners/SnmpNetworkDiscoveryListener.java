@@ -189,7 +189,7 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
             vertexTypes.put("nodeInfo","string");
             vertexTypes.put("hostname","string");
             vertexTypes.put("deviceStatus","string");
-            vertexTypes.put("ManagementIPAddress","string");
+            vertexTypes.put("DiscoveredIPv4Address","string");
             vertexTypes.put("geoCoordinates","string");
             vertexTypes.put("site","string");
             vertexTypes.put("diff","string");

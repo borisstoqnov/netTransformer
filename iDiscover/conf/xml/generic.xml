@@ -54,6 +54,11 @@
         <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
     </bean>
 
+    <bean id="ConnectionDetailsListener" class="net.itransformers.idiscover.v2.core.listeners.ConnectionDetailsListener">
+        <property name="projectPath" ref="projectPath"/>
+        <property name="connectionDetailsPath" value="iDiscover/conf/txt/connection-details.txt"/>
+    </bean>
+
     <bean id="GraphmlFileLogGroovyDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.GraphmlFileLogGroovyDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>

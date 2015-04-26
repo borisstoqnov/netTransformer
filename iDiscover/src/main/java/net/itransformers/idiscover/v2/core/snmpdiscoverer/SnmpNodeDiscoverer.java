@@ -42,12 +42,17 @@ import net.itransformers.idiscover.discoverers.SnmpWalker;
 import net.itransformers.idiscover.discoveryhelpers.xml.SnmpForXslt;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
+import net.itransformers.idiscover.util.JaxbMarshalar;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.resourcemanager.config.ResourceType;
 import org.apache.log4j.Logger;
 
+import javax.xml.bind.JAXBException;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -107,8 +112,6 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         params1.put("ipAddress", ipAddressStr);
         IPv4Address ipAddress = new IPv4Address(ipAddressStr, null);
 
-        //Set neighbourDryRun
-     //   params1.put("neighbourIPDryRun","true");
 
         ResourceType snmpResource = this.discoveryResource.returnResourceByParam(params1);
         Map<String, String> snmpConnParams = this.discoveryResource.getParamMap(snmpResource, "snmp");
@@ -139,18 +142,41 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         discoveryHelper.setDryRun(true);
 
 
-        discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
+        DiscoveredDeviceData discoveredDeviceData1 = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
 
-        SnmpForXslt.resolveIPAddresses(discoveryResource,"snmp");
+        OutputStream os  = null;
+
+        try {
+            os = new ByteArrayOutputStream();
+            JaxbMarshalar.marshal(discoveredDeviceData1, os, "DiscoveredDevice");
+            String str = os.toString();
+            System.out.println(str);
+        } catch (JAXBException e) {
+            logger.error(e.getMessage(),e);
+        } finally {
+            if (os != null) try {os.close();} catch (IOException e) {}
+        }
+
+
+        SnmpForXslt.resolveIPAddresses(discoveryResource, "snmp");
 
 
         discoveryHelper.setDryRun(false);
 
-        DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
+        DiscoveredDeviceData discoveredDeviceData2 = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
 
-
-        result.setDiscoveredData("deviceData", discoveredDeviceData);
-        Device device = discoveryHelper.createDevice(discoveredDeviceData);
+        try {
+            os = new ByteArrayOutputStream();
+            JaxbMarshalar.marshal(discoveredDeviceData2, os, "DiscoveredDevice");
+            String str = os.toString();
+            System.out.println(str);
+        } catch (JAXBException e) {
+            logger.error(e.getMessage(),e);
+        } finally {
+            if (os != null) try {os.close();} catch (IOException e) {}
+        }
+        result.setDiscoveredData("deviceData", discoveredDeviceData2);
+        Device device = discoveryHelper.createDevice(discoveredDeviceData2);
 
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
 

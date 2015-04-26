@@ -80,9 +80,8 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
             DiscoveredDeviceData discoveredDeviceData = JaxbMarshalar.unmarshal(DiscoveredDeviceData.class, is);
             return discoveredDeviceData;
         } catch (JAXBException e) {
-            System.err.println("Error unmarshal the xml:");
+            System.err.println("Error unmarshal the xml:" + e.toString());
             System.err.println(new String(deviceXmlOutputStream.toByteArray()));
-            e.printStackTrace();
             return null;
         }
     }

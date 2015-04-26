@@ -40,6 +40,7 @@ import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -59,7 +60,7 @@ public class NetworkNodeDiscovererImplTestCase {
         connectionDetailsToA.setConnectionType("mock");
         connectionDetailsToA.put("node", "A");
     }
-//    @Test
+    @Test
     public void testDoDiscoverNodes(){
         Map<String, Node> nodes = new HashMap<String, Node>();
         NetworkDiscoveryResult result = new NetworkDiscoveryResult();

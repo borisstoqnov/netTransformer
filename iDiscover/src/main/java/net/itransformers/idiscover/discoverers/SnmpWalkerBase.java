@@ -89,6 +89,8 @@ public class SnmpWalkerBase implements Discoverer {
         }
         else if (sysDescr.contains("Riverstone")){
           return "RIVERSTONE";
+        }else if (sysDescr.contains("Linux")){
+            return "LINUX";
         }
         else {
           return  "DEFAULT";
@@ -126,6 +128,7 @@ public class SnmpWalkerBase implements Discoverer {
     }
 
     public RawDeviceData getRawDeviceData(Resource resource, String[] requestParamsList) {
+
         try {
             return snmpWalk(resource, requestParamsList);
         } catch (Exception e) {
@@ -143,9 +146,6 @@ public class SnmpWalkerBase implements Discoverer {
         } catch (Exception e) {
             logger.error(e.getMessage(),e);
             return null;
-//        } catch (MibLoaderException e) {
-//            logger.error(e.getMessage(),e);
-//            return null;
         }
     }
 
@@ -166,21 +166,58 @@ public class SnmpWalkerBase implements Discoverer {
         int timeoutInt = resource.getAttributes().get("timeout") == null ? 1500 : Integer.parseInt(resource.getAttributes().get("timeout"));
         String community = resource.getAttributes().get("community-ro");
         String community2 = resource.getAttributes().get("community-rw");
-        if (community == null) throw new IllegalArgumentException("Community is not specifed");
-        if (resource.getAddress() == null) throw new RuntimeException("Resource address is null");
         Get get = null;
+
+        if (community == null){
+            logger.debug("community-ro parameter for "+resource.getAddress() +" has not been specifed!" +
+                    "Will try with community-rw");
+
+            if (community2 == null){
+                logger.error("community-rw parameter for "+resource.getAddress() +" has also not been specifed!!"+
+                        "Can't do much here! Continuing to the next device!!!");
+                return null;
+
+            } else {
+                community=community2;
+            }
+        }
+
+        if (resource.getAddress() == null){
+            logger.error("Resource address is null");
+            return null;
+        }
+
+
         try {
             get = new Get(oid, resource.getAddress(), versionInt, retriesInt, timeoutInt, community, transportFactory, messageDispatcherFactory);
         } catch (IOException e) {
             logger.error(e.getMessage(),e);
-            return null;
         }
-        String value;
+
+        String value=null;
         try {
-            value = get.getSNMPValue();
+            value = get.getSNMPGetNextValue();
         } catch (IOException e) {
             logger.error(e.getMessage(),e);
-            return null;
+        }
+
+
+        if (value!=null){
+
+            return value;
+
+        }else {
+
+            try {
+                get = new Get(oid, resource.getAddress(), versionInt, retriesInt, timeoutInt, community2, transportFactory, messageDispatcherFactory);
+            } catch (IOException e) {
+                logger.error(e.getMessage(),e);
+            }
+            try {
+                value = get.getSNMPValue();
+            } catch (IOException e) {
+                logger.error(e.getMessage(),e);
+            }
         }
         return value;
     }
@@ -203,6 +240,7 @@ public class SnmpWalkerBase implements Discoverer {
         int timeoutInt = resource.getAttributes().get("timeout") == null ? 1200 : Integer.parseInt(resource.getAttributes().get("timeout"));
         String community = resource.getAttributes().get("community-ro");
         String community2 = resource.getAttributes().get("community-rw");
+
         if (community == null) throw new IllegalArgumentException("Community is not specifed");
         if (resource.getAddress() == null) throw new RuntimeException("Resource address is null");
         SnmpSet set = null;
@@ -224,25 +262,42 @@ public class SnmpWalkerBase implements Discoverer {
     private RawDeviceData snmpWalk(Resource resource, String[] params) throws Exception {//}, MibLoaderException {
         Properties parameters = new Properties();
 
-        String address;
-        if (resource.getAddress() == null) throw new RuntimeException("Resource Address is null");
+        String address = resource.getAddress();
+        if (address == null) {
+            logger.error("Resource Address is null! Can't walk the device");
+        }
 
-        if (resource.getAddress().contains(" ")){
+        if (address.contains(" ")){
 
-            logger.debug("Address not in the right format"+resource.getAddress());
+            logger.error("Address not in the right format" + resource.getAddress());
             String [] addresses  =   resource.getAddress().split(" ");
             address = addresses[addresses.length -1];
 
         } else{
+
             address=resource.getAddress();
         }
 
 
-        parameters.put(SnmpConfigurator.O_ADDRESS, Arrays.asList(address));
+        String deviceSysDescrOID = "1.3.6.1.2.1.1.1";
+        String sysDescr = null;
+        String community = null;
 
-//        parameters.put(SnmpConfigurator.O_PORT, Arrays.asList(resource.getAddress()));
-        parameters.put(SnmpConfigurator.O_COMMUNITY, Arrays.asList(resource.getAttributes().get("community-ro")));
-        //parameters.put(SnmpConfigurator.O_VERSION, Arrays.asList("2c"));// TODO
+        //Try with community-rw
+        if (snmpGetNextSingleCommunity(resource,resource.getAttributes().get("community-ro"), deviceSysDescrOID)!=null)  {
+
+            community = resource.getAttributes().get("community-ro");
+
+        } else if(snmpGetNextSingleCommunity(resource,resource.getAttributes().get("community-rw"), deviceSysDescrOID)!=null) {
+            community = resource.getAttributes().get("community-rw");
+
+        }  else {
+            return null;
+        }
+
+
+        parameters.put(SnmpConfigurator.O_ADDRESS, Arrays.asList(address));
+        parameters.put(SnmpConfigurator.O_COMMUNITY, Arrays.asList(community));
 
         String version = resource.getAttributes().get("version") == null ? "2c" : resource.getAttributes().get("version");
         int retriesInt = resource.getAttributes().get("retries") == null ? 3 : Integer.parseInt(resource.getAttributes().get("retries"));
@@ -250,23 +305,61 @@ public class SnmpWalkerBase implements Discoverer {
         int maxrepetitions = resource.getAttributes().get("max-repetitions") == null ? 65535 : Integer.parseInt(resource.getAttributes().get("timeout"));
 
         parameters.put(SnmpConfigurator.O_VERSION, Arrays.asList(version));
-//        parameters.put(SnmpConfigurator.O_TIMEOUT, Arrays.asList(1200));
-//        parameters.put(SnmpConfigurator.O_RETRIES, Arrays.asList(2));
-//        parameters.put(SnmpConfigurator.O_MAX_REPETITIONS, Arrays.asList(65535));
         parameters.put(SnmpConfigurator.O_TIMEOUT, Arrays.asList(timeoutInt));
         parameters.put(SnmpConfigurator.O_RETRIES, Arrays.asList(retriesInt));
         parameters.put(SnmpConfigurator.O_MAX_REPETITIONS, Arrays.asList(maxrepetitions));
+
 
         Node root = walker.walk(params, parameters);
 
         String xml = Walk.printTreeAsXML(root);
         return new RawDeviceData(xml.getBytes());
     }
+
+    private String snmpGetNextSingleCommunity(Resource resource, String community, String deviceSysDescrOID) {
+
+        String version =resource.getAttributes().get("version");
+        int versionInt;
+        if (version.equals("1")){
+            versionInt = SnmpConstants.version1;
+        } else if (version.equals("2c")){
+            versionInt = SnmpConstants.version2c;
+        }  else if(version.equals("3")){
+            versionInt=  SnmpConstants.version3;
+        } else {
+            versionInt = SnmpConstants.version2c;
+        }
+        //    version = resource.getAttributes().get("version") == null ? SnmpConstants.version2c : Integer.parseInt(resource.getAttributes().get("version"));
+        int retriesInt = resource.getAttributes().get("retries") == null ? 1 : Integer.parseInt(resource.getAttributes().get("retries"));
+        int timeoutInt = resource.getAttributes().get("timeout") == null ? 1500 : Integer.parseInt(resource.getAttributes().get("timeout"));
+        Get get = null;
+
+        if (community == null){
+           return  null;
+
+        }
+        try {
+            get = new Get(deviceSysDescrOID, resource.getAddress(), versionInt, retriesInt, timeoutInt, community, transportFactory, messageDispatcherFactory);
+        } catch (IOException e) {
+            logger.error(e.getMessage(),e);
+        }
+
+        String value=null;
+        try {
+            value = get.getSNMPGetNextValue();
+        } catch (IOException e) {
+            logger.error(e.getMessage(),e);
+        }
+
+        return value;
+    }
+
     static {
         LogFactory.setLogFactory(new Log4jLogFactory());
     }
 
     private String snmpGetNext(Resource resource, String oid) {
+
         String version =resource.getAttributes().get("version");
         int versionInt;
         if (version.equals("1")){
@@ -283,21 +376,58 @@ public class SnmpWalkerBase implements Discoverer {
         int timeoutInt = resource.getAttributes().get("timeout") == null ? 1500 : Integer.parseInt(resource.getAttributes().get("timeout"));
         String community = resource.getAttributes().get("community-ro");
         String community2 = resource.getAttributes().get("community-rw");
-        if (community == null) throw new IllegalArgumentException("Community is not specifed");
-        if (resource.getAddress() == null) throw new RuntimeException("Resource address is null");
         Get get = null;
+
+        if (community == null){
+            logger.debug("community-ro parameter for "+resource.getAddress() +" has not been specifed!" +
+                    "Will try with community-rw");
+
+            if (community2 == null){
+                logger.error("community-rw parameter for "+resource.getAddress() +" has also not been specifed!!"+
+                "Can't do much here! Continuing to the next device!!!");
+                 return null;
+
+            } else {
+                community=community2;
+            }
+        }
+
+        if (resource.getAddress() == null){
+            logger.error("Resource address is null");
+            return null;
+        }
+
+
         try {
             get = new Get(oid, resource.getAddress(), versionInt, retriesInt, timeoutInt, community, transportFactory, messageDispatcherFactory);
         } catch (IOException e) {
             logger.error(e.getMessage(),e);
-            return null;
         }
-        String value;
+
+        String value=null;
         try {
             value = get.getSNMPGetNextValue();
         } catch (IOException e) {
             logger.error(e.getMessage(),e);
-            return null;
+        }
+
+
+        if (value!=null){
+
+            return value;
+
+        }else {
+
+            try {
+                get = new Get(oid, resource.getAddress(), versionInt, retriesInt, timeoutInt, community2, transportFactory, messageDispatcherFactory);
+            } catch (IOException e) {
+                logger.error(e.getMessage(),e);
+            }
+            try {
+                value = get.getSNMPGetNextValue();
+            } catch (IOException e) {
+                logger.error(e.getMessage(),e);
+            }
         }
         return value;
     }

@@ -188,16 +188,4 @@ public class Main {
 
 }
 
-/*<resource name="SNMP">
-        <param name="protocol">SNMP</param>
-        <connection-params connection-type="snmp">
-            <param name="version">1</param>
-            <param name="community-ro">europack-r</param>
-            <param name="community-rw">itransformer-rw</param>
-            <param name="timeout">500</param>
-            <param name="retries">1</param>
-                        <param name="port">161</param>
-            <param name="max-repetitions">65535</param>
-        </connection-params>
-    </resource>*/
 

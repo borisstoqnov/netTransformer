@@ -29,9 +29,7 @@
         </connection-params>
     </resource>
     <resource name="OpenWrt">
-        <param name="deviceName">OpenWrt</param>
-        <param name="deviceType">DEFAULT</param>
-
+        <param name="deviceName">OpenWrtCloud</param>
         <connection-params connection-type="ssh">
             <param name="username">root</param>
             <param name="password">usa94</param>
@@ -47,10 +45,10 @@
         </connection-params>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
-            <param name="community-ro">public</param>
-            <param name="community-rw">private</param>
+            <param name="community-ro">netTransformer-r</param>
+            <param name="community-rw">public</param>
             <param name="timeout">3000</param>
-            <param name="retries">3</param>
+            <param name="retries">1</param>
             <param name="port">161</param>
         </connection-params>
     </resource>
@@ -183,8 +181,8 @@
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
             <param name="community-ro">netTransformer-r</param>
-            <param name="community-rw">publicw</param>
-            <param name="timeout">3000</param>
+            <param name="community-rw">public</param>
+            <param name="timeout">350</param>
             <param name="retries">1</param>
             <param name="port">161</param>
         </connection-params>

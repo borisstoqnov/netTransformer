@@ -65,35 +65,21 @@
             <xsl:otherwise>LOWERLAYERDOWN</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-	<xsl:template name="neighIDCommunity">
+	<xsl:template name="getNeighID">
 		<xsl:param name="neighIP"/>
-		<xsl:param name="comm"/>
-		<xsl:param name="comm2"/>
 		<xsl:if test="$neighIP!=''">
-		<xsl:variable name="temp">
-			<xsl:call-template name="return-hostname">
-				<xsl:with-param name="hostname-unformated" select="SnmpForXslt:getName($neighIP, $comm,$timeout,$retries,$neighbourIPDryRun)"/>
-			</xsl:call-template>
-		</xsl:variable>
-		<xsl:choose>
-			<xsl:when test="$temp!=''">
-				<xsl:value-of select="$temp"/>+-<xsl:value-of select="$comm"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:variable name="temp2">
-					<xsl:call-template name="return-hostname">
-						<xsl:with-param name="hostname-unformated" select="SnmpForXslt:getName($neighIP, $comm2,$timeout,$retries,$neighbourIPDryRun)"/>
-					</xsl:call-template>
-				</xsl:variable>
-				<xsl:choose>
-					<xsl:when test="$temp2=''"/>
-					<xsl:otherwise>
-						<xsl:value-of select="$temp2"/>+-<xsl:value-of select="$comm2"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:if>
+			<xsl:variable name="temp">
+				<xsl:call-template name="return-hostname">
+					<xsl:with-param name="hostname-unformated" select="SnmpForXslt:getName($neighIP, $neighbourIPDryRun)"/>
+				</xsl:call-template>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="$temp=''">
+					<xsl:value-of select="$neighIP"/>
+				</xsl:when>
+				<xsl:otherwise><xsl:value-of select="$temp"/></xsl:otherwise>
+			</xsl:choose>
+		</xsl:if>
 	</xsl:template>
 	<xsl:template name="substring-before-last">
 		<xsl:param name="value"/>
@@ -295,7 +281,6 @@
 	<xsl:template name="return-neighbor-params">
 		<xsl:param name="neighborIP"/>
 		<xsl:param name="neighborHostname"/>
-		<xsl:param name="comm"/>
 
         <!--Get Neighbor hostname and format it-->
 		<parameter>
@@ -311,22 +296,10 @@
 			</value>
 		</parameter>
 		<!--Get Neighbor systemDescription-->
-		<xsl:variable name="neighborDeviceType">
-			<xsl:choose>
-			<xsl:when test="$neighborHostname!='' and $comm!=''">
-				<xsl:call-template name="determine-device-Type">
-					<xsl:with-param name="sysDescr" select="SnmpForXslt:getByOid($neighborIP,'1.3.6.1.2.1.1.1', $comm,$timeout, $retries)"/>
-                    <xsl:with-param name="sysOr"></xsl:with-param>
-                </xsl:call-template>
-			</xsl:when>
-			<xsl:otherwise>DEFAULT</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
+
 		<parameter>
 			<name>Neighbor Device Type</name>
-			<value>
-				<xsl:value-of select="$neighborDeviceType"/>
-			</value>
+			<value><xsl:value-of select="SnmpForXslt:getDeviceType($neighborIP,$neighbourIPDryRun)"/></value>
 		</parameter>
 	</xsl:template>
 	<xsl:template name="determine-device-Type">

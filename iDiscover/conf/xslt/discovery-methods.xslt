@@ -88,38 +88,26 @@
 					<xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>
 				</xsl:if>
 			</xsl:variable>
-			<xsl:variable name="neighID-community">
-				<xsl:call-template name="neighIDCommunity">
+			<xsl:variable name="neighID">
+				<xsl:call-template name="getNeighID">
 					<xsl:with-param name="neighIP" select="$neighborIP"/>
-					<xsl:with-param name="comm" select="$comm"/>
-					<xsl:with-param name="comm2" select="$comm2"/>
-
-                </xsl:call-template>
+				</xsl:call-template>
 			</xsl:variable>
-			<xsl:variable name="neighID" select="substring-before($neighID-community,'+-')"/>
-			<xsl:variable name="snmp-community" select="substring-after($neighID-community,'+-')"/>
 			<xsl:if test="$cdpNeighbor !=''">
 				<object>
-					<name>
-						<xsl:value-of select="$cdpNeighbor"/>
-					</name>
+					<name><xsl:value-of select="$neighID"/></name>
 					<objectType>Discovered Neighbor</objectType>
 					<parameters>
 						<parameter>
 							<name>Reachable</name>
 							<value>
 								<xsl:choose>
-									<xsl:when test="$neighID-community!=''">YES</xsl:when>
+									<xsl:when test="$neighID!='' and $neighID!=$neighborIP">YES</xsl:when>
 									<xsl:otherwise>NO</xsl:otherwise>
 								</xsl:choose>
 							</value>
 						</parameter>
-						<parameter>
-							<name>SNMP Community</name>
-							<value>
-								<xsl:value-of select="$snmp-community"/>
-							</value>
-						</parameter>
+
 						<parameter>
 							<name>Discovery Method</name>
 							<value>CDP</value>
@@ -150,16 +138,7 @@
 						</parameter>
 						<parameter>
 							<name>Neighbor Device Type</name>
-							<value>
-								<xsl:choose>
-									<xsl:when test="$neighborIP!='' and $neighID!=''">
-										<xsl:call-template name="determine-device-Type">
-											<xsl:with-param name="sysDescr" select="SnmpForXslt:getByOid($neighborIP,'1.3.6.1.2.1.1.1', $comm,$timeout,$retries)"/>
-										</xsl:call-template>
-									</xsl:when>
-									<xsl:otherwise>CISCO</xsl:otherwise>
-								</xsl:choose>
-							</value>
+							<value><xsl:value-of select="SnmpForXslt:getDeviceType($neighborIP, $neighbourIPDryRun)"/></value>
 						</parameter>
 					</parameters>
 				</object>
@@ -184,15 +163,15 @@
 				<xsl:with-param name="hostname-unformated" select="$lldpNeighbor-rough"/>
 			</xsl:call-template>
 		</xsl:variable>
-		<xsl:variable name="neighID-community">
-			<xsl:call-template name="neighIDCommunity">
+
+
+		<xsl:variable name="neighID">
+			<xsl:call-template name="getNeighID">
 				<xsl:with-param name="neighIP" select="$lldpNeighbor-rough"/>
-				<xsl:with-param name="comm" select="$comm"/>
-				<xsl:with-param name="comm2" select="$comm2"/>
 			</xsl:call-template>
 		</xsl:variable>
-		<xsl:variable name="neighID" select="substring-before($neighID-community,'+-')"/>
-		<xsl:variable name="snmp-community" select="substring-after($neighID-community,'+-')"/>
+
+
 		<xsl:variable name="lldpNeighborPort">
 			<xsl:value-of select="$lldpIfNeighbors/../lldpRemPortId"/>
 		</xsl:variable>
@@ -202,7 +181,7 @@
 		<xsl:if test="$lldpNeighbor !=''">
 			<object>
 				<name>
-					<xsl:value-of select="$lldpNeighbor"/>
+					<xsl:value-of select="$neighID"/>
 				</name>
 				<objectType>Discovered Neighbor</objectType>
 				<parameters>
@@ -210,15 +189,9 @@
 						<name>Reachable</name>
 						<value>
 							<xsl:choose>
-								<xsl:when test="$neighID-community!=''">YES</xsl:when>
+								<xsl:when test="$neighID!='' and $neighID!=$lldpNeighbor-rough">YES</xsl:when>
 								<xsl:otherwise>NO</xsl:otherwise>
 							</xsl:choose>
-						</value>
-					</parameter>
-					<parameter>
-						<name>SNMP Community</name>
-						<value>
-							<xsl:value-of select="$snmp-community"/>
 						</value>
 					</parameter>
 					<parameter>
@@ -240,7 +213,6 @@
 					<xsl:call-template name="return-neighbor-params">
 						<xsl:with-param name="neighborIP" select="$lldpNeighbor-rough"/>
 						<xsl:with-param name="neighborHostname" select="$lldpNeighbor"/>
-						<xsl:with-param name="comm" select="$snmp-community"/>
 					</xsl:call-template>
 				</parameters>
 			</object>
@@ -272,44 +244,22 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:variable>
-			<xsl:variable name="neighID-community">
-				<xsl:call-template name="neighIDCommunity">
+			<xsl:variable name="neighID">
+				<xsl:call-template name="getNeighID">
 					<xsl:with-param name="neighIP" select="$otherIp"/>
-					<xsl:with-param name="comm" select="$comm"/>
-					<xsl:with-param name="comm2" select="$comm2"/>
-
-                </xsl:call-template>
+				</xsl:call-template>
 			</xsl:variable>
-			<xsl:variable name="neighID" select="substring-before($neighID-community,'+-')"/>
-			<xsl:variable name="snmp-community" select="substring-after($neighID-community,'+-')"/>
 			<object>
-				<xsl:choose>
-					<xsl:when test="$neighID!=''">
-						<name>
-							<xsl:value-of select="$neighID"/>
-						</name>
-					</xsl:when>
-					<xsl:otherwise>
-						<name>
-							<xsl:value-of select="$otherIp"/>
-						</name>
-					</xsl:otherwise>
-				</xsl:choose>
+				<name><xsl:value-of select="$neighID"/></name>
 				<objectType>Discovered Neighbor</objectType>
 				<parameters>
 					<parameter>
 						<name>Reachable</name>
 						<value>
 							<xsl:choose>
-								<xsl:when test="$neighID!=''">YES</xsl:when>
+								<xsl:when test="$neighID!='' and $neighID!=$otherIp">YES</xsl:when>
 								<xsl:otherwise>NO</xsl:otherwise>
 							</xsl:choose>
-						</value>
-					</parameter>
-					<parameter>
-						<name>SNMP Community</name>
-						<value>
-							<xsl:value-of select="$snmp-community"/>
 						</value>
 					</parameter>
 					<parameter>
@@ -325,7 +275,6 @@
 					<xsl:call-template name="return-neighbor-params">
 						<xsl:with-param name="neighborIP" select="$otherIp"/>
 						<xsl:with-param name="neighborHostname" select="$neighID"/>
-						<xsl:with-param name="comm" select="$snmp-community"/>
 					</xsl:call-template>
 				</parameters>
 			</object>
@@ -358,44 +307,22 @@
 				</xsl:choose>
 			</xsl:variable>
 			<!--Slash 30-->
-			<xsl:variable name="neighID-community">
-				<xsl:call-template name="neighIDCommunity">
+			<xsl:variable name="neighID">
+				<xsl:call-template name="getNeighID">
 					<xsl:with-param name="neighIP" select="$otherIp"/>
-					<xsl:with-param name="comm" select="$comm"/>
-					<xsl:with-param name="comm2" select="$comm2"/>
-
-                </xsl:call-template>
+				</xsl:call-template>
 			</xsl:variable>
-			<xsl:variable name="neighID" select="substring-before($neighID-community,'+-')"/>
-			<xsl:variable name="snmp-community" select="substring-after($neighID-community,'+-')"/>
 			<object>
-				<xsl:choose>
-					<xsl:when test="$neighID">
-						<name>
-							<xsl:value-of select="$neighID"/>
-						</name>
-					</xsl:when>
-					<xsl:otherwise>
-						<name>
-							<xsl:value-of select="$otherIp"/>
-						</name>
-					</xsl:otherwise>
-				</xsl:choose>
+				<name><xsl:value-of select="$neighID"/></name>
 				<objectType>Discovered Neighbor</objectType>
 				<parameters>
 					<parameter>
 						<name>Reachable</name>
 						<value>
 							<xsl:choose>
-								<xsl:when test="$neighID-community!=''">YES</xsl:when>
+								<xsl:when test="$neighID!='' and $neighID != $otherIp">YES</xsl:when>
 								<xsl:otherwise>NO</xsl:otherwise>
 							</xsl:choose>
-						</value>
-					</parameter>
-					<parameter>
-						<name>SNMP Community</name>
-						<value>
-							<xsl:value-of select="$snmp-community"/>
 						</value>
 					</parameter>
 					<parameter>
@@ -413,7 +340,6 @@
                     <xsl:call-template name="return-neighbor-params">
 						<xsl:with-param name="neighborIP" select="$otherIp"/>
 						<xsl:with-param name="neighborHostname" select="$neighID"/>
-						<xsl:with-param name="comm" select="$snmp-community"/>
 
 					</xsl:call-template>
 
@@ -428,48 +354,26 @@
         <xsl:param name="ipv4addresses"/>
 		<xsl:for-each select="distinct-values($ipRouteTable/ipRouteNextHop)">
 			<xsl:variable name="next-hop-ip" select="."/>
-            <xsl:if test="SnmpForXslt:checkBogons($next-hop-ip)=$next-hop-ip and count($ipv4addresses[ipAdEntAddr=$next-hop-ip])=0 and  count($ipv4addresses[ipv4SubnetBroadcast=$next-hop-ip]) = 0
-">
+            <xsl:if test="SnmpForXslt:checkBogons($next-hop-ip)=$next-hop-ip and count($ipv4addresses[ipAdEntAddr=$next-hop-ip])=0 and  count($ipv4addresses[ipv4SubnetBroadcast=$next-hop-ip]) = 0">
 
-                <xsl:variable name="neighID-community">
-					<xsl:call-template name="neighIDCommunity">
+				<xsl:variable name="neighID">
+					<xsl:call-template name="getNeighID">
 						<xsl:with-param name="neighIP" select="$next-hop-ip"/>
-						<xsl:with-param name="comm" select="$comm"/>
-						<xsl:with-param name="comm2" select="$comm2"/>
-
-                    </xsl:call-template>
+					</xsl:call-template>
 				</xsl:variable>
-				<xsl:variable name="neighID" select="substring-before($neighID-community,'+-')"/>
-				<xsl:variable name="snmp-community" select="substring-after($neighID-community,'+-')"/>
-				<xsl:if test="$neighID!=$sysName">
+
+\				<xsl:if test="$neighID!=$sysName">
 					<object>
-						<xsl:choose>
-							<xsl:when test="$neighID!=''">
-								<name>
-									<xsl:value-of select="$neighID"/>
-								</name>
-							</xsl:when>
-							<xsl:otherwise>
-								<name>
-									<xsl:value-of select="$next-hop-ip"/>
-								</name>
-							</xsl:otherwise>
-						</xsl:choose>
+						<name><xsl:value-of select="$neighID"/></name>
 						<objectType>Discovered Neighbor</objectType>
 						<parameters>
 							<parameter>
 								<name>Reachable</name>
 								<value>
 									<xsl:choose>
-										<xsl:when test="$neighID-community!=''">YES</xsl:when>
+										<xsl:when test="$neighID!='' and $neighID != $next-hop-ip">YES</xsl:when>
 										<xsl:otherwise>NO</xsl:otherwise>
 									</xsl:choose>
-								</value>
-							</parameter>
-							<parameter>
-								<name>SNMP Community</name>
-								<value>
-									<xsl:value-of select="$snmp-community"/>
 								</value>
 							</parameter>
                             <parameter>
@@ -490,7 +394,6 @@
 							<xsl:call-template name="return-neighbor-params">
 								<xsl:with-param name="neighborIP" select="$next-hop-ip"/>
 								<xsl:with-param name="neighborHostname" select="$neighID"/>
-								<xsl:with-param name="comm" select="$snmp-community"/>
 							</xsl:call-template>
 						</parameters>
 					</object>
@@ -506,48 +409,26 @@
 		<xsl:for-each select="$next-hop-ips">
 			<xsl:variable name="next-hop-ip" select="."/>
 			<xsl:if test="SnmpForXslt:checkBogons($next-hop-ip)=$next-hop-ip and count($ipv4addresses[ipAdEntAddr=$next-hop-ip])=0 and  count($ipv4addresses[ipv4SubnetBroadcast=$next-hop-ip]) = 0 ">
-				<xsl:variable name="neighID-community">
-					<xsl:call-template name="neighIDCommunity">
-						<xsl:with-param name="neighIP" select="$next-hop-ip"/>
-						<xsl:with-param name="comm" select="$comm"/>
-						<xsl:with-param name="comm2" select="$comm2"/>
 
-                    </xsl:call-template>
+
+				<xsl:variable name="neighID">
+					<xsl:call-template name="getNeighID">
+						<xsl:with-param name="neighIP" select="$next-hop-ip"/>
+					</xsl:call-template>
 				</xsl:variable>
-				<xsl:variable name="neighID" select="substring-before($neighID-community,'+-')"/>
-				<xsl:variable name="snmp-community" select="substring-after($neighID-community,'+-')"/>
+
 				<xsl:if test="$neighID!=$sysName and not(contains($ipv4addresses,$next-hop-ip))">
 					<object>
-						<xsl:choose>
-							<xsl:when test="$neighID!=''">
-								<!--<name1>-->
-									<!--<xsl:value-of select="$neighID"/>-->
-								<!--</name1>-->
-                                <name>
-                                    <xsl:value-of select="$neighID"/>
-                                </name>
-							</xsl:when>
-							<xsl:otherwise>
-								<name>
-									<xsl:value-of select="$next-hop-ip"/>
-								</name>
-							</xsl:otherwise>
-						</xsl:choose>
+						<name><xsl:value-of select="$neighID"/></name>
 						<objectType>Discovered Neighbor</objectType>
 						<parameters>
 							<parameter>
 								<name>Reachable</name>
 								<value>
 									<xsl:choose>
-										<xsl:when test="$neighID-community!=''">YES</xsl:when>
+										<xsl:when test="$neighID !='' and $neighID != $next-hop-ip">YES</xsl:when>
 										<xsl:otherwise>NO</xsl:otherwise>
 									</xsl:choose>
-								</value>
-							</parameter>
-							<parameter>
-								<name>SNMP Community</name>
-								<value>
-									<xsl:value-of select="$snmp-community"/>
 								</value>
 							</parameter>
 							<parameter>
@@ -568,7 +449,6 @@
 							<xsl:call-template name="return-neighbor-params">
 								<xsl:with-param name="neighborIP" select="$next-hop-ip"/>
 								<xsl:with-param name="neighborHostname" select="$neighID"/>
-								<xsl:with-param name="comm" select="$comm"/>
 							</xsl:call-template>
 						</parameters>
 					</object>
@@ -584,50 +464,27 @@
 			<xsl:variable name="ipNetToMediaNetAddress">
 				<xsl:value-of select="ipNetToMediaNetAddress"/>
 			</xsl:variable>
-            <xsl:if test="$ipNetToMediaNetAddress  ">
+            <xsl:if test="$ipNetToMediaNetAddress">
                 <xsl:if test="SnmpForXslt:checkBogons($ipNetToMediaNetAddress)=$ipNetToMediaNetAddress and count($ipv4addresses[ipAdEntAddr=$ipNetToMediaNetAddress])=0 and count($ipv4addresses[ipv4Subnet=$ipNetToMediaNetAddress]) = 0 and  count($ipv4addresses[ipv4SubnetBroadcast=$ipNetToMediaNetAddress]) = 0 ">
 
-            <!--<xsl:if test="SnmpForXslt:checkBogons($ipNetToMediaNetAddress)=$ipNetToMediaNetAddress and count($ipv4addresses[ipAdEntAddr=$ipNetToMediaNetAddress])=0 ">-->
-                    <xsl:variable name="neighID-community">
-                        <xsl:call-template name="neighIDCommunity">
+                    <xsl:variable name="neighID">
+                        <xsl:call-template name="getNeighID">
                             <xsl:with-param name="neighIP" select="$ipNetToMediaNetAddress"/>
-                            <xsl:with-param name="comm" select="$comm"/>
-                            <xsl:with-param name="comm2" select="$comm2"/>
-
                         </xsl:call-template>
                     </xsl:variable>
-                    <xsl:variable name="neighID" select="substring-before($neighID-community,'+-')"/>
-                    <xsl:variable name="snmp-community" select="substring-after($neighID-community,'+-')"/>
-                    <xsl:message>DEBUG: ARP<xsl:value-of select="ipNetToMediaNetAddress"/>OTHER IP ADDRESS</xsl:message>
+                    <xsl:message>DEBUG: ARP<xsl:value-of select="$ipNetToMediaNetAddress"/></xsl:message>
                     <xsl:if test="$neighID!=$sysName and count($ipv4addresses[ipAdEntAddr=$neighID])=0">
                         <object>
-                            <xsl:choose>
-                                <xsl:when test="$neighID!=''">
-                                    <name>
-                                        <xsl:value-of select="$neighID"/>
-                                    </name>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <name>
-                                        <xsl:value-of select="$ipNetToMediaNetAddress"/>
-                                    </name>
-                                </xsl:otherwise>
-                            </xsl:choose>
+							<name><xsl:value-of select="$neighID"/></name>
                             <objectType>Discovered Neighbor</objectType>
                             <parameters>
                                 <parameter>
                                     <name>Reachable</name>
                                     <value>
                                         <xsl:choose>
-                                            <xsl:when test="$neighID-community!=''">YES</xsl:when>
+                                            <xsl:when test="$neighID!='' and $neighID!=$ipNetToMediaNetAddress">YES</xsl:when>
                                             <xsl:otherwise>NO</xsl:otherwise>
                                         </xsl:choose>
-                                    </value>
-                                </parameter>
-                                <parameter>
-                                    <name>SNMP Community</name>
-                                    <value>
-                                        <xsl:value-of select="$snmp-community"/>
                                     </value>
                                 </parameter>
                                 <parameter>
@@ -640,9 +497,8 @@
                                         <xsl:value-of select="ipNetToMediaPhysAddress"/>
                                     </value>
                                 </parameter><xsl:call-template name="return-neighbor-params">
-                                    <xsl:with-param name="neighborIP" select="ipNetToMediaNetAddress"/>
+                                    <xsl:with-param name="neighborIP" select="$ipNetToMediaNetAddress"/>
                                     <xsl:with-param name="neighborHostname" select="$neighID"/>
-                                    <xsl:with-param name="comm" select="$snmp-community"/>
                                 </xsl:call-template></parameters>
                         </object>
                     </xsl:if>
@@ -655,46 +511,25 @@
 		<xsl:param name="neighborIPAddress"/>
         <xsl:param name="ipv4addresses"/>
         <xsl:if test="$neighborMACAddress !=''">
-			<xsl:variable name="neighID-community">
-				<xsl:call-template name="neighIDCommunity">
-					<xsl:with-param name="neighIP" select="$neighborIPAddress"/>
-					<xsl:with-param name="comm" select="$comm"/>
-					<xsl:with-param name="comm2" select="$comm2"/>
 
-                </xsl:call-template>
+			<xsl:variable name="neighID">
+				<xsl:call-template name="getNeighID">
+					<xsl:with-param name="neighIP" select="$neighborIPAddress"/>
+				</xsl:call-template>
 			</xsl:variable>
-			<xsl:variable name="neighID" select="substring-before($neighID-community,'+-')"/>
-			<xsl:variable name="snmp-community" select="substring-after($neighID-community,'+-')"/>
 			<object>
 				<objectType>Discovered Neighbor</objectType>
 				<xsl:choose>
 					<xsl:when test="$neighborIPAddress!=''">
-						<xsl:choose>
-							<xsl:when test="$neighID!='' and count($ipv4addresses[ipAdEntAddr=$neighID])=0">
-								<name>
-									<xsl:value-of select="$neighID"/>
-								</name>
-							</xsl:when>
-							<xsl:otherwise>
-								<name>
-									<xsl:value-of select="$neighborIPAddress"/>
-								</name>
-							</xsl:otherwise>
-						</xsl:choose>
+						<name><xsl:value-of select="$neighID"/></name>
 						<parameters>
 							<parameter>
 								<name>Reachable</name>
 								<value>
 									<xsl:choose>
-										<xsl:when test="$neighID-community!=''">YES</xsl:when>
+										<xsl:when test="$neighID!='' and $neighID!=$neighborIPAddress">YES</xsl:when>
 										<xsl:otherwise>NO</xsl:otherwise>
 									</xsl:choose>
-								</value>
-							</parameter>
-							<parameter>
-								<name>SNMP Community</name>
-								<value>
-									<xsl:value-of select="$snmp-community"/>
 								</value>
 							</parameter>
 							<parameter>
@@ -710,7 +545,6 @@
 							<xsl:call-template name="return-neighbor-params">
 								<xsl:with-param name="neighborIP" select="$neighborIPAddress"/>
 								<xsl:with-param name="neighborHostname" select="$neighID"/>
-								<xsl:with-param name="comm" select="$snmp-community"/>
 							</xsl:call-template>
 						</parameters>
 					</xsl:when>
@@ -719,18 +553,7 @@
 						<parameters>
 							<parameter>
 								<name>Reachable</name>
-								<value>
-									<xsl:choose>
-										<xsl:when test="$neighID-community!=''">YES</xsl:when>
-										<xsl:otherwise>NO</xsl:otherwise>
-									</xsl:choose>
-								</value>
-							</parameter>
-							<parameter>
-								<name>SNMP Community</name>
-								<value>
-									<xsl:value-of select="$snmp-community"/>
-								</value>
+								<value>NO</value>
 							</parameter>
 							<parameter>
 								<name>Discovery Method</name>
@@ -765,51 +588,29 @@
 		<xsl:variable name="ospfNbrIpAddr">
 			<xsl:value-of select="$ospfNbr/ospfNbrIpAddr"/>
 		</xsl:variable>
+		<xsl:variable name="neighID">
+			<xsl:call-template name="getNeighID">
+				<xsl:with-param name="neighIP" select="$ospfNbrIpAddr"/>
+			</xsl:call-template>
+		</xsl:variable>
 		<object>
-			<xsl:variable name="neighID-community">
-				<xsl:call-template name="neighIDCommunity">
-					<xsl:with-param name="neighIP" select="$ospfNbrIpAddr"/>
-					<xsl:with-param name="comm" select="$comm"/>
-					<xsl:with-param name="comm2" select="$comm2"/>
 
-                </xsl:call-template>
-			</xsl:variable>
-			<xsl:variable name="neighID" select="substring-before($neighID-community,'+-')"/>
-			<xsl:variable name="snmp-community" select="substring-after($neighID-community,'+-')"/>
-			<xsl:choose>
-				<xsl:when test="$neighID!=''">
-					<name>
-						<xsl:value-of select="$neighID"/>
-					</name>
-				</xsl:when>
-				<xsl:otherwise>
-					<name>
-						<xsl:value-of select="$ospfNbrIpAddr"/>
-					</name>
-				</xsl:otherwise>
-			</xsl:choose>
+			<name><xsl:value-of select="$neighID"/></name>
 			<objectType>Discovered Neighbor</objectType>
 			<parameters>
 				<parameter>
 					<name>Reachable</name>
 					<value>
 						<xsl:choose>
-							<xsl:when test="$neighID-community!=''">YES</xsl:when>
+							<xsl:when test="$neighID!='' and $neighID!=$ospfNbrIpAddr">YES</xsl:when>
 							<xsl:otherwise>NO</xsl:otherwise>
 						</xsl:choose>
-					</value>
-				</parameter>
-				<parameter>
-					<name>SNMP Community</name>
-					<value>
-						<xsl:value-of select="$snmp-community"/>
 					</value>
 				</parameter>
 				<parameter>
 					<name>Local IP address</name>
 					<value><xsl:value-of select="$ospfNbr/ospfIfIpAddress"/></value>
 				</parameter>
-
                 <parameter>
                     <name>OSPF Area</name>
                     <value><xsl:value-of select="$ospfNbr/ospfIfAreaId"/></value>
@@ -821,7 +622,6 @@
 				<xsl:call-template name="return-neighbor-params">
 					<xsl:with-param name="neighborIP" select="$ospfNbrIpAddr"/>
 					<xsl:with-param name="neighborHostname" select="$neighID"/>
-					<xsl:with-param name="comm" select="$snmp-community"/>
 				</xsl:call-template>
 			</parameters>
 		</object>
@@ -831,44 +631,24 @@
 		<xsl:variable name="bgpPeerRemoteAddr">
 			<xsl:value-of select="$bgpPeer/bgpPeerRemoteAddr"/>
 		</xsl:variable>
-		<object>
-			<xsl:variable name="neighID-community">
-				<xsl:call-template name="neighIDCommunity">
-					<xsl:with-param name="neighIP" select="$bgpPeerRemoteAddr"/>
-					<xsl:with-param name="comm" select="$comm"/>
-					<xsl:with-param name="comm2" select="$comm2"/>
 
-                </xsl:call-template>
-			</xsl:variable>
-			<xsl:variable name="neighID" select="substring-before($neighID-community,'+-')"/>
-			<xsl:variable name="snmp-community" select="substring-after($neighID-community,'+-')"/>
-			<xsl:choose>
-				<xsl:when test="$neighID!=''">
-					<name>
-						<xsl:value-of select="$neighID"/>
-					</name>
-				</xsl:when>
-				<xsl:otherwise>
-					<name>
-						<xsl:value-of select="$bgpPeerRemoteAddr"/>
-					</name>
-				</xsl:otherwise>
-			</xsl:choose>
+		<xsl:variable name="neighID">
+			<xsl:call-template name="getNeighID">
+				<xsl:with-param name="neighIP" select="$bgpPeerRemoteAddr"/>
+			</xsl:call-template>
+		</xsl:variable>
+		<object>
+
+			<name><xsl:value-of select="$neighID"/></name>
 			<objectType>Discovered Neighbor</objectType>
 			<parameters>
 				<parameter>
 					<name>Reachable</name>
 					<value>
 						<xsl:choose>
-							<xsl:when test="$neighID-community!=''">YES</xsl:when>
+							<xsl:when test="$neighID!='' and $neighID!=$bgpPeerRemoteAddr">YES</xsl:when>
 							<xsl:otherwise>NO</xsl:otherwise>
 						</xsl:choose>
-					</value>
-				</parameter>
-				<parameter>
-					<name>SNMP Community</name>
-					<value>
-						<xsl:value-of select="$snmp-community"/>
 					</value>
 				</parameter>
 				<parameter>
@@ -899,7 +679,6 @@
 				</parameter><xsl:call-template name="return-neighbor-params">
 					<xsl:with-param name="neighborIP" select="$bgpPeerRemoteAddr"/>
 					<xsl:with-param name="neighborHostname" select="$neighID"/>
-					<xsl:with-param name="comm" select="$snmp-community"/>
 				</xsl:call-template></parameters>
 
 		</object>

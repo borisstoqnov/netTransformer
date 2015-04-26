@@ -142,23 +142,16 @@ public class SnmpForXslt {
 
     }
 
-    public static String getName(String ipAddress, String community,String timeout, String retries, String neighbourIPDryRun) throws Exception {
-        if (mockSnmpForXslt != null) {
-            return mockSnmpForXslt.getName(ipAddress, community, timeout, retries);
-        }
-        //        System.out.println(ipAddress);
-        if(!ipAddressValidator.isValidInet4Address(ipAddress))
-            return  null;
+    public static String getName(String ipAddress, String neighbourIPDryRun) throws Exception {
+
 
 
         HashMap<String, String> deviceNameMap = discoveredDevices.get(ipAddress);
 
         if(neighbourIPDryRun.equals("true")){
 
-            String deviceName = null;
 
             if (deviceNameMap != null) {
-
                 return null;
             } else {
                 deviceNameMap = new HashMap<String, String>();
@@ -168,14 +161,8 @@ public class SnmpForXslt {
 
         }
 
-        String deviceName = null;
 
-        if (deviceNameMap != null) {
-            for (String s : deviceNameMap.keySet()) {
-                deviceName = deviceNameMap.get(s);
-                break;
-            }
-        }
+        String deviceName = deviceNameMap.get("snmp");
 
         if ("".equals(deviceName) || deviceName == null) {
             return null;
@@ -185,10 +172,38 @@ public class SnmpForXslt {
 
     }
 
-    public static String getSymbolByOid(String mibName, String oid) throws Exception {
-        if (mockSnmpForXslt != null) {
-            return mockSnmpForXslt.getSymbolByOid(mibName, oid);
+    public static String getDeviceType(String ipAddress, String neighbourIPDryRun) throws Exception {
+
+
+
+        HashMap<String, String> deviceMap = discoveredDevices.get(ipAddress);
+
+        if(neighbourIPDryRun.equals("true")){
+
+
+            if (deviceMap != null) {
+                return null;
+            }
+
         }
+
+        String deviceType = null;
+        if (deviceMap!=null) {
+             deviceType = deviceMap.get("deviceType");
+        }
+
+        if ("".equals(deviceType) || deviceType == null) {
+            return null;
+        } else  {
+            return deviceType;
+        }
+
+    }
+
+
+
+    public static String getSymbolByOid(String mibName, String oid) throws Exception {
+
 
         discovererFactory = new DefaultDiscovererFactory();
         SnmpWalker discoverer = (SnmpWalker) discovererFactory.createDiscoverer(null);
@@ -279,16 +294,15 @@ public class SnmpForXslt {
         for (String ipAddress : discoveredDevices.keySet()) {
 
             HashMap<String, String> deviceNameMap = discoveredDevices.get(ipAddress);
-            if (deviceNameMap==null){
+            if(!ipAddressValidator.isValidInet4Address(ipAddress))
+                continue;
 
-                deviceNameMap = new HashMap<String, String>();
+            if (deviceNameMap.get("snmp") == null) {
 
-            }else if (deviceNameMap.size()==0) {
                 deviceNameMap = new HashMap<String, String>();
 
             }else {
-
-                System.out.println("ipAddress"+deviceNameMap);
+                //DeviceMap already filled in.
                 continue;
             }
 
@@ -299,7 +313,9 @@ public class SnmpForXslt {
 
 
             Map<String, String> connParams = new HashMap<String, String>();
+
             List<ConnectionParamsType> connectionParams = resourceType.getConnectionParams();
+
             for (ConnectionParamsType connectionParam : connectionParams) {
                 if (connectionParam.getConnectionType().equals(connectionType)) {
                     for (ParamType param : connectionParam.getParam()) {
@@ -318,17 +334,22 @@ public class SnmpForXslt {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
             final String deviceNameFromSNMP = discoverer.getDeviceName(resource);
-            logger.debug("hostname:" + ipAddress + deviceNameFromSNMP);
+
+            final String deviceTypeFromSNMP = discoverer.getDeviceType(resource);
 
             if (deviceNameFromSNMP != null) {
 
-                deviceNameMap.put(connParams.get("community-ro"), deviceNameFromSNMP);
-                discoveredDevices.put(ipAddress, deviceNameMap);
-            } else {
-                deviceNameMap.put(connParams.get("community-ro"), "");
-                discoveredDevices.put(ipAddress, deviceNameMap);
+                deviceNameMap.put("snmp", deviceNameFromSNMP);
             }
+
+            if (deviceTypeFromSNMP != null) {
+
+                deviceNameMap.put("deviceType", deviceTypeFromSNMP);
+            }
+            discoveredDevices.put(ipAddress, deviceNameMap);
+
 
         }
 

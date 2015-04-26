@@ -51,6 +51,11 @@ String deviceModel = input.parameters.parameter.findAll {
 }.value.text();
 String deviceType = input.parameters.parameter.findAll { it.name.text() == "Device Type"}.value.text();
 String discoveredIPv4Address = input.parameters.parameter.findAll { it.name.text() == "Management IP Address"}.value.text();
+String ipv4Forwarding = input.parameters.parameter.findAll { it.name.text() == "ipv4Forwarding"}.value.text();
+
+String ipv6Forwarding = input.parameters.parameter.findAll { it.name.text() == "ipv6Forwarding"}.value.text();
+
+
 
 
 
@@ -61,6 +66,9 @@ output << "\t\t\t<data key=\"deviceName\">" +deviceName + "</data>\n"
 output << "\t\t\t<data key=\"deviceModel\">" + deviceModel+ "</data>\n"
 output << "\t\t\t<data key=\"deviceType\">" + deviceType+ "</data>\n"
 output << "\t\t\t<data key=\"DiscoveredIPv4Address\">" + discoveredIPv4Address + "</data>\n"
+output << "\t\t\t<data key=\"IPv4Forwarding\">" + ipv4Forwarding + "</data>\n"
+output << "\t\t\t<data key=\"IPv6Forwarding\">" + ipv6Forwarding + "</data>\n"
+
 
 output << "\t\t</node>\n"
 

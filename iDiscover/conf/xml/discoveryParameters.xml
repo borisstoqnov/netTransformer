@@ -3,7 +3,7 @@
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="DEFAULT">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,
-            dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
+            dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable, ifName
         </general>
         <discovery-method name="PHYSICAL">
             dot1dBasePort,dot1dBasePortIfIndex,dot1dStpDesignatedRoot,
@@ -50,13 +50,8 @@
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="CISCO">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,
-            dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifIndex, ifName
+            dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifName
         </general>
-        <discovery-method name="PHYSICAL">
-            dot1dBaseBridgeAddress,dot1dStpDesignatedRoot,
-            dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,
-            dot1dBasePortIfIndex,ipNetToMediaTable,lldpRemoteSystemsData,cdpCacheDevicePort,cdpCacheDevicePlatform,cdpCacheDeviceId,cdpCacheIfIndex,cdpCachePrimaryMgmtAddrType,cdpCachePrimaryMgmtAddr,dot1qVlanStaticEntry,mplsInterfaceConfIndex
-        </discovery-method>
         <discovery-method name="NEXT_HOP">
             ipRouteEntry,
             inetCidrRouteType, inetCidrRouteIfIndex, inetCidrRouteNextHop, inetCidrRouteProto, inetCidrRouteNextHopAS
@@ -78,7 +73,7 @@
             dot1dBaseNumPorts, dot1qVlanStaticTable
         </discovery-method>
         <discovery-method name="IPV6">
-            <!--ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry,cIpv6InterfaceEntry,cIpAddressEntry-->
+            ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry,cIpv6InterfaceEntry,cIpAddressEntry
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry,cIpAddressEntry
         </discovery-method>
     </device>
