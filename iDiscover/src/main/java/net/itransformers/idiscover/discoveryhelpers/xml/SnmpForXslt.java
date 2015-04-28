@@ -294,10 +294,9 @@ public class SnmpForXslt {
         for (String ipAddress : discoveredDevices.keySet()) {
 
             HashMap<String, String> deviceNameMap = discoveredDevices.get(ipAddress);
-            if(!ipAddressValidator.isValidInet4Address(ipAddress))
-                continue;
 
-            if (deviceNameMap.get("snmp") == null) {
+
+            if (!deviceNameMap.containsKey("snmp")) {
 
                 deviceNameMap = new HashMap<String, String>();
 
@@ -305,6 +304,8 @@ public class SnmpForXslt {
                 //DeviceMap already filled in.
                 continue;
             }
+            if(!ipAddressValidator.isValidInet4Address(ipAddress))
+                continue;
 
             Map<String,String> resourceParameters = new HashMap<String, String>();
             resourceParameters.put("ipAddress", ipAddress);
@@ -339,15 +340,10 @@ public class SnmpForXslt {
 
             final String deviceTypeFromSNMP = discoverer.getDeviceType(resource);
 
-            if (deviceNameFromSNMP != null) {
+            deviceNameMap.put("snmp", deviceNameFromSNMP);
 
-                deviceNameMap.put("snmp", deviceNameFromSNMP);
-            }
+            deviceNameMap.put("deviceType", deviceTypeFromSNMP);
 
-            if (deviceTypeFromSNMP != null) {
-
-                deviceNameMap.put("deviceType", deviceTypeFromSNMP);
-            }
             discoveredDevices.put(ipAddress, deviceNameMap);
 
 
