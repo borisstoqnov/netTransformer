@@ -69,7 +69,7 @@
     <icon name="/images/router_ipv6.png,/images/circle_blue.png">
         <data key="deviceModel">cisco3620</data>
         <data key="diff">YES</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/router.png,/images/circle_blue.png">
         <data key="deviceModel">cisco3620</data>
@@ -77,7 +77,7 @@
     </icon>
     <icon name="/images/router_ipv6.png">
         <data key="deviceModel">cisco3620</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/router.png">
         <data key="deviceModel">cisco3620</data>
@@ -94,7 +94,7 @@
     <icon name="/images/large_router_ipv6.png,/images/circle_blue_big.png">
         <data key="deviceModel">cisco7206VXR</data>
         <data key="diff">YES</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/large_router.png,/images/circle_blue_big.png">
         <data key="deviceModel">cisco7206VXR</data>
@@ -115,7 +115,7 @@
     <icon name="/images/router_ipv6.png,/images/circle_blue.png">
         <data key="deviceModel">cisco2821</data>
         <data key="diff">YES</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/router.png,/images/circle_blue.png">
         <data key="deviceModel">cisco2821</data>
@@ -123,7 +123,7 @@
     </icon>
     <icon name="/images/router_ipv6.png">
         <data key="deviceModel">cisco2821</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/router.png">
         <data key="deviceModel">cisco2821</data>
@@ -140,7 +140,7 @@
     </icon>
     <icon name="/images/big1_ipv6.png,/images/circle_blue_big.png">
         <data key="deviceModel">cisco7606</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
         <data key="diff">YES</data>
     </icon>
     <icon name="/images/big1.png,/images/circle_blue_big.png">
@@ -149,7 +149,7 @@
     </icon>
     <icon name="/images/big1_ipv6.png">
         <data key="deviceModel">cisco7606</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/big1.png">
         <data key="deviceModel">cisco7606</data>
@@ -167,7 +167,7 @@
     <icon name="/images/large_router_ipv6.png,/images/circle_blue_big.png">
         <data key="deviceModel">cisco7401ASR</data>
         <data key="diff">YES</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
 
     <icon name="/images/large_router.png,/images/circle_blue_big.png">
@@ -176,7 +176,7 @@
     </icon>
     <icon name="/images/large_router_ipv6.png">
         <data key="deviceModel">cisco7401ASR</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
 
     <icon name="/images/large_router.png">
@@ -194,7 +194,7 @@
     <icon name="/images/very_big_router_ipv6.png,/images/circle_blue.png">
         <data key="deviceModel">cisco12810</data>
         <data key="diff">YES</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
 
     <icon name="/images/very_big_router.png,/images/circle_blue.png">
@@ -203,7 +203,7 @@
     </icon>
     <icon name="/images/very_big_router_ipv6.png">
         <data key="deviceModel">cisco12810</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
 
     </icon>
 
@@ -220,14 +220,14 @@
         <data key="diff">ADDED</data>
     </icon>
     <icon name="/images/cloud.png,/images/ipv6_internet.png">
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
         <data key="deviceModel">cloud</data>
         <data key="diff">YES</data>
     </icon>
 
     <icon name="/images/cloud.png,/images/ipv6_internet.png">
         <data key="deviceModel">cloud</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
 
     <icon name="/images/cloud.png,/images/subnet.pn">
@@ -269,11 +269,11 @@
     <icon name="/images/medium_switch1_ipv6.png,/images/circle_blue_big.png">
         <data key="diff">YES</data>
         <data key="deviceModel">hpDL340L</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/medium_switch1_ipv6.png">
         <data key="deviceModel">hpDL340L</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
 
     <icon name="/images/medium_switch1.png">
@@ -291,7 +291,7 @@
     </icon>
     <icon name="/images/small1_ipv6.png,/images/circle_blue.png">
         <data key="deviceModel">homeGateway</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
         <data key="diff">YES</data>
     </icon>
 
@@ -301,7 +301,7 @@
     </icon>
     <icon name="/images/small1_ipv6.png">
         <data key="deviceModel">homeGateway</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/small1.png">
         <data key="deviceModel">homeGateway</data>
@@ -318,7 +318,7 @@
     <icon name="/images/medium_switch_ipv6.png,/images/circle_blue.png">
         <data key="deviceType">CISCO</data>
         <data key="diff">YES</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
 
     <icon name="/images/medium_switch.png,/images/circle_blue.png">
@@ -327,7 +327,7 @@
     </icon>
     <icon name="/images/medium_switch_ipv6.png">
         <data key="deviceType">CISCO</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
 
     <icon name="/images/medium_switch.png">
@@ -347,7 +347,7 @@
     <icon name="/images/medium_router_ipv6.png,/images/circle_blue.png">
         <data key="diff">YES</data>
         <data key="deviceType">HUAWEI</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
 
     <icon name="/images/medium_router.png,/images/circle_blue.png">
@@ -356,7 +356,7 @@
     </icon>
     <icon name="/images/medium_router.png">
         <data key="deviceType">HUAWEI</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/medium_router.png">
         <data key="deviceType">HUAWEI</data>
@@ -379,12 +379,12 @@
     </icon>
     <icon name="/images/Linux.png,/images/circle_blue.png">
         <data key="deviceType">LINUX</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
         <data key="diff">YES</data>
     </icon>
     <icon name="/images/Linux.png">
         <data key="deviceType">LINUX</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/Linux.png">
         <data key="deviceType">LINUX</data>
@@ -406,12 +406,12 @@
     </icon>
     <icon name="/images/very_big_router_ipv6.png,/images/circle_blue.png">
         <data key="deviceType">JUNIPER</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
         <data key="diff">YES</data>
     </icon>
     <icon name="/images/very_big_router_ipv6.png">
         <data key="deviceType">JUNIPER</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/very_big_router.png">
         <data key="deviceType">JUNIPER</data>
@@ -429,7 +429,7 @@
     <icon name="/images/netgear.png,/images/circle_blue.png">
         <data key="deviceType">NETGEAR</data>
         <data key="diff">YES</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
 
     <icon name="/images/netgear.png,/images/circle_blue.png">
@@ -438,7 +438,7 @@
     </icon>
     <icon name="/images/netgear.png">
         <data key="deviceType">NETGEAR</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
 
     <icon name="/images/netgear.png">
@@ -460,7 +460,7 @@
     <icon name="/images/medium_switch1_ipv6.png,/images/circle_blue.png">
         <data key="deviceType">HP</data>
         <data key="diff">YES</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
 
     <icon name="/images/medium_switch1.png,/images/circle_blue.png">
@@ -469,7 +469,7 @@
     </icon>
     <icon name="/images/medium_switch1_ipv6.png">
         <data key="deviceType">HP</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
 
     <icon name="/images/medium_switch1.png">
@@ -488,7 +488,7 @@
     <icon name="/images/76xx_ipv6.png,/images/circle_blue_big.png">
         <data key="deviceType">TELLABS</data>
         <data key="diff">YES</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/76xx.png,/images/circle_blue_big.png">
         <data key="deviceType">TELLABS</data>
@@ -496,7 +496,7 @@
     </icon>
     <icon name="/images/76xx_ipv6.png">
         <data key="deviceType">TELLABS</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/76xx.png">
         <data key="deviceType">TELLABS</data>
@@ -514,7 +514,7 @@
     <icon name="/images/76xx_ipv6.png,/images/circle_blue_big.png">
         <data key="deviceType">Nicira Networks, Inc.</data>
         <data key="diff">YES</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/76xx.png,/images/circle_blue_big.png">
         <data key="deviceType">Nicira Networks, Inc.</data>
@@ -522,7 +522,7 @@
     </icon>
     <icon name="/images/76xx_ipv6.png">
         <data key="deviceType">Nicira Networks, Inc.</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
     <icon name="/images/76xx.png">
         <data key="deviceType">Nicira Networks, Inc.</data>
@@ -538,14 +538,14 @@
         <data key="diff">ADDED</data>
     </icon>
     <icon name="/images/greendot.png,/images/circle_blue.png">
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
         <data key="deviceModel">SDN host</data>
         <data key="diff">YES</data>
     </icon>
 
     <icon name="/images/red_dot.png">
         <data key="deviceModel">SDN host</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
 
     <icon name="/images/greendot.png">
@@ -563,14 +563,14 @@
         <data key="diff">ADDED</data>
     </icon>
     <icon name="/images/cloud.png,/images/ipv6_internet.png">
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
         <data key="deviceModel">passiveHub</data>
         <data key="diff">YES</data>
     </icon>
 
     <icon name="/images/subnet.png,/images/ipv6_internet.png">
         <data key="deviceModel">passiveHub</data>
-        <data key="IPv6Forwarding">YES</data>
+        <data key="ipv6Forwarding">YES</data>
     </icon>
 
     <icon name="/images/subnet.png">
@@ -594,10 +594,27 @@
     </icon>
 
     <filters>
-        <filter name="all-network-IPv4" type="or">
+        <filter name="IPv4" type="or">
 
             <include for="edge"/>
-            <include dataKey="IPv4Forwarding" dataValue="YES" for="node"/>
+            <include dataKey="ipv4Forwarding" dataValue="YES" for="node"/>
+            <include dataKey="deviceType" dataValue="Subnet" for="node"/>
+            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
+            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="IPv6" type="or">
+
+            <include for="edge"/>
+            <include dataKey="ipv6Forwarding" dataValue="YES" for="node"/>
+            <include dataKey="deviceType" dataValue="Subnet" for="node"/>
+            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
+            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+        </filter>
+        <filter name="IPv4+IPv6" type="or">
+
+            <include for="edge"/>
+            <include dataKey="ipv4Forwarding" dataValue="YES" for="node"/>
+            <include dataKey="ipv6Forwarding" dataValue="YES" for="node"/>
             <include dataKey="deviceType" dataValue="Subnet" for="node"/>
             <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
             <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
@@ -610,30 +627,7 @@
             <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
         </filter>
 
-        <!--In this case is presented a physical view with devices that respond to SNMP-->
-        <filter name="Data+IPLinkLayer-reachable" type="and">
-            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <include dataKey="ipLink" dataValue="YES" for="edge"/>
-            <include dataKey="dataLink" dataValue="YES" for="edge"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
 
-        </filter>
-        <filter name="Data+IPLinkLayer-reachable+unreachable">
-            <include dataKey="ipLink" dataValue="YES" for="edge"/>
-            <include dataKey="dataLink" dataValue="YES" for="edge"/>
-            <include for="node"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
-
-        </filter>
-        <filter name="Any-link-reachable">
-            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <include  for="edge"/>
-            <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
-            <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
-
-        </filter>
 
 
         <!--In this case is presented a physical view with all devices-->

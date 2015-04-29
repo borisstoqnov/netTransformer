@@ -317,7 +317,7 @@ public class SnmpWalkerBase implements Discoverer {
     }
 
     private String snmpGetNextSingleCommunity(Resource resource, String community, String deviceSysDescrOID) {
-
+        System.out.println("snmpGetNextSingleCommunity for "+ resource.getAddress()+" community "+ community);
         String version =resource.getAttributes().get("version");
         int versionInt;
         if (version.equals("1")){

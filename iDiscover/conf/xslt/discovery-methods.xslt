@@ -588,50 +588,52 @@
 		<xsl:variable name="ospfNbrIpAddr">
 			<xsl:value-of select="$ospfNbr/ospfNbrIpAddr"/>
 		</xsl:variable>
-		<xsl:variable name="neighID">
-			<xsl:call-template name="getNeighID">
-				<xsl:with-param name="neighIP" select="$ospfNbrIpAddr"/>
-			</xsl:call-template>
-		</xsl:variable>
-		<object>
-
-			<name><xsl:value-of select="$neighID"/></name>
-			<objectType>Discovered Neighbor</objectType>
-			<parameters>
-				<parameter>
-					<name>Reachable</name>
-					<value>
-						<xsl:choose>
-							<xsl:when test="$neighID!='' and $neighID!=$ospfNbrIpAddr">YES</xsl:when>
-							<xsl:otherwise>NO</xsl:otherwise>
-						</xsl:choose>
-					</value>
-				</parameter>
-				<parameter>
-					<name>Local IP address</name>
-					<value><xsl:value-of select="$ospfNbr/ospfIfIpAddress"/></value>
-				</parameter>
-                <parameter>
-                    <name>OSPF Area</name>
-                    <value><xsl:value-of select="$ospfNbr/ospfIfAreaId"/></value>
-                </parameter>
-                <parameter>
-                    <name>Discovery Method</name>
-                    <value>OSPF</value>
-                </parameter>
-				<xsl:call-template name="return-neighbor-params">
-					<xsl:with-param name="neighborIP" select="$ospfNbrIpAddr"/>
-					<xsl:with-param name="neighborHostname" select="$neighID"/>
+		<xsl:if test="$ospfNbrIpAddr!=''">
+			<xsl:variable name="neighID">
+				<xsl:call-template name="getNeighID">
+					<xsl:with-param name="neighIP" select="$ospfNbrIpAddr"/>
 				</xsl:call-template>
-			</parameters>
-		</object>
+			</xsl:variable>
+			<object>
+
+				<name><xsl:value-of select="$neighID"/></name>
+				<objectType>Discovered Neighbor</objectType>
+				<parameters>
+					<parameter>
+						<name>Reachable</name>
+						<value>
+							<xsl:choose>
+								<xsl:when test="$neighID!='' and $neighID!=$ospfNbrIpAddr">YES</xsl:when>
+								<xsl:otherwise>NO</xsl:otherwise>
+							</xsl:choose>
+						</value>
+					</parameter>
+					<parameter>
+						<name>Local IP address</name>
+						<value><xsl:value-of select="$ospfNbr/ospfIfIpAddress"/></value>
+					</parameter>
+					<parameter>
+						<name>OSPF Area</name>
+						<value><xsl:value-of select="$ospfNbr/ospfIfAreaId"/></value>
+					</parameter>
+					<parameter>
+						<name>Discovery Method</name>
+						<value>OSPF</value>
+					</parameter>
+					<xsl:call-template name="return-neighbor-params">
+						<xsl:with-param name="neighborIP" select="$ospfNbrIpAddr"/>
+						<xsl:with-param name="neighborHostname" select="$neighID"/>
+					</xsl:call-template>
+				</parameters>
+			</object>
+		</xsl:if>
 	</xsl:template>
 	<xsl:template name="BGP" match="bgpPeerEntry">
 		<xsl:param name="bgpPeer"/>
 		<xsl:variable name="bgpPeerRemoteAddr">
 			<xsl:value-of select="$bgpPeer/bgpPeerRemoteAddr"/>
 		</xsl:variable>
-
+		<xsl:if test="$bgpPeerRemoteAddr!=''">
 		<xsl:variable name="neighID">
 			<xsl:call-template name="getNeighID">
 				<xsl:with-param name="neighIP" select="$bgpPeerRemoteAddr"/>
@@ -682,5 +684,6 @@
 				</xsl:call-template></parameters>
 
 		</object>
+		</xsl:if>
 	</xsl:template>
 </xsl:stylesheet>

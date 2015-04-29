@@ -83,6 +83,7 @@ public class GrahmlMerge {
         Graph graph2 = new TinkerGraph();
         FileInputStream in2 = new FileInputStream(file);
         MyGraphMLReader reader2 = new MyGraphMLReader(graph2);
+        System.out.printf(file.getAbsolutePath()    );
         reader2.inputGraph(in2);
 
         mergeGraphs(graph, graph2);

@@ -3,9 +3,11 @@
 #name=mrt3,type=javaMRT: nodeId=routeviews3,vv=22,pathToFile=/Users/niau/Projects/java-mrt/ribs/arhieve2/rib.20141027.1800.bz2,version=201411027
 #name=noIdea,type=SNMP:  ipAddress=192.168.137.102,deviceType=DEFAULT,version=1,community-ro=test,community-rw=test-rw,timeout=500,retries=1,port=161,max-repetitions=65535
 
-name=MyCtl2Router,type=snmp:ipAddress=193.19.172.133
-name=c7-controller1,type=snmp:ipAddress=10.17.1.11,deviceName=c7-controller1
-name=c7-compute1,type=snmp:ipAddress=10.17.1.12,deviceName=c7-compute1
+#name=vl1-corevip,type=snmp:ipAddress=192.168.10.1,deviceName=vl1-corevip,deviceType=CISCO
+#name=c7-controller1,type=snmp:ipAddress=10.17.1.11,deviceName=c7-controller1
+name=OpenWrtCloud,type=snmp:ipAddress=10.17.1.112,deviceName=OpenWrtCloud
+
+#name=c7-compute1,type=snmp:ipAddress=10.17.1.12,deviceName=c7-compute1
 
 #name=CE1,type=snmp:ipAddress=87.247.249.134,deviceName=CE1
 
@@ -21,4 +23,13 @@ name=c7-compute1,type=snmp:ipAddress=10.17.1.12,deviceName=c7-compute1
 #type=javaMRT,nodeId=RouteViewes2,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.05/RIBS/rib.20140501.0000.bz2,version=v2
 #type=javaMRT,nodeId=RouteViewes3,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.06/RIBS/rib.20140601.0000.bz2,version=v3
 #type=javaMRT,nodeId=RouteViewes4,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.07/RIBS/rib.20140701.0000.bz2,version=v4
-#type=javaMRT,nodeId=RouteViewes5,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.08/RIBS/rib.20140801.0000.bz2,version=v5
+#type=javaMRT,nodeId=RouteViewes5,date=2014/01/01/2113,pathToFile=http://archive.routeviews.org/bgpdata/2014.08/RIBS/rib.20140801.0000.bz2,version=v5name=HeartOfGold,type=snmp:deviceType=DEFAULTdeviceName=HeartOfGoldipAddress=10.17.1.1
+name=HeartOfGold,type=snmp:deviceType=DEFAULT,deviceName=HeartOfGold,ipAddress=10.17.1.1,
+name=c7-controller1,type=snmp:deviceType=LINUX,deviceName=c7-controller1,ipAddress=10.17.1.11,
+name=OpenWrtCloud,type=snmp:deviceType=LINUX,deviceName=OpenWrtCloud,ipAddress=10.17.1.112,
+name=c7-controller1,type=snmp:deviceType=LINUX,deviceName=c7-controller1,ipAddress=10.17.1.11,
+name=OpenWrtCloud,type=snmp:deviceType=LINUX,deviceName=OpenWrtCloud,ipAddress=10.17.1.112,
+name=HeartOfGold,type=snmp:deviceType=DEFAULT,deviceName=HeartOfGold,ipAddress=10.17.1.1,
+name=c7-compute1,type=snmp:deviceType=LINUX,deviceName=c7-compute1,ipAddress=10.17.1.12,
+name=HeartOfGold,type=snmp:deviceType=DEFAULT,deviceName=HeartOfGold,ipAddress=10.17.1.1,
+name=c7-controller1,type=snmp:deviceType=LINUX,deviceName=c7-controller1,ipAddress=10.17.1.11,

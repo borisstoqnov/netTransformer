@@ -53,7 +53,7 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
     }
     public static void main(String[] args){
 
-        File dir = new File("/Users/niau/Projects/Projects/nmsevC/network/version3/undirected");
+        File dir = new File("/Users/niau/Projects/Projects/nmsevD/network/version14/undirected");
         File[] files = dir.listFiles(new FileFilter() {
             @Override
             public boolean accept(File pathname) {
@@ -66,7 +66,7 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
         }
 
 
-        File outFile = new File("/Users/niau/Projects/Projects/nmsevC/network/version3/undirected/network.graphml");
+        File outFile = new File("/Users/niau/Projects/Projects/nmsevD/network/version14/undirected/network.graphml");
         if(!outFile.exists()){
             try {
                 outFile.createNewFile();
@@ -93,16 +93,19 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
             vertexTypes.put("nodeInfo","string");
             vertexTypes.put("hostname","string");
             vertexTypes.put("deviceStatus","string");
-            vertexTypes.put("DiscoveredIPv4Address","string");
+            vertexTypes.put("discoveredIPv4Address","string");
             vertexTypes.put("geoCoordinates","string");
             vertexTypes.put("site","string");
             vertexTypes.put("diff","string");
             vertexTypes.put("diffs","string");
             vertexTypes.put("diffs","string");
-            vertexTypes.put("IPv6Forwarding","string");
-            vertexTypes.put("IPv4Forwarding","string");
-            vertexTypes.put("SubnetPrefix","string");
-            vertexTypes.put("Total Interface Count","string");
+            vertexTypes.put("ipv6Forwarding","string");
+            vertexTypes.put("ipv4Forwarding","string");
+            vertexTypes.put("subnetPrefix","string");
+            vertexTypes.put("totalInterfaceCount","string");
+            vertexTypes.put("ipProtocolType","string");
+            vertexTypes.put("subnetRangeType","string");
+
 
 
             new GrahmlMerge().merge(files,outFile,vertexTypes, edgesTypes, "undirected");

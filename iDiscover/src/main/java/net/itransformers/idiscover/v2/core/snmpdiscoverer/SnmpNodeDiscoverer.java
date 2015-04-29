@@ -74,13 +74,23 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
     }
 
     private String probe(ConnectionDetails connectionDetails) {
-        String hostName = connectionDetails.getParam("deviceName");
-
-        IPv4Address ipAddress = new IPv4Address(connectionDetails.getParam("ipAddress"), connectionDetails.getParam("netMask"));
         Map<String,String> params1 = new HashMap<String, String>();
-        params1.put("deviceName",hostName);
-        params1.put("deviceType",connectionDetails.getParam("deviceType"));
-        params1.put("ipAddress",connectionDetails.getParam("ipAddress"));
+
+        String hostName = connectionDetails.getParam("deviceName");
+        if (hostName!=null){
+            params1.put("deviceName",hostName);
+
+        }
+        IPv4Address ipAddress = new IPv4Address(connectionDetails.getParam("ipAddress"), connectionDetails.getParam("netMask"));
+        String deviceType= connectionDetails.getParam("deviceType");
+        if (deviceType!=null) {
+            params1.put("deviceType", deviceType);
+        }
+        String ipAddress1 =connectionDetails.getParam("ipAddress");
+        if (ipAddress1 !=null) {
+            params1.put("ipAddress", ipAddress1);
+
+        }
 
         ResourceType snmp = this.discoveryResource.returnResourceByParam(params1);
         Map<String, String> snmpConnParams = this.discoveryResource.getParamMap(snmp,"snmp");
@@ -89,7 +99,6 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         if  (hostName!=null && hostName.contains(".")){
             hostName=hostName.substring(0,hostName.indexOf("."));
         }
-        String deviceType = connectionDetails.getParam("deviceType");
         if(deviceType==null){
             deviceType = walker.getDeviceType(resource);
             connectionDetails.put("deviceType",deviceType);
@@ -123,7 +132,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
         String devName = walker.getDeviceName(resource);
         if (devName == null) {
-            logger.info("Device name is null for resource: "+resource);
+            logger.info("Device name is null for resource: " + resource);
             return null;
         }
         if  (devName.contains(".")){
@@ -136,8 +145,14 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         String[] requestParamsList = discoveryHelper.getRequestParams(discoveryTypes);
 
         RawDeviceData rawData = walker.getRawDeviceData(resource, requestParamsList);
-        result.setDiscoveredData("rawData", rawData.getData());
+        if (rawData!=null){
+            result.setDiscoveredData("rawData", rawData.getData());
 
+        }  else {
+            logger.info("Rawdata is null with resource: "+resource);
+
+            return null;
+        }
 
         discoveryHelper.setDryRun(true);
 
@@ -150,7 +165,6 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
             os = new ByteArrayOutputStream();
             JaxbMarshalar.marshal(discoveredDeviceData1, os, "DiscoveredDevice");
             String str = os.toString();
-            System.out.println(str);
         } catch (JAXBException e) {
             logger.error(e.getMessage(),e);
         } finally {

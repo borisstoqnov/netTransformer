@@ -752,6 +752,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                             </parameters>
                                         </object>
                                     </xsl:for-each>
+
                             </xsl:for-each>
 
                         </object>
