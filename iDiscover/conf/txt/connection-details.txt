@@ -3,7 +3,6 @@
 #name=mrt3,type=javaMRT: nodeId=routeviews3,vv=22,pathToFile=/Users/niau/Projects/java-mrt/ribs/arhieve2/rib.20141027.1800.bz2,version=201411027
 #name=noIdea,type=SNMP:  ipAddress=192.168.137.102,deviceType=DEFAULT,version=1,community-ro=test,community-rw=test-rw,timeout=500,retries=1,port=161,max-repetitions=65535
 
-#name=vl1-corevip,type=snmp:ipAddress=192.168.10.1,deviceName=vl1-corevip,deviceType=CISCO
 #name=c7-controller1,type=snmp:ipAddress=10.17.1.11,deviceName=c7-controller1
 name=OpenWrtCloud,type=snmp:ipAddress=10.17.1.112,deviceName=OpenWrtCloud
 
