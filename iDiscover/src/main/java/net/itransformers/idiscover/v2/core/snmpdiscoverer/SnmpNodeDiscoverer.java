@@ -199,6 +199,98 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         return result;
     }
 
+
+
+    public NodeDiscoveryResult mockDiscover(ConnectionDetails connectionDetails,String hostName ) {
+        if (hostName == null) {
+            return null;
+        }
+        NodeDiscoveryResult result = new NodeDiscoveryResult();
+        Map<String,String> params1 = new HashMap<String, String>();
+        params1.put("deviceName",hostName);
+        params1.put("deviceType",connectionDetails.getParam("deviceType"));
+        String ipAddressStr = connectionDetails.getParam("ipAddress");
+        params1.put("ipAddress", ipAddressStr);
+        IPv4Address ipAddress = new IPv4Address(ipAddressStr, null);
+
+
+        ResourceType snmpResource = this.discoveryResource.returnResourceByParam(params1);
+        Map<String, String> snmpConnParams = this.discoveryResource.getParamMap(snmpResource, "snmp");
+
+
+        Resource resource = new Resource(hostName,ipAddress,connectionDetails.getParam("deviceType"), Integer.parseInt(snmpConnParams.get("port")), snmpConnParams);
+
+        resource.getAttributes().put("neighbourIPDryRun","true");
+
+        String devName = walker.getDeviceName(resource);
+        if (devName == null) {
+            logger.info("Device name is null for resource: " + resource);
+            return null;
+        }
+        if  (devName.contains(".")){
+            devName=devName.substring(0,devName.indexOf("."));
+        }
+        result.setNodeId(devName);
+        String deviceType = walker.getDeviceType(resource);
+        resource.setDeviceType(deviceType);
+        DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper(deviceType);
+        String[] requestParamsList = discoveryHelper.getRequestParams(discoveryTypes);
+
+        RawDeviceData rawData = walker.getRawDeviceData(resource, requestParamsList);
+        if (rawData!=null){
+            result.setDiscoveredData("rawData", rawData.getData());
+
+        }  else {
+            logger.info("Rawdata is null with resource: "+resource);
+
+            return null;
+        }
+
+        discoveryHelper.setDryRun(true);
+
+
+        DiscoveredDeviceData discoveredDeviceData1 = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
+
+        OutputStream os  = null;
+
+//        try {
+//            os = new ByteArrayOutputStream();
+//            JaxbMarshalar.marshal(discoveredDeviceData1, os, "DiscoveredDevice");
+//            String str = os.toString();
+//        } catch (JAXBException e) {
+//            logger.error(e.getMessage(),e);
+//        } finally {
+//            if (os != null) try {os.close();} catch (IOException e) {}
+//        }
+
+
+        SnmpForXslt.resolveIPAddresses(discoveryResource, "snmp");
+
+
+        discoveryHelper.setDryRun(false);
+
+        DiscoveredDeviceData discoveredDeviceData2 = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
+
+        try {
+            os = new ByteArrayOutputStream();
+            JaxbMarshalar.marshal(discoveredDeviceData2, os, "DiscoveredDevice");
+            String str = os.toString();
+            System.out.println(str);
+        } catch (JAXBException e) {
+            logger.error(e.getMessage(),e);
+        } finally {
+            if (os != null) try {os.close();} catch (IOException e) {}
+        }
+        result.setDiscoveredData("deviceData", discoveredDeviceData2);
+        Device device = discoveryHelper.createDevice(discoveredDeviceData2);
+
+        List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
+
+        List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
+        result.setNeighboursConnectionDetails(neighboursConnDetails);
+        return result;
+    }
+
     private List<ConnectionDetails> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
         List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
         for (DeviceNeighbour neighbour : neighbours) {
@@ -213,4 +305,5 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         }
         return neighboursConnDetails;
     }
+
 }

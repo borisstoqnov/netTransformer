@@ -55,45 +55,49 @@ public class SnmpForXslt {
 
 
     public static String checkBogons(String ipAddress) {
-        try {
-            cidrUtils = new CIDRUtils("0.0.0.0/8");
+        if (ipAddress!=null) {
+            try {
+                cidrUtils = new CIDRUtils("0.0.0.0/8");
 
-            if (cidrUtils.isInRange(ipAddress)){
-                return null;
+                if (cidrUtils.isInRange(ipAddress)) {
+                    return null;
+                }
+                cidrUtils = new CIDRUtils("127.0.0.0/8");
+                if (cidrUtils.isInRange(ipAddress)) {
+                    return null;
+                }
+                cidrUtils = new CIDRUtils("169.254.0.0/16");
+                if (cidrUtils.isInRange(ipAddress)) {
+                    return null;
+                }
+                cidrUtils = new CIDRUtils("192.0.0.0/24");
+                if (cidrUtils.isInRange(ipAddress)) {
+                    return null;
+                }
+                cidrUtils = new CIDRUtils("192.0.2.0/24");
+                if (cidrUtils.isInRange(ipAddress)) {
+                    return null;
+                }
+                cidrUtils = new CIDRUtils("224.0.0.0/4");
+                if (cidrUtils.isInRange(ipAddress)) {
+                    return null;
+                }
+                cidrUtils = new CIDRUtils("240.0.0.0/4");
+                if (cidrUtils.isInRange(ipAddress)) {
+                    return null;
+                }
+                cidrUtils = new CIDRUtils("255.255.255.255/32");
+                if (cidrUtils.isInRange(ipAddress)) {
+                    return null;
+                }
+                return ipAddress;
+            } catch (UnknownHostException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
-            cidrUtils = new CIDRUtils("127.0.0.0/8");
-            if (cidrUtils.isInRange(ipAddress)){
-                return null;
-            }
-            cidrUtils = new CIDRUtils("169.254.0.0/16");
-            if (cidrUtils.isInRange(ipAddress)){
-                return null;
-            }
-            cidrUtils = new CIDRUtils("192.0.0.0/24");
-            if (cidrUtils.isInRange(ipAddress)){
-                return null;
-            }
-            cidrUtils = new CIDRUtils("192.0.2.0/24");
-            if (cidrUtils.isInRange(ipAddress)){
-                return null;
-            }
-            cidrUtils = new CIDRUtils("224.0.0.0/4");
-            if (cidrUtils.isInRange(ipAddress)){
-                return null;
-            }
-            cidrUtils = new CIDRUtils("240.0.0.0/4");
-            if (cidrUtils.isInRange(ipAddress)){
-                return null;
-            }
-            cidrUtils = new CIDRUtils("255.255.255.255/32");
-            if (cidrUtils.isInRange(ipAddress)){
-                return null;
-            }
-            return ipAddress;
-        } catch (UnknownHostException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            return null;
+        }else {
+            return null;
         }
-        return null;
 
     }
 
@@ -159,16 +163,20 @@ public class SnmpForXslt {
                 return null;
             }
 
+        } else {
+
+            if (deviceNameMap != null) {
+                String deviceName = deviceNameMap.get("snmp");
+                if ("".equals(deviceName) || deviceName == null) {
+                    return null;
+                } else  {
+                    return deviceName;
+                }
+            }   else {
+                return null;
+            }
         }
 
-
-        String deviceName = deviceNameMap.get("snmp");
-
-        if ("".equals(deviceName) || deviceName == null) {
-            return null;
-        } else  {
-            return deviceName;
-        }
 
     }
 
@@ -190,10 +198,12 @@ public class SnmpForXslt {
         String deviceType = null;
         if (deviceMap!=null) {
              deviceType = deviceMap.get("deviceType");
+        } else{
+            return "UNKNOWN";
         }
 
         if ("".equals(deviceType) || deviceType == null) {
-            return null;
+            return "UNKNOWN";
         } else  {
             return deviceType;
         }

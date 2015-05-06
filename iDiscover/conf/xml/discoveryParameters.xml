@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <discovery-helper>
-    <device xslt="iDiscover/conf/xslt/transformator.xslt" type="DEFAULT">
+    <device xslt="iDiscover/conf/xslt/transformator.xslt" type="UNKNOWN">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,
             dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable, ifName
@@ -50,11 +50,10 @@
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="CISCO">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,
-            dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifName
+            dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifName,CdpCacheEntry,lldpRemoteSystemsData
         </general>
         <discovery-method name="NEXT_HOP">
-            ipRouteEntry,
-            inetCidrRouteType, inetCidrRouteIfIndex, inetCidrRouteNextHop, inetCidrRouteProto, inetCidrRouteNextHopAS
+            ipRouteEntry,inetCidrRouteType, inetCidrRouteIfIndex, inetCidrRouteNextHop, inetCidrRouteProto, inetCidrRouteNextHopAS
         </discovery-method>
         <discovery-method name="OSPF">
             ospfRouterId,ospfNbrEntry,ospfAdminStat,ospfVersionNumber,ospfAreaBdrRtrStatus,ospfASBdrRtrStatus,ospfAreaTable,ospfIfEntry

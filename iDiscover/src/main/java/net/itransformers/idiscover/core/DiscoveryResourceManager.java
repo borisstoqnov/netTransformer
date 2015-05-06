@@ -38,7 +38,7 @@ import java.util.Map;
 public class DiscoveryResourceManager {
   private ResourceManager resourceManager;
 
-    public DiscoveryResourceManager(File projectDir, String label, String PathToXML) {
+    public DiscoveryResourceManager(File projectDir, String PathToXML) {
         String xml = null;
         try {
             xml = FileUtils.readFileToString(new File(projectDir,PathToXML));

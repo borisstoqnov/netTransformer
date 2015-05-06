@@ -588,7 +588,7 @@
         <data key="diff">YES</data>
     </icon>
     <icon name="/images/unknown_switch.png">
-        <data key="deviceType">DEFAULT</data>
+        <data key="deviceType">UNKNOWN</data>
     </icon>
     <icon name="/images/computer.png">
     </icon>

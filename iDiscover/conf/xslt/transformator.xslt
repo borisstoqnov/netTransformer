@@ -680,13 +680,13 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                         </parameter>
                                                         <parameter>
                                                             <name>Discovery Method</name>
-                                                            <xsl:variable name="discoveryMethods"><xsl:for-each select="distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Discovery Method']/value)"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
+                                                            <xsl:variable name="discoveryMethods"><xsl:for-each select="distinct-values($interface-neighbors/object[name=$name1 and parameters/parameter[name='Neighbor IP Address' and value=$ipAddress666]]/parameters/parameter[name='Discovery Method']/value)"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
                                                             <value><xsl:value-of select="functx:substring-before-last-match($discoveryMethods,',')"/></value>
                                                         </parameter>
                                                         <parameter>
                                                             <name>Neighbor Port</name>
                                                             <value>
-                                                                <xsl:value-of select="distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Neighbor Port']/value)"/>
+                                                                <xsl:value-of select="distinct-values($interface-neighbors/object[name=$name1 and parameters/parameter[name='Neighbor IP Address' and value=$ipAddress666]]/parameters/parameter[name='Neighbor Port']/value)[1]"/>
                                                             </value>
                                                         </parameter>
                                                         <parameter>
@@ -705,7 +705,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                             <name>Neighbor Device Type</name>
                                                             <value>
                                                                 <xsl:value-of
-                                                                        select="distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Neighbor Device Type'and ../../parameters/parameter[name='Neighbor IP Address' and value=$ipAddress666]]/value)[1]"/>
+                                                                        select="distinct-values($interface-neighbors/object[name=$name1 and parameters/parameter[name='Neighbor IP Address' and value=$ipAddress666]]/parameters/parameter[name='Neighbor Device Type']/value)[1]"/>
                                                             </value>
                                                         </parameter>
                                                     </xsl:when>
@@ -716,14 +716,14 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                         </parameter>
                                                         <parameter>
                                                             <name>Discovery Method</name>
-                                                            <xsl:variable name="discoveryMethods"><xsl:for-each select="$interface-neighbors/object[name=$name1]/parameters/parameter[name='Discovery Method']/value"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
+                                                            <xsl:variable name="discoveryMethods"><xsl:for-each select="distinct-values($interface-neighbors/object[name=$name1 and parameters/parameter[name='Neighbor IP Address' and value=$ipAddress666]]/parameters/parameter[name='Discovery Method']/value)"><xsl:value-of select="."/>,</xsl:for-each></xsl:variable>
                                                             <value><xsl:value-of select="functx:substring-before-last-match($discoveryMethods,',')"/></value>
                                                         </parameter>
                                                         <parameter>
                                                             <name>Neighbor Port</name>
                                                             <value>
                                                                 <xsl:value-of
-                                                                        select="distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Neighbor Port']/value)"/>
+                                                                        select="distinct-values($interface-neighbors/object[name=$name1 and parameters/parameter[name='Neighbor IP Address' and value=$ipAddress666]]/parameters/parameter[name='Neighbor Port']/value)[1]"/>
                                                             </value>
                                                         </parameter>
                                                         <parameter>
@@ -744,7 +744,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                             <name>Neighbor Device Type</name>
                                                             <value>
                                                                 <xsl:value-of
-                                                                        select="distinct-values($interface-neighbors/object[name=$name1]/parameters/parameter[name='Neighbor Device Type'and ../../parameters/parameter[name='Neighbor IP Address' and value=$ipAddress666]]/value)[1]"/>
+                                                                        select="distinct-values($interface-neighbors/object[name=$name1 and parameters/parameter[name='Neighbor IP Address' and value=$ipAddress666]]/parameters/parameter[name='Neighbor Device Type']/value)[1]"/>
                                                             </value>
                                                         </parameter>
                                                     </xsl:otherwise>

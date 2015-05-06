@@ -70,9 +70,9 @@ public class SnmpWalkerBase implements Discoverer {
              sysDescr = snmpGetNext(resource, deviceSysDescrOID);
         } catch (Exception e) {
             logger.error("Error getDevice Type (" + resource.getAddress() + "), err msg=" + e.getMessage());
-            return null;
+            return "UNKNOWN";
         }
-        if (sysDescr == null) return null;
+        if (sysDescr == null) return "UNKNOWN";
         if (sysDescr.contains("ProCurve")){
           return "HP";
         } else if (sysDescr.contains("Huawei")){
@@ -85,7 +85,7 @@ public class SnmpWalkerBase implements Discoverer {
           return "TELLABS";
         }
         else if (sysDescr.contains("SevOne")){
-            return "SevOne";
+            return "SEVONE";
         }
         else if (sysDescr.contains("Riverstone")){
           return "RIVERSTONE";
@@ -93,7 +93,7 @@ public class SnmpWalkerBase implements Discoverer {
             return "LINUX";
         }
         else {
-          return  "DEFAULT";
+          return  "UNKNOWN";
         }
     }
 

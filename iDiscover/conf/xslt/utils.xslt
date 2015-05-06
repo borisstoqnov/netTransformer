@@ -313,11 +313,11 @@
 			<xsl:when test="contains($sysDescr, 'Huawei')">HUAWEI</xsl:when>
 			<xsl:when test="contains($sysDescr, 'Juniper')">JUNIPER</xsl:when>
 			<xsl:when test="contains($sysDescr, 'Riverstone')">RIVERSTONE</xsl:when>
-            <xsl:when test="contains($sysDescr, 'SevOne')">SevOne</xsl:when>
+            <xsl:when test="contains($sysDescr, 'SevOne')">SEVONE</xsl:when>
             <xsl:when test="contains($sysDescr, 'Tellabs')">TELLABS</xsl:when>
 			<xsl:when test="contains($sysDescr, 'ProCurve')">HP</xsl:when>
             <xsl:when test="contains($sysDescr, 'Windows')">WINDOWS</xsl:when>
-			<xsl:otherwise>DEFAULT</xsl:otherwise>
+			<xsl:otherwise>UNKNOWN</xsl:otherwise>
 		</xsl:choose>
 		<!--xsl:when test="$sysDescr!=''">UNKNOWN</xsl:when-->
 	</xsl:template>

@@ -95,7 +95,7 @@
 			</xsl:variable>
 			<xsl:if test="$cdpNeighbor !=''">
 				<object>
-					<name><xsl:value-of select="$neighID"/></name>
+					<name><xsl:value-of select="$cdpNeighbor"/></name>
 					<objectType>Discovered Neighbor</objectType>
 					<parameters>
 						<parameter>
