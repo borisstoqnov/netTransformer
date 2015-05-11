@@ -600,7 +600,7 @@
             <include dataKey="ipv4Forwarding" dataValue="YES" for="node"/>
             <include dataKey="deviceType" dataValue="Subnet" for="node"/>
             <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
-            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+            <tooltip dataKey="Discovery Method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
         </filter>
         <filter name="IPv6" type="or">
 
@@ -608,7 +608,7 @@
             <include dataKey="ipv6Forwarding" dataValue="YES" for="node"/>
             <include dataKey="deviceType" dataValue="Subnet" for="node"/>
             <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
-            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+            <tooltip dataKey="Discovery Method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
         </filter>
         <filter name="IPv4+IPv6" type="or">
 
@@ -624,7 +624,7 @@
             <include for="edge"/>
             <include for="node"/>
             <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
-            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+            <tooltip dataKey="Discovery Method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
         </filter>
 
 
@@ -636,19 +636,19 @@
 
         <filter name="diff" type="or">
             <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
-            <include dataKey="method" dataValue="NEXT_HOP" for="edge"/>
-            <include dataKey="method" dataValue="CDP" for="edge"/>
-            <include dataKey="method" dataValue="LLDP" for="edge"/>
-            <include dataKey="method" dataValue="MAC" for="edge"/>
-            <include dataKey="method" dataValue="Slash30" for="edge"/>
-            <include dataKey="method" dataValue="Slash31" for="edge"/>
-            <include dataKey="method" dataValue="OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_STATIC_ROUTE" for="edge"/>
-            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_ISIS" for="edge"/>
-            <include dataKey="method" dataValue="r_OSPF" for="edge"/>
-            <include dataKey="method" dataValue="r_STATIC_ROUTE" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="NEXT_HOP" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="CDP" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="LLDP" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="MAC" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="Slash30" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="Slash31" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="OSPF" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="c_STATIC_ROUTE" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="c_OSPF" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="c_ISIS" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="r_ISIS" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="r_OSPF" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="r_STATIC_ROUTE" for="edge"/>
             <include for="node"/>
             <tooltip dataKey="diffs" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.HTMLCSVNodeTooltipTransformer"/>
             <tooltip dataKey="diffs" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.HTMLCSVEdgeTooltipTransformer"/>
@@ -665,47 +665,47 @@
 
         <!--In this case is presented a only CDP view -->
         <filter name="CDP" type="and">
-            <include dataKey="method" dataValue="CDP" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="CDP" for="edge"/>
             <include for="node"/>
-            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+            <tooltip dataKey="Discovery Method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
 
         </filter>
         <!--In this case is presented a only an OSPF view -->
         <filter name="OSPF" type="or">
-            <include dataKey="method" dataValue="OSPF" for="edge"/>
-            <include dataKey="method" dataValue="cOSPF" for="edge"/>
-            <include dataKey="method" dataValue="c_OSPF" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="OSPF" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="cOSPF" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="c_OSPF" for="edge"/>
             <include for="node"/>
-            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+            <tooltip dataKey="Discovery Method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
 
         </filter>
         <!--In this case is presented a only an ISIS view -->
         <filter name="ISIS" type="or">
-            <include dataKey="method" dataValue="ISIS" for="edge"/>
-            <include dataKey="method" dataValue="c_ISIS" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="ISIS" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="c_ISIS" for="edge"/>
             <include for="node"/>
-            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+            <tooltip dataKey="Discovery Method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
 
         </filter>
         <!--In this case is presented a only BGP view -->
         <filter name="BGP" type="or">
-            <include dataKey="method" dataValue="BGP" for="edge"/>
-            <include dataKey="method" dataValue="c_BGP" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="BGP" for="edge"/>
+            <include dataKey="Discovery Method" dataValue="c_BGP" for="edge"/>
             <include for="node"/>
-            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+            <tooltip dataKey="Discovery Method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
 
         </filter>
         <filter name="IPLinkLayer-reachable" type="and">
             <include dataKey="ipLink" dataValue="YES" for="edge"/>
             <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
             <tooltip dataKey="deviceInfo" for="node"/>
-            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
+            <tooltip dataKey="Discovery Method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
         </filter>
         <filter name="IPLinkLayer-reachable+unreachable" type="and">
             <include dataKey="ipLink" dataValue="YES" for="edge"/>
             <include for="node"/>
             <tooltip dataKey="deviceInfo" for="node"/>
-            <tooltip dataKey="method" for="edge" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
+            <tooltip dataKey="Discovery Method" for="edge" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
         </filter>
     </filters>
 

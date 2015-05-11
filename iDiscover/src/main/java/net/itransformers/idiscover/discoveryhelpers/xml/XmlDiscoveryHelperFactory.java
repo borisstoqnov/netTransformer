@@ -58,7 +58,7 @@ public class XmlDiscoveryHelperFactory implements DiscoveryHelperFactory {
     public DiscoveryHelper createDiscoveryHelper(String deviceTypeStr) {
         DeviceType deviceType = deviceTypeMap.get(deviceTypeStr);
         if (deviceType==null){
-            deviceType = deviceTypeMap.get("DEFAULT");
+            deviceType = deviceTypeMap.get("UNKNOWN");
         }
         return new XmlDiscoveryHelper(deviceType, discoveryHelperType.getStopCriteria());
 

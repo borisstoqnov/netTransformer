@@ -325,6 +325,17 @@
 		<xsl:param name="ifType"/>
 
         <xsl:choose>
+			<xsl:when test="$ifType='1'">other</xsl:when>
+			<xsl:when test="$ifType='6'">ethernetCsmacd</xsl:when>
+			<xsl:when test="$ifType='23'">ppp</xsl:when>
+			<xsl:when test="$ifType='24'">softwareLoopback</xsl:when>
+			<xsl:when test="$ifType='39'">sonet</xsl:when>
+			<xsl:when test="$ifType='32'">frameRelay</xsl:when>
+			<xsl:when test="$ifType='135'">l2vlan</xsl:when>
+			<xsl:when test="$ifType='136'">l3ipvlan</xsl:when>
+			<xsl:when test="$ifType='142'">ipForward</xsl:when>
+			<xsl:when test="$ifType='171'">pos</xsl:when>
+
 			<xsl:when test="$ifType='150'">mplsTunnel</xsl:when>
 			<xsl:when test="$ifType='166'">mpls</xsl:when>
 			<xsl:otherwise>

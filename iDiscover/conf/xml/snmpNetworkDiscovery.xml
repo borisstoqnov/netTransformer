@@ -56,7 +56,7 @@
     <bean id="SnmpNetworkDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SnmpNetworkDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>
-        <property name="graphmlDataDirName" value="undirected"/>
+        <property name="graphmlDataDirName" value="device-centric"/>
     </bean>
 
 

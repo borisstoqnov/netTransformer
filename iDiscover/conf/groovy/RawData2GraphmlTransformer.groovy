@@ -17,7 +17,7 @@ output << """\
             <key id="site" for="node" attr.name="site" attr.type="string"/>
             <key id="diff" for="node" attr.name="diff" attr.type="string"/>
             <key id="diffs" for="node" attr.name="diffs" attr.type="string"/>
-            <key id="ip6Forwarding" for="node" attr.name="ipv6Forwarding" attr.type="string"/>
+            <key id="ipv6Forwarding" for="node" attr.name="ipv6Forwarding" attr.type="string"/>
             <key id="ipv4Forwarding" for="node" attr.name="ipv4Forwarding" attr.type="string"/>
             <key id="subnetPrefix" for="node" attr.name="subnetPrefix" attr.type="string"/>
             <key id="subnetRangeType" for="node" attr.name="subnetRangeType" attr.type="string"/>
@@ -29,8 +29,8 @@ output << """\
             <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string"/>
             <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string"/>
             <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string"/>
-            <key id="ipv6Forwarding" for="edge" attr.name="IPv6Forwarding" attr.type="string"/>
-            <key id="ipv4Forwarding" for="edge" attr.name="IPv4Forwarding" attr.type="string"/>
+            <key id="ipv6Forwarding" for="edge" attr.name="ipv6Forwarding" attr.type="string"/>
+            <key id="ipv4Forwarding" for="edge" attr.name="ipv4Forwarding" attr.type="string"/>
 
             <key id="bgpLocalAS" for="node" attr.name="bgpLocalAS" attr.type="string"/>
             <key id="bgpAutonomousSystemA" for="edge" attr.name="bgpAutonomousSystemA" attr.type="string"/>

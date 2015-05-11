@@ -66,10 +66,10 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
         }
 
 
-        File outFile = new File("/Users/niau/Projects/Projects/nmsevD/network/version14/undirected/network.graphml");
+        File outFile = new File("/Users/niau/Projects/Projects/nmSevG/network/version6/undirected/network.graphml");
         if(!outFile.exists()){
             try {
-                outFile.createNewFile();
+                outFile.createNewFile   ();
             } catch (IOException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }

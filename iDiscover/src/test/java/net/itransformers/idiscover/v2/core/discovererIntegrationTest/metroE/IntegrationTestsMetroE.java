@@ -110,6 +110,8 @@ public class IntegrationTestsMetroE {
         Map<String, Integer> neighbourTypeCounts = fillInNeighbourTree(discoveredDeviceData.getObject());
         Assert.assertEquals((Object) 2, neighbourTypeCounts.get("CDP"));
         Assert.assertEquals((Object) 1,neighbourTypeCounts.get("MAC"));
+        Assert.assertEquals((Object) 3,neighbourTypeCounts.get("UNKNOWN"));
+
 
 
     }
@@ -239,7 +241,7 @@ public class IntegrationTestsMetroE {
        //172.16.2.98
         HashMap<String,String> n17216298  = new HashMap<String, String>();
         n17216298.put("snmp","");
-        n17216298.put("deviceType","");
+        n17216298.put("deviceType","UNKNOWN");
         discoveredDevices.put("172.16.2.98", n17216298);
         //212.248.1.126
 
@@ -272,6 +274,8 @@ public class IntegrationTestsMetroE {
         Assert.assertEquals((Object) 6,neighbourTypeCounts.get("Slash30"));
         Assert.assertEquals((Object) 7,neighbourTypeCounts.get("c_OSPF"));
         Assert.assertEquals((Object) 1,neighbourTypeCounts.get("Slash31"));
+        Assert.assertEquals((Object) 16,neighbourTypeCounts.get("UNKNOWN"));
+        Assert.assertEquals((Object) 5,neighbourTypeCounts.get("CISCO"));
 
 
 

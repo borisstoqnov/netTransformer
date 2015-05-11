@@ -708,6 +708,13 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                                         select="distinct-values($interface-neighbors/object[name=$name1 and parameters/parameter[name='Neighbor IP Address' and value=$ipAddress666]]/parameters/parameter[name='Neighbor Device Type']/value)[1]"/>
                                                             </value>
                                                         </parameter>
+                                                        <parameter>
+                                                            <name>Neighbor MAC Address</name>
+                                                            <value>
+                                                                <xsl:value-of
+                                                                        select="distinct-values($interface-neighbors/object[name=$name1 and parameters/parameter[name='Neighbor IP Address' and value=$ipAddress666]]/parameters/parameter[name='Neighbor MAC Address']/value)[1]"/>
+                                                            </value>
+                                                        </parameter>
                                                     </xsl:when>
                                                     <xsl:otherwise>
                                                         <parameter>
@@ -745,6 +752,13 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                                             <value>
                                                                 <xsl:value-of
                                                                         select="distinct-values($interface-neighbors/object[name=$name1 and parameters/parameter[name='Neighbor IP Address' and value=$ipAddress666]]/parameters/parameter[name='Neighbor Device Type']/value)[1]"/>
+                                                            </value>
+                                                        </parameter>
+                                                        <parameter>
+                                                            <name>Neighbor MAC Address</name>
+                                                            <value>
+                                                                <xsl:value-of
+                                                                        select="distinct-values($interface-neighbors/object[name=$name1 and parameters/parameter[name='Neighbor IP Address' and value=$ipAddress666]]/parameters/parameter[name='Neighbor MAC Address']/value)[1]"/>
                                                             </value>
                                                         </parameter>
                                                     </xsl:otherwise>

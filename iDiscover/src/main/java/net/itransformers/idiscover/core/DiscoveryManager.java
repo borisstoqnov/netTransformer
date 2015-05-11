@@ -66,7 +66,7 @@ public class DiscoveryManager {
         this.resourceManager = resourceManager;
         this.discovererFactory = discovererFactory;
         this.discoveryHelperFactory = discoveryHelperFactory;
-        this.discoveryResource = new DiscoveryResourceManager(projectDir, "resourceManager/conf/xml/resource.xml");
+        this.discoveryResource = new DiscoveryResourceManager(projectDir,label, "resourceManager/conf/xml/resource.xml");
         this.postDiscoveryflag = postDiscoveryflag;
     }
 

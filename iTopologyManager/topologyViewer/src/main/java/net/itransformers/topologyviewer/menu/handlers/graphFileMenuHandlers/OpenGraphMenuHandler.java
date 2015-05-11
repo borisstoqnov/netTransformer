@@ -68,7 +68,7 @@ public class OpenGraphMenuHandler implements ActionListener {
             public boolean accept(File f) {
 
                     if (f.exists() && f.isDirectory()){
-                        undirectedDir = new File(f+File.separator+"undirected");
+                        undirectedDir = new File(f+File.separator+"device-centric");
                         networkGraphml = new File(undirectedDir+File.separator+ "network.graphml");
                         if (undirectedDir.exists() && networkGraphml.exists()){
                             return true;
@@ -86,7 +86,7 @@ public class OpenGraphMenuHandler implements ActionListener {
         chooser.setMultiSelectionEnabled(false);
         int result = chooser.showOpenDialog(frame);
         if (result == JFileChooser.APPROVE_OPTION) {
-            File fileResult = new File(chooser.getSelectedFile()+File.separator+"undirected"+File.separator+ "network.graphml");
+            File fileResult = new File(chooser.getSelectedFile()+File.separator+"device-centric"+File.separator+ "network.graphml");
             System.out.println(fileResult);
             if(fileResult.exists()){
                 frame.doOpenGraph(fileResult);

@@ -575,7 +575,7 @@
 							</parameter>
                             <parameter>
                                 <name>Neighbor Device Type</name>
-                                <value/>
+                                <value>UNKNOWN</value>
                             </parameter>
 						</parameters>
 					</xsl:otherwise>

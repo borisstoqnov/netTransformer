@@ -33,6 +33,39 @@
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
         </discovery-method>
     </device>
+    <device xslt="iDiscover/conf/xslt/transformator.xslt" type="SEVONE">
+        <general>
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,
+            dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable, ifName
+        </general>
+        <discovery-method name="PHYSICAL">
+            dot1dBasePort,dot1dBasePortIfIndex,dot1dStpDesignatedRoot,
+            dot1dStpPortEntry,ipNetToMediaTable,lldpRemoteSystemsData,dot1qVlanStaticEntry,mplsInterfaceConfIndex,
+        </discovery-method>
+        <discovery-method name="NEXT_HOP">
+            ipRouteIfIndex, ipRouteNextHop
+            inetCidrRouteType, inetCidrRouteIfIndex, inetCidrRouteNextHop, inetCidrRouteProto, inetCidrRouteNextHopAS
+        </discovery-method>
+        <discovery-method name="OSPF">
+            ospfRouterId,ospfNbrEntry,ospfAdminStat,ospfVersionNumber,ospfAreaBdrRtrStatus,ospfASBdrRtrStatus,ospfAreaTable,ospfIfEntry
+        </discovery-method>
+        <discovery-method name="BGP">
+            bgpLocalAs,bgpPeerEntry
+        </discovery-method>
+        <discovery-method name="ISIS">
+            isisISAdjIPAddrEntry
+        </discovery-method>
+        <discovery-method name="RIP">
+            rip2IfConfTable,rip2IfStatTable
+        </discovery-method>
+        <discovery-method name="ADDITIONAL">
+            mplsVpnVrfName,mplsVpnVrfRouteDistinguisher,mplsVpnVrfRouteDistinguisher,
+            dot1dBaseNumPorts, dot1qVlanStaticTable
+        </discovery-method>
+        <discovery-method name="IPV6">
+            ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry
+        </discovery-method>
+    </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="SERVER">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifName,ifPhysAddress,ifType,ifHighSpeed,
@@ -73,7 +106,6 @@
         </discovery-method>
         <discovery-method name="IPV6">
             ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry,cIpv6InterfaceEntry,cIpAddressEntry
-            ipv6Forwarding, ipv6IfIndex, ipv6AddrEntry,ipv6NetToMediaEntry,ipv6RouteEntry,cIpAddressEntry
         </discovery-method>
     </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="HUAWEI">

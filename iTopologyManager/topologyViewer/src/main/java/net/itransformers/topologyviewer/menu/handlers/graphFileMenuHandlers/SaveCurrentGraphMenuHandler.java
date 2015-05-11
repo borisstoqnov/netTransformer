@@ -76,7 +76,7 @@ public class SaveCurrentGraphMenuHandler implements ActionListener {
             throw new RuntimeException("Unable to create version path: "+versionPath.getAbsolutePath());
         }
 
-        File undirectedPath = new File(versionPath, "undirected");
+        File undirectedPath = new File(versionPath, "device-centric");
         if (!undirectedPath.mkdir()) {
             throw new RuntimeException("Unable to create undirected path: "+undirectedPath.getAbsolutePath());
         }

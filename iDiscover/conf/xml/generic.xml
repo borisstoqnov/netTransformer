@@ -44,13 +44,13 @@
     <bean id="deviceDataFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.DeviceDataFileLogDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>
-        <property name="deviceDataDirName" value="device-data"/>
+        <property name="deviceDataDirName" value="device-hierarchical"/>
     </bean>
 
     <bean id="GraphmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.GraphmlFileLogDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>
-        <property name="graphmDirName" value="undirected"/>
+        <property name="graphmDirName" value="device-centric"/>
         <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
     </bean>
 
@@ -62,14 +62,14 @@
     <bean id="GraphmlFileLogGroovyDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.GraphmlFileLogGroovyDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>
-        <property name="graphmDirName" value="undirected"/>
+        <property name="graphmDirName" value="device-centric"/>
         <property name="rawData2GraphmlGroovyTransformer" value="iDiscover/conf/groovy/RawData2GraphmlTransformer.groovy"/>
     </bean>
 
     <bean id="Neo4JGraphmlLoggerLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.Neo4JGraphmlLoggerLogDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>
-        <property name="graphmDirName" value="undirected"/>
+        <property name="graphmDirName" value="device-centric"/>
         <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
         <property name="graphDbUrl" value="http://54.69.21.203:7474/db/data"/>
         <property name="dataType" value="deviceData"/>
