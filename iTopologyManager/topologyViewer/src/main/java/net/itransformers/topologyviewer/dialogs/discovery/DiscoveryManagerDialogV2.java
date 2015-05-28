@@ -17,53 +17,45 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.topologyviewer.dialogs.snmpDiscovery;
+package net.itransformers.topologyviewer.dialogs.discovery;
 
 import net.itransformers.idiscover.v2.core.*;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
-import net.itransformers.resourcemanager.ResourceManager;
-import net.itransformers.resourcemanager.config.ConnectionParamsType;
-import net.itransformers.resourcemanager.config.ParamType;
-import net.itransformers.resourcemanager.config.ResourceType;
-import net.itransformers.resourcemanager.config.ResourcesType;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import javax.swing.*;
-import javax.xml.bind.JAXBException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
+import java.net.MalformedURLException;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+
+import static net.itransformers.idiscover.v2.core.Main.initializeDiscoveryContext;
 
 
-public class DiscoveryManagerDialogV2 extends JDialog {
+public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManagerListener{
     static Logger logger = Logger.getLogger(DiscoveryManagerDialogV2.class);
-    public static final String DISCOVERED_DEVICES = "Discovered devices \n";
+    public static final String DISCOVERED_DEVICES = "Discovered devices";
     public static final String VERSION_LABEL = "version";
-    private JTextField addressTextField;
-    private JFrame frame;
+    private final JButton stopStartButton;
     private File projectDir;
     private JComboBox depthComboBox;
     private DiscoveryManagerThread managerThread;
-    private JTextArea loggerConsole;
+    private JLabel loggerConsole;
     final JButton pauseResumeButton = new JButton("Pause");
     private int discoveredDevices;
     private JTextArea lblDiscoveredDevices;
     private JTextField labelTextField;
     private JCheckBox autoLabelCheckBox;
     private JCheckBox postDiscoveryCheckBox;
+    private File conDetails;
 
 
     /**
@@ -71,7 +63,7 @@ public class DiscoveryManagerDialogV2 extends JDialog {
      */
     public static void main(String[] args) {
         try {
-            DiscoveryManagerDialogV2 dialog = new DiscoveryManagerDialogV2(null, new File("."));
+            DiscoveryManagerDialogV2 dialog = new DiscoveryManagerDialogV2(null,new File("."));
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
         } catch (Exception e) {
@@ -79,18 +71,16 @@ public class DiscoveryManagerDialogV2 extends JDialog {
         }
     }
 
-    /**
-     * Create the dialog.
-     */
-    public DiscoveryManagerDialogV2(TopologyManagerFrame frame) {
-        this(frame, getProjPath(frame));
-    }
 
-    public DiscoveryManagerDialogV2(JFrame frame, File projectDir) {
-        this.frame = frame;
+
+
+
+    public DiscoveryManagerDialogV2(Frame parent, File projectDir) {
+        super(parent,"Discovery Manager",false);
         this.projectDir = projectDir;
-        setTitle("Discovery Manager");
-        setBounds(100, 100, 960, 364);
+        conDetails =new File(projectDir,"iDiscover/conf/txt/connection-details.txt");
+
+        setBounds(100, 100, 760, 364);
         getContentPane().setLayout(new BorderLayout());
         {
 
@@ -105,8 +95,8 @@ public class DiscoveryManagerDialogV2 extends JDialog {
                     panel.setLayout(null);
                     {
                         depthComboBox = new JComboBox();
-                        depthComboBox.setModel(new DefaultComboBoxModel(new Integer[]{0,1, 2, 3, 4, 5, 6, 7,8,9,10}));
-                        depthComboBox.setBounds(46, 11, 70, 20);
+                        depthComboBox.setModel(new DefaultComboBoxModel(new Integer[]{-1,1, 2, 3, 4, 5, 6, 7,8,9,10}));
+                        depthComboBox.setBounds(56, 11, 70, 20);
                         panel.add(depthComboBox);
                     }
 
@@ -114,30 +104,34 @@ public class DiscoveryManagerDialogV2 extends JDialog {
                     lblMode.setBounds(6, 14, 46, 14);
                     panel.add(lblMode);
 
-                    JLabel lblAddress = new JLabel("Address:");
-                    lblAddress.setBounds(172, 14, 56, 14);
-                    panel.add(lblAddress);
-
-                    addressTextField = new JTextField();
-                    addressTextField.setBounds(230, 11, 113, 20);
-                    panel.add(addressTextField);
-                    addressTextField.setColumns(10);
+//                    JButton loadConnectionDetails = new JButton("Connection Details");
+//                    loadConnectionDetails.setBounds(117, 14, 130, 14);
+//                    panel.add(loadConnectionDetails);
+//
+                    //TextField = new JTextField();
+                //    TextField.setBounds(230, 11, 113, 20);
+                  //  panel.add(TextField);
+                   // TextField.setColumns(10);
+                    //TextField.setText(conDetails.getPath());
 
                     JLabel lblLabel = new JLabel("Label:");
-                    lblLabel.setBounds(360, 14, 56, 14);
+                    lblLabel.setBounds(136, 14, 56, 14);
                     panel.add(lblLabel);
 
                     labelTextField = new JTextField();
-                    labelTextField.setBounds(400, 11, 113, 20);
+                    labelTextField.setBounds(192, 11, 113, 20);
                     panel.add(labelTextField);
                     labelTextField.setColumns(10);
+                    String label = createAutoLabel();
+                    labelTextField.setText(label);
+
 
                     autoLabelCheckBox = new JCheckBox("auto-label");
-                    autoLabelCheckBox.setBounds(520, 11, 113, 20);
+                    autoLabelCheckBox.setBounds(315, 11, 113, 20);
                     autoLabelCheckBox.setSelected(true);
                     panel.add(autoLabelCheckBox);
                     postDiscoveryCheckBox = new JCheckBox("Post Discovery");
-                    postDiscoveryCheckBox.setBounds(620, 11, 153, 20);
+                    postDiscoveryCheckBox.setBounds(428, 11, 153, 20);
                     postDiscoveryCheckBox.setSelected(true);
                     panel.add(postDiscoveryCheckBox);
 
@@ -147,7 +141,7 @@ public class DiscoveryManagerDialogV2 extends JDialog {
             {
                 JPanel panel = new JPanel();
                 buttonPane.add(panel, BorderLayout.EAST);
-                final JButton stopStartButton = new JButton("Start");
+                stopStartButton = new JButton("Start");
                 panel.add(stopStartButton);
                 stopStartButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
@@ -202,10 +196,9 @@ public class DiscoveryManagerDialogV2 extends JDialog {
                 panel.setLayout(new BorderLayout(0, 0));
                 //panel.setSize(100:100);
                 {
-                    loggerConsole = new JTextArea();
-                    JScrollPane scrolltxt = new JScrollPane(loggerConsole);
-                    loggerConsole.append("Discovery logger console");
-                    panel.add(scrolltxt,BorderLayout.CENTER);
+                    loggerConsole = new JLabel();
+                    loggerConsole.setText("Discovery logger console");
+                    panel.add(loggerConsole,BorderLayout.CENTER);
                 }
             }
         }
@@ -217,8 +210,8 @@ public class DiscoveryManagerDialogV2 extends JDialog {
                 protected void append(final LoggingEvent loggingEvent) {
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
-                            loggerConsole.append(loggingEvent.getMessage().toString());
-                            loggerConsole.append("\n");
+                            lblDiscoveredDevices.append(loggingEvent.getMessage().toString());
+                            lblDiscoveredDevices.append("\n");
                         }
                     });
                 }
@@ -237,10 +230,10 @@ public class DiscoveryManagerDialogV2 extends JDialog {
 
     private void onStopDiscoveryPost(JButton stopStartButton) {
         depthComboBox.setEditable(true);
-        addressTextField.setEditable(true);
+     //   TextField.setEditable(true);
         stopStartButton.setText("Start");
         pauseResumeButton.setEnabled(false);
-        stopStartButton.setEnabled(true);
+//        stopStartButton.setEnabled(true);
     }
 
     private void onStopDiscoveryPre(JButton stopStartButton) {
@@ -250,13 +243,13 @@ public class DiscoveryManagerDialogV2 extends JDialog {
     private void onStartDiscoveryPost(JButton stopStartButton) {
         stopStartButton.setText("Stop");
         pauseResumeButton.setEnabled(true);
-        stopStartButton.setEnabled(true);
+//        stopStartButton.setEnabled(true);
     }
 
     private void onStartDiscoveryPre(JButton stopStartButton) {
         stopStartButton.setEnabled(false);
         depthComboBox.setEditable(false);
-        addressTextField.setEditable(false);
+        //TextField.setEditable(false);
     }
 
     private void onResumeDiscovery() {
@@ -286,53 +279,40 @@ public class DiscoveryManagerDialogV2 extends JDialog {
             if (!isValidLabel(label)) return false;
         }
 
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("discovery.xml", "connectionsDetails.xml");
-        NetworkNodeDiscovererImpl nodeDiscovererImpl = applicationContext.getBean("discovery", NetworkNodeDiscovererImpl.class);
 
-
-        Map<String, String> resourceSelectionParams = new HashMap<String, String>();
-        resourceSelectionParams.put("protocol", "SNMP");
-
-        ConnectionDetails connectionDetails = new ConnectionDetails();
-        connectionDetails.setConnectionType("SNMP");
-        connectionDetails.put("ipAddress", addressTextField.getText());
-
-        ResourceManager resourceManager;
-        {
-            String xml = null;
-            try {
-                xml = FileUtils.readFileToString(new File(projectDir, "resourceManager/conf/xml/resource.xml"));
-            } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-            InputStream is1 = new ByteArrayInputStream(xml.getBytes());
-            ResourcesType deviceGroupsType = null;
-            try {
-                deviceGroupsType = net.itransformers.resourcemanager.util.JaxbMarshalar.unmarshal(ResourcesType.class, is1);
-            } catch (JAXBException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-            resourceManager = new ResourceManager(deviceGroupsType);
+        FileSystemXmlApplicationContext applicationContext = null;
+        try {
+            applicationContext = initializeDiscoveryContext(projectDir.getAbsolutePath());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
-        ResourceType resourceType = resourceManager.getResource("DEFAULT");
 
-        List<ConnectionParamsType> connectionParams = resourceType.getConnectionParams();
-        for (ConnectionParamsType connectionParam : connectionParams) {
-            if (connectionParam.getConnectionType().equals("snmp")) {
-                List<ParamType> params = connectionParam.getParam();
-                for (ParamType param : params) {
-                    connectionDetails.put(param.getName(), param.getValue());
-                }
-            }
-        }
+        LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", conDetails);
+
+
+        NetworkNodeDiscovererImpl nodeDiscovererImpl = applicationContext.getBean("snmpDiscovery", NetworkNodeDiscovererImpl.class);
+
         int depth = (Integer) depthComboBox.getSelectedItem();
         NodeDiscoveryListener nodeListener = new NodeDiscoveryListener() {
             @Override
             public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
                 discoveredDevices++;
-                lblDiscoveredDevices.append(discoveryResult.getNodeId() + " has been discovered. " + "Total number of " + DISCOVERED_DEVICES + discoveredDevices + "\n");
+                loggerConsole.setText(discoveryResult.getNodeId() + " has been discovered. " + "Total number of " + DISCOVERED_DEVICES + discoveredDevices);
+                loggerConsole.repaint();
+
             }
         };
+
+        NodeDiscoveryListener nodeListener1 = new NodeDiscoveryListener() {
+            @Override
+            public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
+                discoveryResult.getNeighboursConnectionDetails();
+                loggerConsole.setText(discoveryResult.getNodeId() + " has been discovered. " + "Total number of " + DISCOVERED_DEVICES + discoveredDevices);
+                loggerConsole.repaint();
+
+            }
+        };
+
         List<NodeDiscoveryListener> nodeListeners = nodeDiscovererImpl.getNodeDiscoveryListeners();
         nodeListeners.add(nodeListener);
 
@@ -343,15 +323,19 @@ public class DiscoveryManagerDialogV2 extends JDialog {
             @Override
             public void networkDiscovered(NetworkDiscoveryResult result) {
 
-                lblDiscoveredDevices.append("Network Discovered!!!");
+                loggerConsole.setText("Network Discovered!!!");
+                loggerConsole.repaint();
             }
         };
         List<NetworkDiscoveryListener> networkListeners = nodeDiscovererImpl.getNetworkDiscoveryListeners();
         networkListeners.add(networkListener);
         nodeDiscovererImpl.setNetworkDiscoveryListeners(networkListeners);
-        managerThread = new DiscoveryManagerThread(nodeDiscovererImpl, depth, connectionDetails);
-        lblDiscoveredDevices.setText("");
-        loggerConsole.setText("");
+
+
+
+
+        managerThread = new DiscoveryManagerThread(nodeDiscovererImpl, depth, connectionList);
+        managerThread.addDiscoveryManagerListener(this);
         managerThread.start();
         return true;
     }
@@ -379,4 +363,26 @@ public class DiscoveryManagerDialogV2 extends JDialog {
         return true;
     }
 
+    @Override
+    public void handleEvent(DiscoveryManagerEvent event) {
+        switch (event) {
+            case STARTED: loggerConsole.setText("Discovery Started");
+                stopStartButton.setEnabled(true);
+                break;
+            case STOPPED: {
+                loggerConsole.setText("Discovery finished");
+                stopStartButton.setEnabled(true);
+            }
+                break;
+            case STOPPING: {
+                loggerConsole.setText("Discovery stopping");
+                stopStartButton.setEnabled(false);
+            }
+                break;
+            case PAUSED: loggerConsole.setText("Discovery paused");
+                break;
+            case RESUMED: loggerConsole.setText("Discovery resumed");
+                break;
+        }
+    }
 }

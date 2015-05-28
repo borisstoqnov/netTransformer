@@ -53,7 +53,7 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
     }
     public static void main(String[] args){
 
-        File dir = new File("/Users/niau/Projects/Projects/nmsevD/network/version14/undirected");
+        File dir = new File("/Users/niau/Projects/Projects/nmSevV/network/version5/device-centric");
         File[] files = dir.listFiles(new FileFilter() {
             @Override
             public boolean accept(File pathname) {
@@ -66,7 +66,7 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
         }
 
 
-        File outFile = new File("/Users/niau/Projects/Projects/nmSevG/network/version6/undirected/network.graphml");
+        File outFile = new File("/Users/niau/Projects/Projects/nmSevV/network/version5/device-centric/network.graphml");
         if(!outFile.exists()){
             try {
                 outFile.createNewFile   ();

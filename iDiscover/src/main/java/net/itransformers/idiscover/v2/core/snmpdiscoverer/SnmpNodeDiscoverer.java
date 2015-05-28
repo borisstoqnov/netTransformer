@@ -182,8 +182,8 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         try {
             os = new ByteArrayOutputStream();
             JaxbMarshalar.marshal(discoveredDeviceData2, os, "DiscoveredDevice");
-            String str = os.toString();
-            System.out.println(str);
+//            String str = os.toString();
+//          //  System.out.println(str);
         } catch (JAXBException e) {
             logger.error(e.getMessage(),e);
         } finally {
@@ -259,7 +259,8 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 //            String str = os.toString();
 //        } catch (JAXBException e) {
 //            logger.error(e.getMessage(),e);
-//        } finally {
+//
+//       } finally {
 //            if (os != null) try {os.close();} catch (IOException e) {}
 //        }
 

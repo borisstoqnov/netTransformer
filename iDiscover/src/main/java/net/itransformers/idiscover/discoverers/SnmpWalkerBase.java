@@ -67,28 +67,28 @@ public class SnmpWalkerBase implements Discoverer {
         String deviceSysDescrOID = "1.3.6.1.2.1.1.1";
         String sysDescr = null;
         try {
-             sysDescr = snmpGetNext(resource, deviceSysDescrOID);
+            sysDescr = snmpGetNext(resource, deviceSysDescrOID);
         } catch (Exception e) {
             logger.error("Error getDevice Type (" + resource.getAddress() + "), err msg=" + e.getMessage());
             return "UNKNOWN";
         }
         if (sysDescr == null) return "UNKNOWN";
-        if (sysDescr.contains("ProCurve")){
-          return "HP";
-        } else if (sysDescr.contains("Huawei")){
-          return "HUAWEI";
-        } else if (sysDescr.contains("Juniper")){
-          return "JUNIPER";
-        } else if (sysDescr.contains("Cisco")){
-          return "CISCO";
-        }else if (sysDescr.contains("Tellabs")){
-          return "TELLABS";
-        }
-        else if (sysDescr.contains("SevOne")){
+        if (sysDescr.contains("ProCurve")) {
+            return "HP";
+        } else if (sysDescr.contains("Huawei")) {
+            return "HUAWEI";
+        } else if (sysDescr.contains("Juniper")) {
+            return "JUNIPER";
+        } else if (sysDescr.contains("Cisco")) {
+            return "CISCO";
+        } else if (sysDescr.contains("Tellabs")) {
+            return "TELLABS";
+        } else if (sysDescr.contains("SevOne")) {
             return "SEVONE";
-        }
-        else if (sysDescr.contains("Riverstone")){
-          return "RIVERSTONE";
+        } else if (sysDescr.contains("Riverstone")) {
+            return "RIVERSTONE";
+        }else if (sysDescr.contains("ALCATEL")){
+            return "ALCATEL";
         }else if (sysDescr.contains("Linux")){
             return "LINUX";
         }
@@ -102,7 +102,7 @@ public class SnmpWalkerBase implements Discoverer {
         try {
             return snmpGetNext(resource, deviceNameOID);
         } catch (Exception e) {
-            logger.error("Error getDevice Name (" + resource.getAddress() + "), err msg=" + e.getMessage());
+            logger.error("Error getDevice Name (" + resource.getAddress() +" " +resource.getAttributes() + "), err msg=" + e.getMessage());
             return null;
         }
     }
@@ -111,7 +111,7 @@ public class SnmpWalkerBase implements Discoverer {
         try {
             return snmpGetNext(resource, oid);
         } catch (Exception e) {
-            logger.error("Error get oid( " +oid.toString()+ " ) ( "+ resource.getAddress() + "), err msg=" + e.getMessage(), e);
+            logger.error("Error get oid( " +oid.toString()+ " ) ( "+ resource.getAddress() + " "+resource.getAttributes() + "), err msg=" + e.getMessage(), e);
             return null;
         }
     }

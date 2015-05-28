@@ -6,7 +6,9 @@ import net.itransformers.idiscover.core.DiscoveryManagerStatus;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.apache.log4j.Logger;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 
 public class DiscoveryManagerThread extends Thread {
@@ -14,9 +16,10 @@ public class DiscoveryManagerThread extends Thread {
 
     private NetworkNodeDiscovererImpl nodeDiscovererImpl;
     private int depth;
-    ConnectionDetails connectionDetails;
+    LinkedHashMap<String, ConnectionDetails>  connectionDetails;
 
-    public DiscoveryManagerThread(NetworkNodeDiscovererImpl nodeDiscovererImpl, int depth, ConnectionDetails connectionDetails) {
+    private List<DiscoveryManagerListener> managerListeners = new ArrayList<DiscoveryManagerListener>();
+    public DiscoveryManagerThread(NetworkNodeDiscovererImpl nodeDiscovererImpl, int depth, LinkedHashMap<String, ConnectionDetails> connectionDetails) {
         logger.debug("Thread created");
         this.nodeDiscovererImpl = nodeDiscovererImpl;
         this.depth = depth;
@@ -27,23 +30,34 @@ public class DiscoveryManagerThread extends Thread {
     public void run() {
         try {
             logger.debug("Thread started");
-            nodeDiscovererImpl.discoverNetwork(Arrays.asList(connectionDetails), depth);
+            fireEvent(DiscoveryManagerEvent.STARTED);
+            nodeDiscovererImpl.discoverNetwork(new ArrayList<ConnectionDetails>(connectionDetails.values()), depth);
+            fireEvent(DiscoveryManagerEvent.STOPPED);
         } catch (Exception e) {
             logger.error(e.getMessage(),e);
         }
     }
 
+    private void fireEvent(DiscoveryManagerEvent started) {
+        for (DiscoveryManagerListener managerListener : managerListeners) {
+            managerListener.handleEvent(started);
+        }
+    }
+
     public void stopDiscovery(){
         logger.info("stopping discovery");
+        fireEvent(DiscoveryManagerEvent.STOPPING);
         nodeDiscovererImpl.stop();
     }
     public void pauseDiscovery(){
         logger.info("pausing discovery");
         nodeDiscovererImpl.pause();
+        fireEvent(DiscoveryManagerEvent.PAUSED);
     }
     public void resumeDiscovery() {
         logger.info("resuming discovery");
         nodeDiscovererImpl.resume();
+        fireEvent(DiscoveryManagerEvent.RESUMED);
     }
     public DiscoveryManagerStatus getStatus(){
         DiscoveryManagerStatus status = null; 
@@ -57,7 +71,13 @@ public class DiscoveryManagerThread extends Thread {
         } else {
             status = DiscoveryManagerStatus.CONFIGURED;
         }
-        logger.info("getting status. Status="+status);
+        logger.info("getting status. Status=" + status);
         return status;
     }
+
+    public void addDiscoveryManagerListener(DiscoveryManagerListener listener){
+         managerListeners.add(listener);
+    }
+
+
 }

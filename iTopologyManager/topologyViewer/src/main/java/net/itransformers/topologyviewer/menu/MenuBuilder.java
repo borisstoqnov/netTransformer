@@ -27,7 +27,6 @@ import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorith
 import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.KMarkovMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorithms.RandomWalkBetweennessCentralityMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.*;
-import net.itransformers.topologyviewer.menu.handlers.graphTools.DiffReportMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.shortherstPathMenuHandlers.DijkstraShortestPathMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.shortherstPathMenuHandlers.ShortestPathMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.networkActivation.TemplateEditorMenuHandler;
@@ -37,6 +36,7 @@ import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.OpenPr
 import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureBGPParametersMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.ConfigureParametersMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.EditConfigMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.StartDiscoveryWizardMenuHandler;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -134,14 +134,22 @@ public class MenuBuilder {
 
 
     }
-        private void createLayoutsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
+    private void createLayoutsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu layouts = new JMenu("Layouts");
         layouts.setName("Layouts");
         layouts.setEnabled(false);
         menuBar.add(layouts);
 
         final JMenuItem FRLayout = new JMenuItem("FR Layout");
+
+
+
         FRLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "FRLayout"));
+
+
+//        FRLayout.add(FRLayout);
+
+
         layouts.add(FRLayout);
         final JMenuItem KKLayout = new JMenuItem("KK Layout");
         KKLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "KKLayout"));
@@ -175,7 +183,7 @@ public class MenuBuilder {
 
 
     }
-        private void createGraphToolsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
+    private void createGraphToolsMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
         final JMenu graphTools = new JMenu("Graph Tools");
         graphTools.setName("Graph Tools");
         graphTools.setEnabled(false);
@@ -184,27 +192,27 @@ public class MenuBuilder {
 //            final JMenuItem iNode = new JMenuItem("Initial Node");
 //            iNode.addActionListener(new InitialNodeMenuHandler(frame));
 //            graphTools.add(iNode);
-           final JMenuItem statistics = new JMenuItem("Graph Statistics");
-            statistics.addActionListener(new GraphDistanceStatisticsMenuHandler(frame));
-            graphTools.add(statistics);
-            final JMenuItem bgstatistics = new JMenuItem("BG Peering Statistics");
-            bgstatistics.addActionListener(new BGMapStatisticsMenuHandler(frame));
-            graphTools.add(bgstatistics);
-            final JMenuItem diffStatistics = new JMenuItem("Diff Statistics");
-            diffStatistics.addActionListener(new DiffReportMenuHandler(frame));
-            graphTools.add(diffStatistics);
+        final JMenuItem statistics = new JMenuItem("Graph Statistics");
+        statistics.addActionListener(new GraphDistanceStatisticsMenuHandler(frame));
+        graphTools.add(statistics);
+        final JMenuItem bgstatistics = new JMenuItem("BG Peering Statistics");
+        bgstatistics.addActionListener(new BGMapStatisticsMenuHandler(frame));
+        graphTools.add(bgstatistics);
+        final JMenuItem diffStatistics = new JMenuItem("Diff Statistics");
+        diffStatistics.addActionListener(new DiffReportMenuHandler(frame));
+        graphTools.add(diffStatistics);
 
 
-            final JMenuItem ShortestPath = new JMenuItem("ShortestPath");
-            ShortestPath.addActionListener(new ShortestPathMenuHandler(frame));
-            graphTools.add(ShortestPath);
-            final JMenuItem DijkstraShortestPath = new JMenuItem("Dijkstra Shortest Path");
-            DijkstraShortestPath.addActionListener(new DijkstraShortestPathMenuHandler(frame));
-            graphTools.add(DijkstraShortestPath);
+        final JMenuItem ShortestPath = new JMenuItem("ShortestPath");
+        ShortestPath.addActionListener(new ShortestPathMenuHandler(frame));
+        graphTools.add(ShortestPath);
+        final JMenuItem DijkstraShortestPath = new JMenuItem("Dijkstra Shortest Path");
+        DijkstraShortestPath.addActionListener(new DijkstraShortestPathMenuHandler(frame));
+        graphTools.add(DijkstraShortestPath);
 
-            graphTools.addSeparator();
+        graphTools.addSeparator();
 
-            final JMenu rank = new JMenu("Ranking Algorithms");
+        final JMenu rank = new JMenu("Ranking Algorithms");
         graphTools.add(rank);
         final JMenuItem BetweennessCentrality = new JMenuItem("BetweennessCentrality");
         BetweennessCentrality.addActionListener(new BetweennessCentralityMenuHandler(frame));
@@ -299,14 +307,18 @@ public class MenuBuilder {
         discovery.setEnabled(false);
         menuBar.add(discovery);
 
-        final JMenuItem startDiscovery = new JMenuItem("IP Network");
+        final JMenuItem startDiscoveryWizard = new JMenuItem("Discovery Wizard");
+        startDiscoveryWizard.addActionListener(new StartDiscoveryWizardMenuHandler(frame));
+        discovery.add(startDiscoveryWizard);
+
+        final JMenuItem startDiscovery = new JMenuItem("Discover Now!");
         startDiscovery.addActionListener(new StartDiscoveryMenuHandler(frame));
         discovery.add(startDiscovery);
 
 
-        final JMenuItem startBGPDiscovery = new JMenuItem("Internet BGP Peering");
-        startBGPDiscovery.addActionListener(new StartBGPDiscoveryMenuHandler(frame));
-        discovery.add(startBGPDiscovery);
+//        final JMenuItem startBGPDiscovery = new JMenuItem("Internet BGP Peering");
+//        startBGPDiscovery.addActionListener(new StartBGPDiscoveryMenuHandler(frame));
+//        discovery.add(startBGPDiscovery);
 
     }
     private void createPreferencesMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
@@ -399,7 +411,7 @@ public class MenuBuilder {
         final JMenuItem bgpViewerSettingsItem = new JMenuItem("Viewer Configuration Editor");
 
         bgpViewerSettingsItem.addActionListener(new ConfigMenuHandler(frame));
-         bgpPeeringDiscovery.add(bgpViewerSettingsItem);
+        bgpPeeringDiscovery.add(bgpViewerSettingsItem);
 
         final JMenu bgpDiffSettings = new JMenu("Diff Ignored keys Editor");
         final JMenuItem bgpIgnoredNodeKeys = new JMenuItem("ignoredNodeKeys");
@@ -421,7 +433,7 @@ public class MenuBuilder {
 
     }
 
-        private ActionListener createMenuHandler(TopologyManagerFrame frame, String handlerClassName) {
+    private ActionListener createMenuHandler(TopologyManagerFrame frame, String handlerClassName) {
         ActionListener handler = null;
         try {
             Class handlerClass = Class.forName(handlerClassName);

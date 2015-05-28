@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.idiscover.v2.core.gui;
+package net.itransformers.topologyviewer.dialogs.discovery;
 
 import net.itransformers.resourcemanager.config.ConnectionParamsType;
 import net.itransformers.resourcemanager.config.ParamType;

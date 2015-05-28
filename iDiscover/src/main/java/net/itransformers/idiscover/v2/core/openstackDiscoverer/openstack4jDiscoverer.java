@@ -9,9 +9,6 @@
 package net.itransformers.idiscover.v2.core.openstackDiscoverer;
 
 
-import net.itransformers.idiscover.v2.core.NodeDiscoverer;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.openstack4j.api.OSClient;
 import org.openstack4j.api.telemetry.MeterService;
 import org.openstack4j.model.compute.Address;
@@ -35,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class openstack4jDiscoverer implements NodeDiscoverer {
+public class openstack4jDiscoverer  {
     private final OSClient os;
     private List<? extends User> users;
     private  List<? extends Tenant> tenants;
@@ -330,8 +327,8 @@ public class openstack4jDiscoverer implements NodeDiscoverer {
     }
 
 
-    @Override
-    public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+//    @Override
+//    public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
+//        return null;  //To change body of implemented methods use File | Settings | File Templates.
+//    }
 }

@@ -781,17 +781,36 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         hops = hops == null ? 0 : hops;
         currentGraph = transformGraph(filter, hops, pickedVertexes);
 
-        vv.setGraphLayout(createLayout(currentGraph, layout));
+        vv.setGraphLayout(createLayout(currentGraph, layout,0.75D,0.75D,700,calculateNodeDensity()));
 
     }
 
-    public void changeLayout() {
-        vv.setGraphLayout(createLayout(currentGraph, layout));
+    public void changeLayout(double repultion , double attraction, int maxIterations, double nodeDensity) {
+        vv.setGraphLayout(createLayout(currentGraph, layout,repultion,attraction,maxIterations,nodeDensity));
         vv.repaint();
 
     }
 
-    private Layout createLayout(G graph, String layout) {
+    public double calculateNodeDensity(){
+        int currentGraphVertexCount =  this.getCurrentGraph().getVertexCount();
+
+        if (currentGraphVertexCount > 10000){
+            return 0.00001;
+
+        } else if(currentGraphVertexCount < 10000 && currentGraphVertexCount > 1000 ) {
+            return 0.0001;
+
+        } else if (currentGraphVertexCount <1000 && currentGraphVertexCount > 500){
+            return 0.0002;
+        } else if (currentGraphVertexCount <500 && currentGraphVertexCount > 100){
+            return 0.001;
+        }else{
+            return 0.01;
+        }
+
+    }
+
+    private Layout createLayout(G graph, String layout, double repultion , double attraction, int maxIterations, double nodeDensity) {
         PersistentLayout test = null;
         if (layout.equals("CircleLayout")) {
             test = new MyPersistentLayoutImpl(new CircleLayout<String, String>(graph));
@@ -804,7 +823,12 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         } else if (layout.equals("ISOMLayout")) {
             test = new MyPersistentLayoutImpl(new ISOMLayout<String, String>(graph));
         } else if (layout.equals("FRLayout2")) {
-            test = new MyPersistentLayoutImpl(new FRLayout2<String, String>(graph));
+            FRLayout2 frLayout2 = new FRLayout2<String, String>(graph);
+            frLayout2.setRepulsionMultiplier(10);
+
+            test = new MyPersistentLayoutImpl(frLayout2);
+
+
 //        }   else if (layout.equals("DAGLayout")){
 //            DAGLayout<String,String> abx =    new DAGLayout<String,String>(graph);
 //             abx.setRoot("R1");
@@ -814,16 +838,15 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
 //            TreeLayout<String,String> abx = new TreeLayout<String, String>(graph);
 //        }
         else {
-            test = new MyPersistentLayoutImpl(new FRLayout<String, String>(graph));
+            FRLayout frLayout = new FRLayout<String, String>(graph);
+            frLayout.setRepulsionMultiplier(repultion);
+            frLayout.setAttractionMultiplier(attraction);
+            frLayout.setMaxIterations(maxIterations);
+            test = new MyPersistentLayoutImpl(frLayout);
         }
 
         int vertexCount = currentGraph.getVertexCount();
-//        final ScalingControl scaler = new CrossoverScalingControl();
-        final double nodeDensity = 0.0001;
         Dimension parent1 = parent.getSize();
-//         int  x=parent.getWidth();
-//         int  y= (int) (parent.getHeight() - 150);
-//
         int x = (int) (Math.sqrt(vertexCount / nodeDensity));
         int y = (int) (Math.sqrt(vertexCount / nodeDensity));
         if (x < parent1.width) {
@@ -841,9 +864,11 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         System.out.println("X: " + x + "Y: " + y + "width: " + parent1.width + "heigth: " + parent1.height);
         test.setSize(new Dimension(new Dimension(x, y)));
 
-//        test.setSize(new Dimension(x,y));
         return test;
     }
+
+
+
 
     public VisualizationViewer getVisualizationViewer() {
         return vv;

@@ -4,18 +4,16 @@ import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.util.JaxbMarshalar;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import org.junit.Assert;
-import org.junit.Test;
 import org.parboiled.common.FileUtils;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
-import java.nio.file.Files;
 
 /**
  * Created by vasko on 1/29/2015.
  */
 public class GraphmlFileLogGroovyDiscoveryListenerTestCase {
-    @Test
+    //@Test
     public void testTransformRawData() throws IOException {
         GraphmlFileLogGroovyDiscoveryListener listener = new GraphmlFileLogGroovyDiscoveryListener();
         InputStream in = this.getClass().getResourceAsStream("/bfogal54-peer.xml");
@@ -41,7 +39,7 @@ public class GraphmlFileLogGroovyDiscoveryListenerTestCase {
         return bos.toString().replace("\r","");// for tests under windows
     }
 
-    @Test
+  //  @Test
     public void nodeDiscoverer() throws IOException, JAXBException {
         System.out.println("->>>>>>>"+new File(".").getAbsolutePath());
         File projectPath = createTempDirectory();

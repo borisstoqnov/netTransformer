@@ -48,6 +48,7 @@ public class MyPersistentLayoutImpl extends PersistentLayoutImpl {
             }
         }
         initializeLocations();
+
         locked = true;
         fireStateChanged();
     }

@@ -143,7 +143,7 @@ public class OpenProjectMenuHandler implements ActionListener {
                 frame.setProjectType("netTransformer - BGP Peering Map");
                 frame.setName("bgpPeeringMap");
                 frame.setViewerConfig(new File(selectedFile.getParentFile()+ File.separator+"iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
-                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
+                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
 
@@ -152,7 +152,7 @@ public class OpenProjectMenuHandler implements ActionListener {
                 frame.setViewerConfig(new File(selectedFile.getParentFile()+File.separator+ "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
                 //
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
-                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
+                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
 
             }  else{

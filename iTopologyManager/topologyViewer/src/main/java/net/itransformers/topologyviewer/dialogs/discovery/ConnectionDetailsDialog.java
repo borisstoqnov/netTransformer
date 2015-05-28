@@ -1,4 +1,4 @@
-package net.itransformers.idiscover.v2.core.gui;
+package net.itransformers.topologyviewer.dialogs.discovery;
 import net.itransformers.idiscover.v2.core.CvsConnectionDetailsFactory;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 

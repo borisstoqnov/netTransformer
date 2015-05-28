@@ -19,7 +19,7 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
-import net.itransformers.topologyviewer.dialogs.snmpDiscovery.DiscoveryManagerDialog;
+import net.itransformers.topologyviewer.dialogs.discovery.DiscoveryManagerDialogV2;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 import javax.swing.*;
@@ -45,7 +45,7 @@ public class StartDiscoveryMenuHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        DiscoveryManagerDialog dialog = new DiscoveryManagerDialog(frame);
+        DiscoveryManagerDialogV2 dialog = new DiscoveryManagerDialogV2(frame,frame.getPath());
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
 

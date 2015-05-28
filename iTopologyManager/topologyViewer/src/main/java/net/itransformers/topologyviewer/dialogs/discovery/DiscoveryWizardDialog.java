@@ -1,4 +1,4 @@
-package net.itransformers.idiscover.v2.core.gui;
+package net.itransformers.topologyviewer.dialogs.discovery;
 import net.itransformers.idiscover.v2.core.CvsConnectionDetailsFactory;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.resourcemanager.config.ResourcesType;
@@ -21,6 +21,10 @@ public class DiscoveryWizardDialog extends JDialog  {
     private JPanel contentPanel = null;
     private JButton prevButton;
     private JButton nextButton;
+    private Frame frame;
+    private String projectPath;
+
+
 
     /**
 	 * Launch the application.
@@ -28,7 +32,8 @@ public class DiscoveryWizardDialog extends JDialog  {
 	public static void main(String[] args) {
 		try {
             UIManager.put("Table.gridColor", new ColorUIResource(Color.gray));
-			DiscoveryWizardDialog dialog = new DiscoveryWizardDialog();
+
+			DiscoveryWizardDialog dialog = new DiscoveryWizardDialog(null,".");
             int option = dialog.showDialog();
 
 		} catch (Exception e) {
@@ -36,9 +41,12 @@ public class DiscoveryWizardDialog extends JDialog  {
 		}
 	}
 
-	public DiscoveryWizardDialog() {
-        this.setTitle("Connection Details");
-        this.setModal(true);
+
+    public DiscoveryWizardDialog(Frame parentFrame, String projectPath) {
+
+        super(parentFrame, "Discovery Wizard", true);
+        this.frame = parentFrame;
+        this.projectPath = projectPath;
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 1000, 400);
 		getContentPane().setLayout(new BorderLayout());
@@ -93,7 +101,7 @@ public class DiscoveryWizardDialog extends JDialog  {
     }
 
     private void init() throws IOException {
-        java.util.Map<String,ConnectionDetails> connDetails = CvsConnectionDetailsFactory.createConnectionDetail(new File("iDiscover/src/main/resources/connection-details.txt"));
+        java.util.Map<String,ConnectionDetails> connDetails = CvsConnectionDetailsFactory.createConnectionDetail(new File("iDiscover/conf/txt/connection-details.txt"));
         updateCurrentPanel(new ConnectionDetailsPanel(connDetails));
     }
 
@@ -141,11 +149,37 @@ public class DiscoveryWizardDialog extends JDialog  {
             updateCurrentPanel(panel);
             nextButton.setText("GO!");
             nextButton.setEnabled(true);
+            nextButton.setActionCommand("GO");
+
+            panel.setResources(resources);
+            nextButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (nextButton.getActionCommand().equals("GO")) {
+                        try {
+                            DiscoveryManagerDialogV2 discoveryManagerDialogV2 = new DiscoveryManagerDialogV2(DiscoveryWizardDialog.this.frame,new File(projectPath));
+                            //discoveryManagerDialogV2.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                            DiscoveryWizardDialog.this.setVisible(false);
+                            discoveryManagerDialogV2.setVisible(true);
+
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+//                        option = JOptionPane.CANCEL_OPTION;
+//                        DiscoveryWizardDialog.this.setVisible(false);
+                }
+            });
+
+
+
         }
 
     }
+    private void go() {
+    }
 
-    private void updateCurrentPanel(JPanel panel){
+        private void updateCurrentPanel(JPanel panel){
         if (contentPanel != null) {
             getContentPane().remove(contentPanel);
         }

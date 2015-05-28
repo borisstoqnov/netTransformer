@@ -20,9 +20,9 @@
 package net.itransformers.topologyviewer.menu.handlers.graphTools;
 
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
-import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,10 +40,24 @@ public class ChangeLayoutMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+
+
+
+
+        String attractionValue = JOptionPane.showInputDialog(frame, "Attraction factor", 0.75D);
+        String repultionValue = JOptionPane.showInputDialog(frame, "Repultion factor", 0.75D);
+        String maxIterationsValue = JOptionPane.showInputDialog(frame, "Max iterations", 700);
+
+
+        final double repultion = new Double(repultionValue);
+        final double attraction = new Double(attractionValue);
+        final int maxIterations = new Integer(maxIterationsValue);
+
         final GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
-        final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
         viewerPanel.setLayout(layout);
 
-        viewerPanel.changeLayout();
+
+        viewerPanel.changeLayout(repultion,attraction,maxIterations,viewerPanel.calculateNodeDensity());
     }
 }
