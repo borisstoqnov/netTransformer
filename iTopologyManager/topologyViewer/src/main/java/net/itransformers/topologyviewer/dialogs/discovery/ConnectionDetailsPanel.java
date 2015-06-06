@@ -38,23 +38,34 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
         this.setLayout(new BorderLayout(0, 0));
 
         JPanel description= new JPanel();
-        this.add(description,BorderLayout.EAST);
-        description.setSize(50, 50);
-        TextArea label = new TextArea();
 
-        label.setText(
-                "Please enter your initial devices for discovery.\n"+
-                "If your devices are SNMP enabled each initial\n" +
-                "device should have a valid IP address, SNMP\n" +
-                "version, community and port!\n"+
-                "If you have SDN enabled network please enter\n" +
-                "also the parameters and credentials of your\n" +
-                "SDN controller!");
+        description.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        label.setEditable(false);
+        this.add(description, BorderLayout.EAST);
+
+        String text = "<html>This panel is the place to enter discovery entry points\n" +
+                "(devices from where the discovery process will start to discover your network).\n" +
+                "<p>Each entry point should have deviceType, deviceName and an ipAddress.</html>\n";
+        JLabel help = new JLabel(text) {
+            public Dimension getPreferredSize() {
+                return new Dimension(400, 200);
+            }
+            public Dimension getMinimumSize() {
+                return new Dimension(400, 200);
+            }
+            public Dimension getMaximumSize() {
+                return new Dimension(400, 200);
+            }
+        };
+        help.setVerticalAlignment(SwingConstants.TOP);
+        help.setHorizontalAlignment(SwingConstants.LEFT);
+
+       // help.setForeground(new Color(0xffffdd));
+
+
        // label.setSize(100,100);
 
-        description.add(label);
+        description.add(help);
         //description.
 
 

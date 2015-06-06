@@ -46,9 +46,9 @@
             <!--<version>0.1-SNAPSHOT</version>&lt;!&ndash;Change for new version&ndash;&gt;-->
         <!--</dependency>-->
         <dependency>
-            <groupId>expect4groovy</groupId>
+            <groupId>iTransformers</groupId>
             <artifactId>expect4groovy</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

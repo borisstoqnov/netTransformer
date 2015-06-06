@@ -48,7 +48,7 @@ public class DiscoveryWizardDialog extends JDialog  {
         this.frame = parentFrame;
         this.projectPath = projectPath;
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 1000, 400);
+        setBounds(100, 100, 1000, 600);
 		getContentPane().setLayout(new BorderLayout());
 
 
@@ -113,7 +113,7 @@ public class DiscoveryWizardDialog extends JDialog  {
 //            updateCurrentPanel(new ConnectionDetailsPanel(connDetails));
 //            prevButton.setEnabled(false);
         if (contentPanel instanceof DiscoveryResourcePanel) {
-            java.util.Map<String,ConnectionDetails> connDetails = CvsConnectionDetailsFactory.createConnectionDetail(new File("iDiscover/src/main/resources/connection-details.txt"));
+            java.util.Map<String,ConnectionDetails> connDetails = CvsConnectionDetailsFactory.createConnectionDetail(new File("iDiscover/conf/txt/connection-details.txt"));
 
             updateCurrentPanel(new ConnectionDetailsPanel(connDetails));
             prevButton.setEnabled(false);

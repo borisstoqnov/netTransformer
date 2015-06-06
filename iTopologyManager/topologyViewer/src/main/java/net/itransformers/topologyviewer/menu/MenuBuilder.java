@@ -344,24 +344,24 @@ public class MenuBuilder {
         snmpDiscoverer.setEnabled(false);
         configuration.add(snmpDiscoverer);
 
-        final JMenuItem resources = new JMenuItem("Resource Manager");
+        final JMenuItem resources = new JMenuItem("Resource editor");
         resources.addActionListener(new EditConfigMenuHandler(frame, "resourceManager/conf/xml/resource.xml"));
         snmpDiscoverer.add(resources);
 
-        final JMenuItem configureManager = new JMenuItem("SNMP Discovery Manager");
-        configureManager.addActionListener(new EditConfigMenuHandler(frame, "iDiscover/conf/xml/DiscoveryManager.xml"));
+        final JMenuItem configureManager = new JMenuItem("Discovery entry points editor");
+        configureManager.addActionListener(new EditConfigMenuHandler(frame, "iDiscover/conf/txt/connection-details.txt"));
         snmpDiscoverer.add(configureManager);
 
-        final JMenuItem configureParameters = new JMenuItem("SNMP Discovery Parameters");
+        final JMenuItem configureParameters = new JMenuItem("SNMP Discovery Parameters editor");
         configureParameters.addActionListener(new ConfigureParametersMenuHandler(frame));
         snmpDiscoverer.add(configureParameters);
 
-        final JMenuItem viewerSettingsItem = new JMenuItem("Viewer Configuration Editor");
+        final JMenuItem viewerSettingsItem = new JMenuItem("Viewer configuration editor");
 
         viewerSettingsItem.addActionListener(new ConfigMenuHandler(frame));
         snmpDiscoverer.add(viewerSettingsItem);
 
-        final JMenu diffSettings = new JMenu("Diff Ignored keys Editor");
+        final JMenu diffSettings = new JMenu("Diff Ignored keys editor");
         final JMenuItem ignoredNodeKeys = new JMenuItem("ignoredNodeKeys");
         ignoredNodeKeys.addActionListener(new EditConfigMenuHandler(frame, "iTopologyManager/topologyViewer/conf/xml/ignored_node_keys.xml"));
         diffSettings.add(ignoredNodeKeys);

@@ -104,28 +104,42 @@
                     </plugins>
                 </pluginManagement>
             </build>
-
+            <distributionManagement>
+                <repository>
+                    <id>jfrogrepo</id>
+                    <name>jfrogrepo-releases</name>
+                    <url>http://193.19.172.133:24280/artifactory/ext-release-local</url>
+                </repository>
+            </distributionManagement>
             <repositories>
-                <repository>
-                    <id>itransformers-repo</id>
-                    <url>http://repo.itransformers.net/repos/</url>
-                </repository>
-                <!--repository>
-                    <id>json-lib</id>
-                    <url>http://mvnrepository.com/artifact</url>
-                </repository-->
-                <!--repository>
-                    <id>mibble</id>
-                    <url>http://maven.cloudhopper.com/repos/third-party/</url>
-                </repository>
-                <repository>
-                    <id>saxon9</id>
-                    <url>http://www.jarvana.com/jarvana/browse/</url>
-                </repository>
-                <repository>
-                    <id>snmp4j</id>
-                    <url>http://openr66.free.fr/maven2/</url>
-                </repository-->
+
+    <repository>
+        <id>jfrogrepo</id>
+        <name>jfrogrepo-releases</name>
+        <url>http://193.19.172.133:24280/artifactory/libs-release-local</url>
+    </repository>
+                <!--<repository>-->
+                    <!--<id>itransformers-repo</id>-->
+                    <!--<url>http://repo.itransformers.net/repos/</url>-->
+                <!--</repository>-->
+
+
+                <!--&lt;!&ndash;repository>-->
+                    <!--<id>json-lib</id>-->
+                    <!--<url>http://mvnrepository.com/artifact</url>-->
+                <!--</repository&ndash;&gt;-->
+                <!--&lt;!&ndash;repository>-->
+                    <!--<id>mibble</id>-->
+                    <!--<url>http://maven.cloudhopper.com/repos/third-party/</url>-->
+                <!--</repository>-->
+                <!--<repository>-->
+                    <!--<id>saxon9</id>-->
+                    <!--<url>http://www.jarvana.com/jarvana/browse/</url>-->
+                <!--</repository>-->
+                <!--<repository>-->
+                    <!--<id>snmp4j</id>-->
+                    <!--<url>http://openr66.free.fr/maven2/</url>-->
+                <!--</repository&ndash;&gt;-->
             </repositories>
             <dependencies>
                 <dependency>

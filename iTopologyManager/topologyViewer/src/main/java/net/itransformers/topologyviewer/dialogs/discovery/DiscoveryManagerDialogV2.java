@@ -41,7 +41,6 @@ import static net.itransformers.idiscover.v2.core.Main.initializeDiscoveryContex
 
 
 public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManagerListener{
-    static Logger logger = Logger.getLogger(DiscoveryManagerDialogV2.class);
     public static final String DISCOVERED_DEVICES = "Discovered devices";
     public static final String VERSION_LABEL = "version";
     private final JButton stopStartButton;

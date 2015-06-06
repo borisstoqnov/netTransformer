@@ -813,9 +813,21 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
     private Layout createLayout(G graph, String layout, double repultion , double attraction, int maxIterations, double nodeDensity) {
         PersistentLayout test = null;
         if (layout.equals("CircleLayout")) {
-            test = new MyPersistentLayoutImpl(new CircleLayout<String, String>(graph));
+            CircleLayout circleLayoutLayout = new CircleLayout<String, String>(graph);
+//
+//            circleLayoutLayout.setRepulsionMultiplier(repultion);
+//            circleLayoutLayout.setAttractionMultiplier(attraction);
+//            circleLayoutLayout.setMaxIterations(maxIterations);
+
+            test = new MyPersistentLayoutImpl(circleLayoutLayout);
         } else if (layout.equals("KKLayout")) {
-            test = new MyPersistentLayoutImpl(new KKLayout<String, String>(graph));
+            KKLayout kkLayout = new KKLayout<String, String>(graph);
+
+//            kkLayout.setRepulsionMultiplier(repultion);
+//            kkLayout.setAttractionMultiplier(attraction);
+            kkLayout.setMaxIterations(maxIterations);
+
+            test = new MyPersistentLayoutImpl(kkLayout);
         } else if (layout.equals("SpringLayout")) {
             test = new MyPersistentLayoutImpl(new SpringLayout<String, String>(graph));
         } else if (layout.equals("SpringLayout2")) {

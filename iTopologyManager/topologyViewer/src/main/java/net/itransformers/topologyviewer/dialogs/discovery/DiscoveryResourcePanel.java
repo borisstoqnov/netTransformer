@@ -58,15 +58,21 @@ public class DiscoveryResourcePanel extends JPanel {
      */
     public DiscoveryResourcePanel() {
         this.resources = new ResourcesType();
-        setLayout(null);
+
+        this.setLayout(new BorderLayout());
+
+        this.setBorder(new EmptyBorder(5, 5, 5, 5));
+
 
         JLabel label_1 = new JLabel("Resource Parameters");
-        label_1.setBounds(148, 11, 102, 14);
+        label_1.setBounds(148, 11, 140, 14);
         add(label_1);
 
         JLabel label_2 = new JLabel("Connection Parameters");
-        label_2.setBounds(148, 182, 116, 14);
+        label_2.setBounds(148, 182, 140, 14);
         add(label_2);
+        JSeparator separator = new JSeparator();
+        add(separator);
 
         comboBox = new JComboBox();
         comboBox.setEditable(true);
@@ -83,18 +89,19 @@ public class DiscoveryResourcePanel extends JPanel {
         add(comboBox);
         //This has to be visible on the right side of the panel!
         JPanel description= new JPanel();
-        TextArea helpArea = new TextArea();
-        helpArea.setEditable(false);
-        helpArea.setText("Please configure your discovery resources.\n"+
-                        "Discovery process will use them to discover each of\n" +
-                        "each of the \"unknown\" neighbours found during its run.\n"+
-                        "Therefore each resource is associated with a number\n" +
-                        "of resource parameters that are used for resource matching.\n"+
-                        "Such could be device hostname, type, protocol, model \n+" +
-                        "or IP address range!");
+//        TextArea helpArea = new TextArea();
+//        helpArea.setEditable(false);
+//        helpArea.setText("Please configure your discovery resources.\n"+
+//                        "Discovery process will use them to discover each of\n" +
+//                        "each of the \"unknown\" neighbours found during its run.\n"+
+//                        "Therefore each resource is associated with a number\n" +
+//                        "of resource parameters that are used for resource matching.\n"+
+//                        "Such could be device hostname, type, protocol, model \n+" +
+//                        "or IP address range!");
+//
+//        description.add(helpArea);
 
-        description.add(helpArea);
-        add(description,BorderLayout.EAST);
+
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(149, 36, 293, 88);
@@ -139,12 +146,12 @@ public class DiscoveryResourcePanel extends JPanel {
             @Override
             public void tableChanged(TableModelEvent e) {
                 int index = e.getFirstRow();
-                if (e.getType() == TableModelEvent.INSERT){
+                if (e.getType() == TableModelEvent.INSERT) {
                     resources.getResource().add(index, new ResourceType());
                 } else if (e.getType() == TableModelEvent.DELETE) {
                     resources.getResource().remove(index);
                 } else {
-                    resources.getResource().get(index).setName((String) ((DefaultTableModel)e.getSource()).getValueAt(index,0));
+                    resources.getResource().get(index).setName((String) ((DefaultTableModel) e.getSource()).getValueAt(index, 0));
                 }
             }
         });
@@ -201,6 +208,36 @@ public class DiscoveryResourcePanel extends JPanel {
         });
         btnNewButton.setBounds(396, 178, 46, 23);
         add(btnNewButton);
+        String text =
+                "<html>"+
+                        "Please configure your discovery resources. <p>Discovery process will " +
+                        "use them to discover each of devices found during its run." +
+                        "<p><p>Each resource is associated with a number of \"<b>Resource " +
+                        "parameters</b>\" that are used for resource matching. " +
+                        "<p>Such kind of parameters are deviceName, deviceType, protocol," +
+                        "deviceModel and ipAddress others."+
+                        "<p><p>\"<b>Connection parameters</b>\" are the actual parameters that will be used " +
+                        "by netTransformer to communicate with your device. Example for such parameters"+
+                        "are port, timeout, retries, version and authentication parameters such as "+
+                        "usernames, passwords and community strings."+
+                "</html>";
+        JLabel help = new JLabel(text) {
+            public Dimension getPreferredSize() {
+                return new Dimension(400, 400);
+            }
+            public Dimension getMinimumSize() {
+                return new Dimension(400, 400);
+            }
+            public Dimension getMaximumSize() {
+                return new Dimension(400, 400);
+            }
+        };
+        help.setVerticalAlignment(SwingConstants.TOP);
+        help.setHorizontalAlignment(SwingConstants.LEFT);
+
+        description.add(help);
+
+        add(description,BorderLayout.EAST);
 
     }
 
