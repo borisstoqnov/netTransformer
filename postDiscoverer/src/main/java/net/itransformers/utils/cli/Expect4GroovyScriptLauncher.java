@@ -64,7 +64,9 @@ public class Expect4GroovyScriptLauncher {
         connection = createCliConnection(params);
         Map<String, Integer> result = null;
         try {
-            connection.connect(params);
+            HashMap<String, Object> convertedParams = new HashMap<String, Object>();
+            convertedParams.putAll(params);
+            connection.connect(convertedParams);
             binding = new Binding();
             Expect4Groovy.createBindings(connection, binding, true);
             binding.setProperty("params", params);
