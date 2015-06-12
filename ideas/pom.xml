@@ -24,7 +24,7 @@
     <parent>
         <artifactId>iTransformer</artifactId>
         <groupId>iTransformers</groupId>
-        <version>0.7-SNAPSHOT</version>
+        <version>0.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>iTransformers.iTransformer</groupId>
             <artifactId>iDiscover</artifactId>
-            <version>0.7-SNAPSHOT</version><!--Change for new version-->
+            <version>0.8</version><!--Change for new version-->
         </dependency>
         <!--<dependency>-->
             <!--<groupId>org.neo4j.app</groupId>-->
@@ -205,7 +205,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
-                <version>1.5</version>
+                <version>1.6</version>
                 <executions>
                     <execution>
                         <goals>
@@ -268,10 +268,10 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository-->
-        <repository>
-            <id>itransformers-repo</id>
-            <url>http://repo.itransformers.net/repos/</url>
-        </repository>
+        <!--<repository>-->
+            <!--<id>itransformers-repo</id>-->
+            <!--<url>http://repo.itransformers.net/repos/</url>-->
+        <!--</repository>-->
         <repository>
             <id>neo4j_repo</id>
             <url>http://m2.neo4j.org/content/repositories/releases/</url>

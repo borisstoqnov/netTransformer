@@ -6,28 +6,28 @@
 
     <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
     <artifactId>rightClick</artifactId>
-    <version>0.7-SNAPSHOT</version><!--Change for new version-->
+    <version>0.8</version><!--Change for new version-->
 
     <parent>
         <groupId>iTransformers.iTransformer</groupId>
         <artifactId>iTopologyManager</artifactId>
-        <version>0.7-SNAPSHOT</version><!--Change for new version-->
+        <version>0.8</version><!--Change for new version-->
     </parent>
      <dependencies>
          <dependency>
              <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
              <artifactId>rightClickAPI</artifactId>
-             <version>0.7-SNAPSHOT</version><!--Change for new version-->
+             <version>0.8</version><!--Change for new version-->
          </dependency>
          <dependency>
              <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
              <artifactId>fulfilmentFactory</artifactId>
-             <version>0.7-SNAPSHOT</version><!--Change for new version-->
+             <version>0.8</version><!--Change for new version-->
          </dependency>
          <dependency>
              <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
              <artifactId>topologyViewer</artifactId>
-             <version>0.7-SNAPSHOT</version><!--Change for new version-->
+             <version>0.8</version><!--Change for new version-->
          </dependency>		 
          <dependency>
              <groupId>com.wittams.gritty</groupId>

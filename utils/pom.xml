@@ -6,13 +6,13 @@
 
     <groupId>iTransformers.iTransformer</groupId>
     <artifactId>utils</artifactId>
-    <version>0.7-SNAPSHOT</version><!--Change for new version-->
+    <version>0.8</version><!--Change for new version-->
 
 
 <parent>
         <groupId>iTransformers</groupId>
         <artifactId>iTransformer</artifactId>
-        <version>0.7-SNAPSHOT</version><!--Change for new version-->
+        <version>0.8</version><!--Change for new version-->
     </parent>
 
     <dependencies>

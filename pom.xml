@@ -23,13 +23,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <properties>
-        <version>0.1-SNAPSHOT</version><!--Change for new version-->
+        <version>0.8</version><!--Change for new version-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <groovy.version>2.1.9</groovy.version>
     </properties>
     <groupId>iTransformers</groupId>
     <artifactId>iTransformer</artifactId>
-    <version>0.7-SNAPSHOT</version><!--Change for new version-->
+    <version>0.8</version><!--Change for new version-->
     <description>Rodopi Edition http://www.mayaeye.com/browse.php?menu_id=211</description>
     <packaging>pom</packaging>
 
@@ -48,153 +48,153 @@
         <module>ideas</module>
 
     </modules>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-assembly-plugin</artifactId>
-                            <version>2.3</version>
-                            <configuration>
-                                <descriptors>
-                                    <descriptor>distribution/netTransformer.xml</descriptor>
-                                    <!--descriptor>distribution/bgpPeeringMap.xml</descriptor-->
-                                </descriptors>
-                            </configuration>
-                            <executions>
-                                <execution>
-                                    <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                                    <phase>package</phase> <!-- bind to the packaging phase -->
-                                    <!--<goals>-->
-                                    <!--<goal>single</goal>-->
-                                    <!--</goals>-->
-                                </execution>
-                            </executions>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-dependency-plugin</artifactId>
-                            <version>2.2</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-site-plugin</artifactId>
-                            <version>3.1</version>
-                            <dependencies>
-                                <!--<dependency>-->
-                                    <!--<groupId>org.apache.maven.doxia</groupId>-->
-                                    <!--<artifactId>doxia-module-twiki</artifactId>-->
-                                    <!--<version>1.2</version>-->
-                                <!--</dependency>-->
-                            </dependencies>
-                            <configuration>
-                                <skip>false</skip>
-                                <skipDeploy>true</skipDeploy>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <artifactId>maven-compiler-plugin</artifactId>
-                            <version>2.3.2</version>
-                            <configuration>
-                                <source>1.6</source>
-                                <target>1.6</target>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.jfrog.buildinfo</groupId>
-                            <artifactId>artifactory-maven-plugin</artifactId>
-                            <version>2.3.0</version>
-                            <inherited>false</inherited>
-                            <executions>
-                                <execution>
-                                    <id>build-info</id>
-                                    <goals>
-                                        <goal>publish</goal>
-                                    </goals>
-                                    <configuration>
-                                        <deployProperties>
-                                            <groupId>${project.groupId}</groupId>
-                                            <artifactId>${project.artifactId}</artifactId>
-                                            <version>${project.version}</version>
-                                        </deployProperties>
-                                        <publisher>
-                                            <contextUrl>https://193.19.172.133:24280/artifactory</contextUrl>
-                                            <username>niau</username>
-                                            <password>APA7e6KmfBGqvAGsyt9arP4yEkB</password>
-                                            <repoKey>libs-releases-local</repoKey>
-                                            <snapshotRepoKey>libs-snapshots-local</snapshotRepoKey>
-                                        </publisher>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-            <distributionManagement>
-                <repository>
-                    <id>jfrogrepo</id>
-                    <name>jfrogrepo-releases</name>
-                    <url>http://193.19.172.133:24280/artifactory/ext-release-local</url>
-                </repository>
-            </distributionManagement>
-            <repositories>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.3</version>
+                    <configuration>
+                        <descriptors>
+                            <descriptor>distribution/netTransformer.xml</descriptor>
+                            <!--descriptor>distribution/bgpPeeringMap.xml</descriptor-->
+                        </descriptors>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                            <phase>package</phase> <!-- bind to the packaging phase -->
+                            <!--<goals>-->
+                            <!--<goal>single</goal>-->
+                            <!--</goals>-->
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.1</version>
+                    <dependencies>
+                        <!--<dependency>-->
+                        <!--<groupId>org.apache.maven.doxia</groupId>-->
+                        <!--<artifactId>doxia-module-twiki</artifactId>-->
+                        <!--<version>1.2</version>-->
+                        <!--</dependency>-->
+                    </dependencies>
+                    <configuration>
+                        <skip>false</skip>
+                        <skipDeploy>true</skipDeploy>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.3.2</version>
+                    <configuration>
+                        <source>1.6</source>
+                        <target>1.6</target>
+                    </configuration>
+                </plugin>
+                <!--<plugin>-->
+                    <!--<groupId>org.jfrog.buildinfo</groupId>-->
+                    <!--<artifactId>artifactory-maven-plugin</artifactId>-->
+                    <!--<version>2.3.0</version>-->
+                    <!--<inherited>false</inherited>-->
+                    <!--<executions>-->
+                        <!--<execution>-->
+                            <!--<id>build-info</id>-->
+                            <!--<goals>-->
+                                <!--<goal>publish</goal>-->
+                            <!--</goals>-->
+                            <!--<configuration>-->
+                                <!--<deployProperties>-->
+                                    <!--<groupId>${project.groupId}</groupId>-->
+                                    <!--<artifactId>${project.artifactId}</artifactId>-->
+                                    <!--<version>${project.version}</version>-->
+                                <!--</deployProperties>-->
+                                <!--<publisher>-->
+                                    <!--<contextUrl>https://193.19.172.133:24280/artifactory</contextUrl>-->
+                                    <!--<username>niau</username>-->
+                                    <!--<password>APA7e6KmfBGqvAGsyt9arP4yEkB</password>-->
+                                    <!--<repoKey>libs-releases-local</repoKey>-->
+                                    <!--<snapshotRepoKey>libs-snapshots-local</snapshotRepoKey>-->
+                                <!--</publisher>-->
+                            <!--</configuration>-->
+                        <!--</execution>-->
+                    <!--</executions>-->
+                <!--</plugin>-->
+            </plugins>
+        </pluginManagement>
+    </build>
+    <distributionManagement>
+        <repository>
+            <id>jfrogrepo</id>
+            <name>jfrogrepo-releases</name>
+            <url>http://193.19.172.133:24280/artifactory/ext-release-local</url>
+        </repository>
+    </distributionManagement>
+    <repositories>
 
-    <repository>
-        <id>jfrogrepo</id>
-        <name>jfrogrepo-releases</name>
-        <url>http://193.19.172.133:24280/artifactory/libs-release-local</url>
-    </repository>
-
-
-                <!--<repository>-->
-                    <!--<id>itransformers-repo</id>-->
-                    <!--<url>http://repo.itransformers.net/repos/</url>-->
-                <!--</repository>-->
+        <repository>
+            <id>jfrogrepo</id>
+            <name>jfrogrepo-releases</name>
+            <url>http://193.19.172.133:24280/artifactory/libs-release-local</url>
+        </repository>
 
 
-                <!--<repository>-->
-                    <!--<id>json-lib</id>-->
-                    <!--<url>http://mvnrepository.com/artifact</url>-->
-                <!--</repository>-->
-                <!--&lt;!&ndash;repository>-->
-                    <!--&lt;!&ndash;<id>mibble</id>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<url>http://maven.cloudhopper.com/repos/third-party/</url>&ndash;&gt;-->
-                <!--&lt;!&ndash;</repository>&ndash;&gt;-->
-                <!--<repository>-->
-                    <!--<id>saxon9</id>-->
-                    <!--<url>http://www.jarvana.com/jarvana/browse/</url>-->
-                <!--</repository>-->
-                <!--<repository>-->
-                    <!--<id>snmp4j</id>-->
-                    <!--<url>http://openr66.free.fr/maven2/</url>-->
-                <!--</repository&ndash;&gt;-->
-            </repositories>
-            <dependencies>
-                <dependency>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                    <version>4.8.2</version>
-                </dependency>
+        <!--<repository>-->
+        <!--<id>itransformers-repo</id>-->
+        <!--<url>http://repo.itransformers.net/repos/</url>-->
+        <!--</repository>-->
 
-                <dependency>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                    <version>1.2.16</version>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>com.sun.jmx</groupId>
-                            <artifactId>jmxri</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>com.sun.jdmk</groupId>
-                            <artifactId>jmxtools</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>javax.jms</groupId>
-                            <artifactId>jms</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
+
+        <!--<repository>-->
+        <!--<id>json-lib</id>-->
+        <!--<url>http://mvnrepository.com/artifact</url>-->
+        <!--</repository>-->
+        <!--&lt;!&ndash;repository>-->
+        <!--&lt;!&ndash;<id>mibble</id>&ndash;&gt;-->
+        <!--&lt;!&ndash;<url>http://maven.cloudhopper.com/repos/third-party/</url>&ndash;&gt;-->
+        <!--&lt;!&ndash;</repository>&ndash;&gt;-->
+        <!--<repository>-->
+        <!--<id>saxon9</id>-->
+        <!--<url>http://www.jarvana.com/jarvana/browse/</url>-->
+        <!--</repository>-->
+        <!--<repository>-->
+        <!--<id>snmp4j</id>-->
+        <!--<url>http://openr66.free.fr/maven2/</url>-->
+        <!--</repository&ndash;&gt;-->
+    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.jmx</groupId>
+                    <artifactId>jmxri</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jdmk</groupId>
+                    <artifactId>jmxtools</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.jms</groupId>
+                    <artifactId>jms</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
 </project>
