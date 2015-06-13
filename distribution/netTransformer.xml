@@ -201,6 +201,14 @@
                 <includeModuleDirectory>false</includeModuleDirectory>
                 <fileSets>
                     <fileSet>
+                        <directory>../snmptoolkit</directory>
+                        <includes>
+                            <include>mibs/*</include>
+                        </includes>
+                        <outputDirectory>snmptoolkit</outputDirectory>
+
+                    </fileSet>
+                    <fileSet>
                         <directory>conf/xml</directory>
                         <outputDirectory>iDiscover/conf/xml</outputDirectory>
                     </fileSet>
@@ -365,7 +373,18 @@
             <source>../bgpPeeringMap.pfl</source>
             <outputDirectory>bin</outputDirectory>
         </file>
+
+
     </files>
+    <!--<filests>-->
+        <!--<fileset>-->
+            <!--<directory>../snmptoolkit</directory>-->
+            <!--<includes>-->
+                <!--<include>mibs</include>-->
+                <!--<outputDirectory>snmptoolkit</outputDirectory>-->
+            <!--</includes>-->
+        <!--</fileset>-->
+    <!--</filests>-->
     <dependencySets>
         <dependencySet>
             <outputDirectory>lib/</outputDirectory>
