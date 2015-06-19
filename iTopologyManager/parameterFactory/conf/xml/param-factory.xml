@@ -35,7 +35,7 @@
     </param-factory-element-types>
     <param-factory name="configureHostname">
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
         </param-factory-element>
         <param-factory-element type="manual">
             <param name="Hostname"/>
@@ -48,7 +48,7 @@
     </param-factory>
      <param-factory name="setDeviceLocation">
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
         </param-factory-element>
         <param-factory-element type="manual">
             <param name="Location"/>
@@ -61,7 +61,7 @@
     </param-factory>
     <param-factory name="setDeviceAdminData">
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="manual">
@@ -78,7 +78,7 @@
 
     <param-factory name="enableIPv6Routing">
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
         </param-factory-element>
         <param-factory-element type="resource">
             <param name="username"/>
@@ -89,7 +89,7 @@
 
     <param-factory name="IPv6Tunnel">
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="manual">
@@ -108,7 +108,7 @@
     </param-factory>
     <param-factory name="IPv6Default">
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="manual">
@@ -124,7 +124,7 @@
 
     <param-factory name="CreateVRF">
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="manual">
@@ -140,7 +140,7 @@
     </param-factory>
     <param-factory name="ApplyVRF">
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="manual">
@@ -155,7 +155,7 @@
     </param-factory>
     <param-factory name="addDefaultToVRF">
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="manual">
@@ -171,7 +171,7 @@
 
     <param-factory name="addStaticToVrf">
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="manual">
@@ -189,7 +189,7 @@
     </param-factory>
      <param-factory name="ipv6Forwarding">
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="resource">
@@ -204,7 +204,7 @@
             <param name="Interface"/>
         </param-factory-element>
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="resource">
@@ -219,7 +219,7 @@
             <param name="process"/>
         </param-factory-element>
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="resource">
@@ -233,7 +233,7 @@
             <param name="process"/>
         </param-factory-element>
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="resource">
@@ -249,7 +249,7 @@
             <param name="area"/>
         </param-factory-element>
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="resource">
@@ -263,7 +263,7 @@
             <param name="destination"/>
         </param-factory-element>
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="resource">
@@ -278,7 +278,7 @@
             <param name="d"/>
         </param-factory-element>
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="site"/>
         </param-factory-element>
         <param-factory-element type="deviceData">
@@ -293,7 +293,7 @@
     </param-factory>
     <param-factory name="ConfigureInterface">
            <param-factory-element type="graphml">
-               <param name="ManagementIPAddress"/>
+               <param name="discoveredIPv4Address"/>
                <param name="hostname"/>
            </param-factory-element>
            <param-factory-element type="manual">
@@ -312,7 +312,7 @@
 
     <param-factory name="basic">
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
             <param name="hostname"/>
         </param-factory-element>
         <param-factory-element type="resource">
@@ -326,7 +326,7 @@
             <param name="domain-name"/>
         </param-factory-element>
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
         </param-factory-element>
         <param-factory-element type="resource">
             <param name="username"/>
@@ -339,7 +339,7 @@
             <param name="Local_AS"/>
         </param-factory-element>
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
         </param-factory-element>
         <param-factory-element type="deviceData">
             <param name="Router_ID">//DiscoveredDevice/object[objectType='Discovery Interface' and name = 'Loopback0']/../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value</param>
@@ -357,7 +357,7 @@
             <param name="neigh_id"/>
         </param-factory-element>
         <param-factory-element type="graphml">
-            <param name="ManagementIPAddress"/>
+            <param name="discoveredIPv4Address"/>
         </param-factory-element>
         <param-factory-element type="resource">
             <param name="username"/>

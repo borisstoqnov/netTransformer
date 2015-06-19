@@ -25,7 +25,7 @@
         <!--<constructor-arg value="1"/>-->
     <!--</bean>-->
 
-    <bean id="connectionList" scope="prototype" class="net.itransformers.idiscover.v2.core.CvsConnectionDetailsFactory"
+    <bean id="connectionList" scope="prototype" class="net.itransformers.idiscover.v2.core.CsvConnectionDetailsFactory"
           factory-method="createConnectionDetail"/>
 
     <!--<bean id="connectionList" class="java.util.ArrayList">-->

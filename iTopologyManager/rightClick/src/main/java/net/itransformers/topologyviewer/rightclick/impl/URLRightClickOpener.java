@@ -38,7 +38,7 @@ public class URLRightClickOpener implements RightClickHandler {
                 fullAddress = rightClickParams.get("url");
                 String url = null;
                 if (fullAddress==null){
-                String address = graphMLParams.get("ManagementIPAddress");
+                String address = graphMLParams.get("discoveredIPv4Address");
                 String port= rightClickParams.get("port");
                 String protocol= rightClickParams.get("protocol");
 

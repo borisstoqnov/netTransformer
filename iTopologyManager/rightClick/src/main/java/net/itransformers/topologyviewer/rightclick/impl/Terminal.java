@@ -93,7 +93,7 @@ public class Terminal {
 
 	public void openSession(Map<String, String> connParams) {
 		if(!terminal.isSessionRunning()){
-			terminal.setTty(new JSchTty(connParams.get("ManagementIPAddress"), connParams.get("username"), connParams.get("password")));
+			terminal.setTty(new JSchTty(connParams.get("discoveredIPv4Address"), connParams.get("username"), connParams.get("password")));
             terminal.setBackground(Color.BLACK);
             terminal.setForeground(Color.GREEN);
 
@@ -105,7 +105,7 @@ public class Terminal {
 //            } catch (RuntimeException rte){
 //                logger.info("can not parse timeout:"+connParams.get("timeout"));
 //            }
-//            terminal.setTty(new JTelnetTty(connParams.get("ManagementIPAddress"),
+//            terminal.setTty(new JTelnetTty(connParams.get("discoveredIPv4Address"),
 //                    port,
 //                    timeout));
 			terminal.start();
@@ -157,8 +157,8 @@ public class Terminal {
 		Logger.getRootLogger().setLevel(Level.INFO);
         Terminal term = new Terminal();
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("ManagementIPAddress","172.16.13.1");
-        params.put("port","23");
+        params.put("discoveredIPv4Address","172.16.10.2");
+        params.put("port","22");
         params.put("timeout","1000");
         term.openSession(params);
 

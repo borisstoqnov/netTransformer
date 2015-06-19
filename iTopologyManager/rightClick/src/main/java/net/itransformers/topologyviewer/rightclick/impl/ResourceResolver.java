@@ -48,7 +48,7 @@ public class ResourceResolver {
                 connParams.put(param.getName(), param.getValue());
             }
             // ask Niki how to remove this hardcode
-            connParams.put("ManagementIPAddress",graphMLParams.get("ManagementIPAddress"));
+            connParams.put("discoveredIPv4Address",graphMLParams.get("discoveredIPv4Address"));
             connParams.put("protocol", connParamsType.getConnectionType());
             return connParams;
 

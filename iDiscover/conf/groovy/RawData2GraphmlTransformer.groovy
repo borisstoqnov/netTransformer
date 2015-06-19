@@ -112,6 +112,7 @@ input.object.findAll {
         boolean bogon = false
         boolean hostOnly = false;
         boolean privateSubnet = false;
+        boolean p2p = false;
         String ipv4Address
         it.parameters.parameter.findAll {
             it.name.text() == 'ipv4Subnet'
@@ -181,9 +182,13 @@ input.object.findAll {
             // subnet = subnetId
             if (bogon == false) {
                 String ipv4SubnetMaskPrefix = it.value.text()
-//                if (ipv4SubnetMaskPrefix=="32"){
-//                    hostOnly=true;
-//                }
+                if (ipv4SubnetMaskPrefix=="32"){
+                    hostOnly=true;
+                }
+                if (ipv4SubnetMaskPrefix == "31" || ipv4SubnetMaskPrefix=="30"){
+                    p2p = true;
+
+                }
                 String subnetPrefix = subnetId + "/" + ipv4SubnetMaskPrefix
                 subnet.setName(subnetPrefix)
                 subnet.setPrefix(subnetPrefix)
@@ -192,7 +197,7 @@ input.object.findAll {
                 subnet.setSubnetProtocolType("IPv4")
             }
         }
-        if (bogon == false && hostOnly == false) {
+        if (bogon == false && hostOnly == false && p2p==false) {
             subnet.setLocalInterface(localInterfaceName)
             device.addSubnet(subnet)
         }

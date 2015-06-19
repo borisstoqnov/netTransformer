@@ -36,8 +36,7 @@ import javax.xml.bind.JAXBException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Vector;
 
@@ -409,7 +408,7 @@ public class DiscoveryResourcePanel extends JPanel {
         for (ResourceType resourceType : resourcesList) {
             Vector vec = new Vector();
             vec.add(resourceType.getName());
-            resourcesTableModelData.add(0,vec);
+            resourcesTableModelData.add(vec);
         }
     }
 
@@ -450,6 +449,20 @@ public class DiscoveryResourcePanel extends JPanel {
                 paramsList.add(0,paramType);
             }
         }
+    }
+
+    public void load(File file) throws Exception{
+        FileInputStream is = null;
+        is = new FileInputStream(file);
+        ResourcesType resources = null;
+        resources = JaxbMarshalar.unmarshal(ResourcesType.class, is);
+        this.setResources(resources);
+    }
+
+    public void save(File file) throws Exception{
+        ResourcesType resources = this.getResources();
+        FileOutputStream os = new FileOutputStream(file);
+        JaxbMarshalar.marshal(resources, os, "resources");
     }
 
     public static void main(String[] args) throws IOException, JAXBException {

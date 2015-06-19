@@ -1,21 +1,15 @@
 package net.itransformers.topologyviewer.dialogs.discovery;
-import net.itransformers.idiscover.v2.core.CvsConnectionDetailsFactory;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
-import net.itransformers.resourcemanager.config.ResourcesType;
-import net.itransformers.utils.JaxbMarshalar;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
-import javax.xml.bind.JAXBException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class DiscoveryWizardDialog extends JDialog  {
+public class DiscoveryWizardDialog extends JDialog {
 
     private int option = JOptionPane.CLOSED_OPTION;
     private JPanel contentPanel = null;
@@ -25,21 +19,20 @@ public class DiscoveryWizardDialog extends JDialog  {
     private String projectPath;
 
 
-
     /**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        try {
             UIManager.put("Table.gridColor", new ColorUIResource(Color.gray));
 
-			DiscoveryWizardDialog dialog = new DiscoveryWizardDialog(null,".");
+            DiscoveryWizardDialog dialog = new DiscoveryWizardDialog(null, ".");
             int option = dialog.showDialog();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public DiscoveryWizardDialog(Frame parentFrame, String projectPath) {
@@ -49,74 +42,83 @@ public class DiscoveryWizardDialog extends JDialog  {
         this.projectPath = projectPath;
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 1000, 600);
-		getContentPane().setLayout(new BorderLayout());
+        getContentPane().setLayout(new BorderLayout());
 
 
-        try {
-            init();
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        init();
 
         {
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				prevButton = new JButton("BACK");
-				prevButton.setActionCommand("BACK");
-				buttonPane.add(prevButton);
-				getRootPane().setDefaultButton(prevButton);
+            JPanel buttonPane = new JPanel();
+            buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+            getContentPane().add(buttonPane, BorderLayout.SOUTH);
+            {
+                prevButton = new JButton("BACK");
+                prevButton.setActionCommand("BACK");
+                buttonPane.add(prevButton);
+                getRootPane().setDefaultButton(prevButton);
                 prevButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        try {
-                            DiscoveryWizardDialog.this.prev();
-                        } catch (IOException e1) {
-                            e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                        }
-//                        option = JOptionPane.OK_OPTION;
-//                        DiscoveryWizardDialog.this.setVisible(false);
+                        DiscoveryWizardDialog.this.prev();
                     }
                 });
                 prevButton.setEnabled(false);
-			}
-			{
-				nextButton = new JButton("NEXT");
-				nextButton.setActionCommand("NEXT");
-				buttonPane.add(nextButton);
+            }
+            {
+                nextButton = new JButton("NEXT");
+                nextButton.setActionCommand("NEXT");
+                buttonPane.add(nextButton);
                 nextButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         DiscoveryWizardDialog.this.next();
-//                        option = JOptionPane.CANCEL_OPTION;
-//                        DiscoveryWizardDialog.this.setVisible(false);
                     }
                 });
 
 
             }
-		}
+        }
 
     }
 
-    private void init() throws IOException {
-        java.util.Map<String,ConnectionDetails> connDetails = CvsConnectionDetailsFactory.createConnectionDetail(new File("iDiscover/conf/txt/connection-details.txt"));
-        updateCurrentPanel(new ConnectionDetailsPanel(connDetails));
+    private void init() {
+        File file = new File(projectPath, "iDiscover/conf/txt/connection-details.txt");
+        ConnectionDetailsPanel connectionDetailsPanel = new ConnectionDetailsPanel();
+        try {
+            connectionDetailsPanel.load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error loading connection details file");
+
+        }
+        updateCurrentPanel(connectionDetailsPanel);
     }
 
-    private void prev() throws IOException {
+    private void prev() {
         prevButton.setEnabled(true);
         nextButton.setEnabled(true);
-//        if (contentPanel instanceof DiscoveryParametersPanel){
-//            java.util.Map<String,ConnectionDetails> connDetails = CvsConnectionDetailsFactory.createConnectionDetail(new File("iDiscover/src/main/resources/connection-details.txt"));
-//            updateCurrentPanel(new ConnectionDetailsPanel(connDetails));
-//            prevButton.setEnabled(false);
         if (contentPanel instanceof DiscoveryResourcePanel) {
-            java.util.Map<String,ConnectionDetails> connDetails = CvsConnectionDetailsFactory.createConnectionDetail(new File("iDiscover/conf/txt/connection-details.txt"));
-
-            updateCurrentPanel(new ConnectionDetailsPanel(connDetails));
+            File resourceFile = new File(projectPath, "resourceManager/conf/xml/resource.xml");
+            try {
+                ((DiscoveryResourcePanel) contentPanel).save(resourceFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error saving resources file");
+            }
+            File file = new File(projectPath, "iDiscover/conf/txt/connection-details.txt");
+            ConnectionDetailsPanel panel = new ConnectionDetailsPanel();
+            try {
+                panel.load(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error loading connection file");
+            }
+            updateCurrentPanel(panel);
             prevButton.setEnabled(false);
+
+            nextButton.setText("NEXT");
+            nextButton.setEnabled(true);
+            nextButton.setActionCommand("NEXT");
 
         }
 
@@ -125,61 +127,60 @@ public class DiscoveryWizardDialog extends JDialog  {
     private void next() {
         prevButton.setEnabled(true);
         nextButton.setEnabled(true);
-//        if (contentPanel instanceof ConnectionDetailsPanel){
-//            updateCurrentPanel(new DiscoveryParametersPanel());
-//        } else
         if (contentPanel instanceof ConnectionDetailsPanel) {
-            FileInputStream is = null;
-
+            File connectionFile = new File(projectPath, "iDiscover/conf/txt/connection-details.txt");
             try {
-                is = new FileInputStream("resourceManager/conf/xml/resource.xml");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                ((ConnectionDetailsPanel) contentPanel).save(connectionFile);
+            } catch (FileNotFoundException e1) {
+                e1.printStackTrace();
+                JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error saving connection details file");
             }
-
-            ResourcesType resources = null;
-            try {
-                resources = JaxbMarshalar.unmarshal(ResourcesType.class, is);
-            } catch (JAXBException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-            final DiscoveryResourcePanel panel = new DiscoveryResourcePanel();
-                panel.setResources(resources);
-
-            updateCurrentPanel(panel);
-            nextButton.setText("GO!");
-            nextButton.setEnabled(true);
-            nextButton.setActionCommand("GO");
-
-            panel.setResources(resources);
-            nextButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (nextButton.getActionCommand().equals("GO")) {
-                        try {
-                            DiscoveryManagerDialogV2 discoveryManagerDialogV2 = new DiscoveryManagerDialogV2(DiscoveryWizardDialog.this.frame,new File(projectPath));
-                            //discoveryManagerDialogV2.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                            DiscoveryWizardDialog.this.setVisible(false);
-                            discoveryManagerDialogV2.setVisible(true);
-
-                        } catch (Exception e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-//                        option = JOptionPane.CANCEL_OPTION;
-//                        DiscoveryWizardDialog.this.setVisible(false);
-                }
-            });
-
-
 
         }
 
-    }
-    private void go() {
+        final DiscoveryResourcePanel panel = new DiscoveryResourcePanel();
+        File resourceFile = new File(projectPath, "resourceManager/conf/xml/resource.xml");
+        try {
+            panel.load(resourceFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error loading resources details file");
+        }
+
+        updateCurrentPanel(panel);
+        nextButton.setText("GO!");
+        nextButton.setEnabled(true);
+        nextButton.setActionCommand("GO");
+
+        nextButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (nextButton.getActionCommand().equals("GO")) {
+                    DiscoveryWizardDialog.this.go();
+                }
+            }
+        });
     }
 
-        private void updateCurrentPanel(JPanel panel){
+
+    private void go() {
+        File resourceFile = new File(projectPath, "resourceManager/conf/xml/resource.xml");
+        try {
+            ((DiscoveryResourcePanel) contentPanel).save(resourceFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error saving resources file");
+        }
+        try {
+            DiscoveryManagerDialogV2 discoveryManagerDialogV2 = new DiscoveryManagerDialogV2(DiscoveryWizardDialog.this.frame, new File(projectPath));
+            DiscoveryWizardDialog.this.setVisible(false);
+            discoveryManagerDialogV2.setVisible(true);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    private void updateCurrentPanel(JPanel panel) {
         if (contentPanel != null) {
             getContentPane().remove(contentPanel);
         }
@@ -190,8 +191,7 @@ public class DiscoveryWizardDialog extends JDialog  {
     }
 
 
-
-    public int showDialog(){
+    public int showDialog() {
         this.setVisible(true);
         this.dispose();
         return option;

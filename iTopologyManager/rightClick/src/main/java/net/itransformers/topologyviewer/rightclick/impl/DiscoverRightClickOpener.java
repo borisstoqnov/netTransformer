@@ -40,7 +40,7 @@ public class DiscoverRightClickOpener implements RightClickHandler {
         url = rightClickParams.get("url");
         String fullUrl = null;
         String address=null;
-        address = graphMLParams.get("ManagementIPAddress");
+        address = graphMLParams.get("discoveredIPv4Address");
         String port = null;
         port= rightClickParams.get("port");
         String protocol=null;

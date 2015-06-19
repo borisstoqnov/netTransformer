@@ -24,8 +24,6 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 import net.itransformers.topologyviewer.rightclick.impl.putty.Putty;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONSerializer;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;

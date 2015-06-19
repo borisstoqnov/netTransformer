@@ -32,7 +32,7 @@ public class Putty {
     }
 
     public void openSession(Map<String, String> connParams){
-        this.openSession(connParams.get("protocol"), connParams.get("username"), connParams.get("password"), connParams.get("ManagementIPAddress"),connParams.get("session"));
+        this.openSession(connParams.get("protocol"), connParams.get("username"), connParams.get("password"), connParams.get("discoveredIPv4Address"),connParams.get("session"));
     }
 
     public void openSession(String protocol, String userName, String password, String host,String session){

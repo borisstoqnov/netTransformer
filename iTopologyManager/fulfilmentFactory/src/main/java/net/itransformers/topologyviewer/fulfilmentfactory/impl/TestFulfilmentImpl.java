@@ -20,7 +20,6 @@
 package net.itransformers.topologyviewer.fulfilmentfactory.impl;
 
 import net.itransformers.topologyviewer.fulfilmentfactory.Fulfilment;
-import net.itransformers.resourcemanager.config.ResourceType;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -48,7 +47,7 @@ public class TestFulfilmentImpl implements Fulfilment {
     public void fulfil(File projectPath, Map<String, String> parameters,
                        Map<String, String> fulfilmentFactoryParams, Logger logger) throws IOException {
         this.projectPath = projectPath;
-        cli = new TelnetCLIInterface(parameters.get("ManagementIPAddress"),parameters.get("username"),parameters.get("password"),parameters.get("hostname")+"#",1000, logger);
+        cli = new TelnetCLIInterface(parameters.get("discoveredIPv4Address"),parameters.get("username"),parameters.get("password"),parameters.get("hostname")+"#",1000, logger);
         cli.open();
         execute(fulfilmentFactoryParams.get("commands"), parameters);
         cli.close();

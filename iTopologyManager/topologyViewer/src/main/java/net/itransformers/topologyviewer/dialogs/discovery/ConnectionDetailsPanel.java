@@ -1,5 +1,6 @@
 package net.itransformers.topologyviewer.dialogs.discovery;
 
+import net.itransformers.idiscover.v2.core.CsvConnectionDetailsFileManager;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 
 import javax.swing.*;
@@ -12,6 +13,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -21,20 +26,19 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
     private DefaultTableModel tableModel;
     private final JTable table;
 
-    private Map<String,ConnectionDetails> connDetails;
+    private Map<String,ConnectionDetails> connDetails = new HashMap<String, ConnectionDetails>();
     private String selectedConnection;
 
     private JTextField connTypeTextField;
 
 
-    public ConnectionDetailsPanel(final java.util.Map<String, ConnectionDetails> connDetails) {
+    public ConnectionDetailsPanel() {
 
-        this.connDetails = connDetails;
         this.setLayout(new BorderLayout());
 
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        initListModel();
+
         this.setLayout(new BorderLayout(0, 0));
 
         JPanel description= new JPanel();
@@ -103,14 +107,15 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
         removeListButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int selectedIndex = list.getSelectedIndex();
-                if (selectedIndex != -1){
+                if (selectedIndex != -1) {
                     listModel.remove(selectedIndex);
                 }
             }
         });
         listButtonsPanel.add(removeListButton);
 
-        list = new JList<String>(listModel);
+        list = new JList<String>();
+        initListModel();
         JScrollPane listScrollPane = new JScrollPane(list);
         listPanel.add(listScrollPane);
 
@@ -161,6 +166,12 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
         JScrollPane tableScrollPane = new JScrollPane(table);
         tablePanel.add(tableScrollPane);
 
+    }
+
+    public void load(File file) throws IOException {
+        java.util.Map<String,ConnectionDetails> connDetails = new CsvConnectionDetailsFileManager().load(file);
+        this.connDetails = connDetails;
+        initListModel();
         if (listModel.getSize() >0 ) {
             list.setSelectedIndex(0);
             selectedConnection = listModel.get(0);
@@ -168,9 +179,9 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
         }
     }
 
+    public void save(File file) throws FileNotFoundException {
+        new CsvConnectionDetailsFileManager().save(file, connDetails);
 
-    public Map<String, ConnectionDetails> getConnDetails() {
-        return connDetails;
     }
 
     private void updateConnDetails(ConnectionDetails connDetail) {
@@ -195,6 +206,7 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
         for (String name : connDetails.keySet()) {
             listModel.addElement(name);
         }
+        list.setModel(listModel);
     }
 
     @Override

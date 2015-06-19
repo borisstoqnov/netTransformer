@@ -42,7 +42,7 @@ public class PuttyRightClickHandler implements RightClickHandler {
             return;
         }
         String session = rightClickParams.get("saved_session");
-//        connParams.put("ManagementIPAddress",graphMLParams.get("ManagementIPAddress"));
+//        connParams.put("discoveredIPv4Address",graphMLParams.get("discoveredIPv4Address"));
         connParams.put("session", session);
 
         handleConnParams(parent, connParams, rightClickParams);

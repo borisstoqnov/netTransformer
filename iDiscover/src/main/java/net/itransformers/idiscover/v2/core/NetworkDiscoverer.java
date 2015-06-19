@@ -8,6 +8,4 @@ public interface NetworkDiscoverer  {
     NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList);
     NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList, int depth);
     void setNetworkDiscoveryListeners(List<NetworkDiscoveryListener> networkDiscoveryListeners);
-
-
     }

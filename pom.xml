@@ -30,7 +30,7 @@
     <groupId>iTransformers</groupId>
     <artifactId>iTransformer</artifactId>
     <version>0.8</version><!--Change for new version-->
-    <description>Rodopi Edition http://www.mayaeye.com/browse.php?menu_id=211</description>
+    <description>Parga Edition</description>
     <packaging>pom</packaging>
 
     <!--http://mvnrepository.com/artifact/net.sf.jung-->
