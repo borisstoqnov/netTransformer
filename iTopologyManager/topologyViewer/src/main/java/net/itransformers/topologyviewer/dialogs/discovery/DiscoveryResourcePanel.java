@@ -207,6 +207,10 @@ public class DiscoveryResourcePanel extends JPanel {
         });
         btnNewButton.setBounds(396, 178, 46, 23);
         add(btnNewButton);
+
+        // Dirty hack for linux
+        add(new Label());
+
         String text =
                 "<html>"+
                         "Please configure your discovery resources. <p>Discovery process will " +
