@@ -77,6 +77,12 @@
                     <version>2.2</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.opendaylight.yangtools</groupId>
+                    <artifactId>yang-maven-plugin</artifactId>
+                    <version>0.6.2-SNAPSHOT</version>
+                    <!-- configuration -->
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.1</version>
@@ -132,10 +138,10 @@
         </pluginManagement>
     </build>
     <distributionManagement>
-        <repository>
+            <repository>
             <id>jfrogrepo</id>
             <name>jfrogrepo-releases</name>
-            <url>http://193.19.172.133:24280/artifactory/ext-release-local</url>
+            <url>http://build.itransformers.net:8081/artifactory/ext-release-local</url>
         </repository>
     </distributionManagement>
     <repositories>
@@ -143,16 +149,37 @@
         <repository>
             <id>jfrogrepo-libs-release-local</id>
             <name>jfrogrepo-releases</name>
-            <url>http://193.19.172.133:24280/artifactory/libs-release-local</url>
+            <url>http://build.itransformers.net:8081/artifactory/libs-release-local</url>
         </repository>
         <repository>
             <id>jfrogrepo-ext-release-local</id>
             <name>jfrogrepo-releases</name>
-            <url>http://193.19.172.133:24280/artifactory/ext-release-local</url>
+            <url>http://build.itransformers.net:8081/artifactory/ext-release-local</url>
         </repository>
 
-
+        <repository>
+            <id>opendaylight-release</id>
+            <name>opendaylight-release</name>
+            <url>http://nexus.opendaylight.org/content/repositories/opendaylight.release/</url>
+        </repository>
+        <repository>
+            <id>opendaylight-snapshot</id>
+            <name>opendaylight-snapshot</name>
+            <url>http://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/</url>
+        </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>opendaylight-release</id>
+            <name>opendaylight-release</name>
+            <url>http://nexus.opendaylight.org/content/repositories/opendaylight.release/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>opendaylight-snapshot</id>
+            <name>opendaylight-snapshot</name>
+            <url>http://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/</url>
+        </pluginRepository>
+    </pluginRepositories>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

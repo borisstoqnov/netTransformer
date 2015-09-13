@@ -754,17 +754,17 @@
             </rightClickItem>
             <rightClickItem name="Graphml device model browser" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler">
                 <param name="type">graphml</param>
-                <param name="path">device-centric</param>
+                <param name="path">graphml-undirected</param>
             </rightClickItem>
             <rightClickItem name="Graphml editor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
                 <param name="type">graphml</param>
-                <param name="path">device-centric</param>
+                <param name="path">graphml-undirected</param>
                 <!--Path attrbiute should be equal to the setting of the "device-centric-logging-path" used in discoveryManager.xml-->
             </rightClickItem>
 
             <rightClickItem name="Device xml editor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
                 <param name="type">deviceXml</param>
-                <param name="path">device-hierarchical</param>
+                <param name="path">graphml-undirected</param>
                 <!--Path attrbiute should be equal to the setting of the "device-data-logging-path" used in discoveryManager.xml-->
             </rightClickItem>
             <rightClickItem name="Raw-Data XML Viewer" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">

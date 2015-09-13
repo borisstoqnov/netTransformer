@@ -95,7 +95,7 @@ public class NewProjectDialog extends JDialog {
             contentPanel.add(label);
         }
         {
-            String[] projectTypes = {"IP Network", "BGP Peering Map"};
+            String[] projectTypes = {"IP Network", "BGP Peering Map", "Free Graph"};
             final JComboBox comboBox = new JComboBox(projectTypes);
             comboBox.setBounds(108, 47, 277, 22);
             comboBox.setSelectedItem(projectTypes[0]);

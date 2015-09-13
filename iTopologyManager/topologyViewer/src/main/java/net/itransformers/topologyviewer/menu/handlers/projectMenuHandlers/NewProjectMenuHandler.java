@@ -68,12 +68,23 @@ public class NewProjectMenuHandler implements ActionListener {
             frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
 
 
-        } else {
+        }else if (dialog.getProjectType().equals("Free Graph")) {
+            file = new File("freeGraph.pfl");
+            frame.setProjectType("freeGraph");
+            frame.setViewerConfig(new File(dialog.getProjectDir() +File.separator +"iTopologyManager/topologyViewer/conf/xml/freeGraph/viewer-config.xml"));
+            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
+            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
+            frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
+
+
+        }
+
+        else {
             file = new File("netTransformer.pfl");
             frame.setProjectType("IPNetworkDiscoverer");
             frame.setViewerConfig(new File(dialog.getProjectDir() +File.separator +"iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
             frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
+            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
             frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
 
         }

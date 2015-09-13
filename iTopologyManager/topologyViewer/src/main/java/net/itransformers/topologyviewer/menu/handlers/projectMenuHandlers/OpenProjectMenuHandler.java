@@ -140,19 +140,29 @@ public class OpenProjectMenuHandler implements ActionListener {
             }
             logger.info("Selected project file is:"+selectedFile.getAbsolutePath());
             if(selectedFile.getName().equals("bgpPeeringMap.pfl")){
-                frame.setProjectType("netTransformer - BGP Peering Map");
+                frame.setProjectType("BGP Peering Map");
                 frame.setName("bgpPeeringMap");
                 frame.setViewerConfig(new File(selectedFile.getParentFile()+ File.separator+"iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
 
-            } else if(selectedFile.getName().equals("netTransformer.pfl"))    {
-                frame.setProjectType("netTransformer - IP Network Discoverer");
+            }if(selectedFile.getName().equals("freeGraph.pfl")){
+                frame.setProjectType("Free Graph");
+                frame.setName("bgpPeeringMap");
+                frame.setViewerConfig(new File(selectedFile.getParentFile()+ File.separator+"iTopologyManager/topologyViewer/conf/xml/freeGraph/viewer-config.xml"));
+                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
+                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
+                frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
+
+            }
+            else if(selectedFile.getName().equals("netTransformer.pfl"))    {
+                frame.setProjectType("IP Network Discovery");
                 frame.setViewerConfig(new File(selectedFile.getParentFile()+File.separator+ "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
                 //
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
+
                 frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
 
             }  else{

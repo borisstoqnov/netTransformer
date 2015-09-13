@@ -64,7 +64,7 @@ public class DiffMenuHandler implements ActionListener {
             if (wizardDialog.getResult() == DiffWizardDialog.Result.DONE) {
 //                frame.setConfigUri(new File(wizardDialog.getDiffConfigPath()));
                 //TODO remove hardcore
-                frame.doOpenGraph(new File(wizardDialog.getDiffPath3()+File.separator+"device-centric"+File.separator+ "network.graphml"));
+                frame.doOpenGraph(new File(wizardDialog.getDiffPath3()+File.separator+ "network.graphml"));
             }
     }
 }
