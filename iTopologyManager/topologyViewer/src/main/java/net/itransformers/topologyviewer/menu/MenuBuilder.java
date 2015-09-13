@@ -241,6 +241,7 @@ public class MenuBuilder {
         final JMenuItem newProject = new JMenuItem("New Project");
         newProject.addActionListener(new NewProjectMenuHandler(frame));
         file.add(newProject);
+
         final JMenuItem open = new JMenuItem("Open Project");
         open.addActionListener(new OpenProjectMenuHandler(frame));
         file.add(open);
@@ -249,6 +250,12 @@ public class MenuBuilder {
         file.add(close);
 
         file.addSeparator();
+
+        final JMenuItem addGraph = new JMenuItem("Add Graph");
+        addGraph.addActionListener(new AddGraphMenuHandler(frame));
+        addGraph.setEnabled(false);
+        file.add(addGraph);
+
 
         final JMenuItem openGraph = new JMenuItem("Open Graph");
         openGraph.addActionListener(new OpenGraphMenuHandler(frame));
