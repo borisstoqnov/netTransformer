@@ -72,7 +72,7 @@
 
 
     <bean id="sdnGraphmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.sdnGraphmlFileLogDiscoveryListener">
-        <property name="graphmlDataDirName" value="network/undirected"/>
+        <property name="graphmlDataDirName" value="network"/>
         <property name="labelDirName" value="network"/>
         <property name="floodLighGraphmlXsltTransformator" value="iDiscover/conf/xslt/floodLighGraphmlTransformator.xslt"/>
     </bean>

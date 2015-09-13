@@ -197,7 +197,7 @@ input.object.findAll {
                 subnet.setSubnetProtocolType("IPv4")
             }
         }
-        if (bogon == false && hostOnly == false && p2p==false) {
+        if (bogon == false && hostOnly == false) {
             subnet.setLocalInterface(localInterfaceName)
             device.addSubnet(subnet)
         }
@@ -321,7 +321,14 @@ input.object.findAll {
     }
 
     if (!subnetFlag) {
-        device.addLogicalNeighbour(neighbour)
+        HashMap<String, DeviceNeighbour> deviceLogicalNeighbours = device.getLogicalNeighbours();
+        if (!deviceLogicalNeighbours.get(neighborName)) {
+            device.addLogicalNeighbour(neighbour);
+        } else {
+            HashMap<String, String> properties = device.getLogicalNeighbours().get(neighborName).getProperties();
+            String currentMethods = properties.get("Discovery Method");
+            properties.put("Discovery Method", currentMethods + "," + method);
+        }
     }
 
 }
@@ -410,10 +417,10 @@ for (Map.Entry<String, DeviceNeighbour> neighboursEntry : device.getPhysicalNeig
     String neighbourId = neighboursEntry.getKey();
 
     String edgeId;
-    if (device.getName() >= "-" + neighbourId) {
+    if (device.getName() >= neighbourId) {
         edgeId = device.getName() + "-" + neighbourId;
     } else {
-        edgeId = neighbourId + "-" + neighbourId;
+        edgeId = neighbourId + "-" + device.getName();
     }
 
     output << "\t\t<edge id=\"" << edgeId << "\" source=\"" << device.getName() << "\" target=\"" << neighbourId << "\" label=\"" << edgeId << "\">\n"
@@ -435,10 +442,10 @@ for (Map.Entry<String, DeviceNeighbour> neighboursEntry : device.getLogicalNeigh
     String neighbourId = neighboursEntry.getKey();
 
     String edgeId;
-    if (device.getName() >= "-" + neighbourId) {
+    if (device.getName() >= neighbourId) {
         edgeId = device.getName() + "-" + neighbourId;
     } else {
-        edgeId = neighbourId + "-" + neighbourId;
+        edgeId = neighbourId + "-" + device.getName();
     }
 
     output << "\t\t<edge id=\"" << edgeId << "\" source=\"" << device.getName() << "\" target=\"" << neighbourId << "\" label=\"" << edgeId << "\">\n"

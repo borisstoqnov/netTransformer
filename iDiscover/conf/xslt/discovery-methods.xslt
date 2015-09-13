@@ -686,4 +686,141 @@
 		</object>
 		</xsl:if>
 	</xsl:template>
+
+	<xsl:template name="IPSEC-Phase2">
+		<xsl:param name="cipSecTunnelTable"/>
+		<xsl:param name="sysName"/>
+		<xsl:param name="ipv4addresses"/>
+		<xsl:for-each select="$cipSecTunnelTable/cipSecTunnelEntry">
+			<xsl:copy-of select="."/>
+
+			<xsl:variable name="localAddress"><xsl:variable name="temp"><xsl:for-each select="tokenize(cipSecTunLocalAddr,':')"><xsl:call-template name="HexToDecimal"><xsl:with-param name="hexNumber"><xsl:value-of select="."/></xsl:with-param></xsl:call-template>.</xsl:for-each>
+			</xsl:variable><xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>
+			</xsl:variable>
+			<xsl:variable name="next-hop-ip"><xsl:variable name="temp"><xsl:for-each select="tokenize(cipSecTunRemoteAddr,':')"><xsl:call-template name="HexToDecimal"><xsl:with-param name="hexNumber"><xsl:value-of select="."/></xsl:with-param></xsl:call-template>.</xsl:for-each>
+			</xsl:variable>
+				<xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>
+			</xsl:variable>
+
+			<xsl:variable name="status">
+				<xsl:choose>
+					<xsl:when test="cipSecTunIkeTunnelAlive = '1'">UP</xsl:when>
+					<xsl:otherwise>DOWN</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+
+			<xsl:if test="SnmpForXslt:checkBogons($next-hop-ip)=$next-hop-ip and count($ipv4addresses/ipAddrEntry[ipAdEntAddr=$next-hop-ip])=0 and  count($ipv4addresses/ipAddrEntry[ipv4SubnetBroadcast=$next-hop-ip]) = 0">
+
+				<xsl:variable name="neighID">
+					<xsl:call-template name="getNeighID">
+						<xsl:with-param name="neighIP" select="$next-hop-ip"/>
+					</xsl:call-template>
+				</xsl:variable>
+
+				<xsl:if test="$neighID!=$sysName">
+				<object>
+					<name><xsl:value-of select="$neighID"/></name>
+					<objectType>Discovered Neighbor</objectType>
+					<parameters>
+						<parameter>
+							<name>Reachable</name>
+							<value>
+								<xsl:choose>
+									<xsl:when test="$neighID!='' and $neighID != $next-hop-ip">YES</xsl:when>
+									<xsl:otherwise>NO</xsl:otherwise>
+								</xsl:choose>
+							</value>
+						</parameter>
+						<parameter>
+							<name>Discovery Method</name>
+							<value>IPSEC-Phase2</value>
+						</parameter>
+						<xsl:call-template name="return-neighbor-params">
+							<xsl:with-param name="neighborIP" select="$next-hop-ip"/>
+							<xsl:with-param name="neighborHostname" select="$neighID"/>
+						</xsl:call-template>
+					</parameters>
+					<parameter>
+						<name>Local IP address</name>
+						<value><xsl:value-of select="$localAddress"/></value>
+					</parameter>
+					<parameter>
+						<name>Tunnel Status</name>
+						<value><xsl:value-of select="$status"/></value>
+					</parameter>
+				</object>
+			</xsl:if>
+			</xsl:if>
+		</xsl:for-each>
+
+	</xsl:template>
+
+
+	<xsl:template name="IPSEC-Phase1">
+		<xsl:param name="cikeTunnelTable"/>
+		<xsl:param name="sysName"/>
+		<xsl:param name="ipv4addresses"/>
+		<xsl:for-each select="$cikeTunnelTable/cikeTunnelEntry">
+			<xsl:copy-of select="."/>
+
+			<xsl:variable name="localAddress"><xsl:variable name="temp"><xsl:for-each select="tokenize(cikeTunLocalAddr,':')"><xsl:call-template name="HexToDecimal"><xsl:with-param name="hexNumber"><xsl:value-of select="."/></xsl:with-param></xsl:call-template>.</xsl:for-each>
+			</xsl:variable><xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>
+			</xsl:variable>
+			<xsl:variable name="next-hop-ip"><xsl:variable name="temp"><xsl:for-each select="tokenize(cikeTunRemoteAddr,':')"><xsl:call-template name="HexToDecimal"><xsl:with-param name="hexNumber"><xsl:value-of select="."/></xsl:with-param></xsl:call-template>.</xsl:for-each>
+			</xsl:variable>
+				<xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>
+			</xsl:variable>
+
+			<xsl:variable name="status">
+				<xsl:choose>
+					<xsl:when test="cikeTunStatus = '1'">UP</xsl:when>
+					<xsl:otherwise>DOWN</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+
+			<xsl:if test="SnmpForXslt:checkBogons($next-hop-ip)=$next-hop-ip and count($ipv4addresses/ipAddrEntry[ipAdEntAddr=$next-hop-ip])=0 and  count($ipv4addresses/ipAddrEntry[ipv4SubnetBroadcast=$next-hop-ip]) = 0">
+
+				<xsl:variable name="neighID">
+					<xsl:call-template name="getNeighID">
+						<xsl:with-param name="neighIP" select="$next-hop-ip"/>
+					</xsl:call-template>
+				</xsl:variable>
+
+				<xsl:if test="$neighID!=$sysName">
+					<object>
+						<name><xsl:value-of select="$neighID"/></name>
+						<objectType>Discovered Neighbor</objectType>
+						<parameters>
+							<parameter>
+								<name>Reachable</name>
+								<value>
+									<xsl:choose>
+										<xsl:when test="$neighID!='' and $neighID != $next-hop-ip">YES</xsl:when>
+										<xsl:otherwise>NO</xsl:otherwise>
+									</xsl:choose>
+								</value>
+							</parameter>
+							<parameter>
+								<name>Discovery Method</name>
+								<value>IPSEC-Phase1</value>
+							</parameter>
+							<xsl:call-template name="return-neighbor-params">
+								<xsl:with-param name="neighborIP" select="$next-hop-ip"/>
+								<xsl:with-param name="neighborHostname" select="$neighID"/>
+							</xsl:call-template>
+						</parameters>
+						<parameter>
+							<name>Local IP address</name>
+							<value><xsl:value-of select="$localAddress"/></value>
+						</parameter>
+						<parameter>
+							<name>Tunnel Status</name>
+							<value><xsl:value-of select="$status"/></value>
+						</parameter>
+					</object>
+				</xsl:if>
+			</xsl:if>
+		</xsl:for-each>
+
+	</xsl:template>
 </xsl:stylesheet>

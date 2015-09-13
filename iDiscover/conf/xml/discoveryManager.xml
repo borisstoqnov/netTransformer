@@ -34,7 +34,7 @@
         <discovery-manager-listener class="net.itransformers.idiscover.discoverylisteners.XmlTopologyDeviceLogger">
             <param name="xslt">iDiscover/conf/xslt/transformator-undirected2.xslt</param>
             <param name="path">network</param>
-            <param name="device-centric-logging-path">device-centric</param>
+            <param name="device-centric-logging-path">graphml-undirected</param>
             <param name="network-centric-logging-path">undirected</param>
             <param name="type">undirected</param>
         </discovery-manager-listener>

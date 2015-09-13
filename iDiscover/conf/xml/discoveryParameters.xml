@@ -19,6 +19,7 @@
         <discovery-method name="BGP">
             bgpLocalAs,bgpPeerEntry
         </discovery-method>
+
         <discovery-method name="ISIS">
             isisISAdjIPAddrEntry
         </discovery-method>
@@ -93,6 +94,9 @@
         </discovery-method>
         <discovery-method name="BGP">
             bgpLocalAs,bgpPeerEntry
+        </discovery-method>
+        <discovery-method name="IPSEC">
+            cipSecTunnelTable,cikeTunnelTable
         </discovery-method>
         <discovery-method name="ISIS">
             isisISAdjIPAddrEntry

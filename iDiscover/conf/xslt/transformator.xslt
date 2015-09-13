@@ -595,6 +595,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                     <xsl:with-param name="sysName" select="$sysName"/>
                                     <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr"/>
                                 </xsl:call-template>
+
                                 <!--Check for MAC neighbors-->
                                 <xsl:variable name="brdPort">
                                     <xsl:value-of
@@ -1040,6 +1041,16 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                         <xsl:with-param name="bgpPeer" select="."/>
                     </xsl:call-template>
                 </xsl:for-each>
+                <xsl:call-template name="IPSEC-Phase1">
+                    <xsl:with-param name="cikeTunnelTable" select="/root/iso/org/dod/internet/private/enterprises/cisco/ciscoMgmt/ciscoIpSecFlowMonitorMIB/cipSecMIBObjects/cipSecPhaseOne/cikeTunnelTable"/>
+                    <xsl:with-param name="sysName"/>
+                    <xsl:with-param name="ipv4addresses" select="/root/iso/org/dod/internet/mgmt/mib-2/ip/ipAddrTable"/>
+                </xsl:call-template>
+                <xsl:call-template name="IPSEC-Phase2">
+                    <xsl:with-param name="cipSecTunnelTable" select="/root/iso/org/dod/internet/private/enterprises/cisco/ciscoMgmt/ciscoIpSecFlowMonitorMIB/cipSecMIBObjects/cipSecPhaseTwo/cipSecTunnelTable"/>
+                    <xsl:with-param name="sysName"/>
+                    <xsl:with-param name="ipv4addresses" select="/root/iso/org/dod/internet/mgmt/mib-2/ip/ipAddrTable"/>
+                </xsl:call-template>
             </object>
             <object>
                 <name>mplsL3VPNs</name>
@@ -1089,51 +1100,48 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                     </object>
                 </xsl:for-each>
             </object>
-            <object>
-                <name>IPSEC VPNS</name>
-                <objectType>IPSECVPNs</objectType>
-                <parameters/>
-                <xsl:for-each
-                        select="//root/iso/org/dod/internet/private/enterprises/cisco/ciscoMgmt/ciscoIpSecFlowMonitorMIB/cipSecMIBObjects/cipSecPhaseOne/cikeTunnelTable/cikeTunnelEntry">
-                    <xsl:variable name="localAddress"><xsl:variable name="temp"><xsl:for-each select="tokenize(cikeTunLocalAddr,':')"><xsl:call-template name="HexToDecimal"><xsl:with-param name="hexNumber"><xsl:value-of select="."/></xsl:with-param></xsl:call-template>.</xsl:for-each>
-                    </xsl:variable><xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>
-                    </xsl:variable>
-                    <xsl:variable name="remoteAddress"><xsl:variable name="temp"><xsl:for-each select="tokenize(cikeTunRemoteAddr,':')"><xsl:call-template name="HexToDecimal"><xsl:with-param name="hexNumber"><xsl:value-of select="."/></xsl:with-param></xsl:call-template>.</xsl:for-each>
-                    </xsl:variable>
-                        <xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>
-                    </xsl:variable>
-                    <xsl:variable name="status">
-                        <xsl:choose>
-                            <xsl:when test="cikeTunStatus = '1'">UP</xsl:when>
-                            <xsl:otherwise>DESTROYING</xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
-                    <xsl:variable name="cikeTunRemoteValue" select="cikeTunRemoteValue"/>
 
-                    <xsl:variable name="instance" select="instance"/>
-                    <object>
-                        <name>
-                            <xsl:value-of select="$localAddress"/>-<xsl:value-of select="$remoteAddress"/>
-                        </name>
-                        <objectType>IPSEC Tunnel</objectType>
-                        <parameters>
-                            <parameter>
-                                <name>localPeer</name>
-                                <value><xsl:value-of select="$localAddress"/></value>
-                            </parameter>
-                            <parameter>
-                                <name>remotelPeer</name>
-                                <value><xsl:value-of select="$remoteAddress"/></value>
-                            </parameter>
-                            <parameter>
-                                <name>tunnelStatus</name>
-                                <value><xsl:value-of select="$status"/></value>
-                            </parameter>
-                        </parameters>
+                <!--<xsl:for-each-->
+                        <!--select="//root/iso/org/dod/internet/private/enterprises/cisco/ciscoMgmt/ciscoIpSecFlowMonitorMIB/cipSecMIBObjects/cipSecPhaseOne/cikeTunnelTable/cikeTunnelEntry">-->
+                    <!--<xsl:variable name="localAddress"><xsl:variable name="temp"><xsl:for-each select="tokenize(cikeTunLocalAddr,':')"><xsl:call-template name="HexToDecimal"><xsl:with-param name="hexNumber"><xsl:value-of select="."/></xsl:with-param></xsl:call-template>.</xsl:for-each>-->
+                    <!--</xsl:variable><xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>-->
+                    <!--</xsl:variable>-->
+                    <!--<xsl:variable name="remoteAddress"><xsl:variable name="temp"><xsl:for-each select="tokenize(cikeTunRemoteAddr,':')"><xsl:call-template name="HexToDecimal"><xsl:with-param name="hexNumber"><xsl:value-of select="."/></xsl:with-param></xsl:call-template>.</xsl:for-each>-->
+                    <!--</xsl:variable>-->
+                        <!--<xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>-->
+                    <!--</xsl:variable>-->
+                    <!--<xsl:variable name="status">-->
+                        <!--<xsl:choose>-->
+                            <!--<xsl:when test="cikeTunStatus = '1'">UP</xsl:when>-->
+                            <!--<xsl:otherwise>DESTROYING</xsl:otherwise>-->
+                        <!--</xsl:choose>-->
+                    <!--</xsl:variable>-->
+                    <!--<xsl:variable name="cikeTunRemoteValue" select="cikeTunRemoteValue"/>-->
 
-                    </object>
-                </xsl:for-each>
-            </object>
+                    <!--<xsl:variable name="instance" select="instance"/>-->
+                    <!--<object>-->
+                        <!--<name>-->
+                            <!--<xsl:value-of select="$localAddress"/>-<xsl:value-of select="$remoteAddress"/>-->
+                        <!--</name>-->
+                        <!--<objectType>Discovered Neighbor</objectType>-->
+                        <!--<parameters>-->
+                            <!--<parameter>-->
+                                <!--<name>Local IP Address</name>-->
+                                <!--<value><xsl:value-of select="$localAddress"/></value>-->
+                            <!--</parameter>-->
+                            <!--<parameter>-->
+                                <!--<name>remotelPeer</name>-->
+                                <!--<value><xsl:value-of select="$remoteAddress"/></value>-->
+                            <!--</parameter>-->
+                            <!--<parameter>-->
+                                <!--<name>tunnelStatus</name>-->
+                                <!--<value><xsl:value-of select="$status"/></value>-->
+                            <!--</parameter>-->
+                        <!--</parameters>-->
+
+                    <!--</object>-->
+                <!--</xsl:for-each>-->
+
         </DiscoveredDevice>
         <!--</network> -->
     </xsl:template>
