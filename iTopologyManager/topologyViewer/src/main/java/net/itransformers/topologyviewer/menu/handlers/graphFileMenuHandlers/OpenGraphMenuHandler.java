@@ -87,7 +87,7 @@ public class OpenGraphMenuHandler implements ActionListener {
         chooser.setMultiSelectionEnabled(false);
         int result = chooser.showOpenDialog(frame);
         if (result == JFileChooser.APPROVE_OPTION) {
-            File fileResult = new File(chooser.getSelectedFile() + File.separator + "network.graphml");
+            File fileResult = new File(chooser.getSelectedFile() + File.separator + "graphml-undirected" + File.separator +"network.graphml");
 
             System.out.println(fileResult);
 

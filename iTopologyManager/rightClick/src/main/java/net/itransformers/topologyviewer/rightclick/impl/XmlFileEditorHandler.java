@@ -53,7 +53,7 @@ public class XmlFileEditorHandler implements RightClickHandler {
              editor = new JEditorPane(graphmlPath,graphmlDir,".graphml");
 
          } else if(rightClickParams.get("type").equals("raw-data")) {
-             String rawDataPath = versionDir+File.separator+path+File.separator+"raw-data-"+v+".xml";
+             String rawDataPath = versionDir+File.separator+path+File.separator+v+".xml";
              String rawDatalDir =  versionDir + File.separator+path;
 
              editor = new JEditorPane(rawDataPath,rawDatalDir,".xml");

@@ -45,7 +45,7 @@ public class XMLTreeViewHandler implements RightClickHandler {
              new XMLTreeView(v,new File(graphmlPath));
 
          } else {
-             String rawDataPath = versionDir+File.separator+path+File.separator+"raw-data-"+v+".xml";
+             String rawDataPath = versionDir+File.separator+path+File.separator+v+".xml";
              new XMLTreeView(v,new File(rawDataPath));
 
          }

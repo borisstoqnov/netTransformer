@@ -764,7 +764,7 @@
 
             <rightClickItem name="Device xml editor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
                 <param name="type">deviceXml</param>
-                <param name="path">graphml-undirected</param>
+                <param name="path">device-hierarchical</param>
                 <!--Path attrbiute should be equal to the setting of the "device-data-logging-path" used in discoveryManager.xml-->
             </rightClickItem>
             <rightClickItem name="Raw-Data XML Viewer" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
