@@ -74,7 +74,8 @@ public class VertexFilterFactory {
                                     }
                                     //the evaluated node dosn't have that dataKey
                                     if (vertexMetadata.get(dataKey) == null) {
-                                        throw new RuntimeException("No data is defined in vertex metadata for dataKey=" + dataKey);
+                                        logger.debug("No data is defined in vertex metadata for dataKey=" + dataKey);
+                                        continue;
                                     }
                                     //the evaluated node has that dataKey
                                     String value = vertexMetadata.get(dataKey).transformer.transform(v);
