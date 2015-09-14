@@ -320,11 +320,12 @@ public class DiscoveryResourcePanel extends JPanel {
     }
 
     private void onSelectedResource(int index) {
-        updateCurrentResource();
+        if (index != -1) {
+            updateCurrentResource();
+        }
         currentResourceIndex = index;
         mCurrentConnectionTypeIndex = 0;  // the zero is default
         updateResourceTable();
-
     }
 
     private void updateResourceTable() {
@@ -483,13 +484,13 @@ public class DiscoveryResourcePanel extends JPanel {
                     try {
                         JFrame frame = new JFrame();
                         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        frame.setBounds(100, 100, 645, 622);
+                        frame.setBounds(100, 100, 945, 622);
                         JPanel contentPane = new JPanel();
                         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
                         frame.setContentPane(contentPane);
                         contentPane.setLayout(null);
 
-                        panel.setBounds(10, 11, 617, 648);
+                        panel.setBounds(10, 11, 917, 648);
                         contentPane.add(panel);
                         frame.setVisible(true);
                     } catch (Exception e) {
