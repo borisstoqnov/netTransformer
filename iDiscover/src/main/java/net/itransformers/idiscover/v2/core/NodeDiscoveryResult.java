@@ -37,7 +37,6 @@ package net.itransformers.idiscover.v2.core;/*
  */
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.model.Node;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,8 +44,10 @@ import java.util.Map;
 
 public class NodeDiscoveryResult {
     String nodeId;
+    String discoveredIpAddress;
     List<ConnectionDetails> neighboursConnectionDetails;
     Map<String,Object> discoveredData = new HashMap<String,Object>();
+    Map<String, String> connParams;
 
     public String getNodeId() {
         return nodeId;
@@ -54,6 +55,22 @@ public class NodeDiscoveryResult {
 
     public void setNodeId(String nodeId) {
         this.nodeId = nodeId;
+    }
+
+    public String getDiscoveredIpAddress() {
+        return discoveredIpAddress;
+    }
+
+    public void setDiscoveredIpAddress(String discoveredIpAddress) {
+        this.discoveredIpAddress = discoveredIpAddress;
+    }
+
+    public Map<String, String> getConnParams() {
+        return connParams;
+    }
+
+    public void setConnParams(Map<String, String> connParams) {
+        this.connParams = connParams;
     }
 
     public List<ConnectionDetails> getNeighboursConnectionDetails() {

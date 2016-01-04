@@ -210,6 +210,12 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                     </value>
                 </parameter>
                 <parameter>
+                    <name>community-ro</name>
+                    <value>
+                        <xsl:value-of select="$comm"/>
+                    </value>
+                </parameter>
+                <parameter>
                     <name>ipv4Forwarding</name>
                     <value>YES</value>
                 </parameter>
