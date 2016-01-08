@@ -25,6 +25,8 @@ import net.itransformers.idiscover.core.DiscoveryResourceManager;
 import net.itransformers.idiscover.core.Resource;
 import net.itransformers.idiscover.discoverers.DefaultDiscovererFactory;
 import net.itransformers.idiscover.discoverers.SnmpWalker;
+import net.itransformers.idiscover.v2.core.NeighborDiscoveryListener;
+import net.itransformers.idiscover.v2.core.NeighborDiscoveryResult;
 import net.itransformers.resourcemanager.config.ConnectionParamsType;
 import net.itransformers.resourcemanager.config.ParamType;
 import net.itransformers.resourcemanager.config.ResourceType;
@@ -46,8 +48,10 @@ public class SnmpForXslt {
     private static InetAddressValidator ipAddressValidator = new InetAddressValidator();
     private static CIDRUtils cidrUtils;
 
+    private static List<NeighborDiscoveryListener> neighborDiscoveryListeners;
     private static Map<String, HashMap<String, String>> discoveredDevices = new HashMap<String, HashMap<String, String>>();
     private static MockSnmpForXslt mockSnmpForXslt = null;
+
 
     public static void setMockSnmpForXslt(MockSnmpForXslt mockSnmpForXslt){
         SnmpForXslt.mockSnmpForXslt = mockSnmpForXslt;
@@ -159,7 +163,7 @@ public class SnmpForXslt {
                 return null;
             } else {
                 deviceNameMap = new HashMap<String, String>();
-                discoveredDevices.put(ipAddress,deviceNameMap);
+                discoveredDevices.put(ipAddress, deviceNameMap);
                 return null;
             }
 
@@ -300,6 +304,8 @@ public class SnmpForXslt {
     public static void setDiscoveredDevices(Map<String, HashMap<String, String>> discoveredDevices) {
         SnmpForXslt.discoveredDevices = discoveredDevices;
     }
+
+
     public static void resolveIPAddresses(DiscoveryResourceManager resourceManager, String connectionType){
         for (String ipAddress : discoveredDevices.keySet()) {
 
@@ -314,6 +320,7 @@ public class SnmpForXslt {
                 //DeviceMap already filled in.
                 continue;
             }
+
             if(!ipAddressValidator.isValidInet4Address(ipAddress))
                 continue;
 
@@ -355,9 +362,30 @@ public class SnmpForXslt {
             deviceNameMap.put("deviceType", deviceTypeFromSNMP);
 
             discoveredDevices.put(ipAddress, deviceNameMap);
+            NeighborDiscoveryResult neighborDiscoveryResult = new NeighborDiscoveryResult();
+            neighborDiscoveryResult.setDiscoveredIpAddress(ipAddress);
+            neighborDiscoveryResult.setNeighborType(deviceTypeFromSNMP);
+            neighborDiscoveryResult.setNodeId(deviceNameFromSNMP);
+            neighborDiscoveryResult.setConnParams(connParams);
 
+            if (neighborDiscoveryListeners != null) {
+                //Fire neighbourDiscoveredEvent
+                for (NeighborDiscoveryListener neighbourDiscoveryListerner : neighborDiscoveryListeners) {
+
+                    neighbourDiscoveryListerner.neighborDiscovered(neighborDiscoveryResult);
+
+                }
+            }
 
         }
 
+    }
+
+    public static List<NeighborDiscoveryListener> getNeighborDiscoveryListeners() {
+        return neighborDiscoveryListeners;
+    }
+
+    public static void setNeighborDiscoveryListeners(List<NeighborDiscoveryListener> neighborDiscoveryListeners) {
+        SnmpForXslt.neighborDiscoveryListeners = neighborDiscoveryListeners;
     }
 }

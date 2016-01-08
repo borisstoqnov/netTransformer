@@ -1,6 +1,6 @@
 
 
-package net.itransformers.idiscover.v2.core.listeners;
+package net.itransformers.idiscover.v2.core.listeners.node;
 
 import groovy.lang.Binding;
 import groovy.util.GroovyScriptEngine;
@@ -88,7 +88,7 @@ public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListe
 
     }
 
-    void transformRawDataToGraphml(Reader in, Writer out) {
+    public void transformRawDataToGraphml(Reader in, Writer out) {
         try {
 
             GPathResult response = new XmlSlurper().parse(new InputSource(in));

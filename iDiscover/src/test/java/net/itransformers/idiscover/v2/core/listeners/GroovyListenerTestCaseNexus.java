@@ -1,5 +1,6 @@
 package net.itransformers.idiscover.v2.core.listeners;
 
+import net.itransformers.idiscover.v2.core.listeners.node.GraphmlFileLogGroovyDiscoveryListener;
 import org.junit.Assert;
 
 import java.io.*;

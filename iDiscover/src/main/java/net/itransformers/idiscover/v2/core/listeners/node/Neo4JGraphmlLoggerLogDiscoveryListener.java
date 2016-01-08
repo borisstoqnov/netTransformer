@@ -17,7 +17,7 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package net.itransformers.idiscover.v2.core.listeners;
+package net.itransformers.idiscover.v2.core.listeners.node;
 
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.util.JaxbMarshalar;

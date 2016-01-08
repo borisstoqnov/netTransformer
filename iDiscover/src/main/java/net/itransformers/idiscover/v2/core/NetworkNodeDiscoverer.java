@@ -40,6 +40,8 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     public void setNetworkDiscoveryListeners(List<NetworkDiscoveryListener> networkDiscoveryListeners) {
         this.networkDiscoveryListeners = networkDiscoveryListeners;
     }
+
+
     protected void fireNodeDiscoveredEvent(NodeDiscoveryResult discoveryResult) {
         if (nodeDiscoveryListeners != null)
             for (NodeDiscoveryListener nodeDiscoveryListener : nodeDiscoveryListeners) {
@@ -53,4 +55,5 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
                 networkDiscoveryListener.networkDiscovered(result);
             }
     }
+
 }

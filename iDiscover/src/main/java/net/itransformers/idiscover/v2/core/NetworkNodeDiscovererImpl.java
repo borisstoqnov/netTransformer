@@ -76,10 +76,13 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                     logger.debug("No discovery result for "+ nodeId);
                     continue;
                 }
+
                 fireNodeDiscoveredEvent(discoveryResult);
+
                 if (nodeId ==null) nodeId = discoveryResult.getNodeId();
                 Node currentNode = new Node(nodeId, Arrays.asList(connectionDetails));
                 nodes.put(nodeId, currentNode);
+
                 if (initialNode != null){
                     logger.debug("initialNode: "+initialNode.getId());
                     initialNode.addNeighbour(currentNode);

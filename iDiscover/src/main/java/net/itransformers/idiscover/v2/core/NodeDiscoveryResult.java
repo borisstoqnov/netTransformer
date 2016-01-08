@@ -49,6 +49,7 @@ public class NodeDiscoveryResult {
     Map<String,Object> discoveredData = new HashMap<String,Object>();
     Map<String, String> connParams;
 
+
     public String getNodeId() {
         return nodeId;
     }

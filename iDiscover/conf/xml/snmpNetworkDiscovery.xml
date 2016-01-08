@@ -30,6 +30,8 @@
             </map>
         </property>
         <property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>
+
+
         <property name="nodeDiscoveryListeners">
             <list>
                 <ref bean="sampleNodeDiscoveryListener"/>
@@ -53,7 +55,8 @@
     </bean>
 
 
-    <bean id="SnmpNetworkDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SnmpNetworkDiscoveryListener">
+    <bean id="SnmpNetworkDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.network.SnmpNetworkDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>
         <property name="graphmlDataDirName" value="graphml-undirected"/>
@@ -69,6 +72,11 @@
         <constructor-arg ref="discoveryHelperFactory"/>
         <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,IPSEC,BGP,RIP,ADDITIONAL,IPV6"/>
         <constructor-arg ref="discoveryResourceManager"/>
+        <constructor-arg>
+            <list>
+                <ref bean="sampleNeigborDiscoveryListener"/>
+            </list>
+        </constructor-arg>
     </bean>
 
 

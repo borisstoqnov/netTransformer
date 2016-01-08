@@ -23,6 +23,7 @@ import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
 public class TopologyViewerLauncher {
     public static void main(String[] args) throws Exception {
+
 //        Map<String, String > params = new HashMap<String, String>();
 //        String key = null;
 //        for (String arg : args) {

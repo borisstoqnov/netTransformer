@@ -38,7 +38,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
 
-//import net.percederberg.mibble.MibLoaderException;
 
 public class SnmpWalkerBase implements Discoverer {
     static Logger logger = Logger.getLogger(SnmpWalkerBase.class);
@@ -68,29 +67,32 @@ public class SnmpWalkerBase implements Discoverer {
         String sysDescr = null;
         try {
             sysDescr = snmpGetNext(resource, deviceSysDescrOID);
+            sysDescr = sysDescr.toUpperCase();
         } catch (Exception e) {
             logger.error("Error getDevice Type (" + resource.getAddress() + "), err msg=" + e.getMessage());
             return "UNKNOWN";
         }
         if (sysDescr == null) return "UNKNOWN";
-        if (sysDescr.contains("ProCurve")) {
+        if (sysDescr.contains("ProCurve".toUpperCase())) {
             return "HP";
-        } else if (sysDescr.contains("Huawei")) {
+        } else if (sysDescr.contains("Huawei".toUpperCase())) {
             return "HUAWEI";
-        } else if (sysDescr.contains("Juniper")) {
+        } else if (sysDescr.contains("Juniper".toUpperCase())) {
             return "JUNIPER";
-        } else if (sysDescr.contains("Cisco")) {
+        } else if (sysDescr.contains("Cisco".toUpperCase())) {
             return "CISCO";
-        } else if (sysDescr.contains("Tellabs")) {
+        } else if (sysDescr.contains("Tellabs".toUpperCase())) {
             return "TELLABS";
-        } else if (sysDescr.contains("SevOne")) {
+        } else if (sysDescr.contains("SevOne".toUpperCase())) {
             return "SEVONE";
-        } else if (sysDescr.contains("Riverstone")) {
+        } else if (sysDescr.contains("Riverstone".toUpperCase())) {
             return "RIVERSTONE";
-        }else if (sysDescr.contains("ALCATEL")){
+        } else if (sysDescr.contains("ALCATEL".toUpperCase())) {
             return "ALCATEL";
-        }else if (sysDescr.contains("Linux")){
+        } else if (sysDescr.contains("Linux".toUpperCase())) {
             return "LINUX";
+        } else if (sysDescr.contains("Windows".toUpperCase())) {
+            return "WINDOWS";
         }
         else {
           return  "UNKNOWN";

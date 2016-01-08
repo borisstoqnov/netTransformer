@@ -43,6 +43,7 @@ import net.itransformers.idiscover.discoveryhelpers.xml.SnmpForXslt;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.util.JaxbMarshalar;
+import net.itransformers.idiscover.v2.core.NeighborDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
@@ -64,13 +65,17 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
     private XmlDiscoveryHelperFactory discoveryHelperFactory;
     private String[] discoveryTypes;
     private DiscoveryResourceManager discoveryResource;
+    protected List<NeighborDiscoveryListener> neighborDiscoveryListeners;
 
-    public SnmpNodeDiscoverer(Map<String, String> attributes, XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource) throws Exception {
+
+    public SnmpNodeDiscoverer(Map<String, String> attributes, XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource, List<NeighborDiscoveryListener> neighborDiscoveryListeners) throws Exception {
         this.discoveryHelperFactory = discoveryHelperFactory;
         this.discoveryTypes = discoveryTypes;
         this.discoveryResource = discoveryResource;
+        this.neighborDiscoveryListeners = neighborDiscoveryListeners;
         Resource resource = new Resource("", "", attributes);
         walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
+        SnmpForXslt.setNeighborDiscoveryListeners(neighborDiscoveryListeners);
     }
 
     private String probe(ConnectionDetails connectionDetails) {
@@ -308,6 +313,14 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
             }
         }
         return neighboursConnDetails;
+    }
+
+    public List<NeighborDiscoveryListener> getNeighborDiscoveryListeners() {
+        return neighborDiscoveryListeners;
+    }
+
+    public void setNeighborDiscoveryListeners(List<NeighborDiscoveryListener> neighborDiscoveryListeners) {
+        this.neighborDiscoveryListeners = neighborDiscoveryListeners;
     }
 
 }

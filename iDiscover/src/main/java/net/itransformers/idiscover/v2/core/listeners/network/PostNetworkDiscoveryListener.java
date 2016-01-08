@@ -1,4 +1,4 @@
-package net.itransformers.idiscover.v2.core.listeners;
+package net.itransformers.idiscover.v2.core.listeners.network;
 
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;

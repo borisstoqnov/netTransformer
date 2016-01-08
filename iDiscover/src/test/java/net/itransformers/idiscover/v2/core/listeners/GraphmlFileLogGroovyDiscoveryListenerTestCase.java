@@ -3,6 +3,7 @@ package net.itransformers.idiscover.v2.core.listeners;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.util.JaxbMarshalar;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.v2.core.listeners.node.GraphmlFileLogGroovyDiscoveryListener;
 import org.junit.Assert;
 import org.parboiled.common.FileUtils;
 

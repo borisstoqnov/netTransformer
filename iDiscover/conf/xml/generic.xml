@@ -22,15 +22,22 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <bean id="sampleNodeDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.SampleNodeDiscoveryListener"/>
-    <bean id="rawDataFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.RawDataFileLogDiscoveryListener">
+    <bean id="sampleNodeDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.SampleNodeDiscoveryListener"/>
+    <bean id="sampleNeigborDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.neighbor.SampleNeighborDiscoveryListener"/>
+
+
+    <bean id="rawDataFileLogDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.RawDataFileLogDiscoveryListener">
         <property name="labelDirName" ref="labelDirName"/>
         <property name="rawDataDirName" value="raw-data"/>
         <property name="projectPath" ref="projectPath"/>
 
     </bean>
 
-    <bean id="PostNetworkDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.PostNetworkDiscoveryListener">
+    <bean id="PostNetworkDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.network.PostNetworkDiscoveryListener">
         <property name="labelDirName" ref="labelDirName"/>
         <property name="postDiscoveryDataDirName" value="post-discovery"/>
         <property name="scriptPath" value="postDiscoverer/conf/groovy/"/>
@@ -41,32 +48,38 @@
     </bean>
 
 
-    <bean id="deviceDataFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.DeviceDataFileLogDiscoveryListener">
+    <bean id="deviceDataFileLogDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.DeviceDataFileLogDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>
         <property name="deviceDataDirName" value="device-hierarchical"/>
     </bean>
 
-    <bean id="GraphmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.GraphmlFileLogDiscoveryListener">
+    <bean id="GraphmlFileLogDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.GraphmlFileLogDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>
         <property name="graphmDirName" value="graphml-undirected"/>
         <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
     </bean>
 
-    <bean id="ConnectionDetailsListener" class="net.itransformers.idiscover.v2.core.listeners.ConnectionDetailsListener">
+    <bean id="ConnectionDetailsListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.ConnectionDetailsListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="connectionDetailsPath" value="iDiscover/conf/txt/connection-details.txt"/>
     </bean>
 
-    <bean id="GraphmlFileLogGroovyDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.GraphmlFileLogGroovyDiscoveryListener">
+    <bean id="GraphmlFileLogGroovyDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.GraphmlFileLogGroovyDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>
         <property name="graphmDirName" value="graphml-undirected"/>
         <property name="rawData2GraphmlGroovyTransformer" value="iDiscover/conf/groovy/RawData2GraphmlTransformer.groovy"/>
     </bean>
 
-    <bean id="Neo4JGraphmlLoggerLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.Neo4JGraphmlLoggerLogDiscoveryListener">
+
+    <bean id="Neo4JGraphmlLoggerLogDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.Neo4JGraphmlLoggerLogDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>
         <property name="graphmDirName" value="graphml-undirected"/>

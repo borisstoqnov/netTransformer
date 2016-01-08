@@ -61,7 +61,8 @@ public class Main {
             System.out.println("Invalid project path!");
             return;
         }
-        System.out.println("Loading beans!!");
+
+        logger.debug("Loading beans!!");
         File conDetails =new File(projectPath,"iDiscover/conf/txt/connection-details.txt");
 
         FileSystemXmlApplicationContext applicationContext = initializeDiscoveryContext(projectPath);

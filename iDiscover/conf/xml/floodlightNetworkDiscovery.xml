@@ -68,16 +68,15 @@
     <!--</bean>-->
 
 
-
-
-
-    <bean id="sdnGraphmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.sdnGraphmlFileLogDiscoveryListener">
+    <bean id="sdnGraphmlFileLogDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.sdnGraphmlFileLogDiscoveryListener">
         <property name="graphmlDataDirName" value="network"/>
         <property name="labelDirName" value="network"/>
         <property name="floodLighGraphmlXsltTransformator" value="iDiscover/conf/xslt/floodLighGraphmlTransformator.xslt"/>
     </bean>
 
-    <bean id="sdnDeviceXmlFileLogDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.sdnDeviceXmlFileLogDiscoveryListener">
+    <bean id="sdnDeviceXmlFileLogDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.sdnDeviceXmlFileLogDiscoveryListener">
         <property name="deviceXmlDataDirName" value="node-data"/>
         <property name="labelDirName" value="network"/>
         <property name="deviceXmlXsltTransformator" value="iDiscover/conf/xslt/floodLightDeviceXmlTransformator.xslt"/>

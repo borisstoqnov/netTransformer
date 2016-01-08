@@ -1,6 +1,6 @@
 
 
-package net.itransformers.idiscover.v2.core.listeners;
+package net.itransformers.idiscover.v2.core.listeners.network;
 
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.impls.tg.TinkerGraph;
