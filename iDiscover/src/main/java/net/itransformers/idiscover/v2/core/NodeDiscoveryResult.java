@@ -44,11 +44,17 @@ import java.util.Map;
 
 public class NodeDiscoveryResult {
     String nodeId;
-    String discoveredIpAddress;
-    List<ConnectionDetails> neighboursConnectionDetails;
+    Map<String, List<ConnectionDetails>> neighboursConnectionDetails;
     Map<String,Object> discoveredData = new HashMap<String,Object>();
-    Map<String, String> connParams;
 
+    public NodeDiscoveryResult() {
+
+    }
+    public NodeDiscoveryResult(String nodeId, Map<String, List<ConnectionDetails>> neighboursConnectionDetails, Map<String, Object> discoveredData) {
+        this.nodeId = nodeId;
+        this.neighboursConnectionDetails = neighboursConnectionDetails;
+        this.discoveredData = discoveredData;
+    }
 
     public String getNodeId() {
         return nodeId;
@@ -58,27 +64,11 @@ public class NodeDiscoveryResult {
         this.nodeId = nodeId;
     }
 
-    public String getDiscoveredIpAddress() {
-        return discoveredIpAddress;
-    }
-
-    public void setDiscoveredIpAddress(String discoveredIpAddress) {
-        this.discoveredIpAddress = discoveredIpAddress;
-    }
-
-    public Map<String, String> getConnParams() {
-        return connParams;
-    }
-
-    public void setConnParams(Map<String, String> connParams) {
-        this.connParams = connParams;
-    }
-
-    public List<ConnectionDetails> getNeighboursConnectionDetails() {
+    public Map<String, List<ConnectionDetails>> getNeighboursConnectionDetails() {
         return neighboursConnectionDetails;
     }
 
-    public void setNeighboursConnectionDetails(List<ConnectionDetails> neighboursConnectionDetails) {
+    public void setNeighboursConnectionDetails(Map<String, List<ConnectionDetails>> neighboursConnectionDetails) {
         this.neighboursConnectionDetails = neighboursConnectionDetails;
     }
     public Object getDiscoveredData(String key){

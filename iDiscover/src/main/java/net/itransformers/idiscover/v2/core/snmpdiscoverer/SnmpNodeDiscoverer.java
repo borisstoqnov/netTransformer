@@ -145,7 +145,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
             devName=devName.substring(0,devName.indexOf("."));
         }
         result.setNodeId(devName);
-        result.setDiscoveredIpAddress(ipAddressStr);
+//        result.setDiscoveredIpAddress(ipAddressStr);
         String deviceType = walker.getDeviceType(resource);
         resource.setDeviceType(deviceType);
         DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper(deviceType);
@@ -197,13 +197,13 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
             if (os != null) try {os.close();} catch (IOException e) {}
         }
         result.setDiscoveredData("deviceData", discoveredDeviceData2);
-        result.setConnParams(snmpConnParams);
+//        result.setConnParams(snmpConnParams);
         Device device = discoveryHelper.createDevice(discoveredDeviceData2);
 
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
 
         List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
-        result.setNeighboursConnectionDetails(neighboursConnDetails);
+//        result.setNeighboursConnectionDetails(neighboursConnDetails);
         return result;
     }
 
@@ -296,7 +296,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
 
         List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
-        result.setNeighboursConnectionDetails(neighboursConnDetails);
+//        result.setNeighboursConnectionDetails(neighboursConnDetails);
         return result;
     }
 
