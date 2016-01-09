@@ -42,14 +42,14 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     }
 
 
-    protected void fireNodeDiscoveredEvent(NodeDiscoveryResult discoveryResult) {
+    public void fireNodeDiscoveredEvent(NodeDiscoveryResult discoveryResult) {
         if (nodeDiscoveryListeners != null)
             for (NodeDiscoveryListener nodeDiscoveryListener : nodeDiscoveryListeners) {
                 nodeDiscoveryListener.nodeDiscovered(discoveryResult);
             }
     }
 
-    protected void fireNetworkDiscoveredEvent(NetworkDiscoveryResult result) {
+    public void fireNetworkDiscoveredEvent(NetworkDiscoveryResult result) {
         if (networkDiscoveryListeners != null)
             for (NetworkDiscoveryListener networkDiscoveryListener : networkDiscoveryListeners) {
                 networkDiscoveryListener.networkDiscovered(result);
