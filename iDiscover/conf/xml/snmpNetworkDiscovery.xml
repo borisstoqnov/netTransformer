@@ -54,6 +54,38 @@
         </property>
     </bean>
 
+    <bean id="parallelSnmpDiscovery" class="net.itransformers.idiscover.v2.core.parallel.ParallelNetworkNodeDiscovererImpl">
+
+        <property name="nodeDiscoverers">
+            <map>
+                <entry key="snmp" value-ref="snmpNodeDiscoverer"/>
+            </map>
+        </property>
+        <property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>
+
+
+        <property name="nodeDiscoveryListeners">
+            <list>
+                <ref bean="sampleNodeDiscoveryListener"/>
+                <ref bean="rawDataFileLogDiscoveryListener"/>
+                <ref bean="deviceDataFileLogDiscoveryListener"/>
+                <ref bean="ConnectionDetailsListener"/>
+
+                <!--<ref bean="GraphmlFileLogDiscoveryListener"/>-->
+                <!--<ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>-->
+                <!--<ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>-->
+                <ref bean="GraphmlFileLogGroovyDiscoveryListener"/>
+            </list>
+        </property>
+        <property name="networkDiscoveryListeners">
+            <list>
+                <ref bean="SnmpNetworkDiscoveryListener"/>
+                <!--<ref bean="PostNetworkDiscoveryListener"/>-->
+
+            </list>
+        </property>
+    </bean>
+
 
     <bean id="SnmpNetworkDiscoveryListener"
           class="net.itransformers.idiscover.v2.core.listeners.network.SnmpNetworkDiscoveryListener">

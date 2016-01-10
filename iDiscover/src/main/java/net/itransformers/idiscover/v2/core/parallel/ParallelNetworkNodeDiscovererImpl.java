@@ -33,14 +33,20 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer imp
     static Logger logger = Logger.getLogger(ParallelNetworkNodeDiscovererImpl.class);
 
     private final Map<String, Node> nodes = new HashMap<String, Node>();
+    private Set<ConnectionDetails> usedConnectionDetails = new HashSet<ConnectionDetails>();
 
-    ForkJoinPool pool = new ForkJoinPool();
+    ForkJoinPool pool = new ForkJoinPool(10);
 
     public NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList, int depth) {
         nodes.clear();
+        List<DiscoveryWorker> discoveryWorkerList = new ArrayList<DiscoveryWorker>();
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
+            usedConnectionDetails.add(connectionDetails);
             DiscoveryWorker discoveryWork = new DiscoveryWorker(connectionDetails, null, 1, this);
-            pool.invoke(discoveryWork);
+            discoveryWorkerList.add(discoveryWork);
+        }
+        for (DiscoveryWorker discoveryWorker : discoveryWorkerList) {
+            pool.invoke(discoveryWorker);
         }
         NetworkDiscoveryResult result = new NetworkDiscoveryResult();
         result.setNodes(nodes);
@@ -68,5 +74,10 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer imp
     @Override
     public NodeDiscoverer getNodeDiscoverer(String connectionType) {
         return nodeDiscoverers.get(connectionType);
+    }
+
+    @Override
+    public Set<ConnectionDetails> getUsedConnectionDetails() {
+        return usedConnectionDetails;
     }
 }

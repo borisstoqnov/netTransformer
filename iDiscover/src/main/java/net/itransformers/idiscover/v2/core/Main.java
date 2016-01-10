@@ -37,6 +37,7 @@ public class Main {
     public static final String VERSION_LABEL = "version";
     static Logger logger = Logger.getLogger(Main.class);
     public static void main(String[] args) throws MalformedURLException {
+        long startTime =System.currentTimeMillis();
         logger.debug("iDiscover v2. gearing up");
 
         Map<String, String> params = CmdLineParser.parseCmdLine(args);
@@ -49,6 +50,11 @@ public class Main {
 //            printUsage("depth"); return;
 //        }
         String projectPath = params.get("-p");
+        String discovery = "snmpDiscovery";
+        String algorithm = params.get("-a");
+        if ("parallel".equals(algorithm)){
+            discovery = "parallelSnmpDiscovery";
+        }
 
         if (projectPath == null) {
             File cwd = new File(".");
@@ -66,7 +72,7 @@ public class Main {
         File conDetails =new File(projectPath,"iDiscover/conf/txt/connection-details.txt");
 
         FileSystemXmlApplicationContext applicationContext = initializeDiscoveryContext(projectPath);
-        NetworkDiscoverer discoverer =applicationContext.getBean("snmpDiscovery", NetworkDiscoverer.class);
+        NetworkDiscoverer discoverer =applicationContext.getBean(discovery, NetworkDiscoverer.class);
         LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", conDetails);
         int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1" : depthCmdArg);
         NetworkDiscoveryResult result = discoverer.discoverNetwork(new ArrayList<ConnectionDetails>(connectionList.values()), depth);
@@ -79,6 +85,7 @@ public class Main {
             }
         }
 
+        System.out.println("Finished in: "+(System.currentTimeMillis()-startTime)/1000 +" seconds.");
 
 //
     }
