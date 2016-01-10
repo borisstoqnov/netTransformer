@@ -145,6 +145,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
             devName=devName.substring(0,devName.indexOf("."));
         }
         result.setNodeId(devName);
+        // TODO I have commented this out, do we need it?
 //        result.setDiscoveredIpAddress(ipAddressStr);
         String deviceType = walker.getDeviceType(resource);
         resource.setDeviceType(deviceType);
@@ -197,13 +198,14 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
             if (os != null) try {os.close();} catch (IOException e) {}
         }
         result.setDiscoveredData("deviceData", discoveredDeviceData2);
+        // TODO I have commented this out. Do we need it?
 //        result.setConnParams(snmpConnParams);
         Device device = discoveryHelper.createDevice(discoveredDeviceData2);
 
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
 
-        List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
-//        result.setNeighboursConnectionDetails(neighboursConnDetails);
+        HashMap<String, List<ConnectionDetails>> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
+        result.setNeighboursConnectionDetails(neighboursConnDetails);
         return result;
     }
 
@@ -295,13 +297,13 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
 
-        List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
-//        result.setNeighboursConnectionDetails(neighboursConnDetails);
+        HashMap<String, List<ConnectionDetails>> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
+        result.setNeighboursConnectionDetails(neighboursConnDetails);
         return result;
     }
 
-    private List<ConnectionDetails> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
-        List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
+    private HashMap<String, List<ConnectionDetails>> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
+        HashMap<String, List<ConnectionDetails>> neighboursConnDetails = new HashMap<String, List<ConnectionDetails>>();
         for (DeviceNeighbour neighbour : neighbours) {
             ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
             neighbourConnectionDetails.put("deviceType",neighbour.getDeviceType());
@@ -309,7 +311,13 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
                 neighbourConnectionDetails.put("deviceName",neighbour.getHostName());
                 neighbourConnectionDetails.put("ipAddress",neighbour.getIpAddress().getIpAddress());
                 neighbourConnectionDetails.setConnectionType("snmp");
-                neighboursConnDetails.add(neighbourConnectionDetails);
+                List<ConnectionDetails> connDetailsForNeighour = neighboursConnDetails.get(neighbour.getHostName());
+                if (connDetailsForNeighour == null) {
+                    connDetailsForNeighour = new ArrayList<ConnectionDetails>();
+                    neighboursConnDetails.put(neighbour.getHostName(), connDetailsForNeighour);
+                }
+                connDetailsForNeighour.add(neighbourConnectionDetails);
+
             }
         }
         return neighboursConnDetails;

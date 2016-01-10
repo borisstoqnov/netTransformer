@@ -42,25 +42,21 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         return result;
     }
 
-    synchronized void doDiscoverNodes(List<ConnectionDetails> connectionDetailsList, Map<String, Node> nodes,
-                                      Node initialNode, int level, int depth, NetworkDiscoveryResult result) {
+    void doDiscoverNodes(List<ConnectionDetails> connectionDetailsList, Map<String, Node> nodes,
+                         Node initialNode, int level, int depth, NetworkDiscoveryResult result) {
 
 
-        if (level == depth) {
+        if (level == depth){
             logger.debug("Level = Depth");
             return;
         }
 
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
-            if (isStopped) {
+            if (isStopped){
                 return;
             }
-            if (isPaused) {
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    return;
-                }
+            if (isPaused){
+                doPause();
             }
             String connectionType = connectionDetails.getConnectionType();
             NodeDiscoverer nodeDiscoverer = nodeDiscoverers.get(connectionType);
@@ -70,9 +66,8 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 continue;
             }
 
-            if (nodeDiscoverFilter != null && nodeDiscoverFilter.match(connectionDetails)) {
-                return;
-            }
+
+                if (nodeDiscoverFilter != null && nodeDiscoverFilter.match(connectionDetails)) return;
             NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
             if (discoveryResult == null) {
                 logger.debug("No discovery result for connDetails: " + connectionDetails);
@@ -85,10 +80,7 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
             }
             fireNodeDiscoveredEvent(discoveryResult);
 
-
-            if (nodeId == null) {
-                nodeId = discoveryResult.getNodeId();
-            }
+                if (nodeId ==null) nodeId = discoveryResult.getNodeId();
             Node currentNode = new Node(nodeId, Arrays.asList(connectionDetails));
             nodes.put(nodeId, currentNode);
 
@@ -102,6 +94,16 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 List<ConnectionDetails> connDetails = neighboursConnectionDetails.get(key);
                 doDiscoverNodes(connDetails, nodes, currentNode, level + 1, depth, result);
             }
+        }
+    }
+
+
+    private synchronized void doPause() {
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
