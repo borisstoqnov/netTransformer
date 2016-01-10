@@ -22,77 +22,42 @@ package net.itransformers.idiscover.v2.core.parallel;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
 import net.itransformers.idiscover.v2.core.NetworkNodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
 import org.apache.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer implements DiscoveryWorkerContext {
     static Logger logger = Logger.getLogger(ParallelNetworkNodeDiscovererImpl.class);
-    private boolean isRunning;
-    private boolean isPaused;
-    private boolean isStopped;
 
     private final Map<String, Node> nodes = new HashMap<String, Node>();
 
-    ExecutorService executor = Executors.newFixedThreadPool(5);
+    ForkJoinPool pool = new ForkJoinPool();
 
     public NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList, int depth) {
         nodes.clear();
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
-            Runnable discoveryWork = new DiscoveryWorker(connectionDetails, null, 1, this);
-            executor.execute(discoveryWork);
+            DiscoveryWorker discoveryWork = new DiscoveryWorker(connectionDetails, null, 1, this);
+            pool.invoke(discoveryWork);
         }
-        try {
-            executor.awaitTermination(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        isRunning = true;
         NetworkDiscoveryResult result = new NetworkDiscoveryResult();
         result.setNodes(nodes);
         fireNetworkDiscoveredEvent(result);
         return result;
     }
 
-    public synchronized void pause() {
-        isPaused = true;
-    }
-
-    public synchronized void resume() {
-        isPaused = false;
-        notifyAll();
-    }
-
     public synchronized void stop() {
-        isStopped = true;
-        isRunning = false;
+        pool.shutdown();
     }
 
     public synchronized boolean isStopped() {
-        return isStopped;
-    }
-
-    public synchronized boolean isPaused() {
-        return isPaused;
+        return pool.isTerminated();
     }
 
     public synchronized boolean isRunning() {
-        return isRunning;
-    }
-
-    @Override
-    public void createAndExecuteNewWorker(List<ConnectionDetails> connDetails, Node currentNode, int level) {
-        for (ConnectionDetails connDetail : connDetails) {
-            executor.execute(new DiscoveryWorker(connDetail,currentNode,level,this));
-        }
-
+        return !pool.isTerminated();
     }
 
     @Override

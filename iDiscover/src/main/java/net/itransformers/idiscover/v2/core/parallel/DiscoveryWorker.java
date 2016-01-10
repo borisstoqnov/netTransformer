@@ -9,11 +9,12 @@ import org.apache.log4j.Logger;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.RecursiveAction;
 
 /**
  * Created by Vasil Yordanov on 1/9/2016.
  */
-public class DiscoveryWorker implements Runnable {
+public class DiscoveryWorker extends RecursiveAction {
     static Logger logger = Logger.getLogger(DiscoveryWorker.class);
     private ConnectionDetails connectionDetails;
     private Node parentNode;
@@ -27,8 +28,9 @@ public class DiscoveryWorker implements Runnable {
         this.context = context;
     }
 
+
     @Override
-    public void run() {
+    protected void compute() {
         System.out.println(Thread.currentThread().getName()+" Start. connectionDetails = "+connectionDetails);
         String connectionType = connectionDetails.getConnectionType();
         NodeDiscoverer nodeDiscoverer = context.getNodeDiscoverer(connectionType);
@@ -57,7 +59,13 @@ public class DiscoveryWorker implements Runnable {
         logger.debug("Found neighbour nodes, connection details: " + neighboursConnectionDetails);
         for (String key : neighboursConnectionDetails.keySet()) {
             List<ConnectionDetails> connDetails = neighboursConnectionDetails.get(key);
-            context.createAndExecuteNewWorker(connDetails, currentNode, level + 1);
+            createAndExecuteNewWorker(connDetails, currentNode, level + 1);
+        }
+    }
+
+    public void createAndExecuteNewWorker(List<ConnectionDetails> connDetails, Node currentNode, int level) {
+        for (ConnectionDetails connDetail : connDetails) {
+            invokeAll(new DiscoveryWorker(connDetail,currentNode,level, context));
         }
     }
 }

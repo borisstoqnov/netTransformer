@@ -14,8 +14,6 @@ import java.util.Map;
 public interface DiscoveryWorkerContext {
     void fireNodeDiscoveredEvent(NodeDiscoveryResult nodeDiscoveryResult);
 
-    void createAndExecuteNewWorker(List<ConnectionDetails> connDetails, Node currentNode, int level);
-
     Map<String, Node> getNodes();
 
     NodeDiscoverer getNodeDiscoverer(String connectionType);
