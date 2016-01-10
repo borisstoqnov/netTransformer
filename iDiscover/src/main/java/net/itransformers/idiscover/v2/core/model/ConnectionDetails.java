@@ -9,7 +9,6 @@ import java.util.Map;
 
 public class ConnectionDetails {
     private String connectionType;
-
     private Map<String,String> params = new LinkedHashMap<String, String>();
 
     public ConnectionDetails() {
