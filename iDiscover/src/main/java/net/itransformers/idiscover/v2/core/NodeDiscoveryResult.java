@@ -44,13 +44,13 @@ import java.util.Map;
 
 public class NodeDiscoveryResult {
     String nodeId;
-    Map<String, List<ConnectionDetails>> neighboursConnectionDetails;
+    List<ConnectionDetails> neighboursConnectionDetails;
     Map<String,Object> discoveredData = new HashMap<String,Object>();
 
     public NodeDiscoveryResult() {
 
     }
-    public NodeDiscoveryResult(String nodeId, Map<String, List<ConnectionDetails>> neighboursConnectionDetails, Map<String, Object> discoveredData) {
+    public NodeDiscoveryResult(String nodeId, List<ConnectionDetails> neighboursConnectionDetails, Map<String, Object> discoveredData) {
         this.nodeId = nodeId;
         this.neighboursConnectionDetails = neighboursConnectionDetails;
         this.discoveredData = discoveredData;
@@ -64,11 +64,11 @@ public class NodeDiscoveryResult {
         this.nodeId = nodeId;
     }
 
-    public Map<String, List<ConnectionDetails>> getNeighboursConnectionDetails() {
+    public List<ConnectionDetails> getNeighboursConnectionDetails() {
         return neighboursConnectionDetails;
     }
 
-    public void setNeighboursConnectionDetails(Map<String, List<ConnectionDetails>> neighboursConnectionDetails) {
+    public void setNeighboursConnectionDetails(List<ConnectionDetails> neighboursConnectionDetails) {
         this.neighboursConnectionDetails = neighboursConnectionDetails;
     }
     public Object getDiscoveredData(String key){

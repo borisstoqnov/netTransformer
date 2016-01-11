@@ -28,30 +28,28 @@ public class ConnectionDetailsListener implements NodeDiscoveryListener {
             out = new PrintWriter(new BufferedWriter(new FileWriter(connectionDetailsFile, true)));
 
 
-            Map<String, List<ConnectionDetails>> neighboursConnDetails = discoveryResult.getNeighboursConnectionDetails();
-            for (List<ConnectionDetails> neighboursConnDetailList : neighboursConnDetails.values()) {
-                for (ConnectionDetails neighboursConnDetail :neighboursConnDetailList) {
-                    StringBuffer connDetails = new StringBuffer();
-                    String connectionDetailsType = neighboursConnDetail.getConnectionType();
+            List<ConnectionDetails> neighboursConnDetails = discoveryResult.getNeighboursConnectionDetails();
+            for (ConnectionDetails neighboursConnDetail : neighboursConnDetails) {
+                StringBuffer connDetails = new StringBuffer();
+                String connectionDetailsType = neighboursConnDetail.getConnectionType();
 
 
-                    Map<String, String> connectionDetailsParams = neighboursConnDetail.getParams();
-                    String connectionDetailsName = connectionDetailsParams.get("deviceName");
-                    connDetails.append("name=" + connectionDetailsName + ",type=" + connectionDetailsType + ":");
+                Map<String, String> connectionDetailsParams = neighboursConnDetail.getParams();
+                String connectionDetailsName = connectionDetailsParams.get("deviceName");
+                connDetails.append("name=" + connectionDetailsName + ",type=" + connectionDetailsType + ":");
 
-                    int size = 0;
-                    for (String s : connectionDetailsParams.keySet()) {
-                        if (connectionDetailsParams.size() != size)
-                            connDetails.append(s + "=" + connectionDetailsParams.get(s) + ",");
-                        else
-                            connDetails.append(s + "=" + connectionDetailsParams.get(s));
-                        size++;
-
-                    }
-
-                    out.println(connDetails.toString());
+                int size = 0;
+                for (String s : connectionDetailsParams.keySet()) {
+                    if (connectionDetailsParams.size() != size)
+                        connDetails.append(s + "=" + connectionDetailsParams.get(s) + ",");
+                    else
+                        connDetails.append(s + "=" + connectionDetailsParams.get(s));
+                    size++;
 
                 }
+
+                out.println(connDetails.toString());
+
             }
 
 

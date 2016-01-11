@@ -204,7 +204,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
 
-        HashMap<String, List<ConnectionDetails>> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
+        List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
         result.setNeighboursConnectionDetails(neighboursConnDetails);
         return result;
     }
@@ -297,26 +297,21 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
 
-        HashMap<String, List<ConnectionDetails>> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
+        List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
         result.setNeighboursConnectionDetails(neighboursConnDetails);
         return result;
     }
 
-    private HashMap<String, List<ConnectionDetails>> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
-        HashMap<String, List<ConnectionDetails>> neighboursConnDetails = new HashMap<String, List<ConnectionDetails>>();
+    private List<ConnectionDetails> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
+        List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
         for (DeviceNeighbour neighbour : neighbours) {
             ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
-            neighbourConnectionDetails.put("deviceType",neighbour.getDeviceType());
+            neighbourConnectionDetails.put("deviceType", neighbour.getDeviceType());
             if (neighbour.getStatus()){ // if reachable
                 neighbourConnectionDetails.put("deviceName",neighbour.getHostName());
                 neighbourConnectionDetails.put("ipAddress",neighbour.getIpAddress().getIpAddress());
                 neighbourConnectionDetails.setConnectionType("snmp");
-                List<ConnectionDetails> connDetailsForNeighour = neighboursConnDetails.get(neighbour.getHostName());
-                if (connDetailsForNeighour == null) {
-                    connDetailsForNeighour = new ArrayList<ConnectionDetails>();
-                    neighboursConnDetails.put(neighbour.getHostName(), connDetailsForNeighour);
-                }
-                connDetailsForNeighour.add(neighbourConnectionDetails);
+                neighboursConnDetails.add(neighbourConnectionDetails);
 
             }
         }

@@ -67,7 +67,7 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
             }
 
 
-                if (nodeDiscoverFilter != null && nodeDiscoverFilter.match(connectionDetails)) return;
+            if (nodeDiscoverFilter != null && nodeDiscoverFilter.match(connectionDetails)) return;
             NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
             if (discoveryResult == null) {
                 logger.debug("No discovery result for connDetails: " + connectionDetails);
@@ -76,7 +76,7 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
 
             String nodeId = discoveryResult.getNodeId();
             if (nodes.containsKey(nodeId)){
-                return;
+                continue;
             }
             fireNodeDiscoveredEvent(discoveryResult);
 
@@ -88,12 +88,9 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 logger.debug("initialNode: " + initialNode.getId());
                 initialNode.addNeighbour(currentNode);
             }
-            Map<String, List<ConnectionDetails>> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
+            List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
             logger.debug("Found Neighbours, connection details: " + neighboursConnectionDetails);
-            for (String key : neighboursConnectionDetails.keySet()) {
-                List<ConnectionDetails> connDetails = neighboursConnectionDetails.get(key);
-                doDiscoverNodes(connDetails, nodes, currentNode, level + 1, depth, result);
-            }
+            doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode, level + 1, depth, result);
         }
     }
 

@@ -39,7 +39,7 @@ public class DiscoveryWorker extends RecursiveAction {
         NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
         if (discoveryResult == null) {
             logger.debug("No node is discovered for connDetails: " + connectionDetails);
-            logger.debug("Discovery worker: "+Thread.currentThread().getName()+" finished. connectionDetails = "+connectionDetails);
+            logger.debug("Discovery worker: " + Thread.currentThread().getName() + " finished. connectionDetails = " + connectionDetails);
             return;
         }
 
@@ -48,7 +48,7 @@ public class DiscoveryWorker extends RecursiveAction {
         synchronized (context.getNodes()) {
             if (context.getNodes().containsKey(nodeId)) {
                 logger.debug("Node is already discovered, nodeId=" + nodeId);
-                logger.debug("Discovery worker: "+Thread.currentThread().getName()+" finished. connectionDetails = "+connectionDetails);
+                logger.debug("Discovery worker: " + Thread.currentThread().getName() + " finished. connectionDetails = " + connectionDetails);
                 return;
             }
             logger.info("New node is discovered, nodeId=" + nodeId);
@@ -58,21 +58,18 @@ public class DiscoveryWorker extends RecursiveAction {
             context.getNodes().put(nodeId, currentNode);
         }
         context.fireNodeDiscoveredEvent(discoveryResult);
-        Map<String, List<ConnectionDetails>> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
-        logger.debug("Found "+neighboursConnectionDetails.keySet().size()+" neighbour nodes of node '"+nodeId+"', connection details: " + neighboursConnectionDetails);
+        List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
+        logger.debug("Found " + neighboursConnectionDetails.size() + " neighbour nodes of node '" + nodeId + "', connection details: " + neighboursConnectionDetails);
         List<DiscoveryWorker> discoveryWorkerList = new ArrayList<DiscoveryWorker>();
-        for (String key : neighboursConnectionDetails.keySet()) {
-            List<ConnectionDetails> connDetails = neighboursConnectionDetails.get(key);
-            for (ConnectionDetails connDetail : connDetails) {
-                synchronized (context.getUsedConnectionDetails()) {
-                    if (!context.getUsedConnectionDetails().contains(connDetail)) {
-                        context.getUsedConnectionDetails().add(connDetail);
-                        discoveryWorkerList.add(new DiscoveryWorker(connDetail, currentNode, level, context));
-                    }
+        for (ConnectionDetails connDetails : neighboursConnectionDetails) {
+            synchronized (context.getUsedConnectionDetails()) {
+                if (!context.getUsedConnectionDetails().contains(connDetails)) {
+                    context.getUsedConnectionDetails().add(connDetails);
+                    discoveryWorkerList.add(new DiscoveryWorker(connDetails, currentNode, level, context));
                 }
             }
         }
         invokeAll(discoveryWorkerList);
-        logger.debug("Discovery worker: "+Thread.currentThread().getName()+" finished. connectionDetails = "+connectionDetails);
+        logger.debug("Discovery worker: " + Thread.currentThread().getName() + " finished. connectionDetails = " + connectionDetails);
     }
 }

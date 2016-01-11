@@ -76,12 +76,10 @@ public class NetworkNodeDiscovererImplTestCase {
                 }});
     }
 
-    private HashMap<String, List<ConnectionDetails>> getNeighbourConnDetails(final String... nodes) {
-        return new HashMap<String, List<ConnectionDetails>>() {{
+    private List<ConnectionDetails> getNeighbourConnDetails(final String... nodes) {
+        return new ArrayList<ConnectionDetails>() {{
             for (final String node : nodes) {
-                put(node, new ArrayList<ConnectionDetails>() {{
                     add(getConnectionDetailsTo(node));
-                }});
             }
         }};
     }
