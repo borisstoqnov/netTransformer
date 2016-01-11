@@ -306,79 +306,76 @@ public class SnmpForXslt {
     }
 
 
-    public static void resolveIPAddresses(DiscoveryResourceManager resourceManager, String connectionType){
-        for (String ipAddress : discoveredDevices.keySet()) {
+    public static void resolveIPAddresses(final DiscoveryResourceManager resourceManager, final String connectionType){
 
-            HashMap<String, String> deviceNameMap = discoveredDevices.get(ipAddress);
-
-
-            if (!deviceNameMap.containsKey("snmp")) {
-
-                deviceNameMap = new HashMap<String, String>();
-
+        for (final String ipAddress : discoveredDevices.keySet()) {
+            if (!discoveredDevices.get(ipAddress).containsKey("snmp")) {
+                discoveredDevices.put(ipAddress, new HashMap<String, String>());
             }else {
                 //DeviceMap already filled in.
                 continue;
             }
-
-            if(!ipAddressValidator.isValidInet4Address(ipAddress))
-                continue;
-
-            Map<String,String> resourceParameters = new HashMap<String, String>();
-            resourceParameters.put("ipAddress", ipAddress);
-
-            ResourceType resourceType = resourceManager.returnResourceByParam(resourceParameters);
-
-
-            Map<String, String> connParams = new HashMap<String, String>();
-
-            List<ConnectionParamsType> connectionParams = resourceType.getConnectionParams();
-
-            for (ConnectionParamsType connectionParam : connectionParams) {
-                if (connectionParam.getConnectionType().equals(connectionType)) {
-                    for (ParamType param : connectionParam.getParam()) {
-                        connParams.put(param.getName(), param.getValue());
-                    }
-                    break;
-                }
-            }
-
-            Resource resource = new Resource(ipAddress, null, connParams);// TODO specify port
-            discovererFactory = new DefaultDiscovererFactory();
-
-            Discoverer discoverer = null;
-            try {
-                discoverer = discovererFactory.createDiscoverer(resource);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            final String deviceNameFromSNMP = discoverer.getDeviceName(resource);
-
-            final String deviceTypeFromSNMP = discoverer.getDeviceType(resource);
-
-            deviceNameMap.put("snmp", deviceNameFromSNMP);
-
-            deviceNameMap.put("deviceType", deviceTypeFromSNMP);
-
-            discoveredDevices.put(ipAddress, deviceNameMap);
-            NeighborDiscoveryResult neighborDiscoveryResult = new NeighborDiscoveryResult();
-            neighborDiscoveryResult.setDiscoveredIpAddress(ipAddress);
-            neighborDiscoveryResult.setNeighborType(deviceTypeFromSNMP);
-            neighborDiscoveryResult.setNodeId(deviceNameFromSNMP);
-            neighborDiscoveryResult.setConnParams(connParams);
-
-            if (neighborDiscoveryListeners != null) {
-                //Fire neighbourDiscoveredEvent
-                for (NeighborDiscoveryListener neighbourDiscoveryListerner : neighborDiscoveryListeners) {
-
-                    neighbourDiscoveryListerner.neighborDiscovered(neighborDiscoveryResult);
-
-                }
-            }
-
+            HashMap<String, String> deviceNameMap = discoveredDevices.get(ipAddress);
+            resolveIpAddress(resourceManager, connectionType, ipAddress, deviceNameMap);
         }
 
+    }
+
+    private static void resolveIpAddress(DiscoveryResourceManager resourceManager, String connectionType, String ipAddress, HashMap<String, String> deviceNameMap) {
+        if(!ipAddressValidator.isValidInet4Address(ipAddress))
+            return;
+
+        Map<String,String> resourceParameters = new HashMap<String, String>();
+        resourceParameters.put("ipAddress", ipAddress);
+
+        ResourceType resourceType = resourceManager.returnResourceByParam(resourceParameters);
+
+
+        Map<String, String> connParams = new HashMap<String, String>();
+
+        List<ConnectionParamsType> connectionParams = resourceType.getConnectionParams();
+
+        for (ConnectionParamsType connectionParam : connectionParams) {
+            if (connectionParam.getConnectionType().equals(connectionType)) {
+                for (ParamType param : connectionParam.getParam()) {
+                    connParams.put(param.getName(), param.getValue());
+                }
+                break;
+            }
+        }
+
+        Resource resource = new Resource(ipAddress, null, connParams);// TODO specify port
+        discovererFactory = new DefaultDiscovererFactory();
+
+        Discoverer discoverer = null;
+        try {
+            discoverer = discovererFactory.createDiscoverer(resource);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        final String deviceNameFromSNMP = discoverer.getDeviceName(resource);
+
+        final String deviceTypeFromSNMP = discoverer.getDeviceType(resource);
+
+        deviceNameMap.put("snmp", deviceNameFromSNMP);
+
+        deviceNameMap.put("deviceType", deviceTypeFromSNMP);
+
+        NeighborDiscoveryResult neighborDiscoveryResult = new NeighborDiscoveryResult();
+        neighborDiscoveryResult.setDiscoveredIpAddress(ipAddress);
+        neighborDiscoveryResult.setNeighborType(deviceTypeFromSNMP);
+        neighborDiscoveryResult.setNodeId(deviceNameFromSNMP);
+        neighborDiscoveryResult.setConnParams(connParams);
+
+        if (neighborDiscoveryListeners != null) {
+            //Fire neighbourDiscoveredEvent
+            for (NeighborDiscoveryListener neighbourDiscoveryListerner : neighborDiscoveryListeners) {
+
+                neighbourDiscoveryListerner.neighborDiscovered(neighborDiscoveryResult);
+
+            }
+        }
     }
 
     public static List<NeighborDiscoveryListener> getNeighborDiscoveryListeners() {

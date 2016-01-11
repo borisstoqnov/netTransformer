@@ -35,7 +35,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer imp
     private final Map<String, Node> nodes = new HashMap<String, Node>();
     private Set<ConnectionDetails> usedConnectionDetails = new HashSet<ConnectionDetails>();
 
-    ForkJoinPool pool = new ForkJoinPool(10);
+    ForkJoinPool pool = new ForkJoinPool();
 
     public NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList, int depth) {
         nodes.clear();
