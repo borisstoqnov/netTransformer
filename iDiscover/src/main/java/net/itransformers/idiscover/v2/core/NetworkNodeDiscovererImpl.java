@@ -54,7 +54,9 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         }
 
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
-            usedConnectionDetails.add(connectionDetails);
+            // clone connection details to avoid problems due to later modification of connection details in match or discover methods
+            ConnectionDetails connDetailsClone = new ConnectionDetails(connectionDetails.getConnectionType(), connectionDetails.getParams());
+            usedConnectionDetails.add(connDetailsClone);
 
             if (isStopped){
                 return;

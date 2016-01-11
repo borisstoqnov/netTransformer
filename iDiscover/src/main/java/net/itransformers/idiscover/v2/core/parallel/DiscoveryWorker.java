@@ -8,8 +8,7 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutorService;
+import java.util.Set;
 import java.util.concurrent.RecursiveAction;
 
 /**
@@ -23,7 +22,9 @@ public class DiscoveryWorker extends RecursiveAction {
     private DiscoveryWorkerContext context;
 
     public DiscoveryWorker(ConnectionDetails connectionDetails, Node parentNode, int level, DiscoveryWorkerContext context) {
-        this.connectionDetails = connectionDetails;
+        // clone connection details to avoid problems due to later modification of connection details in match or discover methods invoked in discovery worker
+        this.connectionDetails = new ConnectionDetails(connectionDetails.getConnectionType(), connectionDetails.getParams());
+
         this.parentNode = parentNode;
         this.level = level;
         this.context = context;
@@ -62,9 +63,10 @@ public class DiscoveryWorker extends RecursiveAction {
         logger.debug("Found " + neighboursConnectionDetails.size() + " neighbour nodes of node '" + nodeId + "', connection details: " + neighboursConnectionDetails);
         List<DiscoveryWorker> discoveryWorkerList = new ArrayList<DiscoveryWorker>();
         for (ConnectionDetails connDetails : neighboursConnectionDetails) {
-            synchronized (context.getUsedConnectionDetails()) {
-                if (!context.getUsedConnectionDetails().contains(connDetails)) {
-                    context.getUsedConnectionDetails().add(connDetails);
+            Set<ConnectionDetails> usedConnectionDetails = context.getUsedConnectionDetails();
+            synchronized (usedConnectionDetails) {
+                if (!usedConnectionDetails.contains(connDetails)) {
+                    usedConnectionDetails.add(connDetails);
                     discoveryWorkerList.add(new DiscoveryWorker(connDetails, currentNode, level, context));
                 }
             }
