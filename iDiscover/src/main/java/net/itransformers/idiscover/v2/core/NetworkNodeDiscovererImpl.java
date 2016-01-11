@@ -30,6 +30,8 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     private boolean isRunning;
     private boolean isPaused;
     private boolean isStopped;
+    private Set<ConnectionDetails> usedConnectionDetails = new HashSet<ConnectionDetails>();
+
 
     public NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList, int depth) {
         isRunning = true;
@@ -52,6 +54,8 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         }
 
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
+            usedConnectionDetails.add(connectionDetails);
+
             if (isStopped){
                 return;
             }
@@ -90,6 +94,8 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
             }
             List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
             logger.debug("Found Neighbours, connection details: " + neighboursConnectionDetails);
+
+            neighboursConnectionDetails.removeAll(usedConnectionDetails);
             doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode, level + 1, depth, result);
         }
     }

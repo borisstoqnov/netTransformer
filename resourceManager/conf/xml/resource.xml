@@ -142,7 +142,7 @@
         </connection-params>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
-            <param name="community-ro">public</param>
+            <param name="community-ro">netTransformer-r</param>
             <param name="community-rw">private</param>
             <param name="timeout">800</param>
             <param name="retries">1</param>

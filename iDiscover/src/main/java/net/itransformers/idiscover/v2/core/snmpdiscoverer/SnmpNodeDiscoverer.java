@@ -167,40 +167,40 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
         DiscoveredDeviceData discoveredDeviceData1 = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
 
-        OutputStream os  = null;
+//        OutputStream os  = null;
 
-        try {
-            os = new ByteArrayOutputStream();
-            JaxbMarshalar.marshal(discoveredDeviceData1, os, "DiscoveredDevice");
-            String str = os.toString();
-        } catch (JAXBException e) {
-            logger.error(e.getMessage(),e);
-        } finally {
-            if (os != null) try {os.close();} catch (IOException e) {}
-        }
-
-
-        SnmpForXslt.resolveIPAddresses(discoveryResource, "snmp");
-
-
-        discoveryHelper.setDryRun(false);
-
-        DiscoveredDeviceData discoveredDeviceData2 = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
-
-        try {
-            os = new ByteArrayOutputStream();
-            JaxbMarshalar.marshal(discoveredDeviceData2, os, "DiscoveredDevice");
+//        try {
+//            os = new ByteArrayOutputStream();
+//            JaxbMarshalar.marshal(discoveredDeviceData1, os, "DiscoveredDevice");
 //            String str = os.toString();
-//          //  System.out.println(str);
-        } catch (JAXBException e) {
-            logger.error(e.getMessage(),e);
-        } finally {
-            if (os != null) try {os.close();} catch (IOException e) {}
-        }
-        result.setDiscoveredData("deviceData", discoveredDeviceData2);
+//        } catch (JAXBException e) {
+//            logger.error(e.getMessage(),e);
+//        } finally {
+//            if (os != null) try {os.close();} catch (IOException e) {}
+//        }
+
+
+//        SnmpForXslt.resolveIPAddresses(discoveryResource, "snmp");
+
+
+//        discoveryHelper.setDryRun(false);
+
+//        DiscoveredDeviceData discoveredDeviceData2 = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
+
+//        try {
+//            os = new ByteArrayOutputStream();
+//            JaxbMarshalar.marshal(discoveredDeviceData2, os, "DiscoveredDevice");
+////            String str = os.toString();
+////          //  System.out.println(str);
+//        } catch (JAXBException e) {
+//            logger.error(e.getMessage(),e);
+//        } finally {
+//            if (os != null) try {os.close();} catch (IOException e) {}
+//        }
+        result.setDiscoveredData("deviceData", discoveredDeviceData1);
         // TODO I have commented this out. Do we need it?
 //        result.setConnParams(snmpConnParams);
-        Device device = discoveryHelper.createDevice(discoveredDeviceData2);
+        Device device = discoveryHelper.createDevice(discoveredDeviceData1);
 
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
 
@@ -304,16 +304,23 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
     private List<ConnectionDetails> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
         List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
+
+
         for (DeviceNeighbour neighbour : neighbours) {
             ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
-            neighbourConnectionDetails.put("deviceType", neighbour.getDeviceType());
-            if (neighbour.getStatus()){ // if reachable
-                neighbourConnectionDetails.put("deviceName",neighbour.getHostName());
-                neighbourConnectionDetails.put("ipAddress",neighbour.getIpAddress().getIpAddress());
+            //    neighbourConnectionDetails.put("deviceType", neighbour.getDeviceType());
+            //    if (neighbour.getStatus()){ // if reachable
+            //        neighbourConnectionDetails.put("deviceName",neighbour.getHostName());
+            if (neighbour.getIpAddress() != null) {
+                neighbourConnectionDetails.put("ipAddress", neighbour.getIpAddress().getIpAddress());
+            } else {
+                neighbourConnectionDetails.put("ipAddress", neighbour.getHostName());
+
+            }
                 neighbourConnectionDetails.setConnectionType("snmp");
                 neighboursConnDetails.add(neighbourConnectionDetails);
 
-            }
+            //    }
         }
         return neighboursConnDetails;
     }

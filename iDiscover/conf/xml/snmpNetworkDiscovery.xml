@@ -37,7 +37,7 @@
                 <ref bean="sampleNodeDiscoveryListener"/>
                 <ref bean="rawDataFileLogDiscoveryListener"/>
                 <ref bean="deviceDataFileLogDiscoveryListener"/>
-                <ref bean="ConnectionDetailsListener"/>
+                <!--ref bean="ConnectionDetailsListener"/-->
 
                 <!--<ref bean="GraphmlFileLogDiscoveryListener"/>-->
                 <!--<ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>-->
