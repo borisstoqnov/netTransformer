@@ -108,7 +108,8 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
             public void actionPerformed(ActionEvent e) {
                 int selectedIndex = list.getSelectedIndex();
                 if (selectedIndex != -1) {
-                    listModel.remove(selectedIndex);
+                    String removedRow = listModel.remove(selectedIndex);
+                    connDetails.remove(removedRow);
                 }
             }
         });
