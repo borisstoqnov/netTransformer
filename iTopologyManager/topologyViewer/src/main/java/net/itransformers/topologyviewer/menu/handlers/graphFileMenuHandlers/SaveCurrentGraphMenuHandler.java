@@ -45,7 +45,7 @@ import java.util.Arrays;
 public class SaveCurrentGraphMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
-    File undirectedDir;
+    File graphmlDir;
     File networkGraphml;
     public SaveCurrentGraphMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
 
@@ -69,19 +69,35 @@ public class SaveCurrentGraphMenuHandler implements ActionListener {
 
         File versionPath = new File(networkPath,versionName);
         if (versionPath.exists()){
-          throw new RuntimeException("Version path already exists: "+versionPath.getAbsolutePath());
+            JOptionPane.showMessageDialog(frame, "Version already exists" + versionPath.getAbsolutePath());
+
+            return;
         }
 
         if (!versionPath.mkdir()){
-            throw new RuntimeException("Unable to create version path: "+versionPath.getAbsolutePath());
+            JOptionPane.showMessageDialog(frame, "Unable to create version path: " + versionPath.getAbsolutePath());
+        }
+
+        if ("undirected".equalsIgnoreCase(frame.getCurrentGraphViewerManager().getGraphType().toString())) {
+            graphmlDir = new File(versionPath.getAbsolutePath(), "graphml-undirected");
+
+
+        } else {
+            graphmlDir = new File(versionPath.getAbsolutePath(), "graphml-directed");
+
+        }
+        if (!graphmlDir.mkdir()) {
+            JOptionPane.showMessageDialog(frame, "Unable to create version path:" + versionPath.getAbsolutePath(), "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
 
         Writer fileWriter;
         try {
-            fileWriter = new FileWriter(new File(versionPath, "network.graphml"));
+            fileWriter = new FileWriter(new File(graphmlDir, "network.graphml"));
         } catch (IOException e1) {
-            throw new RuntimeException("Unable to create file: "+e1.getMessage());
+            JOptionPane.showMessageDialog(frame, "Unable to create network.graphml file:", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         final Graph<String, String> currentGraph = viewerPanel.getCurrentGraph();
@@ -106,7 +122,8 @@ public class SaveCurrentGraphMenuHandler implements ActionListener {
 
         } catch (IOException e1) {
             flag = false;
-            throw new RuntimeException("Unable to write graph file: "+e1.getMessage());
+            JOptionPane.showMessageDialog(frame, "Unable to write graph file:" + e1.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+
         }
 
     }
