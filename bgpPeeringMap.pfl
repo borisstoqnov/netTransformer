@@ -1,4 +1,3 @@
-iDiscover/conf/xml
-iTopologyManager/rightClick/conf
-iTopologyManager/topologyViewer/conf
-bgpPeeringMap/conf
+bin/iTopologyManager/rightClick/conf
+bin/iTopologyManager/topologyViewer/conf
+bin/bgpPeeringMap/conf

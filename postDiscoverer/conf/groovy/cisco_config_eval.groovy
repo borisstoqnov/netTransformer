@@ -27,6 +27,27 @@ Map<String,String> aaaLocal = ["message":"New Model AAA local authentication has
 Map<String,String> serviceSequenceNumbers = ["message":"Service sequence-numbers has been disabled!","score":0];
 Map<String,String> loggingConsoleCritical = ["message":"All kinds of error logging to console has been enabled!","score":0];
 Map<String,String> loggingBuffered = ["message":"Log output has not been buffered!","score":0];
+/*
+ * cisco_config_eval.groovy
+ *
+ * This work is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation; either version 2 of the License,
+ * or (at your option) any later version.
+ *
+ * This work is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ * USA
+ *
+ * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
+ */
+
 //Map<String,String> interfaces = [:];
 
 int points = 0;
