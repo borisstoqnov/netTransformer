@@ -22,6 +22,7 @@
 package net.itransformers.idiscover.v2.core;
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.utils.AutoLabeler;
 import net.itransformers.utils.CmdLineParser;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -137,26 +138,7 @@ public class Main {
         System.out.println("Missing parameter: "+param);
     }
 
-    public static String autolabel(String projectPath){
-        File networkPath = new File(projectPath,"network");
 
-        if (!networkPath.exists()) {
-             networkPath.mkdir();
-
-            File labelDir = new File(networkPath,"version1");
-            labelDir.mkdir();
-            return "network"+File.separator+"version1";
-        }
-        String[] fileList = new File(projectPath,"network").list();
-        int max = 0;
-        for (String fName : fileList) {
-            if (fName.matches(VERSION_LABEL+"\\d+")){
-                int curr = Integer.parseInt(fName.substring(VERSION_LABEL.length()));
-                if (max < curr ) max = curr;
-            }
-        }
-        return "network"+File.separator+VERSION_LABEL +(max+1);
-    }
 
     public static FileSystemXmlApplicationContext initializeDiscoveryContext(String projectPath) throws MalformedURLException {
 
@@ -175,7 +157,18 @@ public class Main {
                 rootBeanDefinition(String.class)
                 .addConstructorArgValue(projectPath).getBeanDefinition();
 
-        String labelDirName = autolabel(projectPath);
+
+        File networkPath = new File(projectPath, "network");
+        String labelDirName;
+        if (!networkPath.exists()) {
+            networkPath.mkdir();
+            labelDirName = "version" + "1";
+            File labelDir = new File(networkPath, labelDirName);
+            labelDir.mkdir();
+        } else {
+            AutoLabeler autoLabeler = new AutoLabeler(projectPath, "network", "version");
+            labelDirName = AutoLabeler.autolabel();
+        }
 
         BeanDefinition beanDefinition2 = BeanDefinitionBuilder.
                 rootBeanDefinition(String.class)

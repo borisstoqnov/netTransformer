@@ -44,7 +44,7 @@
         <param name="deviceName">OpenWrtCloud</param>
         <connection-params connection-type="ssh">
             <param name="username">root</param>
-            <param name="password">usa94</param>
+            <param name="password">pass</param>
             <param name="port">22</param>
         </connection-params>
         <connection-params connection-type="telnet">

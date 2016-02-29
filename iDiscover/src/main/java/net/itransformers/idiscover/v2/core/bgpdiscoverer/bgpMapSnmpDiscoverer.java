@@ -22,10 +22,7 @@
 package net.itransformers.idiscover.v2.core.bgpdiscoverer;
 
 import net.itransformers.idiscover.core.DiscoveryResourceManager;
-import net.itransformers.idiscover.v2.core.ConnectionDetailsValidator;
-import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
-import net.itransformers.idiscover.v2.core.NetworkNodeDiscoverer;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.v2.core.*;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.snmptoolkit.Get;
@@ -34,11 +31,18 @@ import net.itransformers.snmptoolkit.Node;
 import net.itransformers.snmptoolkit.Walk;
 import net.itransformers.snmptoolkit.messagedispacher.DefaultMessageDispatcherFactory;
 import net.itransformers.snmptoolkit.transport.UdpTransportMappingFactory;
+import net.itransformers.utils.AutoLabeler;
+import net.itransformers.utils.CmdLineParser;
 import net.itransformers.utils.StylesheetCache;
 import net.percederberg.mibble.MibLoaderException;
 import org.apache.log4j.Logger;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.util.SnmpConfigurator;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -49,6 +53,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.*;
 
 
@@ -62,13 +67,16 @@ public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
     private String labelDirName;
     private String projectPath;
     private String xsltFileName;
+    private String queryParameters;
+    private String mibDir;
 
-    public bgpMapSnmpDiscoverer(DiscoveryResourceManager discoveryResource, String labelDirName, String projectPath, String xsltFileName) {
-        this.discoveryResource = discoveryResource;
-        this.labelDirName = labelDirName;
-        this.projectPath = projectPath;
-        this.xsltFileName = xsltFileName;
-    }
+//    public bgpMapSnmpDiscoverer(DiscoveryResourceManager discoveryResource, String labelDirName, String projectPath, String xsltFileName, String queryParameters) {
+//        this.discoveryResource = discoveryResource;
+//        this.labelDirName = labelDirName;
+//        this.projectPath = projectPath;
+//        this.xsltFileName = xsltFileName;
+//        this.queryParameters = queryParameters;
+//    }
 
     @Override
     public NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList, int depth) {
@@ -111,12 +119,17 @@ public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
             Map<String, String> snmpConnParams = this.discoveryResource.getParamMap(snmpResource, "snmp");
             if (snmpConnParams != null) {
                 snmpConnParams.put("ipAddress", connectionDetails.getParam("ipAddress"));
-
-                logger.info("SNMP walk start");
+                snmpConnParams.put("query.parameters", queryParameters);
+                snmpConnParams.put("mibDir", mibDir);
                 byte[] rawData = new byte[0];
                 try {
-                    if (snmpGet(snmpConnParams) != null) {
+                    String sysDescr = snmpGet(snmpConnParams);
+                    if (sysDescr != null) {
+                        logger.info(sysDescr);
+                        logger.info("SNMP walk start");
+
                         rawData = snmpWalk(snmpConnParams);
+                        logger.debug(rawData.toString());
                     } else {
                         logger.info("Can't connect through SNMP to " + connectionDetails.getParam("ipAddress"));
                     }
@@ -200,11 +213,11 @@ public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
 
         SnmpConfigurator snmpConfig = new SnmpConfigurator();
         CommunityTarget t = (CommunityTarget) snmpConfig.getTarget(parameters);
-        String oid = ".1.3.6.1.2.1.1.1";
+        String oid = "1.3.6.1.2.1.1.1";
 
         Get get = new Get(oid, t, new UdpTransportMappingFactory(), new DefaultMessageDispatcherFactory());
         try {
-            return get.getSNMPValue();
+            return get.getSNMPGetNextValue();
         } catch (IOException e) {
 
             e.printStackTrace();
@@ -308,4 +321,113 @@ public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
     public void setProjectPath(String projectPath) {
         this.projectPath = projectPath;
     }
+
+
+    public String getQueryParameters() {
+        return queryParameters;
+    }
+
+    public void setQueryParameters(String queryParameters) {
+        this.queryParameters = queryParameters;
+    }
+
+    public String getMibDir() {
+        return mibDir;
+    }
+
+    public void setMibDir(String mibDir) {
+        this.mibDir = mibDir;
+    }
+
+    public static void main(String[] args) {
+        logger.debug("bgpPeeringMap v2. gearing up");
+
+        Map<String, String> params = CmdLineParser.parseCmdLine(args);
+        String projectPath = params.get("-p");
+
+        if (projectPath == null) {
+            File cwd = new File(".");
+            System.out.println("Project path is not specified. Will use current dir: " + cwd.getAbsolutePath());
+            projectPath = cwd.getAbsolutePath();
+        }
+
+        File workingDir = new File(projectPath);
+        if (!workingDir.exists()) {
+            System.out.println("Invalid project path!");
+            return;
+        }
+
+        logger.debug("Loading beans!!");
+        File conDetails = new File(projectPath, "iDiscover/conf/txt/connection-details.txt");
+
+        FileSystemXmlApplicationContext applicationContext = null;
+        try {
+            applicationContext = initializeDiscoveryContext(projectPath);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        NetworkDiscoverer discoverer = applicationContext.getBean("bgpMapSnmpDiscoverer", NetworkNodeDiscoverer.class);
+        LinkedHashMap<String, ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", conDetails);
+        NetworkDiscoveryResult result = discoverer.discoverNetwork(new ArrayList<ConnectionDetails>(connectionList.values()));
+
+        if (result != null) {
+            for (String s : result.getNodes().keySet()) {
+                System.out.println("\nNode: " + s);
+
+            }
+        }
+    }
+
+    public static FileSystemXmlApplicationContext initializeDiscoveryContext(String projectPath) throws MalformedURLException {
+
+
+        File generic = new File(projectPath, "iDiscover/conf/xml/generic.xml");
+        String genericContextPath = generic.toURI().toURL().toString();
+
+        File snmpDiscovery = new File(projectPath, "iDiscover/conf/xml/bgpInternetMapSNMPDiscovery.xml");
+        String snmpDiscoveryContextPath = snmpDiscovery.toURI().toURL().toString();
+
+        File connectionsDetails = new File(projectPath, "iDiscover/conf/xml/connectionsDetails.xml");
+        String connectionsDetailsContextPath = connectionsDetails.toURI().toURL().toString();
+
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        BeanDefinition beanDefinition = BeanDefinitionBuilder.
+                rootBeanDefinition(String.class)
+                .addConstructorArgValue(projectPath).getBeanDefinition();
+
+        File networkPath = new File(projectPath, "network");
+
+        String labelDirName;
+        if (!networkPath.exists()) {
+            networkPath.mkdir();
+            labelDirName = "version" + "1";
+            File labelDir = new File(networkPath, labelDirName);
+            labelDir.mkdir();
+        } else {
+            AutoLabeler autoLabeler = new AutoLabeler(projectPath, "network", "version");
+            labelDirName = AutoLabeler.autolabel();
+        }
+
+        BeanDefinition beanDefinition2 = BeanDefinitionBuilder.
+                rootBeanDefinition(String.class)
+                .addConstructorArgValue(labelDirName).getBeanDefinition();
+
+        beanFactory.registerBeanDefinition("projectPath", beanDefinition);
+
+        beanFactory.registerBeanDefinition("labelDirName", beanDefinition2);
+
+        GenericApplicationContext cmdArgCxt = new GenericApplicationContext(beanFactory);
+        // Must call refresh to initialize context
+        cmdArgCxt.refresh();
+
+        String[] paths = new String[]{genericContextPath, snmpDiscoveryContextPath, connectionsDetailsContextPath};
+//        ,project.getAbsolutePath()+project.getAbsolutePath()+File.separator+"iDiscover/conf/xml/snmpNetworkDiscovery.xml", project.getAbsolutePath()+File.separator+"iDiscover/src/main/resources/connectionsDetails.xml"
+        FileSystemXmlApplicationContext applicationContext = new FileSystemXmlApplicationContext(paths, cmdArgCxt);
+//        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(workingDir+File.separator+"iDiscover/conf/xml/generic.xml",workingDir+File.separator+"/iDiscover/conf/xml/snmpNetworkDiscovery.xml","connectionsDetails.xml");
+        // NetworkDiscoverer discoverer = fileApplicationContext.getBean("bgpPeeringMapDiscovery", NetworkDiscoverer.class);
+        //NetworkDiscoverer discoverer = fileApplicationContext.getBean("floodLightNodeDiscoverer", NetworkDiscoverer.class);
+        return applicationContext;
+    }
+
+
 }

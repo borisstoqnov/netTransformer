@@ -1,1 +1,1 @@
-name=OpenWrtCloud,type=snmp:deviceType=LINUX,deviceName=OpenWrtCloud,
+name=OpenWrtCloud,type=snmp:deviceType=LINUX,deviceName=OpenWrtCloud,ipAddress=10.17.1.1
