@@ -33,7 +33,7 @@ import net.itransformers.snmptoolkit.messagedispacher.DefaultMessageDispatcherFa
 import net.itransformers.snmptoolkit.transport.UdpTransportMappingFactory;
 import net.itransformers.utils.AutoLabeler;
 import net.itransformers.utils.CmdLineParser;
-import net.itransformers.utils.StylesheetCache;
+import net.itransformers.utils.XsltTransformer;
 import net.percederberg.mibble.MibLoaderException;
 import org.apache.log4j.Logger;
 import org.snmp4j.CommunityTarget;
@@ -43,12 +43,10 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
+import org.xml.sax.SAXException;
 
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -129,7 +127,7 @@ public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
                         logger.info("SNMP walk start");
 
                         rawData = snmpWalk(snmpConnParams);
-                        logger.debug(rawData.toString());
+                        logger.debug(new String(rawData));
                     } else {
                         logger.info("Can't connect through SNMP to " + connectionDetails.getParam("ipAddress"));
                     }
@@ -140,8 +138,26 @@ public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
 
                 NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult();
                 nodeDiscoveryResult.setDiscoveredData("rawData", rawData);
+
+                File xsltTransformer = new File(projectPath,xsltFileName);
+
+                ByteArrayInputStream xsmlInputStream = new ByteArrayInputStream(rawData);
+
+                try {
+                    ByteArrayOutputStream deviceData = XsltTransformer.transformXML(xsltTransformer, xsmlInputStream, params1);
+                    nodeDiscoveryResult.setDiscoveredData("deviceData",deviceData);
+
+                } catch (ParserConfigurationException e) {
+                    logger.info(e.getMessage());
+                } catch (IOException e) {
+                    logger.info(e.getMessage());
+                } catch (SAXException e) {
+                    logger.info(e.getMessage());
+                } catch (TransformerException e) {
+                    logger.info(e.getMessage());
+                }
+
                 fireNodeDiscoveredEvent(nodeDiscoveryResult);
-                networkDiscoveryResult.addDiscoveredData(connectionDetails.getParam("deviceName"), nodeDiscoveryResult);
 
             } else {
                 logger.info("Can't find an SNMP resource for those connection details");
@@ -268,26 +284,6 @@ public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
         return parameterProperties;
     }
 
-    public ByteArrayOutputStream transformRawDataToDeviceData(ByteArrayInputStream inputStream, Map<String, String> params) {
-        //Create DeviceXml File
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        File xsltTransformer = new File(projectPath, xsltFileName);
-
-        try {
-            Transformer trans = StylesheetCache.newTransformer(xsltTransformer);
-            if (params != null) {
-                for (String param : params.keySet()) {
-                    trans.setParameter(param, params.get(param));
-                }
-            }
-            Source xmlSource = new StreamSource(inputStream);
-            trans.transform(xmlSource, new StreamResult(outputStream));
-        } catch (TransformerException e) {
-            logger.info(e.getMessage());
-        }
-
-        return outputStream;
-    }
 
     public String getXsltFileName() {
         return xsltFileName;

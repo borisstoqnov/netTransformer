@@ -57,6 +57,7 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
     private JCheckBox autoLabelCheckBox;
     private JCheckBox postDiscoveryCheckBox;
     private File conDetails;
+    private String discoveryBeanName;
 
 
     /**
@@ -64,7 +65,7 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
      */
     public static void main(String[] args) {
         try {
-            DiscoveryManagerDialogV2 dialog = new DiscoveryManagerDialogV2(null,new File("."));
+            DiscoveryManagerDialogV2 dialog = new DiscoveryManagerDialogV2(null, new File("."), "snmpDiscovery");
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
         } catch (Exception e) {
@@ -73,13 +74,11 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
     }
 
 
-
-
-
-    public DiscoveryManagerDialogV2(Frame parent, File projectDir) {
+    public DiscoveryManagerDialogV2(Frame parent, File projectDir, String discoveryBeanName) {
         super(parent, "Discovery Manager", false);
         this.projectDir = projectDir;
         conDetails =new File(projectDir,"iDiscover/conf/txt/connection-details.txt");
+        this.discoveryBeanName = discoveryBeanName;
 
         setBounds(100, 100, 760, 364);
         getContentPane().setLayout(new BorderLayout());
@@ -272,8 +271,9 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
 
         LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", conDetails);
 
+        //TopologyManagerFrame frame = this.projectDir.;
 
-        NetworkNodeDiscovererImpl nodeDiscovererImpl = applicationContext.getBean("snmpDiscovery", NetworkNodeDiscovererImpl.class);
+        NetworkNodeDiscovererImpl nodeDiscovererImpl = applicationContext.getBean(discoveryBeanName, NetworkNodeDiscovererImpl.class);
 
         int depth = (Integer) depthComboBox.getSelectedItem();
         NodeDiscoveryListener nodeListener = new NodeDiscoveryListener() {

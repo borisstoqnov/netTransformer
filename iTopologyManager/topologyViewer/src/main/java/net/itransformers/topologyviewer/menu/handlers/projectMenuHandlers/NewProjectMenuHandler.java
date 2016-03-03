@@ -22,6 +22,7 @@
 package net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers;
 
 import net.itransformers.topologyviewer.dialogs.NewProjectDialog;
+import net.itransformers.utils.ProjectConstants;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.utils.RecursiveCopy;
 import org.apache.log4j.Logger;
@@ -63,7 +64,7 @@ public class NewProjectMenuHandler implements ActionListener {
             return;
         } else if (dialog.getProjectType().equals("BGP Peering Map")) {
             file = new File("bgpPeeringMap.pfl");
-            frame.setProjectType("bgpPeeringMap");
+            frame.setProjectType(ProjectConstants.mrtBgpDiscovererProjectType);
             frame.setViewerConfig(new File(dialog.getProjectDir() +File.separator +"iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
             frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
             frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
@@ -72,8 +73,8 @@ public class NewProjectMenuHandler implements ActionListener {
 
         }else if (dialog.getProjectType().equals("Free Graph")) {
             file = new File("freeGraph.pfl");
-            frame.setProjectType("freeGraph");
-            frame.setViewerConfig(new File(dialog.getProjectDir() +File.separator +"iTopologyManager/topologyViewer/conf/xml/freeGraph/viewer-config.xml"));
+            frame.setProjectType(ProjectConstants.freeGraphProjectType);
+            frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/freeGraph/viewer-config.xml"));
             frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
             frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
             frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
@@ -83,13 +84,17 @@ public class NewProjectMenuHandler implements ActionListener {
 
         else {
             file = new File("netTransformer.pfl");
-            frame.setProjectType("IPNetworkDiscoverer");
-            frame.setViewerConfig(new File(dialog.getProjectDir() +File.separator +"iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
+            frame.setProjectType(ProjectConstants.snmpProjectType);
+            frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
             frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
             frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
             frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
 
         }
+
+        frame.setTitle(ProjectConstants.getProjectName(frame.getProjectType()));
+
+
         Scanner s = null;
         try {
             try {

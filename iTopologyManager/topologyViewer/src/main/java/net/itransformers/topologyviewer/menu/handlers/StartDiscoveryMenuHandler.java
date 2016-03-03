@@ -47,7 +47,7 @@ public class StartDiscoveryMenuHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        DiscoveryManagerDialogV2 dialog = new DiscoveryManagerDialogV2(frame,frame.getPath());
+        DiscoveryManagerDialogV2 dialog = new DiscoveryManagerDialogV2(frame, frame.getPath(), frame.getProjectType());
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
 
