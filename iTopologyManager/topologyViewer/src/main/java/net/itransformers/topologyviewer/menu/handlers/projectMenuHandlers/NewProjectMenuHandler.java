@@ -58,11 +58,12 @@ public class NewProjectMenuHandler implements ActionListener {
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
         File file;
-        logger.info("Selected project file is:"+dialog.getProjectType());
+        String projectType = dialog.getProjectType();
+        logger.info("Selected project file is from type: " + projectType);
 
         if (!dialog.isOkPressed()) {
             return;
-        } else if (dialog.getProjectType().equals("BGP Peering Map")) {
+        } else if (projectType.equals(ProjectConstants.mrtBgpDiscovererProjectType)) {
             file = new File("bgpPeeringMap.pfl");
             frame.setProjectType(ProjectConstants.mrtBgpDiscovererProjectType);
             frame.setViewerConfig(new File(dialog.getProjectDir() +File.separator +"iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
@@ -71,7 +72,7 @@ public class NewProjectMenuHandler implements ActionListener {
             frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
 
 
-        }else if (dialog.getProjectType().equals("Free Graph")) {
+        } else if (projectType.equals(ProjectConstants.freeGraphProjectType)) {
             file = new File("freeGraph.pfl");
             frame.setProjectType(ProjectConstants.freeGraphProjectType);
             frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/freeGraph/viewer-config.xml"));

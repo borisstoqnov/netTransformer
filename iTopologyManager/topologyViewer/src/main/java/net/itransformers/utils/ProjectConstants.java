@@ -53,7 +53,7 @@ public class ProjectConstants {
     }
 
 
-    public String getProjectType(String projectName) {
+    public static String getProjectType(String projectName) {
         if (projectName.equals(ProjectConstants.snmpProjectName))
 
             return ProjectConstants.snmpProjectType;

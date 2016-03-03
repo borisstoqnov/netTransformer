@@ -1,25 +1,28 @@
 /*
- * netTransformer is an open source tool able to discover and transform
- *  IP network infrastructures.
- *  Copyright (C) 2012  http://itransformers.net
+ * NewProjectDialog.java
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  any later version.
+ * This work is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation; either version 2 of the License,
+ * or (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This work is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ * USA
+ *
+ * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
 package net.itransformers.topologyviewer.dialogs;
 
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.utils.ProjectConstants;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -35,7 +38,7 @@ public class NewProjectDialog extends JDialog {
     private JTextField baseFilePathTextField;
     private boolean isOkPressed;
     private File projectDir;
-    private String projectType = "netTransformer";
+    private String projectType;
 
     /**
      * Launch the application.
@@ -95,19 +98,21 @@ public class NewProjectDialog extends JDialog {
             contentPanel.add(label);
         }
         {
-            String[] projectTypes = {"IP Network", "BGP Peering Map", "Free Graph"};
-            final JComboBox comboBox = new JComboBox(projectTypes);
+            String[] projectNames = {ProjectConstants.snmpProjectName, ProjectConstants.mrtBgpDiscovererName, ProjectConstants.snmpBgpDiscovererName, ProjectConstants.freeGraphDiscovererName};
+            final JComboBox comboBox = new JComboBox(projectNames);
             comboBox.setBounds(108, 47, 277, 22);
-            comboBox.setSelectedItem(projectTypes[0]);
+            comboBox.setSelectedItem(projectNames[0]);
             contentPanel.add(comboBox);
             comboBox.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent arg0) {
-                    JComboBox cb = (JComboBox)arg0.getSource();
-                    projectType = (String)cb.getSelectedItem();
+                    JComboBox cb = (JComboBox) arg0.getSource();
+                    String projectName = (String) cb.getSelectedItem();
+
+                    projectType = ProjectConstants.getProjectType(projectName);
                 }
 
-                });
+            });
             }
 
             {
