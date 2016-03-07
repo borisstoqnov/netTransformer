@@ -23,6 +23,7 @@ package net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers;
 
 import net.itransformers.topologyviewer.diff.DiffWizardDialog;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.utils.ProjectConstants;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -66,7 +67,7 @@ public class DiffMenuHandler implements ActionListener {
             if (wizardDialog.getResult() == DiffWizardDialog.Result.DONE) {
 //                frame.setConfigUri(new File(wizardDialog.getDiffConfigPath()));
                 //TODO remove hardcore
-                frame.doOpenGraph(new File(wizardDialog.getDiffPath3()+File.separator+"graphml-undirected"+File.separator + "network.graphml"));
+                frame.doOpenGraph(new File(wizardDialog.getDiffPath3() + File.separator + ProjectConstants.undirectedGraphmlDirName + File.separator + "network.graphml"));
             }
     }
 }

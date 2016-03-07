@@ -38,7 +38,7 @@ import java.io.IOException;
 public class AddGraphMenuHandler implements ActionListener {
 
     private TopologyManagerFrame frame;
-    public static final String VERSION_LABEL = "version";
+    public static final String VERSION_LABEL = ProjectConstants.labelDirName;
 
 
     public AddGraphMenuHandler(TopologyManagerFrame frame) {
@@ -75,7 +75,7 @@ public class AddGraphMenuHandler implements ActionListener {
                 System.out.println(fileResult);
                 File version = autolabel(projectPath.getAbsolutePath());
 
-                File graphmlDir =  new File (version,"graphml-undirected");
+                File graphmlDir = new File(version, ProjectConstants.undirectedGraphmlDirName);
                 graphmlDir.mkdir();
 
                 try {

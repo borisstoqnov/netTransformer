@@ -24,36 +24,27 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-<!--
-  ~ bgpInternetMapSNMPDiscovery.xml
-  ~
-  ~ This work is free software; you can redistribute it and/or modify
-  ~ it under the terms of the GNU General Public License as published
-  ~ by the Free Software Foundation; either version 2 of the License,
-  ~ or (at your option) any later version.
-  ~
-  ~ This work is distributed in the hope that it will be useful, but
-  ~ WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  ~ GNU General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU General Public License
-  ~ along with this program; if not, write to the Free Software
-  ~ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
-  ~ USA
-  ~
-  ~ Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
-  -->
 
-<bean id="bgpMapSnmpDiscoverer" class="net.itransformers.idiscover.v2.core.bgpdiscoverer.bgpMapSnmpDiscoverer">
+    <bean id="bgpMapSnmpDiscoverer" class="net.itransformers.idiscover.v2.core.bgpdiscoverer.BgpMapSnmpDiscoverer">
 
     <property name="discoveryResource" ref="discoveryResourceManager"/>
     <property name="projectPath" ref="projectPath"/>
-    <property name="labelDirName" value="graphml-undirected"/>
-    <property name="xsltFileName" value="bgpPeeringMap/conf/xslt/bgp_as_path.xslt"/>
-    <property name="queryParameters" value="sysName,bgpLocalAs,bgpPeerEntry,bgp4PathAttrEntry"/>
+        <property name="labelDirName" ref="labelDirName"/>
+        <property name="graphmlUndirectedPath" ref="graphmlUndirectedPath"/>
+        <property name="xsltFileName1" value="bgpPeeringMap/conf/xslt/bgpAsPath.xslt"/>
+        <property name="xsltFileName2" value="bgpPeeringMap/conf/xslt/inetMap.xslt"/>
+        <property name="xsltFileName3" value="bgpPeeringMap/conf/xslt/reorder.xslt"/>
+        <property name="asNumbers" value="bgpPeeringMap/conf/xml/autnums.xml"/>
+        <property name="queryParameters" value="sysName,bgpLocalAs,ca,bgp4PathAttrEntry"/>
     <property name="mibDir" value="snmptoolkit/mibs"/>
 
+        <property name="networkDiscoveryListeners">
+            <list>
+                <ref bean="SnmpNetworkDiscoveryListener"/>
+                <!--<ref bean="PostNetworkDiscoveryListener"/>-->
+
+            </list>
+        </property>
 
 </bean>
 

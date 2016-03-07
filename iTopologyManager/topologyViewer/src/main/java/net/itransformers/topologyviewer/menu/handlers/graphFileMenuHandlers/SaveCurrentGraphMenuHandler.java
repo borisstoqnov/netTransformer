@@ -82,11 +82,11 @@ public class SaveCurrentGraphMenuHandler implements ActionListener {
         }
 
         if ("undirected".equalsIgnoreCase(frame.getCurrentGraphViewerManager().getGraphType().toString())) {
-            graphmlDir = new File(versionPath.getAbsolutePath(), "graphml-undirected");
+            graphmlDir = new File(versionPath.getAbsolutePath(), ProjectConstants.undirectedGraphmlDirName);
 
 
         } else {
-            graphmlDir = new File(versionPath.getAbsolutePath(), "graphml-directed");
+            graphmlDir = new File(versionPath.getAbsolutePath(), ProjectConstants.directedGraphmlDirName);
 
         }
         if (!graphmlDir.mkdir()) {

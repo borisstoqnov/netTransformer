@@ -1,5 +1,5 @@
 /*
- * bgpMapSnmpDiscoverer.java
+ * BgpMapSnmpDiscoverer.java
  *
  * This work is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
@@ -33,6 +33,7 @@ import net.itransformers.snmptoolkit.messagedispacher.DefaultMessageDispatcherFa
 import net.itransformers.snmptoolkit.transport.UdpTransportMappingFactory;
 import net.itransformers.utils.AutoLabeler;
 import net.itransformers.utils.CmdLineParser;
+import net.itransformers.utils.ProjectConstants;
 import net.itransformers.utils.XsltTransformer;
 import net.percederberg.mibble.MibLoaderException;
 import org.apache.log4j.Logger;
@@ -58,13 +59,17 @@ import java.util.*;
 /**
  * Created by niau on 2/28/16.
  */
-public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
+public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
 
-    static Logger logger = Logger.getLogger(bgpMapSnmpDiscoverer.class);
+    static Logger logger = Logger.getLogger(BgpMapSnmpDiscoverer.class);
     private DiscoveryResourceManager discoveryResource;
     private String labelDirName;
     private String projectPath;
-    private String xsltFileName;
+    private String xsltFileName1;
+    private String xsltFileName2;
+    private String xsltFileName3;
+    private String asNumbers;
+
     private String queryParameters;
     private String mibDir;
 
@@ -127,6 +132,7 @@ public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
                         logger.info("SNMP walk start");
 
                         rawData = snmpWalk(snmpConnParams);
+
                         logger.debug(new String(rawData));
                     } else {
                         logger.info("Can't connect through SNMP to " + connectionDetails.getParam("ipAddress"));
@@ -139,13 +145,29 @@ public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
                 NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult();
                 nodeDiscoveryResult.setDiscoveredData("rawData", rawData);
 
-                File xsltTransformer = new File(projectPath,xsltFileName);
 
                 ByteArrayInputStream xsmlInputStream = new ByteArrayInputStream(rawData);
 
                 try {
-                    ByteArrayOutputStream deviceData = XsltTransformer.transformXML(xsltTransformer, xsmlInputStream, params1);
-                    nodeDiscoveryResult.setDiscoveredData("deviceData",deviceData);
+                    File xsltTransformer1 = new File(projectPath,xsltFileName1);
+
+                    ByteArrayOutputStream firstStage = XsltTransformer.transformXML(xsltTransformer1, xsmlInputStream, params1);
+
+                    File xsltTransformer2 = new File(projectPath,xsltFileName2);
+                    ByteArrayInputStream inputStream2 = new ByteArrayInputStream(firstStage.toByteArray());
+
+                    ByteArrayOutputStream secondStage = XsltTransformer.transformXML(xsltTransformer2, inputStream2, params1);
+                    ByteArrayInputStream inputStream3 = new ByteArrayInputStream(secondStage.toByteArray());
+
+                    ByteArrayOutputStream thirdStage = XsltTransformer.transformXML(xsltTransformer2, inputStream3, params1);
+
+                    File xsltTransformer3 = new File(projectPath,xsltFileName3);
+
+
+
+               //     nodeDiscoveryResult.setDiscoveredData("deviceData",deviceData);
+
+
 
                 } catch (ParserConfigurationException e) {
                     logger.info(e.getMessage());
@@ -156,8 +178,6 @@ public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
                 } catch (TransformerException e) {
                     logger.info(e.getMessage());
                 }
-
-                fireNodeDiscoveredEvent(nodeDiscoveryResult);
 
             } else {
                 logger.info("Can't find an SNMP resource for those connection details");
@@ -284,13 +304,20 @@ public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
         return parameterProperties;
     }
 
-
-    public String getXsltFileName() {
-        return xsltFileName;
+    public String getQueryParameters() {
+        return queryParameters;
     }
 
-    public void setXsltFileName(String xsltFileName) {
-        this.xsltFileName = xsltFileName;
+    public void setQueryParameters(String queryParameters) {
+        this.queryParameters = queryParameters;
+    }
+
+    public String getXsltFileName1() {
+        return xsltFileName1;
+    }
+
+    public void setXsltFileName1(String xsltFileName1) {
+        this.xsltFileName1 = xsltFileName1;
     }
 
     public DiscoveryResourceManager getDiscoveryResource() {
@@ -319,20 +346,36 @@ public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
     }
 
 
-    public String getQueryParameters() {
-        return queryParameters;
-    }
-
-    public void setQueryParameters(String queryParameters) {
-        this.queryParameters = queryParameters;
-    }
-
     public String getMibDir() {
         return mibDir;
     }
 
     public void setMibDir(String mibDir) {
         this.mibDir = mibDir;
+    }
+
+    public String getXsltFileName2() {
+        return xsltFileName2;
+    }
+
+    public void setXsltFileName2(String xsltFileName2) {
+        this.xsltFileName2 = xsltFileName2;
+    }
+
+    public String getXsltFileName3() {
+        return xsltFileName3;
+    }
+
+    public void setXsltFileName3(String xsltFileName3) {
+        this.xsltFileName3 = xsltFileName3;
+    }
+
+    public String getAsNumbers() {
+        return asNumbers;
+    }
+
+    public void setAsNumbers(String asNumbers) {
+        this.asNumbers = asNumbers;
     }
 
     public static void main(String[] args) {
@@ -362,16 +405,11 @@ public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        NetworkDiscoverer discoverer = applicationContext.getBean("bgpMapSnmpDiscoverer", NetworkNodeDiscoverer.class);
+        NetworkDiscoverer discoverer = applicationContext.getBean("bgpMapSnmpDiscoverer", ANetworkDiscoverer.class);
         LinkedHashMap<String, ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", conDetails);
         NetworkDiscoveryResult result = discoverer.discoverNetwork(new ArrayList<ConnectionDetails>(connectionList.values()));
 
-        if (result != null) {
-            for (String s : result.getNodes().keySet()) {
-                System.out.println("\nNode: " + s);
 
-            }
-        }
     }
 
     public static FileSystemXmlApplicationContext initializeDiscoveryContext(String projectPath) throws MalformedURLException {
@@ -391,17 +429,17 @@ public class bgpMapSnmpDiscoverer extends NetworkNodeDiscoverer {
                 rootBeanDefinition(String.class)
                 .addConstructorArgValue(projectPath).getBeanDefinition();
 
-        File networkPath = new File(projectPath, "network");
+        File networkPath = new File(projectPath, ProjectConstants.networkDirName);
 
         String labelDirName;
         if (!networkPath.exists()) {
             networkPath.mkdir();
-            labelDirName = "version" + "1";
+            labelDirName = ProjectConstants.labelDirName + "1";
             File labelDir = new File(networkPath, labelDirName);
             labelDir.mkdir();
         } else {
-            AutoLabeler autoLabeler = new AutoLabeler(projectPath, "network", "version");
-            labelDirName = AutoLabeler.autolabel();
+            AutoLabeler autoLabeler = new AutoLabeler(projectPath, ProjectConstants.networkDirName, ProjectConstants.labelDirName);
+            labelDirName = autoLabeler.autolabel();
         }
 
         BeanDefinition beanDefinition2 = BeanDefinitionBuilder.

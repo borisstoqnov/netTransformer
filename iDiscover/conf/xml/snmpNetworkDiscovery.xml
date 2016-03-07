@@ -61,7 +61,7 @@
           class="net.itransformers.idiscover.v2.core.listeners.network.SnmpNetworkDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>
-        <property name="graphmlDataDirName" value="graphml-undirected"/>
+        <property name="graphmlDataDirName" ref="graphmlUndirectedPath"/>
     </bean>
 
 

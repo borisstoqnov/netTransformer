@@ -39,6 +39,9 @@ public class ProjectConstants {
 
     public static final String networkDirName = "network";
     public static final String labelDirName = "version";
+    public static final String undirectedGraphmlDirName = "graphml-undirected";
+    public static final String directedGraphmlDirName = "graphml-directed";
+
 
     public static String getProjectName(String projectType) {
         if (projectType.equals(ProjectConstants.snmpProjectType))

@@ -22,6 +22,7 @@
 package net.itransformers.topologyviewer.menu.handlers.graphTools;
 
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.utils.ProjectConstants;
 import net.itransformers.utils.XMLTreeView;
 
 import javax.swing.*;
@@ -56,7 +57,7 @@ public class XmlTreeNetworkGraphmlMenuHandler implements ActionListener {
             JOptionPane.showMessageDialog(frame, "Please load the graph prior reviewing its model!");
 
         } else {
-            pathToResource = new File(frame.getCurrentGraphViewerManager().getVersionDir() + File.separator + "graphml-undirected" + File.separator + "network.graphml");
+            pathToResource = new File(frame.getCurrentGraphViewerManager().getVersionDir() + File.separator + ProjectConstants.undirectedGraphmlDirName + File.separator + "network.graphml");
 
             try {
             new XMLTreeView("Network Centric model",pathToResource);

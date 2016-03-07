@@ -233,7 +233,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         String path2 = getDiffPath2();
         String path3 = getDiffPath3();
         File path3File = new File (path3);
-        File path3Undirected = new File (path3+File.separator+"graphml-undirected");
+        File path3Undirected = new File(path3 + File.separator + ProjectConstants.undirectedGraphmlDirName);
         String path3UndirectedNetwork = path3Undirected.getAbsolutePath()+File.separator+ "network.graphml";
 
         if (!path3File.exists()){
@@ -294,7 +294,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
                 @Override
                 public boolean accept(File f) {
                     if (f.exists() && f.isDirectory()){
-                        undirectedDir = new File(f+File.separator+"graphml-undirected");
+                        undirectedDir = new File(f + File.separator + ProjectConstants.undirectedGraphmlDirName);
                         networkGraphml = new File(undirectedDir+File.separator+ "network.graphml");
                         if (undirectedDir.exists() && networkGraphml.exists()){
                             return true;
@@ -316,7 +316,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
             if (result == JFileChooser.APPROVE_OPTION) {
                 diffPathTextField.setText(chooser.getSelectedFile().getAbsolutePath());
             }
-            File fileResult = new File(chooser.getSelectedFile()+File.separator+"graphml-undirected"+File.separator+ "network.graphml");
+            File fileResult = new File(chooser.getSelectedFile() + File.separator + ProjectConstants.undirectedGraphmlDirName + File.separator + "network.graphml");
             if(fileResult.exists()){
                 diffPathTextField.setText(fileResult.getAbsolutePath());
             }else {
