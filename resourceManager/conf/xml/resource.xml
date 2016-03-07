@@ -21,27 +21,9 @@
   -->
 
 <resources>
-    <resource name="misho">
-        <connection-params connection-type="ssh"/>
-        <connection-params connection-type="telnet">
-            <param name="username">misho</param>
-            <param name="password">misho321</param>
-            <param name="enable-password">misho321</param>
-            <param name="timeout">3000</param>
-            <param name="retries">3</param>
-            <param name="port">23</param>
-        </connection-params>
-        <connection-params connection-type="snmp">
-            <param name="version">2c</param>
-            <param name="community-ro">europack-r</param>
-            <param name="community-rw">test-rw</param>
-            <param name="timeout">1000</param>
-            <param name="retries">1</param>
-            <param name="port">161</param>
-        </connection-params>
-    </resource>
+
     <resource name="OpenWrt">
-        <param name="deviceName">OpenWrtCloud</param>
+        <param name="deviceName">OpenWrt</param>
         <connection-params connection-type="ssh">
             <param name="username">root</param>
             <param name="password">pass</param>
@@ -56,60 +38,16 @@
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
             <param name="community-ro">netTransformer-r</param>
-            <param name="community-rw">public</param>
+            <param name="community-rw">netTransformer-rw</param>
             <param name="timeout">3000</param>
             <param name="retries">1</param>
             <param name="port">161</param>
         </connection-params>
     </resource>
-    <resource name="node-from-Moscow">
-        <param name="geoloc">Moscow</param>
-        <connection-params connection-type="ssh">
-            <param name="username">lab</param>
-            <param name="password">lab</param>
-            <param name="system-password">lab</param>
-            <param name="port">22</param>
-        </connection-params>
-        <connection-params connection-type="telnet">
-            <param name="username">user</param>
-            <param name="password">password</param>
-            <param name="system-password">password</param>
-            <param name="port">23</param>
-        </connection-params>
-        <connection-params connection-type="snmp">
-            <param name="version">2c</param>
-            <param name="community-ro">public</param>
-            <param name="community-rw">private</param>
-            <param name="timeout">3000</param>
-            <param name="retries">3</param>
-            <param name="port">161</param>
-        </connection-params>
-    </resource>
-    <resource name="cisco-devices-from-Moscow">
-        <param name="deviceType">CISCO</param>
-        <param name="geoloc">Moscow</param>
-        <connection-params connection-type="ssh">
-            <param name="username">lab</param>
-            <param name="password">lab</param>
-            <param name="enable-password">lab</param>
-            <param name="port">22</param>
-        </connection-params>
-        <connection-params connection-type="telnet">
-            <param name="username">lab</param>
-            <param name="password">lab</param>
-            <param name="enable-password">lab</param>
-            <param name="port">23</param>
-        </connection-params>
-        <connection-params connection-type="snmp">
-            <param name="version">2c</param>
-            <param name="community-ro">public</param>
-            <param name="community-rw">private</param>
-            <param name="timeout">3000</param>
-            <param name="retries">3</param>
-            <param name="port">161</param>
-        </connection-params>
-    </resource>
+
     <resource name="huawei">
+        <param name="deviceType">HUAWEI</param>
+
         <connection-params connection-type="ssh">
             <param name="system-password">lab123</param>
             <param name="timeout">3000</param>
@@ -122,6 +60,17 @@
             <param name="timeout">3000</param>
             <param name="retries">3</param>
             <param name="port">23</param>
+        </connection-params>
+    </resource>
+    <resource name="default">
+
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="community-ro">netTransformer-r</param>
+            <param name="community-rw">netTransformer-rw</param>
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
+            <param name="port">161</param>
         </connection-params>
     </resource>
 </resources>

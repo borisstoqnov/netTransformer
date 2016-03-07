@@ -191,7 +191,7 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
 
     @Override
     public void networkDiscovered(NetworkDiscoveryResult result) {
-        File outFile = new File(projectPath, labelDirName+File.separator+graphmlDataDirName+File.separator+"network.graphml");
+        File outFile = new File(projectPath, labelDirName + File.separator + graphmlDataDirName + File.separator + ProjectConstants.networkGraphmlFileName);
         File dir = new File(projectPath, labelDirName+File.separator+graphmlDataDirName);
         File[] files = dir.listFiles(new FileFilter() {
             @Override

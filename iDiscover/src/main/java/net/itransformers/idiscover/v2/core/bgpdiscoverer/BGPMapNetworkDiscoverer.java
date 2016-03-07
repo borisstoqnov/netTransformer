@@ -25,6 +25,7 @@ import net.itransformers.idiscover.v2.core.ANetworkDiscoverer;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.utils.ProjectConstants;
 import org.apache.commons.io.output.NullOutputStream;
 import org.apache.log4j.Logger;
 import org.javamrt.dumper.CmdLineParser;
@@ -76,7 +77,7 @@ public class BGPMapNetworkDiscoverer extends ANetworkDiscoverer {
 
 
             args[2] = "-o";
-            String outputFile="network.graphml";
+            String outputFile = ProjectConstants.networkGraphmlFileName;
             args[3] = outputFile;
 
             Map<String, String> params = CmdLineParser.parseCmdLine(args);

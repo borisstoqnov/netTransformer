@@ -57,7 +57,7 @@ public class XmlTreeNetworkGraphmlMenuHandler implements ActionListener {
             JOptionPane.showMessageDialog(frame, "Please load the graph prior reviewing its model!");
 
         } else {
-            pathToResource = new File(frame.getCurrentGraphViewerManager().getVersionDir() + File.separator + ProjectConstants.undirectedGraphmlDirName + File.separator + "network.graphml");
+            pathToResource = new File(frame.getCurrentGraphViewerManager().getVersionDir() + File.separator + ProjectConstants.undirectedGraphmlDirName + File.separator + ProjectConstants.networkGraphmlFileName);
 
             try {
             new XMLTreeView("Network Centric model",pathToResource);

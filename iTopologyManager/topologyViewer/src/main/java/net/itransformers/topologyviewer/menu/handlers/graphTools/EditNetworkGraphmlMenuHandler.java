@@ -59,7 +59,7 @@ public class EditNetworkGraphmlMenuHandler implements ActionListener {
         } else {
             //TODO remove this hardCode with configuration
 
-            pathToResource = new File(frame.getCurrentGraphViewerManager().getVersionDir() + File.separator + ProjectConstants.undirectedGraphmlDirName + File.separator + "network.graphml");
+            pathToResource = new File(frame.getCurrentGraphViewerManager().getVersionDir() + File.separator + ProjectConstants.undirectedGraphmlDirName + File.separator + ProjectConstants.networkGraphmlFileName);
             String dir = new File(frame.getPath() + File.separator + pathToResource).getParent();
             JEditorPane resourceEditor = new JEditorPane(pathToResource.getAbsolutePath(), dir, "xml");
             try {

@@ -28,6 +28,7 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.utils.ProjectConstants;
 import org.apache.commons.io.output.NullOutputStream;
 import org.javamrt.dumper.CmdLineParser;
 import org.javamrt.dumper.Route2GraphmlDumper;
@@ -96,7 +97,7 @@ public class MrtCrawlController implements NodeDiscoverer {
 
 
         args[2] = "-o";
-        String outputFile="network.graphml";
+        String outputFile = ProjectConstants.networkGraphmlFileName;
         args[3] = outputFile;
 
         Map<String, String> params = CmdLineParser.parseCmdLine(args);

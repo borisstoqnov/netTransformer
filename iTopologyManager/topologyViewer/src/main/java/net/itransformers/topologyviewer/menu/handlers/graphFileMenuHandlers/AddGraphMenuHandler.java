@@ -79,7 +79,7 @@ public class AddGraphMenuHandler implements ActionListener {
                 graphmlDir.mkdir();
 
                 try {
-                    File outputFile = new File(graphmlDir,"network.graphml");
+                    File outputFile = new File(graphmlDir, ProjectConstants.networkGraphmlFileName);
                     FileCopyUtils.copy(fileResult,outputFile);
                     JOptionPane.showMessageDialog(frame, "Graph file successfully imported in "+ version.getName() + " of your current project!");
 

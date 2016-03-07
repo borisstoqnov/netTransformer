@@ -41,6 +41,7 @@ public class ProjectConstants {
     public static final String labelDirName = "version";
     public static final String undirectedGraphmlDirName = "graphml-undirected";
     public static final String directedGraphmlDirName = "graphml-directed";
+    public static final String networkGraphmlFileName = "network.graphml";
 
 
     public static String getProjectName(String projectType) {

@@ -26,6 +26,7 @@ package net.itransformers.idiscover.v2.core.listeners.network;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.utils.ProjectConstants;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
@@ -54,7 +55,7 @@ public class BGPGraphmlFileLogDiscoveryListener implements NetworkDiscoveryListe
 
 
             try {
-                final String fileName = "network.graphml";
+                final String fileName = ProjectConstants.networkGraphmlFileName;
                 final File nodeFile = new File(graphmlDir,fileName);
                 String graphml = new String(discoveredDeviceData);
                 FileUtils.writeStringToFile(nodeFile, graphml);

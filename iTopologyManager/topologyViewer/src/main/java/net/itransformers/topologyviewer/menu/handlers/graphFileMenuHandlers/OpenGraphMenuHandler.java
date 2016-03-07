@@ -1,6 +1,6 @@
 /*
  * OpenGraphMenuHandler.java
- *
+ *  
  * This work is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
  * by the Free Software Foundation; either version 2 of the License,
@@ -73,7 +73,7 @@ public class OpenGraphMenuHandler implements ActionListener {
                     if (f.exists() && f.isDirectory()){
 
                         undirectedDir = new File(f+File.separator);
-                        networkGraphml = new File(undirectedDir + "network.graphml");
+                        networkGraphml = new File(undirectedDir + ProjectConstants.networkGraphmlFileName);
                         if (undirectedDir.exists() && networkGraphml.exists()){
                             return true;
                         }
@@ -90,7 +90,7 @@ public class OpenGraphMenuHandler implements ActionListener {
         chooser.setMultiSelectionEnabled(false);
         int result = chooser.showOpenDialog(frame);
         if (result == JFileChooser.APPROVE_OPTION) {
-            File fileResult = new File(chooser.getSelectedFile() + File.separator + ProjectConstants.undirectedGraphmlDirName + File.separator + "network.graphml");
+            File fileResult = new File(chooser.getSelectedFile() + File.separator + ProjectConstants.undirectedGraphmlDirName + File.separator + ProjectConstants.networkGraphmlFileName);
 
             System.out.println(fileResult);
 

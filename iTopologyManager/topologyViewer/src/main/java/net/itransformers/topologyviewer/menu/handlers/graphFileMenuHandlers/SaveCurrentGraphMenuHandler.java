@@ -97,7 +97,7 @@ public class SaveCurrentGraphMenuHandler implements ActionListener {
 
         Writer fileWriter;
         try {
-            fileWriter = new FileWriter(new File(graphmlDir, "network.graphml"));
+            fileWriter = new FileWriter(new File(graphmlDir, ProjectConstants.networkGraphmlFileName));
         } catch (IOException e1) {
             JOptionPane.showMessageDialog(frame, "Unable to create network.graphml file:", "Error", JOptionPane.WARNING_MESSAGE);
             return;

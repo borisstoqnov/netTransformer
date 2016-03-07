@@ -24,6 +24,7 @@ import net.itransformers.idiscover.networkmodel.ObjectType;
 import net.itransformers.idiscover.networkmodel.ParameterType;
 import net.itransformers.idiscover.networkmodel.ParametersType;
 import net.itransformers.idiscover.util.JaxbMarshalar;
+import net.itransformers.utils.ProjectConstants;
 import net.itransformers.ws.upload.Node;
 import net.itransformers.ws.upload.TreeImporterImplService;
 
@@ -73,7 +74,7 @@ public class Neo4JWsDataImporter {
         Node root = new Node();
         Node.Attributes.Entry entry = new Node.Attributes.Entry();
         entry.setKey("name");
-        entry.setValue("network");
+        entry.setValue(ProjectConstants.networkDirName);
       //  entry.setKey("version");
         Node.Attributes value = new Node.Attributes();
         root.setAttributes(value);
