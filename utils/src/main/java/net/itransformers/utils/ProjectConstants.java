@@ -31,12 +31,14 @@ public class ProjectConstants {
     public static final String mrtBgpDiscovererName = "Mrt BGP Peering Map";
     public static final String freeGraphDiscovererName = "Free Graph";
 
-
     public static final String snmpProjectType = "snmpDiscoverer";
     public static final String snmpBgpDiscovererProjectType = "bgpMapSnmpDiscoverer";
     public static final String mrtBgpDiscovererProjectType = "mrtMapSnmpDiscoverer";
     public static final String freeGraphProjectType = "freeGraph";
 
+
+    public static final String networkDirName = "network";
+    public static final String labelDirName = "version";
 
     public static String getProjectName(String projectType) {
         if (projectType.equals(ProjectConstants.snmpProjectType))
@@ -58,7 +60,7 @@ public class ProjectConstants {
 
             return ProjectConstants.snmpProjectType;
         else if (projectName.equals(ProjectConstants.snmpBgpDiscovererName))
-            return ProjectConstants.snmpBgpDiscovererName;
+            return ProjectConstants.snmpBgpDiscovererProjectType;
         else if (projectName.equals(ProjectConstants.mrtBgpDiscovererName))
             return ProjectConstants.mrtBgpDiscovererProjectType;
         else if (projectName.equals(ProjectConstants.freeGraphDiscovererName))

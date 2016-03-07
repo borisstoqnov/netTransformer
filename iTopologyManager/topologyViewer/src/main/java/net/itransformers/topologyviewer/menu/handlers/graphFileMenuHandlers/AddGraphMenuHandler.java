@@ -22,6 +22,7 @@
 package net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers;
 
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.utils.ProjectConstants;
 import org.jfree.ui.ExtensionFileFilter;
 import org.springframework.util.FileCopyUtils;
 
@@ -56,7 +57,7 @@ public class AddGraphMenuHandler implements ActionListener {
             JOptionPane.showMessageDialog(frame, "Can not open graph before project has been opened.");
             return;
         }
-        final File networkPath = new File(projectPath+File.separator+"network");
+        final File networkPath = new File(projectPath + File.separator + ProjectConstants.networkDirName);
         JFileChooser chooser = new JFileChooser();
         chooser.setDialogTitle("Select a graphml file to load into your project");
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -94,16 +95,16 @@ public class AddGraphMenuHandler implements ActionListener {
     }
 
     public static File autolabel(String projectPath){
-        File networkPath = new File(projectPath,"network");
+        File networkPath = new File(projectPath, ProjectConstants.networkDirName);
 
         if (!networkPath.exists()) {
             networkPath.mkdir();
 
-            File labelDir = new File(networkPath,"version1");
+            File labelDir = new File(networkPath, VERSION_LABEL + "1");
             labelDir.mkdir();
             return labelDir;
         }
-        String[] fileList = new File(projectPath,"network").list();
+        String[] fileList = new File(projectPath, ProjectConstants.networkDirName).list();
         int max = 0;
         for (String fName : fileList) {
             if (fName.matches(VERSION_LABEL+"\\d+")){

@@ -1,6 +1,6 @@
 /*
  * SnmpNetworkDiscoveryListener.java
- *
+ *  
  * This work is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
  * by the Free Software Foundation; either version 2 of the License,
@@ -23,6 +23,7 @@ package net.itransformers.idiscover.v2.core.listeners.network;
 
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
+import net.itransformers.utils.ProjectConstants;
 import net.itransformers.utils.graphmlmerge.GrahmlMerge;
 
 import java.io.File;
@@ -38,7 +39,7 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
     String labelDirName;
 
     String projectPath;
-    String networkDir;
+    String networkDir = ProjectConstants.networkDirName;
 
 
     public String getGraphmlDataDirName() {

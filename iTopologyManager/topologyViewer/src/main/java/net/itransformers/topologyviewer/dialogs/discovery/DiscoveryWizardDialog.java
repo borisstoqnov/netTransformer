@@ -48,7 +48,7 @@ public class DiscoveryWizardDialog extends JDialog {
         try {
             UIManager.put("Table.gridColor", new ColorUIResource(Color.gray));
 
-            DiscoveryWizardDialog dialog = new DiscoveryWizardDialog(null, ".");
+            DiscoveryWizardDialog dialog = new DiscoveryWizardDialog(null, ".", "snmpDiscoverer");
             int option = dialog.showDialog();
 
         } catch (Exception e) {
@@ -57,11 +57,14 @@ public class DiscoveryWizardDialog extends JDialog {
     }
 
 
-    public DiscoveryWizardDialog(Frame parentFrame, String projectPath) {
+    public DiscoveryWizardDialog(Frame parentFrame, String projectPath, String projectType) {
 
         super(parentFrame, "Discovery Wizard", true);
         this.frame = parentFrame;
         this.projectPath = projectPath;
+        //Discoverer Beans are equal to the ProjectTYpes
+        this.discoveryBeanName = projectType;
+
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 1000, 600);
         getContentPane().setLayout(new BorderLayout());
@@ -194,7 +197,7 @@ public class DiscoveryWizardDialog extends JDialog {
             JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error saving resources file");
         }
         try {
-            DiscoveryManagerDialogV2 discoveryManagerDialogV2 = new DiscoveryManagerDialogV2(DiscoveryWizardDialog.this.frame, new File(projectPath), "snmpDiscoverer");
+            DiscoveryManagerDialogV2 discoveryManagerDialogV2 = new DiscoveryManagerDialogV2(DiscoveryWizardDialog.this.frame, new File(projectPath), discoveryBeanName);
             DiscoveryWizardDialog.this.setVisible(false);
             discoveryManagerDialogV2.setVisible(true);
         } catch (Exception e1) {

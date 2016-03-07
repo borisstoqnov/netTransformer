@@ -24,6 +24,7 @@ package net.itransformers.topologyviewer.dialogs.bgpSnmpDiscovery;
 import net.itransformers.bgpPeeringMap.BgpPeeringMap;
 import net.itransformers.bgpPeeringMap.BgpPeeringMapManagerThread;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.utils.ProjectConstants;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
@@ -38,7 +39,7 @@ import java.io.File;
 public class BGPDiscoveryManagerDialog extends JDialog {
     static Logger logger = Logger.getLogger(BGPDiscoveryManagerDialog.class);
     public static final String DISCOVERED_DEVICES = "Discovered Devices:";
-    public static final String VERSION_LABEL = "version";
+    public static final String VERSION_LABEL = ProjectConstants.labelDirName;
     private JTextField addressTextField;
     private JFrame frame;
     private File projectDir;
@@ -289,12 +290,12 @@ public class BGPDiscoveryManagerDialog extends JDialog {
     }
 
     private String createAutoLabel() {
-        File base1 = new File(projectDir, "network");
+        File base1 = new File(projectDir, ProjectConstants.networkDirName);
 
         if (!base1.exists()) {
                 base1.mkdir();
         }
-        String[] fileList = new File(projectDir,"network").list();
+        String[] fileList = new File(projectDir, ProjectConstants.networkDirName).list();
         int max = 0;
         for (String fName : fileList) {
             if (fName.matches(VERSION_LABEL+"\\d+")){
@@ -306,7 +307,7 @@ public class BGPDiscoveryManagerDialog extends JDialog {
     }
 
     private boolean isValidLabel(String label) {
-        if (new File(new File(projectDir,"network"),label).exists()){
+        if (new File(new File(projectDir, ProjectConstants.networkDirName), label).exists()) {
             JOptionPane.showMessageDialog(this,"The specified label already exists");
             return false;
         }

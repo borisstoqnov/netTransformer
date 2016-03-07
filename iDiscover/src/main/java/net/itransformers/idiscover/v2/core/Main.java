@@ -24,6 +24,7 @@ package net.itransformers.idiscover.v2.core;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.utils.AutoLabeler;
 import net.itransformers.utils.CmdLineParser;
+import net.itransformers.utils.ProjectConstants;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -149,6 +150,9 @@ public class Main {
         File snmpDiscovery = new File(projectPath,"iDiscover/conf/xml/snmpNetworkDiscovery.xml");
         String snmpDiscoveryContextPath = snmpDiscovery.toURI().toURL().toString();
 
+        File snmpBGPDiscovery = new File(projectPath, "iDiscover/conf/xml/bgpInternetMapSNMPDiscovery.xml");
+        String snmpBGPDiscoveryContextPath = snmpBGPDiscovery.toURI().toURL().toString();
+
         File connectionsDetails = new File(projectPath,"iDiscover/conf/xml/connectionsDetails.xml");
         String connectionsDetailsContextPath = connectionsDetails.toURI().toURL().toString();
 
@@ -158,16 +162,16 @@ public class Main {
                 .addConstructorArgValue(projectPath).getBeanDefinition();
 
 
-        File networkPath = new File(projectPath, "network");
+        File networkPath = new File(projectPath, ProjectConstants.networkDirName);
         String labelDirName;
         if (!networkPath.exists()) {
             networkPath.mkdir();
-            labelDirName = "version" + "1";
+            labelDirName = ProjectConstants.labelDirName + "1";
             File labelDir = new File(networkPath, labelDirName);
             labelDir.mkdir();
         } else {
-            AutoLabeler autoLabeler = new AutoLabeler(projectPath, "network", "version");
-            labelDirName = AutoLabeler.autolabel();
+            AutoLabeler autoLabeler = new AutoLabeler(projectPath, ProjectConstants.networkDirName, ProjectConstants.labelDirName);
+            labelDirName = autoLabeler.autolabel();
         }
 
         BeanDefinition beanDefinition2 = BeanDefinitionBuilder.
@@ -182,7 +186,7 @@ public class Main {
         // Must call refresh to initialize context
         cmdArgCxt.refresh();
 
-        String[] paths = new String[]{genericContextPath, snmpDiscoveryContextPath, connectionsDetailsContextPath};
+        String[] paths = new String[]{genericContextPath, snmpDiscoveryContextPath, snmpBGPDiscoveryContextPath, connectionsDetailsContextPath};
 //        ,project.getAbsolutePath()+project.getAbsolutePath()+File.separator+"iDiscover/conf/xml/snmpNetworkDiscovery.xml", project.getAbsolutePath()+File.separator+"iDiscover/src/main/resources/connectionsDetails.xml"
         FileSystemXmlApplicationContext applicationContext= new FileSystemXmlApplicationContext(paths, cmdArgCxt);
 //        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(workingDir+File.separator+"iDiscover/conf/xml/generic.xml",workingDir+File.separator+"/iDiscover/conf/xml/snmpNetworkDiscovery.xml","connectionsDetails.xml");

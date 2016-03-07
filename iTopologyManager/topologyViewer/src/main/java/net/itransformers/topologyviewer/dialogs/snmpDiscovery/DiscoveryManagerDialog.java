@@ -24,6 +24,7 @@ import net.itransformers.idiscover.core.*;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.utils.ProjectConstants;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
@@ -40,7 +41,7 @@ import java.util.Map;
 public class DiscoveryManagerDialog extends JDialog {
     static Logger logger = Logger.getLogger(DiscoveryManagerDialog.class);
     public static final String DISCOVERED_DEVICES = "Discovered Devices:";
-    public static final String VERSION_LABEL = "version";
+    public static final String VERSION_LABEL = ProjectConstants.labelDirName;
     private JTextField addressTextField;
     private JFrame frame;
     private File projectDir;
@@ -305,10 +306,10 @@ public class DiscoveryManagerDialog extends JDialog {
     }
 
     private String createAutoLabel() {
-        if (!new File(projectDir,"network").exists()) {
+        if (!new File(projectDir, ProjectConstants.networkDirName).exists()) {
             return "version1";
         }
-        String[] fileList = new File(projectDir,"network").list();
+        String[] fileList = new File(projectDir, ProjectConstants.networkDirName).list();
         int max = 0;
         for (String fName : fileList) {
             if (fName.matches(VERSION_LABEL+"\\d+")){
@@ -320,7 +321,7 @@ public class DiscoveryManagerDialog extends JDialog {
     }
 
     private boolean isValidLabel(String label) {
-        if (new File(new File(projectDir,"network"),label).exists()){
+        if (new File(new File(projectDir, ProjectConstants.networkDirName), label).exists()) {
             int reply = JOptionPane.showConfirmDialog(this,"The specified label already exists! Would you like to merge graph in it?","",JOptionPane.YES_NO_OPTION);
             if(reply==JOptionPane.YES_OPTION){
                 return true;

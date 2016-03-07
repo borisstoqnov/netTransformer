@@ -159,6 +159,15 @@ public class OpenProjectMenuHandler implements ActionListener {
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
 
+            } else if (selectedFile.getName().equals("bgpSnmpPeeringMap.pfl")) {
+                frame.setProjectType(ProjectConstants.snmpBgpDiscovererProjectType);
+                frame.setViewerConfig(new File(selectedFile.getParentFile() + File.separator + "iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
+                //
+                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
+                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
+
+                frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
+
             }
             else if(selectedFile.getName().equals("netTransformer.pfl"))    {
                 frame.setProjectType(ProjectConstants.snmpProjectType);

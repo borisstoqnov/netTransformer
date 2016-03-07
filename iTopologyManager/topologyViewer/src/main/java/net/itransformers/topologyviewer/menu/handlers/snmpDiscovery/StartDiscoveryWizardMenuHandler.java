@@ -42,7 +42,7 @@ public class StartDiscoveryWizardMenuHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         UIManager.put("Table.gridColor", new ColorUIResource(Color.gray));
-        DiscoveryWizardDialog dialog = new DiscoveryWizardDialog(frame, frame.getPath().getAbsolutePath());
+        DiscoveryWizardDialog dialog = new DiscoveryWizardDialog(frame, frame.getPath().getAbsolutePath(), frame.getProjectType());
         int option = dialog.showDialog();
 
     }

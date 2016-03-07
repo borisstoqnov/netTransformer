@@ -57,41 +57,80 @@ public class NewProjectMenuHandler implements ActionListener {
         NewProjectDialog dialog = new NewProjectDialog(frame);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
-        File file;
+        File file = null;
         String projectType = dialog.getProjectType();
         logger.info("Selected project file is from type: " + projectType);
 
         if (!dialog.isOkPressed()) {
             return;
-        } else if (projectType.equals(ProjectConstants.mrtBgpDiscovererProjectType)) {
-            file = new File("bgpPeeringMap.pfl");
-            frame.setProjectType(ProjectConstants.mrtBgpDiscovererProjectType);
-            frame.setViewerConfig(new File(dialog.getProjectDir() +File.separator +"iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
-            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
-            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
+        }
+        switch (projectType) {
+            case ProjectConstants.mrtBgpDiscovererProjectType:
+                file = new File("bgpPeeringMap.pfl");
+                frame.setProjectType(ProjectConstants.mrtBgpDiscovererProjectType);
+                frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
+                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
+                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
+                frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
+                break;
+            case ProjectConstants.freeGraphProjectType:
+                file = new File("freeGraph.pfl");
+                frame.setProjectType(ProjectConstants.freeGraphProjectType);
+                frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/freeGraph/viewer-config.xml"));
+                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
+                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
+                frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
+                break;
+            case ProjectConstants.snmpProjectType:
+                file = new File("netTransformer.pfl");
+                frame.setProjectType(ProjectConstants.snmpProjectType);
+                frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
+                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
+                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
+                frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
+                break;
 
+            case ProjectConstants.snmpBgpDiscovererProjectType:
+                file = new File("bgpSnmpPeeringMap.pfl");
+                frame.setProjectType(ProjectConstants.snmpBgpDiscovererProjectType);
+                frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
+                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
+                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
+                frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
+                break;
 
-        } else if (projectType.equals(ProjectConstants.freeGraphProjectType)) {
-            file = new File("freeGraph.pfl");
-            frame.setProjectType(ProjectConstants.freeGraphProjectType);
-            frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/freeGraph/viewer-config.xml"));
-            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
-            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
-            frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
+            default:
+                // JOptionPane.showMessageDialog(,"Unknown projectType", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Unknown ProjectType");
 
 
         }
 
-        else {
-            file = new File("netTransformer.pfl");
-            frame.setProjectType(ProjectConstants.snmpProjectType);
-            frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
-            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
-
-        }
+//        else if (projectType.equals(ProjectConstants.mrtBgpDiscovererProjectType)) {
+//
+//
+//        } else if (projectType.equals(ProjectConstants.freeGraphProjectType)) {
+//
+//        } else if (projectType.equals(ProjectConstants.snmpProjectType)){
+//            file = new File("netTransformer.pfl");
+//            frame.setProjectType(ProjectConstants.snmpProjectType);
+//            frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
+//            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
+//            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
+//            frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
+//
+//        } else if (projectType.equals(ProjectConstants.snmpBgpDiscovererProjectType)) {
+//            file = new File("netTransformer.pfl");
+//            frame.setProjectType(ProjectConstants.snmpProjectType);
+//            frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
+//            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
+//            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
+//            frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
+//        } else {
+//
+//            JOptionPane.showMessageDialog(frame,"Unknown projectType", JOptionPane.ERROR_MESSAGE);
+//
+//        }
 
         frame.setTitle(ProjectConstants.getProjectName(frame.getProjectType()));
 

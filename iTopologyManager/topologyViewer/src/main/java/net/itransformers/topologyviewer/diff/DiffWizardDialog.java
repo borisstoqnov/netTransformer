@@ -22,6 +22,7 @@
 package net.itransformers.topologyviewer.diff;
 
 import net.itransformers.topologyviewer.gui.PreferencesKeys;
+import net.itransformers.utils.ProjectConstants;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -65,7 +66,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     public DiffWizardDialog(final JFrame owner, File baseDir) throws MalformedURLException {
         super(owner,"Diff Dialog",true);
         this.baseDir = baseDir;
-        this.networkDir = new File(baseDir,"network");
+        this.networkDir = new File(baseDir, ProjectConstants.networkDirName);
         this.ignoredNodeKeysFile =  new File(baseDir,"iTopologyManager/topologyViewer/conf/xml/ignored_node_keys.xml");
         this.ignoredEdgeKeysFile = new File(baseDir,"iTopologyManager/topologyViewer/conf/xml/ignored_edge_keys.xml");
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

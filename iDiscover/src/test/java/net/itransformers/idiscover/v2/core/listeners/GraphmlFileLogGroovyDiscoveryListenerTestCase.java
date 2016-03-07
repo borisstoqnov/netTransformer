@@ -25,6 +25,7 @@ import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.util.JaxbMarshalar;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.listeners.node.GraphmlFileLogGroovyDiscoveryListener;
+import net.itransformers.utils.ProjectConstants;
 import org.junit.Assert;
 import org.parboiled.common.FileUtils;
 
@@ -67,7 +68,7 @@ public class GraphmlFileLogGroovyDiscoveryListenerTestCase {
         File projectPath = createTempDirectory();
         GraphmlFileLogGroovyDiscoveryListener listener = new GraphmlFileLogGroovyDiscoveryListener();
         listener.setProjectPath(projectPath.getAbsolutePath());
-        String labelDirName = "network";
+        String labelDirName = ProjectConstants.labelDirName;
         listener.setLabelDirName(labelDirName);
         String graphmlDirName = "undirected";
         listener.setGraphmDirName(graphmlDirName);
