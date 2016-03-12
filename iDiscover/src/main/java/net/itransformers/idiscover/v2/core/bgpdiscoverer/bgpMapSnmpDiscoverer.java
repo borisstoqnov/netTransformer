@@ -25,12 +25,9 @@ import net.itransformers.idiscover.core.DiscoveryResourceManager;
 import net.itransformers.idiscover.v2.core.*;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.resourcemanager.config.ResourceType;
-import net.itransformers.snmptoolkit.Get;
-import net.itransformers.snmptoolkit.MibLoaderHolder;
-import net.itransformers.snmptoolkit.Node;
-import net.itransformers.snmptoolkit.Walk;
-import net.itransformers.snmptoolkit.messagedispacher.DefaultMessageDispatcherFactory;
-import net.itransformers.snmptoolkit.transport.UdpTransportMappingFactory;
+import net.itransformers.snmp2xml4j.snmptoolkit.*;
+import net.itransformers.snmp2xml4j.snmptoolkit.messagedispacher.DefaultMessageDispatcherFactory;
+import net.itransformers.snmp2xml4j.snmptoolkit.transport.UdpTransportMappingFactory;
 import net.itransformers.utils.AutoLabeler;
 import net.itransformers.utils.CmdLineParser;
 import net.itransformers.utils.ProjectConstants;
@@ -69,6 +66,8 @@ public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
     private String xsltFileName2;
     private String xsltFileName3;
     private String asNumbers;
+
+    private String graphmlUndirectedPath;
 
     private String queryParameters;
     private String mibDir;
@@ -239,7 +238,7 @@ public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
 
     private String snmpGet(Map<String, String> settings) {
 
-        Properties parameters = parametersAsslembler(settings);
+        ParemetersAssembler paremetersAssembler = new ParemetersAssembler(settings);
 
         String address = settings.get("ipAddress");
         if (address == null) {
@@ -248,10 +247,12 @@ public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
 
 
         SnmpConfigurator snmpConfig = new SnmpConfigurator();
-        CommunityTarget t = (CommunityTarget) snmpConfig.getTarget(parameters);
+        CommunityTarget t = (CommunityTarget) snmpConfig.getTarget(paremetersAssembler.getProperties());
         String oid = "1.3.6.1.2.1.1.1";
+        Get get = null;
 
-        Get get = new Get(oid, t, new UdpTransportMappingFactory(), new DefaultMessageDispatcherFactory());
+        get = new Get(oid, t, new UdpTransportMappingFactory(), new DefaultMessageDispatcherFactory());
+
         try {
             return get.getSNMPGetNextValue();
         } catch (IOException e) {
@@ -268,41 +269,20 @@ public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
 
         String[] params = queryParameters.split(",");
         String mibDir = settings.get("mibDir");
+        ParemetersAssembler paremetersAssembler = new ParemetersAssembler(settings);
 
         MibLoaderHolder holder = new MibLoaderHolder(new File(System.getProperty("base.dir"), mibDir), false);
         Walk walker = new Walk(holder, new UdpTransportMappingFactory(), new DefaultMessageDispatcherFactory());
 
 
-        Properties parameters = parametersAsslembler(settings);
+        // Properties parameters = parametersAsslembler(settings);
 
-        Node root = walker.walk(params, parameters);
+        Node root = walker.walk(params, paremetersAssembler.getProperties());
         String xml = Walk.printTreeAsXML(root);
         return xml.getBytes();
     }
 
 
-    private static Properties parametersAsslembler(Map<String, String> settings) {
-        Properties parameterProperties = new Properties();
-
-        parameterProperties.put(SnmpConfigurator.O_ADDRESS, Arrays.asList(settings.get("ipAddress")));
-        parameterProperties.put(SnmpConfigurator.O_COMMUNITY, Arrays.asList(settings.get("community-ro")));
-
-        String version = settings.get("version") == null ? "2c" : settings.get("version");
-        int retriesInt = settings.get("retries") == null ? 3 : Integer.parseInt(settings.get("retries"));
-        int timeoutInt = settings.get("timeout") == null ? 1200 : Integer.parseInt(settings.get("timeout"));
-        int maxrepetitions = settings.get("max-repetitions") == null ? 100 : Integer.parseInt(settings.get("max-repetitions"));
-        int nonrepeaters = settings.get("non-repeaters") == null ? 10 : Integer.parseInt(settings.get("max-repetitions"));
-
-
-        parameterProperties.put(SnmpConfigurator.O_VERSION, Arrays.asList(version));
-        parameterProperties.put(SnmpConfigurator.O_TIMEOUT, Arrays.asList(timeoutInt));
-        parameterProperties.put(SnmpConfigurator.O_RETRIES, Arrays.asList(retriesInt));
-        parameterProperties.put(SnmpConfigurator.O_MAX_REPETITIONS, Arrays.asList(maxrepetitions));
-        parameterProperties.put(SnmpConfigurator.O_NON_REPEATERS, Arrays.asList(nonrepeaters));
-
-
-        return parameterProperties;
-    }
 
     public String getQueryParameters() {
         return queryParameters;
@@ -378,6 +358,14 @@ public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
         this.asNumbers = asNumbers;
     }
 
+    public String getGraphmlUndirectedPath() {
+        return graphmlUndirectedPath;
+    }
+
+    public void setGraphmlUndirectedPath(String graphmlUndirectedPath) {
+        this.graphmlUndirectedPath = graphmlUndirectedPath;
+    }
+
     public static void main(String[] args) {
         logger.debug("bgpPeeringMap v2. gearing up");
 
@@ -449,6 +437,15 @@ public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
         beanFactory.registerBeanDefinition("projectPath", beanDefinition);
 
         beanFactory.registerBeanDefinition("labelDirName", beanDefinition2);
+
+
+        BeanDefinition beanDefinition3 = BeanDefinitionBuilder.
+                rootBeanDefinition(String.class)
+                .addConstructorArgValue(ProjectConstants.undirectedGraphmlDirName).getBeanDefinition();
+
+
+        beanFactory.registerBeanDefinition("graphmlUndirectedPath", beanDefinition3);
+
 
         GenericApplicationContext cmdArgCxt = new GenericApplicationContext(beanFactory);
         // Must call refresh to initialize context

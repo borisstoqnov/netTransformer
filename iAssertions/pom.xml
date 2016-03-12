@@ -34,7 +34,7 @@
     <version>0.8</version><!--Change for new version-->
     <dependencies>
         <dependency>
-            <groupId>iTransformers.iTransformer</groupId>
+            <groupId>net.iTransformers.netTransformer</groupId>
             <artifactId>utils</artifactId>
             <version>0.8</version>
             <!--Change for new version-->

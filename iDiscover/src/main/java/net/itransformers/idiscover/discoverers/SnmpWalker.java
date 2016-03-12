@@ -24,8 +24,8 @@
 package net.itransformers.idiscover.discoverers;
 
 import net.itransformers.idiscover.core.Resource;
-import net.itransformers.snmptoolkit.messagedispacher.DefaultMessageDispatcherFactory;
-import net.itransformers.snmptoolkit.transport.UdpTransportMappingFactory;
+import net.itransformers.snmp2xml4j.snmptoolkit.messagedispacher.DefaultMessageDispatcherFactory;
+import net.itransformers.snmp2xml4j.snmptoolkit.transport.UdpTransportMappingFactory;
 //import net.percederberg.mibble.MibLoaderException;
 
 //import java.io.IOException;
