@@ -24,19 +24,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>iTransformers.iTransformer</groupId>
+        <groupId>net.iTransformers.netTransformer</groupId>
         <artifactId>iTopologyManager</artifactId>
         <version>0.8</version><!--Change for new version-->
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
+    <groupId>net.iTransformers.netTransformer.iTopologyManager</groupId>
     <artifactId>rightClickAPI</artifactId>
     <version>0.8</version><!--Change for new version-->
 
     <dependencies>
         <dependency>
-            <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
+            <groupId>net.iTransformers.netTransformer.iTopologyManager</groupId>
             <artifactId>topologyManagerConfig</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>

@@ -25,33 +25,33 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>iTransformers.iTransformer</groupId>
+    <groupId>net.iTransformers.netTransformer</groupId>
     <artifactId>postDiscoverer</artifactId>
     <version>0.8</version>
     <!--Change for new version-->
 
     <parent>
-        <groupId>iTransformers</groupId>
-        <artifactId>iTransformer</artifactId>
+        <groupId>net.iTransformers</groupId>
+        <artifactId>netTransformer</artifactId>
         <version>0.8</version>
         <!--Change for new version-->
     </parent>
 
     <dependencies>
         <dependency>
-            <groupId>iTransformers.iTransformer</groupId>
+            <groupId>net.iTransformers.netTransformer</groupId>
             <artifactId>resourceManager</artifactId>
             <version>0.8</version>
             <!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>iTransformers.snmp2xml4j</groupId>
+            <groupId>net.iTransformers.snmp2xml4j</groupId>
             <artifactId>snmptoolkit</artifactId>
             <version>1.0</version>
             <!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>iTransformers.iTransformer</groupId>
+            <groupId>net.iTransformers.netTransformer</groupId>
             <artifactId>utils</artifactId>
             <version>0.8</version>
             <!--Change for new version-->

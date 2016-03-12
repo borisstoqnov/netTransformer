@@ -24,25 +24,25 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>iTransformers.iTransformer</groupId>
+        <groupId>net.iTransformers.netTransformer</groupId>
         <artifactId>iTopologyManager</artifactId>
         <version>0.8</version><!--Change for new version-->
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
+    <groupId>net.iTransformers.netTransformer.iTopologyManager</groupId>
     <artifactId>fulfilmentFactory</artifactId>
     <version>0.8</version><!--Change for new version-->
 
     <dependencies>
         <dependency>
-            <groupId>iTransformers.iTransformer</groupId>
+            <groupId>net.iTransformers.netTransformer</groupId>
             <artifactId>resourceManager</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>iTransformers.snmp2xml4j</groupId>
+            <groupId>net.iTransformers.snmp2xml4j</groupId>
             <artifactId>snmptoolkit</artifactId>
             <version>1.0</version>
             <!--Change for new version-->
@@ -53,7 +53,7 @@
             <version>1.3.2</version>
         </dependency>
         <dependency>
-            <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
+            <groupId>net.iTransformers.netTransformer.iTopologyManager</groupId>
             <artifactId>parameterFactory</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>

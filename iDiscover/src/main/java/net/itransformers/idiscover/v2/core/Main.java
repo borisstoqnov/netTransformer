@@ -38,7 +38,6 @@ import java.net.MalformedURLException;
 import java.util.*;
 
 public class Main {
-    public static final String VERSION_LABEL = "version";
     static Logger logger = Logger.getLogger(Main.class);
     public static void main(String[] args) throws MalformedURLException {
         logger.debug("iDiscover v2. gearing up");
@@ -181,6 +180,12 @@ public class Main {
         beanFactory.registerBeanDefinition("projectPath", beanDefinition);
 
         beanFactory.registerBeanDefinition("labelDirName", beanDefinition2);
+        BeanDefinition beanDefinition3 = BeanDefinitionBuilder.
+                rootBeanDefinition(String.class)
+                .addConstructorArgValue(ProjectConstants.undirectedGraphmlDirName).getBeanDefinition();
+
+
+        beanFactory.registerBeanDefinition("graphmlUndirectedPath", beanDefinition3);
 
         GenericApplicationContext cmdArgCxt = new GenericApplicationContext(beanFactory);
         // Must call refresh to initialize context

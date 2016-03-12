@@ -61,7 +61,7 @@
           class="net.itransformers.idiscover.v2.core.listeners.node.GraphmlFileLogDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>
-        <property name="graphmDirName" ref="graphmlUndirectedPath"/>
+        <property name="graphmlDirName" ref="graphmlUndirectedPath"/>
         <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
     </bean>
 
@@ -75,7 +75,7 @@
           class="net.itransformers.idiscover.v2.core.listeners.node.GraphmlFileLogGroovyDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>
-        <property name="graphmDirName" ref="graphmlUndirectedPath"/>
+        <property name="graphmlDirName" ref="graphmlUndirectedPath"/>
         <property name="rawData2GraphmlGroovyTransformer" value="iDiscover/conf/groovy/RawData2GraphmlTransformer.groovy"/>
     </bean>
 
@@ -84,7 +84,7 @@
           class="net.itransformers.idiscover.v2.core.listeners.node.Neo4JGraphmlLoggerLogDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>
         <property name="labelDirName" ref="labelDirName"/>
-        <property name="graphmDirName" ref="graphmlUndirectedPath"/>
+        <property name="graphmlDirName" ref="graphmlUndirectedPath"/>
         <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
         <property name="graphDbUrl" value="http://54.69.21.203:7474/db/data"/>
         <property name="dataType" value="deviceData"/>
@@ -113,5 +113,13 @@
         <constructor-arg ref="projectPath"/>
         <constructor-arg value="1"/>
         <constructor-arg value="resourceManager/conf/xml/resource.xml"/>
+    </bean>
+
+    <bean id="NetworkGraphmlFileLogDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.network.NetworkGraphmlFileLogDiscoveryListener">
+        <property name="projectPath" ref="projectPath"/>
+
+        <property name="labelDirName" ref="labelDirName"/>
+        <property name="graphmlDirName" ref="graphmlUndirectedPath"/>
     </bean>
 </beans>

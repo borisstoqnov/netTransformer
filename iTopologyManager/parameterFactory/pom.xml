@@ -25,12 +25,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>iTopologyManager</artifactId>
-        <groupId>iTransformers.iTransformer</groupId>
+        <groupId>net.iTransformers.netTransformer</groupId>
         <version>0.8</version><!--Change for new version-->
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>iTransformers.iTransformer.iTopologyManager</groupId>
+    <groupId>net.iTransformers.netTransformer.iTopologyManager</groupId>
     <artifactId>parameterFactory</artifactId>
     <version>0.8</version><!--Change for new version-->
     <build>

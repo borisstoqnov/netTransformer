@@ -44,7 +44,7 @@ import java.io.*;
 public class Neo4JGraphmlLoggerLogDiscoveryListener implements NodeDiscoveryListener {
     static Logger logger = Logger.getLogger(Neo4JGraphmlLoggerLogDiscoveryListener.class);
     String labelDirName;
-    String graphmDirName;
+    String graphmlDirName;
     String xsltFileName;
     String graphDbUrl;
     String dataType;
@@ -53,7 +53,7 @@ public class Neo4JGraphmlLoggerLogDiscoveryListener implements NodeDiscoveryList
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
         File baseDir = new File(projectPath,labelDirName);
         File xsltFile = new File(xsltFileName);
-        File graphmlDir = new File(baseDir,graphmDirName);
+        File graphmlDir = new File(baseDir, graphmlDirName);
 
          GraphDatabaseService graphdb = new org.neo4j.rest.graphdb.RestGraphDatabase(graphDbUrl);
 
@@ -124,12 +124,12 @@ public class Neo4JGraphmlLoggerLogDiscoveryListener implements NodeDiscoveryList
         this.labelDirName = labelDirName;
     }
 
-    public String getGraphmDirName() {
-        return graphmDirName;
+    public String getGraphmlDirName() {
+        return graphmlDirName;
     }
 
-    public void setGraphmDirName(String graphmDirName) {
-        this.graphmDirName = graphmDirName;
+    public void setGraphmlDirName(String graphmlDirName) {
+        this.graphmlDirName = graphmlDirName;
     }
 
     public String getXsltFileName() {

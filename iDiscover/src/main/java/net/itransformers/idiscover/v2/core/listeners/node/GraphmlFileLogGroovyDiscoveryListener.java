@@ -44,7 +44,7 @@ import java.io.*;
 public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListener {
     static Logger logger = Logger.getLogger(GraphmlFileLogGroovyDiscoveryListener.class);
     String labelDirName;
-    String graphmDirName;
+    String graphmlDirName;
     String rawData2GraphmlGroovyTransformer;
     String projectPath;
     public GraphmlFileLogGroovyDiscoveryListener() {
@@ -54,7 +54,7 @@ public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListe
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
         File baseDir = new File(projectPath,labelDirName);
-        File graphmlDir = new File(baseDir,graphmDirName);
+        File graphmlDir = new File(baseDir, graphmlDirName);
         if (!graphmlDir.exists()) graphmlDir.mkdir();
 
         String deviceName = discoveryResult.getNodeId();
@@ -143,12 +143,12 @@ public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListe
         this.labelDirName = labelDirName;
     }
 
-    public String getGraphmDirName() {
-        return graphmDirName;
+    public String getGraphmlDirName() {
+        return graphmlDirName;
     }
 
-    public void setGraphmDirName(String graphmDirName) {
-        this.graphmDirName = graphmDirName;
+    public void setGraphmlDirName(String graphmlDirName) {
+        this.graphmlDirName = graphmlDirName;
     }
 
     public String getRawData2GraphmlGroovyTransformer() {

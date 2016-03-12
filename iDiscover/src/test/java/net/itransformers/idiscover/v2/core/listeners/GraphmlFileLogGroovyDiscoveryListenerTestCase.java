@@ -71,7 +71,7 @@ public class GraphmlFileLogGroovyDiscoveryListenerTestCase {
         String labelDirName = ProjectConstants.labelDirName;
         listener.setLabelDirName(labelDirName);
         String graphmlDirName = "undirected";
-        listener.setGraphmDirName(graphmlDirName);
+        listener.setGraphmlDirName(graphmlDirName);
         InputStream groovyIs = new FileInputStream("iDiscover/conf/groovy/RawData2GraphmlTransformer.groovy");
         File groovyPath = new File(projectPath, "iDiscover/conf/groovy");
         groovyPath.mkdirs();

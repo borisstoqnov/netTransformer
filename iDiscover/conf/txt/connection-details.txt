@@ -1,1 +1,1 @@
-name=OpenWrtCloud,type=snmp:deviceType=LINUX,deviceName=OpenWrtCloud,ipAddress=10.17.1.1
+name=bgp,type=snmp:deviceType=LINUX,deviceName=bgp,ipAddress=193.19.175.150

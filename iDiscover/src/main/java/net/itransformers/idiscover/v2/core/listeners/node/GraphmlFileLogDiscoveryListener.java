@@ -1,5 +1,26 @@
 
 
+/*
+ * GraphmlFileLogDiscoveryListener.java
+ *
+ * This work is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation; either version 2 of the License,
+ * or (at your option) any later version.
+ *
+ * This work is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ * USA
+ *
+ * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
+ */
+
 package net.itransformers.idiscover.v2.core.listeners.node;
 
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
@@ -19,14 +40,14 @@ import java.io.*;
 public class GraphmlFileLogDiscoveryListener implements NodeDiscoveryListener {
     static Logger logger = Logger.getLogger(GraphmlFileLogDiscoveryListener.class);
     String labelDirName;
-    String graphmDirName;
+    String graphmlDirName;
     String xsltFileName;
     String projectPath;
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
         File baseDir = new File(projectPath,labelDirName);
         File xsltFile = new File(projectPath,xsltFileName);
-        File graphmlDir = new File(baseDir,graphmDirName);
+        File graphmlDir = new File(baseDir, graphmlDirName);
         if (!graphmlDir.exists()) graphmlDir.mkdir();
 
         String deviceName = discoveryResult.getNodeId();
@@ -84,12 +105,12 @@ public class GraphmlFileLogDiscoveryListener implements NodeDiscoveryListener {
         this.xsltFileName = xsltFileName;
     }
 
-    public String getGraphmDirName() {
-        return graphmDirName;
+    public String getGraphmlDirName() {
+        return graphmlDirName;
     }
 
-    public void setGraphmDirName(String graphmDirName) {
-        this.graphmDirName = graphmDirName;
+    public void setGraphmlDirName(String graphmlDirName) {
+        this.graphmlDirName = graphmlDirName;
     }
 
     public String getProjectPath() {
