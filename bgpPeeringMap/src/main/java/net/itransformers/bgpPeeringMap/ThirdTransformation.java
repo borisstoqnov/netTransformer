@@ -29,7 +29,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 
-
+@Deprecated
 public class ThirdTransformation {
 
     public static void main(String[] args) throws Exception {
@@ -37,7 +37,7 @@ public class ThirdTransformation {
         ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
 
         XsltTransformer transformer = new XsltTransformer();
-        File xsltFileName1 = new File("/Users/niau/trunk/bgpPeeringMap/conf/xslt/reorderNodes_Edges.xslt.xsl");
+        File xsltFileName1 = new File("/Users/niau/trunk/bgpPeeringMap/conf/xslt/reorder.xslt");
 
 
         byte[] rawData = readRawDataFile("/Users/niau/trunk/bgpPeeringMap/src/main/resources/bgpPeeringMap.graphml");

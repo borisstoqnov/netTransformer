@@ -24,7 +24,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <bean id="snmpDiscovery" class="net.itransformers.idiscover.v2.core.NetworkNodeDiscovererImpl">
+    <bean id="snmpDiscoverer" class="net.itransformers.idiscover.v2.core.NetworkNodeDiscovererImpl">
 
         <property name="nodeDiscoverers">
             <map>
@@ -39,7 +39,7 @@
                 <ref bean="sampleNodeDiscoveryListener"/>
                 <ref bean="rawDataFileLogDiscoveryListener"/>
                 <ref bean="deviceDataFileLogDiscoveryListener"/>
-                <ref bean="ConnectionDetailsListener"/>
+                <!--ref bean="ConnectionDetailsListener"/-->
 
                 <!--<ref bean="GraphmlFileLogDiscoveryListener"/>-->
                 <!--<ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>-->

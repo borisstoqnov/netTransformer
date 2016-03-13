@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ inet-map.xslt
+  ~ inetMap.xslt
   ~
   ~ This work is free software; you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published

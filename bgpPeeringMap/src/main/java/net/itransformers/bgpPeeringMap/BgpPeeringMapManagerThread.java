@@ -23,7 +23,7 @@ package net.itransformers.bgpPeeringMap;
 
 import org.apache.log4j.Logger;
 
-
+@Deprecated
 public class BgpPeeringMapManagerThread extends Thread {
     static Logger logger = Logger.getLogger(BgpPeeringMapManagerThread.class);
 

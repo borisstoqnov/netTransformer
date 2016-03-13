@@ -1,7 +1,7 @@
 
 
 /*
- * BGPGraphmlFileLogDiscoveryListener.java
+ * NetworkGraphmlFileLogDiscoveryListener.java
  *
  * This work is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
@@ -35,15 +35,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 
-public class BGPGraphmlFileLogDiscoveryListener implements NetworkDiscoveryListener {
-    static Logger logger = Logger.getLogger(BGPGraphmlFileLogDiscoveryListener.class);
+public class NetworkGraphmlFileLogDiscoveryListener implements NetworkDiscoveryListener {
+    static Logger logger = Logger.getLogger(NetworkGraphmlFileLogDiscoveryListener.class);
+    String graphmlDirName;
     String labelDirName;
-    String graphmDirName;
+    String projectPath;
 
     @Override
     public void networkDiscovered(NetworkDiscoveryResult result) {
-        File baseDir = new File(labelDirName);
-        File graphmlDir = new File(baseDir,graphmDirName);
+        File baseDir = new File(projectPath, ProjectConstants.networkGraphmlFileName);
+        if (!baseDir.exists()) baseDir.mkdir();
+
+        File labelDirPath = new File(baseDir, labelDirName);
+        if (!labelDirPath.exists()) labelDirPath.mkdir();
+
+
+        File graphmlDir = new File(labelDirName, getGraphmlDirName());
         if (!graphmlDir.exists()) graphmlDir.mkdir();
 
 
@@ -77,12 +84,19 @@ public class BGPGraphmlFileLogDiscoveryListener implements NetworkDiscoveryListe
         this.labelDirName = labelDirName;
     }
 
-    public String getGraphmDirName() {
-        return graphmDirName;
+    public String getGraphmlDirName() {
+        return graphmlDirName;
     }
 
-    public void setGraphmDirName(String graphmDirName) {
-        this.graphmDirName = graphmDirName;
+    public void setGraphmlDirName(String graphmlDirName) {
+        this.graphmlDirName = graphmlDirName;
     }
 
+    public String getProjectPath() {
+        return projectPath;
+    }
+
+    public void setProjectPath(String projectPath) {
+        this.projectPath = projectPath;
+    }
 }

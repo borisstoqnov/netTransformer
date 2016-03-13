@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+@Deprecated
 public class BgpPeeringMapFromFile {
     static Logger logger = Logger.getLogger(BgpPeeringMapFromFile.class);
     private static void printUsage(String param){

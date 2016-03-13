@@ -21,11 +21,11 @@
 
 package net.itransformers.bgpPeeringMap;
 
-import net.itransformers.snmptoolkit.MibLoaderHolder;
-import net.itransformers.snmptoolkit.Node;
-import net.itransformers.snmptoolkit.Walk;
-import net.itransformers.snmptoolkit.messagedispacher.DefaultMessageDispatcherFactory;
-import net.itransformers.snmptoolkit.transport.UdpTransportMappingFactory;
+import net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder;
+import net.itransformers.snmp2xml4j.snmptoolkit.Node;
+import net.itransformers.snmp2xml4j.snmptoolkit.Walk;
+import net.itransformers.snmp2xml4j.snmptoolkit.messagedispacher.DefaultMessageDispatcherFactory;
+import net.itransformers.snmp2xml4j.snmptoolkit.transport.UdpTransportMappingFactory;
 import net.itransformers.utils.CmdLineParser;
 import net.itransformers.utils.XsltTransformer;
 import org.apache.commons.io.FileUtils;
@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+@Deprecated
 public class BgpPeeringMap {
     private static String settingsFile;
     private static String ipAddress;

@@ -21,14 +21,8 @@
   -->
 
 <resources>
-
     <resource name="OpenWrt">
-        <param name="deviceName">OpenWrt</param>
-        <connection-params connection-type="ssh">
-            <param name="username">root</param>
-            <param name="password">pass</param>
-            <param name="port">22</param>
-        </connection-params>
+        <connection-params connection-type="ssh"/>
         <connection-params connection-type="telnet">
             <param name="username">root</param>
             <param name="password">password</param>
@@ -44,10 +38,8 @@
             <param name="port">161</param>
         </connection-params>
     </resource>
-
     <resource name="huawei">
         <param name="deviceType">HUAWEI</param>
-
         <connection-params connection-type="ssh">
             <param name="system-password">lab123</param>
             <param name="timeout">3000</param>
@@ -62,8 +54,40 @@
             <param name="port">23</param>
         </connection-params>
     </resource>
+    <resource name="recorded">
+        <param name="deviceName">recorded</param>
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="community-ro">recorded/linux-full-walk</param>
+            <param name="community-rw">public</param>
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
+            <param name="port">161</param>
+        </connection-params>
+    </resource>
+    <resource name="zeus">
+        <param name="deviceName">zeus</param>
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="community-ro">public</param>
+            <param name="community-rw">netTransformer-rw</param>
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
+            <param name="port">161</param>
+        </connection-params>
+    </resource>
+    <resource name="bgp">
+        <param name="deviceName">bgp</param>
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="community-ro">netTransformer-r</param>
+            <param name="community-rw">netTransformer-rw</param>
+            <param name="timeout">2000</param>
+            <param name="retries">1</param>
+            <param name="port">161</param>
+        </connection-params>
+    </resource>
     <resource name="default">
-
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
             <param name="community-ro">netTransformer-r</param>

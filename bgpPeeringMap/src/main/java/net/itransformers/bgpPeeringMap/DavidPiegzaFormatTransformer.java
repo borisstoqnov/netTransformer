@@ -36,6 +36,7 @@ import java.io.FileInputStream;
  * Time: 3:27 PM
  * To change this template use File | Settings | File Templates.
  */
+@Deprecated
 public class DavidPiegzaFormatTransformer {
     public static void main(String[] args) throws Exception {
         ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();

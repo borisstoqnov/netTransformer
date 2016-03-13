@@ -21,6 +21,7 @@
 
 package net.itransformers.bgpPeeringMap;
 
+@Deprecated
 public enum BgpDiscoveryManagerStatus {
     CONFIGURED,
     RUNNING,

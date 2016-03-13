@@ -40,9 +40,7 @@
 
         <property name="networkDiscoveryListeners">
             <list>
-                <ref bean="SnmpNetworkDiscoveryListener"/>
-                <!--<ref bean="PostNetworkDiscoveryListener"/>-->
-
+                <ref bean="NetworkGraphmlFileLogDiscoveryListener"/>
             </list>
         </property>
 

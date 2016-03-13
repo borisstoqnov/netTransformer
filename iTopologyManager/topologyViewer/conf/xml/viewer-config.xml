@@ -156,7 +156,57 @@
     <icon name="/images/router.png">
         <data key="deviceModel">cisco2821</data>
     </icon>
+    <!--cisco1921k9-->
+    <icon name="/images/router.png,/images/circle_red.png">
+        <data key="deviceModel">cisco1921k9</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/router.png,/images/circle_green.png">
+        <data key="deviceModel">cisco1921k9</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/router_ipv6.png,/images/circle_blue.png">
+        <data key="deviceModel">cisco1921k9</data>
+        <data key="diff">YES</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/router.png,/images/circle_blue.png">
+        <data key="deviceModel">cisco1921k9</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/router_ipv6.png">
+        <data key="deviceModel">cisco1921k9</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/router.png">
+        <data key="deviceModel">cisco1921k9</data>
+    </icon>
 
+    <!--cisco2901-->
+    <icon name="/images/big1.png,/images/circle_red_big.png">
+        <data key="deviceModel">cisco2901</data>
+        <data key="diff">REMOVED</data>
+    </icon>
+    <icon name="/images/big1.png,/images/circle_green_big.png">
+        <data key="deviceModel">cisco2901</data>
+        <data key="diff">ADDED</data>
+    </icon>
+    <icon name="/images/big1_ipv6.png,/images/circle_blue_big.png">
+        <data key="deviceModel">cisco2901</data>
+        <data key="ipv6Forwarding">YES</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/big1.png,/images/circle_blue_big.png">
+        <data key="deviceModel">cisco2901</data>
+        <data key="diff">YES</data>
+    </icon>
+    <icon name="/images/big1_ipv6.png">
+        <data key="deviceModel">cisco2901</data>
+        <data key="ipv6Forwarding">YES</data>
+    </icon>
+    <icon name="/images/big1.png">
+        <data key="deviceModel">cisco2901</data>
+    </icon>
     <!-- cisco7606 -->
     <icon name="/images/big1.png,/images/circle_red_big.png">
         <data key="deviceModel">cisco7606</data>

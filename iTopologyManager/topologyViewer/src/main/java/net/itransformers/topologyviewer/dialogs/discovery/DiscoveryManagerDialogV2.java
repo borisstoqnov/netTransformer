@@ -66,7 +66,7 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
      */
     public static void main(String[] args) {
         try {
-            DiscoveryManagerDialogV2 dialog = new DiscoveryManagerDialogV2(null, new File("."), "snmpDiscovery");
+            DiscoveryManagerDialogV2 dialog = new DiscoveryManagerDialogV2(null, new File("."), ProjectConstants.snmpProjectType);
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
         } catch (Exception e) {

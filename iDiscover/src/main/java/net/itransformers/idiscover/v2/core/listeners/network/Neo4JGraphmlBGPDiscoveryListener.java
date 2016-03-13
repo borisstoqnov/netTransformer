@@ -45,7 +45,7 @@ import java.util.Map;
 public class Neo4JGraphmlBGPDiscoveryListener implements NetworkDiscoveryListener {
     static Logger logger = Logger.getLogger(Neo4JGraphmlBGPDiscoveryListener.class);
     String labelDirName;
-    String graphmDirName;
+    String graphmlDirName;
     String xsltFileName;
     String graphDbUrl;
     String dataType;
@@ -63,12 +63,12 @@ public class Neo4JGraphmlBGPDiscoveryListener implements NetworkDiscoveryListene
         this.labelDirName = labelDirName;
     }
 
-    public String getGraphmDirName() {
-        return graphmDirName;
+    public String getGraphmlDirName() {
+        return graphmlDirName;
     }
 
-    public void setGraphmDirName(String graphmDirName) {
-        this.graphmDirName = graphmDirName;
+    public void setGraphmlDirName(String graphmlDirName) {
+        this.graphmlDirName = graphmlDirName;
     }
 
     public String getXsltFileName() {
@@ -123,7 +123,7 @@ public class Neo4JGraphmlBGPDiscoveryListener implements NetworkDiscoveryListene
     public void networkDiscovered(NetworkDiscoveryResult result) {
         //To change body of implemented methods use File | Settings | File Templates.
         File baseDir = new File(labelDirName);
-        File graphmlDir = new File(baseDir,graphmDirName);
+        File graphmlDir = new File(baseDir, graphmlDirName);
         logger.info("Starting Neo4JGraphml BGP Discovery Listener");
 
         GraphDatabaseService graphdb = new org.neo4j.rest.graphdb.RestGraphDatabase(graphDbUrl);

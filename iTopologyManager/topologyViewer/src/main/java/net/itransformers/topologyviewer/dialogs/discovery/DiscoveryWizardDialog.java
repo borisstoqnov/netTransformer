@@ -21,6 +21,8 @@
 
 package net.itransformers.topologyviewer.dialogs.discovery;
 
+import net.itransformers.utils.ProjectConstants;
+
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
@@ -48,7 +50,7 @@ public class DiscoveryWizardDialog extends JDialog {
         try {
             UIManager.put("Table.gridColor", new ColorUIResource(Color.gray));
 
-            DiscoveryWizardDialog dialog = new DiscoveryWizardDialog(null, ".", "snmpDiscoverer");
+            DiscoveryWizardDialog dialog = new DiscoveryWizardDialog(null, ".", ProjectConstants.snmpProjectType);
             int option = dialog.showDialog();
 
         } catch (Exception e) {
