@@ -10,3 +10,10 @@ netTransformer is a software prototype able to:
 *	Track the network evolution process and create network DIFFs between any two network states
 
 If that sounds interesting and you want to find out more please review the [UserGuide](http://www.itransformers.net/UserGuide-Pirin.pdf) or visit our [youtube channel] (https://www.youtube.com/channel/UCVrXTSM9Hj6d3OFbIdF4Z2w). 
+
+Q&A and Issue tracker
+==============
+
+![Community forum](http://forum.itransformers.net/fluxbb/index.php) 
+
+![Issue tracker](https://github.com/iTransformers/netTransformer/issues)
