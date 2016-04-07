@@ -26,6 +26,7 @@ import net.itransformers.idiscover.core.RawDeviceData;
 import net.itransformers.idiscover.core.Resource;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.util.JaxbMarshalar;
+import net.itransformers.utils.ProjectConstants;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
@@ -62,7 +63,7 @@ public class DeviceFileLogger implements DiscoveryListener{
 
     public void handleDevice(String deviceName, RawDeviceData rawData, DiscoveredDeviceData discoveredDeviceData, Resource resource) {
 //        final String deviceFileName = path + File.separator + "device-data-" + deviceName + ".xml";
-        final String deviceFileName = "device-data-" + deviceName + ".xml";
+        final String deviceFileName = ProjectConstants.deviceDataPrefix + deviceName + ".xml";
         OutputStream os = null;
         try {
             os = new FileOutputStream(new File(deviceDataPath,deviceFileName));

@@ -25,7 +25,7 @@ package net.itransformers.idiscover.core;
 
 public class DeviceNeighbour {
     private String hostName;
-    private IPv4Address neighbourIpAddress;
+    private String neighbourIpAddress;
     private String roCommunity;
     private boolean known;
     private String deviceType;
@@ -37,26 +37,25 @@ public class DeviceNeighbour {
         this.roCommunity =  snmpCommunity;
         this.Reachable = Reachable;
     }
-    public DeviceNeighbour(String hostName, IPv4Address neighbourIpAddress, String deviceType, String snmpCommunity, boolean Reachable) {
+
+    public DeviceNeighbour(String hostName, String neighbourIpAddress, String deviceType, String snmpCommunity, boolean Reachable) {
         this.hostName = hostName;
         this.neighbourIpAddress = neighbourIpAddress;
         this.deviceType = deviceType;
         this.roCommunity = snmpCommunity;
         this.Reachable = Reachable;
     }
-    public DeviceNeighbour(IPv4Address neighbourIpAddress, String deviceType, String snmpCommunity, boolean Reachable) {
-        this.neighbourIpAddress = neighbourIpAddress;
-        this.deviceType = deviceType;
-        this.roCommunity =  snmpCommunity;
-        this.Reachable = Reachable;
 
+    public DeviceNeighbour(String hostName, String neighbourIpAddress) {
+        this.neighbourIpAddress = neighbourIpAddress;
+        this.hostName = hostName;
     }
 
-    public IPv4Address getIpAddress(){
+    public String getIpAddress() {
             return neighbourIpAddress;
     }
 
-    public void setIpAddress(IPv4Address neighbourIpAddress){
+    public void setIpAddress(String neighbourIpAddress) {
         this.neighbourIpAddress = neighbourIpAddress;
     }
 

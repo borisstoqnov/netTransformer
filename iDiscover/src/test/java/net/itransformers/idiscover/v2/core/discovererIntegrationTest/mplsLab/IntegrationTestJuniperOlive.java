@@ -30,8 +30,6 @@ import net.itransformers.idiscover.core.DiscoveryHelper;
 import net.itransformers.idiscover.core.DiscoveryTypes;
 import net.itransformers.idiscover.core.RawDeviceData;
 import net.itransformers.idiscover.core.Resource;
-import net.itransformers.idiscover.discoverers.DefaultDiscovererFactory;
-import net.itransformers.idiscover.discoverers.SnmpWalker;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
 import net.itransformers.idiscover.discoverylisteners.DeviceFileLogger;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
@@ -58,7 +56,6 @@ import java.util.Map;
 
 
 public class IntegrationTestJuniperOlive {
-    private SnmpWalker walker;
     private String[] discoveryTypes = new String[5];
     private DiscoveryHelper discoveryHelper;
     private Resource resource;
@@ -105,7 +102,6 @@ public class IntegrationTestJuniperOlive {
         resourceParams.put("mibDir", "snmptoolkit/mibs");
         resource = new Resource("R1", "10.17.1.13", resourceParams);
         resource.setDeviceType("JUNIPER");
-        walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
         discoveryHelper = discoveryHelperFactory.createDiscoveryHelper("JUNIPER");
 
 
@@ -144,7 +140,7 @@ public class IntegrationTestJuniperOlive {
                 //String devName = walker.getDeviceName(resource);
                 result.setNodeId(resource.getHost());
                 result.setDiscoveredData("rawData", rawdata.getData());
-                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource);
+                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
 
                 int discoveredInterfaceCounter = 0;

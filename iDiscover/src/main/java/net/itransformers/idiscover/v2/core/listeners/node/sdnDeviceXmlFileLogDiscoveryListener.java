@@ -73,7 +73,7 @@ public class sdnDeviceXmlFileLogDiscoveryListener implements NodeDiscoveryListen
 
             inputStream = new ByteArrayInputStream(rawDataXml.getBytes());
 
-            transformer.transformXML(inputStream, deviceXmlXslt, outputStream1, null, null);
+            transformer.transformXML(inputStream, deviceXmlXslt, outputStream1);
             logger.info("Transforming raw-data to DeviceXml for "+deviceName);
             logger.debug("Raw Data \n" + rawDataXml.toString());
 

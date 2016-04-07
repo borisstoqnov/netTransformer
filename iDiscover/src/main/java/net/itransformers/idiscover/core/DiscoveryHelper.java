@@ -25,9 +25,12 @@ package net.itransformers.idiscover.core;
 
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 
+import java.util.Map;
+
 public interface DiscoveryHelper {
     void setDryRun(boolean dryRun);
-    DiscoveredDeviceData parseDeviceRawData(RawDeviceData rawData, String[] discoveryTypes, Resource resource);
+
+    DiscoveredDeviceData parseDeviceRawData(RawDeviceData rawData, String[] discoveryTypes, Map<String, String> params);
 
     Device createDevice(DiscoveredDeviceData discoveredDeviceData);
 

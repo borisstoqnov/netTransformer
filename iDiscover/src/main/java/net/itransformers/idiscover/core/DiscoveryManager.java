@@ -32,6 +32,7 @@ import net.itransformers.idiscover.v2.core.NetworkDiscoveryListener;
 import net.itransformers.resourcemanager.ResourceManager;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.resourcemanager.config.ResourcesType;
+import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
 import net.itransformers.utils.CmdLineParser;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -63,6 +64,7 @@ public class DiscoveryManager {
     private boolean isPaused;
     private boolean isStopped;
     private boolean postDiscoveryflag;
+    private SnmpManager snmpManager;
 
     public DiscoveryManager(File projectDir, String label, ResourceManager resourceManager, DiscovererFactory discovererFactory, DiscoveryHelperFactory discoveryHelperFactory, Boolean postDiscoveryflag) throws IllegalAccessException, InstantiationException {
         this.resourceManager = resourceManager;
@@ -76,7 +78,7 @@ public class DiscoveryManager {
         isRunning = true;
         Map<String, Device> foundDevices = new HashMap<String, Device>();
         NetworkType network = new NetworkType();
-        Discoverer discoverer = discovererFactory.createDiscoverer(resource);
+        Discoverer discoverer = discovererFactory.createDiscoverer(resource, snmpManager);
         this.discoverDevice(resource, discoveryTypes, mode, network, foundDevices, discoverer);
         stop();
         for (DiscoveredDeviceData  data : network.getDiscoveredDevice()) {
@@ -219,7 +221,7 @@ public class DiscoveryManager {
         Device device;
         String[] requestParamsList = discoveryHelper.getRequestParams(discoveryTypes);
         RawDeviceData rawData = discoverer.getRawDeviceData(resource, requestParamsList);
-        DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawData,discoveryTypes, resource);
+        DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource.getAttributes());
         device = discoveryHelper.createDevice(discoveredDeviceData);
         assert device.getName().equals(deviceName);
         foundDevices.put(deviceName, device);
@@ -247,7 +249,7 @@ public class DiscoveryManager {
             if (isStopped) return;
             if (isPaused) doPause();
             //Get IP address and Hostname of the discovered Neighbor
-            IPv4Address ipAddress = deviceNeighbour.getIpAddress();
+            String ipAddress = deviceNeighbour.getIpAddress();
             String hostName = deviceNeighbour.getHostName();
             String deviceType = deviceNeighbour.getDeviceType();
             boolean Reachable =  deviceNeighbour.getStatus();
@@ -284,7 +286,7 @@ public class DiscoveryManager {
                 }
 //
 //
-                Resource resource = new Resource(hostName,ipAddress,deviceType, Integer.parseInt(SNMPconnParams.get("port")), SNMPconnParams);
+                 Resource resource = new Resource(hostName, new IPv4Address(ipAddress, null), deviceType, Integer.parseInt(SNMPconnParams.get("port")), SNMPconnParams);
 
 
                 this.discoverDevice(resource, discoveryTypes, mode, network, foundDevices, discoverer);
@@ -399,7 +401,7 @@ public class DiscoveryManager {
 //            }
 //
 //        }
-        
+
     }
 
     public static DiscoveryManager createDiscoveryManager(File projectDir, String discoveryManagerXmlRelPath, String label,Boolean postDiscoveryflag) throws JAXBException, IOException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {

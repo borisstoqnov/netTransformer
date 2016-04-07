@@ -69,12 +69,11 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
     }
 
 
-
-    public DiscoveredDeviceData parseDeviceRawData(RawDeviceData rawData, String[] discoveryTypes, Resource resource) {
+    public DiscoveredDeviceData parseDeviceRawData(RawDeviceData rawData, String[] discoveryTypes, Map<String, String> params) {
 
         byte[] data = rawData.getData();
         ByteArrayOutputStream deviceXmlOutputStream = new ByteArrayOutputStream();
-        parseDeviceRawData(data, deviceXmlOutputStream, deviceType.getXslt(), resource);
+        parseDeviceRawData(data, deviceXmlOutputStream, deviceType.getXslt(), params);
 
         ByteArrayInputStream is = new ByteArrayInputStream(deviceXmlOutputStream.toByteArray());
         System.out.println(deviceXmlOutputStream.toByteArray());
@@ -121,19 +120,21 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
                     String ipAddress = params2Map.get("Neighbor IP Address");
                     String hostName = params2Map.get("Neighbor hostname");
                     String deviceType = params2Map.get("Neighbor Device Type");
-                    String snmpCommunity = params2Map.get("SNMP Community");
+                    //String snmpCommunity = params2Map.get("SNMP Community");
                     DeviceNeighbour deviceNeighbour;
-                    if (Reachable.equals("YES")){
-                       deviceNeighbour = new DeviceNeighbour(hostName, new IPv4Address(ipAddress,null),deviceType,snmpCommunity,true);
-                    }else{
-                       if (hostName != null){
-                        deviceNeighbour = new DeviceNeighbour(hostName,deviceType,snmpCommunity,false);
-                        }else if (ipAddress != null){
-                        deviceNeighbour = new DeviceNeighbour(ipAddress,deviceType,snmpCommunity,false);
-                        } else {
-                            deviceNeighbour = new DeviceNeighbour(objectType2.getName(),deviceType,snmpCommunity,false);
-                        }
-                    }
+
+                    deviceNeighbour = new DeviceNeighbour(hostName, ipAddress);
+
+//                    if (Reachable.equals("YES")){
+//                    }else{
+//                       if (hostName != null){
+//                        deviceNeighbour = new DeviceNeighbour(hostName,deviceType,snmpCommunity,false);
+//                        }else if (ipAddress != null){
+//                        deviceNeighbour = new DeviceNeighbour(ipAddress,deviceType,snmpCommunity,false);
+//                        } else {
+//                            deviceNeighbour = new DeviceNeighbour(objectType2.getName(),deviceType,snmpCommunity,false);
+//                        }
+//                    }
                     result.add(deviceNeighbour);
                 }
 
@@ -142,25 +143,33 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
         return result;
     }
 
-    private void parseDeviceRawData(byte[] rawData, OutputStream outputStream, String xsltFileName, Resource resource) {
+    private void parseDeviceRawData(byte[] rawData, OutputStream outputStream, String xsltFileName) {
         XsltTransformer transformer = new XsltTransformer();
 
-        if(dryRun)
-            resource.getAttributes().put("neighbourIPDryRun","true");
-        else
-            resource.getAttributes().put("neighbourIPDryRun",null);
 
         try {
-            if (resource.getIpAddress()!=null){
-                transformer.transformXML(new ByteArrayInputStream(rawData), new File(System.getProperty("base.dir"),xsltFileName), outputStream, resource.getAttributes(),resource.getIpAddress().getIpAddress());
-            }  else {
-                transformer.transformXML(new ByteArrayInputStream(rawData), new File(System.getProperty("base.dir"),xsltFileName), outputStream, resource.getAttributes(),null);
-            }
+            transformer.transformXML(new ByteArrayInputStream(rawData), new File(System.getProperty("base.dir"), xsltFileName), outputStream);
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             logger.error("Unable to parse device raw data xml:"+new String(rawData));
         }
     }
+
+
+    private void parseDeviceRawData(byte[] rawData, OutputStream outputStream, String xsltFileName, Map<String, String> params) {
+        XsltTransformer transformer = new XsltTransformer();
+
+
+        try {
+            transformer.transformXML(new ByteArrayInputStream(rawData), new File(System.getProperty("base.dir"), xsltFileName), outputStream, params);
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            logger.error("Unable to parse device raw data xml:" + new String(rawData));
+        }
+    }
+
     public boolean checkStopCriteria(Resource host) {
         List<MatchNotType> notMatches = this.stopCriteria.getMatchNot();
         for (MatchNotType notMatch : notMatches){

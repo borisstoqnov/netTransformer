@@ -33,6 +33,7 @@ public class Network {
     String prefix;
     String subnetPrefix;
     String localInterface;
+    String localMac;
     String subnetProtocolType;
     String subnetType;
 
@@ -107,6 +108,7 @@ public class Network {
     public void setSubnetType(String subnetType) {
         this.subnetType = subnetType;
     }
+
 
     @Override
     public String toString() {

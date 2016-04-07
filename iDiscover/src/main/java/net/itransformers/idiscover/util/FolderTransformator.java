@@ -62,7 +62,7 @@ public class FolderTransformator {
                 try {
                     fileInputStream = new FileInputStream(fileName);
                     fileOutputStream = new FileOutputStream(fileName1);
-                    transformer.transformXML(fileInputStream, transformator, fileOutputStream, null, null);
+                    transformer.transformXML(fileInputStream, transformator, fileOutputStream);
                     fileOutputStream.flush();
                 } catch (Exception e) {
                     e.printStackTrace();

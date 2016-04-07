@@ -26,16 +26,12 @@ import net.itransformers.idiscover.v2.core.*;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.snmp2xml4j.snmptoolkit.*;
-import net.itransformers.snmp2xml4j.snmptoolkit.messagedispacher.DefaultMessageDispatcherFactory;
-import net.itransformers.snmp2xml4j.snmptoolkit.transport.UdpTransportMappingFactory;
 import net.itransformers.utils.AutoLabeler;
 import net.itransformers.utils.CmdLineParser;
 import net.itransformers.utils.ProjectConstants;
 import net.itransformers.utils.XsltTransformer;
 import net.percederberg.mibble.MibLoaderException;
 import org.apache.log4j.Logger;
-import org.snmp4j.CommunityTarget;
-import org.snmp4j.util.SnmpConfigurator;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -66,11 +62,13 @@ public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
     private String xsltFileName2;
     private String xsltFileName3;
     private String asNumbers;
+    private String mibDir;
 
     private String graphmlUndirectedPath;
 
     private String queryParameters;
-    private String mibDir;
+    private MibLoaderHolder mibLoaderHolder;
+    private SnmpManager snmpManager;
 
 //    public bgpMapSnmpDiscoverer(DiscoveryResourceManager discoveryResource, String labelDirName, String projectPath, String xsltFileName, String queryParameters) {
 //        this.discoveryResource = discoveryResource;
@@ -83,8 +81,15 @@ public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
     @Override
     public NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList, int depth) {
 
-
+        try {
+            mibLoaderHolder = new MibLoaderHolder(new File(mibDir), false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (MibLoaderException e) {
+            e.printStackTrace();
+        }
         NetworkDiscoveryResult networkDiscoveryResult = new NetworkDiscoveryResult();
+
 
         File baseDir = new File(projectPath, labelDirName);
         if (!baseDir.exists()) baseDir.mkdir();
@@ -119,16 +124,23 @@ public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
 
             ResourceType snmpResource = this.discoveryResource.returnResourceByParam(params1);
             Map<String, String> snmpConnParams = this.discoveryResource.getParamMap(snmpResource, "snmp");
+            snmpConnParams.put("ipAddress", connectionDetails.getParam("ipAddress"));
+
             if (snmpConnParams != null) {
-                snmpConnParams.put("ipAddress", connectionDetails.getParam("ipAddress"));
-                snmpConnParams.put("query.parameters", queryParameters);
-                snmpConnParams.put("mibDir", mibDir);
+//                snmpConnParams.put("ipAddress", connectionDetails.getParam("ipAddress"));
+//                snmpConnParams.put("query.parameters", queryParameters);
+//                snmpConnParams.put("mibDir", mibDir);
+//
+                setSnmpManager(snmpConnParams);
+
+
                 byte[] rawData = new byte[0];
                 try {
-                    String sysDescr = snmpGet(snmpConnParams);
+                    String sysDescr = snmpGetNext(snmpConnParams, "1.3.6.1.2.1.1.1");
                     if (sysDescr != null) {
                         logger.info(sysDescr);
                         logger.info("SNMP walk start");
+
 
                         rawData = snmpWalk(snmpConnParams);
 
@@ -236,51 +248,82 @@ public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
 //        return null;
     }
 
-    private String snmpGet(Map<String, String> settings) {
+    private void setSnmpManager(Map<String, String> snmpConnParams) {
 
-        ParemetersAssembler paremetersAssembler = new ParemetersAssembler(settings);
+        String version = snmpConnParams.get("version");
+        String protocol = snmpConnParams.get("protocol");
 
-        String address = settings.get("ipAddress");
-        if (address == null) {
-            logger.info("ipAddress is null can't discover that device");
+
+        if ("3".equals(version) && "udp".equals(protocol)) {
+
+        } else if ("3".equals(version) && "tcp".equals(protocol)) {
+
+            snmpManager = new SnmpTcpV3Manager(mibLoaderHolder.getLoader());
+
+        } else if ("2".equals(version) && "udp".equals(protocol)) {
+
+            snmpManager = new SnmpUdpV2Manager(mibLoaderHolder.getLoader());
+
+
+        } else if ("2c".equals(version) && "udp".equals(protocol)) {
+
+            snmpManager = new SnmpUdpV2Manager(mibLoaderHolder.getLoader());
+
+
+        } else if ("2".equals(version) && "tcp".equals(protocol)) {
+            snmpManager = new SnmpTcpV2Manager(mibLoaderHolder.getLoader());
+
+
+        } else if ("2c".equals(version) && "tcp".equals(protocol)) {
+            snmpManager = new SnmpTcpV2Manager(mibLoaderHolder.getLoader());
+
+
+        } else if ("1".equals(version) && "udp".equals(protocol)) {
+
+            snmpManager = new SnmpTcpV1Manager(mibLoaderHolder.getLoader());
+
+
+        } else if ("1".equals(version) && "tcp".equals(protocol)) {
+
+            snmpManager = new SnmpTcpV1Manager(mibLoaderHolder.getLoader());
+
+
+        } else {
+
+            logger.info("Unsupported combination of protocol: " + protocol + " and version " + version);
+
         }
-
-
-        SnmpConfigurator snmpConfig = new SnmpConfigurator();
-        CommunityTarget t = (CommunityTarget) snmpConfig.getTarget(paremetersAssembler.getProperties());
-        String oid = "1.3.6.1.2.1.1.1";
-        Get get = null;
-
-        get = new Get(oid, t, new UdpTransportMappingFactory(), new DefaultMessageDispatcherFactory());
-
         try {
-            return get.getSNMPGetNextValue();
+            snmpManager.init();
         } catch (IOException e) {
-
             e.printStackTrace();
-            return null;
         }
+    }
+
+    private String snmpGetNext(Map<String, String> settings, String oidString) throws IOException {
+
+
+        snmpManager.setParameters(settings);
+
+
+        return snmpManager.snmpGetNext(oidString);
+
 
 
     }
 
-    private static byte[] snmpWalk(Map<String, String> settings) throws IOException, MibLoaderException {
-        String queryParameters = settings.get("query.parameters");
+    private byte[] snmpWalk(Map<String, String> settings) throws IOException, MibLoaderException {
 
         String[] params = queryParameters.split(",");
-        String mibDir = settings.get("mibDir");
-        ParemetersAssembler paremetersAssembler = new ParemetersAssembler(settings);
-
-        MibLoaderHolder holder = new MibLoaderHolder(new File(System.getProperty("base.dir"), mibDir), false);
-        Walk walker = new Walk(holder, new UdpTransportMappingFactory(), new DefaultMessageDispatcherFactory());
 
 
-        // Properties parameters = parametersAsslembler(settings);
+        snmpManager.setParameters(settings);
 
-        Node root = walker.walk(params, paremetersAssembler.getProperties());
-        String xml = Walk.printTreeAsXML(root);
+
+        String xml = snmpManager.snmpWalkToString(params);
         return xml.getBytes();
     }
+
 
 
 
@@ -325,13 +368,20 @@ public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
         this.projectPath = projectPath;
     }
 
-
-    public String getMibDir() {
-        return mibDir;
+    public MibLoaderHolder getMibLoaderHolder() {
+        return mibLoaderHolder;
     }
 
-    public void setMibDir(String mibDir) {
-        this.mibDir = mibDir;
+    public void setMibLoaderHolder(MibLoaderHolder mibLoaderHolder) {
+        this.mibLoaderHolder = mibLoaderHolder;
+    }
+
+    public SnmpManager getSnmpManager() {
+        return snmpManager;
+    }
+
+    public void setSnmpManager(SnmpManager snmpManager) {
+        this.snmpManager = snmpManager;
     }
 
     public String getXsltFileName2() {
@@ -364,6 +414,14 @@ public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
 
     public void setGraphmlUndirectedPath(String graphmlUndirectedPath) {
         this.graphmlUndirectedPath = graphmlUndirectedPath;
+    }
+
+    public String getMibDir() {
+        return mibDir;
+    }
+
+    public void setMibDir(String mibDir) {
+        this.mibDir = mibDir;
     }
 
     public static void main(String[] args) {
@@ -419,6 +477,7 @@ public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
 
         File networkPath = new File(projectPath, ProjectConstants.networkDirName);
 
+
         String labelDirName;
         if (!networkPath.exists()) {
             networkPath.mkdir();
@@ -445,6 +504,13 @@ public class BgpMapSnmpDiscoverer extends ANetworkDiscoverer {
 
 
         beanFactory.registerBeanDefinition("graphmlUndirectedPath", beanDefinition3);
+
+
+//        BeanDefinition beanDefinition4 = BeanDefinitionBuilder.
+//                rootBeanDefinition(String.class)
+//                .addConstructorArgValue(mibLoaderHolder).getBeanDefinition();
+//
+//        beanFactory.registerBeanDefinition("mibLoaderHolder", beanDefinition4);
 
 
         GenericApplicationContext cmdArgCxt = new GenericApplicationContext(beanFactory);

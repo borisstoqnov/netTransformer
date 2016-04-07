@@ -25,8 +25,6 @@ import net.itransformers.idiscover.core.DiscoveryHelper;
 import net.itransformers.idiscover.core.DiscoveryTypes;
 import net.itransformers.idiscover.core.RawDeviceData;
 import net.itransformers.idiscover.core.Resource;
-import net.itransformers.idiscover.discoverers.DefaultDiscovererFactory;
-import net.itransformers.idiscover.discoverers.SnmpWalker;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
 import net.itransformers.idiscover.discoverylisteners.DeviceFileLogger;
 import net.itransformers.idiscover.discoverylisteners.XmlTopologyDeviceLogger;
@@ -61,7 +59,6 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class IntegrationTestsMplsLab {
-    private SnmpWalker walker;
     private String[] discoveryTypes = new String[5];
     private DiscoveryHelper discoveryHelper;
     private Resource resource;
@@ -131,11 +128,7 @@ public class IntegrationTestsMplsLab {
                 resource.setDeviceType("CISCO");
 
 
-                try {
-                    walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
-                } catch (Exception e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                }
+
 
                 FileInputStream is = null;
                 try {
@@ -161,7 +154,7 @@ public class IntegrationTestsMplsLab {
                 //String devName = walker.getDeviceName(resource);
                 result.setNodeId(resource.getHost());
                 result.setDiscoveredData("rawData", rawdata.getData());
-                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource);
+                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
 
 
@@ -199,7 +192,6 @@ public class IntegrationTestsMplsLab {
 
 
                 try {
-                        walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
                     } catch (Exception e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
@@ -225,7 +217,7 @@ public class IntegrationTestsMplsLab {
                 //String devName = walker.getDeviceName(resource);
                 result.setNodeId(resource.getHost());
                 result.setDiscoveredData("rawData", rawdata.getData());
-                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource);
+                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
 
                 Map<String,Integer> neighbourTypeCounts = fillInNeighbourTree(discoveredDeviceData.getObject());
@@ -254,13 +246,6 @@ public class IntegrationTestsMplsLab {
                 resource = new Resource("R3", "10.17.1.13", resourceParams);
                 resource.setDeviceType("CISCO");
 
-
-                try {
-                    walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
-                } catch (Exception e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                }
-
                 FileInputStream is = null;
                 try {
                     is = new FileInputStream("iDiscover/src/test/resources/raw-data-mpls-lab/raw-data-R3.xml");
@@ -283,7 +268,7 @@ public class IntegrationTestsMplsLab {
                 //String devName = walker.getDeviceName(resource);
                 result.setNodeId(resource.getHost());
                 result.setDiscoveredData("rawData", rawdata.getData());
-                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource);
+                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
 
                 Map<String,Integer> neighbourTypeCounts = fillInNeighbourTree(discoveredDeviceData.getObject());
@@ -311,12 +296,6 @@ public class IntegrationTestsMplsLab {
                 resource = new Resource("R4", "10.17.1.13", resourceParams);
                 resource.setDeviceType("CISCO");
 
-                try {
-                    walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
-                } catch (Exception e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                }
-
                 FileInputStream is = null;
                 try {
                     is = new FileInputStream("iDiscover/src/test/resources/raw-data-mpls-lab/raw-data-R4.xml");
@@ -339,7 +318,7 @@ public class IntegrationTestsMplsLab {
                 //String devName = walker.getDeviceName(resource);
                 result.setNodeId(resource.getHost());
                 result.setDiscoveredData("rawData", rawdata.getData());
-                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource);
+                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
 
                 Map<String,Integer> neighbourTypeCounts = fillInNeighbourTree(discoveredDeviceData.getObject());
@@ -365,13 +344,6 @@ public class IntegrationTestsMplsLab {
                 resource = new Resource("R5", "10.17.1.13", resourceParams);
                 resource.setDeviceType("CISCO");
 
-
-                try {
-                    walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
-                } catch (Exception e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                }
-
                 FileInputStream is = null;
                 try {
                     is = new FileInputStream("iDiscover/src/test/resources/raw-data-mpls-lab/raw-data-R5.xml");
@@ -394,7 +366,7 @@ public class IntegrationTestsMplsLab {
                 //String devName = walker.getDeviceName(resource);
                 result.setNodeId(resource.getHost());
                 result.setDiscoveredData("rawData", rawdata.getData());
-                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource);
+                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
 
                 Map<String,Integer> neighbourTypeCounts = fillInNeighbourTree(discoveredDeviceData.getObject());

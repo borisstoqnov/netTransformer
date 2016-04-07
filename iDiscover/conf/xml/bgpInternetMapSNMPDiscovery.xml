@@ -35,8 +35,10 @@
         <property name="xsltFileName2" value="bgpPeeringMap/conf/xslt/inetMap.xslt"/>
         <property name="xsltFileName3" value="bgpPeeringMap/conf/xslt/reorder.xslt"/>
         <property name="asNumbers" value="bgpPeeringMap/conf/xml/autnums.xml"/>
-        <property name="queryParameters" value="sysName,bgpLocalAs,ca,bgp4PathAttrEntry"/>
-    <property name="mibDir" value="snmptoolkit/mibs"/>
+        <!--<property name="queryParameters" value="sysName,bgpLocalAs,ca,bgp4PathAttrEntry"/>-->
+        <property name="queryParameters" value="sysName"/>
+
+        <property name="mibDir" value="snmptoolkit/mibs"/>
 
         <property name="networkDiscoveryListeners">
             <list>

@@ -24,14 +24,10 @@
 package net.itransformers.idiscover.discoverers;
 
 import net.itransformers.idiscover.core.Resource;
-import net.itransformers.snmp2xml4j.snmptoolkit.messagedispacher.DefaultMessageDispatcherFactory;
-import net.itransformers.snmp2xml4j.snmptoolkit.transport.UdpTransportMappingFactory;
-//import net.percederberg.mibble.MibLoaderException;
-
-//import java.io.IOException;
+import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
 
 public class SnmpWalker extends SnmpWalkerBase {
-    public SnmpWalker(Resource resource) throws Exception {//IOException, MibLoaderException {
-        super(resource, new UdpTransportMappingFactory(), new DefaultMessageDispatcherFactory());
+    public SnmpWalker(Resource resource, SnmpManager snmpManager) throws Exception {//IOException, MibLoaderException {
+        super(resource, snmpManager);
     }
 }

@@ -64,7 +64,7 @@ public class DiscoveryManagerThread extends Thread {
         manager.resume();
     }
     public DiscoveryManagerStatus getStatus(){
-        DiscoveryManagerStatus status = null; 
+        DiscoveryManagerStatus status = null;
 
         if (manager.isPaused()) {
             status =  DiscoveryManagerStatus.PAUSED;

@@ -24,6 +24,7 @@ package net.itransformers.idiscover.discoverers;
 import net.itransformers.idiscover.core.Discoverer;
 import net.itransformers.idiscover.core.DiscovererFactory;
 import net.itransformers.idiscover.core.Resource;
+import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
 
 /**
  * Created by IntelliJ IDEA.
@@ -34,9 +35,9 @@ import net.itransformers.idiscover.core.Resource;
 public class DefaultDiscovererFactory implements DiscovererFactory {
     private static Discoverer myDiscoverer;
 
-    public Discoverer createDiscoverer(Resource resource) throws Exception{
+    public Discoverer createDiscoverer(Resource resource, SnmpManager snmpManager) throws Exception {
         if (myDiscoverer == null) {
-            myDiscoverer = new SnmpWalker(resource);
+            myDiscoverer = new SnmpWalker(resource, snmpManager);
         }
         return myDiscoverer;
     }

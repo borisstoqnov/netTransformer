@@ -21,21 +21,30 @@
   -->
 
 <resources>
-    <resource name="OpenWrt">
-        <connection-params connection-type="ssh"/>
-        <connection-params connection-type="telnet">
-            <param name="username">root</param>
-            <param name="password">password</param>
-            <param name="system-password">password</param>
-            <param name="port">23</param>
+    <resource name="cisco">
+        <param name="deviceType">CISCO</param>
+
+        <connection-params connection-type="telnet"/>
+        <connection-params connection-type="ssh">
+            <param name="username">nbu</param>
+            <param name="password">nbu321!</param>
+            <param name="enable-password">nbu321!</param>
+            <param name="timeout">3000</param>
+            <param name="retries">3</param>
+            <param name="destinationPort">22</param>
         </connection-params>
         <connection-params connection-type="snmp">
-            <param name="version">2c</param>
-            <param name="community-ro">netTransformer-r</param>
-            <param name="community-rw">netTransformer-rw</param>
-            <param name="timeout">3000</param>
+            <param name="version">3</param>
+            <param name="ver3Username">nbu</param>
+            <param name="ver3AuthPasscode">authkey123</param>
+            <param name="ver3mode">AUTH_PRIV</param>
+            <param name="authenticationProtocol">MD5</param>
+            <param name="privacyProtocol">DES</param>
+            <param name="privacyProtocolPassShare">privkey123</param>
+            <param name="timeout">1000</param>
             <param name="retries">1</param>
-            <param name="port">161</param>
+            <param name="protocol">udp</param>
+            <param name="destinationPort">161</param>
         </connection-params>
     </resource>
     <resource name="huawei">
@@ -51,50 +60,84 @@
             <param name="enable-password">lab123</param>
             <param name="timeout">3000</param>
             <param name="retries">3</param>
-            <param name="port">23</param>
+            <param name="destinationPort">23</param>
         </connection-params>
     </resource>
     <resource name="recorded">
         <param name="deviceName">recorded</param>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
-            <param name="community-ro">recorded/linux-full-walk</param>
-            <param name="community-rw">public</param>
+            <param name="snmpCommunity">recorded/linux-full-walk</param>
             <param name="timeout">1000</param>
             <param name="retries">1</param>
-            <param name="port">161</param>
+            <param name="protocol">udp</param>
+            <param name="destinationPort">161</param>
         </connection-params>
     </resource>
     <resource name="zeus">
         <param name="deviceName">zeus</param>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
-            <param name="community-ro">public</param>
-            <param name="community-rw">netTransformer-rw</param>
+            <param name="snmpCommunity">public</param>
+            <param name="protocol">udp</param>
             <param name="timeout">1000</param>
             <param name="retries">1</param>
-            <param name="port">161</param>
+            <param name="destinationPort">161</param>
         </connection-params>
     </resource>
     <resource name="bgp">
         <param name="deviceName">bgp</param>
         <connection-params connection-type="snmp">
             <param name="version">2c</param>
-            <param name="community-ro">netTransformer-r</param>
-            <param name="community-rw">netTransformer-rw</param>
+            <param name="snmpCommunity">netTransformer-r</param>
+            <param name="protocol">udp</param>
             <param name="timeout">2000</param>
             <param name="retries">1</param>
+            <param name="destinationPort">161</param>
+        </connection-params>
+    </resource>
+    <resource name="OpenWrt">
+        <param name="ipAddress">193.19.172.133</param>
+        <connection-params connection-type="ssh"/>
+        <connection-params connection-type="telnet">
+            <param name="username">root</param>
+            <param name="password">password</param>
+            <param name="system-password">password</param>
+            <param name="port">23</param>
+        </connection-params>
+        <connection-params connection-type="snmp">
+            <param name="version">2c</param>
+            <param name="snmpCommunity">netTransformer-r</param>
+            <param name="timeout">3000</param>
+            <param name="retries">1</param>
             <param name="port">161</param>
+            <param name="protocol">udp</param>
+        </connection-params>
+    </resource>
+    <resource name="v3test">
+        <param name="ipAddress">195.218.195.228</param>
+        <connection-params connection-type="snmp">
+            <param name="version">3</param>
+            <param name="snmpCommunity">netTransformer-r</param>
+            <param name="protocol">udp</param>
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
+            <param name="ver3Username">usr-sha-aes</param>
+            <param name="ver3AuthPasscode">authkey1</param>
+            <param name="authenticationProtocol">SHA</param>
+            <param name="privacyProtocol">AES</param>
+            <param name="privacyProtocolPassShare">privkey1</param>
+            <param name="destinationPort">161</param>
         </connection-params>
     </resource>
     <resource name="default">
         <connection-params connection-type="snmp">
-            <param name="version">2c</param>
-            <param name="community-ro">netTransformer-r</param>
-            <param name="community-rw">netTransformer-rw</param>
+            <param name="version">2</param>
+            <param name="snmpCommunity">netTransformer-r</param>
+            <param name="protocol">udp</param>
             <param name="timeout">1000</param>
             <param name="retries">1</param>
-            <param name="port">161</param>
+            <param name="destinationPort">161</param>
         </connection-params>
     </resource>
 </resources>

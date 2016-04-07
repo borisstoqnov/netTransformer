@@ -69,7 +69,7 @@ public class Main {
         File conDetails =new File(projectPath,"iDiscover/conf/txt/connection-details.txt");
 
         FileSystemXmlApplicationContext applicationContext = initializeDiscoveryContext(projectPath);
-        NetworkDiscoverer discoverer =applicationContext.getBean("snmpDiscovery", NetworkDiscoverer.class);
+        NetworkDiscoverer discoverer = applicationContext.getBean("snmpDiscoverer", NetworkDiscoverer.class);
         LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", conDetails);
         int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1" : depthCmdArg);
         NetworkDiscoveryResult result = discoverer.discoverNetwork(new ArrayList<ConnectionDetails>(connectionList.values()), depth);

@@ -73,7 +73,7 @@ public class Neo4JGraphmlLoggerLogDiscoveryListener implements NodeDiscoveryList
 
         XsltTransformer transformer = new XsltTransformer();
         try {
-            transformer.transformXML(new ByteArrayInputStream(out.toByteArray()), xsltFile,graphMLOutputStream, null,null);
+            transformer.transformXML(new ByteArrayInputStream(out.toByteArray()), xsltFile, graphMLOutputStream);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }

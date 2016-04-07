@@ -23,7 +23,9 @@
 
 package net.itransformers.idiscover.v2.core;
 
+import net.itransformers.idiscover.core.DiscoveryManager;
 import net.itransformers.idiscover.core.DiscoveryManagerStatus;
+import net.itransformers.idiscover.core.Resource;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.apache.log4j.Logger;
 
@@ -45,6 +47,10 @@ public class DiscoveryManagerThread extends Thread {
         this.nodeDiscovererImpl = nodeDiscovererImpl;
         this.depth = depth;
         this.connectionDetails = connectionDetails;
+    }
+
+    public DiscoveryManagerThread(DiscoveryManager manager, Resource resource, String s, String[] discoveryTypes) {
+
     }
 
     @Override

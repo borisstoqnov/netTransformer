@@ -65,15 +65,21 @@
     </bean>
 
 
+    <bean id="MibLoaderHolder"
+          class="net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder">
+        <!--<constructor-arg  name="mibDir" type="file" value="snmptoolkit/mibs"/>-->
+        <!--<constructor-arg  name="failOnError" type="boolean" value="true"/>-->
+        <constructor-arg value="snmptoolkit/mibs"/>
+        <constructor-arg value="true"/>
+    </bean>
+
+
     <bean id="snmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.snmpdiscoverer.SnmpNodeDiscoverer">
-        <constructor-arg>
-            <map>
-                <entry key="mibDir" value="snmptoolkit/mibs"/>
-            </map>
-        </constructor-arg>
         <constructor-arg ref="discoveryHelperFactory"/>
         <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,IPSEC,BGP,RIP,ADDITIONAL,IPV6"/>
         <constructor-arg ref="discoveryResourceManager"/>
+        <constructor-arg ref="MibLoaderHolder"/>
+
         <constructor-arg>
             <list>
                 <ref bean="sampleNeigborDiscoveryListener"/>

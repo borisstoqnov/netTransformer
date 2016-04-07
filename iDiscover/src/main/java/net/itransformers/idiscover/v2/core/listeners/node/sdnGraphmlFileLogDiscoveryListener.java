@@ -125,7 +125,7 @@ public class sdnGraphmlFileLogDiscoveryListener implements NodeDiscoveryListener
 
 
             }else {
-                transformer.transformXML(inputStream, floodlightGraphmlXslt, outputStream1, params, null);
+                transformer.transformXML(inputStream, floodlightGraphmlXslt, outputStream1, params);
             }
 
             final  String graphmlFileName = "floodLight"+"-"+deviceName+".graphml";
