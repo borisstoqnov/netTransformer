@@ -42,7 +42,7 @@ public class ThirdTransformation {
 
         byte[] rawData = readRawDataFile("/Users/niau/trunk/bgpPeeringMap/src/main/resources/bgpPeeringMap.graphml");
         ByteArrayInputStream inputStream1 = new ByteArrayInputStream(rawData);
-        transformer.transformXML(inputStream1, xsltFileName1, outputStream1, null, null);
+        transformer.transformXML(inputStream1, xsltFileName1, outputStream1);
         File outputFile1 = new File("/Users/niau/trunk/bgpPeeringMap/src/main/resources", "bgpPeeringMap2.graphxml");
 
         FileUtils.writeStringToFile(outputFile1, new String(outputStream1.toByteArray()));

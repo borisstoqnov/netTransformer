@@ -44,7 +44,7 @@ public class GroovyCLIFulfilmentImpl implements Fulfilment {
     @Override
     public void fulfil(File projectPath, Map<String, String> parameters,
                        Map<String, String> fulfilmentFactoryParams, Logger logger) throws IOException {
-        cli = new TelnetCLIInterface(parameters.get("ManagementIPAddress"),parameters.get("username"),parameters.get("password"),parameters.get("hostname")+"#",1000, logger);
+        cli = new TelnetCLIInterface(parameters.get("discoveredIPv4Address"), parameters.get("username"), parameters.get("password"), parameters.get("hostname") + "#", 1000, logger);
 //        cli.open();
         try {
             execute(fulfilmentFactoryParams.get("commands"), parameters);
@@ -73,7 +73,7 @@ public class GroovyCLIFulfilmentImpl implements Fulfilment {
         GroovyCLIFulfilmentImpl ful = new GroovyCLIFulfilmentImpl(cli1);
         Map<String,String> params = new HashMap<String, String>();
         params.put("username","itransformer");
-        params.put("password","kuchogon");
+        params.put("password", "pass123");
         params.put("site","hostname");
         ful.execute("iTopologyManager/fulfilmentFactory/src/main/resources/groovy/test.groovy",params);
         cli1.close();

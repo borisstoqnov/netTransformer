@@ -276,7 +276,7 @@ public class ReportManager {
 
 
         try {
-            transformer.transformXML(inputStream, xsltTransformator,reportOutputStream, null,null);
+            transformer.transformXML(inputStream, xsltTransformator, reportOutputStream, null);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }

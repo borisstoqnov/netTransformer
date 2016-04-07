@@ -24,6 +24,7 @@ package net.itransformers.topologyviewer.rightclick.impl;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 import net.itransformers.utils.JEditorPane;
+import net.itransformers.utils.ProjectConstants;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -46,7 +47,7 @@ public class XmlFileEditorHandler implements RightClickHandler {
          String path =  rightClickParams.get("path");
 
          if(rightClickParams.get("type").equals("deviceXml")){
-             String deviceXmlPath = versionDir.getAbsolutePath()+File.separator+path+File.separator+"device-data-"+v+".xml";
+             String deviceXmlPath = versionDir.getAbsolutePath() + File.separator + path + File.separator + ProjectConstants.deviceDataPrefix + v + ".xml";
              String deviceXmlDir =  versionDir+File.separator+path;
              editor = new net.itransformers.utils.JEditorPane(deviceXmlPath,deviceXmlDir,".xml");
          }else if(rightClickParams.get("type").equals("graphml")){

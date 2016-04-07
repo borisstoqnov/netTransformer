@@ -45,7 +45,7 @@ public class DavidPiegzaFormatTransformer {
         File xsltFileName1 = new File("/Users/niau/trunk/bgpPeeringMap/conf/xslt/david_piegza.xslt");
         byte[] rawData = readRawDataFile("/Users/niau/test1/network/version1/undirected/imap.graphml");
         ByteArrayInputStream inputStream1 = new ByteArrayInputStream(rawData);
-        transformer.transformXML(inputStream1, xsltFileName1, outputStream1, null, null);
+        transformer.transformXML(inputStream1, xsltFileName1, outputStream1);
         File outputFile1 = new File("/Users/niau/trunk/bgpPeeringMap/src/main/resources", "imap.xml");
         FileUtils.writeStringToFile(outputFile1, new String(outputStream1.toByteArray()));
 
