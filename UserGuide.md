@@ -71,14 +71,15 @@ equally well on Linux, Unix, MacOS and Windows operating systems.
 Ready, Set and Go
 =================
 
-[netTransformer](http://itransformers.net/wiki/iTtransformer) is
+[netTransformer](http://itransformers.net/netTtransformer) is
 designed to setup quickly and without almost any effort. The next couple
 of pages will show you how to do this in a couple of easy steps.
 
-The current version of the software can be obtained from the portal for
-free software <http://sourceforge.net>.
+The current version of the software can be obtained from github
 
-[http://sourceforge.net/projects/iTransformer/files/latest/download](http://sourceforge.net/projects/itransformer/files/latest/download)
+[github](https://github.com/iTransformers/netTransformer/releases) or from  <http://sourceforge.net>.
+
+[Sourceforge](http://sourceforge.net/projects/itransformer/files/latest/download)
 
 Prerequisites
 -------------
@@ -94,7 +95,7 @@ Java runtime environment (JRE 1.6.x or newer)
     first…
 
 -   The host on which you are running the
-    [netTransformer](http://itransformers.net/wiki/iTtransformer)
+    [netTransformer](http://itransformers.net/netTtransformer)
     discoverers has to have SNMP connectivity to ANY IP address in
     your network. If there is no such connectivity the software won’t be
     able to discover those parts of your network that are hidden from
@@ -119,10 +120,10 @@ of writing this is version 0.6.
 ### Step 1 Fire up netTransformer
 
 First and most important step is to fire up the
-[**netTransformer**](http://itransformers.net/wiki/iTransformer). It
+[**netTransformer**](http://itransformers.net/netTransformer). It
 will discover your network and will populate your inventory data model.
 Depending from your operation system go to
-[netTransformer](http://itransformers.net/wiki/iTtransformer)\\bin and
+[netTransformer](http://itransformers.net/netTransformer)\\bin and
 execute from the command line the following:
 
 **!On Windows**\
@@ -165,8 +166,7 @@ Then select the project type and choose the path where the new project
 will reside. The currently supported project types are netTransformer
 and bgpPeeringMap.
 
-![](media/image2.png){width="5.763888888888889in"
-height="2.254166666666667in"}
+![](media/image2.png)
 
 Figure Choose project type
 
@@ -181,8 +181,7 @@ If you have chosen as project type netTransformer please proceed to step
 Go to the Discoverers menu navigate to **SNMP Network Discovery** and
 select **Configure Resource**.
 
-![](media/image3.png){width="5.763888888888889in"
-height="1.1513888888888888in"}
+![](media/image3.png)
 
 Figure SNMP network discovery menu
 
@@ -190,8 +189,7 @@ Once the item opens you have to change the
 [SNMP](http://itransformers.net/wiki/SNMP) community strings of the
 DEFAULT resource in order to fit to the one in your network.
 
-![](media/image4.png){width="5.763888888888889in"
-height="4.277777777777778in"}
+![](media/image4.png)
 
 Figure Configuring SNMP network discovery resources
 
@@ -213,8 +211,7 @@ Go to the Discovery menu and select **Start Discovery**. Enter the IP
 address of the initial network device leave the Label empty and hit the
 Start button.
 
-![](media/image5.png){width="6.594224628171479in"
-height="3.1759590988626423in"}
+![](media/image5.png)
 
 Figure Starting a new network discovery
 
@@ -223,8 +220,7 @@ communities section right the discovery process will fire up. In the low
 left corner you will be able to track the how many devices are
 discovered.
 
-![](media/image6.png){width="6.3023020559930005in"
-height="2.9975371828521435in"}
+![](media/image6.png)
 
 Figure Discovery Process running
 
@@ -238,8 +234,7 @@ topology prior the process to finish.
 Go to the Discoverers menu navigate to BGP peering Map Network Discovery
 and select **Configure Parameters**.
 
-![](media/image7.png){width="5.763888888888889in"
-height="1.5569444444444445in"}
+![](media/image7.png)
 
 Figure BGP peering map network discovery menu
 
@@ -248,8 +243,7 @@ just the SNMP “community-ro” parameter and the timeouts, retries and
 max-repetitions values depending of your network device. Do not change
 the rest of the parameters if you do not know what you are doing.
 
-![](media/image8.png){width="5.763888888888889in"
-height="4.331944444444445in"}
+![](media/image8.png)
 
 Figure Configuring BGP peering map parameters
 
@@ -263,8 +257,7 @@ address then press the Start button. This will trigger the discovery
 procedure. If the discovery is working correctly you will notice a lot
 of output in the console window.
 
-![](media/image9.png){width="5.763888888888889in"
-height="2.415277777777778in"}
+![](media/image9.png)
 
 Figure Starting BGP peering Map network discovery
 
@@ -282,9 +275,7 @@ Once the process finish you can proceed to step number 7.
 
 Go to the File Menu and choose open graph.
 
-![](media/image10.png){width="5.763888888888889in"
-height="2.3520833333333333in"}
-
+![](media/image10.png)
 Figure Open a network graph
 
 The menu will trigger a dialog in which you should select the folder
@@ -292,8 +283,7 @@ containing version1 of the discovered network state. Navigate inside the
 version folder and select the undirected.graphmls or directed.graphmls
 file. Typically undirected.graphmls file creates a better network view.
 
-![](media/image11.png){width="5.763888888888889in"
-height="4.3381944444444445in"}
+![](media/image11.png)
 
 Figure Choose a network graph to be open
 
@@ -307,8 +297,7 @@ Figure Discovered IP Network topology preview
 
 bgpPeeringMap network discovery will create views like those bellow:
 
-![](media/image13.png){width="5.736111111111111in"
-height="2.725462598425197in"}
+![](media/image13.png)
 
 Figure Discovered BGP peering Map topology preview
 
@@ -323,8 +312,7 @@ GUI features, tips and tricks
 Main menu panel 
 ----------------
 
-![](media/image14.png){width="5.763888888888889in"
-height="0.7548611111111111in"}
+![](media/image14.png)
 
 Figure Main menu pannel
 
@@ -333,8 +321,7 @@ following sections.
 
 ### File 
 
-![](media/image15.png){width="1.4694444444444446in"
-height="2.548079615048119in"}
+![](media/image15.png)
 
 Figure File menu
 
@@ -348,8 +335,7 @@ project**.
 Once selected the user will be prompted to choose a project file with a
 .pfl extension.
 
-![](media/image16.png){width="5.763888888888889in"
-height="4.401388888888889in"}
+![](media/image16.png)
 
 Figure Open an existing network project
 
@@ -368,23 +354,20 @@ Figure Open an existing network project
     dialog will appear. Then the user has to select the graphmls file of
     the versions that will be a subject to the diff.
 
-![](media/image17.png){width="5.763888888888889in"
-height="2.102777777777778in"}
+![](media/image17.png)
 
 Figure Configure a network diff
 
 Once the **Start button** has been clicked a diff progress bar will be
 displayed.
 
-![](media/image18.png){width="4.777777777777778in"
-height="2.2465277777777777in"}
+![](media/image18.png)
 
 Figure Network diff running
 
 Once the diff has finished you will see a view like the one bellow.
 
-![](media/image19.png){width="5.763888888888889in"
-height="2.904861111111111in"}
+![](media/image19.png)
 
 Figure Graphical representation of a network diff
 
@@ -477,8 +460,7 @@ method could be found in “New SNMP discovery Methods development Guide”.
 
 #### Configure parameters
 
-![](media/image20.png){width="5.763888888888889in"
-height="2.0743055555555556in"}
+![](media/image20.png)
 
 Most of the parameters of the SNMP network discoverer are configurable
 by this sub menu in fact allows the user to edit the
@@ -497,8 +479,7 @@ netTransformer ideology).
 
 ##### FR-Layout
 
-![](media/image12.png){width="5.763888888888889in"
-height="2.6173611111111112in"}
+![](media/image12.png)
 
 This layout implements the Fruchterman-Reingold force-directed algorithm
 for node layout. For more information please have a look on “Fruchterman
@@ -507,15 +488,13 @@ and Reingold, ‘Graph Drawing by Force-directed Placement’”,
 
 ##### KK-Layout
 
-![](media/image21.png){width="5.763888888888889in"
-height="2.626388888888889in"}
+![](media/image21.png)
 
 Implements the Kamada-Kawai algorithm for node layout .
 
 ##### Circle Layout
 
-![](media/image22.png){width="5.763888888888889in"
-height="4.341666666666667in"}
+![](media/image22.png)
 
 This Layout implementation positions the nodes equally spaced on a
 regular circle.
@@ -540,8 +519,7 @@ user will see a dropdown with the nodes part of the current graph and
 has to select a node from it. Once select will be displayed the graph
 node properties for the selected node.
 
-![](media/image23.png){width="5.722222222222222in"
-height="5.2555555555555555in"}
+![](media/image23.png)
 
 -   ##### Search by Name Entire graph
 
@@ -559,14 +537,12 @@ for the selected node.
 The ranking algorithms enables network researchers and engineers to
 determine the rank of the nodes of the discovered real networks.
 
-![](media/image24.png){width="5.763888888888889in"
-height="1.4354166666666666in"}
+![](media/image24.png)
 
 The results are displayed in html format that allows the researcher to
 copy the values and to use them for further network research.
 
-![](media/image25.png){width="5.763888888888889in"
-height="3.5215277777777776in"}
+![](media/image25.png)
 
 -   ##### Betweenss Centrality
 
@@ -612,24 +588,20 @@ Running time is: O((m+n)\*n\^2).
 Path preview allows network engineers and researchers to compute the
 shortest paths between any two nodes in their network.
 
-![](media/image26.png){width="5.763888888888889in"
-height="2.1104166666666666in"}
+![](media/image26.png)
 
 Currently are supported two algorithms. Internally developed shortest
 path and the classic Dijkstra shortest path.
 
 Each one will ask you for an A and B nodes.
 
-![](media/image27.png){width="4.416666666666667in"
-height="2.4305555555555554in"}
+![](media/image27.png)
 
-![](media/image28.png){width="4.494888451443569in"
-height="2.511111111111111in"}
+![](media/image28.png)
 
 Finally the shorthest path will be displayed.
 
-![](media/image29.png){width="5.763888888888889in"
-height="2.509027777777778in"}
+![](media/image29.png)
 
 ### <span id="_Toc370846069" class="anchor"><span id="_Ref370846541" class="anchor"></span></span>Network Activation
 
@@ -678,8 +650,7 @@ templates.
 Graph management panel 
 -----------------------
 
-![](media/image30.png){width="5.763888888888889in"
-height="0.4162806211723535in"}
+![](media/image30.png)
 
 Figure Graph management pannel
 
@@ -714,8 +685,7 @@ RightClicks
 There are a number of functionalities available when the user right
 clicks on one or more than one selected network topology nodes.
 
-![](media/image31.png){width="4.208333333333333in"
-height="3.3472222222222223in"}
+![](media/image31.png)
 
 Figure RightClick Menu
 
@@ -723,8 +693,7 @@ Figure RightClick Menu
 
 Calculates the shorthest path between the current node and a B node.
 
-![](media/image32.png){width="5.763888888888889in"
-height="2.8513888888888888in"}
+![](media/image32.png)
 
 Figure Shorthest Path rightclick
 
@@ -732,9 +701,7 @@ Once the B node selected it will draw the shortest path between the node
 on which you have performed the rightclick (A node) and the destination
 (B node).
 
-![](media/image33.png){width="5.763888888888889in"
-height="2.1930555555555555in"}
-
+![](media/image33.png)
 Figure Shorthest path preview
 
 ############################## TabViewerOpener 
@@ -752,8 +719,7 @@ selected node through various methods and protocols. Currently are
 supported - telnet and ssh through putty, http/https through opening a
 new tab in a browser and SSHv2 through a JConsole.
 
-![](media/image34.png){width="5.763888888888889in"
-height="3.1840277777777777in"}
+![](media/image34.png)
 
 Figure Connect through
 
@@ -763,8 +729,7 @@ This rightclick opens an SSH v2 session in Java console to the selected
 node. It uses the resources accessible through the Network Activation
 menu in order to perform a basic login to the device.
 
-![](media/image35.png){width="5.763888888888889in"
-height="3.053472222222222in"}<span id="_Toc310582107"
+![](media/image35.png)<span id="_Toc310582107"
 class="anchor"></span>
 
 Figure JConsole window
@@ -802,8 +767,7 @@ devices in their networks.
 
 <span id="_Toc310575709" class="anchor"></span>
 
-![](media/image36.png){width="4.5777777777777775in"
-height="3.311111111111111in"}
+![](media/image36.png)
 
 Figure Putty
 
@@ -886,9 +850,7 @@ four columns - Subnet (Range Subnet and Range Subnet Mask), IPv4Address
 (the IP address reserved in that IP range), SubnetMask (in four octet
 notation) and the Interface Name.
 
-![](media/image40.png){width="5.763888888888889in"
-height="2.2527777777777778in"}
-
+![](media/image40.png)
 <span id="_Toc310575704" class="anchor"></span>Figure IPv4 Address Space
 report
 
@@ -900,8 +862,7 @@ report has five columns - IPv6 Address, SubnetMask, ipv6AddrType - the
 type of the address, ipv6AddrAnycastFlag - is the address anycast or not
 and the Interface Name.
 
-![](media/image41.png){width="5.944444444444445in"
-height="2.9555555555555557in"}
+![](media/image41.png)
 
 <span id="_Toc310575705" class="anchor"></span>Figure IPv6 Address Space
 report
@@ -924,8 +885,7 @@ of network devices there has to be a way this information to be
 revealed. The object browser is a useful tool that displays xml device
 xml filled in java tree GUI outlook.
 
-![](media/image42.png){width="4.0777777777777775in"
-height="3.6666666666666665in"}
+![](media/image42.png)
 
 <span id="_Toc310575707" class="anchor"></span>Figure ObjectTreeBrowser
 
@@ -944,15 +904,12 @@ use it. The typical sequence of events is
 
 1.  Select one or more than one network nodes.
 
-![](media/image43.png){width="5.763888888888889in"
-height="3.057638888888889in"}
+![](media/image43.png)
 
 1.  Then click on node or path activation rightclicks and select one of
     the previously configured templates.
 
-![](media/image44.png){width="5.763888888888889in"
-height="2.4430555555555555in"}
-
+![](media/image44.png)
 <span id="_Toc310575710" class="anchor"></span>
 
 Figure Invoke Node Activation rightclick and select set Hostname
@@ -970,8 +927,7 @@ network device. Currently it is quite rough but hopefully in the next
 version we will be able to give you something much better.
 
 <span id="_Toc310575712"
-class="anchor"></span>![](media/image46.png){width="5.763888888888889in"
-height="3.7916666666666665in"}
+class="anchor"></span>![](media/image46.png)
 
 Figure The final result of invoking a template
 
@@ -990,8 +946,7 @@ In the example bellow R5 has disappeared due to the change of hostname
 and R55 has appeared. The same could be said for the links between the
 node and R3 and R6.
 
-![](media/image47.png){width="3.513888888888889in"
-height="2.1527865266841646in"}
+![](media/image47.png)
 
 Figure Perform a network diff after a hostname change
 
@@ -1000,8 +955,7 @@ Figure Perform a network diff after a hostname change
 As the name suggests that rightclick removes the selected nodes/edges
 from the graph view.
 
-![](media/image48.png){width="3.1444444444444444in"
-height="2.1444444444444444in"}
+![](media/image48.png)
 
 Figure Remove RightClick
 
@@ -1021,8 +975,7 @@ your netTransformer project. They contain structured xml that represents
 the direct communication with the network device. The example bellow
 shows raw data generated by the SNMP network discoverer.
 
-![](media/image49.png){width="5.041666666666667in"
-height="3.9543678915135607in"}
+![](media/image49.png)
 
 Figure SNMP Raw data file
 
@@ -1032,8 +985,7 @@ Device xml are generated by the SNMP network discovery through a
 transformation of the raw-data files and are located under the under the
 network/version folder in your netTransformer project.
 
-![](media/image50.png){width="3.5208333333333335in"
-height="4.856155949256343in"}
+![](media/image50.png)
 
 Figure device xml file
 
