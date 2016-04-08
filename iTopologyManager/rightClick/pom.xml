@@ -25,28 +25,28 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.iTransformers.netTransformer.iTopologyManager</groupId>
+    <groupId>net.itransformers.netTransformer.iTopologyManager</groupId>
     <artifactId>rightClick</artifactId>
     <version>0.8</version><!--Change for new version-->
 
     <parent>
-        <groupId>net.iTransformers.netTransformer</groupId>
+        <groupId>net.itransformers.netTransformer</groupId>
         <artifactId>iTopologyManager</artifactId>
         <version>0.8</version><!--Change for new version-->
     </parent>
      <dependencies>
          <dependency>
-             <groupId>net.iTransformers.netTransformer.iTopologyManager</groupId>
+             <groupId>net.itransformers.netTransformer.iTopologyManager</groupId>
              <artifactId>rightClickAPI</artifactId>
              <version>0.8</version><!--Change for new version-->
          </dependency>
          <dependency>
-             <groupId>net.iTransformers.netTransformer.iTopologyManager</groupId>
+             <groupId>net.itransformers.netTransformer.iTopologyManager</groupId>
              <artifactId>fulfilmentFactory</artifactId>
              <version>0.8</version><!--Change for new version-->
          </dependency>
          <dependency>
-             <groupId>net.iTransformers.netTransformer.iTopologyManager</groupId>
+             <groupId>net.itransformers.netTransformer.iTopologyManager</groupId>
              <artifactId>topologyViewer</artifactId>
              <version>0.8</version><!--Change for new version-->
          </dependency>		 
