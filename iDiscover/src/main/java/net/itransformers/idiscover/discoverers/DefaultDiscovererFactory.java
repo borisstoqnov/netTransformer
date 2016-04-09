@@ -32,6 +32,7 @@ import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
  * Time: 12:31
  * To change this template use File | Settings | File Templates.
  */
+@Deprecated
 public class DefaultDiscovererFactory implements DiscovererFactory {
     private static Discoverer myDiscoverer;
 

@@ -37,7 +37,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
 
-
+@Deprecated
 public class SnmpWalkerBase implements Discoverer {
     static Logger logger = Logger.getLogger(SnmpWalkerBase.class);
 

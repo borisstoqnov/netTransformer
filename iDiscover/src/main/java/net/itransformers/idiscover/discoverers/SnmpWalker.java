@@ -26,6 +26,7 @@ package net.itransformers.idiscover.discoverers;
 import net.itransformers.idiscover.core.Resource;
 import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
 
+@Deprecated
 public class SnmpWalker extends SnmpWalkerBase {
     public SnmpWalker(Resource resource, SnmpManager snmpManager) throws Exception {//IOException, MibLoaderException {
         super(resource, snmpManager);

@@ -24,7 +24,7 @@ package net.itransformers.idiscover.core;
 import net.itransformers.idiscover.networkmodel.NetworkType;
 import org.apache.log4j.Logger;
 
-
+@Deprecated
 public class DiscoveryManagerThread extends Thread {
     static Logger logger = Logger.getLogger(DiscoveryManagerThread.class);
 

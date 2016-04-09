@@ -47,7 +47,7 @@ import java.util.List;
 import java.util.Map;
 
 /*Discovery Manager Class implemnts the core snmpDiscovery manager algorithm */
-
+@Deprecated
 public class DiscoveryManager {
     static Logger logger = Logger.getLogger(DiscoveryManager.class);
 

@@ -22,7 +22,6 @@
  */
 
 package net.itransformers.idiscover.core;
-
 public class DeviceNeighbour {
     private String hostName;
     private String neighbourIpAddress;
