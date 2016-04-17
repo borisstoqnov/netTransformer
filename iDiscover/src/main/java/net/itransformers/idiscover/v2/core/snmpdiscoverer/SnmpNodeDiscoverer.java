@@ -34,6 +34,7 @@ import net.itransformers.snmp2xml4j.snmptoolkit.*;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.log4j.Logger;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +47,6 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
     private String[] discoveryTypes;
     private DiscoveryResourceManager discoveryResource;
     protected List<NeighborDiscoveryListener> neighborDiscoveryListeners;
-    private SnmpManager snmpManager;
     private MibLoaderHolder mibLoaderHolder;
 
 
@@ -82,11 +82,12 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         snmpConnParams.put("ipAddress", ipAddressStr);
 
 
+        SnmpManager snmpManager = null;
         try {
-            setSnmpManager(snmpConnParams);
+            snmpManager = createSnmpManager(snmpConnParams);
             snmpManager.setParameters(snmpConnParams);
             snmpManager.init();
-            String sysDescr = snmpGet("1.3.6.1.2.1.1.1.0");
+            String sysDescr = snmpGet(snmpManager,"1.3.6.1.2.1.1.1.0");
             if (sysDescr == null) {
                 logger.info("Can't connect to: " + ipAddressStr + " with " + snmpConnParams);
                 return null;
@@ -96,6 +97,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
 
 
@@ -153,34 +155,35 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
     }
 
     public String getDeviceType(String sysDescr) {
-
         if (sysDescr == null) return "UNKNOWN";
-        if (sysDescr.contains("ProCurve".toUpperCase())) {
+        String sysDescrToUpper = sysDescr.toUpperCase();
+
+        if (sysDescrToUpper.toUpperCase().contains("ProCurve".toUpperCase())) {
             return "HP";
-        } else if (sysDescr.contains("Huawei".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("Huawei".toUpperCase())) {
             return "HUAWEI";
-        } else if (sysDescr.contains("Juniper".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("Juniper".toUpperCase())) {
             return "JUNIPER";
-        } else if (sysDescr.contains("Cisco".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("Cisco".toUpperCase())) {
             return "CISCO";
-        } else if (sysDescr.contains("Tellabs".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("Tellabs".toUpperCase())) {
             return "TELLABS";
-        } else if (sysDescr.contains("SevOne".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("SevOne".toUpperCase())) {
             return "SEVONE";
-        } else if (sysDescr.contains("Riverstone".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("Riverstone".toUpperCase())) {
             return "RIVERSTONE";
-        } else if (sysDescr.contains("ALCATEL".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("ALCATEL".toUpperCase())) {
             return "ALCATEL";
-        } else if (sysDescr.contains("Linux".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("Linux".toUpperCase())) {
             return "LINUX";
-        } else if (sysDescr.contains("Windows".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("Windows".toUpperCase())) {
             return "WINDOWS";
         } else {
             return "UNKNOWN";
         }
     }
 
-    private String snmpGet(String oidString) {
+    private String snmpGet(SnmpManager snmpManager, String oidString) {
 
 
         try {
@@ -195,11 +198,11 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
     }
 
-    private void setSnmpManager(Map<String, String> snmpConnParams) throws IOException {
+    private SnmpManager createSnmpManager(Map<String, String> snmpConnParams) throws IOException {
 
         String version = snmpConnParams.get("version");
         String protocol = snmpConnParams.get("protocol");
-
+        SnmpManager snmpManager = null;
 
         if ("3".equals(version) && "udp".equals(protocol)) {
 
@@ -239,10 +242,12 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
 
         } else {
-
             logger.info("Unsupported combination of protocol: " + protocol + " and version " + version);
+            throw new RuntimeException("SnmpManager is null");
 
         }
+
+        return snmpManager;
 
     }
 

@@ -1,8 +1,1 @@
-name=vGW1,type=snmp:deviceType=CISCO,deviceName=vGW1,ipAddress=193.19.175.129,
-name=HeartOfGold,type=snmp:deviceType=UNKNOWN,deviceName=HeartOfGold,ipAddress=193.19.172.133,
-name=c7-controller1,type=snmp:deviceType=LINUX,deviceName=c7-controller1,ipAddress=193.19.175.250,
-name=eSW1,type=snmp:deviceType=HP,deviceName=eSW1,ipAddress=10.17.1.2,
-name=zeus,type=snmp:deviceType=LINUX,deviceName=zeus,ipAddress=195.218.195.228,
-name=bgp,type=snmp:deviceType=LINUX,deviceName=bgp,ipAddress=193.19.175.150,
-
-
+name=bgacer,type=snmp:deviceType=CISCO,deviceName=bgacer,ipAddress=193.108.32.1,

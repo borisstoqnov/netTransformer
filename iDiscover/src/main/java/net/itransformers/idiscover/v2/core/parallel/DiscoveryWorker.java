@@ -17,7 +17,6 @@ import java.util.concurrent.RecursiveAction;
 public class DiscoveryWorker extends RecursiveAction {
     static Logger logger = Logger.getLogger(DiscoveryWorker.class);
     private ConnectionDetails connectionDetails;
-    List<ConnectionDetails> connectionDetailsList;
     private Node parentNode;
     private int level;
     private DiscoveryWorkerContext context;

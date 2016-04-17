@@ -123,7 +123,7 @@ public class ResourceManager {
                 boolean found = true;
                 for (String key : paramSet) {
                     if(deviceParams.get(key)!=null){
-                        if (!deviceParams.get(key).equals(map.get(key))) {
+                        if (!deviceParams.get(key).equalsIgnoreCase(map.get(key))) {
                             found = false;
                             break;
                         }
@@ -167,7 +167,7 @@ public class ResourceManager {
                 boolean found = true;
                 for (String key : paramSet) {
                     if(deviceParams.get(key)!=null){
-                        if (!deviceParams.get(key).equals(map.get(key))) {
+                        if (!deviceParams.get(key).equalsIgnoreCase(map.get(key))) {
                             found = false;
                             break;
                         }
@@ -199,7 +199,7 @@ public class ResourceManager {
     public ResourceType getResource(String resourceName){
         List<ResourceType> list = resource.getResource();
         for (ResourceType currResourceType : list) {
-            if (currResourceType.getName().equals(resourceName)){
+            if (currResourceType.getName().equalsIgnoreCase(resourceName)){
                 return currResourceType;
             }
         }
