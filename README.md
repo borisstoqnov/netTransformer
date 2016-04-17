@@ -65,45 +65,57 @@ cd bin\
 
 
 
-### Open the project in an IDE 
+Open the project in an IDE 
+==============
 
 I will use Intellij IDEA to ilustrate the process. 
 
 #### Download the most recent version of the software. [Community edition](https://www.jetbrains.com/idea/#chooseYourEdition) is perfectly fine for the purpose.
 
 
-#### Import the project
+### Start the import process
 ![](media/import-project.png)
 
-#### Navigate to the folder where you had clone netTransformer
+### Navigate 
+You have to find the folder where you had clone netTransformer
 
 ![](media/select.png)
 
-#### Click on import project from an existing model (maven pom in our case)
+#### Import 
+Click on import project from an existing model (maven pom in our case)
 
 ![](media/import-from-maven.png)
 
 
-#### Click next without doing any changes unless you know what you are doing :)
+### Next, next 
 
+Click next without doing any changes unless you know what you are doing :)
 
 ![](media/next1.png)
 
 
-#### Select netTransformer primary pom file
+### Select netTransformer primary pom file
 
 ![](media/next2.png)
 
-#### Select an SDK. If you don't have such one click on the + and import the one you have previously downloaded.
+### Select an SDK.
+If you don't have such one click on the + and import the one you have previously downloaded.
 
 ![](media/add_jdk.png)
 
-#### Once the project is imported navigate in the right to maven/netTransformer and package the project 
+### Package 
+
+Once the project is imported navigate in the right to maven/netTransformer and package the project 
 
 ![](media/package.png)
 
 
-#### Finally go to net.itransformers.topologyvierwer.gui.launcher.TopologyViewerLauncher
-
+### Finally run it 
+For the purpose go to net.itransformers.topologyvierwer.gui.launcher.TopologyViewerLauncher and then run or start debgging netTranformer
 
  ![](media/run.png)
+
+
+
+Enjoy
+==============
