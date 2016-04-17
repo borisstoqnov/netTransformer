@@ -26,7 +26,8 @@ Getting Started for Developers
 ==============
 
 ### Install java sdk 1.8 or newer. 
-Preferably you should use Oracle JDK however with OpenJDK you should also be fine. If not please report an issue to our issue tracker. 
+Preferably you should use [Oracle JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html). 
+However with OpenJDK you should also be fine. If not please report an issue to our issue tracker. 
 
 ### Get Maven
 netTransformer is using maven as a build and dependency management tool. So you should install it. Instructions  [here](http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
@@ -46,7 +47,7 @@ cd netTransformer
 mvn package
 ```
 
-### Git it a try and run it
+### Navigate to your build
 If the process finish successfully navigate to 
 ```
 cd netTransformer/distribution/target/netTransformer-bin/netTransformer/bin
