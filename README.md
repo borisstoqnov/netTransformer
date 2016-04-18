@@ -19,8 +19,17 @@ Q&A and Issue tracker
 ==============
 
 [Community forum](http://forum.itransformers.net/fluxbb/index.php) 
+```
+http://forum.itransformers.net/fluxbb
+
+```
 
 [Issue tracker](https://github.com/iTransformers/netTransformer/issues)
+
+```
+https://github.com/iTransformers/netTransformer/issues
+
+```
 
 Getting Started for Developers
 ==============
