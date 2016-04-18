@@ -38,7 +38,6 @@ Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). Th
 ```
 git clone https://github.com/iTransformers/netTransformer.git
 ```
-Once ready you should have a directory structure similar to the one bellow:
 
 ### Build and package from the command line
 Build and package netTransformer 
