@@ -69,7 +69,7 @@ public class DiscoveryResourceManager {
         Map<String, String> connParams = new HashMap<String, String>();
         List<ConnectionParamsType> connectionParams = resourceType.getConnectionParams();
         for (ConnectionParamsType connectionParam : connectionParams) {
-            if (connectionParam.getConnectionType().equals(connectionType)) {
+            if (connectionParam.getConnectionType().equalsIgnoreCase(connectionType)) {
                 for (ParamType param : connectionParam.getParam()) {
                     connParams.put(param.getName(), param.getValue());
                 }

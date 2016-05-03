@@ -21,11 +21,7 @@
 
 package net.itransformers.bgpPeeringMap;
 
-import net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder;
-import net.itransformers.snmp2xml4j.snmptoolkit.Node;
-import net.itransformers.snmp2xml4j.snmptoolkit.Walk;
-import net.itransformers.snmp2xml4j.snmptoolkit.messagedispacher.DefaultMessageDispatcherFactory;
-import net.itransformers.snmp2xml4j.snmptoolkit.transport.UdpTransportMappingFactory;
+import net.itransformers.snmp2xml4j.snmptoolkit.*;
 import net.itransformers.utils.CmdLineParser;
 import net.itransformers.utils.XsltTransformer;
 import org.apache.commons.io.FileUtils;
@@ -88,7 +84,7 @@ public class BgpPeeringMap {
         ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
         File xsltFileName1 = new File(projectDir, settings.get("xsltFileName1"));
         ByteArrayInputStream inputStream1 = new ByteArrayInputStream(rawData);
-        transformer.transformXML(inputStream1, xsltFileName1, outputStream1, settings, null);
+        transformer.transformXML(inputStream1, xsltFileName1, outputStream1, settings);
         logger.info("First transformation finished");
         File intermediateDataFile = new File(outputDir, "intermediate-bgpPeeringMap.xml");
 
@@ -101,7 +97,7 @@ public class BgpPeeringMap {
         ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
         File xsltFileName2 = new File(projectDir, settings.get("xsltFileName2"));
         ByteArrayInputStream inputStream2 = new ByteArrayInputStream(outputStream1.toByteArray());
-        transformer.transformXML(inputStream2, xsltFileName2, outputStream2, settings, null);
+        transformer.transformXML(inputStream2, xsltFileName2, outputStream2, settings);
         logger.info("Second transformation info");
         logger.trace("Second transformation Graphml output");
         logger.trace(outputStream2.toString());
@@ -110,7 +106,7 @@ public class BgpPeeringMap {
         ByteArrayInputStream inputStream3 = new ByteArrayInputStream(outputStream2.toByteArray());
         ByteArrayOutputStream outputStream3 = new ByteArrayOutputStream();
         File xsltFileName3 = new File(System.getProperty("base.dir"), settings.get("xsltFileName3"));
-        transformer.transformXML(inputStream3, xsltFileName3, outputStream3, null, null);
+        transformer.transformXML(inputStream3, xsltFileName3, outputStream3, null);
 
 
         File outputFile = new File(graphmlDir, "undirected-bgpPeeringMap.graphml");
@@ -156,7 +152,9 @@ public class BgpPeeringMap {
         String[] params = queryParameters.split(",");
         String mibDir = settings.get("mibDir");
         MibLoaderHolder holder = new MibLoaderHolder(new File(System.getProperty("base.dir"), mibDir), false);
-        Walk walker = new Walk(holder,new UdpTransportMappingFactory(), new DefaultMessageDispatcherFactory());
+        SnmpManager snmpManager = new SnmpUdpV2Manager(holder.getLoader(),ipAddress.toString(),settings.get("community-ro"),3,1000,10,65535,161);
+        snmpManager.init();
+                //(holder,new UdpTransportMappingFactory(), new DefaultMessageDispatcherFactory());
         String address = ipAddress;
         if (address == null) throw new RuntimeException("Resource Address is null");
         Properties parameters = new Properties();
@@ -175,8 +173,9 @@ public class BgpPeeringMap {
         parameters.put(SnmpConfigurator.O_RETRIES, Arrays.asList(retriesInt));
         parameters.put(SnmpConfigurator.O_MAX_REPETITIONS, Arrays.asList(maxrepetitions));
         parameters.put(SnmpConfigurator.O_NON_REPEATERS,Arrays.asList(nonrepeaters));
-        Node root = walker.walk(params, parameters);
-        String xml = Walk.printTreeAsXML(root);
+        Node root = snmpManager.snmpWalk(params);
+        SnmpXmlPrinter snmpXmlPrinter = new SnmpXmlPrinter(holder.getLoader(),root);
+        String xml = snmpXmlPrinter.printTreeAsXML();
         return xml.getBytes();
     }
     private synchronized void doPause() {

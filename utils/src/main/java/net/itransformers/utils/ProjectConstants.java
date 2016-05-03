@@ -39,6 +39,11 @@ public class ProjectConstants {
 
     public static final String networkDirName = "network";
     public static final String labelDirName = "version";
+    public static final String deviceDataDirName = "device-hierarchical";
+    public static final String deviceDataPrefix = "device-data-";
+    public static final String graphmlDataPrefix = "node-";
+
+
     public static final String undirectedGraphmlDirName = "graphml-undirected";
     public static final String directedGraphmlDirName = "graphml-directed";
     public static final String networkGraphmlFileName = "network.graphml";

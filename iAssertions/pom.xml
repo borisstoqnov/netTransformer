@@ -24,17 +24,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>net.iTransformers</groupId>
+        <groupId>net.itransformers</groupId>
         <artifactId>netTransformer</artifactId>
         <version>0.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.iTransformers.netTransformer</groupId>
+    <groupId>net.itransformers.netTransformer</groupId>
     <artifactId>iAssertions</artifactId>
     <version>0.8</version><!--Change for new version-->
     <dependencies>
         <dependency>
-            <groupId>net.iTransformers.netTransformer</groupId>
+            <groupId>net.itransformers.netTransformer</groupId>
             <artifactId>utils</artifactId>
             <version>0.8</version>
             <!--Change for new version-->

@@ -75,7 +75,7 @@ public class BgpPeeringMapFromFile {
         ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
         File xsltFileName1 = new File(System.getProperty("base.dir"), settings.get("xsltFileName1"));
         ByteArrayInputStream inputStream1 = new ByteArrayInputStream(rawData);
-        transformer.transformXML(inputStream1, xsltFileName1, outputStream1, settings, null);
+        transformer.transformXML(inputStream1, xsltFileName1, outputStream1, settings);
         logger.info("First transformation finished");
         File outputFile1 = new File(graphmlDir, "bgpPeeringMap-intermediate.xml");
 
@@ -86,7 +86,7 @@ public class BgpPeeringMapFromFile {
         ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
         File xsltFileName2 = new File(System.getProperty("base.dir"), settings.get("xsltFileName2"));
         ByteArrayInputStream inputStream2 = new ByteArrayInputStream(outputStream1.toByteArray());
-        transformer.transformXML(inputStream2, xsltFileName2, outputStream2, settings, null);
+        transformer.transformXML(inputStream2, xsltFileName2, outputStream2, settings);
         logger.info("Second transformation finished");
         File outputFile = new File(graphmlDir, "bgpPeeringMap.graphml");
         File nodesFileListFile = new File(graphmlDir, "nodes-file-list.txt");
@@ -98,7 +98,7 @@ public class BgpPeeringMapFromFile {
         ByteArrayInputStream inputStream3 = new ByteArrayInputStream(outputStream2.toByteArray());
         ByteArrayOutputStream outputStream3 = new ByteArrayOutputStream();
         File xsltFileName3 = new File(System.getProperty("base.dir"), settings.get("xsltFileName3"));
-        transformer.transformXML(inputStream3, xsltFileName3, outputStream3, null, null);
+        transformer.transformXML(inputStream3, xsltFileName3, outputStream3);
 
 
 
@@ -121,7 +121,7 @@ public class BgpPeeringMapFromFile {
         ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
         File xsltFileName1 = new File(xsltFileName3);
         ByteArrayInputStream inputStream1 = new ByteArrayInputStream(rawData);
-        transformer.transformXML(inputStream1, xsltFileName1, outputStream1, null, null);
+        transformer.transformXML(inputStream1, xsltFileName1, outputStream1);
 
 
     }

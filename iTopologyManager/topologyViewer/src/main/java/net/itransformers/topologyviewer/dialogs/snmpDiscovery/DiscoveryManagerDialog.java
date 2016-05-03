@@ -20,8 +20,10 @@
  */
 
 package net.itransformers.topologyviewer.dialogs.snmpDiscovery;
+
 import net.itransformers.idiscover.core.*;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
+import net.itransformers.idiscover.v2.core.DiscoveryManagerThread;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.utils.ProjectConstants;
@@ -268,7 +270,7 @@ public class DiscoveryManagerDialog extends JDialog {
                 if (!isValidLabel(label)) return false;
             }
 
-            manager = DiscoveryManager.createDiscoveryManager(projectDir, "iDiscover/conf/xml/discoveryManager.xml",label,postDiscoveryCheckBox.isSelected());
+            manager = DiscoveryManager.createDiscoveryManager(projectDir, "iDiscover/conf/xml/discoveryManager.xml", label, postDiscoveryCheckBox.isSelected());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Cannot start snmpDiscovery. See error log for more info");
             e.printStackTrace();

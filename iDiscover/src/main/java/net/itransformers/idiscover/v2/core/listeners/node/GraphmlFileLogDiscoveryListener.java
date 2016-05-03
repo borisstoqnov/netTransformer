@@ -64,7 +64,7 @@ public class GraphmlFileLogDiscoveryListener implements NodeDiscoveryListener {
 
         XsltTransformer transformer = new XsltTransformer();
         try {
-            transformer.transformXML(new ByteArrayInputStream(out.toByteArray()), xsltFile,graphMLOutputStream, null,null);
+            transformer.transformXML(new ByteArrayInputStream(out.toByteArray()), xsltFile, graphMLOutputStream, null);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }

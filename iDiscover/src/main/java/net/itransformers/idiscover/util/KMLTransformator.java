@@ -23,16 +23,18 @@ package net.itransformers.idiscover.util;
 
 
 import net.itransformers.utils.CmdLineParser;
+import net.itransformers.utils.XsltTransformer;
 import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import net.itransformers.utils.XsltTransformer;
 
 public class KMLTransformator {
     private static void printUsage(String param) {
@@ -71,7 +73,7 @@ public class KMLTransformator {
         xsltParams = new HashMap<String, String>();
         params.put("url",graphml);
         try {
-            transformer.transformXML(fileInputStream, transformator, fileOutputStream, xsltParams, null);
+            transformer.transformXML(fileInputStream, transformator, fileOutputStream, xsltParams);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (SAXException e) {

@@ -25,26 +25,26 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.iTransformers.netTransformer</groupId>
+    <groupId>net.itransformers.netTransformer</groupId>
     <artifactId>bgpPeeringMap</artifactId>
     <version>0.8</version><!--Change for new version-->
 
     <parent>
-        <groupId>net.iTransformers</groupId>
+        <groupId>net.itransformers</groupId>
         <artifactId>netTransformer</artifactId>
         <version>0.8</version>
     </parent>
 
     <dependencies>
         <dependency>
-            <groupId>net.iTransformers.netTransformer</groupId>
+            <groupId>net.itransformers.netTransformer</groupId>
             <artifactId>utils</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>
             <groupId>net.itransformers.snmp2xml4j</groupId>
             <artifactId>snmptoolkit</artifactId>
-            <version>1.0</version>
+            <version>1.0.2</version>
             <!--Change for new version-->
         </dependency>
         <dependency>

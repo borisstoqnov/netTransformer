@@ -1,39 +1,38 @@
 /*
- * iTransformer is an open source tool able to discover and transform
- *  IP network infrastructures.
- *  Copyright (C) 2012  http://itransformers.net
+ * SnmpForXslt.java
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  any later version.
+ * This work is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation; either version 2 of the License,
+ * or (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This work is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ * USA
+ *
+ * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
 package net.itransformers.idiscover.discoveryhelpers.xml;
 
-import net.itransformers.idiscover.core.Discoverer;
-import net.itransformers.idiscover.core.DiscovererFactory;
 import net.itransformers.idiscover.core.DiscoveryResourceManager;
-import net.itransformers.idiscover.core.Resource;
-import net.itransformers.idiscover.discoverers.DefaultDiscovererFactory;
-import net.itransformers.idiscover.discoverers.SnmpWalker;
 import net.itransformers.idiscover.v2.core.NeighborDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NeighborDiscoveryResult;
 import net.itransformers.resourcemanager.config.ConnectionParamsType;
 import net.itransformers.resourcemanager.config.ParamType;
 import net.itransformers.resourcemanager.config.ResourceType;
+import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
 import net.itransformers.utils.CIDRUtils;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.log4j.Logger;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;
@@ -44,13 +43,16 @@ public class SnmpForXslt {
 
     static Logger logger = Logger.getLogger(SnmpForXslt.class);
 
-    private static DiscovererFactory discovererFactory;
     private static InetAddressValidator ipAddressValidator = new InetAddressValidator();
     private static CIDRUtils cidrUtils;
 
     private static List<NeighborDiscoveryListener> neighborDiscoveryListeners;
-    private static Map<String, HashMap<String, String>> discoveredDevices = new HashMap<String, HashMap<String, String>>();
+    private static Map<String, HashMap<String, String>> discoveredIPs = new HashMap<String, HashMap<String, String>>();
+    private static Map<String, HashMap<String, String>> discoveredMACs = new HashMap<String, HashMap<String, String>>();
+
     private static MockSnmpForXslt mockSnmpForXslt = null;
+
+    private static SnmpManager snmpManager;
 
 
     public static void setMockSnmpForXslt(MockSnmpForXslt mockSnmpForXslt){
@@ -153,8 +155,7 @@ public class SnmpForXslt {
     public static String getName(String ipAddress, String neighbourIPDryRun) throws Exception {
 
 
-
-        HashMap<String, String> deviceNameMap = discoveredDevices.get(ipAddress);
+        HashMap<String, String> deviceNameMap = discoveredIPs.get(ipAddress);
 
         if(neighbourIPDryRun.equals("true")){
 
@@ -163,7 +164,7 @@ public class SnmpForXslt {
                 return null;
             } else {
                 deviceNameMap = new HashMap<String, String>();
-                discoveredDevices.put(ipAddress, deviceNameMap);
+                discoveredIPs.put(ipAddress, deviceNameMap);
                 return null;
             }
 
@@ -187,8 +188,7 @@ public class SnmpForXslt {
     public static String getDeviceType(String ipAddress, String neighbourIPDryRun) throws Exception {
 
 
-
-        HashMap<String, String> deviceMap = discoveredDevices.get(ipAddress);
+        HashMap<String, String> deviceMap = discoveredIPs.get(ipAddress);
 
         if(neighbourIPDryRun.equals("true")){
 
@@ -218,10 +218,7 @@ public class SnmpForXslt {
 
     public static String getSymbolByOid(String mibName, String oid) throws Exception {
 
-
-        discovererFactory = new DefaultDiscovererFactory();
-        SnmpWalker discoverer = (SnmpWalker) discovererFactory.createDiscoverer(null);
-        return discoverer.getSymbolByOid(mibName, oid);
+        return snmpManager.getSymbolFromMibByOid(mibName, oid);
     }
 
     public static String getByOid(String ipAddress, String oid, String community,String timeout, String retries) throws Exception {
@@ -229,7 +226,7 @@ public class SnmpForXslt {
             return mockSnmpForXslt.getByOid(ipAddress, oid, community, timeout, retries);
         }
 
-        HashMap<String, String> deviceNameMap = discoveredDevices.get(ipAddress);
+        HashMap<String, String> deviceNameMap = discoveredIPs.get(ipAddress);
 
 
         String deviceName = null;
@@ -247,14 +244,13 @@ public class SnmpForXslt {
             if ("".equals(retries) || retries==null) retries = "1";
             if ("".equals(timeout) || timeout==null) timeout = "300";
             Map<String, String> resourceParams = new HashMap<String, String>();
-            resourceParams.put("community-ro", community);
+            resourceParams.put("snmpCommunity", community);
             resourceParams.put("version", "1");
             resourceParams.put("retries", retries);
             resourceParams.put("timeout", timeout);
-            Resource resource = new Resource(ipAddress, null, resourceParams);// TODO specify port
-            discovererFactory = new DefaultDiscovererFactory();
-            SnmpWalker discoverer = (SnmpWalker) discovererFactory.createDiscoverer(resource);
-            final String oidValue = discoverer.getByOid(resource, oid);
+
+
+            final String oidValue = snmpManager.snmpGet(oid);
             logger.debug("hostname:" + ipAddress + ", community: " + community + ", oidValue:" + oidValue);
             return oidValue;
 
@@ -263,53 +259,53 @@ public class SnmpForXslt {
         }
     }
 
-    public boolean setByOID(String hostName, String oid, String community, String value) throws Exception {
-        if (mockSnmpForXslt != null) {
-            return mockSnmpForXslt.setByOID(hostName, oid, community, value);
-        }
+//    public boolean setByOID(String hostName, String oid, String community, String value) throws Exception {
+//        if (mockSnmpForXslt != null) {
+//            return mockSnmpForXslt.setByOID(hostName, oid, community, value);
+//        }
+//
+//
+//        Map<String, String> resourceParams = new HashMap<String, String>();
+//        resourceParams.put("community-rw", community);
+//        resourceParams.put("version", "1");
+//        Resource resource = new Resource(hostName, null, resourceParams);// TODO specify port
+//        discovererFactory = new DefaultDiscovererFactory();
+//        SnmpWalker discoverer = (SnmpWalker) discovererFactory.createDiscoverer(resource);
+//        final String result = discoverer.setByOid(resource, oid, value);
+//        logger.debug("snmpSet for hostname:" + hostName + ", community: " + community + ", oid " + oid + ", value " + value + " = " + result);
+//        return true;
+//
+//    }
 
+//    public String walkByString(String hostName, String[] params, String community) throws Exception {
+//        if (mockSnmpForXslt != null) {
+//            return mockSnmpForXslt.walkByString(hostName, params, community);
+//        }
+//        Map<String, String> resourceParams = new HashMap<String, String>();
+//        resourceParams.put("community-rw", community);
+//        resourceParams.put("version", "1");
+//        resourceParams.put("retries", "0");
+//        Resource resource = new Resource(hostName, null, resourceParams);
+//        discovererFactory = new DefaultDiscovererFactory();
+//        SnmpWalker discoverer = (SnmpWalker) discovererFactory.createDiscoverer(resource);
+//        final String result = discoverer.snmpWalkDevice(resource, params);
+//        return result;
+//
+//    }
 
-        Map<String, String> resourceParams = new HashMap<String, String>();
-        resourceParams.put("community-rw", community);
-        resourceParams.put("version", "1");
-        Resource resource = new Resource(hostName, null, resourceParams);// TODO specify port
-        discovererFactory = new DefaultDiscovererFactory();
-        SnmpWalker discoverer = (SnmpWalker) discovererFactory.createDiscoverer(resource);
-        final String result = discoverer.setByOid(resource, oid, value);
-        logger.debug("snmpSet for hostname:" + hostName + ", community: " + community + ", oid " + oid + ", value " + value + " = " + result);
-        return true;
-
+    public static Map<String, HashMap<String, String>> getDiscoveredIPs() {
+        return discoveredIPs;
     }
 
-    public String walkByString(String hostName, String[] params, String community) throws Exception {
-        if (mockSnmpForXslt != null) {
-            return mockSnmpForXslt.walkByString(hostName, params, community);
-        }
-        Map<String, String> resourceParams = new HashMap<String, String>();
-        resourceParams.put("community-rw", community);
-        resourceParams.put("version", "1");
-        resourceParams.put("retries", "0");
-        Resource resource = new Resource(hostName, null, resourceParams);
-        discovererFactory = new DefaultDiscovererFactory();
-        SnmpWalker discoverer = (SnmpWalker) discovererFactory.createDiscoverer(resource);
-        final String result = discoverer.snmpWalkDevice(resource, params);
-        return result;
-
-    }
-
-    public static Map<String, HashMap<String, String>> getDiscoveredDevices() {
-        return discoveredDevices;
-    }
-
-    public static void setDiscoveredDevices(Map<String, HashMap<String, String>> discoveredDevices) {
-        SnmpForXslt.discoveredDevices = discoveredDevices;
+    public static void setDiscoveredIPs(Map<String, HashMap<String, String>> discoveredIPs) {
+        SnmpForXslt.discoveredIPs = discoveredIPs;
     }
 
 
     public static void resolveIPAddresses(DiscoveryResourceManager resourceManager, String connectionType){
-        for (String ipAddress : discoveredDevices.keySet()) {
+        for (String ipAddress : discoveredIPs.keySet()) {
 
-            HashMap<String, String> deviceNameMap = discoveredDevices.get(ipAddress);
+            HashMap<String, String> deviceNameMap = discoveredIPs.get(ipAddress);
 
 
             if (!deviceNameMap.containsKey("snmp")) {
@@ -343,42 +339,71 @@ public class SnmpForXslt {
                 }
             }
 
-            Resource resource = new Resource(ipAddress, null, connParams);// TODO specify port
-            discovererFactory = new DefaultDiscovererFactory();
-
-            Discoverer discoverer = null;
+            snmpManager.setParameters(connParams);
+            String deviceNameFromSNMP = null;
             try {
-                discoverer = discovererFactory.createDiscoverer(resource);
-            } catch (Exception e) {
+                deviceNameFromSNMP = snmpManager.snmpGet("sysName");
+                deviceNameMap.put("snmp", deviceNameFromSNMP);
+
+                final String sysDescr = snmpManager.snmpGet("sysDescr");
+
+                final String deviceTypeFromSNMP = getDeviceType(sysDescr);
+
+                deviceNameMap.put("deviceType", deviceTypeFromSNMP);
+
+                discoveredIPs.put(ipAddress, deviceNameMap);
+                NeighborDiscoveryResult neighborDiscoveryResult = new NeighborDiscoveryResult();
+                neighborDiscoveryResult.setDiscoveredIpAddress(ipAddress);
+                neighborDiscoveryResult.setNeighborType(deviceTypeFromSNMP);
+                neighborDiscoveryResult.setNodeId(deviceNameFromSNMP);
+                neighborDiscoveryResult.setConnParams(connParams);
+
+                if (neighborDiscoveryListeners != null) {
+                    //Fire neighbourDiscoveredEvent
+                    for (NeighborDiscoveryListener neighbourDiscoveryListerner : neighborDiscoveryListeners) {
+
+                        neighbourDiscoveryListerner.neighborDiscovered(neighborDiscoveryResult);
+
+                    }
+                }
+
+
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            final String deviceNameFromSNMP = discoverer.getDeviceName(resource);
-
-            final String deviceTypeFromSNMP = discoverer.getDeviceType(resource);
-
-            deviceNameMap.put("snmp", deviceNameFromSNMP);
-
-            deviceNameMap.put("deviceType", deviceTypeFromSNMP);
-
-            discoveredDevices.put(ipAddress, deviceNameMap);
-            NeighborDiscoveryResult neighborDiscoveryResult = new NeighborDiscoveryResult();
-            neighborDiscoveryResult.setDiscoveredIpAddress(ipAddress);
-            neighborDiscoveryResult.setNeighborType(deviceTypeFromSNMP);
-            neighborDiscoveryResult.setNodeId(deviceNameFromSNMP);
-            neighborDiscoveryResult.setConnParams(connParams);
-
-            if (neighborDiscoveryListeners != null) {
-                //Fire neighbourDiscoveredEvent
-                for (NeighborDiscoveryListener neighbourDiscoveryListerner : neighborDiscoveryListeners) {
-
-                    neighbourDiscoveryListerner.neighborDiscovered(neighborDiscoveryResult);
-
-                }
-            }
 
         }
 
+    }
+
+
+    public static String getDeviceType(String sysDescr) {
+
+        if (sysDescr == null) return "UNKNOWN";
+        if (sysDescr.contains("ProCurve".toUpperCase())) {
+            return "HP";
+        } else if (sysDescr.contains("Huawei".toUpperCase())) {
+            return "HUAWEI";
+        } else if (sysDescr.contains("Juniper".toUpperCase())) {
+            return "JUNIPER";
+        } else if (sysDescr.contains("Cisco".toUpperCase())) {
+            return "CISCO";
+        } else if (sysDescr.contains("Tellabs".toUpperCase())) {
+            return "TELLABS";
+        } else if (sysDescr.contains("SevOne".toUpperCase())) {
+            return "SEVONE";
+        } else if (sysDescr.contains("Riverstone".toUpperCase())) {
+            return "RIVERSTONE";
+        } else if (sysDescr.contains("ALCATEL".toUpperCase())) {
+            return "ALCATEL";
+        } else if (sysDescr.contains("Linux".toUpperCase())) {
+            return "LINUX";
+        } else if (sysDescr.contains("Windows".toUpperCase())) {
+            return "WINDOWS";
+        } else {
+            return "UNKNOWN";
+        }
     }
 
     public static List<NeighborDiscoveryListener> getNeighborDiscoveryListeners() {
@@ -387,5 +412,13 @@ public class SnmpForXslt {
 
     public static void setNeighborDiscoveryListeners(List<NeighborDiscoveryListener> neighborDiscoveryListeners) {
         SnmpForXslt.neighborDiscoveryListeners = neighborDiscoveryListeners;
+    }
+
+    public static SnmpManager getSnmpManager() {
+        return snmpManager;
+    }
+
+    public static void setSnmpManager(SnmpManager snmpManager) {
+        SnmpForXslt.snmpManager = snmpManager;
     }
 }

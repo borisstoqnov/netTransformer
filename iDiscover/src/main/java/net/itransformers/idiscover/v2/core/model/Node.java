@@ -21,15 +21,18 @@
 
 package net.itransformers.idiscover.v2.core.model;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Node {
     String id;
     List<ConnectionDetails> connectionDetailsList;
     Set<Node> neighbours = new HashSet<Node>();
+
+    public Node(String id, ConnectionDetails connectionDetails) {
+        this.id = id;
+        this.connectionDetailsList = new ArrayList<ConnectionDetails>();
+        this.connectionDetailsList.add(connectionDetails);
+    }
 
     public Node(String id, List<ConnectionDetails> connectionDetailsList) {
         this.id = id;

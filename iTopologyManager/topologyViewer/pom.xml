@@ -24,33 +24,33 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>net.iTransformers.netTransformer</groupId>
+        <groupId>net.itransformers.netTransformer</groupId>
         <artifactId>iTopologyManager</artifactId>
         <version>0.8</version><!--Change for new version-->
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.iTransformers.netTransformer.iTopologyManager</groupId>
+    <groupId>net.itransformers.netTransformer.iTopologyManager</groupId>
     <artifactId>topologyViewer</artifactId>
     <version>0.8</version><!--Change for new version-->
     <dependencies>
         <dependency>
-            <groupId>net.iTransformers.netTransformer.iTopologyManager</groupId>
+            <groupId>net.itransformers.netTransformer.iTopologyManager</groupId>
             <artifactId>topologyManagerConfig</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>net.iTransformers.netTransformer</groupId>
+            <groupId>net.itransformers.netTransformer</groupId>
             <artifactId>bgpPeeringMap</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>net.iTransformers.netTransformer</groupId>
+            <groupId>net.itransformers.netTransformer</groupId>
             <artifactId>iDiscover</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>net.iTransformers.netTransformer.iTopologyManager</groupId>
+            <groupId>net.itransformers.netTransformer.iTopologyManager</groupId>
             <artifactId>rightClickAPI</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
@@ -61,12 +61,12 @@
             <!--<scope>runtime</scope>-->
         <!--</dependency>-->
         <dependency>
-            <groupId>net.iTransformers.netTransformer</groupId>
+            <groupId>net.itransformers.netTransformer</groupId>
             <artifactId>utils</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>net.iTransformers.netTransformer</groupId>
+            <groupId>net.itransformers.netTransformer</groupId>
             <artifactId>resourceManager</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>

@@ -26,42 +26,26 @@ package net.itransformers.idiscover.discoverers;
 import net.itransformers.idiscover.core.Discoverer;
 import net.itransformers.idiscover.core.RawDeviceData;
 import net.itransformers.idiscover.core.Resource;
-import net.itransformers.snmp2xml4j.snmptoolkit.*;
-import net.itransformers.snmp2xml4j.snmptoolkit.messagedispacher.MessageDispatcherAbstractFactory;
-import net.itransformers.snmp2xml4j.snmptoolkit.transport.TransportMappingAbstractFactory;
+import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
 import org.apache.log4j.Logger;
 import org.snmp4j.log.Log4jLogFactory;
 import org.snmp4j.log.LogFactory;
 import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.util.SnmpConfigurator;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
 
-
+@Deprecated
 public class SnmpWalkerBase implements Discoverer {
     static Logger logger = Logger.getLogger(SnmpWalkerBase.class);
-    private static final String MIB_DIR = "mibDir";
 
-    private Walk walker;
-    private MibLoaderHolder holder;
-    private TransportMappingAbstractFactory transportFactory;
-    private MessageDispatcherAbstractFactory messageDispatcherFactory;
+    private SnmpManager snmpManager;
 
-    public SnmpWalkerBase(Resource resource,
-                          TransportMappingAbstractFactory transportFactory,
-                          MessageDispatcherAbstractFactory messageDispatcherFactory
-    ) throws Exception {
-        String mibDir = resource.getAttributes().get(MIB_DIR);
-        if (mibDir==null){
-            mibDir="snmptoolkit/mibs";
-        }
-        holder = new MibLoaderHolder(new File(System.getProperty("base.dir"),mibDir), false);
-        walker = new Walk(holder, transportFactory, messageDispatcherFactory);
-        this.transportFactory = transportFactory;
-        this.messageDispatcherFactory = messageDispatcherFactory;
+    public SnmpWalkerBase(Resource resource, SnmpManager snmpManager) throws Exception {
+
+        this.snmpManager = snmpManager;
     }
 
     public String getDeviceType(Resource resource) {
@@ -119,16 +103,17 @@ public class SnmpWalkerBase implements Discoverer {
             return null;
         }
     }
-     public String setByOid(Resource resource, String oid, String value) {
-        try {
-            return snmpSet(resource, oid, value);
-        } catch (Exception e) {
-            logger.error("Error set by Oid (" + resource.getAddress() + "), err msg=" + e.getMessage(), e);
-            return null;
-        }
-    }
+
+    //     public String setByOid(Resource resource, String oid, String value) {
+//        try {
+//            return snmpSet(resource, oid, value);
+//        } catch (Exception e) {
+//            logger.error("Error set by Oid (" + resource.getAddress() + "), err msg=" + e.getMessage(), e);
+//            return null;
+//        }
+//    }
     public String getSymbolByOid(String mibName, String oid) {
-        return holder.getSymbolByOid(mibName, oid);
+        return snmpManager.getSymbolFromMibByOid(mibName, oid);
     }
 
     public RawDeviceData getRawDeviceData(Resource resource, String[] requestParamsList) {
@@ -144,14 +129,7 @@ public class SnmpWalkerBase implements Discoverer {
         }
     }
 
-    public String snmpWalkDevice(Resource resource, String[] requestParamsList) {
-        try {
-            return snmpWalktoString(resource, requestParamsList);
-        } catch (Exception e) {
-            logger.error(e.getMessage(),e);
-            return null;
-        }
-    }
+
 
     private String snmpGet(Resource resource, String oid) {
         String version =resource.getAttributes().get("version");
@@ -170,7 +148,7 @@ public class SnmpWalkerBase implements Discoverer {
         int timeoutInt = resource.getAttributes().get("timeout") == null ? 1500 : Integer.parseInt(resource.getAttributes().get("timeout"));
         String community = resource.getAttributes().get("community-ro");
         String community2 = resource.getAttributes().get("community-rw");
-        Get get = null;
+        //Get get = null;
 
         if (community == null){
             logger.debug("community-ro parameter for "+resource.getAddress() +" has not been specifed!" +
@@ -192,77 +170,59 @@ public class SnmpWalkerBase implements Discoverer {
         }
 
 
-        try {
-            get = new Get(oid, resource.getAddress(), versionInt, retriesInt, timeoutInt, community, transportFactory, messageDispatcherFactory);
-        } catch (IOException e) {
-            logger.error(e.getMessage(),e);
-        }
+//        try {
+//            get = new Get(oid, resource.getAddress(), versionInt, retriesInt, timeoutInt, community, transportFactory, messageDispatcherFactory);
+//        } catch (IOException e) {
+//            logger.error(e.getMessage(),e);
+//        }
 
         String value=null;
         try {
-            value = get.getSNMPGetNextValue();
+            value = snmpManager.snmpGetNext(oid);
         } catch (IOException e) {
             logger.error(e.getMessage(),e);
         }
 
-
-        if (value!=null){
-
-            return value;
-
-        }else {
-
-            try {
-                get = new Get(oid, resource.getAddress(), versionInt, retriesInt, timeoutInt, community2, transportFactory, messageDispatcherFactory);
-            } catch (IOException e) {
-                logger.error(e.getMessage(),e);
-            }
-            try {
-                value = get.getSNMPValue();
-            } catch (IOException e) {
-                logger.error(e.getMessage(),e);
-            }
-        }
         return value;
     }
 
-    private String snmpSet(Resource resource, String oid, String value) {
-
-        String version =resource.getAttributes().get("version");
-        int versionInt;
-        if (version.equals("1")){
-            versionInt = SnmpConstants.version1;
-        } else if (version.equals("2c")){
-            versionInt = SnmpConstants.version2c;
-        }  else if(version.equals("3")){
-            versionInt=  SnmpConstants.version3;
-        } else {
-            versionInt = SnmpConstants.version2c;
-        }
-
-        int retriesInt = resource.getAttributes().get("retries") == null ? 3 : Integer.parseInt(resource.getAttributes().get("retries"));
-        int timeoutInt = resource.getAttributes().get("timeout") == null ? 1200 : Integer.parseInt(resource.getAttributes().get("timeout"));
-        String community = resource.getAttributes().get("community-ro");
-        String community2 = resource.getAttributes().get("community-rw");
-
-        if (community == null) throw new IllegalArgumentException("Community is not specifed");
-        if (resource.getAddress() == null) throw new RuntimeException("Resource address is null");
-        SnmpSet set = null;
-        try {
-            set = new SnmpSet(oid, resource.getAddress(), versionInt, retriesInt, timeoutInt, community, value, transportFactory, messageDispatcherFactory);
-        } catch (IOException e) {
-            logger.error(e.getMessage(),e);
-            return null;
-        }
-        String result;
-        try {
-            result = set.setSNMPValue();
-        } catch (IOException e) {
-            logger.error(e.getMessage(),e);
-            return null;
-        }
-        return result;
-    }
+    //    private String snmpSet(Resource resource, String oid, String value) {
+//
+//        String version =resource.getAttributes().get("version");
+//        int versionInt;
+//        if (version.equals("1")){
+//            versionInt = SnmpConstants.version1;
+//        } else if (version.equals("2c")){
+//            versionInt = SnmpConstants.version2c;
+//        }  else if(version.equals("3")){
+//            versionInt=  SnmpConstants.version3;
+//        } else {
+//            versionInt = SnmpConstants.version2c;
+//        }
+//
+//        int retriesInt = resource.getAttributes().get("retries") == null ? 3 : Integer.parseInt(resource.getAttributes().get("retries"));
+//        int timeoutInt = resource.getAttributes().get("timeout") == null ? 1200 : Integer.parseInt(resource.getAttributes().get("timeout"));
+//        String community = resource.getAttributes().get("community-ro");
+//        String community2 = resource.getAttributes().get("community-rw");
+//
+//        if (community == null) throw new IllegalArgumentException("Community is not specifed");
+//        if (resource.getAddress() == null) throw new RuntimeException("Resource address is null");
+//        SnmpSet set = null;
+//        try {
+//            set = new SnmpSet(oid, resource.getAddress(), versionInt, retriesInt, timeoutInt, community, value, transportFactory, messageDispatcherFactory);
+//        } catch (IOException e) {
+//            logger.error(e.getMessage(),e);
+//            return null;
+//        }
+//        String result;
+//        try {
+//            result = set.setSNMPValue();
+//        } catch (IOException e) {
+//            logger.error(e.getMessage(),e);
+//            return null;
+//        }
+//        return result;
+//    }
     private RawDeviceData snmpWalk(Resource resource, String[] params) throws Exception {//}, MibLoaderException {
         Properties parameters = new Properties();
 
@@ -314,9 +274,8 @@ public class SnmpWalkerBase implements Discoverer {
         parameters.put(SnmpConfigurator.O_MAX_REPETITIONS, Arrays.asList(maxrepetitions));
 
 
-        Node root = walker.walk(params, parameters);
-
-        String xml = Walk.printTreeAsXML(root);
+        String xml = snmpManager.snmpWalkToString(params);
+        ;
         return new RawDeviceData(xml.getBytes());
     }
 
@@ -336,21 +295,20 @@ public class SnmpWalkerBase implements Discoverer {
         //    version = resource.getAttributes().get("version") == null ? SnmpConstants.version2c : Integer.parseInt(resource.getAttributes().get("version"));
         int retriesInt = resource.getAttributes().get("retries") == null ? 1 : Integer.parseInt(resource.getAttributes().get("retries"));
         int timeoutInt = resource.getAttributes().get("timeout") == null ? 1500 : Integer.parseInt(resource.getAttributes().get("timeout"));
-        Get get = null;
 
         if (community == null){
            return  null;
 
         }
-        try {
-            get = new Get(deviceSysDescrOID, resource.getAddress(), versionInt, retriesInt, timeoutInt, community, transportFactory, messageDispatcherFactory);
-        } catch (IOException e) {
-            logger.error(e.getMessage(),e);
-        }
+//        try {
+//            get = new Get(deviceSysDescrOID, resource.getAddress(), versionInt, retriesInt, timeoutInt, community, transportFactory, messageDispatcherFactory);
+//        } catch (IOException e) {
+//            logger.error(e.getMessage(),e);
+//        }
 
         String value=null;
         try {
-            value = get.getSNMPGetNextValue();
+            value = snmpManager.snmpGetNext(deviceSysDescrOID);
         } catch (IOException e) {
             logger.error(e.getMessage(),e);
         }
@@ -380,7 +338,6 @@ public class SnmpWalkerBase implements Discoverer {
         int timeoutInt = resource.getAttributes().get("timeout") == null ? 1500 : Integer.parseInt(resource.getAttributes().get("timeout"));
         String community = resource.getAttributes().get("community-ro");
         String community2 = resource.getAttributes().get("community-rw");
-        Get get = null;
 
         if (community == null){
             logger.debug("community-ro parameter for "+resource.getAddress() +" has not been specifed!" +
@@ -396,72 +353,53 @@ public class SnmpWalkerBase implements Discoverer {
             }
         }
 
+
         if (resource.getAddress() == null){
             logger.error("Resource address is null");
             return null;
         }
 
 
-        try {
-            get = new Get(oid, resource.getAddress(), versionInt, retriesInt, timeoutInt, community, transportFactory, messageDispatcherFactory);
-        } catch (IOException e) {
-            logger.error(e.getMessage(),e);
-        }
+        snmpManager.setParameters(resource.getAttributes());
+
 
         String value=null;
         try {
-            value = get.getSNMPGetNextValue();
+            value = snmpManager.snmpGetNext(oid);
         } catch (IOException e) {
             logger.error(e.getMessage(),e);
         }
 
-
-        if (value!=null){
-
-            return value;
-
-        }else {
-
-            try {
-                get = new Get(oid, resource.getAddress(), versionInt, retriesInt, timeoutInt, community2, transportFactory, messageDispatcherFactory);
-            } catch (IOException e) {
-                logger.error(e.getMessage(),e);
-            }
-            try {
-                value = get.getSNMPGetNextValue();
-            } catch (IOException e) {
-                logger.error(e.getMessage(),e);
-            }
-        }
         return value;
     }
 
 
-    private String snmpWalktoString(Resource resource, String[] params) throws Exception {//}, MibLoaderException {
-        Properties parameters = new Properties();
-        if (resource.getAddress() == null) throw new RuntimeException("Resource Address is null");
-        parameters.put(SnmpConfigurator.O_ADDRESS, Arrays.asList(resource.getAddress()));
-//        parameters.put(SnmpConfigurator.O_PORT, Arrays.asList(resource.getAddress()));
-        parameters.put(SnmpConfigurator.O_COMMUNITY, Arrays.asList(resource.getAttributes().get("community-ro")));
-        //parameters.put(SnmpConfigurator.O_VERSION, Arrays.asList("2c"));// TODO
+//    private String snmpWalktoString(Resource resource, String[] params) throws Exception {//}, MibLoaderException {
+//        Properties parameters = new Properties();
+//        if (resource.getAddress() == null) throw new RuntimeException("Resource Address is null");
+//        parameters.put(SnmpConfigurator.O_ADDRESS, Arrays.asList(resource.getAddress()));
+////        parameters.put(SnmpConfigurator.O_PORT, Arrays.asList(resource.getAddress()));
+//        parameters.put(SnmpConfigurator.O_COMMUNITY, Arrays.asList(resource.getAttributes().get("community-ro")));
+//        //parameters.put(SnmpConfigurator.O_VERSION, Arrays.asList("2c"));// TODO
+//
+//        String version = resource.getAttributes().get("version") == null ? "2c" : resource.getAttributes().get("version");
+//        int retriesInt = resource.getAttributes().get("retries") == null ? 3 : Integer.parseInt(resource.getAttributes().get("retries"));
+//        int timeoutInt = resource.getAttributes().get("timeout") == null ? 1200 : Integer.parseInt(resource.getAttributes().get("timeout"));
+//        int maxrepetitions = resource.getAttributes().get("max-repetitions") == null ? 65535 : Integer.parseInt(resource.getAttributes().get("timeout"));
+//
+//        parameters.put(SnmpConfigurator.O_VERSION, Arrays.asList(version));
+////        parameters.put(SnmpConfigurator.O_TIMEOUT, Arrays.asList(1200));
+////        parameters.put(SnmpConfigurator.O_RETRIES, Arrays.asList(2));
+////        parameters.put(SnmpConfigurator.O_MAX_REPETITIONS, Arrays.asList(65535));
+//        parameters.put(SnmpConfigurator.O_TIMEOUT, Arrays.asList(timeoutInt));
+//        parameters.put(SnmpConfigurator.O_RETRIES, Arrays.asList(retriesInt));
+//        parameters.put(SnmpConfigurator.O_MAX_REPETITIONS, Arrays.asList(maxrepetitions));
+//
+//        Node root = snmpManager.snmpWalkToString();
+//        String xml = Walk.printTreeAsXML(root);
+//        return xml;
+//    }
 
-        String version = resource.getAttributes().get("version") == null ? "2c" : resource.getAttributes().get("version");
-        int retriesInt = resource.getAttributes().get("retries") == null ? 3 : Integer.parseInt(resource.getAttributes().get("retries"));
-        int timeoutInt = resource.getAttributes().get("timeout") == null ? 1200 : Integer.parseInt(resource.getAttributes().get("timeout"));
-        int maxrepetitions = resource.getAttributes().get("max-repetitions") == null ? 65535 : Integer.parseInt(resource.getAttributes().get("timeout"));
-
-        parameters.put(SnmpConfigurator.O_VERSION, Arrays.asList(version));
-//        parameters.put(SnmpConfigurator.O_TIMEOUT, Arrays.asList(1200));
-//        parameters.put(SnmpConfigurator.O_RETRIES, Arrays.asList(2));
-//        parameters.put(SnmpConfigurator.O_MAX_REPETITIONS, Arrays.asList(65535));
-        parameters.put(SnmpConfigurator.O_TIMEOUT, Arrays.asList(timeoutInt));
-        parameters.put(SnmpConfigurator.O_RETRIES, Arrays.asList(retriesInt));
-        parameters.put(SnmpConfigurator.O_MAX_REPETITIONS, Arrays.asList(maxrepetitions));
-
-        Node root = walker.walk(params, parameters);
-        String xml = Walk.printTreeAsXML(root);
-        return xml;
-    }
     static {
         LogFactory.setLogFactory(new Log4jLogFactory());
     }

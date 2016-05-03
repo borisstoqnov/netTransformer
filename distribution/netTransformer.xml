@@ -48,7 +48,7 @@
 
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
-                <include>net.iTransformers.netTransformer:resourceManager</include>
+                <include>net.itransformers.netTransformer:resourceManager</include>
             </includes>
             <sources>
                 <includeModuleDirectory>false</includeModuleDirectory>
@@ -71,7 +71,7 @@
 
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
-                <include>net.iTransformers.netTransformer.iTopologyManager:rightClick</include>
+                <include>net.itransformers.netTransformer.iTopologyManager:rightClick</include>
             </includes>
             <sources>
                 <includeModuleDirectory>false</includeModuleDirectory>
@@ -94,7 +94,7 @@
 
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
-                <include>net.iTransformers.netTransformer.iTopologyManager:topologyViewer</include>
+                <include>net.itransformers.netTransformer.iTopologyManager:topologyViewer</include>
             </includes>
             <sources>
                 <includeModuleDirectory>false</includeModuleDirectory>
@@ -130,7 +130,7 @@
 
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
-                <include>net.iTransformers.netTransformer.iTopologyManager:parameterFactory</include>
+                <include>net.itransformers.netTransformer.iTopologyManager:parameterFactory</include>
             </includes>
             <sources>
                 <includeModuleDirectory>false</includeModuleDirectory>
@@ -184,7 +184,7 @@
 
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
-                <include>net.iTransformers.netTransformer.iTopologyManager:fulfilmentFactory</include>
+                <include>net.itransformers.netTransformer.iTopologyManager:fulfilmentFactory</include>
             </includes>
             <sources>
                 <includeModuleDirectory>false</includeModuleDirectory>
@@ -216,7 +216,7 @@
 
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
-                <include>net.iTransformers.netTransformer:iDiscover</include>
+                <include>net.itransformers.netTransformer:iDiscover</include>
             </includes>
             <sources>
                 <includeModuleDirectory>false</includeModuleDirectory>
@@ -266,7 +266,7 @@
 
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
-                <include>net.iTransformers.netTransformer:utils</include>
+                <include>net.itransformers.netTransformer:utils</include>
             </includes>
             <sources>
                 <includeModuleDirectory>false</includeModuleDirectory>
@@ -310,7 +310,7 @@
 
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
-                <include>net.iTransformers.netTransformer:postDiscoverer</include>
+                <include>net.itransformers.netTransformer:postDiscoverer</include>
             </includes>
             <sources>
                 <includeModuleDirectory>false</includeModuleDirectory>
@@ -336,19 +336,19 @@
 
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
-                <include>net.iTransformers.netTransformer:utils</include>
+                <include>net.itransformers.netTransformer:utils</include>
                 <!--include>iTransformers.iTransformer:snmptoolkit</include-->
-                <include>net.iTransformers.netTransformer:resourceManager</include>
-                <include>net.iTransformers.netTransformer.iTopologyManager:launcher</include>
-                <include>net.iTransformers.netTransformer.iTopologyManager:topologyViewer</include>
-                <include>net.iTransformers.netTransformer.iTopologyManager:topologyManagerConfig</include>
-                <include>net.iTransformers.netTransformer.iTopologyManager:rightClick</include>
-                <include>net.iTransformers.netTransformer.iTopologyManager:rightClickAPI</include>
-                <include>net.iTransformers.netTransformer.iTopologyManager:parameterFactory</include>
-                <include>net.iTransformers.netTransformer.iTopologyManager:fulfilmentFactory</include>
-                <include>net.iTransformers.netTransformer:iDiscover</include>
-                <include>net.iTransformers.netTransformer:postDiscoverer</include>
-                <include>net.iTransformers.netTransformer:bgpPeeringMap</include>
+                <include>net.itransformers.netTransformer:resourceManager</include>
+                <include>net.itransformers.netTransformer.iTopologyManager:launcher</include>
+                <include>net.itransformers.netTransformer.iTopologyManager:topologyViewer</include>
+                <include>net.itransformers.netTransformer.iTopologyManager:topologyManagerConfig</include>
+                <include>net.itransformers.netTransformer.iTopologyManager:rightClick</include>
+                <include>net.itransformers.netTransformer.iTopologyManager:rightClickAPI</include>
+                <include>net.itransformers.netTransformer.iTopologyManager:parameterFactory</include>
+                <include>net.itransformers.netTransformer.iTopologyManager:fulfilmentFactory</include>
+                <include>net.itransformers.netTransformer:iDiscover</include>
+                <include>net.itransformers.netTransformer:postDiscoverer</include>
+                <include>net.itransformers.netTransformer:bgpPeeringMap</include>
 
 
                 <!--include>iTransformers:iMap</include-->

@@ -22,8 +22,6 @@
 package net.itransformers.idiscover.v2.core.discovererIntegrationTest.metroE;
 
 import net.itransformers.idiscover.core.*;
-import net.itransformers.idiscover.discoverers.DefaultDiscovererFactory;
-import net.itransformers.idiscover.discoverers.SnmpWalker;
 import net.itransformers.idiscover.discoveryhelpers.xml.SnmpForXslt;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
@@ -59,7 +57,6 @@ public class IntegrationTestsMetroE {
     private RawDeviceData rawDeviceData = new RawDeviceData(null);
     XmlDiscoveryHelperFactory discoveryHelperFactory = null;
     DiscoveryResourceManager discoveryResource;
-    SnmpWalker walker;
 
 
     @Before
@@ -113,21 +110,16 @@ public class IntegrationTestsMetroE {
         rawDeviceData.setData(data);
         DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper("CISCO");
         discoveryHelper.setDryRun(true);
-        try {
-            walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
-        DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawDeviceData, discoveryTypes, resource);
+        DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawDeviceData, discoveryTypes, resourceParams);
         Map<String, HashMap<String, String>> discoveredDevices = new HashMap<String, HashMap<String, String>>();
 
 
-        SnmpForXslt.setDiscoveredDevices(discoveredDevices);
+        SnmpForXslt.setDiscoveredIPs(discoveredDevices);
 
         discoveryHelper.setDryRun(false);
-        discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawDeviceData, discoveryTypes, resource);
+        discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawDeviceData, discoveryTypes, resourceParams);
         Map<String, Integer> neighbourTypeCounts = fillInNeighbourTree(discoveredDeviceData.getObject());
         Assert.assertEquals((Object) 2, neighbourTypeCounts.get("CDP"));
         Assert.assertEquals((Object) 1,neighbourTypeCounts.get("MAC"));
@@ -223,14 +215,9 @@ public class IntegrationTestsMetroE {
         rawDeviceData.setData(data);
         DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper("CISCO");
         discoveryHelper.setDryRun(true);
-        try {
-            walker = (SnmpWalker) new DefaultDiscovererFactory().createDiscoverer(resource);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
-        DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawDeviceData, discoveryTypes, resource);
+        DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawDeviceData, discoveryTypes, resourceParams);
 
 
 
@@ -268,13 +255,13 @@ public class IntegrationTestsMetroE {
 
 
         //SnmpForXslt.resolveIPAddresses(discoveryResource,);
-        SnmpForXslt.setDiscoveredDevices(discoveredDevices);
+        SnmpForXslt.setDiscoveredIPs(discoveredDevices);
 
 
         discoveryHelper.setDryRun(false);
         OutputStream os  = null;
 
-        discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawDeviceData, discoveryTypes, resource);
+        discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawDeviceData, discoveryTypes, resourceParams);
 
         try {
             os = new ByteArrayOutputStream();
@@ -690,7 +677,7 @@ public class IntegrationTestsMetroE {
             neighbourConnectionDetails.put("deviceType",neighbour.getDeviceType());
             if (neighbour.getStatus()){ // if reachable
                 neighbourConnectionDetails.put("deviceName",neighbour.getHostName());
-                neighbourConnectionDetails.put("ipAddress",neighbour.getIpAddress().getIpAddress());
+                neighbourConnectionDetails.put("ipAddress", neighbour.getIpAddress());
                 neighbourConnectionDetails.setConnectionType("snmp");
                 neighboursConnDetails.add(neighbourConnectionDetails);
             }

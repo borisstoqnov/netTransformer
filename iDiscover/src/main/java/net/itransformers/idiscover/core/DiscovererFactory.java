@@ -21,8 +21,10 @@
 
 package net.itransformers.idiscover.core;
 
+import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
+
 public interface DiscovererFactory {
 
-    public Discoverer createDiscoverer(Resource resource) throws Exception;
+    public Discoverer createDiscoverer(Resource resource, SnmpManager snmpManager) throws Exception;
 
 }

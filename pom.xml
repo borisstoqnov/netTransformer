@@ -29,7 +29,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <groovy.version>2.1.9</groovy.version>
     </properties>
-    <groupId>net.iTransformers</groupId>
+    <groupId>net.itransformers</groupId>
     <artifactId>netTransformer</artifactId>
     <version>0.8</version><!--Change for new version-->
     <description>Parga Edition</description>

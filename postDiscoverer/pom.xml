@@ -25,13 +25,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.iTransformers.netTransformer</groupId>
+    <groupId>net.itransformers.netTransformer</groupId>
     <artifactId>postDiscoverer</artifactId>
     <version>0.8</version>
     <!--Change for new version-->
 
     <parent>
-        <groupId>net.iTransformers</groupId>
+        <groupId>net.itransformers</groupId>
         <artifactId>netTransformer</artifactId>
         <version>0.8</version>
         <!--Change for new version-->
@@ -39,19 +39,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.iTransformers.netTransformer</groupId>
+            <groupId>net.itransformers.netTransformer</groupId>
             <artifactId>resourceManager</artifactId>
             <version>0.8</version>
             <!--Change for new version-->
         </dependency>
+        <!--<dependency>-->
+        <!--<groupId>net.itransformers.snmp2xml4j</groupId>-->
+        <!--<artifactId>snmptoolkit</artifactId>-->
+        <!--<version>1.0.1</version>-->
+        <!--&lt;!&ndash;Change for new version&ndash;&gt;-->
+        <!--</dependency>-->
         <dependency>
-            <groupId>net.iTransformers.snmp2xml4j</groupId>
-            <artifactId>snmptoolkit</artifactId>
-            <version>1.0</version>
-            <!--Change for new version-->
-        </dependency>
-        <dependency>
-            <groupId>net.iTransformers.netTransformer</groupId>
+            <groupId>net.itransformers.netTransformer</groupId>
             <artifactId>utils</artifactId>
             <version>0.8</version>
             <!--Change for new version-->
@@ -67,7 +67,7 @@
             <!--<version>0.1-SNAPSHOT</version>&lt;!&ndash;Change for new version&ndash;&gt;-->
         <!--</dependency>-->
         <dependency>
-            <groupId>net.iTransformers</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>expect4groovy</artifactId>
             <version>1.0.0</version>
         </dependency>

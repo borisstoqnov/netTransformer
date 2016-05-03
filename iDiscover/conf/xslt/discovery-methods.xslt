@@ -76,9 +76,13 @@
 			<xsl:variable name="cdpNeighborPort" select="cdpCacheDevicePort"/>
 			<xsl:variable name="cdpNeighborPlatform" select="cdpCachePlatform"/>
 			<xsl:variable name="cdpCachePrimaryMgmtAddrType" select="cdpCachePrimaryMgmtAddrType"/>
+			<xsl:variable name="cdpCacheAddressType" select="cdpCacheAddressType"/>
+			<xsl:variable name="cdpCacheAddress" select="cdpCacheAddress"/>
+
 			<xsl:variable name="cdpCachePrimaryMgmtAddr" select="cdpCachePrimaryMgmtAddr"/>
 			<xsl:variable name="neighborIP">
-				<xsl:if test="$cdpCachePrimaryMgmtAddrType='1'">
+				<xsl:choose>
+				<xsl:when test="$cdpCachePrimaryMgmtAddrType='1'">
 					<xsl:variable name="temp">
 						<xsl:for-each select="tokenize($cdpCachePrimaryMgmtAddr,':')">
 							<xsl:call-template name="HexToDecimal">
@@ -88,7 +92,22 @@
 							</xsl:call-template>.</xsl:for-each>
 					</xsl:variable>
 					<xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>
-				</xsl:if>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:variable name="temp">
+						<xsl:for-each select="tokenize($cdpCacheAddress,':')">
+							<xsl:call-template name="HexToDecimal">
+								<xsl:with-param name="hexNumber">
+									<xsl:value-of select="."/>
+								</xsl:with-param>
+							</xsl:call-template>.</xsl:for-each>
+
+					</xsl:variable>
+					<xsl:value-of select="functx:substring-before-last-match($temp,'.')"/>
+
+				</xsl:otherwise>
+				</xsl:choose>
+
 			</xsl:variable>
 			<xsl:variable name="neighID">
 				<xsl:call-template name="getNeighID">

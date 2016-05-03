@@ -90,7 +90,7 @@ public class GraphMLDiff {
 
 
         System.out.println(xsltParams.toString());
-        transformer.transformXML(fileInputStream, xsltFile, fileOutputStream, xsltParams, null);
+        transformer.transformXML(fileInputStream, xsltFile, fileOutputStream, xsltParams);
     } catch (ParserConfigurationException e) {
         e.printStackTrace();
     } catch (SAXException e) {

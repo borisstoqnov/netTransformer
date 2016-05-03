@@ -69,7 +69,7 @@ public class Main {
         File conDetails =new File(projectPath,"iDiscover/conf/txt/connection-details.txt");
 
         FileSystemXmlApplicationContext applicationContext = initializeDiscoveryContext(projectPath);
-        NetworkDiscoverer discoverer =applicationContext.getBean("snmpDiscovery", NetworkDiscoverer.class);
+        NetworkDiscoverer discoverer = applicationContext.getBean("parallelSnmpDiscovery", NetworkDiscoverer.class);
         LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", conDetails);
         int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1" : depthCmdArg);
         NetworkDiscoveryResult result = discoverer.discoverNetwork(new ArrayList<ConnectionDetails>(connectionList.values()), depth);
@@ -149,8 +149,8 @@ public class Main {
         File snmpDiscovery = new File(projectPath,"iDiscover/conf/xml/snmpNetworkDiscovery.xml");
         String snmpDiscoveryContextPath = snmpDiscovery.toURI().toURL().toString();
 
-        File snmpBGPDiscovery = new File(projectPath, "iDiscover/conf/xml/bgpInternetMapSNMPDiscovery.xml");
-        String snmpBGPDiscoveryContextPath = snmpBGPDiscovery.toURI().toURL().toString();
+//        File snmpBGPDiscovery = new File(projectPath, "iDiscover/conf/xml/bgpInternetMapSNMPDiscovery.xml");
+//        String snmpBGPDiscoveryContextPath = snmpBGPDiscovery.toURI().toURL().toString();
 
         File connectionsDetails = new File(projectPath,"iDiscover/conf/xml/connectionsDetails.xml");
         String connectionsDetailsContextPath = connectionsDetails.toURI().toURL().toString();
@@ -191,7 +191,7 @@ public class Main {
         // Must call refresh to initialize context
         cmdArgCxt.refresh();
 
-        String[] paths = new String[]{genericContextPath, snmpDiscoveryContextPath, snmpBGPDiscoveryContextPath, connectionsDetailsContextPath};
+        String[] paths = new String[]{genericContextPath, snmpDiscoveryContextPath, connectionsDetailsContextPath};
 //        ,project.getAbsolutePath()+project.getAbsolutePath()+File.separator+"iDiscover/conf/xml/snmpNetworkDiscovery.xml", project.getAbsolutePath()+File.separator+"iDiscover/src/main/resources/connectionsDetails.xml"
         FileSystemXmlApplicationContext applicationContext= new FileSystemXmlApplicationContext(paths, cmdArgCxt);
 //        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(workingDir+File.separator+"iDiscover/conf/xml/generic.xml",workingDir+File.separator+"/iDiscover/conf/xml/snmpNetworkDiscovery.xml","connectionsDetails.xml");

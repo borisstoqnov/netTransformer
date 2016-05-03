@@ -26,7 +26,6 @@ import net.itransformers.topologyviewer.rightclick.impl.putty.Putty;
 
 import javax.swing.*;
 import java.io.File;
-import java.net.URL;
 import java.util.Map;
 
 public class PuttyRightClickHandler implements RightClickHandler {
@@ -37,7 +36,7 @@ public class PuttyRightClickHandler implements RightClickHandler {
                                      java.io.File s){
         Map<String,String> connParams;
         try {
-            connParams = ResourceResolver.getResource(graphMLParams, new File(projectPath, rightClickParams.get("resource")));
+            connParams = ResourceResolver.getResource(graphMLParams, new File(projectPath, rightClickParams.get("resource")), "ssh");
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(parent, "Can not find resource : "+e.getMessage());

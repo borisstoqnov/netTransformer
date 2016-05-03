@@ -50,7 +50,7 @@ public class XsltReportCreator implements RightClickHandler {
         String path =  rightClickParams.get("path");
         String xmlSourcePath = null;
         if(rightClickParams.get("type").equals("deviceXml")){
-             xmlSourcePath = versionDir.getAbsolutePath()+File.separator+path+File.separator+"device-data-"+v+".xml";
+            xmlSourcePath = versionDir.getAbsolutePath() + File.separator + path + File.separator + ProjectConstants.deviceDataPrefix + v + ".xml";
             String deviceXmlDir =  versionDir+File.separator+path;
         }else {
             xmlSourcePath = versionDir+File.separator+path+File.separator+"node-"+v+".graphml";

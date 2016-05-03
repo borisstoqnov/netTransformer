@@ -22,15 +22,15 @@
 package net.itransformers.idiscover.discoverers;
 
 import net.itransformers.idiscover.core.Resource;
-import net.itransformers.snmp2xml4j.snmptoolkit.messagedispacher.LogBasedMessageDispatcherFactory;
-import net.itransformers.snmp2xml4j.snmptoolkit.transport.LogBasedTransportMappingFactory;
+import net.itransformers.snmp2xml4j.snmptoolkit.SnmpUdpV2Manager;
 
 import java.io.File;
 
-//import net.percedcom.snmpdiscoverererberg.mibble.MibLoaderException;
+@Deprecated
+public class SimulSnmpWalker extends SnmpWalkerBase {
 
-public class SimulSnmpWalker extends SnmpWalkerBase{
     public SimulSnmpWalker(Resource resource, File log) throws Exception {
-        super(resource, new LogBasedTransportMappingFactory(log), new LogBasedMessageDispatcherFactory(log));
+        super(resource, new SnmpUdpV2Manager(null) {
+        });
     }
 }

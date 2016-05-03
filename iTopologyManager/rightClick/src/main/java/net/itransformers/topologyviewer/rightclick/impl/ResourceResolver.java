@@ -32,7 +32,7 @@ import java.util.Map;
 
 public class ResourceResolver {
     public static Map<String, String> getResource(Map<String, String> graphMLParams,
-                                                  File resourceFile) throws Exception {
+                                                  File resourceFile, String protocol) throws Exception {
         ResourceType resource;
         ResourceManager rc = new ResourceManager(resourceFile);
         resource = rc.findResource(graphMLParams);
@@ -40,9 +40,10 @@ public class ResourceResolver {
             throw new RuntimeException("Resource not found");
         }
 
-        return getConnectionParams(resource,graphMLParams);
+        return getConnectionParams(resource, graphMLParams, protocol);
     }
-    public static Map<String, String> getConnectionParams(ResourceType resource, Map<String, String> graphMLParams){
+
+    public static Map<String, String> getConnectionParams(ResourceType resource, Map<String, String> graphMLParams, String protocol) {
         if(resource.getConnectionParams()!=null){
             ConnectionParamsType connParamsType = resource.getConnectionParams().get(0);
             Map<String, String> connParams = new HashMap<String, String>();

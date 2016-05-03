@@ -29,27 +29,57 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Map;
 
 public class XsltTransformer {
-    public void transformXML(InputStream xmlIn, File xslt, OutputStream xmlOut, Map<String,String> params, String ipAddress) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+    public void transformXML(InputStream xmlIn, File xslt, OutputStream xmlOut, Map<String, String> params) throws ParserConfigurationException, IOException, SAXException, TransformerException {
 
-        // JAXP reads data using the Source interface
         Source xmlSource = new StreamSource(xmlIn);
 
         Transformer trans = StylesheetCache.newTransformer(xslt);
         if (params != null) {
-            for (String param: params.keySet()){
+            for (String param : params.keySet()) {
                 trans.setParameter(param, params.get(param));
             }
         }
-        if (ipAddress!=null){
-            trans.setParameter("ipAddress",ipAddress);
-        }
         trans.transform(xmlSource, new StreamResult(xmlOut));
     }
+
+    public void transformXML(InputStream xmlIn, File xslt, OutputStream xmlOut) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+
+        Source xmlSource = new StreamSource(xmlIn);
+
+        Transformer trans = StylesheetCache.newTransformer(xslt);
+        trans.transform(xmlSource, new StreamResult(xmlOut));
+    }
+
+    public static ByteArrayOutputStream transformXML(File xslt,ByteArrayInputStream inputStream,  Map<String, String> params) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+
+        Transformer trans = StylesheetCache.newTransformer(xslt);
+        if (params != null) {
+            for (String param : params.keySet()) {
+                trans.setParameter(param, params.get(param));
+            }
+        }
+        Source xmlSource = new StreamSource(inputStream);
+        trans.transform(xmlSource, new StreamResult(outputStream));
+
+        return outputStream;
+
+    }
+
+    public static ByteArrayOutputStream transformXML(File xslt, ByteArrayInputStream inputStream) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+
+        Transformer trans = StylesheetCache.newTransformer(xslt);
+        Source xmlSource = new StreamSource(inputStream);
+        trans.transform(xmlSource, new StreamResult(outputStream));
+
+        return outputStream;
+    }
+
 }

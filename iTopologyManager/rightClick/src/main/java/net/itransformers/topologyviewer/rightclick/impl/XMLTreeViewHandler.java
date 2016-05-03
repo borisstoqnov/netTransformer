@@ -22,6 +22,7 @@
 package net.itransformers.topologyviewer.rightclick.impl;
 
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
+import net.itransformers.utils.ProjectConstants;
 import net.itransformers.utils.XMLTreeView;
 
 import javax.swing.*;
@@ -40,7 +41,7 @@ public class XMLTreeViewHandler implements RightClickHandler {
          String path =  rightClickParams.get("path");
 
          if(rightClickParams.get("type").equals("deviceXml")){
-             String deviceXmlPath = versionDir.getAbsolutePath()+File.separator+path+File.separator+"device-data-"+v+".xml";
+             String deviceXmlPath = versionDir.getAbsolutePath() + File.separator + path + File.separator + ProjectConstants.deviceDataPrefix + v + ".xml";
              new XMLTreeView(v,new File(deviceXmlPath));
          }else if (rightClickParams.get("type").equals("graphml")) {
              String graphmlPath = versionDir+File.separator+path+File.separator+"node-"+v+".graphml";

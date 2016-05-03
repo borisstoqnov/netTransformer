@@ -57,6 +57,8 @@ public class NewProjectDialog extends JDialog {
     public NewProjectDialog(final TopologyManagerFrame frame) {
         setModal(true);
         setTitle("Create New Project");
+        //Setting the default projectType
+        projectType = ProjectConstants.snmpProjectType;
         setBounds(100, 100, 564, 165);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -98,9 +100,11 @@ public class NewProjectDialog extends JDialog {
             contentPanel.add(label);
         }
         {
+      //      projectType = ProjectConstants.snmpProjectType;
             String[] projectNames = {ProjectConstants.snmpProjectName, ProjectConstants.mrtBgpDiscovererName, ProjectConstants.snmpBgpDiscovererName, ProjectConstants.freeGraphDiscovererName};
             final JComboBox comboBox = new JComboBox(projectNames);
             comboBox.setBounds(108, 47, 277, 22);
+            //Set default project type
             comboBox.setSelectedItem(projectNames[0]);
             contentPanel.add(comboBox);
             comboBox.addActionListener(new ActionListener() {
