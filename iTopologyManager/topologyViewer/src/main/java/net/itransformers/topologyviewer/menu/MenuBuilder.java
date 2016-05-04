@@ -116,6 +116,9 @@ public class MenuBuilder {
         final JMenuItem searchNodeByNameEntire = new JMenuItem("Search Node by Name EntireGraph");
         searchNodeByNameEntire.addActionListener(new SearchByNameEntireGraphMenuHandler(frame));
         search.add(searchNodeByNameEntire);
+        final JMenuItem searchNodeByNamePatternCurrent = new JMenuItem("Search Node by Name RegEx CurrentGraph");
+        searchNodeByNamePatternCurrent.addActionListener(new SearchByNamePatternCurrGraphMenuHandler(frame));
+        search.add(searchNodeByNamePatternCurrent);
         final JMenuItem searchNodeByKey = new JMenuItem("Search Node by Key");
         searchNodeByKey.addActionListener(new SearchByKeyMenuHandler(frame));
         search.add(searchNodeByKey);
