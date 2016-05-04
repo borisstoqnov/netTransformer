@@ -38,7 +38,7 @@ import java.util.Map;
             try {
                 StringBuilder sb = new StringBuilder();
                 sb.append("<html>");
-
+                sb.append("<p><b>id: "+node+"</b></p>");
 
                 for ( String key : nodeMetadatas.keySet()){
                     GraphMLMetadata<String> stringGraphMLMetadata = nodeMetadatas.get(key);
