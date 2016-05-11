@@ -31,9 +31,9 @@ import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.snmp2xml4j.snmptoolkit.*;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.log4j.Logger;
-
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -75,24 +75,62 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         String ipAddressStr = connectionDetails.getParam("ipAddress");
         params1.put("ipAddress", ipAddressStr);
 
+        SnmpManager snmpManager = null;
+        Map<String, String> snmpConnParams = new HashMap<String, String>();
 
         ResourceType snmpResource = this.discoveryResource.returnResourceByParam(params1);
-        Map<String, String> snmpConnParams = this.discoveryResource.getParamMap(snmpResource, "snmp");
 
+
+
+        ArrayList<ResourceType> snmpResources = this.discoveryResource.returnResourcesByConnectionType("snmp");
+        String sysDescr = null;
+
+
+        snmpConnParams = this.discoveryResource.getParamMap(snmpResource, "snmp");
         snmpConnParams.put("ipAddress", ipAddressStr);
 
-
-        SnmpManager snmpManager = null;
         try {
+            //Try first with the most probable snmp Resource
             snmpManager = createSnmpManager(snmpConnParams);
             snmpManager.setParameters(snmpConnParams);
             snmpManager.init();
-            String sysDescr = snmpGet(snmpManager,"1.3.6.1.2.1.1.1.0");
-            if (sysDescr == null) {
+            sysDescr = snmpGet(snmpManager,"1.3.6.1.2.1.1.1.0");
+
+            //If it does not work try with the rest
+
+            if (sysDescr==null) {
+                snmpManager.closeSnmp();
                 logger.info("Can't connect to: " + ipAddressStr + " with " + snmpConnParams);
-                return null;
+
+                for (ResourceType resourceType : snmpResources) {
+                    snmpConnParams = this.discoveryResource.getParamMap(resourceType, "snmp");
+                    snmpConnParams.put("ipAddress", ipAddressStr);
+
+                    if (!resourceType.getName().equals(snmpResource.getName())) {
+
+                            snmpManager = createSnmpManager(snmpConnParams);
+                            snmpManager.setParameters(snmpConnParams);
+                            snmpManager.init();
+                            sysDescr = snmpGet(snmpManager, "1.3.6.1.2.1.1.1.0");
+                            if (sysDescr == null) {
+                                logger.info("Can't connect to: " + ipAddressStr + " with " + snmpConnParams);
+                                snmpManager.closeSnmp();
+                            } else {
+                                deviceType = getDeviceType(sysDescr);
+                                logger.info("Connected to: " + ipAddressStr + " with " + snmpConnParams);
+                                deviceName = subStringDeviceName(snmpGet(snmpManager, "1.3.6.1.2.1.1.5.0"));
+                                break;
+                            }
+
+
+                    }
+                }
+            }else {
+                deviceType = getDeviceType(sysDescr);
+                logger.info("Connected to: " + ipAddressStr + " with " + snmpConnParams);
+                deviceName = subStringDeviceName(snmpGet(snmpManager, "1.3.6.1.2.1.1.5.0"));
+
             }
-            deviceType = getDeviceType(sysDescr);
 
 
         } catch (IOException e) {
@@ -100,7 +138,10 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
             return null;
         }
 
-
+        //Despite all our efforts we got nothing from that device!
+        if (sysDescr==null) {
+            return null;
+        }
         DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper(deviceType);
         String[] requestParamsList = discoveryHelper.getRequestParams(discoveryTypes);
 
@@ -109,6 +150,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         RawDeviceData rawData = null;
         try {
             rawDatNode = snmpManager.snmpWalk(requestParamsList);
+            snmpManager.closeSnmp();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -181,6 +223,13 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         } else {
             return "UNKNOWN";
         }
+    }
+
+    public String subStringDeviceName(String sysName) {
+        if (sysName == null) return null;
+        String hostName =  StringUtils.substringBefore(sysName,".");
+        return hostName;
+
     }
 
     private String snmpGet(SnmpManager snmpManager, String oidString) {

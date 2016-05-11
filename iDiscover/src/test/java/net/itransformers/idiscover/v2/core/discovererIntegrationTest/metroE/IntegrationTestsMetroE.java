@@ -30,6 +30,10 @@ import net.itransformers.idiscover.networkmodel.ParameterType;
 import net.itransformers.idiscover.util.JaxbMarshalar;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.snmpdiscoverer.SnmpNodeDiscoverer;
+import net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder;
+import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
+import net.itransformers.snmp2xml4j.snmptoolkit.SnmpUdpV2Manager;
+import net.percederberg.mibble.MibLoaderException;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Before;
@@ -57,10 +61,21 @@ public class IntegrationTestsMetroE {
     private RawDeviceData rawDeviceData = new RawDeviceData(null);
     XmlDiscoveryHelperFactory discoveryHelperFactory = null;
     DiscoveryResourceManager discoveryResource;
+    private static MibLoaderHolder mibLoaderHolder;
 
 
     @Before
     public void setUp() throws Exception {
+
+            try {
+                mibLoaderHolder = new MibLoaderHolder(new File("snmptoolkit/mibs"), false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (MibLoaderException e) {
+                e.printStackTrace();
+            }
+
+
 
 
         File IntegrationTestCiscoASR1000 = new File(baseDir + File.separator + "iDiscover/src/test/resources/test/metroE");
@@ -71,7 +86,9 @@ public class IntegrationTestsMetroE {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
         }
-
+        SnmpManager snmpManager = new SnmpUdpV2Manager(mibLoaderHolder.getLoader(), "195.218.195.228", "public", 3, 1000, 65535, 10, 161);
+        snmpManager.init();
+        SnmpForXslt.setSnmpManager(snmpManager);
 
 
         try {

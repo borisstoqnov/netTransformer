@@ -23,6 +23,7 @@ package net.itransformers.postDiscoverer.core;
 
 import groovy.util.ResourceException;
 import groovy.util.ScriptException;
+import net.itransformers.expect4groovy.Expect4GroovyScriptLauncher;
 import net.itransformers.postDiscoverer.reportGenerator.*;
 import net.itransformers.resourcemanager.ResourceManager;
 import net.itransformers.resourcemanager.config.ConnectionParamsType;
@@ -32,7 +33,6 @@ import net.itransformers.resourcemanager.config.ResourcesType;
 import net.itransformers.utils.JaxbMarshalar;
 import net.itransformers.utils.XmlFormatter;
 import net.itransformers.utils.XsltTransformer;
-import net.itransformers.utils.cli.Expect4GroovyScriptLauncher;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
@@ -61,13 +61,13 @@ public class ReportManager {
         this.xsltTransformator = xsltTransformator;
     }
 
-    public StringBuffer reportExecutor(File postDiscoveryPath, Map<String, String> params) throws ParserConfigurationException, SAXException {
+    public StringBuffer reportExecutor(File postDiscoveryPath, Map<String, Object> params) throws ParserConfigurationException, SAXException, IOException {
 
         List<ReportEntryType> reportEnties = reportGenerator.getReportEntry();
         StringBuffer sb = new StringBuffer();
-        String deviceType =  params.get("deviceType");
-        String deviceName = params.get("deviceName");
-        File postDiscoveryNodeFolder = new File(postDiscoveryPath,params.get("deviceName"));
+        String deviceType = (String) params.get("deviceType");
+        String deviceName = (String) params.get("deviceName");
+        File postDiscoveryNodeFolder = new File(postDiscoveryPath, (String) params.get("deviceName"));
         if(!postDiscoveryNodeFolder.exists()){
             postDiscoveryNodeFolder.mkdir();
         }
@@ -98,9 +98,11 @@ public class ReportManager {
                             logger.debug("Launch connection to :" +deviceName+" with params "+params.toString());
                             logger.debug("Script path = " + scriptPath + "login script "+loginScript.getValue());
 
-                            Map<String, Integer> loginResult = launcher.open(new String[]{scriptPath + File.separator}, loginScript.getValue(), params);
+                            Map<String, Object> loginResult = launcher.open(new String[]{scriptPath + File.separator}, loginScript.getValue(), params);
 
-                            if(loginResult.get("status")==2){
+                            int loginresult =   (Integer) loginResult.get("status");
+
+                            if(loginresult==2){
                                 logger.debug(loginResult);
                                 return null;
                             }
@@ -120,7 +122,11 @@ public class ReportManager {
 
                                         if (evalScriptName!=null){
                                             script = new File(scriptPath,evalScriptName);
-                                            result = launcher.sendCommand(sendCommandScript.getValue(), commandString, script.getAbsolutePath());
+                                            HashMap<String,Object> scriptParams = new HashMap<>();
+                                            scriptParams.put("command",commandString);
+                                            scriptParams.put("evalScript",evalScriptName);
+                                            result = launcher.sendCommand(sendCommandScript.getValue(), scriptParams);
+
                                             Map<String, Object> evalData = (Map<String, Object>) result.get("reportResult");
                                             if(evalData!=null){
                                                 for (String key : evalData.keySet()) {
@@ -152,7 +158,10 @@ public class ReportManager {
                                                 }
                                             }
                                         } else {
-                                            result = launcher.sendCommand(sendCommandScript.getValue(), commandString, null);
+                                            HashMap<String,Object> scriptParams = new HashMap<>();
+                                            scriptParams.put("command",commandString);
+                                            result = launcher.sendCommand(sendCommandScript.getValue(), scriptParams);
+
                                             if(result.get("commandResult")!=null){
                                                 File postDiscoveryCommandOutput = new File(postDiscoveryNodeFolder+File.separator+command.getName()+".txt");
                                                 try {
@@ -197,7 +206,7 @@ public class ReportManager {
 
     public static void main(String[] args) throws IOException {
 
-        File projectDir = new File("/Users/niau/trunk");
+        File projectDir = new File("/Users/niau/Projects/netTransformer.back");
         File scriptPath = new File("/postDiscoverer/conf/groovy/");
         ResourceManager resourceManager;
 
@@ -253,8 +262,15 @@ public class ReportManager {
 
         ReportManager reportManager = new ReportManager(reportGenerator, "postDiscoverer/conf/groovy/",projectDir,new File(projectDir,"iTopologyManager/rightClick/conf/xslt/table_creator.xslt"));
         StringBuffer report = null;
+
+        HashMap<String,Object> groovyExecutorParams = new HashMap<String,Object>();
+
+        for (String s : params.keySet()) {
+           groovyExecutorParams.put(s,params.get(s));
+        }
+
         try {
-            report = reportManager.reportExecutor(new File("/Users/niau/trunk/version1/post-discovery"),params);
+            report = reportManager.reportExecutor(new File("/Users/niau/trunk/version1/post-discovery"),groovyExecutorParams);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {

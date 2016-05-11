@@ -147,11 +147,19 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    HashMap<String,Object> groovyExecutorParams = new HashMap<String,Object>();
+
+                    for (String s : params.keySet()) {
+                        groovyExecutorParams.put(s,params.get(s));
+                    }
+
                     try {
-                        reportManager.reportExecutor(new File(labelDirName),params);
+                        reportManager.reportExecutor(new File(labelDirName),groovyExecutorParams);
                     } catch (ParserConfigurationException e) {
                         e.printStackTrace();
                     } catch (SAXException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }

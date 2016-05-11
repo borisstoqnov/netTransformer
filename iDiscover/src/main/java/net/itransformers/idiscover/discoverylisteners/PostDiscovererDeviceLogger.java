@@ -145,7 +145,12 @@ public class PostDiscovererDeviceLogger implements PostDiscoveryListener{
                 public void run() {
                     try {
 
-                        reportManager.reportExecutor(postDiscoveryPath,params);
+                        HashMap<String,Object> groovyExecutorParams = new HashMap<String,Object>();
+
+                        for (String s : params.keySet()) {
+                            groovyExecutorParams.put(s,params.get(s));
+                        }
+                        reportManager.reportExecutor(postDiscoveryPath,groovyExecutorParams);
                     }catch (Exception e){
                        logger.debug("Unable to execute a report for device " + deviceName, e);  //To change body of catch statement use File | Settings | File Templates.
 

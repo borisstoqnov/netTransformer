@@ -78,7 +78,13 @@ public class Main {
 
         ReportManager reportManager = new ReportManager(reportGenerator,"postDiscoverer/conf/groovy/",projectDir,new File(projectDir,"iTopologyManager/rightClick/conf/xslt/table_creator.xslt"));
         try {
-            StringBuffer report = reportManager.reportExecutor(new File("/Users/niau/trunk/version1/post-discovery"),params);
+            HashMap<String,Object> groovyExecutorParams = new HashMap<String,Object>();
+
+            for (String s : params.keySet()) {
+                groovyExecutorParams.put(s,params.get(s));
+            }
+
+            StringBuffer report = reportManager.reportExecutor(new File("/Users/niau/trunk/version1/post-discovery"),groovyExecutorParams);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {

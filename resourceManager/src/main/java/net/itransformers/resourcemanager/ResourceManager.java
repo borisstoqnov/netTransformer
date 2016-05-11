@@ -22,6 +22,7 @@
 package net.itransformers.resourcemanager;
 
 
+import net.itransformers.resourcemanager.config.ConnectionParamsType;
 import net.itransformers.resourcemanager.config.ParamType;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.resourcemanager.config.ResourcesType;
@@ -34,10 +35,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ResourceManager {
     static Logger logger = Logger.getLogger(ResourceManager.class);
@@ -194,6 +192,31 @@ public class ResourceManager {
             logger.debug("match Resource=" + resourceType.getName() + ", device params: " + deviceParams);
         }
         return resourceType;
+    }
+
+
+
+    public ArrayList<ResourceType> findResourcesByConnectionType(String connectionParametersType) {
+        logger.debug("finding resource with connection parameters type: "+connectionParametersType);
+        List<ResourceType> list = resource.getResource();
+        ArrayList<ResourceType> resourceTypes = new ArrayList<>();
+
+
+        for (ResourceType currResourceType : list) {
+
+            List <ConnectionParamsType> connectionParamsTypes = currResourceType.getConnectionParams();
+
+            for (ConnectionParamsType connectionParamsType : connectionParamsTypes) {
+              if(connectionParamsType.getConnectionType().equalsIgnoreCase(connectionParametersType)) {
+                  resourceTypes.add(currResourceType);
+                  break;
+              }
+            }
+
+
+        }
+
+        return resourceTypes;
     }
 
     public ResourceType getResource(String resourceName){

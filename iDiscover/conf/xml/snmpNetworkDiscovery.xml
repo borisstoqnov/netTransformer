@@ -99,7 +99,7 @@
           class="net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder">
         <!--<constructor-arg  name="mibDir" type="file" value="snmptoolkit/mibs"/>-->
         <!--<constructor-arg  name="failOnError" type="boolean" value="true"/>-->
-        <constructor-arg value=".snmptoolkit/mibs"/>
+        <constructor-arg value="snmptoolkit/mibs"/>
         <constructor-arg value="true"/>
     </bean>
 

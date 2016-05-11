@@ -33,6 +33,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,9 @@ public class DiscoveryResourceManager {
         return resourceManager;
     }
 
+    public ArrayList<ResourceType> returnResourcesByConnectionType(String connectionType){
+        return resourceManager.findResourcesByConnectionType(connectionType);
+    }
     public ResourceType returnResourceByParam(Map params){
         return resourceManager.findResource(params);
     }
