@@ -29,7 +29,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 
 
 public class DiffReportMenuHandler implements ActionListener {
@@ -49,7 +52,7 @@ public class DiffReportMenuHandler implements ActionListener {
         final GraphViewerPanel viewerPanel = (GraphViewerPanel) frame.getTabbedPane().getSelectedComponent();
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
 
-        JFrame frame1 = new JFrame(" Graph Diff Statistics ");
+        JFrame frame1 = new JFrame("-------Graph Diff Statistics-------");
         frame1.setSize(600, 400);
         frame1.getContentPane().setLayout(new BorderLayout());
         JTextPane text = new JTextPane();
@@ -66,9 +69,10 @@ public class DiffReportMenuHandler implements ActionListener {
 
         StringBuffer sb = new StringBuffer();
         sb.append("<html>");
-        Map<String,String> addCounter = new HashMap<String, String>();
+        HashSet<String> addCounter = new HashSet<String>();
+
         Map<String,String> changedCounter = new HashMap<String, String>();
-        Map<String,String> removedCounter = new HashMap<String, String>();
+        HashSet<String> removedCounter = new HashSet<String>();
         Map<String,String> changes = new HashMap<String, String>();
 
         for (Iterator iterator = viewerPanel.getCurrentGraph().getVertices().iterator(); iterator.hasNext();) {
@@ -78,16 +82,12 @@ public class DiffReportMenuHandler implements ActionListener {
 
                 String diff = vertexMetadata.get("diff");
                 String diffs = vertexMetadata.get("diffs");
-                String asName = vertexMetadata.get("ASName");
-                String country = vertexMetadata.get("Country");
-                if ("BG".equals(country))
                     if("ADDED".equals(diff)){
-                            addCounter.put(vertex,asName);
+                            addCounter.add(vertex);
                         } else if("REMOVED".equals(diff)){
-                            removedCounter.put(vertex,asName);
+                            removedCounter.add(vertex);
                         } else if("YES".equals(diff)){
-                            changedCounter.put(vertex,asName);
-                            changes.put(vertex+" "+asName,diffs);
+                            changedCounter.put(vertex,diffs);
                         }
                     }
 
@@ -95,21 +95,22 @@ public class DiffReportMenuHandler implements ActionListener {
 
         sb.append("<p><b>Diff counters</b></br>");
         sb.append("<p><b>Node births:</b> "+addCounter.size());
-        for( String node : addCounter.keySet()){
-            sb.append("<p>"+node+": "+addCounter.get(node)+"</p>");
+
+        for( String node : addCounter){
+            sb.append("<p>"+node+"</p>");
         }
         sb.append("<p><b><br>Nodes deads:</b> "+removedCounter.size());
-        for( String node : removedCounter.keySet()){
-            sb.append("<p>"+node+": "+removedCounter.get(node)+"</p>");
+        for( String node : removedCounter){
+            sb.append("<p>"+node+"</p>");
 
         }
 
         sb.append("<p><b><br>Nodes changed:</b> "+changedCounter.size());
 
         sb.append("<p><b>Changes per node</b>");
-        for (String s : changes.keySet()) {
+        for (String s : changedCounter.keySet()) {
             sb.append("<p><b><br>Node: "+s+"</b>");
-            sb.append(changes.get(s));
+            sb.append(changedCounter.get(s));
             sb.append("</p>");
         }
         sb.append("</html>");
