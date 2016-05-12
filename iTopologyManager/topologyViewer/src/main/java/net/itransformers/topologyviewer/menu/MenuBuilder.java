@@ -328,9 +328,7 @@ public class MenuBuilder {
         discovery.add(startDiscovery);
 
 
-//        final JMenuItem startBGPDiscovery = new JMenuItem("Internet BGP Peering");
-//        startBGPDiscovery.addActionListener(new StartBGPDiscoveryMenuHandler(frame));
-//        discovery.add(startBGPDiscovery);
+
 
     }
     private void createPreferencesMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
@@ -440,6 +438,27 @@ public class MenuBuilder {
 
         //configuration.add(discovery);
         configuration.add(bgpPeeringDiscovery);
+
+        final JMenuItem freeGraph = new JMenu("Free Graph");
+        final JMenuItem freeGraphViewerSettingsItem = new JMenuItem("Viewer Configuration Editor");
+        freeGraphViewerSettingsItem.addActionListener(new ConfigMenuHandler(frame));
+
+        freeGraph.add(freeGraphViewerSettingsItem);
+
+        final JMenu freeGraphDiffSettings = new JMenu("Diff Ignored keys Editor");
+
+        final JMenuItem freeGraphIgnoredNodeKeys = new JMenuItem("ignoredNodeKeys");
+
+        freeGraphIgnoredNodeKeys.addActionListener(new EditConfigMenuHandler(frame, "iTopologyManager/topologyViewer/conf/xml/freeGraph/ignored_node_keys.xml"));
+        freeGraphDiffSettings.add(bgpIgnoredNodeKeys);
+
+        final JMenuItem freeGraphIgnoredEdgeKeys = new JMenuItem("ignoredEdgeKeys");
+
+        bgpIgnoredEdgeKeys.addActionListener(new EditConfigMenuHandler(frame, "iTopologyManager/topologyViewer/conf/xml/freeGraph/ignored_edge_keys.xml"));
+        freeGraphDiffSettings.add(freeGraphIgnoredEdgeKeys);
+
+        freeGraph.add(freeGraphDiffSettings);
+        configuration.add(freeGraph);
 
 
 

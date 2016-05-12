@@ -79,7 +79,7 @@ public class NewProjectMenuHandler implements ActionListener {
                 frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/freeGraph/viewer-config.xml"));
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
-                frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
+                frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(5).setEnabled(true);
                 break;
             case ProjectConstants.snmpProjectType:
                 file = new File("netTransformer.pfl");
