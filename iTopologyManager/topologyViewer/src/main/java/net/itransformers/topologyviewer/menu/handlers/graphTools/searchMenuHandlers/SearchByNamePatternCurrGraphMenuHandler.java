@@ -79,6 +79,11 @@ public class SearchByNamePatternCurrGraphMenuHandler implements ActionListener {
                     }
                 }
                 viewerPanel.SetPickedStates(matchedVerteces);
+                if (matchedVerteces.iterator().hasNext()) {
+                    viewerPanel.Animator(matchedVerteces.iterator().next());
+                } else {
+                    JOptionPane.showMessageDialog(frame, "No nodes are found", "Finding nodes", JOptionPane.OK_OPTION);
+                }
             }
         };
         jb.addActionListener(actionListener);

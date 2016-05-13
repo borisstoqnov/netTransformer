@@ -71,6 +71,8 @@ public class GraphDistanceStatisticsMenuHandler implements ActionListener {
         sb.append("Current Graph Number of Edges: " + viewerPanel.getCurrentGraph().getEdgeCount()+"\n");
         sb.append("Entire Graph Number of Nodes: " + viewerPanel.getEntireGraph().getVertexCount()+"\n");
         sb.append("Entire Graph Number of Edges: " + viewerPanel.getEntireGraph().getEdgeCount()+"\n");
+        sb.append("Number of selected Nodes: " + viewerPanel.getPickedVerteces().size()+"\n");
+
 
 //        sb.append(String.format("%s: %2f \n", "Current Graph Diameter", diameterCurrent));
 //        sb.append(String.format("%s: %2f \n", "Entire Graph Diameter", diameterEntire));

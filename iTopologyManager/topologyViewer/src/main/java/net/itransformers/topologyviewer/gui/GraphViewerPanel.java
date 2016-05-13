@@ -471,7 +471,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
             protected void handlePopup(final MouseEvent e) {
                 GraphElementAccessor<String, String> pickSupport = vv.getPickSupport();
 //                final String v = pickSupport.getVertex(vv.getGraphLayout(), e.getX(), e.getY());
-                Collection<String> picked = new HashSet(vv.getPickedVertexState().getPicked());
+                Collection<String> picked = new HashSet(getPickedVerteces());
                 final String[] varr = picked.toArray(new String[picked.size()]);
                 final java.util.List<RightClickItemType> rightClickItem = GraphViewerPanel.this.viewerConfig.getRightClickItem();
                 JPopupMenu popup = new JPopupMenu();
@@ -558,7 +558,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         JButton redraw = new JButton("Redraw Around");
         redraw.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Set<String> pickedVertexes = vv.getPickedVertexState().getPicked();
+                Set<String> pickedVertexes = getPickedVerteces();
                 applyFilter(currentFilter, currentHops, pickedVertexes);
                 if (pickedVertexes.iterator().next() != null) {
                     Animator(pickedVertexes.iterator().next());
@@ -569,6 +569,10 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
             }
         });
         return redraw;
+    }
+
+    public Set<String> getPickedVerteces() {
+        return vv.getPickedVertexState().getPicked();
     }
 
     //TODO
@@ -702,7 +706,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
                 currentFilter = filterName2FilterType.get(filterName);
                 vv.setCurrentFilter(currentFilter);
 //                Set<String> vertexes = new HashSet<String>(currentGraph.getVertices());
-                Set<String> pickedVertexes = vv.getPickedVertexState().getPicked();
+                Set<String> pickedVertexes = getPickedVerteces();
                 if (pickedVertexes != null) {
                     applyFilter(currentFilter, currentHops, pickedVertexes);
                 } else {
