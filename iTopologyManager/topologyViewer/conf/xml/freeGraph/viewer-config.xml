@@ -49,27 +49,25 @@
         <data key="diff">REMOVED</data>
     </edgeColor>
 
-    <icon name="/images/small_greendot.png">
-        <data key="category" matcher="sw">xxx</data>
-    </icon>
 
-    <icon name="/images/red_dot.png.png,/images/circle_red.png">
-        <data key="category" matcher="sw">xxx</data>
+
+    <icon name="/images/small_orange_dot.png,/images/circle_red.png">
+        <data key="category" matcher="sw">sevone</data>
         <data key="diff">REMOVED</data>
     </icon>
-    <icon name="/images/green.png,/images/circle_green.png">
-        <data key="category" matcher="sw">xxx</data>
+    <icon name="/images/small_orange_dot.png,/images/circle_green.png">
+        <data key="category" matcher="sw">sevone</data>
         <data key="diff">ADDED</data>
     </icon>
-    <icon name="/images/blue_dot.png,/images/circle_blue.png">
-        <data key="category" matcher="sw">xxx</data>
+    <icon name="/images/small_orange_dot.png,/images/circle_blue.png">
+        <data key="category" matcher="sw">sevone</data>
         <data key="diff">YES</data>
     </icon>
 
     <icon name="/images/small_red_dot.png,/images/circle_red.png">
         <data key="diff">REMOVED</data>
     </icon>
-    <icon name="/images/small_green.png,/images/circle_green.png">
+    <icon name="/images/small_greendot.png,/images/circle_green.png">
         <data key="diff">ADDED</data>
     </icon>
     <icon name="/images/small_blue_dot.png,/images/circle_blue.png">
