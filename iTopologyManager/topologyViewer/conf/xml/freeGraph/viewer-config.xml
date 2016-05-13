@@ -107,6 +107,7 @@
     </rightClickItem>
     <rightClickItem name="ShortestPath" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPath"/>
     <rightClickItem name="TabViewerOpener" handlerClass="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener"/>
+    <rightClickItem name="NodeStatistics" handlerClass="net.itransformers.topologyviewer.rightclick.impl.NodeStatisticsRightClickHandler"/>
     <!--rightClickItem name="GraphmlEditor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
             <param name="type">graphml</param>
     </rightClickItem-->
