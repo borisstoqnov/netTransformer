@@ -45,7 +45,7 @@
     <edgeColor value="488214">
         <data key="diff">ADDED</data>
     </edgeColor>
-    <edgeColor value="00E100">
+    <edgeColor value="e10000">
         <data key="diff">REMOVED</data>
     </edgeColor>
 
@@ -73,6 +73,11 @@
     <icon name="/images/small_blue_dot.png,/images/circle_blue.png">
         <data key="diff">YES</data>
     </icon>
+
+    <icon name="/images/small_orange_dot.png">
+        <data key="category" matcher="sw">sevone</data>
+    </icon>
+
 
     <filters>
 

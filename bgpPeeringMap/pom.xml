@@ -44,7 +44,7 @@
         <dependency>
             <groupId>net.itransformers.snmp2xml4j</groupId>
             <artifactId>snmptoolkit</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.3</version>
             <!--Change for new version-->
         </dependency>
         <dependency>
