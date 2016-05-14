@@ -21,6 +21,7 @@
 
 package net.itransformers.topologyviewer.menu.handlers.graphTools;
 
+import edu.uci.ics.jung.algorithms.shortestpath.DistanceStatistics;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
@@ -59,11 +60,11 @@ public class GraphDistanceStatisticsMenuHandler implements ActionListener {
         JTextPane text = new JTextPane();
         text.setEditable(true);
 
-//        double diameterCurrent = DistanceStatistics.diameter(viewerPanel.getCurrentGraph());
-//        double diameterEntire = DistanceStatistics.diameter(viewerPanel.getEntireGraph(), new UnweightedShortestPath(viewerPanel.getEntireGraph()), false);
+         double diameterCurrent = DistanceStatistics.diameter(viewerPanel.getCurrentGraph());
+         double diameterEntire = DistanceStatistics.diameter(viewerPanel.getEntireGraph());
 
 
-        //   Transformer transformer =    DistanceStatistics.averageDistances(viewerPanel.getCurrentGraph(), new UnweightedShortestPath(viewerPanel.getCurrentGraph()));
+      //  Transformer transformer =    DistanceStatistics.averageDistances(viewerPanel.getCurrentGraph(), new UnweightedShortestPath(viewerPanel.getCurrentGraph()));
 
 
         StringBuffer sb = new StringBuffer();
@@ -74,11 +75,11 @@ public class GraphDistanceStatisticsMenuHandler implements ActionListener {
         sb.append("Number of selected Nodes: " + viewerPanel.getPickedVerteces().size()+"\n");
 
 
-//        sb.append(String.format("%s: %2f \n", "Current Graph Diameter", diameterCurrent));
-//        sb.append(String.format("%s: %2f \n", "Entire Graph Diameter", diameterEntire));
-        //sb.append(transformer.toString());
+        sb.append(String.format("%s: %2f \n", "Current Graph Diameter", diameterCurrent));
+        sb.append(String.format("%s: %2f \n", "Entire Graph Diameter", diameterEntire));
+     //   sb.append(transformer.toString());
 
-        //  sb.append(String.format("%s: %2f \n", "AverageDistances",DistanceStatistics.averageDistances(viewerPanel.getCurrentGraph())));
+//        sb.append(String.format("%s: %2f \n", "AverageDistances",DistanceStatistics.averageDistances(viewerPanel.getCurrentGraph())));
 
 
         text.setText(sb.toString());
