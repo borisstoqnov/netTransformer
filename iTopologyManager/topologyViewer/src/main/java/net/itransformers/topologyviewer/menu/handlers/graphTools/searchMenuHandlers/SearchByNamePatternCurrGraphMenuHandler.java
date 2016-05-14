@@ -35,6 +35,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -70,7 +71,14 @@ public class SearchByNamePatternCurrGraphMenuHandler implements ActionListener {
         final ActionListener actionListener = new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 String vertexNamePattern = jt.getText();
-                Pattern p = Pattern.compile(vertexNamePattern);
+                Pattern p;
+                try {
+                    p = Pattern.compile(vertexNamePattern);
+                } catch (PatternSyntaxException ex) {
+                    JOptionPane.showMessageDialog(frame, "Invalid regex: '"+vertexNamePattern+"', error: "+ex.getMessage(),
+                            "Finding nodes", JOptionPane.ERROR_MESSAGE);
+                    return ;
+                }
                 Collection verteces = viewerPanel.getCurrentGraph().getVertices();
                 Set<String> matchedVerteces = new HashSet<>();
                 for (Object vertex : verteces){
