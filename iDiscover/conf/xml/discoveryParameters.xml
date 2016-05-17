@@ -105,7 +105,7 @@
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="CISCO">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,
-            dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifName,CdpCacheEntry,lldpRemoteSystemsData
+            dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifName,cdpCacheEntry,lldpRemoteSystemsData
         </general>
         <discovery-method name="NEXT_HOP">
             ipRouteEntry,inetCidrRouteType, inetCidrRouteIfIndex, inetCidrRouteNextHop, inetCidrRouteProto, inetCidrRouteNextHopAS
