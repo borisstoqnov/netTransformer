@@ -36,6 +36,7 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     protected Map<ConnectionDetails, Set<String>> neighbourToParentNodesMap = new HashMap<ConnectionDetails, Set<String>>();
     protected Map<String, Set<ConnectionDetails>> nodeToNeighboursMap = new HashMap<String, Set<ConnectionDetails>>();
     protected final Map<String, Node> nodes = new HashMap<String, Node>();
+    protected Map<String, NodeDiscoveryResult> nodeDiscoveryResultMap= new HashMap<String, NodeDiscoveryResult>();
 
     public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList) {
         return discoverNetwork(connectionDetailsList, -1);
@@ -75,17 +76,18 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     }
 
 
-    public void fireNodeNotDiscoveredEvent(ConnectionDetails connectionDetails) {
+    public synchronized void fireNodeNotDiscoveredEvent(ConnectionDetails connectionDetails) {
         handleNodeDiscoveredOrNotDiscoveredEvent(connectionDetails);
     }
 
-    public void fireNodeDiscoveredEvent(ConnectionDetails connectionDetails, NodeDiscoveryResult discoveryResult) {
+    public synchronized void fireNodeDiscoveredEvent(ConnectionDetails connectionDetails, NodeDiscoveryResult discoveryResult) {
         String nodeId = discoveryResult.getNodeId();
         Set<ConnectionDetails> neighbourConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
         if (nodeToNeighboursMap.containsKey(nodeId)) {
             throw new RuntimeException("Node is already discovered: nodeId=" + nodeId);
         }
         nodeToNeighboursMap.put(nodeId, neighbourConnectionDetails);
+        nodeDiscoveryResultMap.put(nodeId,discoveryResult);
         for (ConnectionDetails neighboutConnectionDetails : neighbourConnectionDetails) {
             Set<String> parentNodes = neighbourToParentNodesMap.get(neighboutConnectionDetails);
             if (parentNodes == null) {
@@ -104,22 +106,24 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     }
 
 
-    protected void handleNodeDiscoveredOrNotDiscoveredEvent(ConnectionDetails connectionDetails) {
+    private void handleNodeDiscoveredOrNotDiscoveredEvent(ConnectionDetails connectionDetails) {
         Set<String> parentNodeIds = neighbourToParentNodesMap.get(connectionDetails);
         for (String parentNodeId : parentNodeIds) {
             Set<ConnectionDetails> neigboursConnectionDetails = nodeToNeighboursMap.get(parentNodeId);
             neigboursConnectionDetails.remove(connectionDetails);
             if (neigboursConnectionDetails.isEmpty()) {
-                fireNeighboursDiscoveredEvent(parentNodeId);
+                NodeDiscoveryResult nodeDiscoveryResult = nodeDiscoveryResultMap.remove(parentNodeId);
+                fireNeighboursDiscoveredEvent(nodeDiscoveryResult);
             }
         }
     }
 
-    protected void fireNeighboursDiscoveredEvent(String nodeId) {
+    private void fireNeighboursDiscoveredEvent(NodeDiscoveryResult nodeDiscoveryResult) {
+        String nodeId = nodeDiscoveryResult.getNodeId();
         if (nodeDiscoveryListeners != null){
             Node node = nodes.get(nodeId);
             for (NodeNeighboursDiscoveryListener nodeNeighboursDiscoveryListener: nodeNeighbourDiscoveryListeners){
-                nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node);
+                nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node, nodeDiscoveryResult);
             }
         }
     }
