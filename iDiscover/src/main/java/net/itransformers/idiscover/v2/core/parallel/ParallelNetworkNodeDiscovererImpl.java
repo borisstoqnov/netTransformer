@@ -33,12 +33,11 @@ import java.util.concurrent.*;
 public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer implements DiscoveryWorkerContext {
     static Logger logger = Logger.getLogger(ParallelNetworkNodeDiscovererImpl.class);
 
-    private final Map<String, Node> nodes = new HashMap<String, Node>();
     private Set<ConnectionDetails> usedConnectionDetails = new HashSet<ConnectionDetails>();
 
     ForkJoinPool pool = new ForkJoinPool();
 
-    public NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList, int depth) {
+    public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth) {
         nodes.clear();
         List<DiscoveryWorker> discoveryWorkerList = new ArrayList<DiscoveryWorker>();
         for (ConnectionDetails connectionDetails : connectionDetailsList) {

@@ -24,6 +24,7 @@ package net.itransformers.idiscover.v2.core;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -37,7 +38,7 @@ public abstract class ANetworkDiscoverer implements NetworkDiscoverer  {
 
     protected NodeDiscoverFilter nodeDiscoverFilter;
 
-    public NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList) {
+    public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList) {
         return discoverNetwork(connectionDetailsList, -1);
     }
 

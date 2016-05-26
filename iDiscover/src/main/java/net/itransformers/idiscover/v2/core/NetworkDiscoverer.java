@@ -24,9 +24,10 @@ package net.itransformers.idiscover.v2.core;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 
 import java.util.List;
+import java.util.Set;
 
 public interface NetworkDiscoverer  {
-    NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList);
-    NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList, int depth);
+    NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList);
+    NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth);
     void setNetworkDiscoveryListeners(List<NetworkDiscoveryListener> networkDiscoveryListeners);
     }

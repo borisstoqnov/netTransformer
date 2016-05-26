@@ -25,26 +25,13 @@ import java.util.*;
 
 public class Node {
     String id;
-    List<ConnectionDetails> connectionDetailsList;
     Set<Node> neighbours = new HashSet<Node>();
 
-    public Node(String id, ConnectionDetails connectionDetails) {
+    public Node(String id) {
         this.id = id;
-        this.connectionDetailsList = new ArrayList<ConnectionDetails>();
-        this.connectionDetailsList.add(connectionDetails);
     }
-
-    public Node(String id, List<ConnectionDetails> connectionDetailsList) {
-        this.id = id;
-        this.connectionDetailsList = connectionDetailsList;
-    }
-
     public String getId() {
         return id;
-    }
-
-    public List<ConnectionDetails> getConnectionDetailsList() {
-        return Collections.unmodifiableList(connectionDetailsList);
     }
 
     public void addNeighbour(Node neighbour){
@@ -64,7 +51,6 @@ public class Node {
         }
         return "Node{" +
                 "id='" + id + '\'' +
-                ", connectionDetailsList=" + connectionDetailsList +
                 String.format(", neighbours=[%s]",neighboursStr.toString())+
                 '}';
     }

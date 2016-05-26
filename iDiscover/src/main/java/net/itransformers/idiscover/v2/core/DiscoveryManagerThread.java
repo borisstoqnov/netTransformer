@@ -30,6 +30,7 @@ import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class DiscoveryManagerThread extends Thread {
         try {
             logger.debug("Thread started");
             fireEvent(DiscoveryManagerEvent.STARTED);
-            nodeDiscovererImpl.discoverNetwork(new ArrayList<ConnectionDetails>(connectionDetails.values()), depth);
+            nodeDiscovererImpl.discoverNetwork(new HashSet<ConnectionDetails>(connectionDetails.values()), depth);
             fireEvent(DiscoveryManagerEvent.STOPPED);
         } catch (Exception e) {
             logger.error(e.getMessage(),e);

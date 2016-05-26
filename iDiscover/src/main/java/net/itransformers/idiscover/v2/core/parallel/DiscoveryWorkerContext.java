@@ -12,7 +12,8 @@ import java.util.Set;
  * Created by Vasil Yordanov on 1/9/2016.
  */
 public interface DiscoveryWorkerContext {
-    void fireNodeDiscoveredEvent(NodeDiscoveryResult nodeDiscoveryResult);
+    void fireNodeDiscoveredEvent(ConnectionDetails connectionDetails, NodeDiscoveryResult nodeDiscoveryResult);
+    void fireNodeNotDiscoveredEvent(ConnectionDetails connectionDetails);
 
     Map<String, Node> getNodes();
     Set<ConnectionDetails> getUsedConnectionDetails();

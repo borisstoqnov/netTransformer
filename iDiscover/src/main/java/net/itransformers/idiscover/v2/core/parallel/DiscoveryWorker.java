@@ -41,11 +41,12 @@ public class DiscoveryWorker extends RecursiveAction {
         if (discoveryResult == null) {
             logger.debug("No node is discovered for connDetails: " + connectionDetails);
             logger.debug("Discovery worker: " + Thread.currentThread().getName() + " finished. connectionDetails = " + connectionDetails);
+            context.fireNodeNotDiscoveredEvent(connectionDetails);
             return;
         }
 
         String nodeId = discoveryResult.getNodeId();
-        Node currentNode = new Node(nodeId, connectionDetails);
+        Node currentNode = new Node(nodeId);
         synchronized (context.getNodes()) {
             if (context.getNodes().containsKey(nodeId)) {
                 logger.debug("Node is already discovered, nodeId=" + nodeId);
@@ -58,13 +59,13 @@ public class DiscoveryWorker extends RecursiveAction {
             }
             context.getNodes().put(nodeId, currentNode);
         }
-        context.fireNodeDiscoveredEvent(discoveryResult);
-        List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
+        context.fireNodeDiscoveredEvent(this.connectionDetails, discoveryResult);
+        Set<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
         logger.debug("Found " + neighboursConnectionDetails.size() + " neighbour nodes of node '" + nodeId + "', connection details: " + neighboursConnectionDetails);
         List<DiscoveryWorker> discoveryWorkerList = new ArrayList<DiscoveryWorker>();
         for (ConnectionDetails connDetails : neighboursConnectionDetails) {
-            Set<ConnectionDetails> usedConnectionDetails = context.getUsedConnectionDetails();
-            synchronized (usedConnectionDetails) {
+            synchronized (context.getUsedConnectionDetails()) {
+                Set<ConnectionDetails> usedConnectionDetails = context.getUsedConnectionDetails();
                 if (!usedConnectionDetails.contains(connDetails)) {
                     usedConnectionDetails.add(connDetails);
                     discoveryWorkerList.add(new DiscoveryWorker(connDetails, currentNode, level, context));

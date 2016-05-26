@@ -31,9 +31,9 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     private boolean isPaused;
     private boolean isStopped;
 
-    public NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList, int depth) {
+    public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth) {
         isRunning = true;
-        Map<String, Node> nodes = new HashMap<String, Node>();
+
         NetworkDiscoveryResult result = new NetworkDiscoveryResult();
         doDiscoverNodes(connectionDetailsList, nodes, null, 0, depth, result);
         result.setNodes(nodes);
@@ -42,7 +42,7 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         return result;
     }
 
-    void doDiscoverNodes(List<ConnectionDetails> connectionDetailsList, Map<String, Node> nodes,
+    void doDiscoverNodes(Set<ConnectionDetails> connectionDetailsList, Map<String, Node> nodes,
                          Node initialNode, int level, int depth, NetworkDiscoveryResult result) {
 
 
@@ -74,20 +74,21 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
                 if (discoveryResult == null){
                     logger.debug("No discovery result for "+ nodeId);
+                    fireNodeNotDiscoveredEvent(connectionDetails);
                     continue;
                 }
 
-                fireNodeDiscoveredEvent(discoveryResult);
+                fireNodeDiscoveredEvent(connectionDetails,discoveryResult);
 
                 if (nodeId ==null) nodeId = discoveryResult.getNodeId();
-                Node currentNode = new Node(nodeId, Arrays.asList(connectionDetails));
+                Node currentNode = new Node(nodeId);
                 nodes.put(nodeId, currentNode);
 
                 if (initialNode != null){
                     logger.debug("initialNode: "+initialNode.getId());
                     initialNode.addNeighbour(currentNode);
                 }
-                List<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
+                Set<ConnectionDetails> neighboursConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
                 logger.debug("Found Neighbours, connection details: " + neighboursConnectionDetails);
                 if (neighboursConnectionDetails != null) {
                     doDiscoverNodes(neighboursConnectionDetails, nodes, currentNode, level + 1, depth, result);

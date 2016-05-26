@@ -35,6 +35,7 @@ import org.javamrt.dumper.structures.ASContainer;
 import java.io.*;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 //         com.sun.jersey.api.client.Client;
 //import com.sun.jersey.api.client.ClientResponse;
@@ -53,7 +54,7 @@ public class BGPMapNetworkDiscoverer extends ANetworkDiscoverer {
 
 
     @Override
-    public NetworkDiscoveryResult discoverNetwork(List<ConnectionDetails> connectionDetailsList,int depth) {
+    public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList,int depth) {
         NetworkDiscoveryResult result = new NetworkDiscoveryResult();
 
         for (ConnectionDetails connectionDetails : connectionDetailsList) {

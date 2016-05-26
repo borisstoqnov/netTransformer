@@ -29,6 +29,7 @@ import org.apache.log4j.Logger;
 import java.io.*;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by niau on 4/25/15.
@@ -49,7 +50,7 @@ public class ConnectionDetailsListener implements NodeDiscoveryListener {
             out = new PrintWriter(new BufferedWriter(new FileWriter(connectionDetailsFile, true)));
 
 
-            List<ConnectionDetails> neighboursConnDetails = discoveryResult.getNeighboursConnectionDetails();
+            Set<ConnectionDetails> neighboursConnDetails = discoveryResult.getNeighboursConnectionDetails();
             for (ConnectionDetails neighboursConnDetail : neighboursConnDetails) {
                 StringBuffer connDetails = new StringBuffer();
                 String connectionDetailsType = neighboursConnDetail.getConnectionType();

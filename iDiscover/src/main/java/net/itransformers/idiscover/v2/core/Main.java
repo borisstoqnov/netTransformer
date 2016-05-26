@@ -72,7 +72,7 @@ public class Main {
         NetworkDiscoverer discoverer = applicationContext.getBean("parallelSnmpDiscovery", NetworkDiscoverer.class);
         LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", conDetails);
         int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1" : depthCmdArg);
-        NetworkDiscoveryResult result = discoverer.discoverNetwork(new ArrayList<ConnectionDetails>(connectionList.values()), depth);
+        NetworkDiscoveryResult result = discoverer.discoverNetwork(new HashSet<ConnectionDetails>(connectionList.values()), depth);
 
 
         if(result!=null) {
@@ -102,7 +102,9 @@ public class Main {
         connectionDetails.put("max-repetitions","65535");
         connectionDetails.put("mibDir","snmptoolkit/mibs");
         int depth = 10;
-        NetworkDiscoveryResult result = nodeDiscovererImpl.discoverNetwork(Arrays.asList(connectionDetails), depth);
+        Set<ConnectionDetails> connectionDetailsSet = new HashSet<ConnectionDetails>();
+        connectionDetailsSet.add(connectionDetails);
+        NetworkDiscoveryResult result = nodeDiscovererImpl.discoverNetwork(connectionDetailsSet, depth);
 
         System.out.println(result);
     }
@@ -130,7 +132,10 @@ public class Main {
         connectionDetails.put("max-repetitions","65535");
         connectionDetails.put("mibDir","snmptoolkit/mibs");
         NetworkNodeDiscovererImpl nodeDiscovererImpl = new NetworkNodeDiscovererImpl();
-        NetworkDiscoveryResult result = nodeDiscovererImpl.discoverNetwork(Arrays.asList(connectionDetails));
+
+        Set<ConnectionDetails> connectionDetailsSet = new HashSet<ConnectionDetails>();
+        connectionDetailsSet.add(connectionDetails);
+        NetworkDiscoveryResult result = nodeDiscovererImpl.discoverNetwork(connectionDetailsSet);
         System.out.println(result);
     }
     private static void printUsage(String param){

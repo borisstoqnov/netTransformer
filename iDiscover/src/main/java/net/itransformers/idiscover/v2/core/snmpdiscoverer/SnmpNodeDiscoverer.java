@@ -36,10 +36,7 @@ import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SnmpNodeDiscoverer implements NodeDiscoverer {
     static Logger logger = Logger.getLogger(SnmpNodeDiscoverer.class);
@@ -183,7 +180,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         Device device = discoveryHelper.createDevice(discoveredDeviceData);
 
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
-        List<ConnectionDetails> neighboursConnDetails = null;
+        Set<ConnectionDetails> neighboursConnDetails = null;
         if (neighbours != null) {
             neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
             result.setNeighboursConnectionDetails(neighboursConnDetails);
@@ -391,8 +388,8 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 //        return result;
 //    }
 
-    private List<ConnectionDetails> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
-        List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
+    private Set<ConnectionDetails> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
+        Set<ConnectionDetails> neighboursConnDetails = new HashSet<ConnectionDetails>();
         for (DeviceNeighbour neighbour : neighbours) {
             ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
             String ipAddress = neighbour.getIpAddress();
