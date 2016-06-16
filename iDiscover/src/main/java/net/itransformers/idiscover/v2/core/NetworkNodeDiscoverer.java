@@ -76,11 +76,11 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     }
 
 
-    public synchronized void fireNodeNotDiscoveredEvent(ConnectionDetails connectionDetails) {
+    public void fireNodeNotDiscoveredEvent(ConnectionDetails connectionDetails) {
         handleNodeDiscoveredOrNotDiscoveredEvent(connectionDetails);
     }
 
-    public synchronized void fireNodeDiscoveredEvent(ConnectionDetails connectionDetails, NodeDiscoveryResult discoveryResult) {
+    public void fireNodeDiscoveredEvent(ConnectionDetails connectionDetails, NodeDiscoveryResult discoveryResult) {
         String nodeId = discoveryResult.getNodeId();
         Set<ConnectionDetails> neighbourConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
         if (nodeToNeighboursMap.containsKey(nodeId)) {
@@ -108,22 +108,24 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
 
     private void handleNodeDiscoveredOrNotDiscoveredEvent(ConnectionDetails connectionDetails) {
         Set<String> parentNodeIds = neighbourToParentNodesMap.get(connectionDetails);
-        for (String parentNodeId : parentNodeIds) {
-            Set<ConnectionDetails> neigboursConnectionDetails = nodeToNeighboursMap.get(parentNodeId);
-            neigboursConnectionDetails.remove(connectionDetails);
-            if (neigboursConnectionDetails.isEmpty()) {
-                NodeDiscoveryResult nodeDiscoveryResult = nodeDiscoveryResultMap.remove(parentNodeId);
-                fireNeighboursDiscoveredEvent(nodeDiscoveryResult);
+        if (parentNodeIds!=null) {
+
+            for (String parentNodeId : parentNodeIds) {
+                Set<ConnectionDetails> neigboursConnectionDetails = nodeToNeighboursMap.get(parentNodeId);
+                neigboursConnectionDetails.remove(connectionDetails);
+                if (neigboursConnectionDetails.isEmpty()) {
+                    NodeDiscoveryResult nodeDiscoveryResult = nodeDiscoveryResultMap.remove(parentNodeId);
+                    fireNeighboursDiscoveredEvent(nodeDiscoveryResult);
+                }
             }
-        }
+        }    
     }
 
-    private void fireNeighboursDiscoveredEvent(NodeDiscoveryResult nodeDiscoveryResult) {
-        String nodeId = nodeDiscoveryResult.getNodeId();
-        if (nodeNeighbourDiscoveryListeners != null){
+    protected void fireNeighboursDiscoveredEvent(String nodeId) {
+        if (nodeDiscoveryListeners != null){
             Node node = nodes.get(nodeId);
             for (NodeNeighboursDiscoveryListener nodeNeighboursDiscoveryListener: nodeNeighbourDiscoveryListeners){
-                nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node, nodeDiscoveryResult);
+                nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node);
             }
         }
     }
