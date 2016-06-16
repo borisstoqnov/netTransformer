@@ -49,6 +49,7 @@ public class NodeDiscoveryResult {
     String nodeId;
     Set<ConnectionDetails> neighboursConnectionDetails;
     Map<String,Object> discoveredData = new HashMap<String,Object>();
+//    Do we need this?
     Map<String, String> connParams;
 
     public String getNodeId() {

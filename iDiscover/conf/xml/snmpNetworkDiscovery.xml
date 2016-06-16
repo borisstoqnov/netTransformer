@@ -78,6 +78,13 @@
                 <ref bean="GraphmlFileLogGroovyDiscoveryListener"/>
             </list>
         </property>
+        <property name="nodeNeighbourDiscoveryListeners">
+            <list>
+                <ref bean="simpleNodeNeighbourDiscoveryListener"/>
+                <!--<ref bean="PostNetworkDiscoveryListener"/>-->
+
+            </list>
+        </property>
         <property name="networkDiscoveryListeners">
             <list>
                 <ref bean="SnmpNetworkDiscoveryListener"/>

@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Created by niau on 1/7/16.
+ * @deprecated
  */
 public class SampleNeighborDiscoveryListener implements NeighborDiscoveryListener {
     static Logger logger = Logger.getLogger(SampleNodeDiscoveryListener.class);

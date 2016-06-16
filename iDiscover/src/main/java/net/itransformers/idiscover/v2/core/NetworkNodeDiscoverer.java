@@ -120,7 +120,7 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
 
     private void fireNeighboursDiscoveredEvent(NodeDiscoveryResult nodeDiscoveryResult) {
         String nodeId = nodeDiscoveryResult.getNodeId();
-        if (nodeDiscoveryListeners != null){
+        if (nodeNeighbourDiscoveryListeners != null){
             Node node = nodes.get(nodeId);
             for (NodeNeighboursDiscoveryListener nodeNeighboursDiscoveryListener: nodeNeighbourDiscoveryListeners){
                 nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node, nodeDiscoveryResult);
