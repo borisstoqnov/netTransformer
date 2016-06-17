@@ -19,7 +19,7 @@ public class DiscoveryWorker extends RecursiveAction {
     private ConnectionDetails connectionDetails;
     private Node parentNode;
     private int level;
-    private DiscoveryWorkerContext context;
+    private final DiscoveryWorkerContext context;
 
     public DiscoveryWorker(ConnectionDetails connectionDetails, Node parentNode, int level, DiscoveryWorkerContext context) {
         // clone connection details to avoid problems due to later modification of connection details in match or discover methods invoked in discovery worker
@@ -47,7 +47,7 @@ public class DiscoveryWorker extends RecursiveAction {
 
         String nodeId = discoveryResult.getNodeId();
         Node currentNode = new Node(nodeId);
-        synchronized (context.getNodes()) {
+        synchronized (context) {
             if (context.getNodes().containsKey(nodeId)) {
                 logger.debug("Node is already discovered, nodeId=" + nodeId);
                 logger.debug("Discovery worker: " + Thread.currentThread().getName() + " finished. connectionDetails = " + connectionDetails);
@@ -64,10 +64,14 @@ public class DiscoveryWorker extends RecursiveAction {
         logger.debug("Found " + neighboursConnectionDetails.size() + " neighbour nodes of node '" + nodeId + "', connection details: " + neighboursConnectionDetails);
         List<DiscoveryWorker> discoveryWorkerList = new ArrayList<DiscoveryWorker>();
         for (ConnectionDetails connDetails : neighboursConnectionDetails) {
-            synchronized (context.getUsedConnectionDetails()) {
-                Set<ConnectionDetails> usedConnectionDetails = context.getUsedConnectionDetails();
-                if (!usedConnectionDetails.contains(connDetails)) {
-                    usedConnectionDetails.add(connDetails);
+            synchronized (context) {
+                Set<ConnectionDetails> discoveringConnectionDetails = context.getDiscoveringConnectionDetails();
+                Set<ConnectionDetails> discoveredConnectionDetails = context.getDiscoveredConnectionDetails();
+                Set<ConnectionDetails> notDiscoveredConnectionDetails = context.getNotDiscoveredConnectionDetails();
+                if (!discoveringConnectionDetails.contains(connDetails) ||
+                        !discoveredConnectionDetails.contains(connDetails) ||
+                        !notDiscoveredConnectionDetails.contains(connDetails)) {
+                    discoveringConnectionDetails.add(connDetails);
                     discoveryWorkerList.add(new DiscoveryWorker(connDetails, currentNode, level, context));
                 }
             }

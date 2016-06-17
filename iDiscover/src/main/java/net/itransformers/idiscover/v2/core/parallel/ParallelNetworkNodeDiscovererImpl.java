@@ -33,7 +33,6 @@ import java.util.concurrent.*;
 public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer implements DiscoveryWorkerContext {
     static Logger logger = Logger.getLogger(ParallelNetworkNodeDiscovererImpl.class);
 
-    private Set<ConnectionDetails> usedConnectionDetails = new HashSet<ConnectionDetails>();
 
     ForkJoinPool pool = new ForkJoinPool();
 
@@ -41,7 +40,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer imp
         nodes.clear();
         List<DiscoveryWorker> discoveryWorkerList = new ArrayList<DiscoveryWorker>();
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
-            usedConnectionDetails.add(connectionDetails);
+            discoveringConnectionDetails.add(connectionDetails);
             DiscoveryWorker discoveryWork = new DiscoveryWorker(connectionDetails, null, 1, this);
             discoveryWorkerList.add(discoveryWork);
         }
@@ -76,8 +75,4 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer imp
         return nodeDiscoverers.get(connectionType);
     }
 
-    @Override
-    public Set<ConnectionDetails> getUsedConnectionDetails() {
-        return usedConnectionDetails;
-    }
 }

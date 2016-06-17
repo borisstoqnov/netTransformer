@@ -3,11 +3,13 @@ package net.itransformers.idiscover.v2.core.listeners.neighbor;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.NodeNeighboursDiscoveryListener;
 import net.itransformers.idiscover.v2.core.model.Node;
+import org.apache.log4j.Logger;
 
 /**
  * Created by vasko on 16.06.16.
  */
 public class SimpleNodeNeighbourDiscoveryListener implements NodeNeighboursDiscoveryListener {
+    static Logger logger = Logger.getLogger(SimpleNodeNeighbourDiscoveryListener.class);
     @Override
     public void handleNodeNeighboursDiscovered(Node node, NodeDiscoveryResult nodeDiscoveryResult) {
         StringBuilder sb = new StringBuilder();
@@ -20,7 +22,7 @@ public class SimpleNodeNeighbourDiscoveryListener implements NodeNeighboursDisco
             sb.append(",");
         }
         sb.append(")");
-        System.out.println(sb.toString());
+        logger.info(sb.toString());
 
     }
 }

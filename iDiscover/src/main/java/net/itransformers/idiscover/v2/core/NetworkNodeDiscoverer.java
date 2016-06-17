@@ -38,6 +38,10 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     protected final Map<String, Node> nodes = new HashMap<String, Node>();
     protected Map<String, NodeDiscoveryResult> nodeDiscoveryResultMap= new HashMap<String, NodeDiscoveryResult>();
 
+    protected Set<ConnectionDetails> discoveringConnectionDetails = new HashSet<ConnectionDetails>();
+    protected Set<ConnectionDetails> discoveredConnectionDetails = new HashSet<ConnectionDetails>();
+    protected Set<ConnectionDetails> notDiscoveredConnectionDetails = new HashSet<ConnectionDetails>();
+
     public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList) {
         return discoverNetwork(connectionDetailsList, -1);
     }
@@ -75,24 +79,56 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
         this.networkDiscoveryListeners = networkDiscoveryListeners;
     }
 
+    public Set<ConnectionDetails> getDiscoveringConnectionDetails() {
+        return discoveringConnectionDetails;
+    }
 
-    public void fireNodeNotDiscoveredEvent(ConnectionDetails connectionDetails) {
+    public void setDiscoveringConnectionDetails(Set<ConnectionDetails> discoveringConnectionDetails) {
+        this.discoveringConnectionDetails = discoveringConnectionDetails;
+    }
+
+    public Set<ConnectionDetails> getDiscoveredConnectionDetails() {
+        return discoveredConnectionDetails;
+    }
+
+    public void setDiscoveredConnectionDetails(Set<ConnectionDetails> discoveredConnectionDetails) {
+        this.discoveredConnectionDetails = discoveredConnectionDetails;
+    }
+
+    public Set<ConnectionDetails> getNotDiscoveredConnectionDetails() {
+        return notDiscoveredConnectionDetails;
+    }
+
+    public void setNotDiscoveredConnectionDetails(Set<ConnectionDetails> notDiscoveredConnectionDetails) {
+        this.notDiscoveredConnectionDetails = notDiscoveredConnectionDetails;
+    }
+
+    public synchronized void fireNodeNotDiscoveredEvent(ConnectionDetails connectionDetails) {
+        notDiscoveredConnectionDetails.add(connectionDetails);
+        discoveringConnectionDetails.remove(connectionDetails);
         handleNodeDiscoveredOrNotDiscoveredEvent(connectionDetails);
     }
 
-    public void fireNodeDiscoveredEvent(ConnectionDetails connectionDetails, NodeDiscoveryResult discoveryResult) {
+    public synchronized void fireNodeDiscoveredEvent(ConnectionDetails connectionDetails, NodeDiscoveryResult discoveryResult) {
+        discoveredConnectionDetails.add(connectionDetails);
+        discoveringConnectionDetails.remove(connectionDetails);
         String nodeId = discoveryResult.getNodeId();
         Set<ConnectionDetails> neighbourConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
         if (nodeToNeighboursMap.containsKey(nodeId)) {
             throw new RuntimeException("Node is already discovered: nodeId=" + nodeId);
         }
-        nodeToNeighboursMap.put(nodeId, neighbourConnectionDetails);
+        HashSet<ConnectionDetails> neighbourConnectionDetailsCopy = new HashSet<ConnectionDetails>();
+        neighbourConnectionDetailsCopy.addAll(neighbourConnectionDetails);
+        neighbourConnectionDetailsCopy.removeAll(discoveredConnectionDetails);
+        neighbourConnectionDetailsCopy.removeAll(notDiscoveredConnectionDetails);
+
+        nodeToNeighboursMap.put(nodeId, neighbourConnectionDetailsCopy);
         nodeDiscoveryResultMap.put(nodeId,discoveryResult);
-        for (ConnectionDetails neighboutConnectionDetails : neighbourConnectionDetails) {
-            Set<String> parentNodes = neighbourToParentNodesMap.get(neighboutConnectionDetails);
+        for (ConnectionDetails neighbourConnectionDetail : neighbourConnectionDetails) {
+            Set<String> parentNodes = neighbourToParentNodesMap.get(neighbourConnectionDetail);
             if (parentNodes == null) {
                 parentNodes = new HashSet<String>();
-                neighbourToParentNodesMap.put(neighboutConnectionDetails, parentNodes);
+                neighbourToParentNodesMap.put(neighbourConnectionDetail, parentNodes);
             }
             parentNodes.add(nodeId);
         }
@@ -121,11 +157,21 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
         }    
     }
 
-    protected void fireNeighboursDiscoveredEvent(String nodeId) {
+    protected void fireNeighboursDiscoveredEvent(final NodeDiscoveryResult nodeDiscoveryResult) {
         if (nodeDiscoveryListeners != null){
-            Node node = nodes.get(nodeId);
-            for (NodeNeighboursDiscoveryListener nodeNeighboursDiscoveryListener: nodeNeighbourDiscoveryListeners){
-                nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node);
+            String nodeId = nodeDiscoveryResult.getNodeId();
+            final Node node = nodes.get(nodeId);
+            for (final NodeNeighboursDiscoveryListener nodeNeighboursDiscoveryListener: nodeNeighbourDiscoveryListeners){
+
+                // Fire this event in a new thread, so that the other workers will not be blocked by the thread
+                // that is holding this object lock and working on event processing.
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node, nodeDiscoveryResult);
+                    }
+                }).start();
+
             }
         }
     }

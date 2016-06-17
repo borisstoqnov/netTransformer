@@ -16,6 +16,11 @@ public interface DiscoveryWorkerContext {
     void fireNodeNotDiscoveredEvent(ConnectionDetails connectionDetails);
 
     Map<String, Node> getNodes();
-    Set<ConnectionDetails> getUsedConnectionDetails();
     NodeDiscoverer getNodeDiscoverer(String connectionType);
+
+    Set<ConnectionDetails> getDiscoveringConnectionDetails();
+
+    Set<ConnectionDetails> getDiscoveredConnectionDetails();
+
+    Set<ConnectionDetails> getNotDiscoveredConnectionDetails();
 }
