@@ -2,12 +2,26 @@ package net.itransformers.idiscover.v2.core.ipnetwork;
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 
+import java.util.Map;
+
 /**
  * Created by Vasil Yordanov on 26-May-16.
  */
 public class IPNetConnectionDetails extends ConnectionDetails{
 
     public static final String IP_ADDRESS_PARAM_KEY = "ipAddress";
+
+    public IPNetConnectionDetails() {
+        super();
+    }
+
+    public IPNetConnectionDetails(String connectionType) {
+        super(connectionType);
+    }
+
+    public IPNetConnectionDetails(String connectionType, Map<String, String> params) {
+        super(connectionType, params);
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -33,4 +47,5 @@ public class IPNetConnectionDetails extends ConnectionDetails{
         }
 
     }
+
 }

@@ -24,7 +24,6 @@
 package net.itransformers.idiscover.v2.core.model;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

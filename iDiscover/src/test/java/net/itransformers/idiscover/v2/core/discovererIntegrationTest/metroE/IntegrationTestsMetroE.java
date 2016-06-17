@@ -28,6 +28,7 @@ import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.networkmodel.ObjectType;
 import net.itransformers.idiscover.networkmodel.ParameterType;
 import net.itransformers.idiscover.util.JaxbMarshalar;
+import net.itransformers.idiscover.v2.core.ipnetwork.IPNetConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.snmpdiscoverer.SnmpNodeDiscoverer;
 import net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder;
@@ -690,7 +691,7 @@ public class IntegrationTestsMetroE {
     private List<ConnectionDetails> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
         List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
         for (DeviceNeighbour neighbour : neighbours) {
-            ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
+            ConnectionDetails neighbourConnectionDetails = new IPNetConnectionDetails();
             neighbourConnectionDetails.put("deviceType",neighbour.getDeviceType());
             if (neighbour.getStatus()){ // if reachable
                 neighbourConnectionDetails.put("deviceName",neighbour.getHostName());

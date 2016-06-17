@@ -21,6 +21,7 @@
 
 package net.itransformers.idiscover.v2.core;
 
+import net.itransformers.idiscover.v2.core.ipnetwork.IPNetConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.apache.commons.io.FileUtils;
 
@@ -72,7 +73,7 @@ public class CsvConnectionDetailsFileManager {
             if (!headerAttributes.containsKey("name")) {
                 throw new RuntimeException("Can not find 'name' attribute in header, for connection details line: "+line);
             }
-            ConnectionDetails details = new ConnectionDetails(headerAttributes.get("type"),attributes);
+            ConnectionDetails details = new IPNetConnectionDetails(headerAttributes.get("type"),attributes);
             result.put(headerAttributes.get("name"),details);
         }
         return result;

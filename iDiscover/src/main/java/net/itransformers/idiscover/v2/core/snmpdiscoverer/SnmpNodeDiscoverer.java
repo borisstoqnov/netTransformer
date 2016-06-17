@@ -28,6 +28,7 @@ import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.v2.core.NeighborDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.v2.core.ipnetwork.IPNetConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.snmp2xml4j.snmptoolkit.*;
@@ -157,7 +158,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
             rawData = new RawDeviceData(snmpXmlPrinter.printTreeAsXML().getBytes());
 
             result.setDiscoveredData("rawData", rawData.getData());
-            System.out.println(new String(rawData.getData()));
+            logger.trace(new String(rawData.getData()));
 
         } else {
 
@@ -391,7 +392,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
     private Set<ConnectionDetails> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
         Set<ConnectionDetails> neighboursConnDetails = new HashSet<ConnectionDetails>();
         for (DeviceNeighbour neighbour : neighbours) {
-            ConnectionDetails neighbourConnectionDetails = new ConnectionDetails();
+            ConnectionDetails neighbourConnectionDetails = new IPNetConnectionDetails();
             String ipAddress = neighbour.getIpAddress();
 
             if (InetAddressValidator.getInstance().isValid(ipAddress)) {

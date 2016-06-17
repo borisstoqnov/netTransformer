@@ -23,11 +23,14 @@ package net.itransformers.idiscover.v2.core;
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
 
 public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
+    static Logger logger = Logger.getLogger(NetworkNodeDiscoverer.class);
+
     protected Map<String, NodeDiscoverer> nodeDiscoverers;
     protected List<NodeDiscoveryListener> nodeDiscoveryListeners;
     protected List<NodeNeighboursDiscoveryListener> nodeNeighbourDiscoveryListeners;
@@ -149,12 +152,22 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
             for (String parentNodeId : parentNodeIds) {
                 Set<ConnectionDetails> neigboursConnectionDetails = nodeToNeighboursMap.get(parentNodeId);
                 neigboursConnectionDetails.remove(connectionDetails);
+                logger.info("Removing from " + parentNodeId + " connection details " + connectionDetails);
+
                 if (neigboursConnectionDetails.isEmpty()) {
                     NodeDiscoveryResult nodeDiscoveryResult = nodeDiscoveryResultMap.remove(parentNodeId);
+
                     fireNeighboursDiscoveredEvent(nodeDiscoveryResult);
+                }    else {
+                    logger.info("parentNodeId " + parentNodeId + " still has " + neigboursConnectionDetails.size() + " to be discovered !!!");
+                    logger.info(neigboursConnectionDetails.toString());
+
                 }
             }
-        }    
+        }   else {
+            logger.info("No parent has been found for " + connectionDetails + " !!!");
+
+        }
     }
 
     protected void fireNeighboursDiscoveredEvent(final NodeDiscoveryResult nodeDiscoveryResult) {

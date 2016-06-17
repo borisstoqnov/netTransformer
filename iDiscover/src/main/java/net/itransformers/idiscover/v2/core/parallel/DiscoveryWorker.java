@@ -2,6 +2,7 @@ package net.itransformers.idiscover.v2.core.parallel;
 
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.v2.core.ipnetwork.IPNetConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
 import org.apache.log4j.Logger;
@@ -23,7 +24,7 @@ public class DiscoveryWorker extends RecursiveAction {
 
     public DiscoveryWorker(ConnectionDetails connectionDetails, Node parentNode, int level, DiscoveryWorkerContext context) {
         // clone connection details to avoid problems due to later modification of connection details in match or discover methods invoked in discovery worker
-        this.connectionDetails = new ConnectionDetails(connectionDetails.getConnectionType(), connectionDetails.getParams());
+        this.connectionDetails = new IPNetConnectionDetails(connectionDetails.getConnectionType(), connectionDetails.getParams());
 
         this.parentNode = parentNode;
         this.level = level;

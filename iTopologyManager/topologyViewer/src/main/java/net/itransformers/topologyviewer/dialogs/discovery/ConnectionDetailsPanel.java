@@ -22,6 +22,7 @@
 package net.itransformers.topologyviewer.dialogs.discovery;
 
 import net.itransformers.idiscover.v2.core.CsvConnectionDetailsFileManager;
+import net.itransformers.idiscover.v2.core.ipnetwork.IPNetConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 
 import javax.swing.*;
@@ -119,7 +120,7 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
                 } else {
                     listModel.insertElementAt(connectionName, selectedIndex+1);
                 }
-                connDetails.put(connectionName,new ConnectionDetails());
+                connDetails.put(connectionName,new IPNetConnectionDetails());
             }
         });
         listButtonsPanel.add(addListButton);
