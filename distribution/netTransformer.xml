@@ -383,7 +383,7 @@
     </moduleSets>
     <files>
         <file>
-            <source>../iTopologyManager/launcher/src/main/resources/log4j.properties</source>
+            <source>../log4j.properties</source>
             <outputDirectory>bin</outputDirectory>
         </file>
         <file>

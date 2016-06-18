@@ -38,6 +38,12 @@ public class DiscoveryWorker extends RecursiveAction {
         String connectionType = connectionDetails.getConnectionType();
         NodeDiscoverer nodeDiscoverer = context.getNodeDiscoverer(connectionType);
 
+        if (context.getNotDiscoveredConnectionDetails().contains(connectionDetails)){
+            logger.debug("No node could be discovered for connDetails: " + connectionDetails);
+            context.fireNodeNotDiscoveredEvent(connectionDetails);
+            return;
+        }
+
         NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
         if (discoveryResult == null) {
             logger.debug("No node is discovered for connDetails: " + connectionDetails);

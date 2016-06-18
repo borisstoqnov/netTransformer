@@ -113,6 +113,7 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     }
 
     public synchronized void fireNodeDiscoveredEvent(ConnectionDetails connectionDetails, NodeDiscoveryResult discoveryResult) {
+        logger.info("A new node is discovered with connectionDetails "+connectionDetails);
         discoveredConnectionDetails.add(connectionDetails);
         discoveringConnectionDetails.remove(connectionDetails);
         String nodeId = discoveryResult.getNodeId();
@@ -122,8 +123,14 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
         }
         HashSet<ConnectionDetails> neighbourConnectionDetailsCopy = new HashSet<ConnectionDetails>();
         neighbourConnectionDetailsCopy.addAll(neighbourConnectionDetails);
+        logger.info("Discovered neighbour connections:" + neighbourConnectionDetailsCopy.size());
+
         neighbourConnectionDetailsCopy.removeAll(discoveredConnectionDetails);
+        logger.info("Discovered neighbour connections - discovered:" + neighbourConnectionDetailsCopy.size());
+
         neighbourConnectionDetailsCopy.removeAll(notDiscoveredConnectionDetails);
+        logger.info("Discovered neighbour connections - notdiscovered:" + neighbourConnectionDetailsCopy.size());
+
 
         nodeToNeighboursMap.put(nodeId, neighbourConnectionDetailsCopy);
         nodeDiscoveryResultMap.put(nodeId,discoveryResult);
@@ -174,6 +181,7 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
         if (nodeDiscoveryListeners != null){
             String nodeId = nodeDiscoveryResult.getNodeId();
             final Node node = nodes.get(nodeId);
+            logger.info("---------------Node: "+nodeId+" is discovered!---------------");
             for (final NodeNeighboursDiscoveryListener nodeNeighboursDiscoveryListener: nodeNeighbourDiscoveryListeners){
 
                 // Fire this event in a new thread, so that the other workers will not be blocked by the thread
@@ -190,6 +198,10 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     }
 
     protected void fireNetworkDiscoveredEvent(NetworkDiscoveryResult result) {
+        logger.debug("Discovered" + discoveredConnectionDetails.size() + " | "+ discoveredConnectionDetails);
+        logger.debug("Discovering" + discoveringConnectionDetails.size() + " | " +discoveringConnectionDetails);
+        logger.debug("NotDiscovered" + notDiscoveredConnectionDetails.size()+ " | " +notDiscoveredConnectionDetails);
+
         if (networkDiscoveryListeners != null)
             for (NetworkDiscoveryListener networkDiscoveryListener : networkDiscoveryListeners) {
                 networkDiscoveryListener.networkDiscovered(result);
