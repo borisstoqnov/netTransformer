@@ -22,6 +22,7 @@ package net.itransformers.idiscover.v2.core.parallel;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
 import net.itransformers.idiscover.v2.core.NetworkNodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
+import net.itransformers.idiscover.v2.core.factory.NodeFactory;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
 import org.apache.log4j.Logger;
@@ -35,18 +36,19 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer imp
 
 
     ForkJoinPool pool = new ForkJoinPool();
+    NodeFactory nodeFactory = new NodeFactory();
 
     public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth) {
         nodes.clear();
-        List<DiscoveryWorker> discoveryWorkerList = new ArrayList<DiscoveryWorker>();
+        List<RecursiveAction> discoveryWorkerList = new ArrayList<RecursiveAction>();
+
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
             discoveringConnectionDetails.add(connectionDetails);
-            DiscoveryWorker discoveryWork = new DiscoveryWorker(connectionDetails, null, 1, this);
+            DiscoveryWorker discoveryWork = new DiscoveryWorker(nodeFactory, connectionDetails, null, 1, this);
             discoveryWorkerList.add(discoveryWork);
+            pool.submit(discoveryWork);
         }
-        for (DiscoveryWorker discoveryWorker : discoveryWorkerList) {
-            pool.invoke(discoveryWorker);
-        }
+        for (RecursiveAction discoveryWorker : discoveryWorkerList) discoveryWorker.quietlyJoin();
         NetworkDiscoveryResult result = new NetworkDiscoveryResult();
         result.setNodes(nodes);
         fireNetworkDiscoveredEvent(result);
