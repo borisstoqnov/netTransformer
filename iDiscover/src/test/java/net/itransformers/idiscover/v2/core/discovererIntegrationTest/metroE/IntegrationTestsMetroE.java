@@ -89,7 +89,7 @@ public class IntegrationTestsMetroE {
         }
         SnmpManager snmpManager = new SnmpUdpV2Manager(mibLoaderHolder.getLoader(), "195.218.195.228", "public", 3, 1000, 65535, 10, 161);
         snmpManager.init();
-        SnmpForXslt.setSnmpManager(snmpManager);
+        SnmpForXslt.setMibLoaderHolder(mibLoaderHolder);
 
 
         try {
@@ -127,8 +127,7 @@ public class IntegrationTestsMetroE {
 
         rawDeviceData.setData(data);
         DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper("CISCO");
-        discoveryHelper.setDryRun(true);
-
+        resourceParams.put("neighbourIPDryRun","true");
 
         DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawDeviceData, discoveryTypes, resourceParams);
         Map<String, HashMap<String, String>> discoveredDevices = new HashMap<String, HashMap<String, String>>();
@@ -136,7 +135,7 @@ public class IntegrationTestsMetroE {
 
         SnmpForXslt.setDiscoveredIPs(discoveredDevices);
 
-        discoveryHelper.setDryRun(false);
+        resourceParams.put("neighbourIPDryRun", "false");
         discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawDeviceData, discoveryTypes, resourceParams);
         Map<String, Integer> neighbourTypeCounts = fillInNeighbourTree(discoveredDeviceData.getObject());
         Assert.assertEquals((Object) 2, neighbourTypeCounts.get("CDP"));
@@ -232,7 +231,8 @@ public class IntegrationTestsMetroE {
 
         rawDeviceData.setData(data);
         DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper("CISCO");
-        discoveryHelper.setDryRun(true);
+        resourceParams.put("neighbourIPDryRun", "true");
+
 
 
         DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawDeviceData, discoveryTypes, resourceParams);
@@ -276,7 +276,8 @@ public class IntegrationTestsMetroE {
         SnmpForXslt.setDiscoveredIPs(discoveredDevices);
 
 
-        discoveryHelper.setDryRun(false);
+        resourceParams.put("neighbourIPDryRun","false");
+
         OutputStream os  = null;
 
         discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawDeviceData, discoveryTypes, resourceParams);

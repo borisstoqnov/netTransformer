@@ -49,7 +49,6 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
     private DeviceType deviceType;
     private Map<String, DiscoveryMethodType> discoveryMethodTypeMap = new HashMap<String, DiscoveryMethodType>();
     private StopCriteriaType stopCriteria;
-    private boolean dryRun;
 
 
 
@@ -63,10 +62,6 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
         }
     }
 
-    @Override
-    public void setDryRun(boolean dryRun) {
-        this.dryRun = dryRun;
-    }
 
 
     public DiscoveredDeviceData parseDeviceRawData(RawDeviceData rawData, String[] discoveryTypes, Map<String, String> params) {
@@ -159,7 +154,6 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
 
     private void parseDeviceRawData(byte[] rawData, OutputStream outputStream, String xsltFileName, Map<String, String> params) {
         XsltTransformer transformer = new XsltTransformer();
-
 
         try {
             transformer.transformXML(new ByteArrayInputStream(rawData), new File(System.getProperty("base.dir"), xsltFileName), outputStream, params);

@@ -27,7 +27,7 @@ import net.itransformers.idiscover.v2.core.NeighborDiscoveryResult;
 import net.itransformers.resourcemanager.config.ConnectionParamsType;
 import net.itransformers.resourcemanager.config.ParamType;
 import net.itransformers.resourcemanager.config.ResourceType;
-import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
+import net.itransformers.snmp2xml4j.snmptoolkit.*;
 import net.itransformers.utils.CIDRUtils;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.log4j.Logger;
@@ -35,6 +35,7 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +53,7 @@ public class SnmpForXslt {
 
     private static MockSnmpForXslt mockSnmpForXslt = null;
 
-    private static SnmpManager snmpManager;
+    private static MibLoaderHolder mibLoaderHolder;
 
 
     public static void setMockSnmpForXslt(MockSnmpForXslt mockSnmpForXslt){
@@ -218,7 +219,7 @@ public class SnmpForXslt {
 
     public static String getSymbolByOid(String mibName, String oid) throws Exception {
 
-        return snmpManager.getSymbolFromMibByOid(mibName, oid);
+        return mibLoaderHolder.getSymbolByOid(mibName, oid);
     }
 
     public static String getByOid(String ipAddress, String oid, String community,String timeout, String retries) throws Exception {
@@ -248,8 +249,9 @@ public class SnmpForXslt {
             resourceParams.put("version", "1");
             resourceParams.put("retries", retries);
             resourceParams.put("timeout", timeout);
+            resourceParams.put("ipAddress",ipAddress);
 
-
+            SnmpManager snmpManager = createSnmpManager(resourceParams);
             final String oidValue = snmpManager.snmpGet(oid);
             logger.debug("hostname:" + ipAddress + ", community: " + community + ", oidValue:" + oidValue);
             return oidValue;
@@ -302,7 +304,7 @@ public class SnmpForXslt {
     }
 
 
-    public static void resolveIPAddresses(DiscoveryResourceManager resourceManager, String connectionType){
+    public static void resolveIPAddresses(DiscoveryResourceManager resourceManager, String connectionType) {
         for (String ipAddress : discoveredIPs.keySet()) {
 
             HashMap<String, String> deviceNameMap = discoveredIPs.get(ipAddress);
@@ -312,18 +314,20 @@ public class SnmpForXslt {
 
                 deviceNameMap = new HashMap<String, String>();
 
-            }else {
+            } else {
                 //DeviceMap already filled in.
                 continue;
             }
 
-            if(!ipAddressValidator.isValidInet4Address(ipAddress))
+            if (!ipAddressValidator.isValidInet4Address(ipAddress))
                 continue;
 
-            Map<String,String> resourceParameters = new HashMap<String, String>();
+            Map<String, String> resourceParameters = new HashMap<String, String>();
             resourceParameters.put("ipAddress", ipAddress);
 
             ResourceType resourceType = resourceManager.returnResourceByParam(resourceParameters);
+
+            ArrayList<ResourceType> snmpResources = resourceManager.returnResourcesByConnectionType("snmp");
 
 
             Map<String, String> connParams = new HashMap<String, String>();
@@ -338,16 +342,43 @@ public class SnmpForXslt {
                     break;
                 }
             }
+            connParams.put("ipAddress", ipAddress);
 
-            snmpManager.setParameters(connParams);
+
             String deviceNameFromSNMP = null;
+            String deviceTypeFromSNMP = null;
             try {
-                deviceNameFromSNMP = snmpManager.snmpGet("sysName");
+                SnmpManager snmpManager = createSnmpManager(connParams);
+
+              //  snmpManager.setParameters(connParams);
+                snmpManager.init();
+                deviceNameFromSNMP = snmpManager.snmpGet("1.3.6.1.2.1.1.5.0");
+
+                if (deviceNameFromSNMP == null) {
+                    snmpManager.closeSnmp();
+                    for (ResourceType snmpResource : snmpResources) {
+                        connParams = resourceManager.getParamMap(snmpResource, "snmp");
+                        connParams.put("ipAddress", ipAddress);
+                        if (!resourceType.getName().equals(snmpResource.getName())) {
+                            logger.info("Trying ipAddress " + ipAddress + " with " + connParams);
+                            snmpManager = createSnmpManager(connParams);
+                            snmpManager.init();
+                            deviceNameFromSNMP = snmpManager.snmpGet("1.3.6.1.2.1.1.5.0");
+                            if (deviceNameFromSNMP == null) {
+                                snmpManager.closeSnmp();
+
+                            }   else {
+                                final String sysDescr = snmpManager.snmpGet("1.3.6.1.2.1.1.1.0");
+                                deviceTypeFromSNMP = getDeviceType(sysDescr);
+                                snmpManager.closeSnmp();
+
+                            }
+                        }
+                    }
+                }
                 deviceNameMap.put("snmp", deviceNameFromSNMP);
 
-                final String sysDescr = snmpManager.snmpGet("sysDescr");
 
-                final String deviceTypeFromSNMP = getDeviceType(sysDescr);
 
                 deviceNameMap.put("deviceType", deviceTypeFromSNMP);
 
@@ -372,34 +403,33 @@ public class SnmpForXslt {
                 e.printStackTrace();
             }
 
-
         }
-
     }
 
+        public static String getDeviceType(String sysDescr) {
+        String sysDescrToUpper = sysDescr.toUpperCase();
 
-    public static String getDeviceType(String sysDescr) {
 
-        if (sysDescr == null) return "UNKNOWN";
-        if (sysDescr.contains("ProCurve".toUpperCase())) {
+            if (sysDescr == null) return "UNKNOWN";
+        if (sysDescrToUpper.contains("ProCurve".toUpperCase())) {
             return "HP";
-        } else if (sysDescr.contains("Huawei".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("Huawei".toUpperCase())) {
             return "HUAWEI";
-        } else if (sysDescr.contains("Juniper".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("Juniper".toUpperCase())) {
             return "JUNIPER";
-        } else if (sysDescr.contains("Cisco".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("Cisco".toUpperCase())) {
             return "CISCO";
-        } else if (sysDescr.contains("Tellabs".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("Tellabs".toUpperCase())) {
             return "TELLABS";
-        } else if (sysDescr.contains("SevOne".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("SevOne".toUpperCase())) {
             return "SEVONE";
-        } else if (sysDescr.contains("Riverstone".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("Riverstone".toUpperCase())) {
             return "RIVERSTONE";
-        } else if (sysDescr.contains("ALCATEL".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("ALCATEL".toUpperCase())) {
             return "ALCATEL";
-        } else if (sysDescr.contains("Linux".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("Linux".toUpperCase())) {
             return "LINUX";
-        } else if (sysDescr.contains("Windows".toUpperCase())) {
+        } else if (sysDescrToUpper.contains("Windows".toUpperCase())) {
             return "WINDOWS";
         } else {
             return "UNKNOWN";
@@ -414,11 +444,64 @@ public class SnmpForXslt {
         SnmpForXslt.neighborDiscoveryListeners = neighborDiscoveryListeners;
     }
 
-    public static SnmpManager getSnmpManager() {
-        return snmpManager;
+    public static MibLoaderHolder getMibLoaderHolder() {
+        return mibLoaderHolder;
     }
 
-    public static void setSnmpManager(SnmpManager snmpManager) {
-        SnmpForXslt.snmpManager = snmpManager;
+    public static void setMibLoaderHolder(MibLoaderHolder mibLoaderHolder) {
+        SnmpForXslt.mibLoaderHolder = mibLoaderHolder;
+    }
+
+    private static SnmpManager createSnmpManager(Map<String, String> snmpConnParams) throws IOException {
+
+        String version = snmpConnParams.get("version");
+        String protocol = snmpConnParams.get("protocol");
+        SnmpManager snmpManager = null;
+
+        if ("3".equals(version) && "udp".equals(protocol)) {
+
+            snmpManager = new SnmpUdpV3Manager(mibLoaderHolder.getLoader());
+
+
+        } else if ("3".equals(version) && "tcp".equals(protocol)) {
+
+            snmpManager = new SnmpTcpV3Manager(mibLoaderHolder.getLoader());
+
+        } else if ("2".equals(version) && "udp".equals(protocol)) {
+
+            snmpManager = new SnmpUdpV2Manager(mibLoaderHolder.getLoader());
+
+
+        } else if ("2c".equals(version) && "udp".equals(protocol)) {
+
+            snmpManager = new SnmpUdpV2Manager(mibLoaderHolder.getLoader());
+
+
+        } else if ("2".equals(version) && "tcp".equals(protocol)) {
+            snmpManager = new SnmpTcpV2Manager(mibLoaderHolder.getLoader());
+
+
+        } else if ("2c".equals(version) && "tcp".equals(protocol)) {
+            snmpManager = new SnmpTcpV2Manager(mibLoaderHolder.getLoader());
+
+
+        } else if ("1".equals(version) && "udp".equals(protocol)) {
+
+            snmpManager = new SnmpTcpV1Manager(mibLoaderHolder.getLoader());
+
+
+        } else if ("1".equals(version) && "tcp".equals(protocol)) {
+
+            snmpManager = new SnmpTcpV1Manager(mibLoaderHolder.getLoader());
+
+
+        } else {
+            logger.info("Unsupported combination of protocol: " + protocol + " and version " + version);
+            throw new RuntimeException("SnmpManager is null");
+
+        }
+        snmpManager.setParameters(snmpConnParams);
+        return snmpManager;
+
     }
 }

@@ -53,6 +53,12 @@ public class Main {
 //        }
         String projectPath = params.get("-p");
 
+        String discoveryType = params.get("-a");
+        if (discoveryType == null){
+            discoveryType = "sequential";
+        }
+
+
         if (projectPath == null) {
             File cwd = new File(".");
             System.out.println("Project path is not specified. Will use current dir: "+ cwd.getAbsolutePath());
@@ -69,7 +75,14 @@ public class Main {
         File conDetails =new File(projectPath,"iDiscover/conf/txt/connection-details.txt");
 
         FileSystemXmlApplicationContext applicationContext = initializeDiscoveryContext(projectPath);
-        NetworkDiscoverer discoverer = applicationContext.getBean("parallelSnmpDiscovery", NetworkDiscoverer.class);
+        NetworkDiscoverer discoverer;
+        if (discoveryType.equalsIgnoreCase("parralel")){
+             discoverer = applicationContext.getBean("parallelSnmpDiscovery", NetworkDiscoverer.class);
+
+        }   else {
+            discoverer = applicationContext.getBean("snmpDiscoverer", NetworkDiscoverer.class);
+
+        }
         LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", conDetails);
         int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1" : depthCmdArg);
         NetworkDiscoveryResult result = discoverer.discoverNetwork(new HashSet<ConnectionDetails>(connectionList.values()), depth);

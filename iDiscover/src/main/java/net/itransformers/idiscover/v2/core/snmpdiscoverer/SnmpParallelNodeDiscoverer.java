@@ -90,7 +90,6 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
         try {
             //Try first with the most probable snmp Resource
             snmpManager = createSnmpManager(snmpConnParams);
-          //  snmpManager.setParameters(snmpConnParams);
             snmpManager.init();
             sysDescr = snmpGet(snmpManager,"1.3.6.1.2.1.1.1.0");
 
@@ -169,11 +168,11 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
         SnmpForXslt.setMibLoaderHolder(mibLoaderHolder);
 
         snmpConnParams.put("neighbourIPDryRun","true");
-        DiscoveredDeviceData discoveredDeviceData1 = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, snmpConnParams);
+      //  DiscoveredDeviceData discoveredDeviceData1 = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, snmpConnParams);
 
 
-        SnmpForXslt.resolveIPAddresses(discoveryResource, "snmp");
-        snmpConnParams.put("neighbourIPDryRun", "false");
+        //SnmpForXslt.resolveIPAddresses(discoveryResource, "snmp");
+        //snmpConnParams.put("neighbourIPDryRun", "false");
 
         DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, snmpConnParams);
 

@@ -90,7 +90,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         try {
             //Try first with the most probable snmp Resource
             snmpManager = createSnmpManager(snmpConnParams);
-            snmpManager.setParameters(snmpConnParams);
+          //  snmpManager.setParameters(snmpConnParams);
             snmpManager.init();
             sysDescr = snmpGet(snmpManager,"1.3.6.1.2.1.1.1.0");
 
@@ -107,7 +107,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
                     if (!resourceType.getName().equals(snmpResource.getName())) {
 
                             snmpManager = createSnmpManager(snmpConnParams);
-                            snmpManager.setParameters(snmpConnParams);
+                         //   snmpManager.setParameters(snmpConnParams);
                             snmpManager.init();
                             sysDescr = snmpGet(snmpManager, "1.3.6.1.2.1.1.1.0");
                             if (sysDescr == null) {
@@ -165,15 +165,17 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
             return null;
         }
 
-        discoveryHelper.setDryRun(true);
 
-        SnmpForXslt.setSnmpManager(snmpManager);
+        SnmpForXslt.setMibLoaderHolder(mibLoaderHolder);
 
+        snmpConnParams.put("neighbourIPDryRun","true");
+         discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, snmpConnParams);
+
+
+        SnmpForXslt.resolveIPAddresses(discoveryResource, "snmp");
+        snmpConnParams.put("neighbourIPDryRun","false");
 
         DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, snmpConnParams);
-
-
-//        SnmpForXslt.resolveIPAddresses(discoveryResource, "snmp");
 
         result.setNodeId(deviceName);
         result.setDiscoveredData("deviceData", discoveredDeviceData);
@@ -293,7 +295,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
             throw new RuntimeException("SnmpManager is null");
 
         }
-
+        snmpManager.setParameters(snmpConnParams);
         return snmpManager;
 
     }

@@ -119,7 +119,9 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
         String nodeId = discoveryResult.getNodeId();
         Set<ConnectionDetails> neighbourConnectionDetails = discoveryResult.getNeighboursConnectionDetails();
         if (nodeToNeighboursMap.containsKey(nodeId)) {
-            throw new RuntimeException("Node is already discovered: nodeId=" + nodeId);
+            logger.debug("Node is already discovered: nodeId=" + nodeId);
+            //TODO we have to figure out what do we do with the connection Details in this case
+            return;
         }
         HashSet<ConnectionDetails> neighbourConnectionDetailsCopy = new HashSet<ConnectionDetails>();
         neighbourConnectionDetailsCopy.addAll(neighbourConnectionDetails);
@@ -178,11 +180,14 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     }
 
     protected void fireNeighboursDiscoveredEvent(final NodeDiscoveryResult nodeDiscoveryResult) {
-        if (nodeDiscoveryListeners != null){
+
+            if( nodeDiscoveryResult !=null && nodeNeighbourDiscoveryListeners!=null){
+
             String nodeId = nodeDiscoveryResult.getNodeId();
             final Node node = nodes.get(nodeId);
             logger.info("---------------Node: "+nodeId+" is discovered!---------------");
-            for (final NodeNeighboursDiscoveryListener nodeNeighboursDiscoveryListener: nodeNeighbourDiscoveryListeners){
+
+                    for (final NodeNeighboursDiscoveryListener nodeNeighboursDiscoveryListener: nodeNeighbourDiscoveryListeners){
 
                 // Fire this event in a new thread, so that the other workers will not be blocked by the thread
                 // that is holding this object lock and working on event processing.
@@ -194,7 +199,11 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
                 }).start();
 
             }
-        }
+        } else {
+
+                logger.info("NodeDiscoveryResult is null---------------");
+
+            }
     }
 
     protected void fireNetworkDiscoveredEvent(NetworkDiscoveryResult result) {

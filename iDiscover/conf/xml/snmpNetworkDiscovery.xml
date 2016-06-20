@@ -59,7 +59,7 @@
 
         <property name="nodeDiscoverers">
             <map>
-                <entry key="snmp" value-ref="snmpNodeDiscoverer"/>
+                <entry key="snmp" value-ref="snmpParallelNodeDiscoverer"/>
             </map>
         </property>
         <property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>
@@ -112,6 +112,18 @@
 
 
     <bean id="snmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.snmpdiscoverer.SnmpNodeDiscoverer">
+        <constructor-arg ref="discoveryHelperFactory"/>
+        <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,IPSEC,BGP,RIP,ADDITIONAL,IPV6"/>
+        <constructor-arg ref="discoveryResourceManager"/>
+        <constructor-arg ref="MibLoaderHolder"/>
+
+        <constructor-arg>
+            <list>
+                <ref bean="sampleNeigborDiscoveryListener"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="snmpParallelNodeDiscoverer" class="net.itransformers.idiscover.v2.core.snmpdiscoverer.SnmpParallelNodeDiscoverer">
         <constructor-arg ref="discoveryHelperFactory"/>
         <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,IPSEC,BGP,RIP,ADDITIONAL,IPV6"/>
         <constructor-arg ref="discoveryResourceManager"/>
