@@ -16,7 +16,7 @@ public class SimpleNodeNeighbourDiscoveryListener implements NodeNeighboursDisco
 
         sb.append("SimpleNodeNeighbourDiscoveryListener -> ");
         sb.append(String.format("nodeId=%s", node.getId()));
-        sb.append("neighbours=(");
+        sb.append(", neighbours=(");
         for (Node neighbour : node.getNeighbours()) {
             sb.append(neighbour.getId());
             sb.append(",");

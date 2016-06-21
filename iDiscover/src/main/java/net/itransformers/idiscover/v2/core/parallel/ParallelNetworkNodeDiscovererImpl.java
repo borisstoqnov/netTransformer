@@ -60,8 +60,18 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 Future<NodeDiscoveryResult> future = executorCompletionService.take();
                 futureCounter--;
                 NodeDiscoveryResult result = future.get();
-                String nodeId = result.getNodeId();
                 String parentId = result.getParentId();
+                if (parentId != null) {
+                    List<Future<NodeDiscoveryResult>> parentNeighbourFutures = nodeNeighbourFuturesMap.get(parentId);
+                    logger.info("Removing node neighbour for parentId="+parentId+", nodeId in future="+future.get().getNodeId());
+                    parentNeighbourFutures.remove(future);
+                    if (parentNeighbourFutures.isEmpty()) {
+                        NodeDiscoveryResult parentDiscoveryResult = nodeDiscoveryResultMap.remove(parentId);
+                        nodeNeighbourFuturesMap.remove(parentId);
+                        fireNeighboursDiscoveredEvent(parentDiscoveryResult);
+                    }
+                }
+                String nodeId = result.getNodeId();
                 if (nodeId == null) {
                     logger.info("Node is not discovered for parent: " + parentId);
                     continue;
@@ -73,26 +83,15 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 Node node = nodeFactory.createNode(nodeId);
                 nodes.put(nodeId, node);
                 Node parentNode = nodes.get(parentId);
-                if (parentId != null) {
+                if (parentNode != null) {
                     parentNode.addNeighbour(node);
-                    List<Future<NodeDiscoveryResult>> parentNeighbourFutures = nodeNeighbourFuturesMap.get(parentId);
-                    if (parentNeighbourFutures == null) {
-                        logger.error("parentNeighbourFutures is null for parentId=" + parentId);
-                    }
-                    parentNeighbourFutures.remove(future);
-                    if (parentNeighbourFutures.isEmpty()) {
-                        NodeDiscoveryResult parentDiscoveryResult = nodeDiscoveryResultMap.remove(parentId);
-                        nodeNeighbourFuturesMap.remove(parentId);
-                        fireNeighboursDiscoveredEvent(parentDiscoveryResult);
-                    }
                 }
+
                 nodeDiscoveryResultMap.put(nodeId, result);
                 fireNodeDiscoveredEvent((NodeDiscoveryResult) result.clone());
                 Set<ConnectionDetails> neighboursConnectionDetailsSet = new HashSet<ConnectionDetails>(result.getNeighboursConnectionDetails());
                 neighboursConnectionDetailsSet.removeAll(discoveredConnectionDetails);
                 ArrayList<Future<NodeDiscoveryResult>> neighbourFutures = new ArrayList<Future<NodeDiscoveryResult>>();
-                logger.info("Adding node neighbours for discovery... nodeId=" + nodeId);
-                nodeNeighbourFuturesMap.put(nodeId, neighbourFutures);
                 for (ConnectionDetails neighboursConnectionDetails : neighboursConnectionDetailsSet) {
                     discoveredConnectionDetails.add(neighboursConnectionDetails);
                     DiscoveryWorker discoveryWorker = new DiscoveryWorker(nodeDiscoverers, neighboursConnectionDetails, nodeId);
@@ -100,6 +99,8 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                     neighbourFutures.add(nodeNeighbourFuture);
                     futureCounter++;
                 }
+                logger.info("Adding node neighbours for discovery... nodeId=" + nodeId+", neighbour future size="+neighbourFutures.size());
+                nodeNeighbourFuturesMap.put(nodeId, neighbourFutures);
             } catch (Exception e ) {
                 logger.error(e.getMessage(), e);
             }
