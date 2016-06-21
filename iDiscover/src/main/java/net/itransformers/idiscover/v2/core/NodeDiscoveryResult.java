@@ -96,4 +96,5 @@ public class NodeDiscoveryResult implements Cloneable{
         // TODO do deep copy of discovered data
         return super.clone();
     }
+
 }
