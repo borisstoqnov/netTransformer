@@ -43,6 +43,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     DiscoveryWorkerFactory discoveryWorkerFactory = new DiscoveryWorkerFactory();
 
     public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth) {
+        long startTime = System.currentTimeMillis();
         nodes.clear();
         Set<ConnectionDetails> discoveredConnectionDetails = new HashSet<ConnectionDetails>();
         Map<String, List<Future<NodeDiscoveryResult>>> nodeNeighbourFuturesMap = new HashMap<String, List<Future<NodeDiscoveryResult>>>();
@@ -120,6 +121,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         eventExecutorService.shutdown();
         logger.info("Shutting down discovery task executor service");
         executorService.shutdown();
+        logger.info("Discovery finished in "+((System.currentTimeMillis()-startTime)/1000) +" seconds.");
         return result;
     }
 
