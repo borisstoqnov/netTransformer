@@ -55,7 +55,9 @@ class SimpleRecursiveAction extends RecursiveAction {
         for (int i=0; i < level; i++) {
             recursiveActionList.add(new SimpleRecursiveAction(globalActions, level-1));
         }
+        System.out.println("wait level:"+level);
         invokeAll(recursiveActionList);
+        System.out.println("level:"+level);
         isFinished = true;
     }
 

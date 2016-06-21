@@ -22,6 +22,8 @@ package net.itransformers.idiscover.v2.core.parallel;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
 import net.itransformers.idiscover.v2.core.NetworkNodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
+import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.v2.core.factory.DiscoveryWorkerFactory;
 import net.itransformers.idiscover.v2.core.factory.NodeFactory;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
@@ -31,50 +33,76 @@ import java.util.*;
 import java.util.concurrent.*;
 
 
-public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer implements DiscoveryWorkerContext {
+public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     static Logger logger = Logger.getLogger(ParallelNetworkNodeDiscovererImpl.class);
 
 
-    ForkJoinPool pool = new ForkJoinPool();
+    ExecutorService eventExecutorService = Executors.newFixedThreadPool(10);
+    ExecutorService executorService = Executors.newFixedThreadPool(10);
+    ExecutorCompletionService<NodeDiscoveryResult> pool = new ExecutorCompletionService<NodeDiscoveryResult>(executorService);
     NodeFactory nodeFactory = new NodeFactory();
+
+
+    DiscoveryWorkerFactory discoveryWorkerFactory = new DiscoveryWorkerFactory();
 
     public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth) {
         nodes.clear();
-        List<RecursiveAction> discoveryWorkerList = new ArrayList<RecursiveAction>();
-
+        int futureCounter = 0;
+        Set<ConnectionDetails> discoveredConnectionDetais = new HashSet<ConnectionDetails>();
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
-            discoveringConnectionDetails.add(connectionDetails);
-            DiscoveryWorker discoveryWork = new DiscoveryWorker(nodeFactory, connectionDetails, null, 1, this);
-            discoveryWorkerList.add(discoveryWork);
-            pool.submit(discoveryWork);
+            discoveredConnectionDetais.add(connectionDetails);
+            pool.submit(discoveryWorkerFactory.createDiscoveryWorker(nodeDiscoverers, connectionDetails));
+            futureCounter++;
         }
-        for (RecursiveAction discoveryWorker : discoveryWorkerList) discoveryWorker.quietlyJoin();
+        Map<String,List<Future<NodeDiscoveryResult>>> nodeNeighbourFuturesMap =
+                new HashMap<String, List<Future<NodeDiscoveryResult>>>();
+        while (futureCounter > 0) {
+            try {
+                Future<NodeDiscoveryResult> future = pool.take();
+                futureCounter--;
+                NodeDiscoveryResult result = future.get();
+                fireNodeDiscoveredEvent(result);
+                List<Future<NodeDiscoveryResult>> parentNeighbourFutures = nodeNeighbourFuturesMap.get(result.getParentId());
+                parentNeighbourFutures.remove(future);
+                if (parentNeighbourFutures.isEmpty()) {
+//                    fireNeighboursDiscoveredEvent();
+                }
+                if (result.getNodeId() != null) {
+                    Set<ConnectionDetails> neighboursConnectionDetailsSet = result.getNeighboursConnectionDetails();
+                    neighboursConnectionDetailsSet.removeAll(discoveredConnectionDetais);
+                    ArrayList<Future<NodeDiscoveryResult>> neighboutFutures = new ArrayList<Future<NodeDiscoveryResult>>();
+                    nodeNeighbourFuturesMap.put(result.getNodeId(), neighboutFutures);
+                    for (ConnectionDetails neighboursConnectionDetails : neighboursConnectionDetailsSet) {
+                        discoveredConnectionDetais.add(neighboursConnectionDetails);
+                        DiscoveryWorker discoveryWorker = new DiscoveryWorker(nodeDiscoverers, neighboursConnectionDetails);
+                        Future<NodeDiscoveryResult> nodeNeighbourFuture = pool.submit(discoveryWorker);
+                        neighboutFutures.add(nodeNeighbourFuture);
+                        futureCounter++;
+                    }
+                }
+            } catch (InterruptedException e) {
+                logger.error(e.getMessage(),e);
+            } catch (ExecutionException e) {
+                logger.error(e.getMessage(), e);
+            }
+        }
         NetworkDiscoveryResult result = new NetworkDiscoveryResult();
         result.setNodes(nodes);
         fireNetworkDiscoveredEvent(result);
+        eventExecutorService.shutdown();
+//        eventExecutorService.awaitTermination();
         return result;
     }
 
     public synchronized void stop() {
-        pool.shutdown();
+        executorService.shutdown();
     }
 
     public synchronized boolean isStopped() {
-        return pool.isTerminated();
+        return executorService.isTerminated();
     }
 
     public synchronized boolean isRunning() {
-        return !pool.isTerminated();
+        return !executorService.isTerminated();
     }
-
-    @Override
-    public Map<String, Node> getNodes() {
-        return nodes;
-    }
-
-    @Override
-    public NodeDiscoverer getNodeDiscoverer(String connectionType) {
-        return nodeDiscoverers.get(connectionType);
-    }
-
 }

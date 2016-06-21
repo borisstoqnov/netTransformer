@@ -46,11 +46,20 @@ import java.util.Map;
 import java.util.Set;
 
 public class NodeDiscoveryResult {
+    String parentId;
     String nodeId;
     Set<ConnectionDetails> neighboursConnectionDetails;
     Map<String,Object> discoveredData = new HashMap<String,Object>();
 //    Do we need this?
     Map<String, String> connParams;
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
 
     public String getNodeId() {
         return nodeId;

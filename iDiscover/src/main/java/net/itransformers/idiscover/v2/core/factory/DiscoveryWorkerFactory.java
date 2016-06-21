@@ -1,15 +1,19 @@
 package net.itransformers.idiscover.v2.core.factory;
 
+import net.itransformers.idiscover.v2.core.NodeDiscoverer;
+import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
 import net.itransformers.idiscover.v2.core.parallel.DiscoveryWorker;
-import net.itransformers.idiscover.v2.core.parallel.DiscoveryWorkerContext;
+
+import java.util.Map;
+import java.util.concurrent.Callable;
 
 /**
  * Created by vasko on 20.06.16.
  */
 public class DiscoveryWorkerFactory {
-    public DiscoveryWorker createDiscoveryWorker(NodeFactory nodeFactory, ConnectionDetails connectionDetails, Node parentNode, int level, DiscoveryWorkerContext context){
-        return new DiscoveryWorker(nodeFactory, connectionDetails, parentNode, level, context);
+    public DiscoveryWorker createDiscoveryWorker(Map<String, NodeDiscoverer> nodeDiscoverers, ConnectionDetails connectionDetails) {
+        return new DiscoveryWorker(nodeDiscoverers, connectionDetails);
     }
 }
