@@ -76,9 +76,8 @@ public class Main {
 
         FileSystemXmlApplicationContext applicationContext = initializeDiscoveryContext(projectPath);
         NetworkDiscoverer discoverer;
-        if (discoveryType.equalsIgnoreCase("parralel")){
+        if (discoveryType.equalsIgnoreCase("parallel")){
              discoverer = applicationContext.getBean("parallelSnmpDiscovery", NetworkDiscoverer.class);
-
         }   else {
             discoverer = applicationContext.getBean("snmpDiscoverer", NetworkDiscoverer.class);
 

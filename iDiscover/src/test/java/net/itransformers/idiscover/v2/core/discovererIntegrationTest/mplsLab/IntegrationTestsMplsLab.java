@@ -150,9 +150,8 @@ public class IntegrationTestsMplsLab {
 
 
 
-                NodeDiscoveryResult result = new NodeDiscoveryResult();
+                NodeDiscoveryResult result = new NodeDiscoveryResult(resource.getHost(), null);
                 //String devName = walker.getDeviceName(resource);
-                result.setNodeId(resource.getHost());
                 result.setDiscoveredData("rawData", rawdata.getData());
                 DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
@@ -213,9 +212,8 @@ public class IntegrationTestsMplsLab {
 
                     rawdata.setData(data);
 
-                NodeDiscoveryResult result = new NodeDiscoveryResult();
+                NodeDiscoveryResult result = new NodeDiscoveryResult(resource.getHost(), null);
                 //String devName = walker.getDeviceName(resource);
-                result.setNodeId(resource.getHost());
                 result.setDiscoveredData("rawData", rawdata.getData());
                 DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
@@ -264,9 +262,8 @@ public class IntegrationTestsMplsLab {
                 rawdata.setData(data);
 
 
-                NodeDiscoveryResult result = new NodeDiscoveryResult();
+                NodeDiscoveryResult result = new NodeDiscoveryResult(resource.getHost(), null);
                 //String devName = walker.getDeviceName(resource);
-                result.setNodeId(resource.getHost());
                 result.setDiscoveredData("rawData", rawdata.getData());
                 DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
@@ -314,9 +311,8 @@ public class IntegrationTestsMplsLab {
                 rawdata.setData(data);
 
 
-                NodeDiscoveryResult result = new NodeDiscoveryResult();
+                NodeDiscoveryResult result = new NodeDiscoveryResult(resource.getHost(), null);
                 //String devName = walker.getDeviceName(resource);
-                result.setNodeId(resource.getHost());
                 result.setDiscoveredData("rawData", rawdata.getData());
                 DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
@@ -362,9 +358,8 @@ public class IntegrationTestsMplsLab {
                 rawdata.setData(data);
 
 
-                NodeDiscoveryResult result = new NodeDiscoveryResult();
+                NodeDiscoveryResult result = new NodeDiscoveryResult(resource.getHost(), null);
                 //String devName = walker.getDeviceName(resource);
-                result.setNodeId(resource.getHost());
                 result.setDiscoveredData("rawData", rawdata.getData());
                 DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
                 result.setDiscoveredData("deviceData", discoveredDeviceData);

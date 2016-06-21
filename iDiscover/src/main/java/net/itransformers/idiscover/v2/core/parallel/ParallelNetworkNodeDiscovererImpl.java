@@ -39,7 +39,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     ExecutorService executorService = Executors.newFixedThreadPool(10);
     ExecutorCompletionService<NodeDiscoveryResult> executorCompletionService = new ExecutorCompletionService<NodeDiscoveryResult>(executorService);
     NodeFactory nodeFactory = new NodeFactory();
-
+    int eventFutureCount = 0;
     DiscoveryWorkerFactory discoveryWorkerFactory = new DiscoveryWorkerFactory();
 
     public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth) {
@@ -49,6 +49,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         Map<String, NodeDiscoveryResult> nodeDiscoveryResultMap = new HashMap<String, NodeDiscoveryResult>();
 
         int futureCounter = 0;
+        eventFutureCount = 0;
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
             discoveredConnectionDetails.add(connectionDetails);
             executorCompletionService.submit(discoveryWorkerFactory.createDiscoveryWorker(nodeDiscoverers, connectionDetails, null));
@@ -73,8 +74,12 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 if (nodeId != null) {
                     createNode(result);
                     nodeDiscoveryResultMap.put(nodeId, result);
-                    fireNodeDiscoveredEvent(result);
-                    Set<ConnectionDetails> neighboursConnectionDetailsSet = result.getNeighboursConnectionDetails();
+                    try {
+                        fireNodeDiscoveredEvent((NodeDiscoveryResult) result.clone());
+                    } catch (CloneNotSupportedException e) {
+                        e.printStackTrace();
+                    }
+                    Set<ConnectionDetails> neighboursConnectionDetailsSet = new HashSet<ConnectionDetails>(result.getNeighboursConnectionDetails());
                     neighboursConnectionDetailsSet.removeAll(discoveredConnectionDetails);
                     ArrayList<Future<NodeDiscoveryResult>> neighbourFutures = new ArrayList<Future<NodeDiscoveryResult>>();
                     nodeNeighbourFuturesMap.put(nodeId, neighbourFutures);
@@ -95,12 +100,11 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         NetworkDiscoveryResult result = new NetworkDiscoveryResult();
         result.setNodes(nodes);
         fireNetworkDiscoveredEvent(result);
-        for (Future eventFuture : eventFutures) {
+        while (futureCounter > 0) {
             try {
-                eventFuture.get();
+                futureCounter--;
+                eventExecutorCompletionService.take();
             } catch (InterruptedException e) {
-                logger.error(e.getMessage(),e);
-            } catch (ExecutionException e) {
                 logger.error(e.getMessage(),e);
             }
         }
@@ -133,6 +137,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     public synchronized void fireNodeDiscoveredEvent(final NodeDiscoveryResult discoveryResult) {
         if (nodeDiscoveryListeners != null) {
             for (final NodeDiscoveryListener nodeDiscoveryListener : nodeDiscoveryListeners) {
+                eventFutureCount++;
                 eventFutures.add(eventExecutorCompletionService.submit(new Runnable() {
                     @Override
                     public void run() {
@@ -148,6 +153,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
             String nodeId = nodeDiscoveryResult.getNodeId();
             final Node node = nodes.get(nodeId);
             for (final NodeNeighboursDiscoveryListener nodeNeighboursDiscoveryListener : nodeNeighbourDiscoveryListeners) {
+                eventFutureCount++;
                 eventFutures.add(eventExecutorCompletionService.submit(new Runnable() {
                     @Override
                     public void run() {
@@ -162,6 +168,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     protected void fireNetworkDiscoveredEvent(final NetworkDiscoveryResult result) {
         if (networkDiscoveryListeners != null)
             for (final NetworkDiscoveryListener networkDiscoveryListener : networkDiscoveryListeners) {
+                eventFutureCount++;
                 eventFutures.add(eventExecutorCompletionService.submit(new Runnable() {
                     @Override
                     public void run() {

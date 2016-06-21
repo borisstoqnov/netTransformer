@@ -40,18 +40,20 @@ package net.itransformers.idiscover.v2.core;/*
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public class NodeDiscoveryResult {
+public class NodeDiscoveryResult implements Cloneable{
     String parentId;
     String nodeId;
-    Set<ConnectionDetails> neighboursConnectionDetails;
+    Set<ConnectionDetails> neighboursConnectionDetails = new HashSet<ConnectionDetails>();
     Map<String,Object> discoveredData = new HashMap<String,Object>();
-//    Do we need this?
-    Map<String, String> connParams;
+
+    public NodeDiscoveryResult(String nodeId, Set<ConnectionDetails> neighboursConnectionDetails) {
+        this.nodeId = nodeId;
+        if (neighboursConnectionDetails != null) {
+            this.neighboursConnectionDetails.addAll(neighboursConnectionDetails);
+        }
+    }
 
     public String getParentId() {
         return parentId;
@@ -69,21 +71,10 @@ public class NodeDiscoveryResult {
         this.nodeId = nodeId;
     }
 
-    public Map<String, String> getConnParams() {
-        return connParams;
-    }
-
-    public void setConnParams(Map<String, String> connParams) {
-        this.connParams = connParams;
-    }
-
     public Set<ConnectionDetails> getNeighboursConnectionDetails() {
-        return neighboursConnectionDetails;
+        return Collections.unmodifiableSet(neighboursConnectionDetails);
     }
 
-    public void setNeighboursConnectionDetails(Set<ConnectionDetails> neighboursConnectionDetails) {
-        this.neighboursConnectionDetails = neighboursConnectionDetails;
-    }
     public Object getDiscoveredData(String key){
         return discoveredData.get(key);
     }
@@ -98,5 +89,11 @@ public class NodeDiscoveryResult {
                 ", neighboursConnectionDetails=" + neighboursConnectionDetails +
                 ", discoveredData=" + discoveredData.toString() +
                 '}';
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        // TODO do deep copy of discovered data
+        return super.clone();
     }
 }

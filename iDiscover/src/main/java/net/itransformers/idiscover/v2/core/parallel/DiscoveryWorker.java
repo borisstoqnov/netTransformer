@@ -35,11 +35,14 @@ public class DiscoveryWorker implements Callable<NodeDiscoveryResult> {
         if (nodeDiscoverer == null) {
             logger.debug("No node discoverer can be found for connectionType: " + connectionDetails);
             logger.debug("Discovery worker: " + Thread.currentThread().getName() + " finished. connectionDetails = " + connectionDetails);
-            NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult();
+            NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult(null, null);
             nodeDiscoveryResult.setParentId(parentId);
             return nodeDiscoveryResult;
         }
         NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover((ConnectionDetails) connectionDetails.clone());
+        if (discoveryResult == null) {
+            discoveryResult = new NodeDiscoveryResult(null, null);
+        }
         discoveryResult.setParentId(parentId);
         return discoveryResult;
     }

@@ -88,7 +88,7 @@ public class MrtCrawlController implements NodeDiscoverer {
 
     @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
-        NodeDiscoveryResult result = new NodeDiscoveryResult();
+        NodeDiscoveryResult result = new NodeDiscoveryResult(null, null);
         String[] args = new String[4];
         args[0] = "-f";
 

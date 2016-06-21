@@ -62,9 +62,6 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
     @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
 
-
-
-        NodeDiscoveryResult result = new NodeDiscoveryResult();
         String deviceName = connectionDetails.getParam("deviceName");
         Map<String,String> params1 = new HashMap<String, String>();
         String deviceType = connectionDetails.getParam("deviceType");
@@ -157,7 +154,6 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
             SnmpXmlPrinter snmpXmlPrinter = new SnmpXmlPrinter(mibLoaderHolder.getLoader(), rawDatNode);
             rawData = new RawDeviceData(snmpXmlPrinter.printTreeAsXML().getBytes());
 
-            result.setDiscoveredData("rawData", rawData.getData());
             logger.trace(new String(rawData.getData()));
 
         } else {
@@ -168,26 +164,25 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
         SnmpForXslt.setMibLoaderHolder(mibLoaderHolder);
 
-        snmpConnParams.put("neighbourIPDryRun","true");
+        snmpConnParams.put("neighbourIPDryRun", "true");
          discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, snmpConnParams);
 
 
         SnmpForXslt.resolveIPAddresses(discoveryResource, "snmp");
-        snmpConnParams.put("neighbourIPDryRun","false");
+        snmpConnParams.put("neighbourIPDryRun", "false");
 
         DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, snmpConnParams);
 
-        result.setNodeId(deviceName);
-        result.setDiscoveredData("deviceData", discoveredDeviceData);
-        result.setConnParams(snmpConnParams);
         Device device = discoveryHelper.createDevice(discoveredDeviceData);
 
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
         Set<ConnectionDetails> neighboursConnDetails = null;
         if (neighbours != null) {
             neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
-            result.setNeighboursConnectionDetails(neighboursConnDetails);
         }
+        NodeDiscoveryResult result = new NodeDiscoveryResult(deviceName, neighboursConnDetails);
+        result.setDiscoveredData("deviceData", discoveredDeviceData);
+        result.setDiscoveredData("rawData", rawData.getData());
         return result;
     }
 

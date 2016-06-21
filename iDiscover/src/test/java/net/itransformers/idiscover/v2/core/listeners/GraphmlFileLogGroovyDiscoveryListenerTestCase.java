@@ -77,8 +77,7 @@ public class GraphmlFileLogGroovyDiscoveryListenerTestCase {
         groovyPath.mkdirs();
         FileUtils.copyAll(groovyIs, new FileOutputStream(new File(groovyPath, "RawData2GraphmlTransformer.groovy")));
         listener.setRawData2GraphmlGroovyTransformer("iDiscover/conf/groovy/RawData2GraphmlTransformer.groovy");
-        NodeDiscoveryResult discoveryResult = new NodeDiscoveryResult();
-        discoveryResult.setNodeId("123");
+        NodeDiscoveryResult discoveryResult = new NodeDiscoveryResult("123",null);
         InputStream is = this.getClass().getResourceAsStream("/bfogal54-peer.xml");
         DiscoveredDeviceData deviceData = JaxbMarshalar.unmarshal(DiscoveredDeviceData.class, is);
         discoveryResult.setDiscoveredData("deviceData",deviceData);

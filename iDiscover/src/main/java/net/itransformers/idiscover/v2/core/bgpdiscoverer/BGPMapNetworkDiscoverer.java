@@ -118,7 +118,7 @@ public class BGPMapNetworkDiscoverer extends ANetworkDiscoverer {
 
             }
 
-            NodeDiscoveryResult result1 = new NodeDiscoveryResult();
+            NodeDiscoveryResult result1 = new NodeDiscoveryResult(null, null);
 
             result1.setDiscoveredData("version", version);
             result1.setDiscoveredData("graphml", writer.toString().getBytes());
