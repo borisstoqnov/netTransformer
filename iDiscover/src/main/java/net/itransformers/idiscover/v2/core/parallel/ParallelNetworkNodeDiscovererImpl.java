@@ -44,14 +44,14 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
 
     public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth) {
         nodes.clear();
-        Set<ConnectionDetails> discoveredConnectionDetais = new HashSet<ConnectionDetails>();
+        Set<ConnectionDetails> discoveredConnectionDetails = new HashSet<ConnectionDetails>();
         Map<String, List<Future<NodeDiscoveryResult>>> nodeNeighbourFuturesMap = new HashMap<String, List<Future<NodeDiscoveryResult>>>();
         Map<String, NodeDiscoveryResult> nodeDiscoveryResultMap = new HashMap<String, NodeDiscoveryResult>();
 
         int futureCounter = 0;
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
-            discoveredConnectionDetais.add(connectionDetails);
-            executorCompletionService.submit(discoveryWorkerFactory.createDiscoveryWorker(nodeDiscoverers, connectionDetails));
+            discoveredConnectionDetails.add(connectionDetails);
+            executorCompletionService.submit(discoveryWorkerFactory.createDiscoveryWorker(nodeDiscoverers, connectionDetails, null));
             futureCounter++;
         }
         while (futureCounter > 0) {
@@ -59,28 +59,30 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 Future<NodeDiscoveryResult> future = executorCompletionService.take();
                 futureCounter--;
                 NodeDiscoveryResult result = future.get();
-                if (result.getParentId() != null) {
-                    List<Future<NodeDiscoveryResult>> parentNeighbourFutures = nodeNeighbourFuturesMap.get(result.getParentId());
+                String parentId = result.getParentId();
+                if (parentId != null) {
+                    List<Future<NodeDiscoveryResult>> parentNeighbourFutures = nodeNeighbourFuturesMap.get(parentId);
                     parentNeighbourFutures.remove(future);
                     if (parentNeighbourFutures.isEmpty()) {
-                        NodeDiscoveryResult parentDiscoveryResult = nodeDiscoveryResultMap.remove(result.getParentId());
-                        nodeNeighbourFuturesMap.remove(result.getParentId());
+                        NodeDiscoveryResult parentDiscoveryResult = nodeDiscoveryResultMap.remove(parentId);
+                        nodeNeighbourFuturesMap.remove(parentId);
                         fireNeighboursDiscoveredEvent(parentDiscoveryResult);
                     }
                 }
-                if (result.getNodeId() != null) {
+                String nodeId = result.getNodeId();
+                if (nodeId != null) {
                     createNode(result);
-                    nodeDiscoveryResultMap.put(result.getNodeId(), result);
+                    nodeDiscoveryResultMap.put(nodeId, result);
                     fireNodeDiscoveredEvent(result);
                     Set<ConnectionDetails> neighboursConnectionDetailsSet = result.getNeighboursConnectionDetails();
-                    neighboursConnectionDetailsSet.removeAll(discoveredConnectionDetais);
-                    ArrayList<Future<NodeDiscoveryResult>> neighboutFutures = new ArrayList<Future<NodeDiscoveryResult>>();
-                    nodeNeighbourFuturesMap.put(result.getNodeId(), neighboutFutures);
+                    neighboursConnectionDetailsSet.removeAll(discoveredConnectionDetails);
+                    ArrayList<Future<NodeDiscoveryResult>> neighbourFutures = new ArrayList<Future<NodeDiscoveryResult>>();
+                    nodeNeighbourFuturesMap.put(nodeId, neighbourFutures);
                     for (ConnectionDetails neighboursConnectionDetails : neighboursConnectionDetailsSet) {
-                        discoveredConnectionDetais.add(neighboursConnectionDetails);
-                        DiscoveryWorker discoveryWorker = new DiscoveryWorker(nodeDiscoverers, neighboursConnectionDetails);
+                        discoveredConnectionDetails.add(neighboursConnectionDetails);
+                        DiscoveryWorker discoveryWorker = new DiscoveryWorker(nodeDiscoverers, neighboursConnectionDetails, nodeId);
                         Future<NodeDiscoveryResult> nodeNeighbourFuture = executorCompletionService.submit(discoveryWorker);
-                        neighboutFutures.add(nodeNeighbourFuture);
+                        neighbourFutures.add(nodeNeighbourFuture);
                         futureCounter++;
                     }
                 }

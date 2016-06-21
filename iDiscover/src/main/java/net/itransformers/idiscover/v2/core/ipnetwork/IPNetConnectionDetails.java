@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by Vasil Yordanov on 26-May-16.
  */
-public class IPNetConnectionDetails extends ConnectionDetails{
+public class IPNetConnectionDetails extends ConnectionDetails implements Cloneable{
 
     public static final String IP_ADDRESS_PARAM_KEY = "ipAddress";
 

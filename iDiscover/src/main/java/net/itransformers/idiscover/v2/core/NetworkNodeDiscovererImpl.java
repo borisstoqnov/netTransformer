@@ -74,11 +74,11 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover(connectionDetails);
                 if (discoveryResult == null){
                     logger.debug("No discovery result for "+ nodeId);
-                    fireNodeNotDiscoveredEvent(connectionDetails);
+//                    fireNodeNotDiscoveredEvent(connectionDetails);
                     continue;
                 }
 
-                fireNodeDiscoveredEvent(connectionDetails,discoveryResult);
+//                fireNodeDiscoveredEvent(connectionDetails,discoveryResult);
 
                 if (nodeId ==null) nodeId = discoveryResult.getNodeId();
                 Node currentNode = new Node(nodeId);

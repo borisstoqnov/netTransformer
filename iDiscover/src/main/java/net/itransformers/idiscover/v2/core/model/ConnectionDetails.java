@@ -27,7 +27,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ConnectionDetails {
+public class ConnectionDetails implements Cloneable{
     protected String connectionType;
     protected Map<String,String> params = new LinkedHashMap<String, String>();
 
@@ -95,5 +95,11 @@ public class ConnectionDetails {
         int result = connectionType != null ? connectionType.hashCode() : 0;
         result = 31 * result + (params != null ? params.hashCode() : 0);
         return result;
+    }
+
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
