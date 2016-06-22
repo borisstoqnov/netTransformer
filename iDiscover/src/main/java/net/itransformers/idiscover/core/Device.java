@@ -32,6 +32,7 @@ public class Device {
     private String name;
 
     private List<DeviceNeighbour> deviceNeighbours;
+    private List<Subnet>  deviceSubnets;
 
     public Device(String name) {
         this.name  = name;
@@ -49,9 +50,17 @@ public class Device {
     public List<DeviceNeighbour> getDeviceNeighbours() {
         return deviceNeighbours;
     }
+    public List<Subnet> getDeviceSubnets() {
+        return deviceSubnets;
+    }
+
 
     public void setDeviceNeighbours(List<DeviceNeighbour> deviceNeighbours) {
         this.deviceNeighbours = deviceNeighbours;
+    }
+
+    public void setDeviceSubnets(List<Subnet> deviceSubnets) {
+        this.deviceSubnets = deviceSubnets;
     }
 
 }
