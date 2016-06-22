@@ -93,7 +93,7 @@
 
 
 
-    <bean id="simpleNodeDiscoveryFilter" class="net.itransformers.idiscover.v2.core.snmpdiscoverer.SimpleNodeDiscoveryFilter">
+    <bean id="simpleNodeDiscoveryFilter" class="net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer.SimpleNodeDiscoveryFilter">
         <property name="matches">
             <list>
                 <!--<value>ipAddress=.*</value>-->

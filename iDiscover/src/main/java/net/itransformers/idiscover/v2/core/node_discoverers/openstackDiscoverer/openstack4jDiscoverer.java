@@ -27,7 +27,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-package net.itransformers.idiscover.v2.core.openstackDiscoverer;
+package net.itransformers.idiscover.v2.core.node_discoverers.openstackDiscoverer;
 
 
 import org.openstack4j.api.OSClient;

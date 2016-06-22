@@ -21,7 +21,7 @@
 
 package net.itransformers.idiscover.v2.core;
 
-import net.itransformers.idiscover.v2.core.ipnetwork.IPNetConnectionDetails;
+import net.itransformers.idiscover.v2.core.connection_details.IPNetConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.apache.commons.io.FileUtils;
 

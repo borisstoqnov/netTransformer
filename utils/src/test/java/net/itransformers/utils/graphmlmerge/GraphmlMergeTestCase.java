@@ -42,11 +42,14 @@ public class GraphmlMergeTestCase {
         File f2 = new File(getClass().getResource("/graphmlmerge/2.graphml").toURI());
         File f3 = new File(getClass().getResource("/graphmlmerge/3.graphml").toURI());
         File f3Actual = File.createTempFile("graphml_merge",".xml");
+
+
         Map<String, String> edgesTypes  = null;
         Map<String, String> vertexTypes = null;
         new GrahmlMerge().merge(new File[]{f1, f2}, f3Actual, vertexTypes, edgesTypes, "undirected");
-        String xml3 = FileUtils.readFileToString(f3);
-        String xml3Actual = FileUtils.readFileToString(f3Actual);
+        String xml3 = FileUtils.readFileToString(f3).replaceAll("\r","");
+        String xml3Actual = FileUtils.readFileToString(f3Actual).replaceAll("&#xd;","");
+        xml3Actual = xml3Actual.replaceAll("\r","");
         Assert.assertEquals(xml3.replaceAll("\r", ""), xml3Actual.replaceAll("\r", ""));
     }
     @Test
@@ -78,7 +81,8 @@ public class GraphmlMergeTestCase {
         Map<String, String> vertexTypes = null;
         new GrahmlMerge(edgeConflictResolver, vertexConflictResolver).merge(new File[]{f1, f2}, f3Actual, vertexTypes, edgesTypes, "undirected");
         String xml3 = FileUtils.readFileToString(f3).replaceAll("\r","");
-        String xml3Actual = FileUtils.readFileToString(f3Actual).replaceAll("\r","\n");
+        String xml3Actual = FileUtils.readFileToString(f3Actual).replaceAll("&#xd;","");
+        xml3Actual = xml3Actual.replaceAll("\r","");
         Assert.assertEquals(xml3, xml3Actual);
     }
 
@@ -180,7 +184,8 @@ public class GraphmlMergeTestCase {
     Map<String, String> vertexTypes = null;
     new GrahmlMerge(edgeConflictResolver, vertexConflictResolver).merge(new File[]{f1, f2}, f3Actual, vertexTypes, edgesTypes, "undirected");
     String xml3 = FileUtils.readFileToString(f3).replaceAll("\r","");
-    String xml3Actual = FileUtils.readFileToString(f3Actual).replaceAll("\r","");
+    String xml3Actual = FileUtils.readFileToString(f3Actual).replaceAll("&#xd;","");
+    xml3Actual = xml3Actual.replaceAll("\r","");
     Assert.assertEquals(xml3, xml3Actual);
 }
 

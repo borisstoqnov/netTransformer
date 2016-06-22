@@ -17,7 +17,7 @@
 // *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // */
 //
-//package net.itransformers.idiscover.v2.core.jsondiscoverer;
+//package net.itransformers.idiscover.v2.core.node_discoverers.jsondiscoverer;
 //
 ////import com.sun.jersey.api.client.Client;
 ////import com.sun.jersey.api.client.ClientResponse;

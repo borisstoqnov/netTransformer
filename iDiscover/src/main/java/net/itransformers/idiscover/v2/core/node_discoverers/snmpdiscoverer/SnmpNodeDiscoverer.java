@@ -19,7 +19,7 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-package net.itransformers.idiscover.v2.core.snmpdiscoverer;
+package net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer;
 
 import net.itransformers.idiscover.core.*;
 import net.itransformers.idiscover.discoveryhelpers.xml.SnmpForXslt;
@@ -28,7 +28,7 @@ import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.v2.core.NeighborDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.ipnetwork.IPNetConnectionDetails;
+import net.itransformers.idiscover.v2.core.connection_details.IPNetConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.snmp2xml4j.snmptoolkit.*;

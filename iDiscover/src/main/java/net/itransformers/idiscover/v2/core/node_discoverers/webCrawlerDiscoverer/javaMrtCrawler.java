@@ -21,7 +21,7 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-package net.itransformers.idiscover.v2.core.webCrawlerDiscoverer;
+package net.itransformers.idiscover.v2.core.node_discoverers.webCrawlerDiscoverer;
 
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;

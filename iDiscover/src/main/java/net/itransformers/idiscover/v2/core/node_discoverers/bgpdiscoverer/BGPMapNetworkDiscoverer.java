@@ -19,7 +19,7 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-package net.itransformers.idiscover.v2.core.bgpdiscoverer;
+package net.itransformers.idiscover.v2.core.node_discoverers.bgpdiscoverer;
 
 import net.itransformers.idiscover.v2.core.ANetworkDiscoverer;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
@@ -33,7 +33,6 @@ import org.javamrt.dumper.Route2GraphmlDumper;
 import org.javamrt.dumper.structures.ASContainer;
 
 import java.io.*;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 

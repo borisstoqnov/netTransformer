@@ -19,7 +19,7 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-package net.itransformers.idiscover.v2.core.jsondiscoverer;
+package net.itransformers.idiscover.v2.core.node_discoverers.jsondiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoverFilter;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.apache.log4j.Logger;

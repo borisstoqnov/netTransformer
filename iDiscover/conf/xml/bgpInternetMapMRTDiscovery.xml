@@ -26,7 +26,7 @@
 
 
 
-    <bean id="bgpPeeringMapDiscovery" class="net.itransformers.idiscover.v2.core.bgpdiscoverer.BGPMapNetworkDiscoverer">
+    <bean id="bgpPeeringMapDiscovery" class="net.itransformers.idiscover.v2.core.node_discoverers.bgpdiscoverer.BGPMapNetworkDiscoverer">
 
         <constructor-arg>
             <map>

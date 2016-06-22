@@ -53,7 +53,7 @@ public class ParallelNetworkNodeDiscovererIntegrationTestCase {
         NetworkDiscoveryResult result = discovery.discoverNetwork(connectionDetailsSet);
         Set<String> expectedNodes = new HashSet<String>();
         Collections.addAll(expectedNodes, "ssrv2noded", "ssrv1nodea", "srv2NodeC", "srv1nodeB", "ssrv1noded",
-                "r3845", "ssrv2nodeb", "srv1NodeC", "sw0", "null");
+                "r3845", "ssrv2nodeb", "srv1NodeC", "sw0");
         Assert.assertEquals(expectedNodes.toString(), result.getNodes().keySet().toString());
     }
 }

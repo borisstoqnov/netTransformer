@@ -25,7 +25,7 @@
        <!--xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">-->
 
 
-    <!--<bean id="bgpMapSnmpDiscoverer" class="net.itransformers.idiscover.v2.core.bgpdiscoverer.BgpMapSnmpDiscoverer">-->
+    <!--<bean id="bgpMapSnmpDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.bgpdiscoverer.BgpMapSnmpDiscoverer">-->
 
     <!--<property name="discoveryResource" ref="discoveryResourceManager"/>-->
     <!--<property name="projectPath" ref="projectPath"/>-->

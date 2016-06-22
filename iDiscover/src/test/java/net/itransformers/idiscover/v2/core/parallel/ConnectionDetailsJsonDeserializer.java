@@ -1,6 +1,6 @@
 package net.itransformers.idiscover.v2.core.parallel;
 
-import net.itransformers.idiscover.v2.core.ipnetwork.IPNetConnectionDetails;
+import net.itransformers.idiscover.v2.core.connection_details.IPNetConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +20,12 @@ public class ConnectionDetailsJsonDeserializer {
         Iterator keys = jsonParams.keys();
         while (keys.hasNext()){
             String key = (String) keys.next();
-            params.put(key, jsonParams.getString(key));
+            if (!jsonParams.isNull(key)){
+                params.put(key, jsonParams.getString(key));
+            } else {
+                params.put(key, null);
+            }
+
         }
         return new IPNetConnectionDetails(connectionType,params);
     }
