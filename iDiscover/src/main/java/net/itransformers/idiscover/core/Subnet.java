@@ -53,7 +53,7 @@ public class Subnet {
         return subnetMask;
     }
 
-    public void setPrefix(String subnetMask) {
+    public void setSubnetMask(String subnetMask) {
         this.subnetMask = subnetMask;
     }
 

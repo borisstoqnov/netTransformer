@@ -17,7 +17,7 @@ public class SubnetDiscoverer implements NodeDiscoverer {
         String subnetMask = connectionDetails.getParam("subnetMask");
 
 
-        NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult(subnetIpAddress+"/"+subnetMask, null);
+        NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult(subnetIpAddress, null);
         nodeDiscoveryResult.setDiscoveredData("subnetIpAddress", subnetIpAddress);
         nodeDiscoveryResult.setDiscoveredData("protocolType", protocolType);
         nodeDiscoveryResult.setDiscoveredData("subnetMask",subnetMask);

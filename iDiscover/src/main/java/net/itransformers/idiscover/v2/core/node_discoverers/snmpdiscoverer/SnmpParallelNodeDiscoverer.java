@@ -158,9 +158,10 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
 
        if (subnets!=null){
            subnetConnectionDetails = createSubnetConnectionDetails(subnets);
+           neighboursConnDetails.addAll(subnetConnectionDetails);
+
        }
 
-        neighboursConnDetails.addAll(subnetConnectionDetails);
 
         NodeDiscoveryResult result = new NodeDiscoveryResult(deviceName, neighboursConnDetails);
         result.setDiscoveredData("deviceData", discoveredDeviceData);

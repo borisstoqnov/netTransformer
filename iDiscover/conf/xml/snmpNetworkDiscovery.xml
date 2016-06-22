@@ -44,7 +44,7 @@
                 <!--<ref bean="GraphmlFileLogDiscoveryListener"/>-->
                 <!--<ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>-->
                 <!--<ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>-->
-                <ref bean="GraphmlFileLogGroovyDiscoveryListener"/>
+                <!--ref bean="GraphmlFileLogGroovyDiscoveryListener"/-->
             </list>
         </property>
         <property name="networkDiscoveryListeners">
@@ -76,7 +76,7 @@
                 <!--<ref bean="GraphmlFileLogDiscoveryListener"/>-->
                 <!--<ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>-->
                 <!--<ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>-->
-                <ref bean="GraphmlFileLogGroovyDiscoveryListener"/>
+                <!--ref bean="GraphmlFileLogGroovyDiscoveryListener"/-->
             </list>
         </property>
         <property name="nodeNeighbourDiscoveryListeners">

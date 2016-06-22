@@ -61,6 +61,8 @@ public class DeviceDataFileLogDiscoveryListener implements NodeDiscoveryListener
         if (!deviceDataDir.exists()) deviceDataDir.mkdir();
 
         String deviceName = discoveryResult.getNodeId();
+        if (deviceName==null) return;
+
         File file = new File(deviceDataDir, "device-data-"+deviceName+".xml");
         DiscoveredDeviceData discoveredDeviceData = (DiscoveredDeviceData) discoveryResult.getDiscoveredData("deviceData");
       //  ByteArrayOutputStream graphMLOutputStream = new ByteArrayOutputStream();

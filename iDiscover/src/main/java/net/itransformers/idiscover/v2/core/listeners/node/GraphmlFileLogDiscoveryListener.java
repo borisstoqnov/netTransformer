@@ -51,6 +51,9 @@ public class GraphmlFileLogDiscoveryListener implements NodeDiscoveryListener {
         if (!graphmlDir.exists()) graphmlDir.mkdir();
 
         String deviceName = discoveryResult.getNodeId();
+        if (deviceName==null) return;
+        //This is a case of a subnetKind of a node or other nodes without nodeId.
+
         DiscoveredDeviceData discoveredDeviceData = (DiscoveredDeviceData) discoveryResult.getDiscoveredData("deviceData");
         ByteArrayOutputStream graphMLOutputStream = new ByteArrayOutputStream();
 

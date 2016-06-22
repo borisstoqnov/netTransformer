@@ -86,8 +86,9 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
     public Device createDevice(DiscoveredDeviceData discoveredDeviceData) {
         Device device = new Device(discoveredDeviceData.getName());
         List<DeviceNeighbour> deviceNeighbours = createDeviceNeighbours(discoveredDeviceData);
-        List<Subnet> deviceNetworks = createDeviceSubnets(discoveredDeviceData);
+        List<Subnet> deviceSubnets = createDeviceSubnets(discoveredDeviceData);
         device.setDeviceNeighbours(deviceNeighbours);
+        device.setDeviceSubnets(deviceSubnets);
         return device;
     }
 
@@ -111,7 +112,7 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
                             params2Map.put(params2Param.getName(), params2Param.getValue());
                         }
                         String subnetType = "IPv4";
-                        String ipSubnetMask = params2Map.get("ipSubnetMask");
+                        String ipSubnetMask = params2Map.get("ipv4SubnetPrefix");
                         String ipv4Subnet = params2Map.get("ipv4Subnet");
                         Subnet subnet = new Subnet(ipv4Subnet + "/" + ipSubnetMask, ipv4Subnet, ipSubnetMask, interfaceName, subnetType);
                         result.add(subnet);
