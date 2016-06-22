@@ -117,6 +117,12 @@
         <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,IPSEC,BGP,RIP,ADDITIONAL,IPV6"/>
         <constructor-arg ref="discoveryResourceManager"/>
         <constructor-arg ref="MibLoaderHolder"/>
+
+        <constructor-arg>
+            <list>
+                <ref bean="sampleNeigborDiscoveryListener"/>
+            </list>
+        </constructor-arg>
     </bean>
     <bean id="snmpParallelNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer.SnmpParallelNodeDiscoverer">
         <constructor-arg ref="discoveryHelperFactory"/>
@@ -124,11 +130,6 @@
         <constructor-arg ref="discoveryResourceManager"/>
         <constructor-arg ref="MibLoaderHolder"/>
 
-        <constructor-arg>
-            <list>
-                <ref bean="sampleNeigborDiscoveryListener"/>
-            </list>
-        </constructor-arg>
     </bean>
     <bean id="subnetNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.subnet_discoverer.SubnetDiscoverer">
     </bean>
