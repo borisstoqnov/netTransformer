@@ -25,7 +25,7 @@ import net.itransformers.utils.XsltTransformer;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
-
+ @Deprecated
 public class FolderTransformator {
     public static void main(String[] args) throws IOException, JAXBException {
         File in_dir = null;

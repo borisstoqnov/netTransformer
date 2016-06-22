@@ -25,7 +25,7 @@ import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.apache.log4j.Logger;
 
 import java.util.List;
-
+@Deprecated
 public class FloodLightNodeDiscoveryFilter implements NodeDiscoverFilter {
     static Logger logger = Logger.getLogger(FloodLightNodeDiscoveryFilter.class);
 

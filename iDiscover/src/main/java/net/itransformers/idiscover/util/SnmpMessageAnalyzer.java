@@ -37,7 +37,7 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+@Deprecated
 public class SnmpMessageAnalyzer implements CommandResponder {
     public static Pattern p = Pattern.compile("^(.*DefaultUdpTransportMapping.*message .*with length.*: )(.*)$");
     public static void main(String[] args) throws IOException {

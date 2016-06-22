@@ -42,7 +42,7 @@ import java.io.*;
 import java.util.*;
 
 //import net.itransformers.utils.XmlFormatter;
-
+@Deprecated
 public class XmlTopologyDeviceLogger implements DiscoveryListener{
     static Logger logger = Logger.getLogger(XmlTopologyDeviceLogger.class);
     private final String graphtType;

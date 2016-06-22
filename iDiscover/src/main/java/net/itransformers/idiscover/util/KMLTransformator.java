@@ -35,7 +35,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
+@Deprecated
 public class KMLTransformator {
     private static void printUsage(String param) {
         System.out.println("Usage:   java [-g <graphml file folder>] [-t <kml xslt transformator>] [-o <kml file output file>] ");

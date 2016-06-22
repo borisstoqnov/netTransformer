@@ -24,6 +24,8 @@ package net.itransformers.idiscover.discoveryhelpers.xml;
 /**
  * Created by vasko on 09.03.15.
  */
+
+@Deprecated
 public class MockSnmpForXslt {
 
     public String getNameByDNS(String ipAddress) {

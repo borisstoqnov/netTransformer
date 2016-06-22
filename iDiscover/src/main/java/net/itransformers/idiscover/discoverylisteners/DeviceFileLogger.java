@@ -33,7 +33,7 @@ import org.apache.log4j.Logger;
 import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.util.Map;
-
+@Deprecated
 public class DeviceFileLogger implements DiscoveryListener{
     static Logger logger = Logger.getLogger(DeviceFileLogger.class);
     private File path;

@@ -24,6 +24,7 @@ package net.itransformers.idiscover.discoveryhelpers.java;
 import net.itransformers.idiscover.core.DiscoveryHelper;
 import net.itransformers.idiscover.core.DiscoveryHelperFactory;
 
+@Deprecated
 public class DefaultDiscoveryHelperFactory implements DiscoveryHelperFactory {
 
 

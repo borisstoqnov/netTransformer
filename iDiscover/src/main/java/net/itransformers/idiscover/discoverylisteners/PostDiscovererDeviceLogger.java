@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 //import net.itransformers.utils.XmlFormatter;
-
+@Deprecated
 public class PostDiscovererDeviceLogger implements PostDiscoveryListener{
     static Logger logger = Logger.getLogger(PostDiscovererDeviceLogger.class);
     private File scriptPath;
