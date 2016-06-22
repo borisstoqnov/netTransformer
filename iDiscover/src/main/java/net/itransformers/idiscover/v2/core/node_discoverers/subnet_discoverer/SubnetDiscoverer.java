@@ -10,10 +10,17 @@ import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 public class SubnetDiscoverer implements NodeDiscoverer {
     @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
-        // TODO implement better
-        String val = connectionDetails.getParam("...");
-        NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult("...TODO..", null);
-        nodeDiscoveryResult.setDiscoveredData("some_key", "some_data");
+
+
+        String protocolType = connectionDetails.getParam("protocolType");
+        String subnetIpAddress = connectionDetails.getParam("ipAddress");
+        String subnetMask = connectionDetails.getParam("subnetMask");
+
+
+        NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult(subnetIpAddress+"/"+subnetMask, null);
+        nodeDiscoveryResult.setDiscoveredData("subnetIpAddress", subnetIpAddress);
+        nodeDiscoveryResult.setDiscoveredData("protocolType", protocolType);
+        nodeDiscoveryResult.setDiscoveredData("subnetMask",subnetMask);
         return nodeDiscoveryResult;
     }
 }

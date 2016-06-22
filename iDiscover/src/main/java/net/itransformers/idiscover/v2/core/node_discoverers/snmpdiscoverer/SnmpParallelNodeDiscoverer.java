@@ -148,10 +148,20 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
         DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, snmpConnParams);
         Device device = discoveryHelper.createDevice(discoveredDeviceData);
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
+        List<Subnet> subnets = device.getDeviceSubnets();
         Set<ConnectionDetails> neighboursConnDetails = null;
         if (neighbours != null) {
             neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
         }
+
+        Set<ConnectionDetails> subnetConnectionDetails=null;
+
+       if (subnets!=null){
+           subnetConnectionDetails = createSubnetConnectionDetails(subnets);
+       }
+
+        neighboursConnDetails.addAll(subnetConnectionDetails);
+
         NodeDiscoveryResult result = new NodeDiscoveryResult(deviceName, neighboursConnDetails);
         result.setDiscoveredData("deviceData", discoveredDeviceData);
         result.setDiscoveredData("rawData", rawData.getData());
@@ -261,4 +271,24 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
         }
         return neighboursConnDetails;
     }
+    private Set<ConnectionDetails> createSubnetConnectionDetails(List<Subnet> subnets) {
+        Set<ConnectionDetails> subnetConnectionDetails = new HashSet<ConnectionDetails>();
+
+        for (Subnet subnet : subnets) {
+            ConnectionDetails subnetConnection = new IPNetConnectionDetails();
+            String ipAddress = subnet.getIpAddress();
+            String protocolType = subnet.getSubnetProtocolType();
+            String subnetMask = subnet.getsubnetMask();
+                subnetConnection.put("ipAddress", ipAddress);
+                subnetConnection.put("protocolType", protocolType);
+                subnetConnection.put("subnetMask", subnetMask);
+                subnetConnection.setConnectionType("subnet");
+
+                subnetConnectionDetails.add(subnetConnection);
+
+
+        }
+        return subnetConnectionDetails;
+    }
+
 }

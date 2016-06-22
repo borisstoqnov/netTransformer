@@ -28,6 +28,10 @@
 		<xsl:param name="ipv6AddrType"/>
 		<xsl:param name="ipv6AddrAnycastFlag"/>
 		<xsl:param name="ipv6AddrStatus"/>
+		<xsl:variable name="ipv6Addr" select="functx:substring-before-last-match($ipAdEntAddr,'.')"/>
+		<xsl:variable name="ipv6Prefixtemp" select="concat($ipv6Addr,'/')"/>
+		<xsl:variable name="ipv6Prefix" select="concat($ipv6Prefixtemp,$ipv6AddrPfxLength)"/>
+
 		<object>
 			<name>
 				<xsl:value-of select="functx:substring-before-last-match($ipAdEntAddr,'.')"/>/<xsl:value-of select="$ipv6AddrPfxLength"/>
@@ -37,7 +41,7 @@
 				<parameter>
 					<name>IPv6Address</name>
 					<value>
-						<xsl:value-of select="functx:substring-before-last-match($ipAdEntAddr,'.')"/>
+						<xsl:value-of select="$ipv6Addr"/>
 					</value>
 				</parameter>
 				<parameter>
@@ -46,6 +50,11 @@
 						<xsl:value-of select="$ipv6AddrPfxLength"/>
 					</value>
 				</parameter>
+				<parameter>
+					<name>ipv6Subnet</name>
+					<value><xsl:value-of select="SnmpForXslt:getSubnetFromPrefix($ipv6Prefix)"/></value>
+				</parameter>
+
 				<parameter>
 					<name>ipv6AddrType</name>
 					<value>

@@ -23,6 +23,7 @@
 
 package net.itransformers.idiscover.discoveryhelpers.xml;
 
+import net.itransformers.idiscover.core.Subnet;
 import net.itransformers.idiscover.core.*;
 import net.itransformers.idiscover.discoveryhelpers.xml.discoveryParameters.*;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
@@ -85,8 +86,59 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
     public Device createDevice(DiscoveredDeviceData discoveredDeviceData) {
         Device device = new Device(discoveredDeviceData.getName());
         List<DeviceNeighbour> deviceNeighbours = createDeviceNeighbours(discoveredDeviceData);
+        List<Subnet> deviceNetworks = createDeviceSubnets(discoveredDeviceData);
         device.setDeviceNeighbours(deviceNeighbours);
         return device;
+    }
+
+    private List<Subnet> createDeviceSubnets(DiscoveredDeviceData discoveredDeviceData) {
+        List<ObjectType> objList1 = discoveredDeviceData.getObject();
+
+        List<Subnet> result = new ArrayList<Subnet>();
+        for (ObjectType objectType1 : objList1) {
+            String objectType = objectType1.getObjectType();
+
+            if (objectType.equals("Discovery Interface")) {
+                String interfaceName = objectType1.getName();
+
+                List<ObjectType> objList2 = objectType1.getObject();
+                for (ObjectType objectType2 : objList2) {
+                    String objectTypeType2 = objectType2.getObjectType();
+                    if (objectTypeType2.equals("IPv4 Address")) {
+                        ParametersType params2 = objectType2.getParameters();
+                        HashMap<String, String> params2Map = new HashMap<String, String>();
+                        for (ParameterType params2Param : params2.getParameter()) {
+                            params2Map.put(params2Param.getName(), params2Param.getValue());
+                        }
+                        String subnetType = "IPv4";
+                        String ipSubnetMask = params2Map.get("ipSubnetMask");
+                        String ipv4Subnet = params2Map.get("ipv4Subnet");
+                        Subnet subnet = new Subnet(ipv4Subnet + "/" + ipSubnetMask, ipv4Subnet, ipSubnetMask, interfaceName, subnetType);
+                        result.add(subnet);
+                        continue;
+                    }
+                    if (objectTypeType2.equals("IPv6 Address")){
+                        ParametersType params2 = objectType2.getParameters();
+                        HashMap<String, String> params2Map = new HashMap<String, String>();
+                        for (ParameterType params2Param : params2.getParameter()) {
+                            params2Map.put(params2Param.getName(), params2Param.getValue());
+                        }
+
+                        String subnetType = "IPv6";
+                        String ipSubnetMask = params2Map.get("ipv6AddrPfxLength");
+                        String ipv6Subnet = params2Map.get("ipv6Subnet");
+                        Subnet subnet = new Subnet(ipv6Subnet + "/" + ipSubnetMask, ipv6Subnet, ipSubnetMask, interfaceName, subnetType);
+                        result.add(subnet);
+                        continue;
+
+
+                    }
+
+                }
+            }
+
+        }
+        return result;
     }
 
     private List<DeviceNeighbour> createDeviceNeighbours(DiscoveredDeviceData discoveredDeviceData) {
