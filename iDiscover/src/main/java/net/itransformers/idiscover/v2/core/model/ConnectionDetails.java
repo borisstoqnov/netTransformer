@@ -66,9 +66,18 @@ public class ConnectionDetails implements Cloneable{
 
     @Override
     public String toString() {
-        return "ConnectionDetails{" +
-                "connectionType='" + connectionType + '\'' +
-                ", params=" + params +
+        StringBuilder paramsBuilder = new StringBuilder();
+        boolean isFirst = true;
+        for (Map.Entry<String, String> param : this.params.entrySet()) {
+            if (!isFirst) paramsBuilder.append(",");
+            isFirst = false;
+            paramsBuilder.append("\"").append(param.getKey()).append("\":");
+            if (param.getValue() == null) paramsBuilder.append("null");
+            else paramsBuilder.append("\"").append(param.getValue()).append("\"");
+        }
+        return "{" +
+                "\"connectionType\":\"" + connectionType + "\"" +
+                ",\"params\":{" + paramsBuilder.toString() + "}"+
                 '}';
     }
 

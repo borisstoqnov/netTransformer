@@ -15,9 +15,9 @@ import java.util.concurrent.Callable;
  */
 public class DiscoveryWorker implements Callable<NodeDiscoveryResult> {
     static Logger logger = Logger.getLogger(DiscoveryWorker.class);
-    private Map<String, NodeDiscoverer> discoverers;
-    private ConnectionDetails connectionDetails;
-    private String parentId;
+    protected Map<String, NodeDiscoverer> discoverers;
+    protected ConnectionDetails connectionDetails;
+    protected String parentId;
 
     public DiscoveryWorker(Map<String, NodeDiscoverer> discoverers, ConnectionDetails connectionDetails, String parentId) {
         this.discoverers = discoverers;
@@ -44,6 +44,7 @@ public class DiscoveryWorker implements Callable<NodeDiscoveryResult> {
             discoveryResult = new NodeDiscoveryResult(null, null);
         }
         discoveryResult.setParentId(parentId);
+        discoveryResult.setDiscoveryConnectionDetails(connectionDetails);
         return discoveryResult;
     }
 

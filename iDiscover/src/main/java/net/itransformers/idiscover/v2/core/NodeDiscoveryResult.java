@@ -43,10 +43,11 @@ import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import java.util.*;
 
 public class NodeDiscoveryResult implements Cloneable{
-    String parentId;
-    String nodeId;
-    Set<ConnectionDetails> neighboursConnectionDetails = new HashSet<ConnectionDetails>();
-    Map<String,Object> discoveredData = new HashMap<String,Object>();
+    protected String parentId;
+    protected String nodeId;
+    protected Set<ConnectionDetails> neighboursConnectionDetails = new HashSet<ConnectionDetails>();
+    protected Map<String,Object> discoveredData = new HashMap<String,Object>();
+    protected ConnectionDetails discoveryConnectionDetails;
 
     public NodeDiscoveryResult(String nodeId, Set<ConnectionDetails> neighboursConnectionDetails) {
         this.nodeId = nodeId;
@@ -84,10 +85,11 @@ public class NodeDiscoveryResult implements Cloneable{
 
     @Override
     public String toString() {
-        return "NodeDiscoveryResult{" +
-                "nodeId='" + nodeId + '\'' +
-                ", neighboursConnectionDetails=" + neighboursConnectionDetails +
-                ", discoveredData=" + discoveredData.toString() +
+        return "{" +
+                "\"nodeId\":"+(nodeId == null? "null":"\"" + nodeId + "\"")+ "" +
+                ",\"parentId\":"+(parentId == null? "null":"\"" + parentId + "\"")+"" +
+                ",\"connectionDetails\": " + discoveryConnectionDetails +
+                ",\"neighboursConnectionDetails\": " + neighboursConnectionDetails +
                 '}';
     }
 
@@ -97,4 +99,11 @@ public class NodeDiscoveryResult implements Cloneable{
         return super.clone();
     }
 
+    public ConnectionDetails getDiscoveryConnectionDetails() {
+        return discoveryConnectionDetails;
+    }
+
+    public void setDiscoveryConnectionDetails(ConnectionDetails discoveryConnectionDetails) {
+        this.discoveryConnectionDetails = discoveryConnectionDetails;
+    }
 }

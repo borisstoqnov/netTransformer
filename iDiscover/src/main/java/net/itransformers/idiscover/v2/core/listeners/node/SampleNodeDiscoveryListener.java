@@ -47,6 +47,12 @@ public class SampleNodeDiscoveryListener implements NodeDiscoveryListener {
 
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
-        logger.info("Node is discovered: " + discoveryResult);
+        synchronized (this) {
+            if (discoveryResult.getNodeId() != null) {
+                logger.info("Node is discovered: " + discoveryResult);
+            } else {
+                logger.info("Node is not discovered: " + discoveryResult);
+            }
+        }
     }
 }
