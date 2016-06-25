@@ -28,7 +28,6 @@ package net.itransformers.idiscover.core;
  * To change this template use File | Settings | File Templates.
  */
 
-@Deprecated
 public enum DiscoveryManagerStatus {
     CONFIGURED,
     RUNNING,

@@ -37,6 +37,18 @@ public class Network {
     String subnetProtocolType;
     String subnetType;
 
+    public Network(String name, HashMap<String, DeviceNeighbour> neighbours, String ipAddress, String prefix, String subnetPrefix, String localInterface, String localMac, String subnetProtocolType, String subnetType) {
+        this.name = name;
+        this.neighbours = neighbours;
+        this.ipAddress = ipAddress;
+        this.prefix = prefix;
+        this.subnetPrefix = subnetPrefix;
+        this.localInterface = localInterface;
+        this.localMac = localMac;
+        this.subnetProtocolType = subnetProtocolType;
+        this.subnetType = subnetType;
+    }
+
     public String getSubnetPrefix() {
         return subnetPrefix;
     }
@@ -109,6 +121,13 @@ public class Network {
         this.subnetType = subnetType;
     }
 
+    public String getLocalMac() {
+        return localMac;
+    }
+
+    public void setLocalMac(String localMac) {
+        this.localMac = localMac;
+    }
 
     @Override
     public String toString() {

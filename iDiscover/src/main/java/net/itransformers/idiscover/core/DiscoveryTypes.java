@@ -20,7 +20,6 @@
  */
 
 package net.itransformers.idiscover.core;
-
 public interface DiscoveryTypes {
     String PHYSICAL = "PHYSICAL";
     String OSPF = "OSPF";

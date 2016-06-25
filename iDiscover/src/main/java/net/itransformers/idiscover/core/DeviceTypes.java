@@ -22,7 +22,7 @@
  */
 
 package net.itransformers.idiscover.core;
-
+@Deprecated
 public interface DeviceTypes {
     String CISCO = "CISCO";
     String HUAWEI = "HUAWEI";

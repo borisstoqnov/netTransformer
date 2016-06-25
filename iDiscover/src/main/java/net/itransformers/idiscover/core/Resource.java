@@ -23,7 +23,7 @@
 package net.itransformers.idiscover.core;
 
 import java.util.Map;
-
+@Deprecated
 public class Resource {
     private String host;
     private String deviceType;

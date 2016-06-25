@@ -22,7 +22,7 @@
 package net.itransformers.idiscover.core;
 
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
-
+@Deprecated
 public interface PostDiscoveryListener {
 
     void handleDevice(String deviceName, RawDeviceData rawData, DiscoveredDeviceData discoveredDeviceData, Resource resource);

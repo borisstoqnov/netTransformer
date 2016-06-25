@@ -20,7 +20,7 @@
  */
 
 package net.itransformers.idiscover.core;
-
+ @Deprecated
 public class IPv4Address {
     private String ipAddress;
     private String netMask;

@@ -22,7 +22,7 @@
  */
 
 package net.itransformers.idiscover.core;
-
+@Deprecated
 public interface Discoverer {
     String getDeviceType(Resource resource);
     String getDeviceName(Resource resource);
