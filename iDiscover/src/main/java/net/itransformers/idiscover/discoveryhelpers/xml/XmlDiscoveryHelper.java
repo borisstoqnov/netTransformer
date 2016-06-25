@@ -150,12 +150,23 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
             List<ObjectType> objList2 = objectType1.getObject();
 
             if (objectType1.getObjectType().equals("DeviceLogicalData")) {
-                        objectType1.getName();
+                for (ObjectType objectType2 : objList2) {
+
+                    if (objectType2.getObjectType().equals("Discovered Neighbor")) {
+                        ParametersType params2 = objectType2.getParameters();
+                        HashMap<String, String> params2Map = new HashMap<String, String>();
+                        for (ParameterType params2Param : params2.getParameter()) {
+                            params2Map.put(params2Param.getName(), params2Param.getValue());
+                        }
+                        String ipAddress = params2Map.get("Neighbor IP Address");
+                        DeviceNeighbour deviceNeighbour;
+                        deviceNeighbour = new DeviceNeighbour(ipAddress, params2Map);
+                        result.add(deviceNeighbour);
+                    }
+                }
 
 
             }
-
-//            TODO Check for Device Logical Data and for the neighbors bellow it
 
             for (ObjectType objectType2 : objList2) {
                 if (objectType2.getObjectType().equals("Discovered Neighbor")) {
@@ -164,25 +175,10 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
                     for (ParameterType params2Param : params2.getParameter()){
                         params2Map.put(params2Param.getName(), params2Param.getValue());
                     }
-                    String Reachable = params2Map.get("Reachable");
                     String ipAddress = params2Map.get("Neighbor IP Address");
-                    String hostName = params2Map.get("Neighbor hostname");
-                    String deviceType = params2Map.get("Neighbor Device Type");
-                    //String snmpCommunity = params2Map.get("SNMP Community");
                     DeviceNeighbour deviceNeighbour;
 
-                    deviceNeighbour = new DeviceNeighbour(hostName, ipAddress);
-
-//                    if (Reachable.equals("YES")){
-//                    }else{
-//                       if (hostName != null){
-//                        deviceNeighbour = new DeviceNeighbour(hostName,deviceType,snmpCommunity,false);
-//                        }else if (ipAddress != null){
-//                        deviceNeighbour = new DeviceNeighbour(ipAddress,deviceType,snmpCommunity,false);
-//                        } else {
-//                            deviceNeighbour = new DeviceNeighbour(objectType2.getName(),deviceType,snmpCommunity,false);
-//                        }
-//                    }
+                    deviceNeighbour = new DeviceNeighbour(ipAddress, params2Map);
                     result.add(deviceNeighbour);
                 }
 

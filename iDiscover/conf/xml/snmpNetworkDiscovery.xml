@@ -138,6 +138,7 @@
     <bean id="discoveryHelperFactory" class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">
         <constructor-arg>
             <map>
+                <entry key="projectPath" value="projectPath"/>
                 <entry key="fileName" value="iDiscover/conf/xml/discoveryParameters.xml"/>
                 <entry key="resourceXML" value="resourceManager/conf/xml/resource.xml"/>
             </map>

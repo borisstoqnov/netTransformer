@@ -33,7 +33,6 @@ import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.snmp2xml4j.snmptoolkit.*;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -391,18 +390,30 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         for (DeviceNeighbour neighbour : neighbours) {
             ConnectionDetails neighbourConnectionDetails = new IPNetConnectionDetails();
             String ipAddress = neighbour.getIpAddress();
+            HashMap<String,String> neighbourParameters = neighbour.getParameters();
 
-            if (InetAddressValidator.getInstance().isValid(ipAddress)) {
+//            if (InetAddressValidator.getInstance().isValid(ipAddress)) {
 
-                neighbourConnectionDetails.put("deviceType", neighbour.getDeviceType());
-                neighbourConnectionDetails.put("deviceName", neighbour.getHostName());
+                if (neighbourParameters.get("Neighbor Device Type")!=null) {
+                    neighbourConnectionDetails.put("deviceType", neighbourParameters.get("Neighbor Device Type"));
+                }
+                if (neighbourParameters.get("Device Name")!=null) {
+                    neighbourConnectionDetails.put("deviceName", neighbourParameters.get("Device Name"));
+                }
+                if (neighbourParameters.get("Neighbor MAC Address")!=null) {
+                    neighbourConnectionDetails.put("neighborMacAddress", neighbourParameters.get("Neighbor MAC Address"));
+                }
+                if (neighbourParameters.get("Discovery Method")!=null){
+                    neighbourConnectionDetails.put("discoveryMethods", neighbourParameters.get("Discovery Method"));
+                }
+
                 neighbourConnectionDetails.put("ipAddress", ipAddress);
                 neighbourConnectionDetails.setConnectionType("snmp");
                 neighboursConnDetails.add(neighbourConnectionDetails);
-            } else {
-                logger.info("Device has an invalid ipAddreess " + neighbour);
-                // InetAddress.getByName(ipAddress);
-            }
+//            } else {
+//                logger.info("Device has an invalid ipAddreess " + neighbour);
+//                // InetAddress.getByName(ipAddress);
+//            }
 
         }
         return neighboursConnDetails;

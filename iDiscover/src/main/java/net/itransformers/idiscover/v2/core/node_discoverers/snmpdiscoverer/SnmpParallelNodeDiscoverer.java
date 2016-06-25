@@ -32,10 +32,11 @@ import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.snmp2xml4j.snmptoolkit.*;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 
 public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
@@ -55,13 +56,52 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
 
     @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
-        String deviceName = connectionDetails.getParam("deviceName");
         Map<String, String> params1 = new HashMap<String, String>();
+        String deviceName = connectionDetails.getParam("deviceName");
+
+        if (deviceName!=null && !deviceName.isEmpty()){
+            params1.put("deviceName", deviceName);
+
+        }
         String deviceType = connectionDetails.getParam("deviceType");
-        params1.put("deviceName", connectionDetails.getParam("deviceName"));
-        params1.put("deviceType", deviceType);
+        if (deviceType!=null && !deviceType.isEmpty()){
+            params1.put("deviceType", deviceType);
+
+        }
         String ipAddressStr = connectionDetails.getParam("ipAddress");
-        params1.put("ipAddress", ipAddressStr);
+
+        if (ipAddressStr!=null && !ipAddressStr.isEmpty()){
+            params1.put("ipAddress", ipAddressStr);
+
+        }
+        String dnsNameFullString=null;
+        String dnsShort=null;
+        InetAddress inetAddress =null;
+        try {
+            if (ipAddressStr==null && deviceName!=null && deviceName.isEmpty()) {
+                inetAddress = InetAddress.getByName(deviceName);
+                if (inetAddress!=null) {
+                    params1.put("ipAddress", inetAddress.getHostAddress());
+                }
+
+            } else {
+                inetAddress = InetAddress.getByName(ipAddressStr);
+
+            }
+            dnsNameFullString = inetAddress.getHostName();
+            dnsShort=subStringDeviceName(dnsNameFullString);
+
+
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        connectionDetails.put("dnsNameFullString",dnsNameFullString);
+        connectionDetails.put("dnsName",dnsShort);
+
+
+
+
+
 
         SnmpManager snmpManager = null;
         Map<String, String> snmpConnParams = new HashMap<String, String>();
@@ -256,18 +296,32 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
         for (DeviceNeighbour neighbour : neighbours) {
             ConnectionDetails neighbourConnectionDetails = new IPNetConnectionDetails();
             String ipAddress = neighbour.getIpAddress();
+            HashMap<String,String> neighbourParameters = neighbour.getParameters();
+            String deviceType = neighbourParameters.get("Neighbor Device Type");
 
-            if (InetAddressValidator.getInstance().isValid(ipAddress)) {
-
-                neighbourConnectionDetails.put("deviceType", neighbour.getDeviceType());
-                neighbourConnectionDetails.put("deviceName", neighbour.getHostName());
-                neighbourConnectionDetails.put("ipAddress", ipAddress);
-                neighbourConnectionDetails.setConnectionType("snmp");
-                neighboursConnDetails.add(neighbourConnectionDetails);
-            } else {
-                logger.info("Device has an invalid ipAddreess " + neighbour);
-                // InetAddress.getByName(ipAddress);
+            if (deviceType!=null && !deviceType.isEmpty()) {
+                neighbourConnectionDetails.put("deviceType", deviceType);
             }
+
+            String deviceName=neighbourParameters.get("Device Name");
+
+            if (deviceName!=null && !deviceName.isEmpty()) {
+                neighbourConnectionDetails.put("deviceName", deviceName);
+            }
+            String neighbourMacAddress=neighbourParameters.get("Neighbor MAC Address");
+            if (neighbourMacAddress!=null && !neighbourMacAddress.isEmpty()) {
+                neighbourConnectionDetails.put("neighborMacAddress", neighbourMacAddress);
+            }
+            String discoveryMethods = neighbourParameters.get("Discovery Method");
+
+            if (neighbourParameters.get("Discovery Method")!=null && !discoveryMethods.isEmpty()){
+                neighbourConnectionDetails.put("discoveryMethods", discoveryMethods);
+            }
+            if (ipAddress!=null && !ipAddress.isEmpty())
+                neighbourConnectionDetails.put("ipAddress", ipAddress);
+
+            neighbourConnectionDetails.setConnectionType("snmp");
+            neighboursConnDetails.add(neighbourConnectionDetails);
 
         }
         return neighboursConnDetails;

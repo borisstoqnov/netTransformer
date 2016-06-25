@@ -20,7 +20,6 @@
  */
 
 package net.itransformers.idiscover.core;
-
 public interface DiscoveryHelperFactory {
     DiscoveryHelper createDiscoveryHelper(String deviceType);
 }

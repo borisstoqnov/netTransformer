@@ -276,7 +276,7 @@ public class IntegrationTestsMetroE {
         SnmpForXslt.setDiscoveredIPs(discoveredDevices);
 
 
-        resourceParams.put("neighbourIPDryRun","false");
+        resourceParams.put("neighbourIPDryRun", "false");
 
         OutputStream os  = null;
 
@@ -693,10 +693,18 @@ public class IntegrationTestsMetroE {
         List<ConnectionDetails> neighboursConnDetails = new ArrayList<ConnectionDetails>();
         for (DeviceNeighbour neighbour : neighbours) {
             ConnectionDetails neighbourConnectionDetails = new IPNetConnectionDetails();
-            neighbourConnectionDetails.put("deviceType",neighbour.getDeviceType());
-            if (neighbour.getStatus()){ // if reachable
-                neighbourConnectionDetails.put("deviceName",neighbour.getHostName());
-                neighbourConnectionDetails.put("ipAddress", neighbour.getIpAddress());
+            HashMap<String,String> neighbourParameters = neighbour.getParameters();
+
+
+            neighbourConnectionDetails.put("deviceType", neighbourParameters.get("Neighbor Device Type"));
+            neighbourConnectionDetails.put("deviceName", neighbourParameters.get("Device Name"));
+            neighbourConnectionDetails.put("neighborMacAddress", neighbourParameters.get("Neighbor MAC Address"));
+            neighbourConnectionDetails.put("discoveryMethods", neighbourParameters.get("Discovery Method"));
+
+            neighbourConnectionDetails.put("ipAddress", neighbour.getIpAddress());
+
+
+            if (neighbourParameters.get("Reachable").equals("YES")){ // if reachable
                 neighbourConnectionDetails.setConnectionType("snmp");
                 neighboursConnDetails.add(neighbourConnectionDetails);
             }

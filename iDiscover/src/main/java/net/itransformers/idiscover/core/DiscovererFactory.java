@@ -22,7 +22,7 @@
 package net.itransformers.idiscover.core;
 
 import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
-
+@Deprecated
 public interface DiscovererFactory {
 
     public Discoverer createDiscoverer(Resource resource, SnmpManager snmpManager) throws Exception;

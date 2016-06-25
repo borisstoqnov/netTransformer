@@ -22,32 +22,33 @@
  */
 
 package net.itransformers.idiscover.core;
+
+import java.util.HashMap;
+
 public class DeviceNeighbour {
-    private String hostName;
     private String neighbourIpAddress;
-    private String roCommunity;
-    private boolean known;
-    private String deviceType;
-    private boolean Reachable;
+    private HashMap<String,String> parameters;
 
-    public DeviceNeighbour(String hostName, String deviceType, String snmpCommunity, boolean Reachable) {
-        this.hostName = hostName;
-        this.deviceType = deviceType;
-        this.roCommunity =  snmpCommunity;
-        this.Reachable = Reachable;
+    public DeviceNeighbour(String neighbourIpAddress,HashMap<String,String> parameters ) {
+        this.neighbourIpAddress = neighbourIpAddress;
+        this.parameters = parameters;
     }
 
-    public DeviceNeighbour(String hostName, String neighbourIpAddress, String deviceType, String snmpCommunity, boolean Reachable) {
-        this.hostName = hostName;
-        this.neighbourIpAddress = neighbourIpAddress;
-        this.deviceType = deviceType;
-        this.roCommunity = snmpCommunity;
-        this.Reachable = Reachable;
+
+    public String getNeighbourIpAddress() {
+        return neighbourIpAddress;
     }
 
-    public DeviceNeighbour(String hostName, String neighbourIpAddress) {
+    public void setNeighbourIpAddress(String neighbourIpAddress) {
         this.neighbourIpAddress = neighbourIpAddress;
-        this.hostName = hostName;
+    }
+
+    public HashMap<String, String> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(HashMap<String, String> parameters) {
+        this.parameters = parameters;
     }
 
     public String getIpAddress() {
@@ -58,40 +59,12 @@ public class DeviceNeighbour {
         this.neighbourIpAddress = neighbourIpAddress;
     }
 
-    public String getHostName(){
-            return hostName;
-        }
-
-
-
-    public boolean getStatus(){
-            return Reachable;
-        }
-
-    public String getDeviceType(){
-        return deviceType;
-    }
-    public String getROCommunity(){
-        return roCommunity;
-    }
-    public void setHostName(String hostName){
-            this.hostName = hostName;
-        }
-
-    public boolean isKnown(){
-            return known;
-        }
-
-    public void setKnown(boolean known){
-            this.known = known;
-        }
 
     @Override
     public String toString() {
         return "DeviceNeighbour{" +
-                "hostName='" + hostName + '\'' +
-                ", neighbourIpAddress='" + neighbourIpAddress + '\'' +
-                ", known=" + known +
-                '}';
+                "hostName='" + neighbourIpAddress + '\'' +
+                ", parameters='" + parameters +" }";
+
     }
 }

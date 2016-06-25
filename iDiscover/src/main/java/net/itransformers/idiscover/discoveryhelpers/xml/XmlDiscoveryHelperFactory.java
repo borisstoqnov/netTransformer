@@ -41,21 +41,18 @@ public class XmlDiscoveryHelperFactory implements DiscoveryHelperFactory {
 
 
     public XmlDiscoveryHelperFactory(Map<String, String> params) throws JAXBException, FileNotFoundException {
+
         String filename = params.get("fileName");
-        FileInputStream is = new FileInputStream(new File(System.getProperty("base.dir"),filename));
+        String projectPath = params.get("projectPath");
+
+        FileInputStream is = new FileInputStream(new File(projectPath,filename));
+
         discoveryHelperType = JaxbMarshalar.unmarshal(DiscoveryHelperType.class,is);
         List<DeviceType> list = discoveryHelperType.getDevice();
         for (DeviceType deviceType: list) {
             deviceTypeMap.put(deviceType.getType(),deviceType);
         }
     }
-//    public XmlDiscoveryHelperFactory(InputStream is) throws JAXBException {
-//        discoveryHelperType = JaxbMarshalar.unmarshal(DiscoveryHelperType.class,is);
-//        List<DeviceType> list = discoveryHelperType.getDevice();
-//        for (DeviceType deviceType: list) {
-//            deviceTypeMap.put(deviceType.getType(),deviceType);
-//        }
-//    }
 
     public DiscoveryHelper createDiscoveryHelper(String deviceTypeStr) {
         DeviceType deviceType = deviceTypeMap.get(deviceTypeStr);

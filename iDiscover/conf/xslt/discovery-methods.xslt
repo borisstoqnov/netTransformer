@@ -624,6 +624,8 @@
 					<xsl:with-param name="neighIP" select="$ospfNbrIpAddr"/>
 				</xsl:call-template>
 			</xsl:variable>
+
+
 			<object>
 
 				<name><xsl:value-of select="$neighID"/></name>
