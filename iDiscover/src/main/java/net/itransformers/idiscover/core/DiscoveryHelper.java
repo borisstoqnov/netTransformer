@@ -35,5 +35,4 @@ public interface DiscoveryHelper {
 
     String[] getRequestParams(String[] discoveryType);
 
-    boolean checkStopCriteria(Resource host);
 }

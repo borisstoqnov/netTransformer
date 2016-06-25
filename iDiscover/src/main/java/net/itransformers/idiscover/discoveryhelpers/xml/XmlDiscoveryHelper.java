@@ -213,27 +213,7 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
         }
     }
 
-    public boolean checkStopCriteria(Resource host) {
-        List<MatchNotType> notMatches = this.stopCriteria.getMatchNot();
-        for (MatchNotType notMatch : notMatches){
-            String propertyName = notMatch.getProperty();
-            String propVal = (String) getProperty(host, propertyName);
-            logger.debug("PropName="+propertyName+",propVal="+propVal+",notMatch.value="+notMatch.getValue());
-            if (propVal != null && propVal.matches(notMatch.getValue())) {
-                return false;
-            }
-        }
-        List<MatchType> matches = this.stopCriteria.getMatch();
-        for (MatchType match : matches){
-            String propertyName = match.getProperty();
-            String propVal = (String) getProperty(host, propertyName);
-            logger.debug("PropName="+propertyName+",propVal="+propVal+",Match.value="+match.getValue());
-            if (propVal != null && propVal.matches(match.getValue())) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     public String[] getRequestParams(String[] discoveryTypes) {
         List<String> result = new ArrayList<String>();
