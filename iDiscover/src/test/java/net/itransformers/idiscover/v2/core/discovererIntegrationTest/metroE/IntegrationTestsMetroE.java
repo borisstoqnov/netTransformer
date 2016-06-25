@@ -107,8 +107,8 @@ public class IntegrationTestsMetroE {
     @Test
     public void testM38(){
         Map<String, String> resourceParams = new HashMap<String, String>();
-        Resource resource = new Resource("R1", "10.17.1.13", resourceParams);
-        resource.setDeviceType("CISCO");
+//        Resource resource = new Resource("R1", "10.17.1.13", resourceParams);
+//        resource.setDeviceType("CISCO");
 
         FileInputStream is = null;
         try {
@@ -211,8 +211,8 @@ public class IntegrationTestsMetroE {
     public void testR112()  {
 
         Map<String, String> resourceParams = new HashMap<String, String>();
-        Resource resource = new Resource("R1", "10.17.1.13", resourceParams);
-        resource.setDeviceType("CISCO");
+//        Resource resource = new Resource("R1", "10.17.1.13", resourceParams);
+//        resource.setDeviceType("CISCO");
 
         FileInputStream is = null;
         try {

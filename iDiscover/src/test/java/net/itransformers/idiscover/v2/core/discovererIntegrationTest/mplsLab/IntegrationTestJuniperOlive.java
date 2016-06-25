@@ -29,9 +29,7 @@ package net.itransformers.idiscover.v2.core.discovererIntegrationTest.mplsLab;
 import net.itransformers.idiscover.core.DiscoveryHelper;
 import net.itransformers.idiscover.core.DiscoveryTypes;
 import net.itransformers.idiscover.core.RawDeviceData;
-import net.itransformers.idiscover.core.Resource;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
-import net.itransformers.idiscover.discoverylisteners.DeviceFileLogger;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.networkmodel.ObjectType;
 import net.itransformers.idiscover.networkmodel.ParameterType;
@@ -58,10 +56,10 @@ import java.util.Map;
 public class IntegrationTestJuniperOlive {
     private String[] discoveryTypes = new String[5];
     private DiscoveryHelper discoveryHelper;
-    private Resource resource;
+//    private Resource resource;
     private RawDeviceData rawdata = new RawDeviceData(null);
     private final String baseDir = (String) System.getProperties().get("user.dir");
-    private DeviceFileLogger deviceLogger;
+//    private DeviceFileLogger deviceLogger;
  //   private XmlTopologyDeviceLogger xmlTopologyDeviceLogger;
 
 
@@ -100,8 +98,8 @@ public class IntegrationTestJuniperOlive {
         resourceParams.put("community2", "netTransformer-rw");
         resourceParams.put("version", "1");
         resourceParams.put("mibDir", "snmptoolkit/mibs");
-        resource = new Resource("R1", "10.17.1.13", resourceParams);
-        resource.setDeviceType("JUNIPER");
+//        resource = new Resource("R1", "10.17.1.13", resourceParams);
+//        resource.setDeviceType("JUNIPER");
         discoveryHelper = discoveryHelperFactory.createDiscoveryHelper("JUNIPER");
 
 
@@ -116,7 +114,7 @@ public class IntegrationTestJuniperOlive {
 
 
 
-        deviceLogger = new DeviceFileLogger(params1,new File(baseDir),"IntegrationTestJuniperOlive");
+//        deviceLogger = new DeviceFileLogger(params1,new File(baseDir),"IntegrationTestJuniperOlive");
      //   xmlTopologyDeviceLogger = new XmlTopologyDeviceLogger(params1,new File(baseDir),"IntegrationTestJuniperOlive");
 
 
@@ -136,10 +134,10 @@ public class IntegrationTestJuniperOlive {
 
 
 
-                NodeDiscoveryResult result = new NodeDiscoveryResult(resource.getHost(), null);
+                NodeDiscoveryResult result = new NodeDiscoveryResult("R1", null);
                 //String devName = walker.getDeviceName(resource);
                 result.setDiscoveredData("rawData", rawdata.getData());
-                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
+                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, null);
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
 
                 int discoveredInterfaceCounter = 0;
@@ -194,7 +192,7 @@ public class IntegrationTestJuniperOlive {
                 }
 
 
-                deviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
+               // deviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
                // xmlTopologyDeviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
 
                 ObjectType ipv6Interface = objects.get(13);

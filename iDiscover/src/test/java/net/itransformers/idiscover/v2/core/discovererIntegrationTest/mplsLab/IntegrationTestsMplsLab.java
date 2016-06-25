@@ -24,10 +24,7 @@ package net.itransformers.idiscover.v2.core.discovererIntegrationTest.mplsLab;
 import net.itransformers.idiscover.core.DiscoveryHelper;
 import net.itransformers.idiscover.core.DiscoveryTypes;
 import net.itransformers.idiscover.core.RawDeviceData;
-import net.itransformers.idiscover.core.Resource;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
-import net.itransformers.idiscover.discoverylisteners.DeviceFileLogger;
-import net.itransformers.idiscover.discoverylisteners.XmlTopologyDeviceLogger;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.networkmodel.ObjectType;
 import net.itransformers.idiscover.networkmodel.ParameterType;
@@ -61,10 +58,7 @@ import java.util.Map;
 public class IntegrationTestsMplsLab {
     private String[] discoveryTypes = new String[5];
     private DiscoveryHelper discoveryHelper;
-    private Resource resource;
     private RawDeviceData rawdata = new RawDeviceData(null);
-    private DeviceFileLogger deviceLogger;
-    private XmlTopologyDeviceLogger xmlTopologyDeviceLogger;
     private final String baseDir = (String) System.getProperties().get("user.dir");
     private    Map<String, String> params1 = new HashMap<String, String>();
     Map<String, String> resourceParams = new HashMap<String, String>();
@@ -112,7 +106,7 @@ public class IntegrationTestsMplsLab {
 
         resourceParams.put("mibDir", "snmptoolkit/mibs");
 
-        deviceLogger = new DeviceFileLogger(params1,new File(baseDir),"mplsLab");
+       // deviceLogger = new DeviceFileLogger(params1,new File(baseDir),"mplsLab");
         //    xmlTopologyDeviceLogger = new XmlTopologyDeviceLogger(params1,new File(baseDir),"CiscoASR1000Test");
 
 
@@ -124,8 +118,6 @@ public class IntegrationTestsMplsLab {
 
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
-                resource = new Resource("R1", "10.17.1.13", resourceParams);
-                resource.setDeviceType("CISCO");
 
 
 
@@ -150,10 +142,10 @@ public class IntegrationTestsMplsLab {
 
 
 
-                NodeDiscoveryResult result = new NodeDiscoveryResult(resource.getHost(), null);
+                NodeDiscoveryResult result = new NodeDiscoveryResult(null, null);
                 //String devName = walker.getDeviceName(resource);
                 result.setDiscoveredData("rawData", rawdata.getData());
-                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
+                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, null);
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
 
 
@@ -162,7 +154,7 @@ public class IntegrationTestsMplsLab {
 
 
 
-                deviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
+                //deviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
                 // xmlTopologyDeviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
 
                 System.out.println(neighbourTypeCounts);
@@ -186,8 +178,8 @@ public class IntegrationTestsMplsLab {
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
 
-                resource = new Resource("R2", "10.17.1.13", resourceParams);
-                resource.setDeviceType("CISCO");
+//                resource = new Resource("R2", "10.17.1.13", resourceParams);
+//                resource.setDeviceType("CISCO");
 
 
                 try {
@@ -212,14 +204,14 @@ public class IntegrationTestsMplsLab {
 
                     rawdata.setData(data);
 
-                NodeDiscoveryResult result = new NodeDiscoveryResult(resource.getHost(), null);
+                NodeDiscoveryResult result = new NodeDiscoveryResult("R2", null);
                 //String devName = walker.getDeviceName(resource);
                 result.setDiscoveredData("rawData", rawdata.getData());
-                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
+                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, null);
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
 
                 Map<String,Integer> neighbourTypeCounts = fillInNeighbourTree(discoveredDeviceData.getObject());
-                deviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
+//                deviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
                 // xmlTopologyDeviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
 
                 System.out.println(neighbourTypeCounts);
@@ -241,8 +233,8 @@ public class IntegrationTestsMplsLab {
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
 
-                resource = new Resource("R3", "10.17.1.13", resourceParams);
-                resource.setDeviceType("CISCO");
+//                resource = new Resource("R3", "10.17.1.13", resourceParams);
+//                resource.setDeviceType("CISCO");
 
                 FileInputStream is = null;
                 try {
@@ -262,14 +254,14 @@ public class IntegrationTestsMplsLab {
                 rawdata.setData(data);
 
 
-                NodeDiscoveryResult result = new NodeDiscoveryResult(resource.getHost(), null);
+                NodeDiscoveryResult result = new NodeDiscoveryResult("R3", null);
                 //String devName = walker.getDeviceName(resource);
                 result.setDiscoveredData("rawData", rawdata.getData());
-                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
+                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, null);
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
 
                 Map<String,Integer> neighbourTypeCounts = fillInNeighbourTree(discoveredDeviceData.getObject());
-                deviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
+//                deviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
                 // xmlTopologyDeviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
 
                 System.out.println(neighbourTypeCounts);
@@ -290,8 +282,8 @@ public class IntegrationTestsMplsLab {
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
 
-                resource = new Resource("R4", "10.17.1.13", resourceParams);
-                resource.setDeviceType("CISCO");
+//                resource = new Resource("R4", "10.17.1.13", resourceParams);
+//                resource.setDeviceType("CISCO");
 
                 FileInputStream is = null;
                 try {
@@ -311,14 +303,14 @@ public class IntegrationTestsMplsLab {
                 rawdata.setData(data);
 
 
-                NodeDiscoveryResult result = new NodeDiscoveryResult(resource.getHost(), null);
+                NodeDiscoveryResult result = new NodeDiscoveryResult("R4", null);
                 //String devName = walker.getDeviceName(resource);
                 result.setDiscoveredData("rawData", rawdata.getData());
-                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
+                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, null);
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
 
                 Map<String,Integer> neighbourTypeCounts = fillInNeighbourTree(discoveredDeviceData.getObject());
-                deviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
+//                deviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
                 // xmlTopologyDeviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
 
                 System.out.println(neighbourTypeCounts);
@@ -337,8 +329,8 @@ public class IntegrationTestsMplsLab {
         new NodeDiscoverer(){
             @Override
             public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
-                resource = new Resource("R5", "10.17.1.13", resourceParams);
-                resource.setDeviceType("CISCO");
+//                resource = new Resource("R5", "10.17.1.13", resourceParams);
+//                resource.setDeviceType("CISCO");
 
                 FileInputStream is = null;
                 try {
@@ -358,14 +350,14 @@ public class IntegrationTestsMplsLab {
                 rawdata.setData(data);
 
 
-                NodeDiscoveryResult result = new NodeDiscoveryResult(resource.getHost(), null);
+                NodeDiscoveryResult result = new NodeDiscoveryResult("R5", null);
                 //String devName = walker.getDeviceName(resource);
                 result.setDiscoveredData("rawData", rawdata.getData());
-                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, resource.getAttributes());
+                DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawdata, discoveryTypes, null);
                 result.setDiscoveredData("deviceData", discoveredDeviceData);
 
                 Map<String,Integer> neighbourTypeCounts = fillInNeighbourTree(discoveredDeviceData.getObject());
-                deviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
+                //deviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
                 // xmlTopologyDeviceLogger.handleDevice(result.getNodeId(),rawdata,discoveredDeviceData,resource);
 
                 System.out.println(neighbourTypeCounts);
