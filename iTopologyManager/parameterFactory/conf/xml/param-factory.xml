@@ -368,4 +368,18 @@
         </param-factory-element>
     </param-factory>
 
+
+    <param-factory name="ChangeIPsecKey">
+    <param-factory-element type="resource">
+        <param name="username"/>
+        <param name="password"/>
+        <param name="enable-password"/>
+        <param name="ipsecneighbour"/>
+        <param name="discoveredIPv4address"/>
+        <param name="oldipseckey"/>
+        <param name="ipseckey"/>
+    </param-factory-element>
+    </param-factory>
+
+
 </param-factories>

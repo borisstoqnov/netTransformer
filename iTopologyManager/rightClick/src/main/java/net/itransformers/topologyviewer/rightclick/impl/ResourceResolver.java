@@ -63,10 +63,6 @@ public class ResourceResolver {
             }
         }
 
-
-
-
-
         if(resource.getConnectionParams()!=null){
             ConnectionParamsType connParamsType = resource.getConnectionParams().get(0);
             Map<String, String> connParams = new HashMap<String, String>();
@@ -82,4 +78,6 @@ public class ResourceResolver {
              return null;
         }
     }
+
+
 }
