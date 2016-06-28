@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   ~ snmpNetworkDiscovery.xml
   ~
@@ -71,7 +72,7 @@
                 <ref bean="sampleNodeDiscoveryListener"/>
                 <ref bean="rawDataFileLogDiscoveryListener"/>
                 <ref bean="deviceDataFileLogDiscoveryListener"/>
-                <ref bean="ConnectionDetailsListener"/>
+                <!--ref bean="ConnectionDetailsListener"/-->
 
                 <!--<ref bean="GraphmlFileLogDiscoveryListener"/>-->
                 <!--<ref bean="Neo4JGraphmlLoggerLogDiscoveryListener"/>-->
@@ -129,6 +130,7 @@
         <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,IPSEC,BGP,RIP,ADDITIONAL,IPV6"/>
         <constructor-arg ref="discoveryResourceManager"/>
         <constructor-arg ref="MibLoaderHolder"/>
+        <constructor-arg name="icmpStatus" value="true"/>
 
     </bean>
     <bean id="subnetNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.subnet_discoverer.SubnetDiscoverer">
@@ -138,7 +140,7 @@
     <bean id="discoveryHelperFactory" class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">
         <constructor-arg>
             <map>
-                <entry key="projectPath" value="projectPath"/>
+                <entry key="projectPath" value-ref="projectPath"/>
                 <entry key="fileName" value="iDiscover/conf/xml/discoveryParameters.xml"/>
                 <entry key="resourceXML" value="resourceManager/conf/xml/resource.xml"/>
             </map>

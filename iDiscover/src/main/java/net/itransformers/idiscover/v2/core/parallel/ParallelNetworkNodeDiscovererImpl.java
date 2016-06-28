@@ -143,6 +143,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
 
     public synchronized boolean isRunning() {
         return !executorService.isTerminated();
+
     }
 
 

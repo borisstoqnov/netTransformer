@@ -30,9 +30,11 @@ import java.util.List;
 public class Device {
 
     private String name;
+    private String uniqueIdentifier;
 
     private List<DeviceNeighbour> deviceNeighbours;
     private List<Subnet>  deviceSubnets;
+    private List<MacAddress> deviceMacAddresses;
 
     public Device(String name) {
         this.name  = name;
@@ -63,4 +65,19 @@ public class Device {
         this.deviceSubnets = deviceSubnets;
     }
 
+    public String getUniqueIdentifier() {
+        return uniqueIdentifier;
+    }
+
+    public void setUniqueIdentifier(String uniqueIdentifier) {
+        this.uniqueIdentifier = uniqueIdentifier;
+    }
+
+    public List<MacAddress> getDeviceMacAddresses() {
+        return deviceMacAddresses;
+    }
+
+    public void setDeviceMacAddresses(List<MacAddress> deviceMacAddresses) {
+        this.deviceMacAddresses = deviceMacAddresses;
+    }
 }

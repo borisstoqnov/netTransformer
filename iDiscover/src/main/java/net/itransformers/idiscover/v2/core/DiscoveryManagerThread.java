@@ -25,6 +25,7 @@ package net.itransformers.idiscover.v2.core;
 
 import net.itransformers.idiscover.core.DiscoveryManagerStatus;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.idiscover.v2.core.parallel.ParallelNetworkNodeDiscovererImpl;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -36,14 +37,14 @@ import java.util.List;
 public class DiscoveryManagerThread extends Thread {
     static Logger logger = Logger.getLogger(DiscoveryManagerThread.class);
 
-    private NetworkNodeDiscovererImpl nodeDiscovererImpl;
+    private ParallelNetworkNodeDiscovererImpl parallelNetworkNodeDiscoverer;
     private int depth;
     LinkedHashMap<String, ConnectionDetails>  connectionDetails;
 
     private List<DiscoveryManagerListener> managerListeners = new ArrayList<DiscoveryManagerListener>();
-    public DiscoveryManagerThread(NetworkNodeDiscovererImpl nodeDiscovererImpl, int depth, LinkedHashMap<String, ConnectionDetails> connectionDetails) {
+    public DiscoveryManagerThread(ParallelNetworkNodeDiscovererImpl parallelNetworkNodeDiscoverer, int depth, LinkedHashMap<String, ConnectionDetails> connectionDetails) {
         logger.debug("Thread created");
-        this.nodeDiscovererImpl = nodeDiscovererImpl;
+        this.parallelNetworkNodeDiscoverer = parallelNetworkNodeDiscoverer;
         this.depth = depth;
         this.connectionDetails = connectionDetails;
     }
@@ -57,7 +58,7 @@ public class DiscoveryManagerThread extends Thread {
         try {
             logger.debug("Thread started");
             fireEvent(DiscoveryManagerEvent.STARTED);
-            nodeDiscovererImpl.discoverNetwork(new HashSet<ConnectionDetails>(connectionDetails.values()), depth);
+            parallelNetworkNodeDiscoverer.discoverNetwork(new HashSet<ConnectionDetails>(connectionDetails.values()), depth);
             fireEvent(DiscoveryManagerEvent.STOPPED);
         } catch (Exception e) {
             logger.error(e.getMessage(),e);
@@ -73,26 +74,27 @@ public class DiscoveryManagerThread extends Thread {
     public void stopDiscovery(){
         logger.info("stopping discovery");
         fireEvent(DiscoveryManagerEvent.STOPPING);
-        nodeDiscovererImpl.stop();
+        parallelNetworkNodeDiscoverer.stop();
     }
     public void pauseDiscovery(){
         logger.info("pausing discovery");
-        nodeDiscovererImpl.pause();
+        //TODO there is no way to pause the parallel SNMP network Discovery Process
+//        parallelNetworkNodeDiscoverer.pause();
         fireEvent(DiscoveryManagerEvent.PAUSED);
     }
     public void resumeDiscovery() {
         logger.info("resuming discovery");
-        nodeDiscovererImpl.resume();
+        //TODO there is no way to resume the parallel SNMP network Discovery Process
+
+        //parallelNetworkNodeDiscoverer.resume();
         fireEvent(DiscoveryManagerEvent.RESUMED);
     }
     public DiscoveryManagerStatus getStatus(){
         DiscoveryManagerStatus status = null; 
 
-        if (nodeDiscovererImpl.isPaused()) {
-            status =  DiscoveryManagerStatus.PAUSED;
-        } else if (nodeDiscovererImpl.isRunning()) {
+        if (parallelNetworkNodeDiscoverer.isRunning()) {
             status = DiscoveryManagerStatus.RUNNING;
-        } else if (nodeDiscovererImpl.isStopped()) {
+        } else if (parallelNetworkNodeDiscoverer.isStopped()) {
             status = DiscoveryManagerStatus.STOPPED;
         } else {
             status = DiscoveryManagerStatus.CONFIGURED;

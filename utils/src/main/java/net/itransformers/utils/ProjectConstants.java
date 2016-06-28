@@ -31,7 +31,7 @@ public class ProjectConstants {
     public static final String mrtBgpDiscovererName = "Mrt BGP Peering Map";
     public static final String freeGraphDiscovererName = "Free Graph";
 
-    public static final String snmpProjectType = "snmpDiscoverer";
+    public static final String snmpProjectType = "parallelSnmpDiscovery";
     public static final String snmpBgpDiscovererProjectType = "bgpMapSnmpDiscoverer";
     public static final String mrtBgpDiscovererProjectType = "mrtMapSnmpDiscoverer";
     public static final String freeGraphProjectType = "freeGraph";

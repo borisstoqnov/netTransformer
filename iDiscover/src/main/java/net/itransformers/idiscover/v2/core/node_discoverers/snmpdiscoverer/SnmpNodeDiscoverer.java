@@ -36,6 +36,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 
 public class SnmpNodeDiscoverer implements NodeDiscoverer {
@@ -60,33 +62,70 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
     @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
-
+        Map<String, String> params1 = new HashMap<String, String>();
         String deviceName = connectionDetails.getParam("deviceName");
-        Map<String,String> params1 = new HashMap<String, String>();
+
+        if (deviceName!=null && !deviceName.isEmpty()){
+            params1.put("deviceName", deviceName);
+
+        }
         String deviceType = connectionDetails.getParam("deviceType");
-        params1.put("deviceName", connectionDetails.getParam("deviceName"));
-        params1.put("deviceType", deviceType);
+        if (deviceType!=null && !deviceType.isEmpty()){
+            params1.put("deviceType", deviceType);
+
+        }
         String ipAddressStr = connectionDetails.getParam("ipAddress");
-        params1.put("ipAddress", ipAddressStr);
+
+        if (ipAddressStr!=null && !ipAddressStr.isEmpty()){
+            params1.put("ipAddress", ipAddressStr);
+
+        }
+
+
+        String dnsNameFullString=null;
+        String dnsShort=null;
+        InetAddress inetAddress =null;
+        try {
+            if (ipAddressStr==null && deviceName!=null && deviceName.isEmpty()) {
+                inetAddress = InetAddress.getByName(deviceName);
+                if (inetAddress!=null) {
+                    params1.put("ipAddress", inetAddress.getHostAddress());
+                }
+
+            } else {
+                inetAddress = InetAddress.getByName(ipAddressStr);
+
+            }
+            dnsNameFullString = inetAddress.getHostName();
+            dnsShort=subStringDeviceName(dnsNameFullString);
+
+
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        connectionDetails.put("dnsNameFullString",dnsNameFullString);
+        connectionDetails.put("dnsName",dnsShort);
+
+
+
+
 
         SnmpManager snmpManager = null;
         Map<String, String> snmpConnParams = new HashMap<String, String>();
 
         ResourceType snmpResource = this.discoveryResource.returnResourceByParam(params1);
-
-
-
         ArrayList<ResourceType> snmpResources = this.discoveryResource.returnResourcesByConnectionType("snmp");
         String sysDescr = null;
 
 
         snmpConnParams = this.discoveryResource.getParamMap(snmpResource, "snmp");
         snmpConnParams.put("ipAddress", ipAddressStr);
-
+        boolean reachable = false;
         try {
+            reachable = inetAddress.isReachable(Integer.parseInt(snmpConnParams.get("timeout")));
+            logger.info("Device with "+inetAddress.getHostAddress() + "is " + reachable);
             //Try first with the most probable snmp Resource
             snmpManager = createSnmpManager(snmpConnParams);
-          //  snmpManager.setParameters(snmpConnParams);
             snmpManager.init();
             sysDescr = snmpGet(snmpManager,"1.3.6.1.2.1.1.1.0");
 
@@ -103,7 +142,6 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
                     if (!resourceType.getName().equals(snmpResource.getName())) {
 
                             snmpManager = createSnmpManager(snmpConnParams);
-                         //   snmpManager.setParameters(snmpConnParams);
                             snmpManager.init();
                             sysDescr = snmpGet(snmpManager, "1.3.6.1.2.1.1.1.0");
                             if (sysDescr == null) {
@@ -115,25 +153,20 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
                                 deviceName = subStringDeviceName(snmpGet(snmpManager, "1.3.6.1.2.1.1.5.0"));
                                 break;
                             }
-
-
                     }
                 }
             }else {
                 deviceType = getDeviceType(sysDescr);
                 logger.info("Connected to: " + ipAddressStr + " with " + snmpConnParams);
                 deviceName = subStringDeviceName(snmpGet(snmpManager, "1.3.6.1.2.1.1.5.0"));
-
             }
-
-
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Something went wrong in SNMP communication with "+ipAddressStr+":Check the stacktrace \n"+e.getStackTrace());
             return null;
         }
 
         //Despite all our efforts we got nothing from that device!
-        if (sysDescr==null) {
+        if (sysDescr == null) {
             return null;
         }
         DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper(deviceType);
@@ -159,10 +192,7 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
             return null;
         }
-
-
         SnmpForXslt.setMibLoaderHolder(mibLoaderHolder);
-
         snmpConnParams.put("neighbourIPDryRun", "true");
          discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, snmpConnParams);
 
@@ -174,11 +204,22 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
 
         Device device = discoveryHelper.createDevice(discoveredDeviceData);
 
+
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
+        List<Subnet> subnets = device.getDeviceSubnets();
         Set<ConnectionDetails> neighboursConnDetails = null;
         if (neighbours != null) {
             neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
         }
+
+        Set<ConnectionDetails> subnetConnectionDetails=null;
+
+       if (subnets!=null){
+           subnetConnectionDetails = createSubnetConnectionDetails(subnets);
+           neighboursConnDetails.addAll(subnetConnectionDetails);
+
+       }
+
         NodeDiscoveryResult result = new NodeDiscoveryResult(deviceName, neighboursConnDetails);
         result.setDiscoveredData("deviceData", discoveredDeviceData);
         result.setDiscoveredData("rawData", rawData.getData());
@@ -227,18 +268,12 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
     }
 
     private String snmpGet(SnmpManager snmpManager, String oidString) {
-
-
         try {
             return snmpManager.snmpGet(oidString);
-
-
         } catch (IOException e) {
             logger.info(e.getMessage());
             return null;
         }
-
-
     }
 
     private SnmpManager createSnmpManager(Map<String, String> snmpConnParams) throws IOException {
@@ -248,42 +283,21 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         SnmpManager snmpManager = null;
 
         if ("3".equals(version) && "udp".equals(protocol)) {
-
             snmpManager = new SnmpUdpV3Manager(mibLoaderHolder.getLoader());
-
-
         } else if ("3".equals(version) && "tcp".equals(protocol)) {
-
             snmpManager = new SnmpTcpV3Manager(mibLoaderHolder.getLoader());
-
         } else if ("2".equals(version) && "udp".equals(protocol)) {
-
             snmpManager = new SnmpUdpV2Manager(mibLoaderHolder.getLoader());
-
-
         } else if ("2c".equals(version) && "udp".equals(protocol)) {
-
             snmpManager = new SnmpUdpV2Manager(mibLoaderHolder.getLoader());
-
-
         } else if ("2".equals(version) && "tcp".equals(protocol)) {
             snmpManager = new SnmpTcpV2Manager(mibLoaderHolder.getLoader());
-
-
         } else if ("2c".equals(version) && "tcp".equals(protocol)) {
             snmpManager = new SnmpTcpV2Manager(mibLoaderHolder.getLoader());
-
-
         } else if ("1".equals(version) && "udp".equals(protocol)) {
-
             snmpManager = new SnmpTcpV1Manager(mibLoaderHolder.getLoader());
-
-
         } else if ("1".equals(version) && "tcp".equals(protocol)) {
-
             snmpManager = new SnmpTcpV1Manager(mibLoaderHolder.getLoader());
-
-
         } else {
             logger.info("Unsupported combination of protocol: " + protocol + " and version " + version);
             throw new RuntimeException("SnmpManager is null");
@@ -293,138 +307,60 @@ public class SnmpNodeDiscoverer implements NodeDiscoverer {
         return snmpManager;
 
     }
-
-//    public NodeDiscoveryResult mockDiscover(ConnectionDetails connectionDetails,String hostName ) {
-//        if (hostName == null) {
-//            return null;
-//        }
-//        NodeDiscoveryResult result = new NodeDiscoveryResult();
-//        Map<String,String> params1 = new HashMap<String, String>();
-//        params1.put("deviceName",hostName);
-//        params1.put("deviceType",connectionDetails.getParam("deviceType"));
-//        String ipAddressStr = connectionDetails.getParam("ipAddress");
-//        params1.put("ipAddress", ipAddressStr);
-//        IPv4Address ipAddress = new IPv4Address(ipAddressStr, null);
-//
-//
-//        ResourceType snmpResource = this.discoveryResource.returnResourceByParam(params1);
-//        Map<String, String> snmpConnParams = this.discoveryResource.getParamMap(snmpResource, "snmp");
-//
-//
-//        Resource resource = new Resource(hostName,ipAddress,connectionDetails.getParam("deviceType"), Integer.parseInt(snmpConnParams.get("port")), snmpConnParams);
-//
-//        resource.getAttributes().put("neighbourIPDryRun","true");
-//
-//        String devName = walker.getDeviceName(resource);
-//        if (devName == null) {
-//            logger.info("Device name is null for resource: " + resource);
-//            return null;
-//        }
-//        if  (devName.contains(".")){
-//            devName=devName.substring(0,devName.indexOf("."));
-//        }
-//        result.setNodeId(devName);
-//        String deviceType = walker.getDeviceType(resource);
-//        resource.setDeviceType(deviceType);
-//        DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper(deviceType);
-//        String[] requestParamsList = discoveryHelper.getRequestParams(discoveryTypes);
-//
-//        RawDeviceData rawData = walker.getRawDeviceData(resource, requestParamsList);
-//        if (rawData!=null){
-//            result.setDiscoveredData("rawData", rawData.getData());
-//
-//        }  else {
-//            logger.info("Rawdata is null with resource: "+resource);
-//
-//            return null;
-//        }
-//
-//        discoveryHelper.setDryRun(true);
-//
-//
-//        DiscoveredDeviceData discoveredDeviceData1 = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
-//
-//        OutputStream os  = null;
-//
-////        try {
-////            os = new ByteArrayOutputStream();
-////            JaxbMarshalar.marshal(discoveredDeviceData1, os, "DiscoveredDevice");
-////            String str = os.toString();
-////        } catch (JAXBException e) {
-////            logger.error(e.getMessage(),e);
-////
-////       } finally {
-////            if (os != null) try {os.close();} catch (IOException e) {}
-////        }
-//
-//
-//        SnmpForXslt.resolveIPAddresses(discoveryResource, "snmp");
-//
-//
-//        discoveryHelper.setDryRun(false);
-//
-//        DiscoveredDeviceData discoveredDeviceData2 = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, resource);
-//
-//        try {
-//            os = new ByteArrayOutputStream();
-//            JaxbMarshalar.marshal(discoveredDeviceData2, os, "DiscoveredDevice");
-//            String str = os.toString();
-//            System.out.println(str);
-//        } catch (JAXBException e) {
-//            logger.error(e.getMessage(),e);
-//        } finally {
-//            if (os != null) try {os.close();} catch (IOException e) {}
-//        }
-//        result.setDiscoveredData("deviceData", discoveredDeviceData2);
-//        Device device = discoveryHelper.createDevice(discoveredDeviceData2);
-//
-//        List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
-//
-//        List<ConnectionDetails> neighboursConnDetails = createNeighbourConnectionDetails(neighbours);
-//        result.setNeighboursConnectionDetails(neighboursConnDetails);
-//        return result;
-//    }
-
     private Set<ConnectionDetails> createNeighbourConnectionDetails(List<DeviceNeighbour> neighbours) {
         Set<ConnectionDetails> neighboursConnDetails = new HashSet<ConnectionDetails>();
         for (DeviceNeighbour neighbour : neighbours) {
             ConnectionDetails neighbourConnectionDetails = new IPNetConnectionDetails();
             String ipAddress = neighbour.getIpAddress();
             HashMap<String,String> neighbourParameters = neighbour.getParameters();
+            String deviceType = neighbourParameters.get("Neighbor Device Type");
 
-//            if (InetAddressValidator.getInstance().isValid(ipAddress)) {
+            if (deviceType!=null && !deviceType.isEmpty()) {
+                neighbourConnectionDetails.put("deviceType", deviceType);
+            }
 
-                if (neighbourParameters.get("Neighbor Device Type")!=null) {
-                    neighbourConnectionDetails.put("deviceType", neighbourParameters.get("Neighbor Device Type"));
-                }
-                if (neighbourParameters.get("Device Name")!=null) {
-                    neighbourConnectionDetails.put("deviceName", neighbourParameters.get("Device Name"));
-                }
-                if (neighbourParameters.get("Neighbor MAC Address")!=null) {
-                    neighbourConnectionDetails.put("neighborMacAddress", neighbourParameters.get("Neighbor MAC Address"));
-                }
-                if (neighbourParameters.get("Discovery Method")!=null){
-                    neighbourConnectionDetails.put("discoveryMethods", neighbourParameters.get("Discovery Method"));
-                }
+            String deviceName=neighbourParameters.get("Device Name");
 
+            if (deviceName!=null && !deviceName.isEmpty()) {
+                neighbourConnectionDetails.put("deviceName", deviceName);
+            }
+            String neighbourMacAddress=neighbourParameters.get("Neighbor MAC Address");
+            if (neighbourMacAddress!=null && !neighbourMacAddress.isEmpty()) {
+                neighbourConnectionDetails.put("neighborMacAddress", neighbourMacAddress);
+            }
+            String discoveryMethods = neighbourParameters.get("Discovery Method");
+
+            if (neighbourParameters.get("Discovery Method")!=null && !discoveryMethods.isEmpty()){
+                neighbourConnectionDetails.put("discoveryMethods", discoveryMethods);
+            }
+            if (ipAddress!=null && !ipAddress.isEmpty())
                 neighbourConnectionDetails.put("ipAddress", ipAddress);
-                neighbourConnectionDetails.setConnectionType("snmp");
-                neighboursConnDetails.add(neighbourConnectionDetails);
-//            } else {
-//                logger.info("Device has an invalid ipAddreess " + neighbour);
-//                // InetAddress.getByName(ipAddress);
-//            }
+
+            neighbourConnectionDetails.setConnectionType("snmp");
+            neighboursConnDetails.add(neighbourConnectionDetails);
 
         }
         return neighboursConnDetails;
     }
+    private Set<ConnectionDetails> createSubnetConnectionDetails(List<Subnet> subnets) {
+        Set<ConnectionDetails> subnetConnectionDetails = new HashSet<ConnectionDetails>();
 
-    public List<NeighborDiscoveryListener> getNeighborDiscoveryListeners() {
-        return neighborDiscoveryListeners;
+        for (Subnet subnet : subnets) {
+            ConnectionDetails subnetConnection = new IPNetConnectionDetails();
+            String ipAddress = subnet.getIpAddress();
+            String protocolType = subnet.getSubnetProtocolType();
+            String subnetMask = subnet.getsubnetMask();
+            subnetConnection.put("ipAddress", ipAddress);
+            subnetConnection.put("protocolType", protocolType);
+            subnetConnection.put("subnetMask", subnetMask);
+            subnetConnection.setConnectionType("subnet");
+
+            subnetConnectionDetails.add(subnetConnection);
+
+
+        }
+        return subnetConnectionDetails;
     }
 
-    public void setNeighborDiscoveryListeners(List<NeighborDiscoveryListener> neighborDiscoveryListeners) {
-        this.neighborDiscoveryListeners = neighborDiscoveryListeners;
-    }
 
 }

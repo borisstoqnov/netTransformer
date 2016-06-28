@@ -87,12 +87,43 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
         Device device = new Device(discoveredDeviceData.getName());
         List<DeviceNeighbour> deviceNeighbours = createDeviceNeighbours(discoveredDeviceData);
         List<Subnet> deviceSubnets = createDeviceSubnets(discoveredDeviceData);
+        List<MacAddress> deviceMacAddresses = createDeviceMacAddreses(discoveredDeviceData);
         device.setDeviceNeighbours(deviceNeighbours);
         device.setDeviceSubnets(deviceSubnets);
+        device.setDeviceMacAddresses(deviceMacAddresses);
         return device;
     }
 
+    private List<MacAddress> createDeviceMacAddreses(DiscoveredDeviceData discoveredDeviceData) {
+        List<MacAddress> result = new ArrayList<MacAddress>();
+        List<ObjectType> objList1 = discoveredDeviceData.getObject();
+
+        for (ObjectType objectType1 : objList1) {
+            String objectType = objectType1.getObjectType();
+
+            if (objectType.equals("Discovery Interface")) {
+                String interfaceName = objectType1.getName();
+
+                ParametersType params = objectType1.getParameters();
+                HashMap<String, String> params2Map = new HashMap<String, String>();
+                for (ParameterType params2Param : params.getParameter()) {
+                    params2Map.put(params2Param.getName(), params2Param.getValue());
+                }
+
+                String macAddress = params2Map.get("ifPhysAddress");
+
+                if (macAddress!=null && !macAddress.isEmpty()){
+                    result.add(new MacAddress(macAddress,interfaceName));
+                }
+            }
+        }
+
+        return result;
+
+    }
+
     private List<Subnet> createDeviceSubnets(DiscoveredDeviceData discoveredDeviceData) {
+
         List<ObjectType> objList1 = discoveredDeviceData.getObject();
 
         List<Subnet> result = new ArrayList<Subnet>();
@@ -146,10 +177,15 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
         //DiscoveredDevice/object/object[objectType='Discovered Neighbor']/name
         List<ObjectType> objList1 = discoveredDeviceData.getObject();
         List<DeviceNeighbour> result = new ArrayList<DeviceNeighbour>();
+
+        //Loop over all objects. There are a number of interfaces and finally a number
         for (ObjectType objectType1: objList1) {
+
+            //Then loop over the objects of the first set of objects!!!
+
             List<ObjectType> objList2 = objectType1.getObject();
 
-            if (objectType1.getObjectType().equals("DeviceLogicalData")) {
+//            if (objectType1.getObjectType().equals("DeviceLogicalData")) {
                 for (ObjectType objectType2 : objList2) {
 
                     if (objectType2.getObjectType().equals("Discovered Neighbor")) {
@@ -166,23 +202,23 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
                 }
 
 
-            }
-
-            for (ObjectType objectType2 : objList2) {
-                if (objectType2.getObjectType().equals("Discovered Neighbor")) {
-                    ParametersType params2 = objectType2.getParameters();
-                    HashMap<String, String> params2Map = new HashMap<String, String>();
-                    for (ParameterType params2Param : params2.getParameter()){
-                        params2Map.put(params2Param.getName(), params2Param.getValue());
-                    }
-                    String ipAddress = params2Map.get("Neighbor IP Address");
-                    DeviceNeighbour deviceNeighbour;
-
-                    deviceNeighbour = new DeviceNeighbour(ipAddress, params2Map);
-                    result.add(deviceNeighbour);
-                }
-
-            }
+//            }
+//
+//            for (ObjectType objectType2 : objList2) {
+//                if (objectType2.getObjectType().equals("Discovered Neighbor")) {
+//                    ParametersType params2 = objectType2.getParameters();
+//                    HashMap<String, String> params2Map = new HashMap<String, String>();
+//                    for (ParameterType params2Param : params2.getParameter()){
+//                        params2Map.put(params2Param.getName(), params2Param.getValue());
+//                    }
+//                    String ipAddress = params2Map.get("Neighbor IP Address");
+//                    DeviceNeighbour deviceNeighbour;
+//
+//                    deviceNeighbour = new DeviceNeighbour(ipAddress, params2Map);
+//                    result.add(deviceNeighbour);
+//                }
+//
+//            }
         }
         return result;
     }

@@ -49,6 +49,9 @@ public class NodeDiscoveryResult implements Cloneable{
     protected Map<String,Object> discoveredData = new HashMap<String,Object>();
     protected ConnectionDetails discoveryConnectionDetails;
 
+    public NodeDiscoveryResult(){
+
+    }
     public NodeDiscoveryResult(String nodeId, Set<ConnectionDetails> neighboursConnectionDetails) {
         this.nodeId = nodeId;
         if (neighboursConnectionDetails != null) {
@@ -81,6 +84,19 @@ public class NodeDiscoveryResult implements Cloneable{
     }
     public void setDiscoveredData(String key, Object data){
         discoveredData.put(key,data);
+    }
+
+
+    public void setNeighboursConnectionDetails(Set<ConnectionDetails> neighboursConnectionDetails) {
+        this.neighboursConnectionDetails = neighboursConnectionDetails;
+    }
+
+    public Map<String, Object> getDiscoveredData() {
+        return discoveredData;
+    }
+
+    public void setDiscoveredData(Map<String, Object> discoveredData) {
+        this.discoveredData = discoveredData;
     }
 
     @Override

@@ -23,6 +23,7 @@ package net.itransformers.topologyviewer.dialogs.discovery;
 
 import net.itransformers.idiscover.v2.core.*;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.idiscover.v2.core.parallel.ParallelNetworkNodeDiscovererImpl;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.utils.ProjectConstants;
 import org.apache.log4j.AppenderSkeleton;
@@ -274,7 +275,7 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
 
         //TopologyManagerFrame frame = this.projectDir.;
 
-        NetworkNodeDiscovererImpl nodeDiscovererImpl = applicationContext.getBean(discoveryBeanName, NetworkNodeDiscovererImpl.class);
+        ParallelNetworkNodeDiscovererImpl nodeDiscovererImpl = applicationContext.getBean(discoveryBeanName, ParallelNetworkNodeDiscovererImpl.class);
 
         int depth = (Integer) depthComboBox.getSelectedItem();
         NodeDiscoveryListener nodeListener = new NodeDiscoveryListener() {

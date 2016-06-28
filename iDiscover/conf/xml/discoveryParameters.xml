@@ -24,7 +24,7 @@
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="UNKNOWN">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,
-            dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable, ifName
+            dot1dTpFdbAddress,sysDescr,sysObjectID,sysName,sysLocation,ipAddrTable,ifName
         </general>
         <discovery-method name="PHYSICAL">
             dot1dBasePort,dot1dBasePortIfIndex,dot1dStpDesignatedRoot,

@@ -2,11 +2,9 @@ package net.itransformers.idiscover.v2.core.parallel;
 
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.factory.NodeFactory;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.Callable;
 

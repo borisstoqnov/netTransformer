@@ -45,13 +45,15 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
     private String[] discoveryTypes;
     private DiscoveryResourceManager discoveryResource;
     private MibLoaderHolder mibLoaderHolder;
+    private boolean icmpStatus;
 
 
-    public SnmpParallelNodeDiscoverer(XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource, MibLoaderHolder mibLoaderHolder) throws Exception {
+    public SnmpParallelNodeDiscoverer(XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource, MibLoaderHolder mibLoaderHolder, boolean icmpStatus) throws Exception {
         this.discoveryHelperFactory = discoveryHelperFactory;
         this.discoveryTypes = discoveryTypes;
         this.discoveryResource = discoveryResource;
         this.mibLoaderHolder = mibLoaderHolder;
+        this.icmpStatus = icmpStatus;
     }
 
     @Override
@@ -74,6 +76,8 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
             params1.put("ipAddress", ipAddressStr);
 
         }
+
+
         String dnsNameFullString=null;
         String dnsShort=null;
         InetAddress inetAddress =null;
@@ -98,11 +102,6 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
         connectionDetails.put("dnsNameFullString",dnsNameFullString);
         connectionDetails.put("dnsName",dnsShort);
 
-
-
-
-
-
         SnmpManager snmpManager = null;
         Map<String, String> snmpConnParams = new HashMap<String, String>();
 
@@ -113,8 +112,20 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
 
         snmpConnParams = this.discoveryResource.getParamMap(snmpResource, "snmp");
         snmpConnParams.put("ipAddress", ipAddressStr);
+        boolean reachable = false;
 
         try {
+                reachable = inetAddress.isReachable(Integer.parseInt(snmpConnParams.get("timeout")));
+                if (reachable)
+                    logger.info("Device with " + inetAddress.getHostAddress() + " is reachable!!!");
+                else {
+                    if (icmpStatus) {
+                        logger.info("Device with " + inetAddress.getHostAddress() + " is unreachable!!!");
+                        return null;
+                    }
+
+                }
+            //Ping the device first!
             //Try first with the most probable snmp Resource
             snmpManager = createSnmpManager(snmpConnParams);
             snmpManager.init();
@@ -133,7 +144,6 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
                     if (!resourceType.getName().equals(snmpResource.getName())) {
 
                         snmpManager = createSnmpManager(snmpConnParams);
-                        //   snmpManager.setParameters(snmpConnParams);
                         snmpManager.init();
                         sysDescr = snmpGet(snmpManager, "1.3.6.1.2.1.1.1.0");
                         if (sysDescr == null) {
@@ -153,7 +163,7 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
                 deviceName = subStringDeviceName(snmpGet(snmpManager, "1.3.6.1.2.1.1.5.0"));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Something went wrong in SNMP communication with "+ipAddressStr+":Check the stacktrace \n"+e.getStackTrace());
             return null;
         }
 
@@ -202,8 +212,8 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
 
        }
 
-
         NodeDiscoveryResult result = new NodeDiscoveryResult(deviceName, neighboursConnDetails);
+
         result.setDiscoveredData("deviceData", discoveredDeviceData);
         result.setDiscoveredData("rawData", rawData.getData());
         return result;
@@ -338,7 +348,6 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
                 subnetConnection.put("protocolType", protocolType);
                 subnetConnection.put("subnetMask", subnetMask);
                 subnetConnection.setConnectionType("subnet");
-
                 subnetConnectionDetails.add(subnetConnection);
 
 

@@ -64,21 +64,25 @@ public class DeviceDataFileLogDiscoveryListener implements NodeDiscoveryListener
         if (deviceName==null) return;
 
         File file = new File(deviceDataDir, "device-data-"+deviceName+".xml");
-        DiscoveredDeviceData discoveredDeviceData = (DiscoveredDeviceData) discoveryResult.getDiscoveredData("deviceData");
-      //  ByteArrayOutputStream graphMLOutputStream = new ByteArrayOutputStream();
-        OutputStream os  = null;
+        if (discoveryResult.getDiscoveredData("deviceData")!=null) {
+            DiscoveredDeviceData discoveredDeviceData = (DiscoveredDeviceData) discoveryResult.getDiscoveredData("deviceData");
+            //  ByteArrayOutputStream graphMLOutputStream = new ByteArrayOutputStream();
+            OutputStream os = null;
 
-        try {
-            os = new FileOutputStream(file);
-            JaxbMarshalar.marshal(discoveredDeviceData, os, "DiscoveredDevice");
-        } catch (FileNotFoundException e) {
-            logger.error(e.getMessage(),e);
-        } catch (JAXBException e) {
-            logger.error(e.getMessage(),e);
-        } finally {
-            if (os != null) try {os.close();} catch (IOException e) {}
+            try {
+                os = new FileOutputStream(file);
+                JaxbMarshalar.marshal(discoveredDeviceData, os, "DiscoveredDevice");
+            } catch (FileNotFoundException e) {
+                logger.error(e.getMessage(), e);
+            } catch (JAXBException e) {
+                logger.error(e.getMessage(), e);
+            } finally {
+                if (os != null) try {
+                    os.close();
+                } catch (IOException e) {
+                }
+            }
         }
-
     }
 
     public String getLabelDirName() {

@@ -30,4 +30,5 @@ public interface NetworkDiscoverer  {
     NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList);
     NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth);
     void setNetworkDiscoveryListeners(List<NetworkDiscoveryListener> networkDiscoveryListeners);
+    List<NetworkDiscoveryListener>  getNetworkDiscoveryListeners();
     }

@@ -85,7 +85,6 @@ public class IntegrationTestsMplsLab {
         params1.put("raw-data-logging-path","raw-data");
         params1.put("device-centric-logging-path","device-centric");
         params1.put("network-centric-logging-path","undirected");
-        // params1.put("xslt","iDiscover/conf/xslt/transformator-undirected2.xslt");
 
         XmlDiscoveryHelperFactory discoveryHelperFactory = null;
         try {
