@@ -82,7 +82,7 @@ public class SnmpParallelNodeDiscoverer implements NodeDiscoverer {
         String dnsShort=null;
         InetAddress inetAddress =null;
         try {
-            if (ipAddressStr==null && deviceName!=null && deviceName.isEmpty()) {
+            if (ipAddressStr==null && deviceName!=null && !deviceName.isEmpty()) {
                 inetAddress = InetAddress.getByName(deviceName);
                 if (inetAddress!=null) {
                     params1.put("ipAddress", inetAddress.getHostAddress());
