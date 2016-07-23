@@ -15,9 +15,7 @@ import java.awt.*;
 import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.List;
 
 
@@ -44,6 +42,8 @@ public class NeighbourFinderByMethod implements RightClickHandler {
         frame.setVisible(true);
     }
 
+
+
     @Override
     public void handleRightClick(JFrame parent, String v, Map graphMLParams, Map rightClickParams, File projectPath, File s)
             throws Exception, IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
@@ -61,9 +61,6 @@ public class NeighbourFinderByMethod implements RightClickHandler {
         HashMap<String, String> ipSecNeighbours = new HashMap<>();
 
         Collection<String> outedges = currentGraph.getEdges();
-        // Collection<String> testgetedges = currentGraph.getEdges();
-        // Collection<String> testgetvertices = currentGraph.getVertices();
-        // Collection<String> testgetneighbours = currentGraph.getNeighbors(v);
 
         for (String edge : outedges) {
 
@@ -81,6 +78,7 @@ public class NeighbourFinderByMethod implements RightClickHandler {
                 String neighbourDeviceType = neighbourMetaData.get("deviceType");
                 String neighbourDeviceIPAddress = neighbourMetaData.get("discoveredIPv4Address");
                 String thisDeviceType = thisrouterMetaData.get("deviceType");
+
                 String thisDeviceIPAddress = thisrouterMetaData.get("discoveredIPv4Address");
                 System.out.println(second + " has an IP address of " + neighbourDeviceIPAddress);
 
@@ -88,9 +86,7 @@ public class NeighbourFinderByMethod implements RightClickHandler {
                     System.out.println("Neighbour " + second + " is a subnet");
                 } else {
                     System.out.println("Neighbour " + second + " is a not a subnet");
-                    //Put the pair in our hashmap as both first and second routers are neighbours
-                    //ipSecNeighbours.put(first, thisDeviceIPAddress);
-                    //ipSecNeighbours.put(second, neighbourDeviceIPAddress);
+
                     IPsecPair p = new IPsecPair(first,thisDeviceIPAddress,second,neighbourDeviceIPAddress);
                     ipsecpair[i] = p;
                     i++;
