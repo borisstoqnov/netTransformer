@@ -10,10 +10,8 @@ import net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImp
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
+import java.util.List;
 import java.util.logging.Logger;
 
 
@@ -26,6 +24,20 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
     //We need the neighbours before connecting to them
     @Override
     protected void performIPSecAction(IPsecPair[] ipsecpair) throws IOException {
+        //If this is first run we want to save the old key before generating new ones
+        List<String> userInput = firstTimeConfigurationCheck(ipsecpair);
+        int pairCounter =0;
+        for(IPsecPair pair : ipsecpair){
+
+            if(pair != null){
+                pairCounter++;
+            }
+        }
+        //If we have already done this continue
+        if(userInput != null && userInput.size() != pairCounter) {
+            printMessageToScreen("Something happened");
+            return;
+        }
 
         String ipseckeyFilename = "";
         String oldkey = "";
@@ -38,27 +50,32 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
                 //empty the counter and pair for the next iteration
 
                 //Generate key and file
-                oldkey = KeyFromFile(ipseckeyFilename);
+                if(userInput != null){
+                    oldkey = userInput.get(counter);
+                } else {
+                    oldkey = KeyFromFile(ipseckeyFilename);
+                }
                 KeyGenerator(ipseckeyFilename);
 
 
                 CLIInterface cli;
                 cli = new TelnetCLIInterface(pair.getRouterIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
                 //Change IP sec shit for first router
-                Map<String, String> paramsforfirst = generateConfigMap(pair, oldkey, ipseckeyFilename);
+                Map<String, String> paramsfirst = generateConfigMap(pair, oldkey, ipseckeyFilename);
 
                 cli.open();
                 TestFulfilmentImpl telnetTorouter = new TestFulfilmentImpl(cli);
-                telnetTorouter.execute("E:\\iTransformer\\netTransformer\\iTopologyManager\\fulfilmentFactory\\conf\\templ\\ChangeIPsecKey.templ", paramsforfirst);
+                telnetTorouter.execute("E:\\iTransformer\\netTransformer\\iTopologyManager\\fulfilmentFactory\\conf\\templ\\ChangeIPsecKey.templ", paramsfirst);
                 cli.close();
 
+                Map<String, String> paramssecond = generateConfigMap(pair, oldkey, ipseckeyFilename);
                 //Change IP sec shit for second router
                 cli = new TelnetCLIInterface(pair.getNeighbourIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
-                Map<String, String> paramsforsecond = generateConfigMap(pair, oldkey, ipseckeyFilename);
+
 
                 cli.open();
                 telnetTorouter = new TestFulfilmentImpl(cli);
-                telnetTorouter.execute("E:\\iTransformer\\netTransformer\\iTopologyManager\\fulfilmentFactory\\conf\\templ\\ChangeIPsecKey.templ", paramsforsecond);
+                telnetTorouter.execute("E:\\iTransformer\\netTransformer\\iTopologyManager\\fulfilmentFactory\\conf\\templ\\ChangeIPsecKey.templ", paramssecond);
                 cli.close();
                 counter++;
             }
@@ -165,6 +182,42 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
             System.out.println("File did not exist, it is now created");
         }
         return "";
+    }
+
+    private List<String> firstTimeConfigurationCheck(IPsecPair[] ipsecpair) {
+
+        int reply = JOptionPane.showConfirmDialog(null, "First time configurtion?", "Close?",  JOptionPane.YES_NO_OPTION);
+
+        java.util.List<String> userInput = null;
+
+        if (reply == JOptionPane.YES_OPTION) {
+
+            userInput = new ArrayList<>();
+            for(int i = 0; i < ipsecpair.length; i++)
+            {
+                if (ipsecpair[i] != null) {
+                    String message = ipsecpair[i].toString();
+
+                    JPasswordField p = new JPasswordField(5);
+                    JLabel label  = new JLabel();
+                    label.setText(message);
+                    p.setEchoChar('*');
+
+                    JPanel input = new JPanel();
+                    input.setLayout(new BoxLayout(input, BoxLayout.Y_AXIS));
+                    input.add(new JLabel("Please input current key"));
+                    input.add(Box.createVerticalStrut(25));
+                    input.add(label);
+                    input.add(Box.createVerticalStrut(10));
+                    input.add(p);
+
+                    JOptionPane.showConfirmDialog(null, input, "Login", JOptionPane.DEFAULT_OPTION);
+                    userInput.add(new String(p.getPassword()));
+                }
+            }
+        }
+
+        return userInput;
     }
 
 //    private byte[] ipSecKey(int mode) throws Exception {
