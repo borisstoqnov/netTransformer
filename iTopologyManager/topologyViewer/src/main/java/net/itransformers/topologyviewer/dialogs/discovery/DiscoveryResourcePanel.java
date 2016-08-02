@@ -134,6 +134,7 @@ public class DiscoveryResourcePanel extends JPanel {
         resourcesTableModel = new DefaultTableModel(data,columnNames);
         resourcesTable.setModel(resourcesTableModel);
         resourcesTable.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+        currentResourceIndex = -1;
         resourcesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
