@@ -36,7 +36,10 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     ExecutorService eventExecutorService = Executors.newFixedThreadPool(50);
     ExecutorCompletionService eventExecutorCompletionService = new ExecutorCompletionService(eventExecutorService);
     Collection<Future> eventFutures = new LinkedList<Future>();
-    ExecutorService executorService = Executors.newFixedThreadPool(50);
+    PausableThreadPoolExecutor executorService = //Executors.newFixedThreadPool(50);
+            new PausableThreadPoolExecutor(50, 50,
+                    0L, TimeUnit.MILLISECONDS,
+                    new LinkedBlockingQueue<Runnable>());
     ExecutorCompletionService<NodeDiscoveryResult> executorCompletionService = new ExecutorCompletionService<NodeDiscoveryResult>(executorService);
     NodeFactory nodeFactory = new NodeFactory();
     int eventFutureCount;
@@ -146,6 +149,13 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
 
     }
 
+    public synchronized void pause() {
+        this.executorService.pause();
+    }
+
+    public synchronized void resume() {
+        this.executorService.resume();
+    }
 
     public synchronized void fireNodeDiscoveredEvent(final NodeDiscoveryResult discoveryResult) {
         if (nodeDiscoveryListeners != null) {

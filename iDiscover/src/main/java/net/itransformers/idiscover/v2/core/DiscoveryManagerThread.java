@@ -78,15 +78,12 @@ public class DiscoveryManagerThread extends Thread {
     }
     public void pauseDiscovery(){
         logger.info("pausing discovery");
-        //TODO there is no way to pause the parallel SNMP network Discovery Process
-//        parallelNetworkNodeDiscoverer.pause();
+        parallelNetworkNodeDiscoverer.pause();
         fireEvent(DiscoveryManagerEvent.PAUSED);
     }
     public void resumeDiscovery() {
         logger.info("resuming discovery");
-        //TODO there is no way to resume the parallel SNMP network Discovery Process
-
-        //parallelNetworkNodeDiscoverer.resume();
+        parallelNetworkNodeDiscoverer.resume();
         fireEvent(DiscoveryManagerEvent.RESUMED);
     }
     public DiscoveryManagerStatus getStatus(){
