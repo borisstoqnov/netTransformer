@@ -5,13 +5,15 @@ import net.itransformers.idiscover.v2.core.NodeNeighboursDiscoveryListener;
 import net.itransformers.idiscover.v2.core.model.Node;
 import org.apache.log4j.Logger;
 
+import java.util.List;
+
 /**
  * Created by vasko on 16.06.16.
  */
 public class SimpleNodeNeighbourDiscoveryListener implements NodeNeighboursDiscoveryListener {
     static Logger logger = Logger.getLogger(SimpleNodeNeighbourDiscoveryListener.class);
     @Override
-    public void handleNodeNeighboursDiscovered(Node node, NodeDiscoveryResult nodeDiscoveryResult) {
+    public void handleNodeNeighboursDiscovered(Node node, NodeDiscoveryResult nodeDiscoveryResult, List<NodeDiscoveryResult> neighbourDiscoveryResults) {
         StringBuilder sb = new StringBuilder();
 
         sb.append("SimpleNodeNeighbourDiscoveryListener -> ");
