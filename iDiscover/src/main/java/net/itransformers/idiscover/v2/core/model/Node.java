@@ -24,8 +24,8 @@ package net.itransformers.idiscover.v2.core.model;
 import java.util.*;
 
 public class Node {
-    String id;
-    Set<Node> neighbours = new HashSet<Node>();
+    private String id;
+    private Set<Node> neighbours = new HashSet<Node>();
 
     public Node(String id) {
         this.id = id;

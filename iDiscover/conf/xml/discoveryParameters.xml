@@ -102,6 +102,20 @@
             ipRouteIfIndex,ipRouteNextHop
         </discovery-method>
     </device>
+    <device xslt="iDiscover/conf/xslt/transformator.xslt" type="LINUX">
+        <general>
+            ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifName,ifPhysAddress,ifType,ifHighSpeed,
+            dot1dTpFdbAddress,system,ipAddrTable
+        </general>
+        <discovery-method name="PHYSICAL">
+            dot1dBaseBridgeAddress,dot1dStpDesignatedRoot,
+            dot1dStpPortEntry,dot1dTpFdb,dot1dTpFdbStatus,dot1dTpFdbPort,dot1dBasePort,
+            dot1dBasePortIfIndex,ipNetToMediaTable,lldpRemoteSystemsData
+        </discovery-method>
+        <discovery-method name="NEXT_HOP">
+            ipRouteIfIndex,ipRouteNextHop
+        </discovery-method>
+    </device>
     <device xslt="iDiscover/conf/xslt/transformator.xslt" type="CISCO">
         <general>
             ifIndex,ifDescr,ifOperStatus,ifAdminStatus,ifNumber,ifPhysAddress,ifType,ifHighSpeed,

@@ -104,8 +104,9 @@ public class IntegrationTestsMetroE {
 
 
     }
+
     @Test
-    public void testM38(){
+    public void testM38_deviceData() {
         Map<String, String> resourceParams = new HashMap<String, String>();
 //        Resource resource = new Resource("R1", "10.17.1.13", resourceParams);
 //        resource.setDeviceType("CISCO");
@@ -131,6 +132,64 @@ public class IntegrationTestsMetroE {
 
         DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawDeviceData, discoveryTypes, resourceParams);
         Map<String, HashMap<String, String>> discoveredDevices = new HashMap<String, HashMap<String, String>>();
+        OutputStream os = null;
+        try {
+            os = new FileOutputStream("iDiscover/src/test/resources/test-device-data-M-238.xml");
+            JaxbMarshalar.marshal(discoveredDeviceData, os, "DiscoveredDevice");
+        } catch (FileNotFoundException e) {
+        } catch (JAXBException e) {
+            e.printStackTrace();
+            Assert.fail();
+
+        } finally {
+            if (os != null) try {
+                os.close();
+            } catch (IOException e) {
+                Assert.fail();
+
+            }
+        }
+        try {
+            String deviceDataGenerated = FileUtils.readFileToString(new File("iDiscover/src/test/resources/device-data-metro-E/test-device-data-M-238.xml"));
+            String expected = FileUtils.readFileToString(new File("iDiscover/src/test/resources/device-data-metro-E/device-data-M-238.xml"));
+                    Assert.assertEquals(expected,deviceDataGenerated);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
+
+    }
+    @Test
+    public void testM38(){
+        Map<String, String> resourceParams = new HashMap<String, String>();
+//        Resource resource = new Resource("R1", "10.17.1.13", resourceParams);
+//        resource.setDeviceType("CISCO");
+
+        FileInputStream is = null;
+        try {
+            is = new FileInputStream("iDiscover/src/test/resources/raw-data-metroE/raw-data-M-238.xml");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Assert.fail();
+
+        }
+        byte[] data = null;
+        try {
+            data = new byte[is.available()];
+            is.read(data);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Assert.fail();
+
+        }
+
+        rawDeviceData.setData(data);
+        DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper("CISCO");
+        resourceParams.put("neighbourIPDryRun","true");
+
+        DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawDeviceData, discoveryTypes, resourceParams);
+        Map<String, HashMap<String, String>> discoveredDevices = new HashMap<String, HashMap<String, String>>();
 
 
         SnmpForXslt.setDiscoveredIPs(discoveredDevices);
@@ -145,6 +204,7 @@ public class IntegrationTestsMetroE {
 
 
     }
+
 //    @Test
 //    public void testM238() throws TransformerException, IOException, SAXException, ParserConfigurationException {
 //        new NodeDiscoverer(){
