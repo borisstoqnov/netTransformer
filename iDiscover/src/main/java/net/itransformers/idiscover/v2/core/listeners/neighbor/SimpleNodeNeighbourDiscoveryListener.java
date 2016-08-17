@@ -14,6 +14,8 @@ import org.apache.log4j.Logger;
 
 import java.util.*;
 
+import java.util.List;
+
 /**
  * Created by vasko on 16.06.16.
  */
@@ -50,6 +52,7 @@ public class SimpleNodeNeighbourDiscoveryListener implements NodeNeighboursDisco
         }
 
 
+    public void handleNodeNeighboursDiscovered(Node node, NodeDiscoveryResult nodeDiscoveryResult, List<NodeDiscoveryResult> neighbourDiscoveryResults) {
         StringBuilder sb = new StringBuilder();
 
 

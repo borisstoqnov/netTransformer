@@ -83,12 +83,12 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
         }
     }
 
-    protected void fireNeighboursDiscoveredEvent(final NodeDiscoveryResult nodeDiscoveryResult) {
+    protected void fireNeighboursDiscoveredEvent(final NodeDiscoveryResult nodeDiscoveryResult, List<NodeDiscoveryResult> neighbourDiscoveryResults) {
         if (nodeNeighbourDiscoveryListeners != null) {
             String nodeId = nodeDiscoveryResult.getNodeId();
             final Node node = nodes.get(nodeId);
             for (final NodeNeighboursDiscoveryListener nodeNeighboursDiscoveryListener : nodeNeighbourDiscoveryListeners) {
-                nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node, nodeDiscoveryResult);
+                nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node, nodeDiscoveryResult, neighbourDiscoveryResults);
             }
         }
     }
