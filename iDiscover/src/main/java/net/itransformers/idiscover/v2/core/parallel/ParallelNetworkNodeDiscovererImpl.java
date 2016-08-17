@@ -79,7 +79,9 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                     List<Future<NodeDiscoveryResult>> parentNeighbourFutures = nodeNeighbourFuturesMap.get(parentId);
                     logger.info("Removing node neighbour for parentId=" + parentId + ", nodeId in future="+future.get().getNodeId());
                     parentNeighbourFutures.remove(future);
-                    neighbourDiscoveryResultsMap.get(parentId).add(result);
+                    if (result.getNodeId() != null) {
+                        neighbourDiscoveryResultsMap.get(parentId).add(result);
+                    }
                     if (parentNeighbourFutures.isEmpty()) {
                         NodeDiscoveryResult parentDiscoveryResult = nodeDiscoveryResultMap.remove(parentId);
                         nodeNeighbourFuturesMap.remove(parentId);
