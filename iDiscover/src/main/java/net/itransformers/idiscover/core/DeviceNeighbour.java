@@ -26,11 +26,13 @@ package net.itransformers.idiscover.core;
 import java.util.HashMap;
 
 public class DeviceNeighbour {
+    private String neighbourHostName;
     private String neighbourIpAddress;
     private HashMap<String,String> parameters;
 
-    public DeviceNeighbour(String neighbourIpAddress,HashMap<String,String> parameters ) {
+    public DeviceNeighbour(String neighbourHostName, String neighbourIpAddress,HashMap<String,String> parameters ) {
         this.neighbourIpAddress = neighbourIpAddress;
+        this.neighbourHostName = neighbourHostName;
         this.parameters = parameters;
     }
 
@@ -59,11 +61,19 @@ public class DeviceNeighbour {
         this.neighbourIpAddress = neighbourIpAddress;
     }
 
+    public String getNeighbourHostName() {
+        return neighbourHostName;
+    }
+
+    public void setNeighbourHostName(String neighbourHostName) {
+        this.neighbourHostName = neighbourHostName;
+    }
 
     @Override
     public String toString() {
         return "DeviceNeighbour{" +
-                "hostName='" + neighbourIpAddress + '\'' +
+                "hostName='" + neighbourHostName + '\'' +
+                "ipAddress='" + neighbourIpAddress + '\'' +
                 ", parameters='" + parameters +" }";
 
     }

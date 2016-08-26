@@ -59,7 +59,16 @@ public class XmlDiscoveryHelperFactory implements DiscoveryHelperFactory {
         if (deviceType==null){
             deviceType = deviceTypeMap.get("UNKNOWN");
         }
-        return new XmlDiscoveryHelper(deviceType, discoveryHelperType.getStopCriteria());
+        return new XmlDiscoveryHelper(deviceType);
+
+    }
+
+    public XmlDiscoveryHelperV2 createDiscoveryHelperv2(String deviceTypeStr) {
+        DeviceType deviceType = deviceTypeMap.get(deviceTypeStr);
+        if (deviceType==null){
+            deviceType = deviceTypeMap.get("UNKNOWN");
+        }
+        return new XmlDiscoveryHelperV2(deviceType);
 
     }
 

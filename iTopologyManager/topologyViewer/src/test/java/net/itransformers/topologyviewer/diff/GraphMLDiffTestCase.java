@@ -37,8 +37,8 @@ import java.io.FileNotFoundException;
 public class GraphMLDiffTestCase {
     @Test
     public void testDiff() throws FileNotFoundException {
-        File file1 = new File("test1234/network/bg.version.20021231/undirected/network.graphml");
-        File file2 = new File("/test1234/network/bg.version.20031231/undirected/network.graphml");
+        File file1 = new File("test1234/network/bg.version.20021231/undirected/network-expected.graphml");
+        File file2 = new File("/test1234/network/bg.version.20031231/undirected/network-expected.graphml");
         File outFile = new File("/test1234/network/vasko2");
         File xsltFile = new File("iTopologyManager/topologyViewer/conf/xslt/graphml_diff.xslt");
         File nodeIgnores = new File("iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/ignored_node_keys.xml");

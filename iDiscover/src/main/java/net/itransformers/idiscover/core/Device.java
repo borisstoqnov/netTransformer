@@ -31,7 +31,6 @@ public class Device {
 
     private String name;
     private String uniqueIdentifier;
-
     private List<DeviceNeighbour> deviceNeighbours;
     private List<Subnet>  deviceSubnets;
     private List<MacAddress> deviceMacAddresses;

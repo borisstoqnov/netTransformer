@@ -30,7 +30,7 @@ import net.itransformers.idiscover.networkmodel.ParameterType;
 import net.itransformers.idiscover.util.JaxbMarshalar;
 import net.itransformers.idiscover.v2.core.connection_details.IPNetConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer.SnmpNodeDiscoverer;
+import net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer.SnmpSequentialNodeDiscoverer;
 import net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder;
 import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
 import net.itransformers.snmp2xml4j.snmptoolkit.SnmpUdpV2Manager;
@@ -55,7 +55,7 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class IntegrationTestsMetroE {
-    private SnmpNodeDiscoverer snmpNodeDiscoverer;
+    private SnmpSequentialNodeDiscoverer snmpSequentialNodeDiscoverer;
     private String[] discoveryTypes = new String[5];
     private final String baseDir = (String) System.getProperties().get("user.dir");
     private    Map<String, String> params1 = new HashMap<String, String>();

@@ -55,7 +55,7 @@ public class Main {
 
         String discoveryType = params.get("-a");
         if (discoveryType == null){
-            discoveryType = "sequential";
+            discoveryType = "parallel";
         }
 
 

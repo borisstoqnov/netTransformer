@@ -26,8 +26,6 @@
 
     <bean id="sampleNodeDiscoveryListener"
           class="net.itransformers.idiscover.v2.core.listeners.node.SampleNodeDiscoveryListener"/>
-    <bean id="sampleNeigborDiscoveryListener"
-          class="net.itransformers.idiscover.v2.core.listeners.neighbor.SampleNeighborDiscoveryListener"/>
 
 
     <bean id="rawDataFileLogDiscoveryListener"
@@ -113,8 +111,6 @@
         <constructor-arg value="resourceManager/conf/xml/resource.xml"/>
     </bean>
 
-    <bean id="simpleNodeNeighbourDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.neighbor.SimpleNodeNeighbourDiscoveryListener">
-    </bean>
 
     <bean id="NetworkGraphmlFileLogDiscoveryListener"
           class="net.itransformers.idiscover.v2.core.listeners.network.NetworkGraphmlFileLogDiscoveryListener">

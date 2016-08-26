@@ -30,6 +30,9 @@ public class Subnet {
     String subnetMask;
     String localInterface;
     String subnetProtocolType;
+    String subnetPrefixMask;
+    String subnetDiscoveryMethods;
+
 
     public Subnet(String name, String ipAddress, String subnetMask, String localInterface, String subnetProtocolType) {
         this.name = name;
@@ -37,6 +40,7 @@ public class Subnet {
         this.subnetMask = subnetMask;
         this.localInterface = localInterface;
         this.subnetProtocolType = subnetProtocolType;
+
 
     }
 
@@ -85,6 +89,25 @@ public class Subnet {
         this.subnetProtocolType = subnetProtocolType;
     }
 
+    public String getSubnetMask() {
+        return subnetMask;
+    }
+
+    public String getSubnetPrefixMask() {
+        return subnetPrefixMask;
+    }
+
+    public void setSubnetPrefixMask(String subnetPrefixMask) {
+        this.subnetPrefixMask = subnetPrefixMask;
+    }
+
+    public String getSubnetDiscoveryMethods() {
+        return subnetDiscoveryMethods;
+    }
+
+    public void setSubnetDiscoveryMethods(String subnetDiscoveryMethods) {
+        this.subnetDiscoveryMethods = subnetDiscoveryMethods;
+    }
 
     @Override
     public String toString() {
@@ -94,6 +117,8 @@ public class Subnet {
                 ", subnetMask='" + subnetMask + '\'' +
                 ", localInterface='" + localInterface + '\'' +
                 ", subnetProtocolType='" + subnetProtocolType + '\'' +
+                ", subnetPrefixMask='" + subnetPrefixMask + '\'' +
+                ", subnetDiscoveryMethods='" + subnetDiscoveryMethods + '\'' +
                 '}';
     }
 }

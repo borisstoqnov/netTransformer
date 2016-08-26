@@ -49,14 +49,13 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
 
     private DeviceType deviceType;
     private Map<String, DiscoveryMethodType> discoveryMethodTypeMap = new HashMap<String, DiscoveryMethodType>();
-    private StopCriteriaType stopCriteria;
 
 
 
 
-    public XmlDiscoveryHelper(DeviceType deviceType, StopCriteriaType stopCriteria) {
+
+    public XmlDiscoveryHelper(DeviceType deviceType) {
         this.deviceType = deviceType;
-        this.stopCriteria = stopCriteria;
         List<DiscoveryMethodType> list = this.deviceType.getDiscoveryMethod();
         for (DiscoveryMethodType discoveryMethod : list){
             discoveryMethodTypeMap.put(discoveryMethod.getName(),discoveryMethod);
@@ -196,7 +195,10 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
                         }
                         String ipAddress = params2Map.get("Neighbor IP Address");
                         DeviceNeighbour deviceNeighbour;
-                        deviceNeighbour = new DeviceNeighbour(ipAddress, params2Map);
+                            String hostName = params2Map.get("Neighbour HostName");
+
+
+                        deviceNeighbour = new DeviceNeighbour(hostName, ipAddress, params2Map);
                         result.add(deviceNeighbour);
                     }
                 }

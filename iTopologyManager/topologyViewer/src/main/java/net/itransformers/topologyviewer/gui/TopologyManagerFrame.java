@@ -76,7 +76,9 @@ public class TopologyManagerFrame extends JFrame{
 
             if (graphmlPath != null) {
                 File graphmlPathFile = new File(graphmlPath);
-                this.doOpenGraph(graphmlPathFile);
+                if (graphmlPathFile.exists()) {
+                    this.doOpenGraph(graphmlPathFile);
+                }
             }
             // this.doOpenGraph(new File(projectPath,"n"));
         }
