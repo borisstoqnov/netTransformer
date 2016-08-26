@@ -59,7 +59,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         Set<ConnectionDetails> discoveredConnectionDetails = new HashSet<ConnectionDetails>();
         Map<String, List<Future<NodeDiscoveryResult>>> nodeNeighbourFuturesMap = new HashMap<String, List<Future<NodeDiscoveryResult>>>();
         Map<String, NodeDiscoveryResult> nodeDiscoveryResultMap = new HashMap<String, NodeDiscoveryResult>();
-        Map<String, List<NodeDiscoveryResult>> neighbourDiscoveryResultsMap = new HashMap<String, List<NodeDiscoveryResult>>();
+        Map<String, Map<String, ConnectionDetails>> neighbourConnectionDetailsMap = new HashMap<>();
 
         int futureCounter = 0;
         eventFutureCount = 0;
@@ -79,12 +79,14 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                     List<Future<NodeDiscoveryResult>> parentNeighbourFutures = nodeNeighbourFuturesMap.get(parentId);
                     logger.info("Removing node neighbour for parentId=" + parentId + ", nodeId in future="+future.get().getNodeId());
                     parentNeighbourFutures.remove(future);
-                    neighbourDiscoveryResultsMap.get(parentId).add(result);
+                    if (result.getNodeId() != null) {
+                        neighbourConnectionDetailsMap.get(parentId).put(result.getNodeId(), result.getDiscoveryConnectionDetails());
+                    }
                     if (parentNeighbourFutures.isEmpty()) {
                         NodeDiscoveryResult parentDiscoveryResult = nodeDiscoveryResultMap.remove(parentId);
                         nodeNeighbourFuturesMap.remove(parentId);
-                        List<NodeDiscoveryResult> neighbourDiscoveryResults = neighbourDiscoveryResultsMap.remove(parentId);
-                        fireNeighboursDiscoveredEvent(parentDiscoveryResult, neighbourDiscoveryResults);
+                        Map<String, ConnectionDetails> neighbourConnectionDetails = neighbourConnectionDetailsMap.remove(parentId);
+                        fireNeighboursDiscoveredEvent(parentDiscoveryResult, neighbourConnectionDetails);
                     }
                 }
                 String nodeId = result.getNodeId();
@@ -104,7 +106,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 }
 
                 nodeDiscoveryResultMap.put(nodeId, result);
-                neighbourDiscoveryResultsMap.put(nodeId, new ArrayList<>());
+                neighbourConnectionDetailsMap.put(nodeId, new HashMap<>());
                 Set<ConnectionDetails> neighboursConnectionDetailsSet = new HashSet<ConnectionDetails>(result.getNeighboursConnectionDetails());
                 neighboursConnectionDetailsSet.removeAll(discoveredConnectionDetails);
                 ArrayList<Future<NodeDiscoveryResult>> neighbourFutures = new ArrayList<Future<NodeDiscoveryResult>>();
@@ -175,7 +177,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         }
     }
 
-    protected void fireNeighboursDiscoveredEvent(final NodeDiscoveryResult nodeDiscoveryResult, List<NodeDiscoveryResult> neighbourDiscoveryResults) {
+    protected void fireNeighboursDiscoveredEvent(final NodeDiscoveryResult nodeDiscoveryResult, Map<String, ConnectionDetails> neighbourDiscoveryResults) {
         if (nodeNeighbourDiscoveryListeners != null) {
             String nodeId = nodeDiscoveryResult.getNodeId();
 
