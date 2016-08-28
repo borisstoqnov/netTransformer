@@ -868,7 +868,10 @@
                 <param name="path">post-discovery</param>
             </rightClickItem>
         </submenu>
+
+
         <submenu name="Reports">
+
             <rightClickItem name="Device Neighbors" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
                 <param name="xsl_transformator">iTopologyManager/rightClick/conf/xslt/deviceNeighbors.xslt</param>
                 <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt</param>
@@ -910,6 +913,15 @@
                 <param name="reportFileName">Cisco Config security audit.xml</param>
             </rightClickItem>
         </submenu>
+        <submenu name="NeighborFinder">
+            <rightClickItem name="Neighbor Finder" handlerClass="net.itransformers.topologyviewer.rightclick.impl.NeighbourFinderByMethod">
+                <param name="Discovery Method">IPSEC</param>
+            </rightClickItem>
+            <rightClickItem name="Change IPsec key" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ChangeIPSecKeyHandler">
+                <param name="Discovery Method">IPSEC</param>
+            </rightClickItem>
+        </submenu>
+
         <submenu name="Network Activation">
             <rightClickItem name="Node Activation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>

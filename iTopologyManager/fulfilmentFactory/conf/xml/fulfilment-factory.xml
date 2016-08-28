@@ -99,6 +99,7 @@
 
     <fulfilment-factory name="BGP_local" resourceName="cisco" type="BGP_local" parameterFactoryName="BGP_local"/>
     <fulfilment-factory name="BGP_Neighbour" resourceName="cisco" type="BGP_Neighbour" parameterFactoryName="BGP_Neighbour"/>
+    <fulfilment-factory name="ChangeIPsecKey" resourceName="cisco" type="IPsec" parameterFactoryName="ChangeIPsecKey"/>
 
 
 </fulfilment-factories>

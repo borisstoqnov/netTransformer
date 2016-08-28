@@ -33,7 +33,8 @@ public class TelnetCLIInterface implements CLIInterface {
     private TelnetClient telnet = new TelnetClient();
     private InputStream in;
     private PrintStream out;
-    private String prompt = "$";
+    private String prompt = "#";
+
     private Logger logger;
 
     private String user = null;
@@ -51,7 +52,7 @@ public class TelnetCLIInterface implements CLIInterface {
 //        this.prompt = "R112>"; // todo config this
         this.prompt = prompt;
         this.logger = logger;
-        logger.info(String.format("Crating telnet cli interface. host: %s, port: %s, user: %s, pass: %s, timeout: %s, prompt: %s", host, port, user, password, timeout, prompt));
+        logger.info(String.format("Creating telnet cli interface. host: %s, port: %s, user: %s, pass: %s, timeout: %s, prompt: %s", host, port, user, password, timeout, prompt));
     }
 
     @Override
