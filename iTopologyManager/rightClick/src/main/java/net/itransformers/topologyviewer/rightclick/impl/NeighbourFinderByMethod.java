@@ -12,22 +12,16 @@ import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
-import java.util.List;
-
 
 public class NeighbourFinderByMethod implements RightClickHandler {
 
-    protected void performIPSecAction(IPsecPair[] ipsecpair) throws IOException {
-        JFrame frame = new JFrame("IPsec Neighbours");
-        frame.setSize(300, 200);
-        frame.getContentPane().setLayout(new BorderLayout());
-        JTextPane text = new JTextPane();
-        text.setEditable(false);
-        text.setContentType("text/html");
+    protected String performIPSecAction(IPsecPair[] ipsecpair) throws IOException, InterruptedException {
+
+
         StringBuilder entiremessage = new StringBuilder();
         for(int i = 0; i < ipsecpair.length; i++)
         {
@@ -36,15 +30,27 @@ public class NeighbourFinderByMethod implements RightClickHandler {
                 entiremessage.append(message + "\n");
             }
         }
+        return entiremessage.toString();
+    }
+
+    protected void showmessage (String message){
+        if(message == null || message.equals("")) {
+            return;
+        }
+        JFrame frame = new JFrame("IPsec Neighbours");
+        JTextArea text;
+        frame.setSize(300, 200);
+        frame.getContentPane().setLayout(new BorderLayout());
+        text = new JTextArea();
+        text.setEditable(false);
+
         JScrollPane scrollPane = new JScrollPane(text);
         frame.getContentPane().add("Center", scrollPane);
-        text.setText(entiremessage.toString());
+        text.setText(message.toString());
         frame.setVisible(true);
     }
 
 
-
-    @Override
     public void handleRightClick(JFrame parent, String v, Map graphMLParams, Map rightClickParams, File projectPath, File s)
             throws Exception, IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
 
@@ -57,8 +63,6 @@ public class NeighbourFinderByMethod implements RightClickHandler {
         String method = (String) rightClickParams.get("Discovery Method");
         int i = 0;
         IPsecPair[] ipsecpair = new IPsecPair[100];
-
-        HashMap<String, String> ipSecNeighbours = new HashMap<>();
 
         Collection<String> outedges = currentGraph.getEdges();
 
@@ -96,11 +100,8 @@ public class NeighbourFinderByMethod implements RightClickHandler {
         }
         //Show a message only if more than 1 neighbours are found
         if (i > 0) {
-            performIPSecAction(ipsecpair);
+            showmessage(performIPSecAction(ipsecpair));
         }
-
-
     }
-
 
 }

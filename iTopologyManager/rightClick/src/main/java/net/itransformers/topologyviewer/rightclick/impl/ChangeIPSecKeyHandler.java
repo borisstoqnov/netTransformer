@@ -12,6 +12,7 @@ import java.awt.*;
 import java.io.*;
 import java.util.*;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -22,8 +23,11 @@ import java.util.logging.Logger;
 public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
     boolean whichrouter=false;
     //We need the neighbours before connecting to them
+
+
+
     @Override
-    protected void performIPSecAction(IPsecPair[] ipsecpair) throws IOException {
+    protected String performIPSecAction(IPsecPair[] ipsecpair) throws IOException {
         //If this is first run we want to save the old key before generating new ones
         List<String> userInput = firstTimeConfigurationCheck(ipsecpair);
         int pairCounter =0;
@@ -36,13 +40,17 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
         //If we have already done this continue
         if(userInput != null && userInput.size() != pairCounter) {
             printMessageToScreen("Something happened");
-            return;
+            return "";
         }
 
         String ipseckeyFilename = "";
         String oldkey = "";
         int counter=0;
         String message="";
+
+        final  JTextArea area = initializeWorkerDialog();
+        publishProgress("Starting something" ,area);
+
         for (IPsecPair pair : ipsecpair) {
 
             if (pair!=null) {
@@ -58,10 +66,13 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
                 KeyGenerator(ipseckeyFilename);
 
 
+                Logger.getAnonymousLogger().log(Level.INFO, "About to do bullshit" + Thread.currentThread().getName());
                 CLIInterface cli;
                 cli = new TelnetCLIInterface(pair.getRouterIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
+                publishProgress("Opening connection to router with IP: " + pair.getRouterIP() + " name: " + pair.getRouterName(),area);
                 //Change IP sec shit for first router
                 Map<String, String> paramsfirst = generateConfigMap(pair, oldkey, ipseckeyFilename);
+
 
                 cli.open();
                 TestFulfilmentImpl telnetTorouter = new TestFulfilmentImpl(cli);
@@ -71,12 +82,15 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
                 Map<String, String> paramssecond = generateConfigMap(pair, oldkey, ipseckeyFilename);
                 //Change IP sec shit for second router
                 cli = new TelnetCLIInterface(pair.getNeighbourIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
+                publishProgress("Opening connection to router with IP: " + pair.getNeighbourIP() + " name: " + pair.getNeighbourName(),area);
 
 
                 cli.open();
                 telnetTorouter = new TestFulfilmentImpl(cli);
                 telnetTorouter.execute("E:\\iTransformer\\netTransformer\\iTopologyManager\\fulfilmentFactory\\conf\\templ\\ChangeIPsecKey.templ", paramssecond);
                 cli.close();
+
+                publishProgress("Finished work for the router pair.",area);
                 counter++;
             }
             else if (counter > 0)
@@ -90,11 +104,17 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
 
         }
         printMessageToScreen(message);
+        return "";
     }
 
 
-    private void printMessageToScreen(String message)
-    {
+    private void printMessageToScreen(String message) {
+
+        if(message == null || message.equals("")) {
+
+            return;
+        }
+
         JFrame frame = new JFrame("IPsec Neighbours");
         frame.setSize(300, 200);
         frame.getContentPane().setLayout(new BorderLayout());
@@ -104,6 +124,41 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
         text.setText(message);
         frame.getContentPane().add("Center",text);
         frame.setVisible(true);
+    }
+
+    private JTextArea initializeWorkerDialog() {
+
+        JFrame frame = new JFrame("Something something router configuration...");
+        frame.setSize(300, 200);
+        frame.getContentPane().setLayout(new BorderLayout());
+        JTextArea text = new JTextArea();
+        text.setEditable(false);
+        text.setText("Starting work on routers...");
+        frame.getContentPane().add("Center",text);
+        frame.setVisible(true);
+
+        return text;
+    }
+
+    private void publishProgress(final String message, final JTextArea area) {
+
+        try{
+
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    Logger.getAnonymousLogger().log(Level.INFO, "Calling from another therad. " + area.hashCode() + "  " + message + Thread.currentThread().getName());
+                    area.append(message + "\n");
+                    area.update(area.getGraphics());
+                }
+            });
+        }
+        catch(Exception e) {
+
+            e.printStackTrace();
+        }
+
     }
 
     private Map<String, String> generateConfigMap(IPsecPair pair, String oldkey, String ipseckeyFilename) {
