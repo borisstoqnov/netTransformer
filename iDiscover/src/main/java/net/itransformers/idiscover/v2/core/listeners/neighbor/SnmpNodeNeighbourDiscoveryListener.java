@@ -73,7 +73,7 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(graphml);
+        logger.trace(graphml);
 
 
         final String fileName = "node-" + node.getId() + ".graphml";
@@ -106,17 +106,13 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
 
     private GraphmlNode getMainNode(DiscoveredDevice discoveredDevice) {
 
-        GraphmlNode graphmlNode = new GraphmlNode(discoveredDevice.getId(), discoveredDevice.getName());
+        GraphmlNode graphmlNode = new GraphmlNode(discoveredDevice.getName(), discoveredDevice.getName());
         List<GraphmlNodeData> graphmlNodeMetaDatas = new ArrayList<>();
 
         for (Map.Entry<String, String> entry : discoveredDevice.getParams().entrySet()) {
-            System.out.println("MainNodeParm: " + entry.getKey() + "|" + entry.getValue());
+            logger.trace("MainNodeParm: " + entry.getKey() + "|" + entry.getValue());
 
             graphmlNodeMetaDatas.add(new GraphmlNodeData(entry.getKey(), entry.getValue()));
-
-
-//
-
             graphmlNode.setGraphmlNodeDataList(graphmlNodeMetaDatas);
         }
         return graphmlNode;

@@ -3,7 +3,7 @@
     <name>vGW1</name>
     <parameters>
         <parameter>
-            <name>Device State</name>
+            <name>discoveredState</name>
             <value>discovered</value>
         </parameter>
         <parameter>
@@ -14,23 +14,23 @@ Copyright (c) 1986-2014 by Cisco Systems, Inc.
 Compiled Sat 25-Oct-14 03:34 by prod_rel_team</value>
         </parameter>
         <parameter>
-            <name>Device Type</name>
+            <name>deviceType</name>
             <value>CISCO</value>
         </parameter>
         <parameter>
-            <name>Device Model</name>
+            <name>deviceModel</name>
             <value>cisco2901</value>
         </parameter>
         <parameter>
-            <name>Management IP Address</name>
+            <name>ipAddress</name>
             <value></value>
         </parameter>
         <parameter>
-            <name>First Mac Address</name>
-            <value>00:00:00:00:00:00</value>
+            <name>firstMacAddress</name>
+            <value>74:a2:e6:85:c4:b8</value>
         </parameter>
         <parameter>
-            <name>Total Interface Count</name>
+            <name>totalInterfaceCount</name>
             <value>12</value>
         </parameter>
         <parameter>
@@ -38,40 +38,16 @@ Compiled Sat 25-Oct-14 03:34 by prod_rel_team</value>
             <value>NO</value>
         </parameter>
         <parameter>
-            <name>community-ro</name>
-            <value></value>
-        </parameter>
-        <parameter>
             <name>ipv4Forwarding</name>
             <value>YES</value>
         </parameter>
         <parameter>
-            <name>Device Model Oid</name>
+            <name>deviceModelOid</name>
             <value>1.3.6.1.4.1.9.1.1046</value>
         </parameter>
         <parameter>
-            <name>BGPLocalASInfo</name>
-            <value>0</value>
-        </parameter>
-        <parameter>
-            <name>baseBridgeAddress</name>
-            <value></value>
-        </parameter>
-        <parameter>
-            <name>stpDesignatedRoot</name>
-            <value></value>
-        </parameter>
-        <parameter>
-            <name>siteID</name>
-            <value>vGW1</value>
-        </parameter>
-        <parameter>
-            <name>X Coordinate</name>
-            <value>NBU</value>
-        </parameter>
-        <parameter>
-            <name>Y Coordinate</name>
-            <value>k2-701,rack2</value>
+            <name>sysLocation</name>
+            <value>NBU,k2-701,rack2</value>
         </parameter>
     </parameters>
     <object>

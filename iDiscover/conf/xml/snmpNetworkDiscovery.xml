@@ -135,7 +135,10 @@
         <constructor-arg name="useOnlyTheFirstSnmpBeingMatched" value="true"/>
 
     </bean>
-    <bean id="subnetNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.subnetDiscoverer.SubnetDiscoverer"/>
+    <bean id="subnetNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.subnetDiscoverer.SubnetDiscoverer">
+
+        <constructor-arg name="generateIPconnectionsForSubnetMembers" value="false"/>
+    </bean>
 
     <bean id="icmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.icmp.IcmpDiscoverer">
         <constructor-arg  ref="discoveryResourceManager"/>

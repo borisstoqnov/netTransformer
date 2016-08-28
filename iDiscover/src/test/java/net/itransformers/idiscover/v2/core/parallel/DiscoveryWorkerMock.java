@@ -25,6 +25,7 @@ public class DiscoveryWorkerMock extends DiscoveryWorker  {
     @Override
     public NodeDiscoveryResult call() throws Exception {
         String nodeId = jsonObject.getString("nodeId");
+        System.out.printf("nodeId:"+nodeId);
         Set<ConnectionDetails> neighbourConnectionDetailsSet = new HashSet<ConnectionDetails>();
         JSONArray neighbourJsonArray = jsonObject.getJSONArray("neighboursConnectionDetails");
         for (int i=0; i< neighbourJsonArray.length(); i++) {

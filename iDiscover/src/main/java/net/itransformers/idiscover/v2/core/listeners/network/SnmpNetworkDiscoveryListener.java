@@ -21,7 +21,7 @@
 
 package net.itransformers.idiscover.v2.core.listeners.network;
 
-import net.itransformers.idiscover.v2.core.SnmpGraphmlMetadata;
+import net.itransformers.idiscover.v2.core.SnmpGraphmlMetadataProvider;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
 import net.itransformers.utils.ProjectConstants;
@@ -89,8 +89,8 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
             return;
         }
         try {
-            Map<String,String> vertexTypes = SnmpGraphmlMetadata.getVertexMetadataTypes();
-            Map<String,String> edgesTypes = SnmpGraphmlMetadata.getEdgesMetadataTypes();
+            Map<String,String> vertexTypes = SnmpGraphmlMetadataProvider.getVertexMetadataTypes();
+            Map<String,String> edgesTypes = SnmpGraphmlMetadataProvider.getEdgesMetadataTypes();
 
 
             new GrahmlMerge().merge(files,outFile,vertexTypes, edgesTypes, "undirected");

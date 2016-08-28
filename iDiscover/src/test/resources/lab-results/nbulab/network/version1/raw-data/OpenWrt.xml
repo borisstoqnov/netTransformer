@@ -9,6 +9,9 @@
 						<lldpObjects>
 							<lldpRemoteSystemsData>
 								<lldpRemTable>
+									<lldpRemEntry>
+
+									</lldpRemEntry>
 								</lldpRemTable>
 								<lldpRemManAddrTable>
 								</lldpRemManAddrTable>
@@ -318,33 +321,48 @@
 						</ip>
 						<ospf>
 							<ospfGeneralGroup>
-									<ospfRouterId>96 days, 4:04:58.41</ospfRouterId>
-									<ospfAdminStat>96 days, 4:04:58.68</ospfAdminStat>
-									<ospfVersionNumber>96 days, 4:04:58.95</ospfVersionNumber>
-									<ospfAreaBdrRtrStatus>96 days, 4:04:59.22</ospfAreaBdrRtrStatus>
-									<ospfASBdrRtrStatus>96 days, 4:04:59.49</ospfASBdrRtrStatus>
+									<ospfRouterId>99 days, 8:03:18.30</ospfRouterId>
+									<ospfAdminStat>99 days, 8:03:18.33</ospfAdminStat>
+									<ospfVersionNumber>99 days, 8:03:18.36</ospfVersionNumber>
+									<ospfAreaBdrRtrStatus>99 days, 8:03:18.39</ospfAreaBdrRtrStatus>
+									<ospfASBdrRtrStatus>99 days, 8:03:18.41</ospfASBdrRtrStatus>
 							</ospfGeneralGroup>
 							<ospfAreaTable>
+								<ospfAreaEntry>
+
+								</ospfAreaEntry>
 							</ospfAreaTable>
 							<ospfIfTable>
+								<ospfIfEntry>
+
+								</ospfIfEntry>
 							</ospfIfTable>
 							<ospfNbrTable>
+								<ospfNbrEntry>
+
+								</ospfNbrEntry>
 							</ospfNbrTable>
 						</ospf>
 						<bgp>
-								<bgpLocalAs>96 days, 4:05:01.80</bgpLocalAs>
+								<bgpLocalAs>99 days, 8:03:36.46</bgpLocalAs>
 							<bgpPeerTable>
+								<bgpPeerEntry>
+
+								</bgpPeerEntry>
 							</bgpPeerTable>
 						</bgp>
 						<dot1dBridge>
 							<dot1dBase>
-									<dot1dBaseNumPorts>96 days, 4:05:02.94</dot1dBaseNumPorts>
+									<dot1dBaseNumPorts>99 days, 8:03:42.50</dot1dBaseNumPorts>
 								<dot1dBasePortTable>
 								</dot1dBasePortTable>
 							</dot1dBase>
 							<dot1dStp>
-									<dot1dStpDesignatedRoot>96 days, 4:05:03.49</dot1dStpDesignatedRoot>
+									<dot1dStpDesignatedRoot>99 days, 8:03:42.54</dot1dStpDesignatedRoot>
 								<dot1dStpPortTable>
+									<dot1dStpPortEntry>
+
+									</dot1dStpPortEntry>
 								</dot1dStpPortTable>
 							</dot1dStp>
 							<dot1dTp>
@@ -364,6 +382,9 @@
 							<rip2IfStatTable>
 							</rip2IfStatTable>
 							<rip2IfConfTable>
+								<rip2IfConfEntry>
+
+								</rip2IfConfEntry>
 							</rip2IfConfTable>
 						</rip2>
 						<ifMIB>
@@ -452,6 +473,9 @@
 								<ipv6AddrTable>
 								</ipv6AddrTable>
 								<ipv6RouteTable>
+									<ipv6RouteEntry>
+
+									</ipv6RouteEntry>
 								</ipv6RouteTable>
 								<ipv6NetToMediaTable>
 								</ipv6NetToMediaTable>
@@ -491,6 +515,9 @@
 									<bgp>
 											<bgpLocalAs>80:00:1f:88:80:20:27:c9:71:53:5e:b3:0e</bgpLocalAs>
 										<bgpPeerTable>
+											<bgpPeerEntry>
+
+											</bgpPeerEntry>
 										</bgpPeerTable>
 									</bgp>
 								</ale>

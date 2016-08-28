@@ -32,23 +32,22 @@
     <key id="encapsulation" for="edge" attr.name="encapsulation" attr.type="string"/>
     <key id="speed" for="edge" attr.name="speed" attr.type="string"/>
 
-    <graph edgedefault="$graphDirection">
-    #foreach ($node in $nodes)
-        <node id="${node.id}" label="${node.label}">
-    #foreach ($port in $node.graphmlNodePorts)
-            <port name="${port.name}"/>
-    #end
-    #foreach ($nodeData in $node.graphmlNodeDataList)
-            <data key="${nodeData.key}">${nodeData.value}</data>
-    #end
-        </node>
-    #end
-    #foreach ($edge in $edges)
-        <edge id="${edge.id}" label="${edge.label}" source="${edge.fromNode}" target="${edge.toNode}">
-    #foreach ($edgeData in $edge.graphmlEdgeDataList)
-            <data key="${edgeData.key}">${edgeData.value}</data>
-    #end
-        </edge>
-    #end
-    </graph>
+    <graph edgedefault="undirected">
+            <node id="R1" label="router1">
+                    <data key="deviceName">R1</data>
+                <data key="deviceModel">cisco2911</data>
+                <data key="deviceType">CISCO</data>
+                <data key="discoveredIPv4Address">1.1.1.1</data>
+                <data key="ipv4Forwarding">YES</data>
+                <data key="totalInterfaceCount">27</data>
+            </node>
+            <node id="R2" label="router2">
+                    <data key="deviceName">R2</data>
+                <data key="deviceModel">cisco2911</data>
+                <data key="deviceType">CISCO</data>
+                <data key="discoveredIPv4Address">2.2.2.2</data>
+                <data key="ipv4Forwarding">YES</data>
+                <data key="totalInterfaceCount">12</data>
+            </node>
+            </graph>
 </graphml>

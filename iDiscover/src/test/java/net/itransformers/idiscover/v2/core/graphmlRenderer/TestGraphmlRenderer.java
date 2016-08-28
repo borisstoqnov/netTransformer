@@ -14,11 +14,9 @@ import java.util.List;
 
 
 public class TestGraphmlRenderer
-
-
-
 {
-    @Test
+    private final String baseDir = (String) System.getProperties().get("user.dir");
+ @Test
     public void testRender( )
         throws Exception
     {
@@ -59,7 +57,7 @@ public class TestGraphmlRenderer
         }
         String graphml = graphmlRenderer.render("iDiscover/conf/xml/snmpGraphmlTemplate.vm",params);
 
-
-        Assert.assertEquals(FileUtils.readFileToString(new File("iDiscover/src/test/resources/expectedGraphml.graphml")), graphml);
+       // FileUtils.writeStringToFile(new File(baseDir + "/" + "iDiscover/src/test/resources/expectedGraphml.graphml"), graphml);
+        Assert.assertEquals(FileUtils.readFileToString(new File(baseDir + "/" + "iDiscover/src/test/resources/graphmlRenderer/expectedGraphml.graphml")), graphml);
     }
 }

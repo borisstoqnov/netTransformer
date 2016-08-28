@@ -45,7 +45,7 @@ public class GraphmlFileLogGroovyDiscoveryListenerTestCase {
         StringWriter writer = new StringWriter();
         listener.transformRawDataToGraphml(reader, writer);
 
-        InputStream expectedResultStream = this.getClass().getResourceAsStream("/expected.graphml");
+        InputStream expectedResultStream = this.getClass().getResourceAsStream("/graphmlMerge/expected.graphml");
         String expectedResult = readInputStreamToString(expectedResultStream);
         String actualResult = writer.toString();
         Assert.assertEquals(expectedResult, actualResult);

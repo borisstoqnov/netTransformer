@@ -15,6 +15,11 @@ import java.util.Set;
  * Created by Vasil Yordanov on 22-Jun-16.
  */
 public class SubnetDiscoverer implements NodeDiscoverer {
+    boolean generateIPconnectionsForSubnetMembers;
+
+    public SubnetDiscoverer(boolean generateIPconnectionsForSubnetMembers) {
+        this.generateIPconnectionsForSubnetMembers = generateIPconnectionsForSubnetMembers;
+    }
 
     @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
@@ -22,21 +27,18 @@ public class SubnetDiscoverer implements NodeDiscoverer {
 
         String protocolType = connectionDetails.getParam("protocolType");
         String subnetIpAddress = connectionDetails.getParam("ipAddress");
-        String subnetMask = connectionDetails.getParam("subnetMask");
         String subnetPrefixMask = connectionDetails.getParam("subnetPrefixMask");
-        String ipv4SubnetBroadcast = connectionDetails.getParam("ipv4SubnetBroadcast");
 
         String subnetPrefix=subnetIpAddress+"/"+subnetPrefixMask;
 
         NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult(subnetPrefix,null);
         nodeDiscoveryResult.setDiscoveredData("subnetDetails", connectionDetails.getParams());
+        if (generateIPconnectionsForSubnetMembers)
+            nodeDiscoveryResult.setNeighboursConnectionDetails(getSubnetIpNeighborConnections(subnetPrefix));
 
-        nodeDiscoveryResult.setNeighboursConnectionDetails(getSubnetIpNeighborConnections(subnetPrefix));
         if (protocolType.equals("IPv4")) {
             if (bogonSubnetIdentifier(subnetIpAddress)) {
                 nodeDiscoveryResult.setDiscoveredData("bogon", true);
-            }else {
-                nodeDiscoveryResult.setNeighboursConnectionDetails(getSubnetIpNeighborConnections(subnetPrefix));
             }
             if (privateSubnetIdentifier(subnetIpAddress)) {
                 nodeDiscoveryResult.setDiscoveredData("private", true);

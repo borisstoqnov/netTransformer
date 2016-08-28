@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <graphml xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:functx="http://www.functx.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <key id="deviceModel" for="node" attr.name="Device model" attr.type="string" />
-    <key id="deviceStatus" for="node" attr.name="Device status" attr.type="string" />
-    <key id="deviceType" for="node" attr.name="Device type" attr.type="string" />
-    <key id="diff" for="node" attr.name="Difference" attr.type="string" />
-    <key id="diffs" for="node" attr.name="Differences" attr.type="string" />
-    <key id="discoveredIPv4Address" for="node" attr.name="Discovered IPv4 address" attr.type="string" />
-    <key id="geoCoordinates" for="node" attr.name="geoCoordinates" attr.type="string" />
+    <key id="bgpAS" for="node" attr.name="bgpAS" attr.type="string" />
+    <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string" />
+    <key id="deviceType" for="node" attr.name="deviceType" attr.type="string" />
+    <key id="diff" for="node" attr.name="diff" attr.type="string" />
+    <key id="diffs" for="node" attr.name="diffs" attr.type="string" />
+    <key id="discoveredIPv4Address" for="node" attr.name="discoveredIPv4Address" attr.type="string" />
+    <key id="discoveredState" for="node" attr.name="discoveredState" attr.type="string" />
     <key id="hostname" for="node" attr.name="hostname" attr.type="string" />
     <key id="ipProtocolType" for="node" attr.name="ipProtocolType" attr.type="string" />
     <key id="ipv4Forwarding" for="node" attr.name="ipv4Forwarding" attr.type="string" />
@@ -15,50 +15,55 @@
     <key id="site" for="node" attr.name="site" attr.type="string" />
     <key id="subnetPrefix" for="node" attr.name="subnetPrefix" attr.type="string" />
     <key id="subnetRangeType" for="node" attr.name="subnetRangeType" attr.type="string" />
+    <key id="sysLocation" for="node" attr.name="sysLocation" attr.type="string" />
     <key id="totalInterfaceCount" for="node" attr.name="totalInterfaceCount" attr.type="string" />
-    <key id="Discovery Method" for="edge" attr.name="Discovery Method" attr.type="string" />
-    <key id="Interface" for="edge" attr.name="Interface" attr.type="string" />
-    <key id="Neighbor Device Type" for="edge" attr.name="Neighbor Device Type" attr.type="string" />
-    <key id="Neighbor IP Address" for="edge" attr.name="Neighbor IP Address" attr.type="string" />
+    <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string" />
+    <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string" />
     <key id="diff" for="edge" attr.name="diff" attr.type="string" />
     <key id="diffs" for="edge" attr.name="diffs" attr.type="string" />
-    <key id="name" for="edge" attr.name="name" attr.type="string" />
+    <key id="discoveryMethod" for="edge" attr.name="discoveryMethod" attr.type="string" />
+    <key id="ifSpeed" for="edge" attr.name="ifSpeed" attr.type="string" />
+    <key id="ifType" for="edge" attr.name="ifType" attr.type="string" />
+    <key id="interface" for="edge" attr.name="interface" attr.type="string" />
+    <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string" />
+    <key id="ipv4Forwarding" for="edge" attr.name="ipv4Forwarding" attr.type="string" />
+    <key id="ipv6Forwarding" for="edge" attr.name="ipv6Forwarding" attr.type="string" />
     <graph id="G" edgedefault="undirected">
-        <node id="10.0.0.91" />
         <node id="10.10.10.0/29" />
         <node id="10.101.202.0/24" />
         <node id="10.103.0.0/24" />
-        <node id="10.17.1.0/24" />
         <node id="10.19.1.0/24" />
         <node id="10.20.1.0/24" />
         <node id="10.99.1.0/24" />
         <node id="127.0.0.0/8" />
-        <node id="172.17.0.1/32" />
-        <node id="192.168.101.101/32" />
         <node id="193.19.172.128/29" />
-        <node id="193.19.172.129" />
         <node id="193.19.175.128/25" />
         <node id="OpenWrt">
+            <data key="deviceModel">Unknown</data>
+            <data key="deviceType">UNKNOWN</data>
+            <data key="discoveredState">discovered</data>
             <data key="ipv4Forwarding">YES</data>
             <data key="ipv6Forwarding">NO</data>
+            <data key="sysLocation">nbu</data>
+            <data key="totalInterfaceCount">12</data>
         </node>
         <node id="vGW1">
+            <data key="deviceModel">cisco2901</data>
+            <data key="deviceType">CISCO</data>
+            <data key="discoveredState">discovered</data>
             <data key="ipv4Forwarding">YES</data>
             <data key="ipv6Forwarding">NO</data>
+            <data key="sysLocation">NBU,k2-701,rack2</data>
+            <data key="totalInterfaceCount">12</data>
         </node>
-        <edge id="10.0.0.91-vGW1" source="10.0.0.91" target="vGW1" label="10.0.0.91-vGW1" />
         <edge id="10.10.10.0/29-vGW1" source="10.10.10.0/29" target="vGW1" label="10.10.10.0/29-vGW1" />
         <edge id="10.101.202.0/24-vGW1" source="10.101.202.0/24" target="vGW1" label="10.101.202.0/24-vGW1" />
         <edge id="10.103.0.0/24-vGW1" source="10.103.0.0/24" target="vGW1" label="10.103.0.0/24-vGW1" />
-        <edge id="10.17.1.0/24-OpenWrt" source="10.17.1.0/24" target="OpenWrt" label="10.17.1.0/24-OpenWrt" />
         <edge id="10.19.1.0/24-OpenWrt" source="10.19.1.0/24" target="OpenWrt" label="10.19.1.0/24-OpenWrt" />
         <edge id="10.20.1.0/24-OpenWrt" source="10.20.1.0/24" target="OpenWrt" label="10.20.1.0/24-OpenWrt" />
         <edge id="10.99.1.0/24-OpenWrt" source="10.99.1.0/24" target="OpenWrt" label="10.99.1.0/24-OpenWrt" />
         <edge id="127.0.0.0/8-OpenWrt" source="127.0.0.0/8" target="OpenWrt" label="127.0.0.0/8-OpenWrt" />
-        <edge id="172.17.0.1/32-OpenWrt" source="172.17.0.1/32" target="OpenWrt" label="172.17.0.1/32-OpenWrt" />
-        <edge id="192.168.101.101/32-vGW1" source="192.168.101.101/32" target="vGW1" label="192.168.101.101/32-vGW1" />
-        <edge id="193.19.172.128/29-OpenWrt" source="193.19.172.128/29" target="OpenWrt" label="193.19.172.128/29-OpenWrt" />
-        <edge id="193.19.172.129-OpenWrt" source="193.19.172.129" target="OpenWrt" label="193.19.172.129-OpenWrt" />
+        <edge id="193.19.172.128/29-vGW1" source="193.19.172.128/29" target="vGW1" label="193.19.172.128/29-vGW1" />
         <edge id="193.19.175.128/25-vGW1" source="193.19.175.128/25" target="vGW1" label="193.19.175.128/25-vGW1" />
     </graph>
 </graphml>

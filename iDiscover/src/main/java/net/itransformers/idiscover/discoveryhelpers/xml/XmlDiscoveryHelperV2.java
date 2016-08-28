@@ -74,9 +74,9 @@ public class XmlDiscoveryHelperV2 {
         }
     }
 
-    public DiscoveredDevice createDevice(DiscoveredDeviceData discoveredDeviceData) {
+    public DiscoveredDevice createDevice(DiscoveredDeviceData discoveredDeviceData,String deviceName) {
 
-        String discoveredDevice = discoveredDeviceData.getName();
+        String discoveredDevice = deviceName;
         String id = null;
         try {
             id = HashGenerator.generateMd5(discoveredDevice);

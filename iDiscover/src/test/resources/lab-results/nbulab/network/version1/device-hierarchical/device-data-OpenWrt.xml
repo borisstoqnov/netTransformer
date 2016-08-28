@@ -3,7 +3,7 @@
     <name>HeartOfGold</name>
     <parameters>
         <parameter>
-            <name>Device State</name>
+            <name>discoveredState</name>
             <value>discovered</value>
         </parameter>
         <parameter>
@@ -11,23 +11,19 @@
             <value>adult playground</value>
         </parameter>
         <parameter>
-            <name>Device Type</name>
+            <name>deviceType</name>
             <value>UNKNOWN</value>
         </parameter>
         <parameter>
-            <name>Device Model</name>
+            <name>deviceModel</name>
             <value>Unknown</value>
         </parameter>
         <parameter>
-            <name>Management IP Address</name>
+            <name>ipAddress</name>
             <value></value>
         </parameter>
         <parameter>
-            <name>First Mac Address</name>
-            <value>64:70:02:cd:74:cc</value>
-        </parameter>
-        <parameter>
-            <name>Total Interface Count</name>
+            <name>totalInterfaceCount</name>
             <value>12</value>
         </parameter>
         <parameter>
@@ -35,39 +31,15 @@
             <value>NO</value>
         </parameter>
         <parameter>
-            <name>community-ro</name>
-            <value></value>
-        </parameter>
-        <parameter>
             <name>ipv4Forwarding</name>
             <value>YES</value>
         </parameter>
         <parameter>
-            <name>Device Model Oid</name>
+            <name>deviceModelOid</name>
             <value>1.2.3.4</value>
         </parameter>
         <parameter>
-            <name>BGPLocalASInfo</name>
-            <value>96 days, 4:05:01.80</value>
-        </parameter>
-        <parameter>
-            <name>baseBridgeAddress</name>
-            <value></value>
-        </parameter>
-        <parameter>
-            <name>stpDesignatedRoot</name>
-            <value>96 days, 4:05:03.49</value>
-        </parameter>
-        <parameter>
-            <name>siteID</name>
-            <value>HeartOfGold</value>
-        </parameter>
-        <parameter>
-            <name>X Coordinate</name>
-            <value>nbu</value>
-        </parameter>
-        <parameter>
-            <name>Y Coordinate</name>
+            <name>sysLocation</name>
             <value>nbu</value>
         </parameter>
     </parameters>

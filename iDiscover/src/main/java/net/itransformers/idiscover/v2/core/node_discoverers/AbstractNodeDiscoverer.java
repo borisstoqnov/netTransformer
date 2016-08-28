@@ -69,11 +69,11 @@ public abstract class  AbstractNodeDiscoverer {
         String hostName = params.get("hostName");
         String id;
         if (params.get("deviceName") != null) {
-            id = deviceName;
+            id = hostName;
         } else if (dnsCanonicalName != null) {
             id = dnsShort;
         } else if (hostName != null){
-            id=hostName;
+            id=deviceName;
         }else {
             id =ipAddress;
         }

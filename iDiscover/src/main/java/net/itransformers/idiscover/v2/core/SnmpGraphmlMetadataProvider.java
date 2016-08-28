@@ -8,7 +8,7 @@ import java.util.Map;
  */
 
 
-public class SnmpGraphmlMetadata {
+public class SnmpGraphmlMetadataProvider {
 
 
     private static Map<String, String> edgesMetadataTypes ;
@@ -17,7 +17,7 @@ public class SnmpGraphmlMetadata {
 
     private static Map<String, String> graphMetadataTypes;
 
-    public SnmpGraphmlMetadata() {
+    public SnmpGraphmlMetadataProvider() {
         setGraphMetadataTypes();
         setVertexMetadataTypes();
         setEdgesMetadataTypes();

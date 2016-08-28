@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <graphml xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:functx="http://www.functx.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <key id="bgpAS" for="node" attr.name="bgpAS" attr.type="string" />
     <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string" />
-    <key id="deviceStatus" for="node" attr.name="deviceStatus" attr.type="string" />
     <key id="deviceType" for="node" attr.name="deviceType" attr.type="string" />
     <key id="diff" for="node" attr.name="diff" attr.type="string" />
     <key id="diffs" for="node" attr.name="diffs" attr.type="string" />
     <key id="discoveredIPv4Address" for="node" attr.name="discoveredIPv4Address" attr.type="string" />
-    <key id="geoCoordinates" for="node" attr.name="geoCoordinates" attr.type="string" />
+    <key id="discoveredState" for="node" attr.name="discoveredState" attr.type="string" />
     <key id="hostname" for="node" attr.name="hostname" attr.type="string" />
     <key id="ipProtocolType" for="node" attr.name="ipProtocolType" attr.type="string" />
     <key id="ipv4Forwarding" for="node" attr.name="ipv4Forwarding" attr.type="string" />
@@ -15,21 +15,25 @@
     <key id="site" for="node" attr.name="site" attr.type="string" />
     <key id="subnetPrefix" for="node" attr.name="subnetPrefix" attr.type="string" />
     <key id="subnetRangeType" for="node" attr.name="subnetRangeType" attr.type="string" />
+    <key id="sysLocation" for="node" attr.name="sysLocation" attr.type="string" />
     <key id="totalInterfaceCount" for="node" attr.name="totalInterfaceCount" attr.type="string" />
-    <key id="Discovery Method" for="edge" attr.name="Discovery Method" attr.type="string" />
-    <key id="Interface" for="edge" attr.name="Interface" attr.type="string" />
-    <key id="Neighbor Device Type" for="edge" attr.name="Neighbor Device Type" attr.type="string" />
-    <key id="Neighbor IP Address" for="edge" attr.name="Neighbor IP Address" attr.type="string" />
+    <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string" />
+    <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string" />
     <key id="diff" for="edge" attr.name="diff" attr.type="string" />
     <key id="diffs" for="edge" attr.name="diffs" attr.type="string" />
-    <key id="name" for="edge" attr.name="name" attr.type="string" />
+    <key id="discoveryMethod" for="edge" attr.name="discoveryMethod" attr.type="string" />
+    <key id="ifSpeed" for="edge" attr.name="ifSpeed" attr.type="string" />
+    <key id="ifType" for="edge" attr.name="ifType" attr.type="string" />
+    <key id="interface" for="edge" attr.name="interface" attr.type="string" />
+    <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string" />
+    <key id="ipv4Forwarding" for="edge" attr.name="ipv4Forwarding" attr.type="string" />
+    <key id="ipv6Forwarding" for="edge" attr.name="ipv6Forwarding" attr.type="string" />
     <graph id="G" edgedefault="undirected">
         <node id="10.192.0.0/30">
             <data key="deviceModel">passiveHub</data>
             <data key="deviceType">Subnet</data>
             <data key="ipProtocolType">IPv4</data>
             <data key="subnetPrefix">10.192.0.0/30</data>
-            <data key="subnetRangeType">private</data>
         </node>
         <node id="10.192.0.1" />
         <node id="10.192.1.0/24">
@@ -37,7 +41,6 @@
             <data key="deviceType">Subnet</data>
             <data key="ipProtocolType">IPv4</data>
             <data key="subnetPrefix">10.192.1.0/24</data>
-            <data key="subnetRangeType">private</data>
         </node>
         <node id="10.192.5.0/24">
             <data key="deviceModel">passiveHub</data>
@@ -137,16 +140,9 @@
             <data key="ipv6Forwarding">NO</data>
             <data key="totalInterfaceCount">26</data>
         </node>
-        <edge id="10.192.0.0/30-10.192.0.1" source="10.192.0.0/30" target="10.192.0.1" label="10.192.0.0/30-10.192.0.1">
-            <data key="Discovery Method">Slash30</data>
-        </edge>
-        <edge id="10.192.0.0/30-r3845" source="10.192.0.0/30" target="r3845" label="10.192.0.0/30-r3845">
-            <data key="Discovery Method">Slash30</data>
-            <data key="Interface">GigabitEthernet0/1</data>
-        </edge>
-        <edge id="10.192.1.0/24-r3845" source="10.192.1.0/24" target="r3845" label="10.192.1.0/24-r3845">
-            <data key="Interface">GigabitEthernet0/0.4000</data>
-        </edge>
+        <edge id="10.192.0.0/30-10.192.0.1" source="10.192.0.0/30" target="10.192.0.1" label="10.192.0.0/30-10.192.0.1" />
+        <edge id="10.192.0.0/30-r3845" source="10.192.0.0/30" target="r3845" label="10.192.0.0/30-r3845" />
+        <edge id="10.192.1.0/24-r3845" source="10.192.1.0/24" target="r3845" label="10.192.1.0/24-r3845" />
         <edge id="10.192.5.0/24-10.192.5.11" source="10.192.5.0/24" target="10.192.5.11" label="10.192.5.0/24-10.192.5.11">
             <data key="Discovery Method">ARP</data>
         </edge>
@@ -170,7 +166,6 @@
         </edge>
         <edge id="10.192.5.0/24-r3845" source="10.192.5.0/24" target="r3845" label="10.192.5.0/24-r3845">
             <data key="Discovery Method">ARP</data>
-            <data key="Interface">GigabitEthernet0/0.4005</data>
         </edge>
         <edge id="10.192.5.0/24-srv1NodeC" source="10.192.5.0/24" target="srv1NodeC" label="10.192.5.0/24-srv1NodeC">
             <data key="Discovery Method">ARP</data>
@@ -216,7 +211,6 @@
         </edge>
         <edge id="10.192.6.0/24-r3845" source="10.192.6.0/24" target="r3845" label="10.192.6.0/24-r3845">
             <data key="Discovery Method">ARP</data>
-            <data key="Interface">GigabitEthernet0/0.4006</data>
         </edge>
         <edge id="10.192.6.0/24-srv1NodeC" source="10.192.6.0/24" target="srv1NodeC" label="10.192.6.0/24-srv1NodeC">
             <data key="Discovery Method">ARP</data>

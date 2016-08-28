@@ -11,6 +11,9 @@
 								<lldpRemTable>
 								</lldpRemTable>
 								<lldpRemManAddrTable>
+									<lldpRemManAddrEntry>
+
+									</lldpRemManAddrEntry>
 								</lldpRemManAddrTable>
 								<lldpRemUnknownTLVTable>
 								</lldpRemUnknownTLVTable>
@@ -434,7 +437,7 @@ Compiled Wed 28-Aug-02 10:25 by antonino</cdpCacheVersion>
 													<cdpCacheVTPMgmtDomain>nbu</cdpCacheVTPMgmtDomain>
 													<cdpCacheNativeVLAN>0</cdpCacheNativeVLAN>
 													<cdpCacheDuplex>3</cdpCacheDuplex>
-													<cdpCacheLastChange>464 days, 9:26:40.40</cdpCacheLastChange>
+													<cdpCacheLastChange>496 days, 6:03:54.04</cdpCacheLastChange>
 												</cdpCacheEntry>
 											</cdpCacheTable>
 										</cdpCache>
