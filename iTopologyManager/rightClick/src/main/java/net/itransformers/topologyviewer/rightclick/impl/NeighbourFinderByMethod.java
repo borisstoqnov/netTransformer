@@ -59,6 +59,7 @@ public class NeighbourFinderByMethod implements RightClickHandler {
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
         Graph currentGraph = viewerPanel.getCurrentGraph();
         //Keep count of the neighbours
+        System.out.println(v);
 
         String method = (String) rightClickParams.get("Discovery Method");
         int i = 0;
@@ -88,9 +89,7 @@ public class NeighbourFinderByMethod implements RightClickHandler {
 
                 if ((neighbourDeviceType != null && neighbourDeviceType.equals("Subnet")) && ((thisDeviceType != null && thisDeviceType.equals("Subnet")))) {
                     System.out.println("Neighbour " + second + " is a subnet");
-                } else {
-                    System.out.println("Neighbour " + second + " is a not a subnet");
-
+                } else if (v == first || v == second) {
                     IPsecPair p = new IPsecPair(first,thisDeviceIPAddress,second,neighbourDeviceIPAddress);
                     ipsecpair[i] = p;
                     i++;
