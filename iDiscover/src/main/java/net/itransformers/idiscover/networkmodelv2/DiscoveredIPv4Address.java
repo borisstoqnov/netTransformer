@@ -8,6 +8,8 @@ import java.util.HashMap;
 public class DiscoveredIPv4Address {
     private String name;
     private HashMap<String,String> params;
+    private String id;
+
 
     public DiscoveredIPv4Address(String name, HashMap<String, String> params) {
         this.name = name;

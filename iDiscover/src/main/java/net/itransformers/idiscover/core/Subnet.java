@@ -32,7 +32,7 @@ public class Subnet {
     String subnetProtocolType;
     String subnetPrefixMask;
     String subnetDiscoveryMethods;
-
+    String ipv4SubnetBroadcast;
 
     public Subnet(String name, String ipAddress, String subnetMask, String localInterface, String subnetProtocolType) {
         this.name = name;
@@ -44,6 +44,13 @@ public class Subnet {
 
     }
 
+    public String getIpv4SubnetBroadcast() {
+        return ipv4SubnetBroadcast;
+    }
+
+    public void setIpv4SubnetBroadcast(String ipv4SubnetBroadcast) {
+        this.ipv4SubnetBroadcast = ipv4SubnetBroadcast;
+    }
 
     public String getIpAddress() {
         return ipAddress;
@@ -119,6 +126,8 @@ public class Subnet {
                 ", subnetProtocolType='" + subnetProtocolType + '\'' +
                 ", subnetPrefixMask='" + subnetPrefixMask + '\'' +
                 ", subnetDiscoveryMethods='" + subnetDiscoveryMethods + '\'' +
+                ", ipv4SubnetBroadcast='" + ipv4SubnetBroadcast + '\'' +
                 '}';
     }
+
 }

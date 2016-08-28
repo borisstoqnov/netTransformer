@@ -600,7 +600,7 @@
 								<value/>
 							</parameter>
 							<parameter>
-								<name>Neighbor hostname</name>
+								<name>Neighbor Hostname</name>
 								<value/>
 							</parameter>
                             <parameter>

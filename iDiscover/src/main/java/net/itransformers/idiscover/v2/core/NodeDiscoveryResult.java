@@ -91,6 +91,7 @@ public class NodeDiscoveryResult implements Cloneable{
         this.neighboursConnectionDetails = neighboursConnectionDetails;
     }
 
+
     public Map<String, Object> getDiscoveredData() {
         return discoveredData;
     }

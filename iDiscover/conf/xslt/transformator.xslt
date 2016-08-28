@@ -79,6 +79,8 @@
         2.3.1 OSPF Neighbors - Neighbors found by OSPF routing protocol.
         2.3.2 BGP Neighbors - Neighbors found by BGP routing protocol.
         -->
+
+
         <xsl:variable name="dot1dStpDesignatedRoot"
                       select="//root/iso/org/dod/internet/mgmt/mib-2/dot1dBridge/dot1dStp/dot1dStpDesignatedRoot"/>
         <xsl:variable name="baseBridgeAddress"
@@ -127,6 +129,8 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="firstMacAddress" select="(/root/iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry[ifPhysAddress!='']/ifPhysAddress)[1]"/>
+        <xsl:variable name="secondMacAddress" select="(/root/iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry[ifPhysAddress!='']/ifPhysAddress)[2]"/>
+
         <xsl:variable name="mplsVRF">
             <root1>
                 <xsl:for-each
@@ -164,6 +168,36 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                 </xsl:for-each>
             </root1>
         </xsl:variable>
+        <!--<key id="hostname" for="node" attr.name="Device Hostname" attr.type="string"/>-->
+        <!--<key id="deviceModel" for="node" attr.name="Device Model" attr.type="string"/>-->
+        <!--<key id="deviceType" for="node" attr.name="Device Type" attr.type="string"/>-->
+        <!--<key id="nodeInfo" for="node" attr.name="Node Information " attr.type="string"/>-->
+        <!--<key id="discoveredIPv4Address" for="node" attr.name="Discovered IPv4 Address" attr.type="string"/>-->
+        <!--<key id="discoveredState" for="node" attr.name="Discovered State" attr.type="string"/>-->
+        <!--<key id="sysLocation" for="node" attr.name="Location by SNMP" attr.type="string"/>-->
+        <!--<key id="site" for="node" attr.name="site" attr.type="string"/>-->
+        <!--<key id="diff" for="node" attr.name="diff" attr.type="string"/>-->
+        <!--<key id="diffs" for="node" attr.name="diffs" attr.type="string"/>-->
+        <!--<key id="ipv6Forwarding" for="node" attr.name="IP v6 Forwarding" attr.type="string"/>-->
+        <!--<key id="ipv4Forwarding" for="node" attr.name="IP v4 Forwarding" attr.type="string"/>-->
+        <!--<key id="subnetPrefix" for="node" attr.name="Subnet Prefix" attr.type="string"/>-->
+        <!--<key id="ipProtocolType" for="node" attr.name="IP Protocol Type" attr.type="string"/>-->
+        <!--<key id="bgpAS" for="node" attr.name="BGP Autonomous system" attr.type="string"/>-->
+        <!--<key id="totalInterfaceCount" for="node" attr.name="Total Interface Count" attr.type="string"/>-->
+
+        <!--<key id="discoveryMethod" for="edge" attr.name="Discovery Method" attr.type="string"/>-->
+        <!--<key id="dataLink" for="edge" attr.name="dataLink" attr.type="string"/>-->
+        <!--<key id="ipLink" for="edge" attr.name="IP Link" attr.type="string"/>-->
+        <!--<key id="MPLS" for="edge" attr.name="MPLS" attr.type="string"/>-->
+        <!--<key id="ipv6Forwarding" for="edge" attr.name="IP v6 Forwarding" attr.type="string"/>-->
+        <!--<key id="ipv4Forwarding" for="edge" attr.name="IP v4 Forwarding" attr.type="string"/>-->
+        <!--<key id="interface" for="edge" attr.name="interface" attr.type="string"/>-->
+        <!--<key id="diff" for="edge" attr.name="diff" attr.type="string"/>-->
+        <!--<key id="diffs" for="edge" attr.name="diffs" attr.type="string"/>-->
+        <!--<key id="encapsulation" for="edge" attr.name="L2 encapsulation" attr.type="string"/>-->
+        <!--<key id="speed" for="edge" attr.name="Port Speed" attr.type="string"/>-->
+
+
         <DiscoveredDevice>
             <name>
                 <xsl:value-of select="$hostname"/>
@@ -171,7 +205,7 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
             <!-- Device specific parameters-->
             <parameters>
                 <parameter>
-                    <name>Device State</name>
+                    <name>discoveredState</name>
                     <value>discovered</value>
                 </parameter>
                 <!--Parameter that contain device sysDescr e.g info about device OS and particular image-->
@@ -182,7 +216,7 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                     </value>
                 </parameter>
                 <parameter>
-                    <name>Device Type</name>
+                    <name>deviceType</name>
                     <value>
                         <xsl:value-of select="$deviceType"/>
                     </value>
@@ -196,21 +230,24 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                     <xsl:value-of select="//root/iso/org/dod/internet/mgmt/mib-2/system/sysObjectID"/>
                 </xsl:variable>
                 <parameter>
-                    <name>Device Model</name>
+                    <name>deviceModel</name>
                     <value><xsl:choose><xsl:when test="$deviceType='CISCO'"><xsl:value-of select="SnmpForXslt:getSymbolByOid('CISCO-PRODUCTS-MIB', $oid)"/></xsl:when><xsl:when test="$deviceType='JUNIPER'"><xsl:value-of select="SnmpForXslt:getSymbolByOid('JUNIPER-CHASSIS-DEFINES-MIB', $oid)"/></xsl:when><xsl:otherwise>Unknown</xsl:otherwise></xsl:choose></value>
                 </parameter>
                 <parameter>
-                    <name>Management IP Address</name>
+                    <name>ipAddress</name>
                     <value>
                         <xsl:value-of select="$deviceIPv4Address"/>
                     </value>
                 </parameter>
+                <xsl:if test="$firstMacAddress = '00:00:00:00:00:00'">
+                    <parameter>
+                        <name>firstMacAddress</name>
+                        <value><xsl:value-of select="$secondMacAddress"/></value>
+                    </parameter>
+                </xsl:if>
+
                 <parameter>
-                    <name>First Mac Address</name>
-                    <value><xsl:value-of select="$firstMacAddress"/></value>
-                </parameter>
-                <parameter>
-                    <name>Total Interface Count</name>
+                    <name>totalInterfaceCount</name>
                     <value><xsl:value-of select="//root/iso/org/dod/internet/mgmt/mib-2/interfaces/ifNumber"/></value>
                 </parameter>
                 <parameter>
@@ -220,66 +257,46 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                     </value>
                 </parameter>
                 <parameter>
-                    <name>community-ro</name>
-                    <value>
-                        <xsl:value-of select="$comm"/>
-                    </value>
-                </parameter>
-                <parameter>
                     <name>ipv4Forwarding</name>
                     <value>YES</value>
                 </parameter>
                 <parameter>
-                    <name>Device Model Oid</name>
+                    <name>deviceModelOid</name>
                     <value><xsl:value-of select="$oid"/></value>
                 </parameter>
-                <parameter>
-                    <name>BGPLocalASInfo</name>
-                    <value>
-                        <xsl:value-of select="//root/iso/org/dod/internet/mgmt/mib-2/bgp/bgpLocalAs"/>
-                    </value>
-                </parameter>
+                <xsl:variable name="bgpAS" select="//root/iso/org/dod/internet/mgmt/mib-2/bgp/bgpLocalAs"/>
+                <xsl:if test="$bgpAS !='0' and $bgpAS !='' and not(contains($bgpAS,'days'))">
+                    <parameter>
+                        <name>bgpASInfo</name>
+                        <value>
+                            <xsl:value-of select="$bgpAS"/>
+                        </value>
+                    </parameter>
+                </xsl:if>
+
                 <!--Those two addresses has intention to STP process. Some devices do not have STP enables so for those might contain
                some boolshit-->
-                <parameter>
-                    <name>baseBridgeAddress</name>
-                    <value>
-                        <xsl:value-of select="$baseBridgeAddress"/>
-                    </value>
-                </parameter>
+                <xsl:if test="$baseBridgeAddress!='' and not(contains($baseBridgeAddress,'days'))">
+                    <parameter>
+                        <name>baseBridgeAddress</name>
+                        <value>
+                            <xsl:value-of select="$baseBridgeAddress"/>
+                        </value>
+                    </parameter>
+                </xsl:if>
+                <xsl:if test="$dot1dStpDesignatedRoot!='' and not(contains($dot1dStpDesignatedRoot,'days'))">
+
                 <parameter>
                     <name>stpDesignatedRoot</name>
                     <value>
                         <xsl:value-of select="$dot1dStpDesignatedRoot"/>
                     </value>
                 </parameter>
-                <parameter>
-                    <name>siteID</name>
-                    <value>
-                        <xsl:call-template name="substring-before">
-                            <xsl:with-param name="value" select="$hostname"/>
-                            <xsl:with-param name="substring">-</xsl:with-param>
-                        </xsl:call-template>
-                    </value>
-                </parameter>
+                </xsl:if>
                 <xsl:variable name="sysLocation" select="//root/iso/org/dod/internet/mgmt/mib-2/system/sysLocation"/>
                 <parameter>
-                    <name>X Coordinate</name>
-                    <value>
-                        <xsl:call-template name="substring-before">
-                            <xsl:with-param name="value" select="$sysLocation"/>
-                            <xsl:with-param name="substring">,</xsl:with-param>
-                        </xsl:call-template>
-                    </value>
-                </parameter>
-                <parameter>
-                    <name>Y Coordinate</name>
-                    <value>
-                        <xsl:call-template name="substring-after">
-                            <xsl:with-param name="value" select="$sysLocation"/>
-                            <xsl:with-param name="substring">,</xsl:with-param>
-                        </xsl:call-template>
-                    </value>
+                    <name>sysLocation</name>
+                    <value><xsl:value-of select="$sysLocation"/></value>
                 </parameter>
             </parameters>
             <!--Walk over the interface ifTable table.-->
@@ -344,6 +361,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <xsl:with-param name="ifName" select="$ifName"/>
                                 <xsl:with-param name="ifType" select="$ifType"/>
                                 <xsl:with-param name="ifSped" select="$ifSpeed"/>
+                                <xsl:with-param name="ifPhysicalAddress" select="$ifPhysAddress"/>
                                 <xsl:with-param name="ifAdminStatus" select="$ifAdminStatus"/>
                                 <xsl:with-param name="ifOperStatus" select="$ifOperStatus"/>
                                 <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>

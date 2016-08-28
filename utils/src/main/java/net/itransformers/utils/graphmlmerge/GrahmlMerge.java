@@ -86,6 +86,7 @@ public class GrahmlMerge {
 
         writer.setNormalize(true);
         writer.setVertexKeyTypes(vertexKeyTypes);
+
         writer.setEdgeKeyTypes(edgeKeyTypes);
 
         FileOutputStream out = new FileOutputStream(outFile);

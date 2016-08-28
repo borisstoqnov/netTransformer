@@ -38,8 +38,9 @@ public class SubnetConnectionDetails {
             subnetConnection.put("ipAddress", ipAddress);
             subnetConnection.put("protocolType", protocolType);
             subnetConnection.put("subnetPrefixMask", subnet.getSubnetPrefixMask());
-            subnetConnection.put("subnetMask",subnet.getsubnetMask());
+            subnetConnection.put("subnetMask",subnetMask);
             subnetConnection.put("port",subnet.getLocalInterface());
+            subnetConnection.put("ipv4SubnetBroadcast",subnet.getIpv4SubnetBroadcast());
             subnetConnection.put("discoveryMethods",subnet.getSubnetDiscoveryMethods());
             subnetConnection.setConnectionType("subnet");
 

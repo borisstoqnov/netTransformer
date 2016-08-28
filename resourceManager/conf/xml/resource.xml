@@ -23,6 +23,10 @@
             <param name="port">161</param>
             <param name="protocol">udp</param>
         </connection-params>
+        <connection-params connection-type="icmp">
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
+        </connection-params>
     </resource>
     <resource name="UASG-sw">
          <param name="ipAddress">10.0.10.2</param>
@@ -45,6 +49,10 @@
             <param name="retries">3</param>
             <param name="port">161</param>
             <param name="protocol">udp</param>
+        </connection-params>
+        <connection-params connection-type="icmp">
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
         </connection-params>
     </resource>
     <resource name="cisco">
@@ -71,6 +79,10 @@
             <param name="protocol">udp</param>
             <param name="destinationPort">161</param>
         </connection-params>
+        <connection-params connection-type="icmp">
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
+        </connection-params>
     </resource>
     <resource name="huawei">
         <param name="deviceType">HUAWEI</param>
@@ -87,6 +99,10 @@
             <param name="retries">3</param>
             <param name="destinationPort">23</param>
         </connection-params>
+        <connection-params connection-type="icmp">
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
+        </connection-params>
     </resource>
     <resource name="recorded">
         <param name="deviceName">recorded</param>
@@ -97,6 +113,10 @@
             <param name="retries">1</param>
             <param name="protocol">udp</param>
             <param name="destinationPort">161</param>
+        </connection-params>
+        <connection-params connection-type="icmp">
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
         </connection-params>
     </resource>
     <resource name="zeus">
@@ -109,6 +129,10 @@
             <param name="retries">1</param>
             <param name="destinationPort">161</param>
         </connection-params>
+        <connection-params connection-type="icmp">
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
+        </connection-params>
     </resource>
     <resource name="bgp">
         <param name="deviceName">bgp</param>
@@ -119,6 +143,10 @@
             <param name="timeout">2000</param>
             <param name="retries">1</param>
             <param name="destinationPort">161</param>
+        </connection-params>
+        <connection-params connection-type="icmp">
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
         </connection-params>
     </resource>
     <resource name="OpenWrt">
@@ -138,6 +166,10 @@
             <param name="port">161</param>
             <param name="protocol">udp</param>
         </connection-params>
+        <connection-params connection-type="icmp">
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
+        </connection-params>
     </resource>
     <resource name="v3test">
         <param name="ipAddress">195.218.195.228</param>
@@ -154,6 +186,10 @@
             <param name="privacyProtocolPassShare">privkey1</param>
             <param name="destinationPort">161</param>
         </connection-params>
+        <connection-params connection-type="icmp">
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
+        </connection-params>
     </resource>
     <resource name="default">
         <connection-params connection-type="snmp">
@@ -163,6 +199,10 @@
             <param name="timeout">1000</param>
             <param name="retries">1</param>
             <param name="destinationPort">161</param>
+        </connection-params>
+        <connection-params connection-type="icmp">
+            <param name="timeout">1000</param>
+            <param name="retries">1</param>
         </connection-params>
     </resource>
 </resources>

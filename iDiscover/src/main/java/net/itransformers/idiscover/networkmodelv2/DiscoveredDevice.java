@@ -36,11 +36,17 @@ public class DiscoveredDevice {
         deviceNeighbours.addAll(logicalDeviceData.getDeviceNeighbourList());
         return deviceNeighbours;
     }
-    public List<Subnet> getDeviceSubnets(){
+
+
+    public List<Subnet> getDeviceSubnetsFromActiveInterfaces(){
 
         List<Subnet> subnets = new ArrayList<>();
+
         for(DiscoveredInterface discoveredInterface: interfaceList) {
-            if (discoveredInterface.getNeighbours() != null){
+
+            String status = discoveredInterface.getParams().get("ifOperStatus");
+
+            if (status.equals("UP")){
                 List<DiscoveredIPv4Address> iPv4Addresses = discoveredInterface.getiPv4AddressList();
 
                 for (DiscoveredIPv4Address iPv4Address : iPv4Addresses) {
@@ -48,11 +54,62 @@ public class DiscoveredDevice {
                     String ipSubnetMask = iPv4Address.getParams().get("ipSubnetMask");
                     String ipv4SubnetPrefix = iPv4Address.getParams().get("ipv4SubnetPrefix");
                     String subnetName = ipv4Subnet + "/" + ipv4SubnetPrefix;
+                    String ipv4SubnetBroadcast = iPv4Address.getParams().get("ipv4SubnetBroadcast");
+
                     Subnet subnet = new Subnet(subnetName);
-                    subnet.setSubnetMask(ipv4SubnetPrefix);
+                    if (ipv4SubnetPrefix.equals("32")){
+                        //LocalInterface
+                        continue;
+                    }
+
+                    subnet.setSubnetMask(ipSubnetMask);
+                    subnet.setSubnetPrefixMask(ipv4SubnetPrefix);
                     subnet.setIpAddress(ipv4Subnet);
                     subnet.setLocalInterface(discoveredInterface.getName());
                     subnet.setSubnetProtocolType("IPv4");
+                    subnet.setIpv4SubnetBroadcast(ipv4SubnetBroadcast);
+                    try {
+                        subnet.setSubnetDiscoveryMethods(discoveredInterface.getDiscoveryMethodsPerSubnet(subnetName, "IPv4"));
+                    } catch (UnknownHostException e) {
+                        e.printStackTrace();
+                    }
+                    subnets.add(subnet);
+
+                }
+            }
+        }
+        return subnets;
+    }
+
+    public List<Subnet> getDeviceSubnetsWithActiveNeighbours(){
+
+        List<Subnet> subnets = new ArrayList<>();
+
+        for(DiscoveredInterface discoveredInterface: interfaceList) {
+
+            int numberNeighbours = discoveredInterface.getNeighbours().size();
+
+            if (numberNeighbours > 0){
+                List<DiscoveredIPv4Address> iPv4Addresses = discoveredInterface.getiPv4AddressList();
+
+                for (DiscoveredIPv4Address iPv4Address : iPv4Addresses) {
+
+                    String ipv4Subnet = iPv4Address.getParams().get("ipv4Subnet");
+                    String ipSubnetMask = iPv4Address.getParams().get("ipSubnetMask");
+                    String ipv4SubnetPrefix = iPv4Address.getParams().get("ipv4SubnetPrefix");
+                    String ipv4SubnetBroadcast = iPv4Address.getParams().get("ipv4SubnetBroadcast");
+                    if (ipv4SubnetPrefix.equals("32")){
+                        //LocalInterface
+                        continue;
+                    }
+                    String subnetName = ipv4Subnet + "/" + ipv4SubnetPrefix;
+                    Subnet subnet = new Subnet(subnetName);
+                    subnet.setSubnetMask(ipSubnetMask);
+                    subnet.setSubnetPrefixMask(ipv4SubnetPrefix);
+                    subnet.setIpAddress(ipv4Subnet);
+                    subnet.setLocalInterface(discoveredInterface.getName());
+                    subnet.setSubnetProtocolType("IPv4");
+                    subnet.setIpv4SubnetBroadcast(ipv4SubnetBroadcast);
                     try {
                         subnet.setSubnetDiscoveryMethods(discoveredInterface.getDiscoveryMethodsPerSubnet(subnetName, "IPv4"));
                     } catch (UnknownHostException e) {

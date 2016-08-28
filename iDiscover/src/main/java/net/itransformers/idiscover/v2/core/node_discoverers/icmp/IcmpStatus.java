@@ -30,8 +30,23 @@ public class IcmpStatus {
     public boolean getIcmpStatus(String ipAddressStr) throws IOException {
         InetAddress inetAddress=InetAddress.getByName(ipAddressStr);
         boolean reachable = inetAddress.isReachable(timeout);
-        logger.info("Device with " + ipAddressStr + " is reacable through icmp "+reachable +"!!!");
         return reachable;
 
     }
+
+    public boolean getIcmpStatus() throws IOException {
+        InetAddress inetAddress=InetAddress.getByName(ipAddressStr);
+        boolean reachable = inetAddress.isReachable(timeout);
+        return reachable;
+
+    }
+
+    public static boolean getIcmpStatus(String ipAddressStr,int timeout) throws IOException {
+        InetAddress inetAddress=InetAddress.getByName(ipAddressStr);
+        boolean reachable = inetAddress.isReachable(timeout);
+        return reachable;
+
+    }
+
+
 }

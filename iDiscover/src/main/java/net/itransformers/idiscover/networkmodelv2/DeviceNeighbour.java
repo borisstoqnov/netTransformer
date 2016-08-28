@@ -29,6 +29,7 @@ public class DeviceNeighbour {
     private String neighbourHostName;
     private String neighbourIpAddress;
     private HashMap<String,String> parameters;
+    private String id;
 
     public DeviceNeighbour(String neighbourHostName, String neighbourIpAddress, HashMap<String, String> parameters) {
         this.neighbourIpAddress = neighbourIpAddress;
