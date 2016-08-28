@@ -1,0 +1,259 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<graphml xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:functx="http://www.functx.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string" />
+    <key id="deviceStatus" for="node" attr.name="deviceStatus" attr.type="string" />
+    <key id="deviceType" for="node" attr.name="deviceType" attr.type="string" />
+    <key id="diff" for="node" attr.name="diff" attr.type="string" />
+    <key id="diffs" for="node" attr.name="diffs" attr.type="string" />
+    <key id="discoveredIPv4Address" for="node" attr.name="discoveredIPv4Address" attr.type="string" />
+    <key id="geoCoordinates" for="node" attr.name="geoCoordinates" attr.type="string" />
+    <key id="hostname" for="node" attr.name="hostname" attr.type="string" />
+    <key id="ipProtocolType" for="node" attr.name="ipProtocolType" attr.type="string" />
+    <key id="ipv4Forwarding" for="node" attr.name="ipv4Forwarding" attr.type="string" />
+    <key id="ipv6Forwarding" for="node" attr.name="ipv6Forwarding" attr.type="string" />
+    <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string" />
+    <key id="site" for="node" attr.name="site" attr.type="string" />
+    <key id="subnetPrefix" for="node" attr.name="subnetPrefix" attr.type="string" />
+    <key id="subnetRangeType" for="node" attr.name="subnetRangeType" attr.type="string" />
+    <key id="totalInterfaceCount" for="node" attr.name="totalInterfaceCount" attr.type="string" />
+    <key id="Discovery Method" for="edge" attr.name="Discovery Method" attr.type="string" />
+    <key id="Interface" for="edge" attr.name="Interface" attr.type="string" />
+    <key id="Neighbor Device Type" for="edge" attr.name="Neighbor Device Type" attr.type="string" />
+    <key id="Neighbor IP Address" for="edge" attr.name="Neighbor IP Address" attr.type="string" />
+    <key id="diff" for="edge" attr.name="diff" attr.type="string" />
+    <key id="diffs" for="edge" attr.name="diffs" attr.type="string" />
+    <key id="name" for="edge" attr.name="name" attr.type="string" />
+    <graph id="G" edgedefault="undirected">
+        <node id="10.192.0.0/30">
+            <data key="deviceModel">passiveHub</data>
+            <data key="deviceType">Subnet</data>
+            <data key="ipProtocolType">IPv4</data>
+            <data key="subnetPrefix">10.192.0.0/30</data>
+            <data key="subnetRangeType">private</data>
+        </node>
+        <node id="10.192.0.1" />
+        <node id="10.192.1.0/24">
+            <data key="deviceModel">passiveHub</data>
+            <data key="deviceType">Subnet</data>
+            <data key="ipProtocolType">IPv4</data>
+            <data key="subnetPrefix">10.192.1.0/24</data>
+            <data key="subnetRangeType">private</data>
+        </node>
+        <node id="10.192.5.0/24">
+            <data key="deviceModel">passiveHub</data>
+            <data key="deviceType">Subnet</data>
+            <data key="ipProtocolType">IPv4</data>
+            <data key="subnetPrefix">10.192.5.0/24</data>
+            <data key="subnetRangeType">private</data>
+        </node>
+        <node id="10.192.5.11" />
+        <node id="10.192.5.12" />
+        <node id="10.192.5.13" />
+        <node id="10.192.5.14" />
+        <node id="10.192.5.22" />
+        <node id="10.192.5.23" />
+        <node id="10.192.5.24" />
+        <node id="10.192.6.0/24">
+            <data key="deviceModel">passiveHub</data>
+            <data key="deviceType">Subnet</data>
+            <data key="ipProtocolType">IPv4</data>
+            <data key="subnetPrefix">10.192.6.0/24</data>
+            <data key="subnetRangeType">private</data>
+        </node>
+        <node id="10.192.6.137" />
+        <node id="10.192.6.140" />
+        <node id="10.192.6.141" />
+        <node id="10.192.6.75" />
+        <node id="10.192.6.85" />
+        <node id="10.192.6.94" />
+        <node id="10.192.7.0/24">
+            <data key="deviceModel">passiveHub</data>
+            <data key="deviceType">Subnet</data>
+            <data key="ipProtocolType">IPv4</data>
+            <data key="subnetPrefix">10.192.7.0/24</data>
+            <data key="subnetRangeType">private</data>
+        </node>
+        <node id="172.17.0.0/16">
+            <data key="deviceModel">passiveHub</data>
+            <data key="deviceType">Subnet</data>
+            <data key="ipProtocolType">IPv4</data>
+            <data key="subnetPrefix">172.17.0.0/16</data>
+            <data key="subnetRangeType">private</data>
+        </node>
+        <node id="172.17.0.2" />
+        <node id="r3845">
+            <data key="deviceModel">cisco3845</data>
+            <data key="deviceType">CISCO</data>
+            <data key="discoveredIPv4Address">10.192.6.1</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+            <data key="totalInterfaceCount">7</data>
+        </node>
+        <node id="srv1NodeC">
+            <data key="deviceModel">Unknown</data>
+            <data key="deviceType">LINUX</data>
+            <data key="discoveredIPv4Address">10.192.6.13</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+            <data key="totalInterfaceCount">43</data>
+        </node>
+        <node id="srv2NodeC">
+            <data key="deviceModel">Unknown</data>
+            <data key="deviceType">LINUX</data>
+            <data key="discoveredIPv4Address">10.192.6.23</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+            <data key="totalInterfaceCount">36</data>
+        </node>
+        <node id="ssrv1nodea">
+            <data key="deviceModel">Unknown</data>
+            <data key="deviceType">LINUX</data>
+            <data key="discoveredIPv4Address">10.192.6.11</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+            <data key="totalInterfaceCount">13</data>
+        </node>
+        <node id="ssrv1noded">
+            <data key="deviceModel">Unknown</data>
+            <data key="deviceType">LINUX</data>
+            <data key="discoveredIPv4Address">10.192.6.14</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+            <data key="totalInterfaceCount">23</data>
+        </node>
+        <node id="ssrv2nodeb">
+            <data key="deviceModel">Unknown</data>
+            <data key="deviceType">LINUX</data>
+            <data key="discoveredIPv4Address">10.192.6.22</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+            <data key="totalInterfaceCount">19</data>
+        </node>
+        <node id="ssrv2noded">
+            <data key="deviceModel">Unknown</data>
+            <data key="deviceType">LINUX</data>
+            <data key="discoveredIPv4Address">10.192.6.24</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+            <data key="totalInterfaceCount">26</data>
+        </node>
+        <edge id="10.192.0.0/30-10.192.0.1" source="10.192.0.0/30" target="10.192.0.1" label="10.192.0.0/30-10.192.0.1">
+            <data key="Discovery Method">Slash30</data>
+        </edge>
+        <edge id="10.192.0.0/30-r3845" source="10.192.0.0/30" target="r3845" label="10.192.0.0/30-r3845">
+            <data key="Discovery Method">Slash30</data>
+            <data key="Interface">GigabitEthernet0/1</data>
+        </edge>
+        <edge id="10.192.1.0/24-r3845" source="10.192.1.0/24" target="r3845" label="10.192.1.0/24-r3845">
+            <data key="Interface">GigabitEthernet0/0.4000</data>
+        </edge>
+        <edge id="10.192.5.0/24-10.192.5.11" source="10.192.5.0/24" target="10.192.5.11" label="10.192.5.0/24-10.192.5.11">
+            <data key="Discovery Method">ARP</data>
+        </edge>
+        <edge id="10.192.5.0/24-10.192.5.12" source="10.192.5.0/24" target="10.192.5.12" label="10.192.5.0/24-10.192.5.12">
+            <data key="Discovery Method">ARP</data>
+        </edge>
+        <edge id="10.192.5.0/24-10.192.5.13" source="10.192.5.0/24" target="10.192.5.13" label="10.192.5.0/24-10.192.5.13">
+            <data key="Discovery Method">ARP</data>
+        </edge>
+        <edge id="10.192.5.0/24-10.192.5.14" source="10.192.5.0/24" target="10.192.5.14" label="10.192.5.0/24-10.192.5.14">
+            <data key="Discovery Method">ARP</data>
+        </edge>
+        <edge id="10.192.5.0/24-10.192.5.22" source="10.192.5.0/24" target="10.192.5.22" label="10.192.5.0/24-10.192.5.22">
+            <data key="Discovery Method">ARP</data>
+        </edge>
+        <edge id="10.192.5.0/24-10.192.5.23" source="10.192.5.0/24" target="10.192.5.23" label="10.192.5.0/24-10.192.5.23">
+            <data key="Discovery Method">ARP</data>
+        </edge>
+        <edge id="10.192.5.0/24-10.192.5.24" source="10.192.5.0/24" target="10.192.5.24" label="10.192.5.0/24-10.192.5.24">
+            <data key="Discovery Method">ARP</data>
+        </edge>
+        <edge id="10.192.5.0/24-r3845" source="10.192.5.0/24" target="r3845" label="10.192.5.0/24-r3845">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">GigabitEthernet0/0.4005</data>
+        </edge>
+        <edge id="10.192.5.0/24-srv1NodeC" source="10.192.5.0/24" target="srv1NodeC" label="10.192.5.0/24-srv1NodeC">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">bond1</data>
+        </edge>
+        <edge id="10.192.5.0/24-srv2NodeC" source="10.192.5.0/24" target="srv2NodeC" label="10.192.5.0/24-srv2NodeC">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">bond1</data>
+        </edge>
+        <edge id="10.192.5.0/24-ssrv1nodea" source="10.192.5.0/24" target="ssrv1nodea" label="10.192.5.0/24-ssrv1nodea">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">bond1</data>
+        </edge>
+        <edge id="10.192.5.0/24-ssrv1noded" source="10.192.5.0/24" target="ssrv1noded" label="10.192.5.0/24-ssrv1noded">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">bond01</data>
+        </edge>
+        <edge id="10.192.5.0/24-ssrv2nodeb" source="10.192.5.0/24" target="ssrv2nodeb" label="10.192.5.0/24-ssrv2nodeb">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">bond01</data>
+        </edge>
+        <edge id="10.192.5.0/24-ssrv2noded" source="10.192.5.0/24" target="ssrv2noded" label="10.192.5.0/24-ssrv2noded">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">bond01</data>
+        </edge>
+        <edge id="10.192.6.0/24-10.192.6.137" source="10.192.6.0/24" target="10.192.6.137" label="10.192.6.0/24-10.192.6.137">
+            <data key="Discovery Method">ARP</data>
+        </edge>
+        <edge id="10.192.6.0/24-10.192.6.140" source="10.192.6.0/24" target="10.192.6.140" label="10.192.6.0/24-10.192.6.140">
+            <data key="Discovery Method">ARP</data>
+        </edge>
+        <edge id="10.192.6.0/24-10.192.6.141" source="10.192.6.0/24" target="10.192.6.141" label="10.192.6.0/24-10.192.6.141">
+            <data key="Discovery Method">ARP</data>
+        </edge>
+        <edge id="10.192.6.0/24-10.192.6.75" source="10.192.6.0/24" target="10.192.6.75" label="10.192.6.0/24-10.192.6.75">
+            <data key="Discovery Method">ARP</data>
+        </edge>
+        <edge id="10.192.6.0/24-10.192.6.85" source="10.192.6.0/24" target="10.192.6.85" label="10.192.6.0/24-10.192.6.85">
+            <data key="Discovery Method">ARP</data>
+        </edge>
+        <edge id="10.192.6.0/24-10.192.6.94" source="10.192.6.0/24" target="10.192.6.94" label="10.192.6.0/24-10.192.6.94">
+            <data key="Discovery Method">ARP</data>
+        </edge>
+        <edge id="10.192.6.0/24-r3845" source="10.192.6.0/24" target="r3845" label="10.192.6.0/24-r3845">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">GigabitEthernet0/0.4006</data>
+        </edge>
+        <edge id="10.192.6.0/24-srv1NodeC" source="10.192.6.0/24" target="srv1NodeC" label="10.192.6.0/24-srv1NodeC">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">bond0</data>
+        </edge>
+        <edge id="10.192.6.0/24-srv2NodeC" source="10.192.6.0/24" target="srv2NodeC" label="10.192.6.0/24-srv2NodeC">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">bond0</data>
+        </edge>
+        <edge id="10.192.6.0/24-ssrv1nodea" source="10.192.6.0/24" target="ssrv1nodea" label="10.192.6.0/24-ssrv1nodea">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">br-ex</data>
+        </edge>
+        <edge id="10.192.6.0/24-ssrv1noded" source="10.192.6.0/24" target="ssrv1noded" label="10.192.6.0/24-ssrv1noded">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">br-ex</data>
+        </edge>
+        <edge id="10.192.6.0/24-ssrv2nodeb" source="10.192.6.0/24" target="ssrv2nodeb" label="10.192.6.0/24-ssrv2nodeb">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">br-ex</data>
+        </edge>
+        <edge id="10.192.6.0/24-ssrv2noded" source="10.192.6.0/24" target="ssrv2noded" label="10.192.6.0/24-ssrv2noded">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">br-ex</data>
+        </edge>
+        <edge id="10.192.7.0/24-srv1NodeC" source="10.192.7.0/24" target="srv1NodeC" label="10.192.7.0/24-srv1NodeC">
+            <data key="Interface">ens1f3</data>
+        </edge>
+        <edge id="10.192.7.0/24-srv2NodeC" source="10.192.7.0/24" target="srv2NodeC" label="10.192.7.0/24-srv2NodeC">
+            <data key="Interface">ens1f3</data>
+        </edge>
+        <edge id="172.17.0.0/16-172.17.0.2" source="172.17.0.0/16" target="172.17.0.2" label="172.17.0.0/16-172.17.0.2">
+            <data key="Discovery Method">ARP</data>
+        </edge>
+        <edge id="172.17.0.0/16-srv1NodeC" source="172.17.0.0/16" target="srv1NodeC" label="172.17.0.0/16-srv1NodeC">
+            <data key="Discovery Method">ARP</data>
+            <data key="Interface">docker0</data>
+        </edge>
+    </graph>
+</graphml>

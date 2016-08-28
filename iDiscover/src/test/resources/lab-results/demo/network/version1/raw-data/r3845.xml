@@ -1,0 +1,345 @@
+<?xml version="1.0" ?>
+<root>
+<iso>
+	<std>
+		<iso8802>
+			<ieee802dot1>
+				<ieee802dot1mibs>
+					<lldpMIB>
+						<lldpObjects>
+							<lldpRemoteSystemsData>
+								<lldpRemTable>
+								</lldpRemTable>
+								<lldpRemManAddrTable>
+								</lldpRemManAddrTable>
+								<lldpRemUnknownTLVTable>
+								</lldpRemUnknownTLVTable>
+								<lldpRemOrgDefInfoTable>
+								</lldpRemOrgDefInfoTable>
+							</lldpRemoteSystemsData>
+						</lldpObjects>
+					</lldpMIB>
+				</ieee802dot1mibs>
+			</ieee802dot1>
+		</iso8802>
+	</std>
+	<org>
+		<dod>
+			<internet>
+				<mgmt>
+					<mib-2>
+						<system>
+								<sysDescr>Cisco IOS Software, 3800 Software (C3845-IPVOICEK9-M), Version 15.1(4)M3, RELEASE SOFTWARE (fc1)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2011 by Cisco Systems, Inc.
+Compiled Tue 06-Dec-11 19:03 by prod_rel_team</sysDescr>
+								<sysObjectID>1.3.6.1.4.1.9.1.544</sysObjectID>
+								<sysName>r3845</sysName>
+								<sysLocation></sysLocation>
+						</system>
+						<interfaces>
+								<ifNumber>7</ifNumber>
+							<ifTable>
+								<ifEntry>
+									<index name="ifIndex">1</index>
+									<instance instanceIndex="1" instanceName="ifIndex" instanceValue="1">1</instance>
+
+									<ifIndex>1</ifIndex>
+									<ifDescr>GigabitEthernet0/0</ifDescr>
+									<ifType>6</ifType>
+									<ifPhysAddress>00:25:45:fd:9d:10</ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<index name="ifIndex">2</index>
+									<instance instanceIndex="2" instanceName="ifIndex" instanceValue="2">2</instance>
+
+									<ifIndex>2</ifIndex>
+									<ifDescr>GigabitEthernet0/1</ifDescr>
+									<ifType>6</ifType>
+									<ifPhysAddress>00:25:45:fd:9d:11</ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<index name="ifIndex">3</index>
+									<instance instanceIndex="3" instanceName="ifIndex" instanceValue="3">3</instance>
+
+									<ifIndex>3</ifIndex>
+									<ifDescr>VoIP-Null0</ifDescr>
+									<ifType>1</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<index name="ifIndex">4</index>
+									<instance instanceIndex="4" instanceName="ifIndex" instanceValue="4">4</instance>
+
+									<ifIndex>4</ifIndex>
+									<ifDescr>Null0</ifDescr>
+									<ifType>1</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<index name="ifIndex">5</index>
+									<instance instanceIndex="5" instanceName="ifIndex" instanceValue="5">5</instance>
+
+									<ifIndex>5</ifIndex>
+									<ifDescr>GigabitEthernet0/0.4000</ifDescr>
+									<ifType>135</ifType>
+									<ifPhysAddress>00:25:45:fd:9d:10</ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<index name="ifIndex">6</index>
+									<instance instanceIndex="6" instanceName="ifIndex" instanceValue="6">6</instance>
+
+									<ifIndex>6</ifIndex>
+									<ifDescr>GigabitEthernet0/0.4005</ifDescr>
+									<ifType>135</ifType>
+									<ifPhysAddress>00:25:45:fd:9d:10</ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<index name="ifIndex">7</index>
+									<instance instanceIndex="7" instanceName="ifIndex" instanceValue="7">7</instance>
+
+									<ifIndex>7</ifIndex>
+									<ifDescr>GigabitEthernet0/0.4006</ifDescr>
+									<ifType>135</ifType>
+									<ifPhysAddress>00:25:45:fd:9d:10</ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+							</ifTable>
+						</interfaces>
+						<ip>
+							<ipAddrTable>
+								<ipAddrEntry>
+									<index name="ipAdEntAddr">10.192.0.2</index>
+									<instance instanceIndex="1" instanceName="ipAdEntAddr" instanceValue="10.192.0.2">10.192.0.2</instance>
+
+									<ipAdEntAddr>10.192.0.2</ipAdEntAddr>
+									<ipAdEntIfIndex>2</ipAdEntIfIndex>
+									<ipAdEntNetMask>255.255.255.252</ipAdEntNetMask>
+									<ipAdEntBcastAddr>1</ipAdEntBcastAddr>
+									<ipAdEntReasmMaxSize>18024</ipAdEntReasmMaxSize>
+								</ipAddrEntry>
+								<ipAddrEntry>
+									<index name="ipAdEntAddr">10.192.1.1</index>
+									<instance instanceIndex="2" instanceName="ipAdEntAddr" instanceValue="10.192.1.1">10.192.1.1</instance>
+
+									<ipAdEntAddr>10.192.1.1</ipAdEntAddr>
+									<ipAdEntIfIndex>5</ipAdEntIfIndex>
+									<ipAdEntNetMask>255.255.255.0</ipAdEntNetMask>
+									<ipAdEntBcastAddr>1</ipAdEntBcastAddr>
+									<ipAdEntReasmMaxSize>18024</ipAdEntReasmMaxSize>
+								</ipAddrEntry>
+								<ipAddrEntry>
+									<index name="ipAdEntAddr">10.192.5.1</index>
+									<instance instanceIndex="3" instanceName="ipAdEntAddr" instanceValue="10.192.5.1">10.192.5.1</instance>
+
+									<ipAdEntAddr>10.192.5.1</ipAdEntAddr>
+									<ipAdEntIfIndex>6</ipAdEntIfIndex>
+									<ipAdEntNetMask>255.255.255.0</ipAdEntNetMask>
+									<ipAdEntBcastAddr>1</ipAdEntBcastAddr>
+									<ipAdEntReasmMaxSize>18024</ipAdEntReasmMaxSize>
+								</ipAddrEntry>
+								<ipAddrEntry>
+									<index name="ipAdEntAddr">10.192.6.1</index>
+									<instance instanceIndex="4" instanceName="ipAdEntAddr" instanceValue="10.192.6.1">10.192.6.1</instance>
+
+									<ipAdEntAddr>10.192.6.1</ipAdEntAddr>
+									<ipAdEntIfIndex>7</ipAdEntIfIndex>
+									<ipAdEntNetMask>255.255.255.0</ipAdEntNetMask>
+									<ipAdEntBcastAddr>1</ipAdEntBcastAddr>
+									<ipAdEntReasmMaxSize>18024</ipAdEntReasmMaxSize>
+								</ipAddrEntry>
+							</ipAddrTable>
+							<ipRouteTable>
+							</ipRouteTable>
+							<ipForward>
+								<inetCidrRouteTable>
+								</inetCidrRouteTable>
+							</ipForward>
+						</ip>
+						<ospf>
+							<ospfGeneralGroup>
+									<ospfRouterId>10</ospfRouterId>
+									<ospfAdminStat>10</ospfAdminStat>
+									<ospfVersionNumber>10</ospfVersionNumber>
+									<ospfAreaBdrRtrStatus>10</ospfAreaBdrRtrStatus>
+									<ospfASBdrRtrStatus>10</ospfASBdrRtrStatus>
+							</ospfGeneralGroup>
+							<ospfAreaTable>
+							</ospfAreaTable>
+							<ospfIfTable>
+							</ospfIfTable>
+							<ospfNbrTable>
+							</ospfNbrTable>
+						</ospf>
+						<bgp>
+								<bgpLocalAs>0</bgpLocalAs>
+							<bgpPeerTable>
+							</bgpPeerTable>
+						</bgp>
+						<dot1dBridge>
+							<dot1dBase>
+									<dot1dBaseNumPorts>0</dot1dBaseNumPorts>
+							</dot1dBase>
+							<dot1dTp>
+								<dot1dTpFdbTable>
+								</dot1dTpFdbTable>
+							</dot1dTp>
+							<qBridgeMIB>
+								<qBridgeMIBObjects>
+									<dot1qVlan>
+										<dot1qVlanStaticTable>
+										</dot1qVlanStaticTable>
+									</dot1qVlan>
+								</qBridgeMIBObjects>
+							</qBridgeMIB>
+						</dot1dBridge>
+						<rip2>
+							<rip2IfStatTable>
+							</rip2IfStatTable>
+							<rip2IfConfTable>
+							</rip2IfConfTable>
+						</rip2>
+						<ifMIB>
+							<ifMIBObjects>
+								<ifXTable>
+									<ifXEntry>
+										<instance instanceIndex="1" instanceName="" instanceValue="">1</instance>
+
+										<ifName>Gi0/0</ifName>
+										<ifHighSpeed>1000</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance instanceIndex="2" instanceName="" instanceValue="">2</instance>
+
+										<ifName>Gi0/1</ifName>
+										<ifHighSpeed>1000</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance instanceIndex="3" instanceName="" instanceValue="">3</instance>
+
+										<ifName>Vo0</ifName>
+										<ifHighSpeed>10000</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance instanceIndex="4" instanceName="" instanceValue="">4</instance>
+
+										<ifName>Nu0</ifName>
+										<ifHighSpeed>10000</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance instanceIndex="5" instanceName="" instanceValue="">5</instance>
+
+										<ifName>Gi0/0.4000</ifName>
+										<ifHighSpeed>1000</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance instanceIndex="6" instanceName="" instanceValue="">6</instance>
+
+										<ifName>Gi0/0.4005</ifName>
+										<ifHighSpeed>1000</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance instanceIndex="7" instanceName="" instanceValue="">7</instance>
+
+										<ifName>Gi0/0.4006</ifName>
+										<ifHighSpeed>1000</ifHighSpeed>
+									</ifXEntry>
+								</ifXTable>
+							</ifMIBObjects>
+						</ifMIB>
+						<ipv6MIB>
+							<ipv6MIBObjects>
+									<ipv6Forwarding>1</ipv6Forwarding>
+								<ipv6IfTable>
+								</ipv6IfTable>
+								<ipv6AddrTable>
+								</ipv6AddrTable>
+								<ipv6RouteTable>
+								</ipv6RouteTable>
+								<ipv6NetToMediaTable>
+								</ipv6NetToMediaTable>
+							</ipv6MIBObjects>
+						</ipv6MIB>
+						<isisMIB>
+							<isisObjects>
+								<isisISAdj>
+									<isisISAdjIPAddrTable>
+									</isisISAdjIPAddrTable>
+								</isisISAdj>
+							</isisObjects>
+						</isisMIB>
+					</mib-2>
+				</mgmt>
+				<experimental>
+					<mplsVpnMIB>
+						<mplsVpnObjects>
+							<mplsVpnConf>
+								<mplsVpnVrfTable>
+								</mplsVpnVrfTable>
+							</mplsVpnConf>
+						</mplsVpnObjects>
+					</mplsVpnMIB>
+				</experimental>
+				<private>
+					<enterprises>
+						<cisco>
+							<ciscoMgmt>
+								<ciscoIpSecFlowMonitorMIB>
+									<cipSecMIBObjects>
+										<cipSecPhaseOne>
+											<cikeTunnelTable>
+											</cikeTunnelTable>
+										</cipSecPhaseOne>
+										<cipSecPhaseTwo>
+											<cipSecTunnelTable>
+											</cipSecTunnelTable>
+										</cipSecPhaseTwo>
+									</cipSecMIBObjects>
+								</ciscoIpSecFlowMonitorMIB>
+							</ciscoMgmt>
+							<ciscoExperiment>
+								<ciscoIetfIpMIB>
+									<ciscoIetfIpMIBObjects>
+										<cIp>
+											<cIpAddressTable>
+											</cIpAddressTable>
+										</cIp>
+										<cIpv6>
+											<cIpv6InterfaceTable>
+											</cIpv6InterfaceTable>
+										</cIpv6>
+									</ciscoIetfIpMIBObjects>
+								</ciscoIetfIpMIB>
+							</ciscoExperiment>
+						</cisco>
+						<aptilo>
+							<products>
+								<ale>
+									<bgp>
+											<bgpLocalAs>0</bgpLocalAs>
+										<bgpPeerTable>
+										</bgpPeerTable>
+									</bgp>
+								</ale>
+							</products>
+						</aptilo>
+					</enterprises>
+				</private>
+			</internet>
+		</dod>
+	</org>
+</iso>
+</root>

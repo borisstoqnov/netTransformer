@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml  xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:functx="http://www.functx.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <key id="hostname" for="node" attr.name="hostname" attr.type="string"/>
+    <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string"/>
+    <key id="deviceType" for="node" attr.name="deviceType" attr.type="string"/>
+    <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string"/>
+    <key id="discoveredIPv4Address" for="node" attr.name="discoveredIPv4Address" attr.type="string"/>
+    <key id="geoCoordinates" for="node" attr.name="geoCoordinates" attr.type="string"/>
+    <key id="site" for="node" attr.name="site" attr.type="string"/>
+    <key id="diff" for="node" attr.name="diff" attr.type="string"/>
+    <key id="diffs" for="node" attr.name="diffs" attr.type="string"/>
+    <key id="ipv6Forwarding" for="node" attr.name="ipv6Forwarding" attr.type="string"/>
+    <key id="ipv4Forwarding" for="node" attr.name="ipv4Forwarding" attr.type="string"/>
+    <key id="subnetPrefix" for="node" attr.name="subnetPrefix" attr.type="string"/>
+    <key id="subnetRangeType" for="node" attr.name="subnetRangeType" attr.type="string"/>
+    <key id="ipProtocolType" for="node" attr.name="ipProtocolType" attr.type="string"/>
+    <key id="totalInterfaceCount" for="node" attr.name="totalInterfaceCount" attr.type="string"/>
+    <key id="name" for="edge" attr.name="name" attr.type="string"/>
+    <key id="Discovery Method" for="edge" attr.name="Discovery Method" attr.type="string"/>
+    <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string"/>
+    <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string"/>
+    <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string"/>
+    <key id="ipv6Forwarding" for="edge" attr.name="ipv6Forwarding" attr.type="string"/>
+    <key id="ipv4Forwarding" for="edge" attr.name="ipv4Forwarding" attr.type="string"/>
+    <key id="bgpLocalAS" for="node" attr.name="bgpLocalAS" attr.type="string"/>
+    <key id="bgpAutonomousSystemA" for="edge" attr.name="bgpAutonomousSystemA" attr.type="string"/>
+    <key id="bgpAutonomousSystemB" for="edge" attr.name="bgpAutonomousSystemB" attr.type="string"/>
+    <key id="Interface" for="edge" attr.name="Interface" attr.type="string"/>
+    <key id="edgeTooltip" for="edge" attr.name="edgeTooltip" attr.type="string"/>
+    <key id="diff" for="edge" attr.name="diff" attr.type="string"/>
+    <key id="diffs" for="edge" attr.name="diffs" attr.type="string"/>
+    <graph edgedefault="undirected">
+        <node id="vGW1" label="vGW1">
+            <data key="Device State">discovered</data>
+            <data key="sysDescr">Cisco IOS Software, C2900 Software (C2900-UNIVERSALK9-M), Version 15.4(3)M1, RELEASE SOFTWARE (fc1)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2014 by Cisco Systems, Inc.
+Compiled Sat 25-Oct-14 03:34 by prod_rel_team</data>
+            <data key="Device Type">CISCO</data>
+            <data key="Device Model">cisco2901</data>
+            <data key="Management IP Address"></data>
+            <data key="First Mac Address">00:00:00:00:00:00</data>
+            <data key="Total Interface Count">12</data>
+            <data key="ipv6Forwarding">NO</data>
+            <data key="community-ro"></data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="Device Model Oid">1.3.6.1.4.1.9.1.1046</data>
+            <data key="BGPLocalASInfo">0</data>
+            <data key="baseBridgeAddress"></data>
+            <data key="stpDesignatedRoot"></data>
+            <data key="siteID">vGW1</data>
+            <data key="X Coordinate">NBU</data>
+            <data key="Y Coordinate">k2-701,rack2</data>
+        </node>
+        <node id="10.101.202.0/24" label="10.101.202.0/24">
+            <data key="nodeType">subnet</data>
+            <data key="private">true</data>
+            <data key="subnetIpAddress">10.101.202.0</data>
+            <data key="protocolType">IPv4</data>
+            <data key="subnetMask">24</data>
+        </node>
+        <node id="10.0.0.91" label="10.0.0.91">
+        </node>
+        <node id="10.10.10.0/29" label="10.10.10.0/29">
+            <data key="nodeType">subnet</data>
+            <data key="private">true</data>
+            <data key="subnetIpAddress">10.10.10.0</data>
+            <data key="protocolType">IPv4</data>
+            <data key="subnetMask">29</data>
+        </node>
+        <node id="10.103.0.0/24" label="10.103.0.0/24">
+            <data key="nodeType">subnet</data>
+            <data key="private">true</data>
+            <data key="subnetIpAddress">10.103.0.0</data>
+            <data key="protocolType">IPv4</data>
+            <data key="subnetMask">24</data>
+        </node>
+        <node id="193.19.175.128/25" label="193.19.175.128/25">
+            <data key="nodeType">subnet</data>
+            <data key="subnetIpAddress">193.19.175.128</data>
+            <data key="protocolType">IPv4</data>
+            <data key="subnetMask">25</data>
+        </node>
+        <node id="192.168.101.101/32" label="192.168.101.101/32">
+            <data key="nodeType">subnet</data>
+            <data key="private">true</data>
+            <data key="subnetIpAddress">192.168.101.101</data>
+            <data key="protocolType">IPv4</data>
+            <data key="subnetMask">32</data>
+        </node>
+            <edge id="10.101.202.0/24-vGW1" label="10.101.202.0/24-vGW1" source="10.101.202.0/24" target="vGW1">
+                <data key="ipAddress">10.101.202.0</data>
+                <data key="protocolType">IPv4</data>
+                <data key="subnetMask">24</data>
+        </edge>
+        <edge id="10.0.0.91-vGW1" label="10.0.0.91-vGW1" source="10.0.0.91" target="vGW1">
+                <data key="discoveryMethods">CDP</data>
+                <data key="ipAddress">10.0.0.91</data>
+        </edge>
+        <edge id="10.10.10.0/29-vGW1" label="10.10.10.0/29-vGW1" source="10.10.10.0/29" target="vGW1">
+                <data key="ipAddress">10.10.10.0</data>
+                <data key="protocolType">IPv4</data>
+                <data key="subnetMask">29</data>
+        </edge>
+        <edge id="10.103.0.0/24-vGW1" label="10.103.0.0/24-vGW1" source="10.103.0.0/24" target="vGW1">
+                <data key="ipAddress">10.103.0.0</data>
+                <data key="protocolType">IPv4</data>
+                <data key="subnetMask">24</data>
+        </edge>
+        <edge id="193.19.175.128/25-vGW1" label="193.19.175.128/25-vGW1" source="193.19.175.128/25" target="vGW1">
+                <data key="ipAddress">193.19.175.128</data>
+                <data key="protocolType">IPv4</data>
+                <data key="subnetMask">25</data>
+        </edge>
+        <edge id="192.168.101.101/32-vGW1" label="192.168.101.101/32-vGW1" source="192.168.101.101/32" target="vGW1">
+                <data key="ipAddress">192.168.101.101</data>
+                <data key="protocolType">IPv4</data>
+                <data key="subnetMask">32</data>
+        </edge>
+    </graph>
+</graphml>
