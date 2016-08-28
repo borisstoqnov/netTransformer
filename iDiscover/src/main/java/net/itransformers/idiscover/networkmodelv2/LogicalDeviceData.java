@@ -6,6 +6,7 @@ import java.util.List;
  * Created by niau on 8/25/16.
  */
 public class LogicalDeviceData {
+    private String id;
     private List<DeviceNeighbour> deviceNeighbourList;
 
     public LogicalDeviceData(List<DeviceNeighbour> deviceNeighbourList) {

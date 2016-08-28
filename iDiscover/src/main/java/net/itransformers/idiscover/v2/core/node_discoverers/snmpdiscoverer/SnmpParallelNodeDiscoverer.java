@@ -43,8 +43,8 @@ import java.util.*;
 public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements NodeDiscoverer {
 
 
-    public SnmpParallelNodeDiscoverer(XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource, MibLoaderHolder mibLoaderHolder,boolean icmpStatus) throws Exception {
-        super(discoveryHelperFactory, discoveryTypes, discoveryResource, mibLoaderHolder,icmpStatus);
+    public SnmpParallelNodeDiscoverer(XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource, MibLoaderHolder mibLoaderHolder,boolean useOnlyTheFirstSnmpBeingMatched) throws Exception {
+        super(discoveryHelperFactory, discoveryTypes, discoveryResource, mibLoaderHolder, useOnlyTheFirstSnmpBeingMatched);
     }
 
 
@@ -56,30 +56,14 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
         String ipAddressStr = connectionDetails.getParam("ipAddress");
         String deviceType = connectionDetails.getParam("deviceType");
         Map<String, String> resourceSelectionParams = getConnectionDetailsParams(deviceName, deviceType, ipAddressStr);
-        Map<String,String> dnsParams = doReverseDnsLookup(ipAddressStr);
+        String dnsFQDN = doReverseDnsLookup(ipAddressStr);
 
         HashMap<String,String> resultParams = new HashMap<>();
         resultParams.put("deviceName",deviceName);
         resultParams.put("deviceType",deviceType);
-        resultParams.put("ipAddress",ipAddressStr);
+        resultParams.put("ipAddress", ipAddressStr);
 
         NodeDiscoveryResult result = new NodeDiscoveryResult();
-
-
-        boolean icmpReachabilityFlag = isReachable(ipAddressStr);
-
-        if (icmpReachabilityFlag)
-            resultParams.put("icmpStatus","REACHABLE");
-        else
-            resultParams.put("icmpStatus","UNREACHABLE");
-        result.setNodeId(deviceName);
-        result.setDiscoveredData("discoveryParams",resultParams);
-
-        //If the icmpStatus reachability flag is set return directly the result.E.g save time and don't discover unreachable devices;
-        if (icmpStatus && !icmpReachabilityFlag){
-            result.setNodeId(getDeviceId(resultParams));
-            return result;
-        }
 
         SnmpManager snmpManager = getSnmpManager(resourceSelectionParams, ipAddressStr);
 
@@ -108,28 +92,31 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
             DiscoveredDeviceData discoveredDeviceData = getDeviceData(discoveryHelper, rawData);
             DiscoveredDevice discoveredDevice = discoveryHelperV2.createDevice(discoveredDeviceData);
 
+            HashMap<String,String> deviceParams = discoveredDevice.getParams();
+            deviceParams.putAll(resultParams);
+            discoveredDevice.setParams(deviceParams);
 
             List<DeviceNeighbour> neighbours = discoveredDevice.getDeviceNeighbours();
-            List<Subnet> subnets = discoveredDevice.getDeviceSubnets();
+            List<Subnet> subnets = discoveredDevice.getDeviceSubnetsFromActiveInterfaces();
             Set<ConnectionDetails> neighboursConnDetails = new HashSet<ConnectionDetails>();
 
             if (neighbours != null) {
-
                 NeighbourConnectionDetails neighbourConnectionDetails = new NeighbourConnectionDetails(neighbours);
                 neighboursConnDetails = neighbourConnectionDetails.getConnectionDetailses();
             }
 
             if (subnets != null) {
                 SubnetConnectionDetails subnetConnectionDetails1 = new SubnetConnectionDetails(subnets);
-                     neighboursConnDetails.addAll(subnetConnectionDetails1.getSubnetConnectionDetails());
-
+                neighboursConnDetails.addAll(subnetConnectionDetails1.getSubnetConnectionDetails());
             }
             result.setNeighboursConnectionDetails(neighboursConnDetails);
             result.setDiscoveredData("deviceData", discoveredDeviceData);
             result.setDiscoveredData("DiscoveredDevice", discoveredDevice);
             result.setDiscoveredData("rawData", rawData.getData());
+        } else {
+            return null;
         }
-        result.setNodeId(getDeviceId(resultParams));
+        result.setNodeId(selectDeviceId(resultParams));
         return result;
     }
 

@@ -69,6 +69,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
             futureCounter++;
         }
         while (futureCounter > 0) {
+            logger.debug("futureCounter: "+futureCounter);
             try {
                 Future<NodeDiscoveryResult> future = executorCompletionService.take();
                 futureCounter--;
@@ -77,7 +78,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 String parentId = result.getParentId();
                 if (parentId != null) {
                     List<Future<NodeDiscoveryResult>> parentNeighbourFutures = nodeNeighbourFuturesMap.get(parentId);
-                    logger.info("Removing node neighbour for parentId=" + parentId + ", nodeId in future="+future.get().getNodeId());
+                    logger.info("Removing node neighbour for parentId=" + parentId + ", nodeId in future=" + future.get().getNodeId());
                     parentNeighbourFutures.remove(future);
                     if (result.getNodeId() != null) {
                         neighbourConnectionDetailsMap.get(parentId).put(result.getNodeId(), result.getDiscoveryConnectionDetails());
@@ -110,10 +111,12 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 Set<ConnectionDetails> neighboursConnectionDetailsSet = new HashSet<ConnectionDetails>(result.getNeighboursConnectionDetails());
                 neighboursConnectionDetailsSet.removeAll(discoveredConnectionDetails);
                 ArrayList<Future<NodeDiscoveryResult>> neighbourFutures = new ArrayList<Future<NodeDiscoveryResult>>();
+
                 for (ConnectionDetails neighboursConnectionDetails : neighboursConnectionDetailsSet) {
                     discoveredConnectionDetails.add(neighboursConnectionDetails);
                     DiscoveryWorker discoveryWorker = discoveryWorkerFactory.createDiscoveryWorker(nodeDiscoverers, neighboursConnectionDetails, nodeId);
                     Future<NodeDiscoveryResult> nodeNeighbourFuture = executorCompletionService.submit(discoveryWorker);
+
                     neighbourFutures.add(nodeNeighbourFuture);
                     futureCounter++;
                 }
@@ -177,7 +180,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         }
     }
 
-    protected void fireNeighboursDiscoveredEvent(final NodeDiscoveryResult nodeDiscoveryResult, Map<String, ConnectionDetails> neighbourDiscoveryResults) {
+    protected void fireNeighboursDiscoveredEvent(final NodeDiscoveryResult nodeDiscoveryResult, Map<String, ConnectionDetails> discoveredNeighbourConnections) {
         if (nodeNeighbourDiscoveryListeners != null) {
             String nodeId = nodeDiscoveryResult.getNodeId();
 
@@ -187,7 +190,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 eventFutures.add(eventExecutorCompletionService.submit(new Runnable() {
                     @Override
                     public void run() {
-                        nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node, nodeDiscoveryResult);
+                        nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node, nodeDiscoveryResult, discoveredNeighbourConnections);
                     }
                 }, null));
 

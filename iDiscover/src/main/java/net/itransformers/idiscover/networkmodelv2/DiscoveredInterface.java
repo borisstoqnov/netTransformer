@@ -17,6 +17,7 @@ public class DiscoveredInterface {
     private List<DeviceNeighbour> neighbours;
     private List<DiscoveredIPv4Address> iPv4AddressList;
     private List<DiscoveredIPv6Address> ipv6AddressList;
+    private String id;
 
     public DiscoveredInterface(String name, HashMap<String, String> params) {
         this.name = name;

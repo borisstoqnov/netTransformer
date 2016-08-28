@@ -60,6 +60,7 @@
 
         <property name="nodeDiscoverers">
             <map>
+                <entry key="icmp" value-ref="icmpNodeDiscoverer"/>
                 <entry key="snmp" value-ref="snmpParallelNodeDiscoverer"/>
                 <entry key="subnet" value-ref="subnetNodeDiscoverer"/>
             </map>
@@ -123,25 +124,22 @@
         <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,IPSEC,BGP,RIP,ADDITIONAL,IPV6"/>
         <constructor-arg ref="discoveryResourceManager"/>
         <constructor-arg ref="MibLoaderHolder"/>
-        <constructor-arg value="true"/>
+        <constructor-arg value="false"/>
 
-        <!--<constructor-arg>-->
-            <!--<list>-->
-                <!--<ref bean="snmpNodeNeighbourDiscoveryListener"/>-->
-            <!--</list>-->
-        <!--</constructor-arg>-->
     </bean>
     <bean id="snmpParallelNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer.SnmpParallelNodeDiscoverer">
         <constructor-arg ref="discoveryHelperFactory"/>
         <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,IPSEC,BGP,RIP,ADDITIONAL,IPV6"/>
         <constructor-arg ref="discoveryResourceManager"/>
         <constructor-arg ref="MibLoaderHolder"/>
-        <constructor-arg name="icmpStatus" value="true"/>
+        <constructor-arg name="useOnlyTheFirstSnmpBeingMatched" value="true"/>
 
     </bean>
-    <bean id="subnetNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.subnet_discoverer.SubnetDiscoverer">
-    </bean>
+    <bean id="subnetNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.subnetDiscoverer.SubnetDiscoverer"/>
 
+    <bean id="icmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.icmp.IcmpDiscoverer">
+        <constructor-arg  ref="discoveryResourceManager"/>
+    </bean>
 
     <bean id="discoveryHelperFactory" class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">
         <constructor-arg>

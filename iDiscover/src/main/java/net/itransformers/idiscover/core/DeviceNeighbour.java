@@ -37,6 +37,8 @@ public class DeviceNeighbour {
     }
 
 
+
+
     public String getNeighbourIpAddress() {
         return neighbourIpAddress;
     }

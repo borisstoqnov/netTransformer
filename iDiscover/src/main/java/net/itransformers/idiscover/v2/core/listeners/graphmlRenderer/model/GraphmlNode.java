@@ -13,6 +13,8 @@ public class GraphmlNode {
 
     private List<GraphmlNodeData> graphmlNodeDataList;
 
+    private List<GraphmlPort> graphmlNodePorts;
+
 
     public GraphmlNode(String id, String label) {
         this.id = id;
@@ -43,6 +45,13 @@ public class GraphmlNode {
         this.graphmlNodeDataList = new ArrayList<>();
     }
 
+    public List<GraphmlPort> getGraphmlNodePorts() {
+        return graphmlNodePorts;
+    }
+
+    public void setGraphmlNodePorts(List<GraphmlPort> graphmlNodePorts) {
+        this.graphmlNodePorts = graphmlNodePorts;
+    }
 
     public List<GraphmlNodeData> getGraphmlNodeDataList() {
         return graphmlNodeDataList;

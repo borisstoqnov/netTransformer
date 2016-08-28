@@ -1,48 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <graphml  xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:functx="http://www.functx.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <key id="hostname" for="node" attr.name="hostname" attr.type="string"/>
-    <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string"/>
-    <key id="deviceType" for="node" attr.name="deviceType" attr.type="string"/>
-    <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string"/>
-    <key id="discoveredIPv4Address" for="node" attr.name="discoveredIPv4Address" attr.type="string"/>
-    <key id="geoCoordinates" for="node" attr.name="geoCoordinates" attr.type="string"/>
+
+    <key id="networkName" for="graph" attr.name="Network Name" attr.type="string"/>
+
+    <key id="hostname" for="node" attr.name="Device Hostname" attr.type="string"/>
+    <key id="deviceModel" for="node" attr.name="Device Model" attr.type="string"/>
+    <key id="deviceType" for="node" attr.name="Device Type" attr.type="string"/>
+    <key id="nodeInfo" for="node" attr.name="Node Information " attr.type="string"/>
+    <key id="discoveredIPv4Address" for="node" attr.name="Discovered IPv4 Address" attr.type="string"/>
+    <key id="discoveredState" for="node" attr.name="Discovered State" attr.type="string"/>
+    <key id="sysLocation" for="node" attr.name="Location by SNMP" attr.type="string"/>
     <key id="site" for="node" attr.name="site" attr.type="string"/>
     <key id="diff" for="node" attr.name="diff" attr.type="string"/>
     <key id="diffs" for="node" attr.name="diffs" attr.type="string"/>
-    <key id="ipv6Forwarding" for="node" attr.name="ipv6Forwarding" attr.type="string"/>
-    <key id="ipv4Forwarding" for="node" attr.name="ipv4Forwarding" attr.type="string"/>
-    <key id="subnetPrefix" for="node" attr.name="subnetPrefix" attr.type="string"/>
-    <key id="subnetRangeType" for="node" attr.name="subnetRangeType" attr.type="string"/>
-    <key id="ipProtocolType" for="node" attr.name="ipProtocolType" attr.type="string"/>
-    <key id="totalInterfaceCount" for="node" attr.name="totalInterfaceCount" attr.type="string"/>
-    <key id="name" for="edge" attr.name="name" attr.type="string"/>
-    <key id="Discovery Method" for="edge" attr.name="Discovery Method" attr.type="string"/>
+    <key id="ipv6Forwarding" for="node" attr.name="IP v6 Forwarding" attr.type="string"/>
+    <key id="ipv4Forwarding" for="node" attr.name="IP v4 Forwarding" attr.type="string"/>
+    <key id="subnetPrefix" for="node" attr.name="Subnet Prefix" attr.type="string"/>
+    <key id="ipProtocolType" for="node" attr.name="IP Protocol Type" attr.type="string"/>
+    <key id="bgpAS" for="node" attr.name="BGP Autonomous system" attr.type="string"/>
+    <key id="totalInterfaceCount" for="node" attr.name="Total Interface Count" attr.type="string"/>
+
+    <key id="discoveryMethod" for="edge" attr.name="Discovery Method" attr.type="string"/>
     <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string"/>
-    <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string"/>
+    <key id="ipLink" for="edge" attr.name="IP Link" attr.type="string"/>
     <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string"/>
-    <key id="ipv6Forwarding" for="edge" attr.name="ipv6Forwarding" attr.type="string"/>
-    <key id="ipv4Forwarding" for="edge" attr.name="ipv4Forwarding" attr.type="string"/>
-    <key id="bgpLocalAS" for="node" attr.name="bgpLocalAS" attr.type="string"/>
-    <key id="bgpAutonomousSystemA" for="edge" attr.name="bgpAutonomousSystemA" attr.type="string"/>
-    <key id="bgpAutonomousSystemB" for="edge" attr.name="bgpAutonomousSystemB" attr.type="string"/>
-    <key id="Interface" for="edge" attr.name="Interface" attr.type="string"/>
-    <key id="edgeTooltip" for="edge" attr.name="edgeTooltip" attr.type="string"/>
+    <key id="ipv6Forwarding" for="edge" attr.name="IP v6 Forwarding" attr.type="string"/>
+    <key id="ipv4Forwarding" for="edge" attr.name="IP v4 Forwarding" attr.type="string"/>
+    <key id="interface" for="edge" attr.name="interface" attr.type="string"/>
     <key id="diff" for="edge" attr.name="diff" attr.type="string"/>
     <key id="diffs" for="edge" attr.name="diffs" attr.type="string"/>
+    <key id="encapsulation" for="edge" attr.name="L2 encapsulation" attr.type="string"/>
+    <key id="speed" for="edge" attr.name="Port Speed" attr.type="string"/>
+
     <graph edgedefault="$graphDirection">
     #foreach ($node in $nodes)
-    <node id="${node.id}" label="${node.label}">
-    #foreach ($nodeData in $node.graphmlNodeDataList)
-        <data key="${nodeData.key}">${nodeData.value}</data>
+        <node id="${node.id}" label="${node.label}">
+    #foreach ($port in $node.graphmlNodePorts)
+            <port name="${port.name}"/>
     #end
-    </node>
+    #foreach ($nodeData in $node.graphmlNodeDataList)
+            <data key="${nodeData.key}">${nodeData.value}</data>
+    #end
+        </node>
     #end
     #foreach ($edge in $edges)
-    <edge id="${edge.id}" label="${edge.label}" source="${edge.fromNode}" target="${edge.toNode}">
-        #foreach ($edgeData in $edge.graphmlEdgeDataList)
-        <data key="${edgeData.key}">${edgeData.value}</data>
-        #end
-</edge>
+        <edge id="${edge.id}" label="${edge.label}" source="${edge.fromNode}" target="${edge.toNode}">
+    #foreach ($edgeData in $edge.graphmlEdgeDataList)
+            <data key="${edgeData.key}">${edgeData.value}</data>
     #end
-</graph>
+        </edge>
+    #end
+    </graph>
 </graphml>
