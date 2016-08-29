@@ -1,7 +1,6 @@
 package net.itransformers.idiscover.v2.core.node_discoverers;
 
 import net.itransformers.idiscover.core.DiscoveryResourceManager;
-import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.node_discoverers.dnsresolver.DnsResolver;
 import net.itransformers.resourcemanager.config.ResourceType;
 import org.apache.commons.lang.StringUtils;
@@ -15,7 +14,7 @@ import java.util.Map;
  * Created by niau on 8/27/16.
  */
 public abstract class  AbstractNodeDiscoverer {
-    static Logger logger = Logger.getLogger(NodeDiscoverer.class);
+    static Logger logger = Logger.getLogger(AbstractNodeDiscoverer.class);
     protected DiscoveryResourceManager discoveryResource;
 
 
@@ -63,17 +62,16 @@ public abstract class  AbstractNodeDiscoverer {
 
     protected String selectDeviceId(Map<String, String> params) {
         String deviceName = params.get("deviceName");
-        String dnsCanonicalName = params.get("dnsCanonicalName");
-        String dnsShort = subStringDeviceName(dnsCanonicalName);
+        String dnsPQDN = params.get("dnsPQDN");
         String ipAddress = params.get("ipAddress");
         String hostName = params.get("hostName");
         String id;
-        if (params.get("deviceName") != null) {
-            id = hostName;
-        } else if (dnsCanonicalName != null) {
-            id = dnsShort;
-        } else if (hostName != null){
-            id=deviceName;
+        if (deviceName != null && !deviceName.isEmpty()) {
+            id = deviceName;
+        } else if (dnsPQDN != null && !dnsPQDN.isEmpty()) {
+            id = dnsPQDN;
+        } else if (hostName != null && !hostName.isEmpty()){
+            id=hostName;
         }else {
             id =ipAddress;
         }

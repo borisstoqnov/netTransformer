@@ -32,7 +32,7 @@
     <key id="encapsulation" for="edge" attr.name="encapsulation" attr.type="string"/>
     <key id="speed" for="edge" attr.name="speed" attr.type="string"/>
 
-    <graph edgedefault="$graphDirection">
+    <graph id="$project - $version" edgedefault="$graphDirection">
     #foreach ($node in $nodes)
         <node id="${node.id}" label="${node.label}">
     #foreach ($port in $node.graphmlNodePorts)

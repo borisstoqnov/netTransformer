@@ -108,7 +108,7 @@
     <bean id="discoveryResourceManager" class="net.itransformers.idiscover.core.DiscoveryResourceManager">
         <constructor-arg ref="projectPath"/>
         <constructor-arg value="1"/>
-        <constructor-arg value="resourceManager/conf/xml/resource.xml"/>
+        <constructor-arg value="resourceManager/conf/xml/nbu.xml"/>
     </bean>
 
 
