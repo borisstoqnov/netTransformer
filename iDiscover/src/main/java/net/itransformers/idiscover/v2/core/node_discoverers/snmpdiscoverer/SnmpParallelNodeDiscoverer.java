@@ -36,11 +36,13 @@ import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder;
 import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.util.*;
 
 public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements NodeDiscoverer {
+    static Logger logger = Logger.getLogger(SnmpParallelNodeDiscoverer.class);
 
 
     public SnmpParallelNodeDiscoverer(XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource, MibLoaderHolder mibLoaderHolder,boolean useOnlyTheFirstSnmpBeingMatched) throws Exception {
@@ -105,7 +107,7 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
             XmlDiscoveryHelperV2 discoveryHelperV2 = createXmlDiscoveryHelper(deviceType);
 
 
-            RawDeviceData rawData = getRawData(snmpManager, discoveryHelper, deviceTypeBySnmp);
+            RawDeviceData rawData = getRawData(snmpManager, discoveryHelper);
             DiscoveredDeviceData discoveredDeviceData = getDeviceData(discoveryHelper, rawData);
             DiscoveredDevice discoveredDevice = discoveryHelperV2.createDevice(discoveredDeviceData,deviceName);
 
@@ -130,8 +132,6 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
             result.setDiscoveredData("deviceData", discoveredDeviceData);
             result.setDiscoveredData("DiscoveredDevice", discoveredDevice);
             result.setDiscoveredData("rawData", rawData.getData());
-        } else {
-            return null;
         }
         result.setNodeId(deviceId);
         return result;

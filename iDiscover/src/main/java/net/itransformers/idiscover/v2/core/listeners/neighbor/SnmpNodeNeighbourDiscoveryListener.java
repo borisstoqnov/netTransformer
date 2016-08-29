@@ -26,10 +26,11 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
     String graphmlDirName;
     String projectPath;
     String velocityTemplate;
-    Map<String, String> edgesTypes;
-    Map<String, String> vertexTypes;
-    public SnmpNodeNeighbourDiscoveryListener(){
+    GraphmlRenderer graphmlRenderer;
 
+
+    public SnmpNodeNeighbourDiscoveryListener(){
+          graphmlRenderer = new GraphmlRenderer();
     }
 
     public SnmpNodeNeighbourDiscoveryListener(String labelDirName, String graphmlDirName, String projectPath, String velocityTemplate) {
@@ -37,6 +38,7 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
         this.graphmlDirName = graphmlDirName;
         this.projectPath = projectPath;
         this.velocityTemplate = velocityTemplate;
+        this.graphmlRenderer = new GraphmlRenderer();
     }
 
     @Override
@@ -45,9 +47,6 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
         File baseDir = new File(projectPath,labelDirName);
         File graphmlDir = new File(baseDir, graphmlDirName);
         if (!graphmlDir.exists()) graphmlDir.mkdir();
-
-
-        GraphmlRenderer graphmlRenderer = new GraphmlRenderer();
 
         DiscoveredDevice discoveredDevice = (DiscoveredDevice) nodeDiscoveryResult.getDiscoveredData().get("DiscoveredDevice");
         getMainNode(discoveredDevice);
@@ -62,18 +61,28 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
 //        graphmlEdges.addAll(graphmlEdges);
 
 
-
+        try {
+            params.put("$project", new File(projectPath).getCanonicalFile().getName());
+            params.put("version",baseDir.getCanonicalFile().getName());
+        } catch (IOException e) {
+            logger.error(e);
+        }
         params.put("nodes", graphmlNodes);
         params.put("graphDirection", "undirected");
         params.put("edges",graphmlEdges);
 
         String graphml = null;
         try {
+            logger.info("Starting to render graphml for node "+ node.getId());
             graphml = graphmlRenderer.render(velocityTemplate, params);
+            logger.info("Finishing to render graphml for node " + node.getId());
+
         } catch (Exception e) {
-            e.printStackTrace();
+
+            logger.trace(e.getMessage());
         }
         logger.trace(graphml);
+
 
 
         final String fileName = "node-" + node.getId() + ".graphml";
@@ -89,16 +98,13 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
                 undirectedGraphmls.createNewFile();
 
             }
-            FileWriter writer = null;
-
-            writer = new FileWriter(undirectedGraphmls,true);
+            FileWriter writer = new FileWriter(undirectedGraphmls,true);
 
 
             writer.append(String.valueOf(fileName)).append("\n");
 
             writer.close();
         } catch (IOException e) {
-            System.out.printf(e.getMessage());
             logger.error(e.getMessage());
         }
     }

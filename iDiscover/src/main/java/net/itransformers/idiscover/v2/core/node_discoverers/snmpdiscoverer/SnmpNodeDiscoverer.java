@@ -95,7 +95,6 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
             snmpManager.init();
             sysDescr = snmpManager.snmpGet("1.3.6.1.2.1.1.1.0");
 
-
             if (sysDescr == null && !useOnlyTheFirstSnmpBeingMatched) {
                 snmpManager.closeSnmp();
                 logger.info("Can't connect to: " + initialSnmpConnParams.get("ipAddress") + " with " + initialSnmpConnParams);
@@ -134,18 +133,20 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
             return null;
         }
     }
-    protected RawDeviceData getRawData (SnmpManager snmpManager,DiscoveryHelper discoveryHelper, String deviceType){
+    protected RawDeviceData getRawData (SnmpManager snmpManager,DiscoveryHelper discoveryHelper){
         String[] requestParamsList = discoveryHelper.getRequestParams(discoveryTypes);
 
         Node rawDatNode = null;
         RawDeviceData rawData = null;
 
         try {
+            logger.info("Starting to walk!!!");
             rawDatNode = snmpManager.snmpWalk(requestParamsList);
             snmpManager.closeSnmp();
+            logger.info("Walk finished !!!");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
         if (rawDatNode != null) {
             SnmpXmlPrinter snmpXmlPrinter = new SnmpXmlPrinter(mibLoaderHolder.getLoader(), rawDatNode);

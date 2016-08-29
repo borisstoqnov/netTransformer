@@ -26,6 +26,7 @@ import net.itransformers.idiscover.v2.core.NetworkDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
 import net.itransformers.utils.ProjectConstants;
 import net.itransformers.utils.graphmlmerge.GrahmlMerge;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -41,6 +42,17 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
     String projectPath;
     String networkDir = ProjectConstants.networkDirName;
 
+    Map<String,String> vertexTypes ;
+    Map<String,String> edgesTypes;
+
+    static Logger logger = Logger.getLogger(SnmpNetworkDiscoveryListener.class);
+
+
+    public SnmpNetworkDiscoveryListener() {
+        SnmpGraphmlMetadataProvider snmpGraphmlMetadataProvider = new SnmpGraphmlMetadataProvider();
+         vertexTypes = snmpGraphmlMetadataProvider.getVertexMetadataTypes();
+         edgesTypes = snmpGraphmlMetadataProvider.getEdgesMetadataTypes();
+    }
 
     public String getGraphmlDataDirName() {
         return graphmlDataDirName;
@@ -89,10 +101,6 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
             return;
         }
         try {
-            Map<String,String> vertexTypes = SnmpGraphmlMetadataProvider.getVertexMetadataTypes();
-            Map<String,String> edgesTypes = SnmpGraphmlMetadataProvider.getEdgesMetadataTypes();
-
-
             new GrahmlMerge().merge(files,outFile,vertexTypes, edgesTypes, "undirected");
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

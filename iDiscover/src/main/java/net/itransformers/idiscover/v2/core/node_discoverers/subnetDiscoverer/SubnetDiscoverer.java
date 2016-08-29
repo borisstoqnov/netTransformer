@@ -6,7 +6,10 @@ import net.itransformers.idiscover.v2.core.connection_details.IPNetConnectionDet
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.utils.CIDRUtils;
 import org.apache.commons.net.util.SubnetUtils;
+import org.apache.log4j.Logger;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +18,8 @@ import java.util.Set;
  * Created by Vasil Yordanov on 22-Jun-16.
  */
 public class SubnetDiscoverer implements NodeDiscoverer {
+    static Logger logger = Logger.getLogger(SubnetDiscoverer.class);
+
     boolean generateIPconnectionsForSubnetMembers;
 
     public SubnetDiscoverer(boolean generateIPconnectionsForSubnetMembers) {
@@ -36,14 +41,22 @@ public class SubnetDiscoverer implements NodeDiscoverer {
         if (generateIPconnectionsForSubnetMembers)
             nodeDiscoveryResult.setNeighboursConnectionDetails(getSubnetIpNeighborConnections(subnetPrefix));
 
-        if (protocolType.equals("IPv4")) {
-            if (bogonSubnetIdentifier(subnetIpAddress)) {
-                nodeDiscoveryResult.setDiscoveredData("bogon", true);
-            }
+        try {
+            InetAddress inetAddress = InetAddress.getByName(subnetIpAddress);
+            if (inetAddress instanceof Inet4Address)
+                if (bogonSubnetIdentifier(subnetIpAddress)) {
+                    nodeDiscoveryResult.setDiscoveredData("bogon", true);
+                }
             if (privateSubnetIdentifier(subnetIpAddress)) {
                 nodeDiscoveryResult.setDiscoveredData("private", true);
-            }    
+            }
         }
+
+         catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+
         return nodeDiscoveryResult;
     }
 
@@ -61,10 +74,9 @@ public class SubnetDiscoverer implements NodeDiscoverer {
 
     private boolean bogonSubnetIdentifier(String subnetIpAddress) {
 
-        CIDRUtils cidrUtils = null;
         try {
-        
 
+            CIDRUtils cidrUtils = null;
             cidrUtils = new CIDRUtils("0.0.0.0/8");
 
             if (cidrUtils.isInRange(subnetIpAddress)) {
@@ -104,7 +116,7 @@ public class SubnetDiscoverer implements NodeDiscoverer {
             }
         
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return false;
 
@@ -129,7 +141,7 @@ public class SubnetDiscoverer implements NodeDiscoverer {
                 return true;
             }
         }catch (UnknownHostException ex){
-             ex.printStackTrace();
+             logger.error(ex.getMessage());
         }
         return false;
 

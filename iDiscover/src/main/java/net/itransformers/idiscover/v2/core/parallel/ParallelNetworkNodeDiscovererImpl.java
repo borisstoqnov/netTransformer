@@ -37,7 +37,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     ExecutorCompletionService eventExecutorCompletionService = new ExecutorCompletionService(eventExecutorService);
     Collection<Future> eventFutures = new LinkedList<Future>();
     PausableThreadPoolExecutor executorService = //Executors.newFixedThreadPool(50);
-            new PausableThreadPoolExecutor(50, 50,
+            new PausableThreadPoolExecutor(50, 250,
                     0L, TimeUnit.MILLISECONDS,
                     new LinkedBlockingQueue<Runnable>());
     ExecutorCompletionService<NodeDiscoveryResult> executorCompletionService = new ExecutorCompletionService<NodeDiscoveryResult>(executorService);
@@ -126,9 +126,6 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 logger.error(e.getMessage(), e);
             }
         }
-        NetworkDiscoveryResult result = new NetworkDiscoveryResult();
-        result.setNodes(nodes);
-        fireNetworkDiscoveredEvent(result);
         while (eventFutureCount > 0) {
             try {
                 eventFutureCount--;
@@ -137,6 +134,10 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 logger.error(e.getMessage(), e);
             }
         }
+        NetworkDiscoveryResult result = new NetworkDiscoveryResult();
+        result.setNodes(nodes);
+        fireNetworkDiscoveredEvent(result);
+
         logger.info("Shutting down event executor service");
         eventExecutorService.shutdown();
         logger.info("Shutting down discovery task executor service");
