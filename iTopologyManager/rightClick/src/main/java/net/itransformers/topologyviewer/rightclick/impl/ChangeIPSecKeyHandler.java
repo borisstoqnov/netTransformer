@@ -66,11 +66,11 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
                 KeyGenerator(ipseckeyFilename);
 
 
-                Logger.getAnonymousLogger().log(Level.INFO, "About to do bullshit" + Thread.currentThread().getName());
+                Logger.getAnonymousLogger().log(Level.INFO, "Initialising cli" + Thread.currentThread().getName());
                 CLIInterface cli;
                 cli = new TelnetCLIInterface(pair.getRouterIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
                 publishProgress("Opening connection to router with IP: " + pair.getRouterIP() + " name: " + pair.getRouterName(),area);
-                //Change IP sec shit for first router
+                //Change IP sec key for first router
                 Map<String, String> paramsfirst = generateConfigMap(pair, oldkey, ipseckeyFilename);
 
 
@@ -80,7 +80,7 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
                 cli.close();
 
                 Map<String, String> paramssecond = generateConfigMap(pair, oldkey, ipseckeyFilename);
-                //Change IP sec shit for second router
+                //Change IP sec key for second router
                 cli = new TelnetCLIInterface(pair.getNeighbourIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
                 publishProgress("Opening connection to router with IP: " + pair.getNeighbourIP() + " name: " + pair.getNeighbourName(),area);
 
@@ -128,7 +128,7 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
 
     private JTextArea initializeWorkerDialog() {
 
-        JFrame frame = new JFrame("Something something router configuration...");
+        JFrame frame = new JFrame(" Router configuration...");
         frame.setSize(300, 200);
         frame.getContentPane().setLayout(new BorderLayout());
         JTextArea text = new JTextArea();
@@ -148,7 +148,7 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
 
                 @Override
                 public void run() {
-                    Logger.getAnonymousLogger().log(Level.INFO, "Calling from another therad. " + area.hashCode() + "  " + message + Thread.currentThread().getName());
+                    Logger.getAnonymousLogger().log(Level.INFO, "Calling from another thread. " + area.hashCode() + "  " + message + Thread.currentThread().getName());
                     area.append(message + "\n");
                     area.update(area.getGraphics());
                 }
