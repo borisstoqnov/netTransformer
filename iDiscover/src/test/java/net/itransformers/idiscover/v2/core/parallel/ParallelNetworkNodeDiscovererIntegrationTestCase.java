@@ -27,9 +27,14 @@ public class ParallelNetworkNodeDiscovererIntegrationTestCase {
         JSONArray jsonArray = new JSONArray(json);
         for (int i=0;i<jsonArray.length(); i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
+
             JSONObject connDetails = jsonObject.getJSONObject("connectionDetails");
             JSONObject params = connDetails.getJSONObject("params");
+            System.out.println("params:" +params);
+
+
             String ipAddress = params.getString("ipAddress");
+            System.out.println("ipAddress:" +ipAddress);
             ipAddress2JsonObject.put(ipAddress, jsonObject);
         }
     }
@@ -52,8 +57,9 @@ public class ParallelNetworkNodeDiscovererIntegrationTestCase {
         }
         NetworkDiscoveryResult result = discovery.discoverNetwork(connectionDetailsSet);
         Set<String> expectedNodes = new HashSet<String>();
-        Collections.addAll(expectedNodes, "ssrv2noded", "ssrv1nodea", "srv2NodeC", "srv1nodeB", "ssrv1noded",
-                "r3845", "ssrv2nodeb", "srv1NodeC", "sw0");
+        Collections.addAll(expectedNodes, "ssrv2noded", "7k-1", "srv1nodeB", "10.192.0.1", "r3845", "ssrv2nodeb", "10.192.5.13", "10.192.5.24", "10.192.5.23","10.192.5.12", "10.192.5.11", "10.192.5.22", "sw0", "ssrv1nodea", "srv2NodeC", "ssrv1noded", "srv1NodeC", "172.17.0.2", "172.17.0.3", "10.133.5.1");
         Assert.assertEquals(expectedNodes.toString(), result.getNodes().keySet().toString());
     }
+
+
 }
