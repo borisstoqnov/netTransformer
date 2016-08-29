@@ -32,7 +32,7 @@
     <key id="encapsulation" for="edge" attr.name="encapsulation" attr.type="string"/>
     <key id="speed" for="edge" attr.name="speed" attr.type="string"/>
 
-    <graph edgedefault="undirected">
+    <graph id="test - version1" edgedefault="undirected">
             <node id="R1" label="router1">
                     <data key="deviceName">R1</data>
                 <data key="deviceModel">cisco2911</data>
