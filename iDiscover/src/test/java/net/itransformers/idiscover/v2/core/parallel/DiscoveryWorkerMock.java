@@ -6,7 +6,9 @@ import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by vasko on 22.06.16.
@@ -24,8 +26,10 @@ public class DiscoveryWorkerMock extends DiscoveryWorker  {
 
     @Override
     public NodeDiscoveryResult call() throws Exception {
-        String nodeId = jsonObject.getString("nodeId");
-        System.out.printf("nodeId:"+nodeId);
+        String nodeId = null;
+
+        nodeId = jsonObject.getString("nodeId");
+
         Set<ConnectionDetails> neighbourConnectionDetailsSet = new HashSet<ConnectionDetails>();
         JSONArray neighbourJsonArray = jsonObject.getJSONArray("neighboursConnectionDetails");
         for (int i=0; i< neighbourJsonArray.length(); i++) {
