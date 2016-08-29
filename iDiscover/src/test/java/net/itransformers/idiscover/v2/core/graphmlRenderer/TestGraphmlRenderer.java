@@ -27,6 +27,8 @@ public class TestGraphmlRenderer
         ArrayList<GraphmlNode> graphmlNodes = new ArrayList<>();
         params.put("nodes",graphmlNodes);
         params.put("graphDirection","undirected");
+        params.put("project","test");
+        params.put("version","version1");
         {
             GraphmlNode graphmlNode = new GraphmlNode("R1", "router1");
 
