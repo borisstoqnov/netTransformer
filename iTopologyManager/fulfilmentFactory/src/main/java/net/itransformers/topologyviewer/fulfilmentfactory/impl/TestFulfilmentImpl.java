@@ -37,6 +37,10 @@ public class TestFulfilmentImpl implements Fulfilment {
     private CLIInterface cli;
     private File projectPath;
 
+    public File getProjectPath() {
+        return projectPath;
+    }
+
     public TestFulfilmentImpl() {
 
     }
@@ -50,7 +54,12 @@ public class TestFulfilmentImpl implements Fulfilment {
                        Map<String, String> fulfilmentFactoryParams, Logger logger) throws IOException {
         this.projectPath = projectPath;
         cli = new TelnetCLIInterface(parameters.get("discoveredIPv4Address"),parameters.get("username"),parameters.get("password"),parameters.get("hostname")+"#",1000, logger);
-        cli.open();
+       try{
+           cli.open();
+       }catch(Exception e){
+
+           System.out.println(e.getCause());
+       }
         execute(fulfilmentFactoryParams.get("commands"), parameters);
         cli.close();
     }
@@ -142,7 +151,7 @@ public class TestFulfilmentImpl implements Fulfilment {
     }
 
     public static void main(String[] args) throws IOException {
-        TelnetCLIInterface cli1 = new TelnetCLIInterface("10.10.10.10", "user", "pass!", "hostname#", 1000, Logger.getAnonymousLogger());
+        TelnetCLIInterface cli1 = new TelnetCLIInterface("10.10.10.10", "user", "pass!", "hostname#", 3000, Logger.getAnonymousLogger());
         cli1.open();
         TestFulfilmentImpl ful = new TestFulfilmentImpl(cli1);
         Map<String,String> params = new HashMap<String, String>();

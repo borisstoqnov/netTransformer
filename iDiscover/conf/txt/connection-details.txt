@@ -1,5 +1,1 @@
-name=R1,type=snmp:deviceType=CISCO,deviceName=R1,ipAddress=172.16.1.2,
-name=R1,type=ip:deviceType=CISCO,deviceName=R1,ipAddress=172.16.1.2,
- name=R1,type=subnet:deviceType=CISCO,deviceName=R1,ipAddress=172.16.1.2,
-
-name=R2,type=snmp:deviceType=JUNIPER,deviceName=R2,ipAddress=15.0.0.5,
+name=R1,type=snmp:deviceType=CISCO,deviceName=R1,ipAddress=192.168.3.2,
