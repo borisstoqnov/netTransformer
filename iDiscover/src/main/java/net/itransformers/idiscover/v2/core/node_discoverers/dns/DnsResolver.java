@@ -1,4 +1,4 @@
-package net.itransformers.idiscover.v2.core.node_discoverers.dnsresolver;
+package net.itransformers.idiscover.v2.core.node_discoverers.dns;
 
 import org.apache.log4j.Logger;
 
@@ -14,14 +14,14 @@ public class DnsResolver {
 
 
 
-    public static String resolveIpByName(String name) throws UnknownHostException {
+    public String resolveIpByName(String name) throws UnknownHostException {
 
         String inetAddress = InetAddress.getByName(name).getHostAddress();
         logger.debug("Name: " + name + " resolved to " + inetAddress);
         return inetAddress;
 
     }
-    public static String resolveDNSCanonicalName(String ipAddress) throws UnknownHostException {
+    public  String resolveDNSCanonicalName(String ipAddress) throws UnknownHostException {
 
         String dnsCannonicalHostName = InetAddress.getByName(ipAddress).getCanonicalHostName();
         logger.debug("ipAddress: "+ipAddress+" resolved to "+dnsCannonicalHostName);
