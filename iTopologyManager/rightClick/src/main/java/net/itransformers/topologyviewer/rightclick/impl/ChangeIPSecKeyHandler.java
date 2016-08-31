@@ -107,7 +107,6 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
         return "";
     }
 
-
     private void printMessageToScreen(String message) {
 
         if(message == null || message.equals("")) {
@@ -139,7 +138,7 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
 
         return text;
     }
-
+    //Show message while config is changing
     private void publishProgress(final String message, final JTextArea area) {
 
         try{
