@@ -910,6 +910,14 @@
                 <param name="reportFileName">Cisco Config security audit.xml</param>
             </rightClickItem>
         </submenu>
+        <submenu name="NeighborFinder">
+            <rightClickItem name="Neighbor Finder" handlerClass="net.itransformers.topologyviewer.rightclick.impl.NeighbourFinderByMethod">
+                <param name="Discovery Method">IPSEC</param>
+            </rightClickItem>
+            <rightClickItem name="Change IPsec key" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ChangeIPSecKeyHandler">
+                <param name="Discovery Method">IPSEC</param>
+            </rightClickItem>
+        </submenu>
         <submenu name="Network Activation">
             <rightClickItem name="Node Activation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
