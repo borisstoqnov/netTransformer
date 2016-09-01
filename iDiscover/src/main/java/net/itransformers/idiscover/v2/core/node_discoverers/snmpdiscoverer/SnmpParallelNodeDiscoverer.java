@@ -36,6 +36,7 @@ import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder;
 import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -45,7 +46,7 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
     static Logger logger = Logger.getLogger(SnmpParallelNodeDiscoverer.class);
 
 
-    public SnmpParallelNodeDiscoverer(XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource, MibLoaderHolder mibLoaderHolder,boolean useOnlyTheFirstSnmpBeingMatched) throws Exception {
+    public SnmpParallelNodeDiscoverer(XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource, MibLoaderHolder mibLoaderHolder,boolean useOnlyTheFirstSnmpBeingMatched)  {
         super(discoveryHelperFactory, discoveryTypes, discoveryResource, mibLoaderHolder, useOnlyTheFirstSnmpBeingMatched);
     }
 
@@ -57,38 +58,24 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
         String deviceName = connectionDetails.getParam("deviceName");
         String ipAddressStr = connectionDetails.getParam("ipAddress");
         String deviceType = connectionDetails.getParam("deviceType");
-        Map<String, String> resourceSelectionParams = getConnectionDetailsParams(deviceName, deviceType, ipAddressStr);
-        //String dnsFQDN = doReverseDnsLookup(ipAddressStr);
+        Map<String, String> resourceSelectionParams = returnResourceSelectionParams(deviceName, deviceType, ipAddressStr);
 
         HashMap<String,String> resultParams = new HashMap<>();
-
-        if (deviceName != null) {
-            if (!deviceName.isEmpty()) {
-                resultParams.put("deviceName", deviceName);
-                deviceId = deviceName;
-            }
-
-        }
-        if (deviceType !=null ){
-            if (!deviceType.isEmpty())
-                resultParams.put("deviceType",deviceType);
-        }
-        if (ipAddressStr!=null){
-            if (!ipAddressStr.isEmpty())
-                    resultParams.put("ipAddress", ipAddressStr);
-        }
-
         NodeDiscoveryResult result = new NodeDiscoveryResult();
 
         SnmpManager snmpManager = getSnmpManager(resourceSelectionParams, ipAddressStr);
 
         if (snmpManager!=null) {
             String hostNameBySnmp = null;
-            String deviceTypeBySnmp = "UNKNOWN";
+            String deviceTypeBySnmp;
 
             try {
                 String deviceSysDescr = snmpManager.snmpGet("1.3.6.1.2.1.1.1.0");
-                hostNameBySnmp = subStringDeviceName(snmpManager.snmpGet("1.3.6.1.2.1.1.5.0"));
+               String hostNameBySnmpStr1 = snmpManager.snmpGet("1.3.6.1.2.1.1.5.0");
+                if(hostNameBySnmpStr1.contains("."))
+                    hostNameBySnmp = StringUtils.substringBefore(hostNameBySnmp, ".");
+                else
+                    hostNameBySnmp = hostNameBySnmpStr1;
                 deviceTypeBySnmp = DeviceTypeResolver.getDeviceType(deviceSysDescr);
 
                 resultParams.put("hostName",hostNameBySnmp);
@@ -96,11 +83,11 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
                 resultParams.put("sysDescr",deviceSysDescr);
             } catch (IOException ioe) {
                 logger.error(ioe.getMessage());
+                return null;
 
             }
 
-            if (deviceId==null)
-                deviceId = hostNameBySnmp;
+            deviceId = hostNameBySnmp;
 
             DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper(deviceType);
 
@@ -108,6 +95,11 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
 
 
             RawDeviceData rawData = getRawData(snmpManager, discoveryHelper);
+            try {
+                snmpManager.closeSnmp();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             DiscoveredDeviceData discoveredDeviceData = getDeviceData(discoveryHelper, rawData);
             DiscoveredDevice discoveredDevice = discoveryHelperV2.createDevice(discoveredDeviceData,deviceName);
 
@@ -128,13 +120,18 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
                 SubnetConnectionDetails subnetConnectionDetails1 = new SubnetConnectionDetails(subnets);
                 neighboursConnDetails.addAll(subnetConnectionDetails1.getSubnetConnectionDetails());
             }
+
             result.setNeighboursConnectionDetails(neighboursConnDetails);
             result.setDiscoveredData("deviceData", discoveredDeviceData);
             result.setDiscoveredData("DiscoveredDevice", discoveredDevice);
             result.setDiscoveredData("rawData", rawData.getData());
+            result.setNodeId(deviceId);
+            return result;
+
+        } else {
+            return null;
+
         }
-        result.setNodeId(deviceId);
-        return result;
     }
 
 

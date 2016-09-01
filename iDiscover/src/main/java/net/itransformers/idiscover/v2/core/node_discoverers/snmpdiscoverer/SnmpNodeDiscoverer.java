@@ -33,7 +33,7 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
     protected MibLoaderHolder mibLoaderHolder;
 
 
-    public SnmpNodeDiscoverer(XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource, MibLoaderHolder mibLoaderHolder, boolean useOnlyTheFirstSnmpBeingMatched) throws Exception {
+    public SnmpNodeDiscoverer(XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource, MibLoaderHolder mibLoaderHolder, boolean useOnlyTheFirstSnmpBeingMatched)  {
         super(discoveryResource);
         this.discoveryHelperFactory = discoveryHelperFactory;
         this.discoveryTypes = discoveryTypes;
@@ -97,6 +97,7 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
 
             if (sysDescr == null && !useOnlyTheFirstSnmpBeingMatched) {
                 snmpManager.closeSnmp();
+                snmpManager = null;
                 logger.info("Can't connect to: " + initialSnmpConnParams.get("ipAddress") + " with " + initialSnmpConnParams);
 
 
@@ -114,8 +115,10 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
                         if (sysDescr == null) {
                             logger.info("Can't connect to: " + ipAddressStr + " with " + initialSnmpConnParams);
                             snmpManager.closeSnmp();
+                            snmpManager = null;
                         } else {
                             break;
+
                         }
                     }
                 }

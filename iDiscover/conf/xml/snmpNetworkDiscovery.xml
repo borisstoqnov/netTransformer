@@ -56,12 +56,33 @@
             </list>
         </property>
     </bean>
+
+    <bean id="eventExecutor" class="java.util.concurrent.Executors" factory-method="newFixedThreadPool">
+        <constructor-arg value="5" type="int"/>
+    </bean>
+    <bean id="eventExecutorCompletionService" class="java.util.concurrent.ExecutorCompletionService">
+        <constructor-arg ref="eventExecutor"/>
+    </bean>
+    <bean id="executorService" class="net.itransformers.idiscover.v2.core.parallel.PausableThreadPoolExecutor">
+        <constructor-arg  value="10" type="int"/>
+        <constructor-arg  value="20" type="int"/>
+        <constructor-arg  value="0" type="long"/>
+    </bean>
+
+    <bean id="executorCompletionService" class="java.util.concurrent.ExecutorCompletionService">
+        <constructor-arg  ref="executorService"/>
+    </bean>
+
     <bean id="parallelSnmpDiscovery" class="net.itransformers.idiscover.v2.core.parallel.ParallelNetworkNodeDiscovererImpl">
+
+        <property name="eventExecutorService" ref="eventExecutor"/>
+        <property name="eventExecutorCompletionService" ref="eventExecutorCompletionService"/>
+        <property name="executorService" ref="executorService"/>
+        <property name="executorCompletionService" ref="executorCompletionService"/>
 
         <property name="nodeDiscoverers">
             <map>
-                <entry key="icmp" value-ref="icmpNodeDiscoverer"/>
-                <entry key="snmp" value-ref="snmpParallelNodeDiscoverer"/>
+                <entry key="any" value-ref="plumberNodeDiscoverer"/>
                 <entry key="subnet" value-ref="subnetNodeDiscoverer"/>
             </map>
         </property>
@@ -127,6 +148,13 @@
         <constructor-arg value="false"/>
 
     </bean>
+
+    <bean id="plumberNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.PlumberNodeDiscoverer">
+        <constructor-arg ref="icmpNodeDiscoverer"/>
+        <constructor-arg ref="dnsNodeDiscoverer"/>
+        <constructor-arg ref="snmpParallelNodeDiscoverer"/>
+    </bean>
+
     <bean id="snmpParallelNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer.SnmpParallelNodeDiscoverer">
         <constructor-arg ref="discoveryHelperFactory"/>
         <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,IPSEC,BGP,RIP,ADDITIONAL,IPV6"/>
@@ -144,17 +172,16 @@
         <constructor-arg  ref="discoveryResourceManager"/>
     </bean>
 
+    <bean id="dnsNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.dns.DnsNodeDiscoverer">
+    </bean>
+
     <bean id="discoveryHelperFactory" class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">
         <constructor-arg>
             <map>
                 <entry key="projectPath" value-ref="projectPath"/>
                 <entry key="fileName" value="iDiscover/conf/xml/discoveryParameters.xml"/>
-                <entry key="resourceXML" value="resourceManager/conf/xml/resource.xml"/>
+                <entry key="resourceXML" value="resourceManager/conf/xml/nbu.xml"/>
             </map>
         </constructor-arg>
     </bean>
-
-
-
-
 </beans>

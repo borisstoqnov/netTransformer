@@ -46,6 +46,7 @@ public class SubnetDiscoverer implements NodeDiscoverer {
             if (inetAddress instanceof Inet4Address)
                 if (bogonSubnetIdentifier(subnetIpAddress)) {
                     nodeDiscoveryResult.setDiscoveredData("bogon", true);
+
                 }
             if (privateSubnetIdentifier(subnetIpAddress)) {
                 nodeDiscoveryResult.setDiscoveredData("private", true);
@@ -53,7 +54,7 @@ public class SubnetDiscoverer implements NodeDiscoverer {
         }
 
          catch (UnknownHostException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
 
 

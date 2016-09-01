@@ -33,19 +33,25 @@ import java.util.concurrent.*;
 public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     static Logger logger = Logger.getLogger(ParallelNetworkNodeDiscovererImpl.class);
 
-    ExecutorService eventExecutorService = Executors.newFixedThreadPool(50);
-    ExecutorCompletionService eventExecutorCompletionService = new ExecutorCompletionService(eventExecutorService);
+
+    ExecutorService eventExecutorService;
+//    = Executors.newFixedThreadPool(numberOfEventThreads);
+    ExecutorCompletionService eventExecutorCompletionService;
+//    = new ExecutorCompletionService(eventExecutorService);
     Collection<Future> eventFutures = new LinkedList<Future>();
-    PausableThreadPoolExecutor executorService = //Executors.newFixedThreadPool(50);
-            new PausableThreadPoolExecutor(50, 250,
-                    0L, TimeUnit.MILLISECONDS,
-                    new LinkedBlockingQueue<Runnable>());
-    ExecutorCompletionService<NodeDiscoveryResult> executorCompletionService = new ExecutorCompletionService<NodeDiscoveryResult>(executorService);
+    PausableThreadPoolExecutor executorService;
+//    Executors.newFixedThreadPool(50);
+//            new PausableThreadPoolExecutor(1, 1,
+//                    0L, TimeUnit.MILLISECONDS);
+    ExecutorCompletionService<NodeDiscoveryResult> executorCompletionService;
+//    = new ExecutorCompletionService<NodeDiscoveryResult>(executorService);
     NodeFactory nodeFactory = new NodeFactory();
     int eventFutureCount;
     DiscoveryWorkerFactory discoveryWorkerFactory = new DiscoveryWorkerFactory();
 
+
     public ParallelNetworkNodeDiscovererImpl() {
+
     }
 
     public ParallelNetworkNodeDiscovererImpl(DiscoveryWorkerFactory discoveryWorkerFactory, NodeFactory nodeFactory) {
@@ -78,7 +84,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 String parentId = result.getParentId();
                 if (parentId != null) {
                     List<Future<NodeDiscoveryResult>> parentNeighbourFutures = nodeNeighbourFuturesMap.get(parentId);
-                    logger.info("Removing node neighbour for parentId=" + parentId + ", nodeId in future=" + future.get().getNodeId());
+                    logger.debug("Removing node neighbour for parentId=" + parentId + ", nodeId in future=" + future.get().getNodeId());
                     parentNeighbourFutures.remove(future);
                     if (result.getNodeId() != null) {
                         neighbourConnectionDetailsMap.get(parentId).put(result.getNodeId(), result.getDiscoveryConnectionDetails());
@@ -92,11 +98,11 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 }
                 String nodeId = result.getNodeId();
                 if (nodeId == null) {
-                    logger.info("Unable to discover node with parent: " + parentId+", for connection details="+result.getDiscoveryConnectionDetails());
+                    logger.debug("Unable to discover node with parent: " + parentId + ", for connection details=" + result.getDiscoveryConnectionDetails());
                     continue;
                 }
                 if (nodes.containsKey(nodeId)) {
-                    logger.info("Node already discovered: nodeId=" + nodeId+", for connection details="+result.getDiscoveryConnectionDetails());
+                    logger.debug("Node already discovered: nodeId=" + nodeId + ", for connection details=" + result.getDiscoveryConnectionDetails());
                     continue;
                 }
                 Node node = nodeFactory.createNode(nodeId);
@@ -211,5 +217,37 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 }, null));
 
             }
+    }
+
+    public ExecutorService getEventExecutorService() {
+        return eventExecutorService;
+    }
+
+    public void setEventExecutorService(ExecutorService eventExecutorService) {
+        this.eventExecutorService = eventExecutorService;
+    }
+
+    public ExecutorCompletionService getEventExecutorCompletionService() {
+        return eventExecutorCompletionService;
+    }
+
+    public void setEventExecutorCompletionService(ExecutorCompletionService eventExecutorCompletionService) {
+        this.eventExecutorCompletionService = eventExecutorCompletionService;
+    }
+
+    public PausableThreadPoolExecutor getExecutorService() {
+        return executorService;
+    }
+
+    public void setExecutorService(PausableThreadPoolExecutor executorService) {
+        this.executorService = executorService;
+    }
+
+    public ExecutorCompletionService<NodeDiscoveryResult> getExecutorCompletionService() {
+        return executorCompletionService;
+    }
+
+    public void setExecutorCompletionService(ExecutorCompletionService<NodeDiscoveryResult> executorCompletionService) {
+        this.executorCompletionService = executorCompletionService;
     }
 }

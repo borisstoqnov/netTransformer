@@ -23,24 +23,23 @@ public class DnsNodeDiscoverer implements NodeDiscoverer {
         String dnsShortName = StringUtils.substringBefore(dnsCanonicalDomainName, ".");
         NodeDiscoveryResult result = new NodeDiscoveryResult();
         result.setNodeId(ipAddressString);
-        if (dnsCanonicalDomainName!=null)
-            if (!dnsCanonicalDomainName.isEmpty() || !dnsCanonicalDomainName.equals(ipAddressString)) {
-                result.setDiscoveredData("FQDN", dnsCanonicalDomainName);
-                result.setDiscoveredData("PQDN", dnsShortName);
-            }
-        return result;
+        if (dnsCanonicalDomainName != null && !dnsCanonicalDomainName.isEmpty() && !dnsCanonicalDomainName.equals(ipAddressString)) {
+            result.setDiscoveredData("FQDN", dnsCanonicalDomainName);
+            result.setDiscoveredData("PQDN", dnsShortName);
+            return result;
+        } else {
+            return null;
+        }
     }
 
 
-
-
-    private String doReverseDnsLookup(String ipAddressStr){
+    private String doReverseDnsLookup(String ipAddressStr) {
 
         DnsResolver dnsResolver = new DnsResolver();
 
         String dnsCannonicalHostName = null;
-        if (ipAddressStr!=null){
-            try{
+        if (ipAddressStr != null) {
+            try {
                 dnsCannonicalHostName = dnsResolver.resolveDNSCanonicalName(ipAddressStr);
             } catch (UnknownHostException e) {
                 logger.error(e.getStackTrace().toString());
@@ -48,17 +47,15 @@ public class DnsNodeDiscoverer implements NodeDiscoverer {
                 return null;
             }
             return dnsCannonicalHostName;
-        }else {
+        } else {
             return null;
         }
 
     }
 
 
-    private String resolveNamefromIP(String deviceName){
+    private String resolveNamefromIP(String deviceName) {
         DnsResolver dnsResolver = new DnsResolver();
-
-
         try {
             return dnsResolver.resolveIpByName(deviceName);
         } catch (UnknownHostException e) {
