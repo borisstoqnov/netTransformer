@@ -75,8 +75,7 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
         }
         String snmpNodeId = null;
 
-        if (icmpStatus!=null) {
-            if (icmpStatus.equals("REACHABLE")) {
+        if (icmpStatus!=null && icmpStatus.equals("REACHABLE")) {
                 NodeDiscoveryResult snmpDiscoveryResult = snmpParallelNodeDiscoverer.discover(connectionDetails);
 
                 if (snmpDiscoveryResult!=null) {
@@ -99,7 +98,7 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
                 }
 
 
-            }
+
         }
         String nodeId = determineNodeId(connectionDetailsNodeId,icmpNodeId,dnsNodeId,snmpNodeId);
         nodeDiscoveryResult.setNodeId(nodeId);
@@ -113,14 +112,12 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
     private String determineNodeId(String connectionDetailsNodeId, String icmpNodeId,String dnsNodeId,String snmpNodeId ){
         String nodeId = null;
 
-
         if (snmpNodeId != null && !snmpNodeId.isEmpty())
             return snmpNodeId;
         if (dnsNodeId!=null && !dnsNodeId.isEmpty())
             return dnsNodeId;
         if (connectionDetailsNodeId != null && !connectionDetailsNodeId.isEmpty())
             return connectionDetailsNodeId;
-
 
         return icmpNodeId;
 

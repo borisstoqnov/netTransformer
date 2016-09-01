@@ -62,7 +62,10 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
 
 
         try {
-            params.put("$project", new File(projectPath).getName());
+            String projectName = new File(projectPath).getName();
+            if (projectName.equals("."))
+                projectName = new File(new File(projectPath).getParent()).getName();
+            params.put("project",projectName);
             params.put("version",baseDir.getCanonicalFile().getName());
         } catch (IOException e) {
             logger.error(e);
