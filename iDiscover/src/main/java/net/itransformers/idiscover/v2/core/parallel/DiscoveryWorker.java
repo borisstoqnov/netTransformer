@@ -29,21 +29,24 @@ public class DiscoveryWorker implements Callable<NodeDiscoveryResult> {
 
         String connectionType = connectionDetails.getConnectionType();
         NodeDiscoverer nodeDiscoverer = discoverers.get(connectionType);
+        NodeDiscoveryResult nodeDiscoveryResult;
 
         if (nodeDiscoverer == null) {
             logger.debug("No node discoverer can be found for connectionType: " + connectionDetails);
-            logger.debug("Discovery worker: " + Thread.currentThread().getName() + " finished. connectionDetails = " + connectionDetails);
-            NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult(null, null);
-            nodeDiscoveryResult.setParentId(parentId);
-            return nodeDiscoveryResult;
+            logger.debug("Trying with the discoverer with connectionType any");
+
+            nodeDiscoverer = discoverers.get("any");
+
+            nodeDiscoveryResult = nodeDiscoverer.discover((ConnectionDetails) connectionDetails.clone());
+        } else {
+            nodeDiscoveryResult = nodeDiscoverer.discover((ConnectionDetails) connectionDetails.clone());
         }
-        NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover((ConnectionDetails) connectionDetails.clone());
-        if (discoveryResult == null) {
-            discoveryResult = new NodeDiscoveryResult(null, null);
+        if (nodeDiscoveryResult == null) {
+            nodeDiscoveryResult = new NodeDiscoveryResult(null, null);
         }
-        discoveryResult.setParentId(parentId);
-        discoveryResult.setDiscoveryConnectionDetails(connectionDetails);
-        return discoveryResult;
+        nodeDiscoveryResult.setParentId(parentId);
+        nodeDiscoveryResult.setDiscoveryConnectionDetails(connectionDetails);
+        return nodeDiscoveryResult;
     }
 
 

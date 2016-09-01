@@ -3,15 +3,12 @@ package net.itransformers.idiscover.v2.core.node_discoverers.icmp;
 import net.itransformers.idiscover.core.DiscoveryResourceManager;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.connection_details.IPNetConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.node_discoverers.AbstractNodeDiscoverer;
 import net.itransformers.resourcemanager.config.ResourceType;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -20,7 +17,7 @@ import java.util.Map;
 public class IcmpDiscoverer extends AbstractNodeDiscoverer implements NodeDiscoverer {
     static Logger logger = Logger.getLogger(IcmpDiscoverer.class);
 
-    public IcmpDiscoverer(DiscoveryResourceManager discoveryResource) throws Exception {
+    public IcmpDiscoverer(DiscoveryResourceManager discoveryResource)  {
         super(discoveryResource);
     }
 
@@ -31,7 +28,7 @@ public class IcmpDiscoverer extends AbstractNodeDiscoverer implements NodeDiscov
         String ipAddressStr = connectionDetails.getParam("ipAddress");
         String deviceType = connectionDetails.getParam("deviceType");
 
-        Map<String, String> resourceSelectionParams = getConnectionDetailsParams(deviceName, deviceType, ipAddressStr);
+        Map<String, String> resourceSelectionParams = returnResourceSelectionParams(deviceName, deviceType, ipAddressStr);
 
         ResourceType icmpResource = resourceProvider(resourceSelectionParams);
         icmpResource.getConnectionParams();
@@ -53,43 +50,18 @@ public class IcmpDiscoverer extends AbstractNodeDiscoverer implements NodeDiscov
                 }
             }
         }
-        Map<String, String> resultParams = new HashMap<>();
-        resultParams.put("deviceName",deviceName);
-        resultParams.put("ipAddress",ipAddressStr);
         boolean icmpReachabilityFlag = isReachable(ipAddressStr, timeoutInt, retriesInt);
-        IPNetConnectionDetails ipNetConnectionDetails = new IPNetConnectionDetails("snmp");
 
-
-        String dnsFQDN = doReverseDnsLookup(ipAddressStr);
-        String dnsPQDN = null;
-        if (dnsFQDN!=null && !dnsFQDN.equals(ipAddressStr)) {
-            dnsPQDN =  subStringDeviceName(dnsFQDN);
-            ipNetConnectionDetails.put("dnsPQDN",dnsPQDN);
-            ipNetConnectionDetails.put("dnsFQDN",dnsFQDN);
-        }
-        String deviceId = selectDeviceId(resultParams);
         NodeDiscoveryResult result = new NodeDiscoveryResult();
-        result.setNodeId(deviceId);
 
-        if (ipAddressStr!=null )
-            if (!ipAddressStr.isEmpty())
-                ipNetConnectionDetails.put("ipAddress",ipAddressStr);
-
-        if (deviceName!=null )
-            if (!deviceName.isEmpty())
-                ipNetConnectionDetails.put("deviceName",deviceName);
 
         if (icmpReachabilityFlag){
-            logger.info("Device with "+ipAddressStr+" and "+resultParams +" is reachable through icmp!!!");
-
-            ipNetConnectionDetails.put("icmpStatus", "REACHABLE");
-
-            HashSet<ConnectionDetails> connectionDetailes = new HashSet<>();
-            connectionDetailes.add(ipNetConnectionDetails);
-            result.setNeighboursConnectionDetails(connectionDetailes);
+            logger.info("Device with "+ipAddressStr+" and "+connectionDetails.getParams() +" is reachable through icmp!!!");
+            result.setNodeId(ipAddressStr);
+            result.setDiscoveredData("icmpStatus", "REACHABLE");
         } else {
-            logger.info("Device with "+ipAddressStr+" and "+resultParams +" is unreachable through icmp!!!");
-
+            logger.info("Device with "+ipAddressStr+" and "+connectionDetails.getParams() +" is unreachable through icmp!!!");
+            return null;
         }
 
 

@@ -35,6 +35,7 @@ import net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder;
 import net.itransformers.snmp2xml4j.snmptoolkit.Node;
 import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
 import net.itransformers.snmp2xml4j.snmptoolkit.SnmpXmlPrinter;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -112,7 +113,7 @@ public class SnmpSequentialNodeDiscoverer extends SnmpNodeDiscoverer implements 
                             } else {
                                 deviceType = DeviceTypeResolver.getDeviceType(sysDescr);
                                 logger.info("Connected to: " + ipAddressStr + " with " + snmpConnParams);
-                                deviceName = subStringDeviceName(snmpGet(snmpManager, "1.3.6.1.2.1.1.5.0"));
+                                 deviceName = StringUtils.substringBefore(snmpGet(snmpManager, "1.3.6.1.2.1.1.5.0"), ".");
                                 break;
                             }
                     }
@@ -120,7 +121,7 @@ public class SnmpSequentialNodeDiscoverer extends SnmpNodeDiscoverer implements 
             }else {
                 deviceType = DeviceTypeResolver.getDeviceType(sysDescr);
                 logger.info("Connected to: " + ipAddressStr + " with " + snmpConnParams);
-                deviceName = subStringDeviceName(snmpGet(snmpManager, "1.3.6.1.2.1.1.5.0"));
+                deviceName = StringUtils.substringBefore(snmpGet(snmpManager, "1.3.6.1.2.1.1.5.0"),".");
             }
         } catch (IOException e) {
             logger.error("Something went wrong in SNMP communication with "+ipAddressStr+":Check the stacktrace \n"+e.getStackTrace());
