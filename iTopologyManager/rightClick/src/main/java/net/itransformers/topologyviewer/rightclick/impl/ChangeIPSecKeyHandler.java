@@ -76,7 +76,7 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
 
                 cli.open();
                 TestFulfilmentImpl telnetTorouter = new TestFulfilmentImpl(cli);
-                telnetTorouter.execute("E:\\iTransformer\\netTransformer\\iTopologyManager\\fulfilmentFactory\\conf\\templ\\ChangeIPsecKey.templ", paramsfirst);
+                telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ", paramsfirst);
                 cli.close();
 
                 Map<String, String> paramssecond = generateConfigMap(pair, oldkey, ipseckeyFilename);
@@ -87,7 +87,7 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
 
                 cli.open();
                 telnetTorouter = new TestFulfilmentImpl(cli);
-                telnetTorouter.execute("E:\\iTransformer\\netTransformer\\iTopologyManager\\fulfilmentFactory\\conf\\templ\\ChangeIPsecKey.templ", paramssecond);
+                telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ", paramssecond);
                 cli.close();
 
                 publishProgress("Finished work for the router pair.",area);
