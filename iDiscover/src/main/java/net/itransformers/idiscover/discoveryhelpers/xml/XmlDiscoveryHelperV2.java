@@ -76,14 +76,13 @@ public class XmlDiscoveryHelperV2 {
 
     public DiscoveredDevice createDevice(DiscoveredDeviceData discoveredDeviceData,String deviceName) {
 
-        String discoveredDevice = deviceName;
         String id = null;
         try {
-            id = HashGenerator.generateMd5(discoveredDevice);
+            id = HashGenerator.generateMd5(deviceName);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        DiscoveredDevice device = new DiscoveredDevice(discoveredDevice, id);
+        DiscoveredDevice device = new DiscoveredDevice(deviceName, id);
         List<DiscoveredInterface> discoveredInterfaces = new ArrayList<DiscoveredInterface>();
         LogicalDeviceData logicalDeviceData = null;
         HashMap<String,String> params = convertParams(discoveredDeviceData.getParameters());

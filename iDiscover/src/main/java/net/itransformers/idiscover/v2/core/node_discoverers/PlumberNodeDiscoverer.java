@@ -97,8 +97,6 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
                     logger.info("Can't discover "+connectionDetails+"through icmp");
                 }
 
-
-
         }
         String nodeId = determineNodeId(connectionDetailsNodeId,icmpNodeId,dnsNodeId,snmpNodeId);
         nodeDiscoveryResult.setNodeId(nodeId);

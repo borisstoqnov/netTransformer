@@ -49,9 +49,8 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
         if (!graphmlDir.exists()) graphmlDir.mkdir();
 
         DiscoveredDevice discoveredDevice = (DiscoveredDevice) nodeDiscoveryResult.getDiscoveredData().get("DiscoveredDevice");
-        getMainNode(discoveredDevice);
         HashMap<String,Object> params = new HashMap<>();
-        GraphmlNode mainNode = getMainNode(discoveredDevice);
+        GraphmlNode mainNode = getMainNode(node,discoveredDevice);
 
         ArrayList<GraphmlNode> graphmlNodes = getNeighbourNodes(node,neighbourDiscoveredConnectionDetails);
         graphmlNodes.add(mainNode);
@@ -113,9 +112,9 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
     }
 
 
-    private GraphmlNode getMainNode(DiscoveredDevice discoveredDevice) {
+    private GraphmlNode getMainNode(Node node,DiscoveredDevice discoveredDevice) {
 
-        GraphmlNode graphmlNode = new GraphmlNode(discoveredDevice.getName(), discoveredDevice.getName());
+        GraphmlNode graphmlNode = new GraphmlNode(node.getId(), node.getId());
         List<GraphmlNodeData> graphmlNodeMetaDatas = new ArrayList<>();
 
         for (Map.Entry<String, String> entry : discoveredDevice.getParams().entrySet()) {
@@ -133,6 +132,7 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
         ArrayList<GraphmlEdge> graphmlEdges = new ArrayList<>();
         String mainNodeId = mainNode.getId();
         Iterator<Node> nodeIterator = mainNode.getNeighbours().iterator();
+
         while (nodeIterator.hasNext()){
 
             Node node = nodeIterator.next();

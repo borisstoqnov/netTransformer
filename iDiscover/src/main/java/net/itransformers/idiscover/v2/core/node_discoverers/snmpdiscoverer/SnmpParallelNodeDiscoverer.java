@@ -101,7 +101,7 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
                 e.printStackTrace();
             }
             DiscoveredDeviceData discoveredDeviceData = getDeviceData(discoveryHelper, rawData);
-            DiscoveredDevice discoveredDevice = discoveryHelperV2.createDevice(discoveredDeviceData,deviceName);
+            DiscoveredDevice discoveredDevice = discoveryHelperV2.createDevice(discoveredDeviceData,deviceId);
 
             HashMap<String,String> deviceParams = discoveredDevice.getParams();
             deviceParams.putAll(resultParams);

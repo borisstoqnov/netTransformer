@@ -45,6 +45,7 @@ import java.util.*;
 public class NodeDiscoveryResult implements Cloneable{
     protected String parentId;
     protected String nodeId;
+    protected Set<String> nodeAliases;
     protected Set<ConnectionDetails> neighboursConnectionDetails = new HashSet<ConnectionDetails>();
     protected Map<String,Object> discoveredData = new HashMap<String,Object>();
     protected ConnectionDetails discoveryConnectionDetails;
@@ -122,5 +123,13 @@ public class NodeDiscoveryResult implements Cloneable{
 
     public void setDiscoveryConnectionDetails(ConnectionDetails discoveryConnectionDetails) {
         this.discoveryConnectionDetails = discoveryConnectionDetails;
+    }
+
+    public Set<String> getNodeAliases() {
+        return nodeAliases;
+    }
+
+    public void setNodeAliases(Set<String> nodeAliases) {
+        this.nodeAliases = nodeAliases;
     }
 }

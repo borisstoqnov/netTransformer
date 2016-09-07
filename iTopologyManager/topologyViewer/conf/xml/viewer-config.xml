@@ -911,11 +911,13 @@
             </rightClickItem>
         </submenu>
         <submenu name="NeighborFinder">
-            <rightClickItem name="Neighbor Finder" handlerClass="net.itransformers.topologyviewer.rightclick.impl.NeighbourFinderByMethod">
+            <rightClickItem name="Neighbor Finder" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ipsec.NeighbourFinderByMethod">
                 <param name="Discovery Method">IPSEC</param>
+
             </rightClickItem>
-            <rightClickItem name="Change IPsec key" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ChangeIPSecKeyHandler">
+            <rightClickItem name="Change IPsec key" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ipsec.ChangeIPSecKeyHandler">
                 <param name="Discovery Method">IPSEC</param>
+                <param name="ipSecTemplatePath">iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ</param>
             </rightClickItem>
         </submenu>
         <submenu name="Network Activation">
