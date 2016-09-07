@@ -184,7 +184,8 @@ public class XmlDiscoveryHelperV2 {
     private DiscoveredIPv4Address createDiscoveredIPv4Address(ObjectType objectType) {
         ParametersType params2 = objectType.getParameters();
         HashMap<String, String> params2Map = convertParams(params2);
-        return new DiscoveredIPv4Address(objectType.getName(), params2Map);
+        DiscoveredIPv4Address discoveredIPv4Address = new DiscoveredIPv4Address(objectType.getName(), params2Map);
+        return discoveredIPv4Address;
     }
 
     private void parseDeviceRawData(byte[] rawData, OutputStream outputStream, String xsltFileName, Map<String, String> params) {

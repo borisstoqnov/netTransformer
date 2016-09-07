@@ -1,5 +1,6 @@
 package net.itransformers.idiscover.v2.core.node_discoverers.subnetDiscoverer;
 
+import net.itransformers.idiscover.v2.core.IPv4BogonIdentitifier;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.connection_details.IPNetConnectionDetails;
@@ -43,11 +44,15 @@ public class SubnetDiscoverer implements NodeDiscoverer {
 
         try {
             InetAddress inetAddress = InetAddress.getByName(subnetIpAddress);
-            if (inetAddress instanceof Inet4Address)
-                if (bogonSubnetIdentifier(subnetIpAddress)) {
+            if (inetAddress instanceof Inet4Address) {
+
+                IPv4BogonIdentitifier iPv4BogonIdentitifier = new IPv4BogonIdentitifier(subnetIpAddress);
+
+                if (iPv4BogonIdentitifier.identifyBogon()) {
                     nodeDiscoveryResult.setDiscoveredData("bogon", true);
 
                 }
+            }
             if (privateSubnetIdentifier(subnetIpAddress)) {
                 nodeDiscoveryResult.setDiscoveredData("private", true);
             }
@@ -73,55 +78,7 @@ public class SubnetDiscoverer implements NodeDiscoverer {
         return ipConnectionDetailsSet;
     }
 
-    private boolean bogonSubnetIdentifier(String subnetIpAddress) {
 
-        try {
-
-            CIDRUtils cidrUtils = null;
-            cidrUtils = new CIDRUtils("0.0.0.0/8");
-
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("127.0.0.0/8");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("128.0.0.0/8");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("169.254.0.0/16");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("192.0.0.0/24");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("192.0.2.0/24");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("224.0.0.0/4");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("240.0.0.0/4");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("255.255.255.255/32");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-        
-        } catch (UnknownHostException e) {
-            logger.error(e.getMessage());
-        }
-        return false;
-
-    }
 
     private boolean privateSubnetIdentifier(String ipv4Address) {
 

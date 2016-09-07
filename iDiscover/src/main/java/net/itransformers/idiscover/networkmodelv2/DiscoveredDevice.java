@@ -43,19 +43,21 @@ public class DiscoveredDevice {
             if (status.equals("UP")) {
                 List<DiscoveredIPv4Address> iPv4Addresses = discoveredInterface.getiPv4AddressList();
                 for (DiscoveredIPv4Address iPv4Address : iPv4Addresses) {
-
-                    deviceAliases.add(iPv4Address.getParams().get("IPv4Address"));
+                    String ipv4AddressStr =iPv4Address.getParams().get("IPv4Address");
+                    if (ipv4AddressStr!=null && !ipv4AddressStr.isEmpty() && !iPv4Address.isBogon())
+                        deviceAliases.add(ipv4AddressStr);
 
                 }
                 List<DiscoveredIPv6Address> iPv6AddressList = discoveredInterface.getIpv6AddressList();
                 for (DiscoveredIPv6Address iPv6Address : iPv6AddressList) {
-
-                    deviceAliases.add(iPv6Address.getParams().get("IPv6Address"));
+                    String ipv6AddressStr = iPv6Address.getParams().get("IPv6Address");
+                    if (ipv6AddressStr!=null && !ipv6AddressStr.isEmpty())
+                        deviceAliases.add(ipv6AddressStr);
 
                 }
-
-                deviceAliases.add(discoveredInterface.getParams().get("ifPhysAddress"));
-
+                String ifPhysAddressStr = discoveredInterface.getParams().get("ifPhysAddress");
+                if (ifPhysAddressStr!=null && !ifPhysAddressStr.isEmpty())
+                     deviceAliases.add(ifPhysAddressStr);
 
             }
 
