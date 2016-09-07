@@ -9,6 +9,7 @@ import net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImp
 
 import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -25,12 +26,12 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
     //We need the neighbours before connecting to them
 
 
-
     @Override
     protected String performIPSecAction(IPsecPair[] ipsecpair) throws IOException {
         //If this is first run we want to save the old key before generating new ones
         List<String> userInput = firstTimeConfigurationCheck(ipsecpair);
         int pairCounter =0;
+
         for(IPsecPair pair : ipsecpair){
 
             if(pair != null){
@@ -64,7 +65,6 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
                     oldkey = KeyFromFile(ipseckeyFilename);
                 }
                 KeyGenerator(ipseckeyFilename);
-
 
                 Logger.getAnonymousLogger().log(Level.INFO, "Initialising cli" + Thread.currentThread().getName());
                 CLIInterface cli;
