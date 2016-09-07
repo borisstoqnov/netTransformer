@@ -22,10 +22,12 @@ public class DnsNodeDiscoverer implements NodeDiscoverer {
 
         String dnsShortName = StringUtils.substringBefore(dnsCanonicalDomainName, ".");
         NodeDiscoveryResult result = new NodeDiscoveryResult();
-        result.setNodeId(ipAddressString);
+
         if (dnsCanonicalDomainName != null && !dnsCanonicalDomainName.isEmpty() && !dnsCanonicalDomainName.equals(ipAddressString)) {
             result.setDiscoveredData("FQDN", dnsCanonicalDomainName);
             result.setDiscoveredData("PQDN", dnsShortName);
+            result.setNodeId(dnsShortName);
+
             return result;
         } else {
             return null;

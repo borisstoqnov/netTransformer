@@ -3,9 +3,7 @@ package net.itransformers.idiscover.networkmodelv2;
 import net.itransformers.idiscover.core.Subnet;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by niau on 8/25/16.
@@ -37,6 +35,34 @@ public class DiscoveredDevice {
         return deviceNeighbours;
     }
 
+    public Set<String> getDeviceAliases() {
+        Set<String> deviceAliases = new HashSet<>();
+        for (DiscoveredInterface discoveredInterface : interfaceList) {
+            String status = discoveredInterface.getParams().get("ifOperStatus");
+
+            if (status.equals("UP")) {
+                List<DiscoveredIPv4Address> iPv4Addresses = discoveredInterface.getiPv4AddressList();
+                for (DiscoveredIPv4Address iPv4Address : iPv4Addresses) {
+
+                    deviceAliases.add(iPv4Address.getParams().get("IPv4Address"));
+
+                }
+                List<DiscoveredIPv6Address> iPv6AddressList = discoveredInterface.getIpv6AddressList();
+                for (DiscoveredIPv6Address iPv6Address : iPv6AddressList) {
+
+                    deviceAliases.add(iPv6Address.getParams().get("IPv6Address"));
+
+                }
+
+                deviceAliases.add(discoveredInterface.getParams().get("ifPhysAddress"));
+
+
+            }
+
+        }
+        return deviceAliases;
+
+    }
 
     public List<Subnet> getDeviceSubnetsFromActiveInterfaces(){
 
