@@ -266,16 +266,16 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         return eventFutureCount;
     }
 
-    public Map<String, List<Future<NodeDiscoveryResult>>> getNodeNeighbourFuturesMap() {
-        return nodeNeighbourFuturesMap;
+    public Set<String> getNodeNeighbourFuturesMapKeys() {
+        return new HashSet<>(nodeNeighbourFuturesMap.keySet());
     }
 
     public Set<ConnectionDetails> getDiscoveredConnectionDetails() {
         return discoveredConnectionDetails;
     }
 
-    public Map<String, NodeDiscoveryResult> getNodeDiscoveryResultMap() {
-        return nodeDiscoveryResultMap;
+    public Set<String> getNodeDiscoveryResultMapKeys() {
+        return new HashSet<>(nodeDiscoveryResultMap.keySet());
     }
 
     public Map<String, Map<String, ConnectionDetails>> getNeighbourConnectionDetailsMap() {

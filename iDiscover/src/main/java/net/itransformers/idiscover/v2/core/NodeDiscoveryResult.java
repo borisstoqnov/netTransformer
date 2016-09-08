@@ -40,9 +40,10 @@ package net.itransformers.idiscover.v2.core;/*
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class NodeDiscoveryResult implements Cloneable{
+public class NodeDiscoveryResult implements Cloneable, Serializable{
     protected String parentId;
     protected String nodeId;
     protected Set<String> nodeAliases;

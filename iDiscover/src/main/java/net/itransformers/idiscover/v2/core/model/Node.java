@@ -21,9 +21,10 @@
 
 package net.itransformers.idiscover.v2.core.model;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Node {
+public class Node implements Serializable{
     private String id;
     private Set<String> aliases;
     private Map<String,Node> aliasToNeighbourMap;

@@ -2,12 +2,13 @@ package net.itransformers.idiscover.v2.core.connection_details;
 
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
  * Created by Vasil Yordanov on 26-May-16.
  */
-public class IPNetConnectionDetails extends ConnectionDetails implements Cloneable{
+public class IPNetConnectionDetails extends ConnectionDetails implements Cloneable, Serializable{
 
     public static final String IP_ADDRESS_PARAM_KEY = "ipAddress";
 

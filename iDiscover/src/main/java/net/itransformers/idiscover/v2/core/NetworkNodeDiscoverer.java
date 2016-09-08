@@ -100,4 +100,7 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
             }
     }
 
+    public Map<String, Node> getNodes() {
+        return nodes;
+    }
 }
