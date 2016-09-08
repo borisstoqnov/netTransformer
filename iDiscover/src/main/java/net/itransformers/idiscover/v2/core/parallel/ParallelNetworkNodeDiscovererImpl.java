@@ -106,6 +106,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                     continue;
                 }
                 Node node = nodeFactory.createNode(nodeId);
+                node.setAliases(result.getNodeAliases());
                 nodes.put(nodeId, node);
                 Node parentNode = nodes.get(parentId);
                 if (parentNode != null) {
