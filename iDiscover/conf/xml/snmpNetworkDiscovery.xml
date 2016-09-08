@@ -73,20 +73,33 @@
         <constructor-arg  ref="executorService"/>
     </bean>
 
+    <bean
+            class="org.springframework.jmx.support.ConnectorServerFactoryBean"
+            depends-on="rmiRegistry">
+        <property name="objectName" value="connector:name=rmi" />
+        <property name="serviceUrl"
+                  value="service:jmx:rmi://localhost/jndi/rmi://localhost:10099/myconnector" />
+    </bean>
 
-    <bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean"/>
+    <bean id="rmiRegistry"
+          class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">
+        <property name="port" value="10099" />
+    </bean>
+
+
+
+    <bean class="org.springframework.jmx.support.MBeanServerFactoryBean"/>
 
     <!--
       this bean needs to be eagerly pre-instantiated in order for the exporting to occur;
       this means that it must not be marked as lazily initialized
     -->
-    <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+    <bean class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
         <property name="beans">
             <map>
                 <entry key="bean:name=parallelSnmpDiscovery" value-ref="parallelSnmpDiscovery"/>
             </map>
         </property>
-        <property name="server" ref="mbeanServer"/>
     </bean>
 
     <bean id="discoveryWorkerFactory" class="net.itransformers.idiscover.v2.core.factory.DiscoveryWorkerFactory"/>
@@ -182,7 +195,7 @@
     </bean>
     <bean id="subnetNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.subnetDiscoverer.SubnetDiscoverer">
 
-        <constructor-arg name="generateIPconnectionsForSubnetMembers" value="false"/>
+        <constructor-arg name="generateIPconnectionsForSubnetMembers" value="true"/>
     </bean>
 
     <bean id="icmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.icmp.IcmpDiscoverer">

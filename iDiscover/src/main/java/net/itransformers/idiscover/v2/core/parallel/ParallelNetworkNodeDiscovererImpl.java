@@ -281,4 +281,12 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     public Map<String, Map<String, ConnectionDetails>> getNeighbourConnectionDetailsMap() {
         return neighbourConnectionDetailsMap;
     }
+
+    public DiscoveryWorkerFactory getDiscoveryWorkerFactory() {
+        return discoveryWorkerFactory;
+    }
+
+    public void setDiscoveryWorkerFactory(DiscoveryWorkerFactory discoveryWorkerFactory) {
+        this.discoveryWorkerFactory = discoveryWorkerFactory;
+    }
 }
