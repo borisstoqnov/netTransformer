@@ -21,10 +21,15 @@ import java.util.Set;
 public class SubnetDiscoverer implements NodeDiscoverer {
     static Logger logger = Logger.getLogger(SubnetDiscoverer.class);
 
+    int subnetMaxMaskSize;
     boolean generateIPconnectionsForSubnetMembers;
 
     public SubnetDiscoverer(boolean generateIPconnectionsForSubnetMembers) {
         this.generateIPconnectionsForSubnetMembers = generateIPconnectionsForSubnetMembers;
+    }
+    public SubnetDiscoverer(boolean generateIPconnectionsForSubnetMembers, int subnetMaxMaskSize) {
+        this.generateIPconnectionsForSubnetMembers = generateIPconnectionsForSubnetMembers;
+        this.subnetMaxMaskSize = subnetMaxMaskSize;
     }
 
     @Override
@@ -39,7 +44,9 @@ public class SubnetDiscoverer implements NodeDiscoverer {
 
         NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult(subnetPrefix,null);
         nodeDiscoveryResult.setDiscoveredData("subnetDetails", connectionDetails.getParams());
-        if (generateIPconnectionsForSubnetMembers)
+        int discoverySubnetPrefixSize =  Integer.parseInt(subnetPrefixMask);
+
+        if (generateIPconnectionsForSubnetMembers && discoverySubnetPrefixSize<=subnetMaxMaskSize);
             nodeDiscoveryResult.setNeighboursConnectionDetails(getSubnetIpNeighborConnections(subnetPrefix));
 
         try {
@@ -78,7 +85,13 @@ public class SubnetDiscoverer implements NodeDiscoverer {
         return ipConnectionDetailsSet;
     }
 
+    public int getSubnetMaxMaskSize() {
+        return subnetMaxMaskSize;
+    }
 
+    public void setSubnetMaxMaskSize(int subnetMaxMaskSize) {
+        this.subnetMaxMaskSize = subnetMaxMaskSize;
+    }
 
     private boolean privateSubnetIdentifier(String ipv4Address) {
 

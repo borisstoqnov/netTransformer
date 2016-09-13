@@ -64,8 +64,8 @@
         <constructor-arg ref="eventExecutor"/>
     </bean>
     <bean id="executorService" class="net.itransformers.idiscover.v2.core.parallel.PausableThreadPoolExecutor">
-        <constructor-arg  value="10" type="int"/>
-        <constructor-arg  value="20" type="int"/>
+        <constructor-arg  value="50" type="int"/>
+        <constructor-arg  value="100" type="int"/>
         <constructor-arg  value="0" type="long"/>
     </bean>
 
@@ -203,6 +203,8 @@
     <bean id="subnetNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.subnetDiscoverer.SubnetDiscoverer">
 
         <constructor-arg name="generateIPconnectionsForSubnetMembers" value="true"/>
+        <constructor-arg name="subnetMaxMaskSize" value="24"/>
+
     </bean>
 
     <bean id="icmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.icmp.IcmpDiscoverer">

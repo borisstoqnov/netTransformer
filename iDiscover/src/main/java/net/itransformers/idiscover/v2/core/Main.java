@@ -41,6 +41,8 @@ public class Main {
     static Logger logger = Logger.getLogger(Main.class);
     public static void main(String[] args) throws MalformedURLException {
         logger.debug("iDiscover v2. gearing up");
+        System.setProperty("networkaddress.cache.ttl","0");
+        System.setProperty("networkaddress.cache.negative.ttl","0");
 
         Map<String, String> params = CmdLineParser.parseCmdLine(args);
 //        String connectionDetailsFileName = params.get("-f");

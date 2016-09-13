@@ -128,6 +128,10 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                     logger.error(e.getMessage(), e);
                 }
             }
+            NetworkDiscoveryResult result = new NetworkDiscoveryResult();
+            result.setNodes(nodes);
+            fireNetworkDiscoveredEvent(result);
+
             while (eventFutureCount > 0) {
                 try {
                     eventFutureCount--;
@@ -136,9 +140,6 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                     logger.error(e.getMessage(), e);
                 }
             }
-            NetworkDiscoveryResult result = new NetworkDiscoveryResult();
-            result.setNodes(nodes);
-            fireNetworkDiscoveredEvent(result);
 
             logger.info("Shutting down event executor service");
             eventExecutorService.shutdown();

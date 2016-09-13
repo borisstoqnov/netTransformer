@@ -85,7 +85,7 @@ public class DiscoveredDevice {
                     String ipv4SubnetBroadcast = iPv4Address.getParams().get("ipv4SubnetBroadcast");
 
                     Subnet subnet = new Subnet(subnetName);
-                    if (ipv4SubnetPrefix.equals("32")){
+                    if (ipv4SubnetPrefix.equals("32") || iPv4Address.isBogon()){
                         //LocalInterface
                         continue;
                     }
@@ -126,7 +126,7 @@ public class DiscoveredDevice {
                     String ipSubnetMask = iPv4Address.getParams().get("ipSubnetMask");
                     String ipv4SubnetPrefix = iPv4Address.getParams().get("ipv4SubnetPrefix");
                     String ipv4SubnetBroadcast = iPv4Address.getParams().get("ipv4SubnetBroadcast");
-                    if (ipv4SubnetPrefix.equals("32")){
+                    if (ipv4SubnetPrefix.equals("32") || iPv4Address.isBogon()){
                         //LocalInterface
                         continue;
                     }

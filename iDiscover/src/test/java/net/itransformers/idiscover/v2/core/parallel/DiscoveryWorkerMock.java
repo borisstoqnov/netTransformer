@@ -25,7 +25,7 @@ public class DiscoveryWorkerMock extends DiscoveryWorker  {
     }
 
     @Override
-    public NodeDiscoveryResult call() throws Exception {
+    public NodeDiscoveryResult call()  {
         String nodeId = null;
 
         nodeId = jsonObject.getString("nodeId");

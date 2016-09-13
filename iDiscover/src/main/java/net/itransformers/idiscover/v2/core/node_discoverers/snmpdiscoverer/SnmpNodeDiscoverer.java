@@ -88,6 +88,7 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
         ArrayList<ResourceType> snmpResources = this.discoveryResource.returnResourcesByConnectionType("snmp");
 
 
+
         SnmpManagerCreator snmpManagerCreator = new SnmpManagerCreator(mibLoaderHolder);
         snmpManager = snmpManagerCreator.create(initialSnmpConnParams);
 
@@ -95,46 +96,50 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
             snmpManager.init();
             sysDescr = snmpManager.snmpGet("1.3.6.1.2.1.1.1.0");
 
-            if (sysDescr == null && !useOnlyTheFirstSnmpBeingMatched) {
-                snmpManager.closeSnmp();
-                snmpManager = null;
-                logger.info("Can't connect to: " + initialSnmpConnParams.get("ipAddress") + " with " + initialSnmpConnParams);
+            if (sysDescr == null ) {
+
+                if (useOnlyTheFirstSnmpBeingMatched) {
 
 
+                    snmpManager.closeSnmp();
+                    logger.info("Can't connect to: " + initialSnmpConnParams.get("ipAddress") + " with " + initialSnmpConnParams);
+                    return null;
+                } else {
 
-                for (ResourceType resourceType : snmpResources) {
-                    Map<String,String> secondartySnmpConnParams = this.discoveryResource.getParamMap(resourceType, "snmp");
-                    logger.info("Discovering "+ipAddressStr+" with "+resourceType.getName());
+                    for (ResourceType resourceType : snmpResources) {
+                        Map<String, String> secondartySnmpConnParams = this.discoveryResource.getParamMap(resourceType, "snmp");
+                        logger.info("Discovering " + ipAddressStr + " with " + resourceType.getName());
 
-                    secondartySnmpConnParams.put("ipAddress", ipAddressStr);
-                    if (!resourceType.getName().equals(snmpResource.getName())) {
-                        snmpManager = snmpManagerCreator.create(initialSnmpConnParams);
+                        secondartySnmpConnParams.put("ipAddress", ipAddressStr);
+                        if (!resourceType.getName().equals(snmpResource.getName())) {
+                            snmpManager = snmpManagerCreator.create(initialSnmpConnParams);
 
-                        snmpManager.init();
-                        sysDescr = snmpManager.snmpGet("1.3.6.1.2.1.1.1.0");
-                        if (sysDescr == null) {
-                            logger.info("Can't connect to: " + ipAddressStr + " with " + initialSnmpConnParams);
-                            snmpManager.closeSnmp();
-                            snmpManager = null;
-                        } else {
-                            break;
+                            snmpManager.init();
+                            sysDescr = snmpManager.snmpGet("1.3.6.1.2.1.1.1.0");
+                            if (sysDescr == null) {
+                                logger.info("Can't connect to: " + ipAddressStr + " with " + initialSnmpConnParams);
+                                snmpManager.closeSnmp();
+                            } else {
+                                return snmpManager;
 
+                            }
                         }
                     }
-                }
-            }else{
-                logger.info("Connected to: " + initialSnmpConnParams.get("ipAddress") + " with " + initialSnmpConnParams);
 
+                }
+            }else {
+                return snmpManager;
             }
+
+
+
+
         } catch (IOException e) {
             logger.error("Something went wrong in SNMP communication with "+ipAddressStr+":Check the stacktrace \n"+e.getStackTrace());
             return null;
         }
-        if (sysDescr!=null) {
-            return snmpManager;
-        }else{
-            return null;
-        }
+
+        return null;
     }
     protected RawDeviceData getRawData (SnmpManager snmpManager,DiscoveryHelper discoveryHelper){
         String[] requestParamsList = discoveryHelper.getRequestParams(discoveryTypes);

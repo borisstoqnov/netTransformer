@@ -52,20 +52,22 @@ public class IcmpDiscoverer extends AbstractNodeDiscoverer implements NodeDiscov
         }
         boolean icmpReachabilityFlag = isReachable(ipAddressStr, timeoutInt, retriesInt);
 
-        NodeDiscoveryResult result = new NodeDiscoveryResult();
 
 
         if (icmpReachabilityFlag){
+            NodeDiscoveryResult result = new NodeDiscoveryResult();
+
             logger.info("Device with "+ipAddressStr+" and "+connectionDetails.getParams() +" is reachable through icmp!!!");
             result.setNodeId(ipAddressStr);
             result.setDiscoveredData("icmpStatus", "REACHABLE");
+            return result ;
+
         } else {
             logger.info("Device with "+ipAddressStr+" and "+connectionDetails.getParams() +" is unreachable through icmp!!!");
             return null;
         }
 
 
-        return result ;
     }
     private   boolean isReachable(String ipAddressStr,int timeout,int retries){
         boolean reachable;

@@ -46,7 +46,8 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
         Map<String, Object> discoveryData  = new HashMap<String, Object>();
         Set<ConnectionDetails> neighbourConnectionDetails  = new HashSet<ConnectionDetails>();
 
-        NodeDiscoveryResult icmpDiscoveryResult = icmpDiscoverer.discover(connectionDetails);
+        NodeDiscoveryResult icmpDiscoveryResult =  new NodeDiscoveryResult();
+         icmpDiscoverer.discover(connectionDetails);
 
         if (icmpDiscoveryResult == null ){
             return null;
@@ -82,7 +83,6 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
         }
         String snmpNodeId = null;
 
-        if (icmpStatus!=null && icmpStatus.equals("REACHABLE")) {
                 NodeDiscoveryResult snmpDiscoveryResult = snmpParallelNodeDiscoverer.discover(connectionDetails);
 
                 if (snmpDiscoveryResult!=null) {
@@ -111,7 +111,7 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
                     logger.info("Can't discover "+connectionDetails+"through icmp");
                 }
 
-        }
+
         String nodeId = determineNodeId(connectionDetailsNodeId,icmpNodeId,dnsNodeId,snmpNodeId);
         nodeDiscoveryResult.setNodeId(nodeId);
         nodeDiscoveryResult.setNeighboursConnectionDetails(neighbourConnectionDetails);

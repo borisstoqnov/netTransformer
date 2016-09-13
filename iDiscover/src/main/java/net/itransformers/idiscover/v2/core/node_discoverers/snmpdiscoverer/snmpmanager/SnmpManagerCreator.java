@@ -46,6 +46,7 @@ public class SnmpManagerCreator {
             throw new RuntimeException("Unsupported combination of protocol: \" + protocol + \" and version \" + version");
 
         }
+        //TODO CHECK ipAddress Parameter and if name try to convert it first to an address!!!
         snmpManager.setParameters(snmpConnParams);
         return snmpManager;
 

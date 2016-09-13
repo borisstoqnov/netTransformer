@@ -24,30 +24,36 @@ public class DiscoveryWorker implements Callable<NodeDiscoveryResult> {
     }
 
     @Override
-    public NodeDiscoveryResult call() throws Exception {
-        logger.debug("Discovery worker: " + Thread.currentThread().getName() + " started. connectionDetails = " + connectionDetails);
+    public NodeDiscoveryResult call()  {
+            logger.debug("Discovery worker: " + Thread.currentThread().getName() + " started. connectionDetails = " + connectionDetails);
 
-        String connectionType = connectionDetails.getConnectionType();
-        NodeDiscoverer nodeDiscoverer = discoverers.get(connectionType);
-        NodeDiscoveryResult nodeDiscoveryResult;
+            String connectionType = connectionDetails.getConnectionType();
+            NodeDiscoverer nodeDiscoverer = discoverers.get(connectionType);
+            NodeDiscoveryResult nodeDiscoveryResult = null;
+            try {
 
-        if (nodeDiscoverer == null) {
-            logger.debug("No node discoverer can be found for connectionType: " + connectionDetails);
-            logger.debug("Trying with the discoverer with connectionType any");
+                if (nodeDiscoverer == null) {
+                    logger.debug("No node discoverer can be found for connectionType: " + connectionDetails);
+                    logger.debug("Trying with the discoverer with connectionType any");
 
-            nodeDiscoverer = discoverers.get("any");
+                    nodeDiscoverer = discoverers.get("any");
 
-            nodeDiscoveryResult = nodeDiscoverer.discover((ConnectionDetails) connectionDetails.clone());
-        } else {
-            nodeDiscoveryResult = nodeDiscoverer.discover((ConnectionDetails) connectionDetails.clone());
+                    nodeDiscoveryResult = nodeDiscoverer.discover((ConnectionDetails) connectionDetails.clone());
+                } else {
+                    nodeDiscoveryResult = nodeDiscoverer.discover((ConnectionDetails) connectionDetails.clone());
+                }
+            }catch (Exception e){
+                logger.error(e.getMessage(),e);
+            }
+            if (nodeDiscoveryResult == null) {
+                nodeDiscoveryResult = new NodeDiscoveryResult(null, null);
+            }
+            nodeDiscoveryResult.setParentId(parentId);
+            nodeDiscoveryResult.setDiscoveryConnectionDetails(connectionDetails);
+            return nodeDiscoveryResult;
+
+
         }
-        if (nodeDiscoveryResult == null) {
-            nodeDiscoveryResult = new NodeDiscoveryResult(null, null);
-        }
-        nodeDiscoveryResult.setParentId(parentId);
-        nodeDiscoveryResult.setDiscoveryConnectionDetails(connectionDetails);
-        return nodeDiscoveryResult;
-    }
 
 
 }
