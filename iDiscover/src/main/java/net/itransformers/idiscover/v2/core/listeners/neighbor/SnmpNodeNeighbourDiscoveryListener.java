@@ -42,7 +42,7 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
     }
 
     @Override
-    public void handleNodeNeighboursDiscovered(Node node, NodeDiscoveryResult nodeDiscoveryResult, Map<String, ConnectionDetails> neighbourDiscoveredConnectionDetails) {
+    public void handleNodeNeighboursDiscovered(Node node, NodeDiscoveryResult nodeDiscoveryResult) {
 
         File baseDir = new File(projectPath,labelDirName);
         File graphmlDir = new File(baseDir, graphmlDirName);
@@ -52,10 +52,10 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
         HashMap<String,Object> params = new HashMap<>();
         GraphmlNode mainNode = getMainNode(node,discoveredDevice);
 
-        ArrayList<GraphmlNode> graphmlNodes = getNeighbourNodes(node,neighbourDiscoveredConnectionDetails);
+        ArrayList<GraphmlNode> graphmlNodes = getNeighbourNodes(node);
         graphmlNodes.add(mainNode);
 ////
-        ArrayList<GraphmlEdge> graphmlEdges = getEdges(node, nodeDiscoveryResult, neighbourDiscoveredConnectionDetails);
+        ArrayList<GraphmlEdge> graphmlEdges = getEdges(node, nodeDiscoveryResult);
 ////
 //        graphmlEdges.addAll(graphmlEdges);
 
@@ -127,7 +127,7 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
     }
 
 
-    private  ArrayList<GraphmlEdge> getEdges(Node mainNode,NodeDiscoveryResult nodeDiscoveryResult, Map<String, ConnectionDetails> neighbourDiscoveredConnectionDetails) {
+    private  ArrayList<GraphmlEdge> getEdges(Node mainNode,NodeDiscoveryResult nodeDiscoveryResult) {
 
         ArrayList<GraphmlEdge> graphmlEdges = new ArrayList<>();
         String mainNodeId = mainNode.getId();
@@ -136,7 +136,7 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
         while (nodeIterator.hasNext()){
 
             Node node = nodeIterator.next();
-            ConnectionDetails connectionDetails = neighbourDiscoveredConnectionDetails.get(node.getId());
+//            ConnectionDetails connectionDetails = neighbourDiscoveredConnectionDetails.get(node.getId());
 
             String nodeId = node.getId();
             String graphmlEdgeId;
@@ -156,14 +156,15 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
             GraphmlEdge edge = new GraphmlEdge(graphmlEdgeId,graphmlEdgeId,from,to);
             List<GraphmlEdgeData> graphmlEdgeMetaDatas = new ArrayList<>();
 
-            Map<String,String> connectionDetailsParams = connectionDetails.getParams();
-            for (Map.Entry<String,String> entry : connectionDetailsParams.entrySet()) {
-                if (entry.getKey().equals("DiscoveryMethod")){
-                    GraphmlEdgeData graphmlEdgeData = new GraphmlEdgeData(entry.getKey(),entry.getValue());
-                    graphmlEdgeMetaDatas.add(graphmlEdgeData);
-                }
-
-            }
+            //TODO
+//            Map<String,String> connectionDetailsParams = connectionDetails.getParams();
+//            for (Map.Entry<String,String> entry : connectionDetailsParams.entrySet()) {
+//                if (entry.getKey().equals("DiscoveryMethod")){
+//                    GraphmlEdgeData graphmlEdgeData = new GraphmlEdgeData(entry.getKey(),entry.getValue());
+//                    graphmlEdgeMetaDatas.add(graphmlEdgeData);
+//                }
+//
+//            }
             edge.setGraphmlEdgeDataList(graphmlEdgeMetaDatas);
             graphmlEdges.add(edge);
         }
@@ -171,7 +172,7 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
 
     }
 
-    private ArrayList<GraphmlNode> getNeighbourNodes(Node node, Map<String, ConnectionDetails> neighbourDiscoveredConnectionDetails) {
+    private ArrayList<GraphmlNode> getNeighbourNodes(Node node) {
 
         ArrayList<GraphmlNode> graphmlNodes = new ArrayList<>();
         Set<Node> nodes = node.getNeighbours();
@@ -182,23 +183,23 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
             List<GraphmlNodeData> graphmlNodeMetaDatas = new ArrayList<>();
             List<GraphmlPort> graphmlPorts = new ArrayList<>();
 
-            ConnectionDetails connectionDetails = neighbourDiscoveredConnectionDetails.get(nodeId);
+//            ConnectionDetails connectionDetails = neighbourDiscoveredConnectionDetails.get(nodeId);
 
-            if (connectionDetails.getConnectionType().equals("subnet")) {
-                for (Map.Entry<String, String> entry : connectionDetails.getParams().entrySet()) {
-                    GraphmlNodeData graphmlNodeData = new GraphmlNodeData(entry.getKey(), entry.getValue());
-                    if (!entry.getKey().equals("discoveryMethods") && !entry.getKey().equals("port")){
-                        graphmlNodeMetaDatas.add(graphmlNodeData);
-                        continue;
-
-                    }
-                    if (entry.getKey().equals("port")){
-                        String portName =  node.getId()+"-"+entry.getValue();
-                        GraphmlPort port = new GraphmlPort(portName);
-                        graphmlPorts.add(port);
-                    }
-                }
-            }
+//            if (connectionDetails.getConnectionType().equals("subnet")) {
+//                for (Map.Entry<String, String> entry : connectionDetails.getParams().entrySet()) {
+//                    GraphmlNodeData graphmlNodeData = new GraphmlNodeData(entry.getKey(), entry.getValue());
+//                    if (!entry.getKey().equals("discoveryMethods") && !entry.getKey().equals("port")){
+//                        graphmlNodeMetaDatas.add(graphmlNodeData);
+//                        continue;
+//
+//                    }
+//                    if (entry.getKey().equals("port")){
+//                        String portName =  node.getId()+"-"+entry.getValue();
+//                        GraphmlPort port = new GraphmlPort(portName);
+//                        graphmlPorts.add(port);
+//                    }
+//                }
+//            }
             graphmlNode.setGraphmlNodePorts(graphmlPorts);
             graphmlNode.setGraphmlNodeDataList(graphmlNodeMetaDatas);
             graphmlNodes.add(graphmlNode);

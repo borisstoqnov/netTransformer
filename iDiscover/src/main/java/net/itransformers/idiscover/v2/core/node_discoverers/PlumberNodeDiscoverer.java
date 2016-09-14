@@ -51,9 +51,8 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
         String connectionDetailsNodeId = connectionDetails.getParam("deviceName");
 
 
-        if (ipAddressString!=null) {
-            if (ipAddressString.isEmpty()) {
-                System.out.println(connectionDetails);
+        if (ipAddressString==null || ipAddressString.isEmpty()) {
+                logger.info("Connection details with empty IP address: "+connectionDetails.toString());
                 DnsResolver dnsResolver = new DnsResolver();
                 try {
                     String ipAddress = dnsResolver.resolveIpByName(connectionDetailsNodeId);
@@ -63,10 +62,8 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
                     logger.error(e.getMessage(), e);
                     return null;
                 }
-            }
-        } else{
-            return null;
         }
+
 
         if (connectionDetailsNodeId!=null && !connectionDetailsNodeId.isEmpty())
             nodeAliases.add(connectionDetailsNodeId);

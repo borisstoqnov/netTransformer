@@ -34,7 +34,7 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth) {
         isRunning = true;
 
-        NetworkDiscoveryResult result = new NetworkDiscoveryResult();
+        NetworkDiscoveryResult result = new NetworkDiscoveryResult(null);
         doDiscoverNodes(connectionDetailsList, nodes, null, 0, depth, result);
         result.setNodes(nodes);
         fireNetworkDiscoveredEvent(result);

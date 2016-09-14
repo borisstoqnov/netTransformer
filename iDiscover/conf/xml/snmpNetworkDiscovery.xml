@@ -73,12 +73,12 @@
         <constructor-arg  ref="executorService"/>
     </bean>
 
-    <bean
-            class="org.springframework.jmx.support.ConnectorServerFactoryBean"
-            depends-on="rmiRegistry">
-        <property name="objectName" value="connector:name=rmi" />
-        <property name="serviceUrl"
-                  value="service:jmx:rmi://localhost/jndi/rmi://localhost:10099/myconnector" />
+    <!--<bean-->
+            <!--class="org.springframework.jmx.support.ConnectorServerFactoryBean"-->
+            <!--depends-on="rmiRegistry">-->
+        <!--<property name="objectName" value="connector:name=rmi" />-->
+        <!--<property name="serviceUrl"-->
+                  <!--value="service:jmx:rmi://localhost/jndi/rmi://localhost:10099/myconnector" />-->
         <!--<property name="environment">-->
             <!--&lt;!&ndash; the following is only valid when the sun jmx implementation is used &ndash;&gt;-->
             <!--<map>-->
@@ -86,28 +86,28 @@
                 <!--<entry key="jmx.remote.x.access.file" value="etc/security/jmxremote.access"/>-->
             <!--</map>-->
         <!--</property>-->
-    </bean>
+    <!--</bean>-->
 
-    <bean id="rmiRegistry"
-          class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">
-        <property name="port" value="10099" />
-    </bean>
+    <!--<bean id="rmiRegistry"-->
+          <!--class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">-->
+        <!--<property name="port" value="10099" />-->
+    <!--</bean>-->
 
 
 
-    <bean class="org.springframework.jmx.support.MBeanServerFactoryBean"/>
+    <!--<bean class="org.springframework.jmx.support.MBeanServerFactoryBean"/>-->
 
     <!--
       this bean needs to be eagerly pre-instantiated in order for the exporting to occur;
       this means that it must not be marked as lazily initialized
     -->
-    <bean class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
-        <property name="beans">
-            <map>
-                <entry key="bean:name=parallelSnmpDiscovery" value-ref="parallelSnmpDiscovery"/>
-            </map>
-        </property>
-    </bean>
+    <!--<bean class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">-->
+        <!--<property name="beans">-->
+            <!--<map>-->
+                <!--<entry key="bean:name=parallelSnmpDiscovery" value-ref="parallelSnmpDiscovery"/>-->
+            <!--</map>-->
+        <!--</property>-->
+    <!--</bean>-->
 
     <bean id="discoveryWorkerFactory" class="net.itransformers.idiscover.v2.core.factory.DiscoveryWorkerFactory"/>
     <bean id="parallelSnmpDiscovery" class="net.itransformers.idiscover.v2.core.parallel.ParallelNetworkNodeDiscovererImpl">

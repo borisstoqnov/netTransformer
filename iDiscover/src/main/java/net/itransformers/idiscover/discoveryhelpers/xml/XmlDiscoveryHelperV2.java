@@ -64,7 +64,6 @@ public class XmlDiscoveryHelperV2 {
         parseDeviceRawData(data, deviceXmlOutputStream, deviceType.getXslt(), params);
 
         ByteArrayInputStream is = new ByteArrayInputStream(deviceXmlOutputStream.toByteArray());
-        System.out.println(Arrays.toString(deviceXmlOutputStream.toByteArray()));
         try {
             return JaxbMarshalar.unmarshal(DiscoveredDeviceData.class, is);
         } catch (JAXBException e) {

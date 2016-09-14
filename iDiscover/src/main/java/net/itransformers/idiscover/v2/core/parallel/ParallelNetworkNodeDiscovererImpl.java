@@ -34,20 +34,23 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     static Logger logger = Logger.getLogger(ParallelNetworkNodeDiscovererImpl.class);
 
 
-    ExecutorService eventExecutorService;
-    ExecutorCompletionService eventExecutorCompletionService;
-    Collection<Future> eventFutures = new LinkedList<Future>();
-    PausableThreadPoolExecutor executorService;
-    ExecutorCompletionService<NodeDiscoveryResult> executorCompletionService;
-    NodeFactory nodeFactory = new NodeFactory();
-    int futureCounter;
-    int eventFutureCount;
+    protected ExecutorService eventExecutorService;
+    protected ExecutorCompletionService eventExecutorCompletionService;
 
-    DiscoveryWorkerFactory discoveryWorkerFactory;
-    Set<ConnectionDetails> discoveredConnectionDetails = new HashSet<>();
-    Map<String, List<Future<NodeDiscoveryResult>>> nodeNeighbourFuturesMap = new HashMap<>();
-    Map<String, NodeDiscoveryResult> nodeDiscoveryResultMap = new HashMap<>();
-    Map<String, Map<String, ConnectionDetails>> neighbourConnectionDetailsMap = new HashMap<>();
+    protected PausableThreadPoolExecutor executorService;
+    protected ExecutorCompletionService<NodeDiscoveryResult> executorCompletionService;
+    protected NodeFactory nodeFactory = new NodeFactory();
+    protected int futureCounter;
+    protected int eventFutureCount;
+
+    protected DiscoveryWorkerFactory discoveryWorkerFactory;
+    protected Set<ConnectionDetails> discoveredConnectionDetails = new HashSet<>();
+    /**
+     * Contains for a given parent node all the futures created for the neighbour (child) nodes.
+     * We use this data structure to determine when all neighbours (children) of given parent are discovered
+     */
+    protected Map<String, List<Future<NodeDiscoveryResult>>> nodeNeighbourFuturesMap = new HashMap<>();
+    protected Map<String, NodeDiscoveryResult> nodeDiscoveryResultMap = new HashMap<>();
 
 
     public ParallelNetworkNodeDiscovererImpl() {
@@ -64,34 +67,23 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
             long startTime = System.currentTimeMillis();
             futureCounter = 0;
             eventFutureCount = 0;
-            for (ConnectionDetails connectionDetails : connectionDetailsList) {
-                discoveredConnectionDetails.add(connectionDetails);
-                executorCompletionService.submit(discoveryWorkerFactory.createDiscoveryWorker(nodeDiscoverers, connectionDetails, null));
-                futureCounter++;
-            }
+            createInitialDiscoveryWorkers(connectionDetailsList);
             while (futureCounter > 0) {
                 logger.debug("futureCounter: " + futureCounter);
                 try {
+
                     Future<NodeDiscoveryResult> future = executorCompletionService.take();
                     futureCounter--;
                     NodeDiscoveryResult result = future.get();
-                    fireNodeDiscoveredEvent((NodeDiscoveryResult) result.clone());
-                    String parentId = result.getParentId();
-                    if (parentId != null) {
-                        List<Future<NodeDiscoveryResult>> parentNeighbourFutures = nodeNeighbourFuturesMap.get(parentId);
-                        logger.debug("Removing node neighbour for parentId=" + parentId + ", nodeId in future=" + future.get().getNodeId());
-                        parentNeighbourFutures.remove(future);
-                        if (result.getNodeId() != null) {
-                            neighbourConnectionDetailsMap.get(parentId).put(result.getNodeId(), result.getDiscoveryConnectionDetails());
-                        }
-                        if (parentNeighbourFutures.isEmpty()) {
-                            NodeDiscoveryResult parentDiscoveryResult = nodeDiscoveryResultMap.remove(parentId);
-                            nodeNeighbourFuturesMap.remove(parentId);
-                            Map<String, ConnectionDetails> neighbourConnectionDetails = neighbourConnectionDetailsMap.remove(parentId);
-                            fireNeighboursDiscoveredEvent(parentDiscoveryResult, neighbourConnectionDetails);
-                        }
-                    }
+                    this.fireNodeDiscoveredEvent((NodeDiscoveryResult) result.clone());
                     String nodeId = result.getNodeId();
+                    String parentId = result.getParentId();
+                    boolean neighbourIsDiscovered = checkIfNeighbourIsDiscovered(future, nodeId, parentId);
+
+                    if (neighbourIsDiscovered) {
+                        NodeDiscoveryResult parentDiscoveryResult = nodeDiscoveryResultMap.remove(parentId);
+                        this.fireNeighboursDiscoveredEvent(parentDiscoveryResult);
+                    }
                     if (nodeId == null) {
                         logger.debug("Unable to discover node with parent: " + parentId + ", for connection details=" + result.getDiscoveryConnectionDetails());
                         continue;
@@ -100,51 +92,24 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                         logger.debug("Node already discovered: nodeId=" + nodeId + ", for connection details=" + result.getDiscoveryConnectionDetails());
                         continue;
                     }
-                    Node node = nodeFactory.createNode(nodeId);
-                    node.setAliases(result.getNodeAliases());
-                    nodes.put(nodeId, node);
-                    Node parentNode = nodes.get(parentId);
-                    if (parentNode != null) {
-                        parentNode.addNeighbour(node);
-                    }
-
+                    Set<String> nodeAliases = result.getNodeAliases();
+                    this.updateNodesStructure(parentId, nodeId, nodeAliases);
                     nodeDiscoveryResultMap.put(nodeId, result);
-                    neighbourConnectionDetailsMap.put(nodeId, new HashMap<>());
-                    Set<ConnectionDetails> neighboursConnectionDetailsSet = new HashSet<ConnectionDetails>(result.getNeighboursConnectionDetails());
-                    neighboursConnectionDetailsSet.removeAll(discoveredConnectionDetails);
-                    ArrayList<Future<NodeDiscoveryResult>> neighbourFutures = new ArrayList<Future<NodeDiscoveryResult>>();
-
-                    for (ConnectionDetails neighboursConnectionDetails : neighboursConnectionDetailsSet) {
-                        discoveredConnectionDetails.add(neighboursConnectionDetails);
-                        DiscoveryWorker discoveryWorker = discoveryWorkerFactory.createDiscoveryWorker(nodeDiscoverers, neighboursConnectionDetails, nodeId);
-                        Future<NodeDiscoveryResult> nodeNeighbourFuture = executorCompletionService.submit(discoveryWorker);
-
-                        neighbourFutures.add(nodeNeighbourFuture);
-                        futureCounter++;
-                    }
+                    ArrayList<Future<NodeDiscoveryResult>> neighbourFutures = createNewDiscoveryWorkers(result.getNeighboursConnectionDetails(), nodeId);
                     logger.info("Adding node neighbours for discovery... nodeId=" + nodeId + ", neighbour future size=" + neighbourFutures.size());
-                    nodeNeighbourFuturesMap.put(nodeId, neighbourFutures);
+                    if (neighbourFutures.size() > 0) {
+                        nodeNeighbourFuturesMap.put(nodeId, neighbourFutures);
+                    } else {
+                        this.fireNeighboursDiscoveredEvent(result);
+                    }
                 } catch (Exception e) {
                     logger.error(e.getMessage(), e);
                 }
             }
-            NetworkDiscoveryResult result = new NetworkDiscoveryResult();
-            result.setNodes(nodes);
-            fireNetworkDiscoveredEvent(result);
-
-            while (eventFutureCount > 0) {
-                try {
-                    eventFutureCount--;
-                    eventExecutorCompletionService.take();
-                } catch (InterruptedException e) {
-                    logger.error(e.getMessage(), e);
-                }
-            }
-
-            logger.info("Shutting down event executor service");
-            eventExecutorService.shutdown();
-            logger.info("Shutting down discovery task executor service");
-            executorService.shutdown();
+            NetworkDiscoveryResult result = new NetworkDiscoveryResult(nodes);
+            this.fireNetworkDiscoveredEvent(result);
+            this.waitAndShutdownEventExecutors();
+            this.shutdownExecutor();
             logger.info("Discovery finished in " + ((System.currentTimeMillis() - startTime) / 1000) + " seconds.");
             return result;
         } finally {
@@ -152,9 +117,75 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
             discoveredConnectionDetails.clear();
             nodeNeighbourFuturesMap.clear();
             nodeDiscoveryResultMap.clear();
-            neighbourConnectionDetailsMap.clear();
         }
     }
+
+    private void shutdownExecutor() {
+        logger.info("Shutting down discovery task executor service");
+        executorService.shutdown();
+    }
+
+    private boolean checkIfNeighbourIsDiscovered(Future<NodeDiscoveryResult> future, String nodeId, String parentId) {
+        if (parentId != null) {
+            List<Future<NodeDiscoveryResult>> parentNeighbourFutures = nodeNeighbourFuturesMap.get(parentId);
+            logger.debug("Removing node neighbour for parentId=" + parentId + ", nodeId in future=" + nodeId);
+            parentNeighbourFutures.remove(future);
+            if (parentNeighbourFutures.isEmpty()) {
+                nodeNeighbourFuturesMap.remove(parentId);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void createInitialDiscoveryWorkers(Set<ConnectionDetails> connectionDetailsList) {
+        for (ConnectionDetails connectionDetails : connectionDetailsList) {
+            discoveredConnectionDetails.add(connectionDetails);
+            executorCompletionService.submit(discoveryWorkerFactory.createDiscoveryWorker(nodeDiscoverers, connectionDetails, null));
+            futureCounter++;
+        }
+    }
+
+    private ArrayList<Future<NodeDiscoveryResult>> createNewDiscoveryWorkers(Set<ConnectionDetails> aNeighboursConnectionDetailsSet, String nodeId) {
+        Set<ConnectionDetails> neighboursConnectionDetailsSet = new HashSet<>(aNeighboursConnectionDetailsSet);
+        neighboursConnectionDetailsSet.removeAll(discoveredConnectionDetails);
+        ArrayList<Future<NodeDiscoveryResult>> neighbourFutures = new ArrayList<>();
+
+        for (ConnectionDetails neighboursConnectionDetails : neighboursConnectionDetailsSet) {
+            discoveredConnectionDetails.add(neighboursConnectionDetails);
+            DiscoveryWorker discoveryWorker = discoveryWorkerFactory.createDiscoveryWorker(nodeDiscoverers, neighboursConnectionDetails, nodeId);
+            Future<NodeDiscoveryResult> nodeNeighbourFuture = executorCompletionService.submit(discoveryWorker);
+            neighbourFutures.add(nodeNeighbourFuture);
+            futureCounter++;
+        }
+        return neighbourFutures;
+    }
+
+    private void updateNodesStructure(String parentId, String nodeId, Set<String> nodeAliases) {
+        Node node = nodeFactory.createNode(nodeId);
+        node.setAliases(nodeAliases);
+        nodes.put(nodeId, node);
+        Node parentNode = nodes.get(parentId);
+        if (parentNode != null) {
+            parentNode.addNeighbour(node);
+        }
+    }
+
+    private void waitAndShutdownEventExecutors() {
+        while (eventFutureCount > 0) {
+            try {
+                eventFutureCount--;
+                eventExecutorCompletionService.take();
+            } catch (InterruptedException e) {
+                logger.error(e.getMessage(), e);
+            }
+        }
+        logger.info("Shutting down event executor service");
+        eventExecutorService.shutdown();
+
+
+    }
+
 
     public synchronized void stop() {
         executorService.shutdown();
@@ -181,29 +212,29 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         if (nodeDiscoveryListeners != null) {
             for (final NodeDiscoveryListener nodeDiscoveryListener : nodeDiscoveryListeners) {
                 eventFutureCount++;
-                eventFutures.add(eventExecutorCompletionService.submit(new Runnable() {
+                eventExecutorCompletionService.submit(new Runnable() {
                     @Override
                     public void run() {
                         nodeDiscoveryListener.nodeDiscovered(discoveryResult);
                     }
-                }, null));
+                }, null);
             }
         }
     }
 
-    protected void fireNeighboursDiscoveredEvent(final NodeDiscoveryResult nodeDiscoveryResult, Map<String, ConnectionDetails> discoveredNeighbourConnections) {
+    protected void fireNeighboursDiscoveredEvent(final NodeDiscoveryResult nodeDiscoveryResult) {
         if (nodeNeighbourDiscoveryListeners != null) {
             String nodeId = nodeDiscoveryResult.getNodeId();
 
             final Node node = nodes.get(nodeId);
             for (final NodeNeighboursDiscoveryListener nodeNeighboursDiscoveryListener : nodeNeighbourDiscoveryListeners) {
                 eventFutureCount++;
-                eventFutures.add(eventExecutorCompletionService.submit(new Runnable() {
+                eventExecutorCompletionService.submit(new Runnable() {
                     @Override
                     public void run() {
-                        nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node, nodeDiscoveryResult, discoveredNeighbourConnections);
+                        nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node, nodeDiscoveryResult);
                     }
-                }, null));
+                }, null);
 
             }
         }
@@ -213,12 +244,12 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         if (networkDiscoveryListeners != null)
             for (final NetworkDiscoveryListener networkDiscoveryListener : networkDiscoveryListeners) {
                 eventFutureCount++;
-                eventFutures.add(eventExecutorCompletionService.submit(new Runnable() {
+                eventExecutorCompletionService.submit(new Runnable() {
                     @Override
                     public void run() {
                         networkDiscoveryListener.networkDiscovered(result);
                     }
-                }, null));
+                }, null);
 
             }
     }
@@ -255,10 +286,6 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         this.executorCompletionService = executorCompletionService;
     }
 
-    public Collection<Future> getEventFutures() {
-        return eventFutures;
-    }
-
     public int getFutureCounter() {
         return futureCounter;
     }
@@ -277,10 +304,6 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
 
     public Set<String> getNodeDiscoveryResultMapKeys() {
         return new HashSet<>(nodeDiscoveryResultMap.keySet());
-    }
-
-    public Map<String, Map<String, ConnectionDetails>> getNeighbourConnectionDetailsMap() {
-        return neighbourConnectionDetailsMap;
     }
 
     public DiscoveryWorkerFactory getDiscoveryWorkerFactory() {
