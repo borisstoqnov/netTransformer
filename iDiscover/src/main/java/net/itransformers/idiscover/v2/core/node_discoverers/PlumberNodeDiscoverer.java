@@ -5,10 +5,12 @@ import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.node_discoverers.dns.DnsNodeDiscoverer;
+import net.itransformers.idiscover.v2.core.node_discoverers.dns.DnsResolver;
 import net.itransformers.idiscover.v2.core.node_discoverers.icmp.IcmpDiscoverer;
 import net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer.SnmpParallelNodeDiscoverer;
 import org.apache.log4j.Logger;
 
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -33,52 +35,75 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
     }
 
 
+   private NodeDiscoveryResult doIcmpDiscovery(ConnectionDetails connectionDetails){
+        return icmpDiscoverer.discover(connectionDetails);
+
+    }
+
+   private NodeDiscoveryResult doDnsDiscovery(ConnectionDetails connectionDetails){
+       return dnsNodeDiscoverer.discover(connectionDetails);
+   }
     @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
         Set<String> nodeAliases = new HashSet<>();
 
+        String ipAddressString = connectionDetails.getParam("ipAddress");
         String connectionDetailsNodeId = connectionDetails.getParam("deviceName");
+
+
+        if (ipAddressString!=null) {
+            if (ipAddressString.isEmpty()) {
+                System.out.println(connectionDetails);
+                DnsResolver dnsResolver = new DnsResolver();
+                try {
+                    String ipAddress = dnsResolver.resolveIpByName(connectionDetailsNodeId);
+                    connectionDetails.put("ipAddress", ipAddress);
+
+                } catch (UnknownHostException e) {
+                    logger.error(e.getMessage(), e);
+                    return null;
+                }
+            }
+        } else{
+            return null;
+        }
+
         if (connectionDetailsNodeId!=null && !connectionDetailsNodeId.isEmpty())
             nodeAliases.add(connectionDetailsNodeId);
 
 
         NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult();
-        Map<String, Object> discoveryData  = new HashMap<String, Object>();
-        Set<ConnectionDetails> neighbourConnectionDetails  = new HashSet<ConnectionDetails>();
+        Map<String, Object> discoveryData  = new HashMap<>();
+        Set<ConnectionDetails> neighbourConnectionDetails  = new HashSet<>();
 
-        NodeDiscoveryResult icmpDiscoveryResult =  new NodeDiscoveryResult();
-         icmpDiscoverer.discover(connectionDetails);
-
-        if (icmpDiscoveryResult == null ){
+        NodeDiscoveryResult icmpDiscoveryResult =  doIcmpDiscovery(connectionDetails);
+        String icmpNodeId = null;
+        if (icmpDiscoveryResult!=null) {
+            icmpNodeId = icmpDiscoveryResult.getNodeId();
+        }else{
             return null;
         }
-
-        String icmpNodeId=icmpDiscoveryResult.getNodeId();
         if (icmpNodeId!=null && !icmpNodeId.isEmpty())
             nodeAliases.add(icmpNodeId);
-
-
         Map<String, Object> icmpDiscoveryData = icmpDiscoveryResult.getDiscoveredData();
-        String icmpStatus = (String) icmpDiscoveryData.get("icmpStatus");
 
         for (String s : icmpDiscoveryData.keySet()) {
              discoveryData.put(s,icmpDiscoveryData.get(s));
         }
 
         String dnsNodeId = null;
-        NodeDiscoveryResult dnsDiscoveryResult = dnsNodeDiscoverer.discover(connectionDetails);
+        NodeDiscoveryResult dnsDiscoveryResult = doDnsDiscovery(connectionDetails);
+
         if (dnsDiscoveryResult!=null) {
 
-            if (dnsDiscoveryResult != null) {
-                dnsNodeId = dnsDiscoveryResult.getNodeId();
-                if (dnsNodeId!=null && !dnsNodeId.isEmpty())
-                    nodeAliases.add(dnsNodeId);
+            dnsNodeId = dnsDiscoveryResult.getNodeId();
+            if (dnsNodeId!=null && !dnsNodeId.isEmpty())
+                nodeAliases.add(dnsNodeId);
 
-                Map<String, Object> dnsDiscoveryData = dnsDiscoveryResult.getDiscoveredData();
+            Map<String, Object> dnsDiscoveryData = dnsDiscoveryResult.getDiscoveredData();
 
-                for (String s : dnsDiscoveryData.keySet()) {
-                    discoveryData.put(s, dnsDiscoveryData.get(s));
-                }
+            for (String s : dnsDiscoveryData.keySet()) {
+                discoveryData.put(s, dnsDiscoveryData.get(s));
             }
         }
         String snmpNodeId = null;
