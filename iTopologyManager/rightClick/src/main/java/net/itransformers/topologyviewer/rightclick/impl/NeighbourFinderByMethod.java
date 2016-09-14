@@ -3,7 +3,6 @@ package net.itransformers.topologyviewer.rightclick.impl;
 
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
-import net.itransformers.resourcemanager.config.IPsecPair;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
@@ -14,12 +13,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 
 public class NeighbourFinderByMethod implements RightClickHandler {
 
-    protected String performIPSecAction(IPsecPair[] ipsecpair) throws IOException, InterruptedException {
+    protected String performIPSecAction(ChangeIPSecKeyHandler.IPsecPair[] ipsecpair) throws IOException, InterruptedException {
 
 
         StringBuilder entiremessage = new StringBuilder();
@@ -63,7 +61,7 @@ public class NeighbourFinderByMethod implements RightClickHandler {
 
         String method = (String) rightClickParams.get("Discovery Method");
         int i = 0;
-        IPsecPair[] ipsecpair = new IPsecPair[100];
+        ChangeIPSecKeyHandler.IPsecPair[] ipsecpair = new ChangeIPSecKeyHandler.IPsecPair[100];
 
         Collection<String> outedges = currentGraph.getEdges();
 
@@ -90,7 +88,7 @@ public class NeighbourFinderByMethod implements RightClickHandler {
                 if ((neighbourDeviceType != null && neighbourDeviceType.equals("Subnet")) && ((thisDeviceType != null && thisDeviceType.equals("Subnet")))) {
                     System.out.println("Neighbour " + second + " is a subnet");
                 } else if (v == first || v == second) {
-                    IPsecPair p = new IPsecPair(first,thisDeviceIPAddress,second,neighbourDeviceIPAddress);
+                    ChangeIPSecKeyHandler.IPsecPair p = new ChangeIPSecKeyHandler.IPsecPair(first,thisDeviceIPAddress,second,neighbourDeviceIPAddress);
                     ipsecpair[i] = p;
                     i++;
                 }

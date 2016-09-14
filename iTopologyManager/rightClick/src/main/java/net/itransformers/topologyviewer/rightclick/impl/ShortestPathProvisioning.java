@@ -100,7 +100,7 @@ public class ShortestPathProvisioning implements RightClickHandler {
             context.put("xmlFileName", deviceDataXmlFileName.toURI().toString());
             context.put("parentFrame", parent);
 
-            ResourceType resource = resourceManager.findResource(graphMLParams1);
+            ResourceType resource = resourceManager.findFirstResourceBy(graphMLParams1);
             context.put("connection-params", ResourceResolver.getConnectionParams(resource, graphMLParams1, "telnet"));
             FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(projectPath, new File (projectPath, rightClickParams.get("fulfilment-factory")),
                     builder,resource);

@@ -52,11 +52,12 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
     private File projectPath;
     private String resourceManagerPath;
     private String reportGeneratorPath;
-
+    private ResourceManager resourceManager;
 
     private String tableTransfomator;
 
-//    public PostNetworkDiscoveryListener(){
+
+    //    public PostNetworkDiscoveryListener(){
 //
 //    }
 //    public PostNetworkDiscoveryListener(String graphmlDataDirName, String labelDirName, String scriptPath, File projectPath, String resourceManagerPath, String reportGeneratorPath) {
@@ -73,23 +74,6 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
     @Override
     public void networkDiscovered(NetworkDiscoveryResult result) {
         logger.info("Starting PostNetwork Discovery Listener");
-        String xml = null;
-        try {
-            xml = FileUtils.readFileToString(new File(projectPath, resourceManagerPath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        InputStream is1 = new ByteArrayInputStream(xml.getBytes());
-        ResourcesType deviceGroupsType = null;
-
-        try {
-            deviceGroupsType = net.itransformers.resourcemanager.util.JaxbMarshalar.unmarshal(ResourcesType.class, is1);
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-        ResourceManager resourceManager = new ResourceManager(deviceGroupsType);
-
         File postDiscoveryConfing = new File(projectPath + reportGeneratorPath);
 
         FileInputStream is = null;
@@ -126,7 +110,7 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
             params.put("protocol", "telnet");
             params.put("address",connectionDetails.getParam("ipAddress"));
 
-            ResourceType resource =  resourceManager.findResource(params);
+            ResourceType resource =  resourceManager.findFirstResourceBy(params);
             if(resource==null){
                 continue;
             }
@@ -232,5 +216,11 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
         this.tableTransfomator = tableTransfomator;
     }
 
+    public ResourceManager getResourceManager() {
+        return resourceManager;
+    }
 
+    public void setResourceManager(ResourceManager resourceManager) {
+        this.resourceManager = resourceManager;
+    }
 }

@@ -45,6 +45,7 @@
         <property name="resourceManagerPath" value="resourceManager/conf/xml/resource.xml"/>
         <property name="reportGeneratorPath" value="postDiscoverer/conf/xml/reportGenerator.xml"/>
         <property name="tableTransfomator" value="iTopologyManager/rightClick/conf/xslt/table_creator.xslt"/>
+        <property name="resourceManager" ref="resourceManager"/>
     </bean>
 
 
@@ -105,10 +106,13 @@
             </list>
         </property>
     </bean>
-    <bean id="discoveryResourceManager" class="net.itransformers.idiscover.core.DiscoveryResourceManager">
+    <bean id="resourceManager" class="net.itransformers.resourcemanager.xmlResourceManager.FileBasedResourceManager">
         <constructor-arg ref="projectPath"/>
-        <constructor-arg value="1"/>
-        <constructor-arg value="resourceManager/conf/xml/nbu.xml"/>
+        <constructor-arg value="${projectPath}/resourceManager/conf/xml/nbu.xml"/>
+    </bean>
+
+    <bean id="discoveryResourceManager" class="net.itransformers.idiscover.core.DiscoveryResourceManager">
+        <constructor-arg ref="resourceManager"/>
     </bean>
 
 

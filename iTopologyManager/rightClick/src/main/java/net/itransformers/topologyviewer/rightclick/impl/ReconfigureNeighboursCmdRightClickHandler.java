@@ -53,7 +53,7 @@ public class ReconfigureNeighboursCmdRightClickHandler implements RightClickHand
 //                                     Map<String, String> rightClickParams,
 //                                     String versionDir) throws Exception {
 //        Map<String,String> connParams;
-//        connParams = ResourceResolver.getResource(parent, graphMLParams, rightClickParams.get("resource"));
+//        connParams = ResourceResolver.findResourceByName(parent, graphMLParams, rightClickParams.get("resource"));
 //        String deviceType = graphMLParams.get("deviceType");
 //        ParameterFactoryBuilder builder = new ParameterFactoryBuilder(rightClickParams.get("parameterFactoryXml"));
 //        ParameterFactory factory = builder.buildParameterFactory(deviceType);
@@ -113,7 +113,7 @@ public class ReconfigureNeighboursCmdRightClickHandler implements RightClickHand
         context.put("xmlFileName", deviceXmlPath);
         context.put("parentFrame", parent);
         ResourceManager resourceManager = new ResourceManager(new File(projectPath, rightClickParams.get("resource")));
-        ResourceType resource = resourceManager.findResource(graphMLParams);
+        ResourceType resource = resourceManager.findFirstResourceBy(graphMLParams);
         if (resource!=null){
             context.put("connection-params", ResourceResolver.getConnectionParams(resource, graphMLParams, "telnet"));
             FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(projectPath, new File(projectPath, rightClickParams.get("fulfilment-factory")),

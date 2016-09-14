@@ -1,7 +1,7 @@
 
 
 /*
- * sdnGraphmlFileLogDiscoveryListener.java
+ * SdnGraphmlFileLogDiscoveryListener.java
  *
  * This work is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
@@ -30,13 +30,11 @@ import net.itransformers.resourcemanager.ResourceManager;
 import net.itransformers.resourcemanager.config.ConnectionParamsType;
 import net.itransformers.resourcemanager.config.ParamType;
 import net.itransformers.resourcemanager.config.ResourceType;
-import net.itransformers.resourcemanager.config.ResourcesType;
 import net.itransformers.utils.XsltTransformer;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.*;
@@ -44,41 +42,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class sdnGraphmlFileLogDiscoveryListener implements NodeDiscoveryListener {
-    static Logger logger = Logger.getLogger(sdnGraphmlFileLogDiscoveryListener.class);
+public class SdnGraphmlFileLogDiscoveryListener implements NodeDiscoveryListener {
+    static Logger logger = Logger.getLogger(SdnGraphmlFileLogDiscoveryListener.class);
     String graphmlDataDirName;
     String labelDirName;
     String floodLighGraphmlXsltTransformator;
     private File projectPath;
     private String resourceManagerPath;
 
-
+    private ResourceManager resourceManager;
 
     // walker = (JsonDiscoverer) new DefaultDiscovererFactory().createDiscoverer(resource);
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
 
-        String xml = null;
-        try {
-            xml = FileUtils.readFileToString(new File(projectPath, resourceManagerPath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        InputStream is1 = new ByteArrayInputStream(xml.getBytes());
-        ResourcesType deviceGroupsType = null;
-
-        try {
-            deviceGroupsType = net.itransformers.resourcemanager.util.JaxbMarshalar.unmarshal(ResourcesType.class, is1);
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-        ResourceManager resourceManager = new ResourceManager(deviceGroupsType);
         final Map<String, String> params = new HashMap<String, String>();
         params.put("deviceName",discoveryResult.getNodeId());
 
 
-        ResourceType resource =  resourceManager.findResource(params);
+        ResourceType resource =  resourceManager.findFirstResourceBy(params);
 
 
 
@@ -174,7 +156,15 @@ public class sdnGraphmlFileLogDiscoveryListener implements NodeDiscoveryListener
         this.floodLighGraphmlXsltTransformator = floodLighGraphmlXsltTransformator;
     }
 
-//    public void setfloodlightGraphmlXsltName(String floodlightGraphmlXslt) {
+    public ResourceManager getResourceManager() {
+        return resourceManager;
+    }
+
+    public void setResourceManager(ResourceManager resourceManager) {
+        this.resourceManager = resourceManager;
+    }
+
+    //    public void setfloodlightGraphmlXsltName(String floodlightGraphmlXslt) {
 //        this.floodlightGraphmlXslt = floodlightGraphmlXslt;
 //    }
 }

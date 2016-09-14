@@ -32,11 +32,12 @@ import java.util.List;
 import java.util.Map;
 
 public class ResourceResolver {
+
     public static Map<String, String> getResource(Map<String, String> graphMLParams,
                                                   File resourceFile, String protocol) throws Exception {
         ResourceType resource;
         ResourceManager rc = new ResourceManager(resourceFile);
-        resource = rc.findResource(graphMLParams);
+        resource = rc.findFirstResourceBy(graphMLParams);
         if (resource == null) {
             throw new RuntimeException("Resource not found");
         }

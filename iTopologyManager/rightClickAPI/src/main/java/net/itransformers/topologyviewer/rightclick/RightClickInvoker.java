@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RightClickInvoker {
+
     public static void invokeRightClickHandler(JFrame frame, String v, final RightClickItemType rcItemType,
                                                Map<String, GraphMLMetadata<String>> vertexMetadatas,
                                                File path,

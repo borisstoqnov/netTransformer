@@ -328,7 +328,7 @@ public class SnmpForXslt {
 
             ResourceType resourceType = resourceManager.returnResourceByParam(resourceParameters);
 
-            ArrayList<ResourceType> snmpResources = resourceManager.returnResourcesByConnectionType("snmp");
+            List<ResourceType> snmpResources = resourceManager.returnResourcesByConnectionType("snmp");
 
 
             Map<String, String> connParams = new HashMap<String, String>();

@@ -77,7 +77,7 @@ public class ResourcesType {
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getResource().add(newItem);
+     *    findResourceByName().add(newItem);
      * </pre>
      * 
      * 

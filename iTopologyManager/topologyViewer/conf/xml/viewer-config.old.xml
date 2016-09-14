@@ -774,7 +774,6 @@
                 <param name="ssh_saved_session">-ssh -l %s -pw %s -load %s %s </param>
                 <param name="telnet_no_saved_session">-telnet -l %s %s</param>
                 <param name="telnet_saved_session">-telnet -l %s -load %s %s</param>
-                <param name="resource">resourceManager/conf/xml/resource.xml</param>
                 <param name="saved_session"></param>
             </rightClickItem>
         </submenu>

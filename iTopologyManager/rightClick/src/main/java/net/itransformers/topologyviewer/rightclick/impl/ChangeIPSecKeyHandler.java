@@ -1,7 +1,6 @@
 
 package net.itransformers.topologyviewer.rightclick.impl;
 
-import net.itransformers.resourcemanager.config.IPsecPair;
 import net.itransformers.topologyviewer.fulfilmentfactory.impl.CLIInterface;
 import net.itransformers.topologyviewer.fulfilmentfactory.impl.TelnetCLIInterface;
 import net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl;
@@ -25,40 +24,39 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
     //We need the neighbours before connecting to them
 
 
-
     @Override
     protected String performIPSecAction(IPsecPair[] ipsecpair) throws IOException {
         //If this is first run we want to save the old key before generating new ones
         List<String> userInput = firstTimeConfigurationCheck(ipsecpair);
-        int pairCounter =0;
-        for(IPsecPair pair : ipsecpair){
+        int pairCounter = 0;
+        for (IPsecPair pair : ipsecpair) {
 
-            if(pair != null){
+            if (pair != null) {
                 pairCounter++;
             }
         }
         //If we have already done this continue
-        if(userInput != null && userInput.size() != pairCounter) {
+        if (userInput != null && userInput.size() != pairCounter) {
             printMessageToScreen("Something happened");
             return "";
         }
 
         String ipseckeyFilename = "";
         String oldkey = "";
-        int counter=0;
-        String message="";
+        int counter = 0;
+        String message = "";
 
-        final  JTextArea area = initializeWorkerDialog();
-        publishProgress("Starting something" ,area);
+        final JTextArea area = initializeWorkerDialog();
+        publishProgress("Starting something", area);
 
         for (IPsecPair pair : ipsecpair) {
 
-            if (pair!=null) {
+            if (pair != null) {
                 ipseckeyFilename = pair.getRouterName() + pair.getRouterIP() + pair.getNeighbourName() + pair.getNeighbourIP();
                 //empty the counter and pair for the next iteration
 
                 //Generate key and file
-                if(userInput != null){
+                if (userInput != null) {
                     oldkey = userInput.get(counter);
                 } else {
                     oldkey = KeyFromFile(ipseckeyFilename);
@@ -69,7 +67,7 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
                 Logger.getAnonymousLogger().log(Level.INFO, "Initialising cli" + Thread.currentThread().getName());
                 CLIInterface cli;
                 cli = new TelnetCLIInterface(pair.getRouterIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
-                publishProgress("Opening connection to router with IP: " + pair.getRouterIP() + " name: " + pair.getRouterName(),area);
+                publishProgress("Opening connection to router with IP: " + pair.getRouterIP() + " name: " + pair.getRouterName(), area);
                 //Change IP sec key for first router
                 Map<String, String> paramsfirst = generateConfigMap(pair, oldkey, ipseckeyFilename);
 
@@ -82,7 +80,7 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
                 Map<String, String> paramssecond = generateConfigMap(pair, oldkey, ipseckeyFilename);
                 //Change IP sec key for second router
                 cli = new TelnetCLIInterface(pair.getNeighbourIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
-                publishProgress("Opening connection to router with IP: " + pair.getNeighbourIP() + " name: " + pair.getNeighbourName(),area);
+                publishProgress("Opening connection to router with IP: " + pair.getNeighbourIP() + " name: " + pair.getNeighbourName(), area);
 
 
                 cli.open();
@@ -90,15 +88,11 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
                 telnetTorouter.execute("E:\\iTransformer\\netTransformer\\iTopologyManager\\fulfilmentFactory\\conf\\templ\\ChangeIPsecKey.templ", paramssecond);
                 cli.close();
 
-                publishProgress("Finished work for the router pair.",area);
+                publishProgress("Finished work for the router pair.", area);
                 counter++;
-            }
-            else if (counter > 0)
-            {
+            } else if (counter > 0) {
                 message = "Key change completed";
-            }
-            else
-            {
+            } else {
                 message = "Pair is null";
             }
 
@@ -167,16 +161,14 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
             configMap = new HashMap<>();
             configMap.put("username", "nbu");
             configMap.put("password", "nbu");
-            if (whichrouter==false) {
+            if (whichrouter == false) {
                 configMap.put("discoveredIPv4address", pair.getRouterIP());
                 configMap.put("ipsecneighbour", pair.getNeighbourIP());
                 whichrouter = true;
-            }
-            else
-            {
+            } else {
                 configMap.put("discoveredIPv4address", pair.getNeighbourIP());
                 configMap.put("ipsecneighbour", pair.getRouterIP());
-                whichrouter=false;
+                whichrouter = false;
             }
             configMap.put("prompt", "#");
             configMap.put("enable-password", "nbu");
@@ -298,5 +290,59 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
 //
 //
 //    }
+
+    /**
+     * Created by vasko on 14.09.16.
+     */
+    public static class IPsecPair {
+        private final String first;
+        private final String thisDeviceIPAddress;
+        private final String second;
+        private final String neighbourDeviceIPAddress;
+        private String routerIP;
+        private String neighbourIP;
+        private String routerName;
+        private String neighbourName;
+
+        public IPsecPair(String first, String thisDeviceIPAddress, String second, String neighbourDeviceIPAddress) {
+
+            this.first = first;
+            this.thisDeviceIPAddress = thisDeviceIPAddress;
+            this.second = second;
+            this.neighbourDeviceIPAddress = neighbourDeviceIPAddress;
+        }
+
+        public String getFirst() {
+            return first;
+        }
+
+        public String getThisDeviceIPAddress() {
+            return thisDeviceIPAddress;
+        }
+
+        public String getSecond() {
+            return second;
+        }
+
+        public String getNeighbourDeviceIPAddress() {
+            return neighbourDeviceIPAddress;
+        }
+
+        public String getRouterIP() {
+            return routerIP;
+        }
+
+        public String getNeighbourIP() {
+            return neighbourIP;
+        }
+
+        public String getRouterName() {
+            return routerName;
+        }
+
+        public String getNeighbourName() {
+            return neighbourName;
+        }
+    }
 }
 
