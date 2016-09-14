@@ -39,8 +39,8 @@ import java.util.Map;
  * Time: 10:15 PM
  * To change this template use File | Settings | File Templates.
  */
-public class jsonRightClick implements RightClickHandler {
-    static Logger logger = Logger.getLogger(jsonRightClick.class);
+public class JsonRightClick implements RightClickHandler {
+    static Logger logger = Logger.getLogger(JsonRightClick.class);
 
     public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,

@@ -24,9 +24,9 @@ import java.util.*;
 public class FileBasedResourceManager implements ResourceManager {
     static Logger logger = Logger.getLogger(ResourceManager.class);
     private ResourcesType resource;
-    private File file;
+    private String file;
 
-    public FileBasedResourceManager(File file) {
+    public FileBasedResourceManager(String file) {
         this.file = file;
     }
 

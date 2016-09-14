@@ -34,7 +34,7 @@ import java.util.Map;
  * Time: 10:11 PM
  * To change this template use File | Settings | File Templates.
  */
-    public interface graphLoader <G extends Graph<String,String>> {
+    public interface GraphLoader<G extends Graph<String,String>> {
         public void loadGraph(URL urlPath);
         public Map<String, Map<String, GraphMLMetadata<String>>> getVertexMetadatas();
         public Map<String, Map<String, GraphMLMetadata<String>>> getEdgeMetadatas();
