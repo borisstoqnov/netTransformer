@@ -39,7 +39,7 @@ public class ParallelNetworkNodeDiscovererIntegrationTestCase {
         }
     }
 
-    @Test
+//    @Test
     public void testDiscovery() throws IOException, JSONException {
         ParallelNetworkNodeDiscovererImpl discovery = new ParallelNetworkNodeDiscovererImpl(
                 new DiscoveryWorkerFactoryMock(ipAddress2JsonObject),new NodeFactory());

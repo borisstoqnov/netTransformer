@@ -31,6 +31,7 @@
     <version>0.8</version>
     <modules>
         <module>xmlResourceManager</module>
+        <module>resourceManagerAPI</module>
     </modules>
     <!--Change for new version-->
 

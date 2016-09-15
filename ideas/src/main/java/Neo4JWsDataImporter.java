@@ -25,8 +25,8 @@ import net.itransformers.idiscover.networkmodel.ParameterType;
 import net.itransformers.idiscover.networkmodel.ParametersType;
 import net.itransformers.idiscover.util.JaxbMarshalar;
 import net.itransformers.utils.ProjectConstants;
-import net.itransformers.ws.upload.Node;
-import net.itransformers.ws.upload.TreeImporterImplService;
+import upload.Node;
+import upload.TreeImporterImplService;
 
 import javax.ws.rs.core.UriBuilder;
 import javax.xml.namespace.QName;
@@ -37,13 +37,13 @@ import java.util.List;
 
 public class Neo4JWsDataImporter {
     public static int nodeCounter = 0;
-    private static net.itransformers.ws.upload.TreeImporter treeImporter;
+    private static upload.TreeImporter treeImporter;
 
 
     public static void main(String[] args) throws java.lang.Exception {
         treeImporter = new TreeImporterImplService(new URL("http://localhost:8080/wsitransformer/upload"),
                 new QName("http://upload.ws.itransformers.net/", "TreeImporterImplService")).getTreeImporterImplPort();
-//        System.out.println(port.importNode(5L, new net.itransformers.ws.upload.Node()));
+//        System.out.println(port.importNode(5L, new upload.Node()));
         doImport();
     }
 

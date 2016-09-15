@@ -63,7 +63,7 @@ public class NBULabGraphMergeTestCase {
 
        Assert.assertEquals(2,inputFiles.length);
     }
-    @Test
+
     public void merge(){
         try {
             new GrahmlMerge().merge(inputFiles, outputFile,vertexTypes, edgesTypes, "undirected");

@@ -19,13 +19,13 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-import net.itransformers.ws.upload.Exception_Exception;
-import net.itransformers.ws.upload.Node;
-import net.itransformers.ws.upload.TreeImporterImplService;
+import upload.Exception_Exception;
+import upload.Node;
+import upload.TreeImporterImplService;
 
 public class WSClientTest {
     public static void main(String[] args) throws Exception_Exception {
-        net.itransformers.ws.upload.TreeImporter  port = new TreeImporterImplService().getTreeImporterImplPort();
+        upload.TreeImporter  port = new TreeImporterImplService().getTreeImporterImplPort();
         System.out.println(port.importNode(5L, new Node()));
     }
 }
