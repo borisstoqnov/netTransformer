@@ -16,6 +16,7 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <context:component-scan base-package="net.itransformers.ws.resourceManager;"/>
+    <context:component-scan base-package="net.itransformers.ws"/>
+    <context:component-scan base-package="net.itransformers.ws.resourceManager"/>
 
 </beans>

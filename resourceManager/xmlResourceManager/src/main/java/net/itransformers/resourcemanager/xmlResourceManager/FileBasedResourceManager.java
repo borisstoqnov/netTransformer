@@ -28,14 +28,18 @@ public class FileBasedResourceManager implements ResourceManager {
 
     public FileBasedResourceManager(String file) {
         this.file = file;
+        try {
+            load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
     }
 
     public void load() throws IOException, JAXBException {
         FileInputStream is = null;
         try {
-            if (file == null) {
-                throw new RuntimeException("No File Name is specified for loading resources");
-            }
             is = new FileInputStream(file);
             ResourcesType resourcesType;
             resourcesType = JaxbMarshalar.unmarshal(ResourcesType.class, is);
@@ -48,9 +52,6 @@ public class FileBasedResourceManager implements ResourceManager {
     public void save() {
         FileInputStream is = null;
         try {
-            if (file == null) {
-                throw new RuntimeException("No File Name is specified for loading resources");
-            }
             is = new FileInputStream(file);
             ResourcesType resourcesType;
             resourcesType = JaxbMarshalar.unmarshal(ResourcesType.class, is);

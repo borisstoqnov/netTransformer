@@ -9,5 +9,18 @@
 
     <import resource="classpath:xmlResourceManager/xmlResourceManager.xml" />
 
+    <bean name="/hello.htm" class="net.itransformers.ws.resourceManager.HelloController" />
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+        <property name="prefix">
+            <value>/WEB-INF/pages/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
+
+    <context:component-scan base-package="net.itransformers.ws" />
     <context:component-scan base-package="net.itransformers.ws.resourceManager" />
 </beans>
