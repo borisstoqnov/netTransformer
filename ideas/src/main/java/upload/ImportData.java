@@ -53,48 +53,48 @@ import javax.xml.bind.annotation.XmlType;
     "arg1"
 })
 public class ImportData {
-
-    protected long arg0;
-    protected Node arg1;
-
-    /**
-     * Gets the value of the arg0 property.
-     * 
-     */
-    public long getArg0() {
-        return arg0;
-    }
-
-    /**
-     * Sets the value of the arg0 property.
-     * 
-     */
-    public void setArg0(long value) {
-        this.arg0 = value;
-    }
-
-    /**
-     * Gets the value of the arg1 property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Node }
-     *     
-     */
-    public Node getArg1() {
-        return arg1;
-    }
-
-    /**
-     * Sets the value of the arg1 property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Node }
-     *     
-     */
-    public void setArg1(Node value) {
-        this.arg1 = value;
-    }
-
+//
+//    protected long arg0;
+////    protected Node arg1;
+//
+//    /**
+//     * Gets the value of the arg0 property.
+//     *
+//     */
+//    public long getArg0() {
+//        return arg0;
+//    }
+//
+//    /**
+//     * Sets the value of the arg0 property.
+//     *
+//     */
+//    public void setArg0(long value) {
+//        this.arg0 = value;
+//    }
+//
+//    /**
+//     * Gets the value of the arg1 property.
+//     *
+//     * @return
+//     *     possible object is
+//     *     {@link Node }
+//     *
+//     */
+//    public Node getArg1() {
+//        return arg1;
+//    }
+//
+//    /**
+//     * Sets the value of the arg1 property.
+//     *
+//     * @param value
+//     *     allowed object is
+//     *     {@link Node }
+//     *
+//     */
+//    public void setArg1(Node value) {
+//        this.arg1 = value;
+//    }
+//
 }
