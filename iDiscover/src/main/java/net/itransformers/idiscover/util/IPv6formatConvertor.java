@@ -89,6 +89,5 @@ public class IPv6formatConvertor {
         // final String oldS = "10.FE.80.0.0.0.0.0.0.C.0.0.FF.FE.0.65.0";
 
          String newS1 = IPv6Convertor(oldS);
-         System.out.println(newS1);
      }
 }

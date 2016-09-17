@@ -30,8 +30,18 @@ public class NeighbourConnectionDetails {
     private Set<ConnectionDetails> create(List<DeviceNeighbour> neighbours) {
         Set<ConnectionDetails> connectionDetailses = new HashSet<>();
 
+
         for (DeviceNeighbour neighbour : neighbours) {
+
+
             ConnectionDetails neighbourConnectionDetails = new IPNetConnectionDetails();
+
+            if (neighbourConnectionDetails.getParam("ipAddress")!=null || neighbourConnectionDetails.getParam("Neighbor hostname")!=null ||  neighbourConnectionDetails.getParam("Neighbor MAC Address")!=null ){
+                connectionDetailses.add(neighbourConnectionDetails);
+
+            }
+            neighbourConnectionDetails.setConnectionType("snmp");
+
             String ipAddress = neighbour.getIpAddress();
             HashMap<String, String> neighbourParameters = neighbour.getParameters();
             String deviceType = neighbourParameters.get("Neighbor Device Type");
@@ -54,11 +64,11 @@ public class NeighbourConnectionDetails {
             if (neighbourParameters.get("Discovery Method") != null && !discoveryMethods.isEmpty()) {
                 neighbourConnectionDetails.put("discoveryMethods", discoveryMethods);
             }
-            if (ipAddress != null && !ipAddress.isEmpty())
+            if (ipAddress != null && !ipAddress.isEmpty()) {
                 neighbourConnectionDetails.put("ipAddress", ipAddress);
+            }
 
-            neighbourConnectionDetails.setConnectionType("snmp");
-            connectionDetailses.add(neighbourConnectionDetails);
+
         }
         return connectionDetailses;
 

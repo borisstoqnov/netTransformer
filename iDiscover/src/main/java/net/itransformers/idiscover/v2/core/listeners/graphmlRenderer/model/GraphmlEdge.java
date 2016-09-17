@@ -72,4 +72,14 @@ public class GraphmlEdge {
             this.graphmlEdgeDataList = graphmlEdgeDataList;
         }
 
+    @Override
+    public String toString() {
+        return "GraphmlEdge{" +
+                "id='" + id + '\'' +
+                ", label='" + label + '\'' +
+                ", fromNode='" + fromNode + '\'' +
+                ", toNode='" + toNode + '\'' +
+                ", graphmlEdgeDataList=" + graphmlEdgeDataList +
+                '}';
+    }
 }

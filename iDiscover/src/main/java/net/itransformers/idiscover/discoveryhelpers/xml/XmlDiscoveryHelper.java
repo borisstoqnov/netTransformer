@@ -71,10 +71,9 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
         parseDeviceRawData(data, deviceXmlOutputStream, deviceType.getXslt(), params);
 
         ByteArrayInputStream is = new ByteArrayInputStream(deviceXmlOutputStream.toByteArray());
-        System.out.println(deviceXmlOutputStream.toByteArray());
+        logger.debug(Arrays.toString(deviceXmlOutputStream.toByteArray()));
         try {
-            DiscoveredDeviceData discoveredDeviceData = JaxbMarshalar.unmarshal(DiscoveredDeviceData.class, is);
-            return discoveredDeviceData;
+            return JaxbMarshalar.unmarshal(DiscoveredDeviceData.class, is);
         } catch (JAXBException e) {
             System.err.println("Error unmarshal the xml:" + e.toString());
             System.err.println(new String(deviceXmlOutputStream.toByteArray()));

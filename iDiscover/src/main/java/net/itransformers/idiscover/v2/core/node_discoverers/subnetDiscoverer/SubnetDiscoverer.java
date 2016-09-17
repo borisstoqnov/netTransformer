@@ -56,12 +56,12 @@ public class SubnetDiscoverer implements NodeDiscoverer {
                 IPv4BogonIdentitifier iPv4BogonIdentitifier = new IPv4BogonIdentitifier(subnetIpAddress);
 
                 if (iPv4BogonIdentitifier.identifyBogon()) {
-                    nodeDiscoveryResult.setDiscoveredData("bogon", true);
+                    nodeDiscoveryResult.setDiscoveredData("bogon", "YES");
 
                 }
             }
             if (privateSubnetIdentifier(subnetIpAddress)) {
-                nodeDiscoveryResult.setDiscoveredData("private", true);
+                nodeDiscoveryResult.setDiscoveredData("private", "YES");
             }
         }
 

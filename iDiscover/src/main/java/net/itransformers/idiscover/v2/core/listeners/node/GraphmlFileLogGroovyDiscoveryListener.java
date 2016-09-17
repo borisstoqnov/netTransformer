@@ -80,7 +80,7 @@ public class GraphmlFileLogGroovyDiscoveryListener implements NodeDiscoveryListe
             final String fileName = "node-" + deviceName + ".graphml";
 //            String fullFileName = path + File.separator + fileName;
             final File nodeFile = new File(graphmlDir,fileName);
-            System.out.println(new String(graphmlWriter.toString()));
+            //System.out.println(new String(graphmlWriter.toString()));
             String graphml;
 
             graphml = new XmlFormatter().format(graphmlWriter.toString());

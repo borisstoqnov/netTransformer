@@ -71,11 +71,18 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
 
             try {
                 String deviceSysDescr = snmpManager.snmpGet("1.3.6.1.2.1.1.1.0");
-               String hostNameBySnmpStr1 = snmpManager.snmpGet("1.3.6.1.2.1.1.5.0");
-                if(hostNameBySnmpStr1.contains("."))
-                    hostNameBySnmp = StringUtils.substringBefore(hostNameBySnmp, ".");
-                else
-                    hostNameBySnmp = hostNameBySnmpStr1;
+                String hostNameBySnmpStr1 = snmpManager.snmpGet("1.3.6.1.2.1.1.5.0");
+
+                if (hostNameBySnmpStr1 != null) {
+                    if (hostNameBySnmpStr1.contains("."))
+                        hostNameBySnmp = StringUtils.substringBefore(hostNameBySnmpStr1, ".");
+                    else
+                        hostNameBySnmp = hostNameBySnmpStr1;
+                 }else{
+                    logger.info("Can't determine the hostname of "+ipAddressStr+" with " +resourceSelectionParams);
+
+                    return null;
+                }
                 deviceTypeBySnmp = DeviceTypeResolver.getDeviceType(deviceSysDescr);
 
                 resultParams.put("hostName",hostNameBySnmp);
@@ -89,9 +96,9 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
 
             deviceId = hostNameBySnmp;
 
-            DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper(deviceType);
+            DiscoveryHelper discoveryHelper = discoveryHelperFactory.createDiscoveryHelper(deviceTypeBySnmp);
 
-            XmlDiscoveryHelperV2 discoveryHelperV2 = createXmlDiscoveryHelper(deviceType);
+            XmlDiscoveryHelperV2 discoveryHelperV2 = createXmlDiscoveryHelper(deviceTypeBySnmp);
 
 
             RawDeviceData rawData = getRawData(snmpManager, discoveryHelper);

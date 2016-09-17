@@ -27,7 +27,9 @@ import net.itransformers.idiscover.v2.core.model.Node;
 import org.apache.log4j.Logger;
 
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 
 public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
@@ -106,10 +108,15 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                     logger.error(e.getMessage(), e);
                 }
             }
+
+            this.waitEventExecutors();
             NetworkDiscoveryResult result = new NetworkDiscoveryResult(nodes);
             this.fireNetworkDiscoveredEvent(result);
-            this.waitAndShutdownEventExecutors();
-            this.shutdownExecutor();
+            logger.info("Shutting down discovery task executor service");
+            this.executorService.shutdown();
+            logger.info("Shutting down discovery event executor service");
+            this.eventExecutorService.shutdown();
+
             logger.info("Discovery finished in " + ((System.currentTimeMillis() - startTime) / 1000) + " seconds.");
             return result;
         } finally {
@@ -120,10 +127,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         }
     }
 
-    private void shutdownExecutor() {
-        logger.info("Shutting down discovery task executor service");
-        executorService.shutdown();
-    }
+
 
     private boolean checkIfNeighbourIsDiscovered(Future<NodeDiscoveryResult> future, String nodeId, String parentId) {
         if (parentId != null) {
@@ -162,16 +166,37 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     }
 
     private void updateNodesStructure(String parentId, String nodeId, Set<String> nodeAliases) {
-        Node node = nodeFactory.createNode(nodeId);
+        Node node = null;
+        if (nodeAliases != null){
+            for (String nodeAliase : nodeAliases) {
+                Node foundNodeByAlias = nodesByAliases.get(nodeAliase);
+                if (foundNodeByAlias != null) {
+                    node = foundNodeByAlias;
+                    break;
+                }
+            }
+
+        }
+        if (node == null) {
+            node = nodeFactory.createNode(nodeId);
+        }
         node.setAliases(nodeAliases);
         nodes.put(nodeId, node);
+        if (nodeAliases!=null) {
+            for (String nodeAliase : nodeAliases) {
+                nodesByAliases.put(nodeAliase, node);
+
+            }
+        }
+
         Node parentNode = nodes.get(parentId);
+
         if (parentNode != null) {
             parentNode.addNeighbour(node);
         }
     }
 
-    private void waitAndShutdownEventExecutors() {
+    private void waitEventExecutors() {
         while (eventFutureCount > 0) {
             try {
                 eventFutureCount--;
@@ -181,10 +206,11 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
             }
         }
         logger.info("Shutting down event executor service");
-        eventExecutorService.shutdown();
+
 
 
     }
+
 
 
     public synchronized void stop() {
@@ -215,7 +241,12 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 eventExecutorCompletionService.submit(new Runnable() {
                     @Override
                     public void run() {
-                        nodeDiscoveryListener.nodeDiscovered(discoveryResult);
+                        try {
+
+                            nodeDiscoveryListener.nodeDiscovered(discoveryResult);
+                        }catch (RuntimeException rte){
+                            logger.error(rte.getMessage(),rte);
+                        }
                     }
                 }, null);
             }
@@ -232,7 +263,11 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 eventExecutorCompletionService.submit(new Runnable() {
                     @Override
                     public void run() {
-                        nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node, nodeDiscoveryResult);
+                        try {
+                            nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node, nodeDiscoveryResult);
+                        }catch (RuntimeException rte){
+                            logger.error(rte.getMessage(),rte);
+                        }
                     }
                 }, null);
 
@@ -247,7 +282,11 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                 eventExecutorCompletionService.submit(new Runnable() {
                     @Override
                     public void run() {
-                        networkDiscoveryListener.networkDiscovered(result);
+                        try {
+                            networkDiscoveryListener.networkDiscovered(result);
+                        }catch (RuntimeException rte){
+                            logger.error(rte.getMessage(),rte);
+                        }
                     }
                 }, null);
 

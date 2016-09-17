@@ -21,6 +21,10 @@
 
 package net.itransformers.idiscover.core;
 
+import net.itransformers.utils.CIDRUtils;
+
+import java.net.UnknownHostException;
+
 /**
  * Created by vasko on 03.02.15.
  */
@@ -29,6 +33,7 @@ public class Subnet {
     String ipAddress;
     String subnetMask;
     String localInterface;
+    enum  ProtocolType {IPv4, IPv6}
     String subnetProtocolType;
     String subnetPrefixMask;
     String subnetDiscoveryMethods;
@@ -41,6 +46,18 @@ public class Subnet {
         this.localInterface = localInterface;
         this.subnetProtocolType = subnetProtocolType;
 
+
+    }
+
+    public boolean contains(String unknownIpAddress){
+
+        try {
+            CIDRUtils cidrUtils = new CIDRUtils(this.ipAddress+"/"+subnetPrefixMask);
+            return  cidrUtils.isInRange(unknownIpAddress);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return false;
 
     }
 

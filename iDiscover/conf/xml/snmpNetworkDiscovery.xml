@@ -64,8 +64,8 @@
         <constructor-arg ref="eventExecutor"/>
     </bean>
     <bean id="executorService" class="net.itransformers.idiscover.v2.core.parallel.PausableThreadPoolExecutor">
-        <constructor-arg  value="50" type="int"/>
-        <constructor-arg  value="100" type="int"/>
+        <constructor-arg  value="200" type="int"/>
+        <constructor-arg  value="500" type="int"/>
         <constructor-arg  value="0" type="long"/>
     </bean>
 

@@ -45,11 +45,23 @@ public class RawDataFileLogDiscoveryListener implements NodeDiscoveryListener {
         if (!rawDataDir.exists()) rawDataDir.mkdir();
         String deviceName = discoveryResult.getNodeId();
         File file = new File(rawDataDir, deviceName+".xml");
-        String rawDataXml = new String((byte[]) discoveryResult.getDiscoveredData("rawData"));
-        try {
-            FileUtils.writeStringToFile(file,rawDataXml);
-        } catch (IOException e) {
-            logger.error(e);
+
+        if (discoveryResult.getDiscoveredData()!=null) {
+
+            if (discoveryResult.getDiscoveredData("rawData") != null) {
+
+                String rawDataXml = new String((byte[]) discoveryResult.getDiscoveredData("rawData"));
+                try {
+                    FileUtils.writeStringToFile(file, rawDataXml);
+                } catch (IOException e) {
+                    logger.error(e);
+                }
+            } else {
+                logger.info("no raw data found!!! in for "+discoveryResult.getNodeId());
+
+            }
+        } else {
+            logger.info("no Discovered data found!!! for "+discoveryResult.getNodeId());
         }
     }
 

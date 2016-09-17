@@ -43,49 +43,96 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
    private NodeDiscoveryResult doDnsDiscovery(ConnectionDetails connectionDetails){
        return dnsNodeDiscoverer.discover(connectionDetails);
    }
+
+   private String doDns(String deviceName){
+       DnsResolver dnsResolver = new DnsResolver();
+       try {
+           String ipAddress = dnsResolver.resolveIpByName(deviceName);
+           if (ipAddress!=null && !ipAddress.isEmpty()) {
+              return ipAddress;
+           } else {
+               return null;
+           }
+
+       } catch (UnknownHostException e) {
+           logger.error(e.getMessage(), e);
+           return null;
+       }
+
+
+   }
     @Override
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
         Set<String> nodeAliases = new HashSet<>();
+        NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult();
+
+        Map<String, Object> discoveryData  = new HashMap<>();
+
 
         String ipAddressString = connectionDetails.getParam("ipAddress");
-        String connectionDetailsNodeId = connectionDetails.getParam("deviceName");
 
+        if (ipAddressString!=null && !ipAddressString.isEmpty()) {
+            nodeAliases.add(ipAddressString);
+            discoveryData.put("discoveredIPv4Address", ipAddressString);
+        }
 
-        if (ipAddressString==null || ipAddressString.isEmpty()) {
-                logger.info("Connection details with empty IP address: "+connectionDetails.toString());
-                DnsResolver dnsResolver = new DnsResolver();
-                try {
-                    String ipAddress = dnsResolver.resolveIpByName(connectionDetailsNodeId);
-                    connectionDetails.put("ipAddress", ipAddress);
+        String neighborMacAddress = connectionDetails.getParam("neighborMacAddress");
 
-                } catch (UnknownHostException e) {
-                    logger.error(e.getMessage(), e);
-                    return null;
-                }
+        if (neighborMacAddress!=null && !neighborMacAddress.isEmpty()) {
+            nodeAliases.add(neighborMacAddress);
         }
 
 
-        if (connectionDetailsNodeId!=null && !connectionDetailsNodeId.isEmpty())
-            nodeAliases.add(connectionDetailsNodeId);
+        String connDetailsDeviceName= connectionDetails.getParam("deviceName");
+        if (connDetailsDeviceName!=null && !connDetailsDeviceName.isEmpty())
+            nodeAliases.add(connDetailsDeviceName);
 
 
-        NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult();
-        Map<String, Object> discoveryData  = new HashMap<>();
+        String connectionDetailsNodeId = null;
+
+        //If we don't have an ipAddress we have to try to get one.
+        if ((ipAddressString==null || ipAddressString.isEmpty()) && (connDetailsDeviceName!=null&& !connDetailsDeviceName.isEmpty()) ) {
+            logger.info("Connection details with empty IP address: "+connectionDetails.toString());
+            connectionDetailsNodeId = connDetailsDeviceName;
+
+            ipAddressString = doDns(connDetailsDeviceName);
+
+            if (ipAddressString==null){
+                nodeDiscoveryResult.setNodeId(connDetailsDeviceName);
+                nodeDiscoveryResult.setNodeAliases(nodeAliases);
+                return nodeDiscoveryResult;
+            }else {
+                connectionDetails.put("ipAddress", ipAddressString);
+                nodeAliases.add(ipAddressString);
+            }
+        }   else {
+
+            if (connDetailsDeviceName != null && !connDetailsDeviceName.isEmpty()){
+                connectionDetailsNodeId=connDetailsDeviceName;
+            } else if (ipAddressString!=null && !ipAddressString.isEmpty()){
+                connectionDetailsNodeId = ipAddressString;
+            }
+        }
+
+
+
+
         Set<ConnectionDetails> neighbourConnectionDetails  = new HashSet<>();
 
         NodeDiscoveryResult icmpDiscoveryResult =  doIcmpDiscovery(connectionDetails);
         String icmpNodeId = null;
         if (icmpDiscoveryResult!=null) {
             icmpNodeId = icmpDiscoveryResult.getNodeId();
-        }else{
-            return null;
         }
         if (icmpNodeId!=null && !icmpNodeId.isEmpty())
             nodeAliases.add(icmpNodeId);
-        Map<String, Object> icmpDiscoveryData = icmpDiscoveryResult.getDiscoveredData();
 
-        for (String s : icmpDiscoveryData.keySet()) {
-             discoveryData.put(s,icmpDiscoveryData.get(s));
+        if (icmpDiscoveryResult != null) {
+            Map<String, Object> icmpDiscoveryData = icmpDiscoveryResult.getDiscoveredData();
+
+            for (Map.Entry<String, Object> entry: icmpDiscoveryData.entrySet()) {
+                discoveryData.put(entry.getKey(), entry.getValue());
+            }
         }
 
         String dnsNodeId = null;
@@ -130,7 +177,7 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
 
 
                 }else{
-                    logger.info("Can't discover "+connectionDetails+"through icmp");
+                    logger.info("Can't discover "+connectionDetails+"through snmp!!!");
                 }
 
 
@@ -146,7 +193,6 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
     }
 
     private String determineNodeId(String connectionDetailsNodeId, String icmpNodeId,String dnsNodeId,String snmpNodeId ){
-        String nodeId = null;
 
         if (snmpNodeId != null && !snmpNodeId.isEmpty())
             return snmpNodeId;
@@ -154,7 +200,6 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
             return dnsNodeId;
         if (connectionDetailsNodeId != null && !connectionDetailsNodeId.isEmpty())
             return connectionDetailsNodeId;
-
         return icmpNodeId;
 
     }
