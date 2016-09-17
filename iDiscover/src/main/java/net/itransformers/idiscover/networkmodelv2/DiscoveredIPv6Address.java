@@ -9,6 +9,7 @@ public class DiscoveredIPv6Address {
     private String name;
     private HashMap<String,String> params;
     private String id;
+    private boolean bogon;
 
     public DiscoveredIPv6Address(String name, HashMap<String, String> params) {
         this.name = name;
@@ -29,5 +30,13 @@ public class DiscoveredIPv6Address {
 
     public void setParams(HashMap<String, String> params) {
         this.params = params;
+    }
+
+    public boolean isBogon() {
+        return bogon;
+    }
+
+    public void setBogon(boolean bogon) {
+        this.bogon = bogon;
     }
 }

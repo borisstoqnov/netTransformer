@@ -23,11 +23,12 @@
 
 package net.itransformers.idiscover.v2.core.model;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ConnectionDetails implements Cloneable{
+public class ConnectionDetails implements Cloneable, Serializable{
     protected String connectionType;
     protected Map<String,String> params = new LinkedHashMap<String, String>();
 

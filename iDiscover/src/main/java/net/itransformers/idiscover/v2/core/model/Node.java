@@ -21,10 +21,13 @@
 
 package net.itransformers.idiscover.v2.core.model;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Node {
+public class Node implements Serializable{
     private String id;
+    private Set<String> aliases;
+    private Map<String,Node> aliasToNeighbourMap;
     private Set<Node> neighbours = new HashSet<Node>();
 
     public Node(String id) {
@@ -70,5 +73,21 @@ public class Node {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    public Set<String> getAliases() {
+        return aliases;
+    }
+
+    public void setAliases(Set<String> aliases) {
+        this.aliases = aliases;
+    }
+
+    public Map<String, Node> getAliasToNeighbourMap() {
+        return aliasToNeighbourMap;
+    }
+
+    public void setAliasToNeighbourMap(Map<String, Node> aliasToNeighbourMap) {
+        this.aliasToNeighbourMap = aliasToNeighbourMap;
     }
 }

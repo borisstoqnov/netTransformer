@@ -33,7 +33,7 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
     protected MibLoaderHolder mibLoaderHolder;
 
 
-    public SnmpNodeDiscoverer(XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource, MibLoaderHolder mibLoaderHolder, boolean useOnlyTheFirstSnmpBeingMatched) throws Exception {
+    public SnmpNodeDiscoverer(XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource, MibLoaderHolder mibLoaderHolder, boolean useOnlyTheFirstSnmpBeingMatched)  {
         super(discoveryResource);
         this.discoveryHelperFactory = discoveryHelperFactory;
         this.discoveryTypes = discoveryTypes;
@@ -88,6 +88,7 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
         ArrayList<ResourceType> snmpResources = this.discoveryResource.returnResourcesByConnectionType("snmp");
 
 
+
         SnmpManagerCreator snmpManagerCreator = new SnmpManagerCreator(mibLoaderHolder);
         snmpManager = snmpManagerCreator.create(initialSnmpConnParams);
 
@@ -95,46 +96,52 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
             snmpManager.init();
             sysDescr = snmpManager.snmpGet("1.3.6.1.2.1.1.1.0");
 
+            if (sysDescr == null ) {
 
-            if (sysDescr == null && !useOnlyTheFirstSnmpBeingMatched) {
-                snmpManager.closeSnmp();
-                logger.info("Can't connect to: " + initialSnmpConnParams.get("ipAddress") + " with " + initialSnmpConnParams);
-
+                if (useOnlyTheFirstSnmpBeingMatched) {
 
 
-                for (ResourceType resourceType : snmpResources) {
-                    Map<String,String> secondartySnmpConnParams = this.discoveryResource.getParamMap(resourceType, "snmp");
-                    logger.info("Discovering "+ipAddressStr+" with "+resourceType.getName());
+                    snmpManager.closeSnmp();
+                    logger.info("Can't connect to: " + initialSnmpConnParams.get("ipAddress") + " with " + initialSnmpConnParams);
+                    return null;
+                } else {
 
-                    secondartySnmpConnParams.put("ipAddress", ipAddressStr);
-                    if (!resourceType.getName().equals(snmpResource.getName())) {
-                        snmpManager = snmpManagerCreator.create(initialSnmpConnParams);
+                    for (ResourceType resourceType : snmpResources) {
+                        Map<String, String> secondartySnmpConnParams = this.discoveryResource.getParamMap(resourceType, "snmp");
+                        logger.info("Discovering " + ipAddressStr + " with " + resourceType.getName());
 
-                        snmpManager.init();
-                        sysDescr = snmpManager.snmpGet("1.3.6.1.2.1.1.1.0");
-                        if (sysDescr == null) {
-                            logger.info("Can't connect to: " + ipAddressStr + " with " + initialSnmpConnParams);
-                            snmpManager.closeSnmp();
-                        } else {
-                            break;
+                        secondartySnmpConnParams.put("ipAddress", ipAddressStr);
+                        if (!resourceType.getName().equals(snmpResource.getName())) {
+                            snmpManager = snmpManagerCreator.create(initialSnmpConnParams);
+
+                            snmpManager.init();
+                            sysDescr = snmpManager.snmpGet("1.3.6.1.2.1.1.1.0");
+                            if (sysDescr == null) {
+                                logger.info("Can't connect to: " + ipAddressStr + " with " + initialSnmpConnParams);
+                                snmpManager.closeSnmp();
+                            } else {
+                                return snmpManager;
+
+                            }
                         }
                     }
-                }
-            }else{
-                logger.info("Connected to: " + initialSnmpConnParams.get("ipAddress") + " with " + initialSnmpConnParams);
 
+                }
+            }else {
+                return snmpManager;
             }
+
+
+
+
         } catch (IOException e) {
             logger.error("Something went wrong in SNMP communication with "+ipAddressStr+":Check the stacktrace \n"+e.getStackTrace());
             return null;
         }
-        if (sysDescr!=null) {
-            return snmpManager;
-        }else{
-            return null;
-        }
+
+        return null;
     }
-    protected RawDeviceData getRawData (SnmpManager snmpManager,DiscoveryHelper discoveryHelper, String deviceType){
+    protected RawDeviceData getRawData (SnmpManager snmpManager,DiscoveryHelper discoveryHelper){
         String[] requestParamsList = discoveryHelper.getRequestParams(discoveryTypes);
 
         Node rawDatNode = null;
@@ -145,7 +152,7 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
             snmpManager.closeSnmp();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(),e);
         }
         if (rawDatNode != null) {
             SnmpXmlPrinter snmpXmlPrinter = new SnmpXmlPrinter(mibLoaderHolder.getLoader(), rawDatNode);

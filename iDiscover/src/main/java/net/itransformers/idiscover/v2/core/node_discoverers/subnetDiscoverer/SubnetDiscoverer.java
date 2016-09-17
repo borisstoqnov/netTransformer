@@ -1,12 +1,16 @@
 package net.itransformers.idiscover.v2.core.node_discoverers.subnetDiscoverer;
 
+import net.itransformers.idiscover.v2.core.IPv4BogonIdentitifier;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.connection_details.IPNetConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.utils.CIDRUtils;
 import org.apache.commons.net.util.SubnetUtils;
+import org.apache.log4j.Logger;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,10 +19,17 @@ import java.util.Set;
  * Created by Vasil Yordanov on 22-Jun-16.
  */
 public class SubnetDiscoverer implements NodeDiscoverer {
+    static Logger logger = Logger.getLogger(SubnetDiscoverer.class);
+
+    int subnetMaxMaskSize;
     boolean generateIPconnectionsForSubnetMembers;
 
     public SubnetDiscoverer(boolean generateIPconnectionsForSubnetMembers) {
         this.generateIPconnectionsForSubnetMembers = generateIPconnectionsForSubnetMembers;
+    }
+    public SubnetDiscoverer(boolean generateIPconnectionsForSubnetMembers, int subnetMaxMaskSize) {
+        this.generateIPconnectionsForSubnetMembers = generateIPconnectionsForSubnetMembers;
+        this.subnetMaxMaskSize = subnetMaxMaskSize;
     }
 
     @Override
@@ -33,17 +44,32 @@ public class SubnetDiscoverer implements NodeDiscoverer {
 
         NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult(subnetPrefix,null);
         nodeDiscoveryResult.setDiscoveredData("subnetDetails", connectionDetails.getParams());
-        if (generateIPconnectionsForSubnetMembers)
+        int discoverySubnetPrefixSize =  Integer.parseInt(subnetPrefixMask);
+
+        if (generateIPconnectionsForSubnetMembers && discoverySubnetPrefixSize<=subnetMaxMaskSize);
             nodeDiscoveryResult.setNeighboursConnectionDetails(getSubnetIpNeighborConnections(subnetPrefix));
 
-        if (protocolType.equals("IPv4")) {
-            if (bogonSubnetIdentifier(subnetIpAddress)) {
-                nodeDiscoveryResult.setDiscoveredData("bogon", true);
+        try {
+            InetAddress inetAddress = InetAddress.getByName(subnetIpAddress);
+            if (inetAddress instanceof Inet4Address) {
+
+                IPv4BogonIdentitifier iPv4BogonIdentitifier = new IPv4BogonIdentitifier(subnetIpAddress);
+
+                if (iPv4BogonIdentitifier.identifyBogon()) {
+                    nodeDiscoveryResult.setDiscoveredData("bogon", "YES");
+
+                }
             }
             if (privateSubnetIdentifier(subnetIpAddress)) {
-                nodeDiscoveryResult.setDiscoveredData("private", true);
-            }    
+                nodeDiscoveryResult.setDiscoveredData("private", "YES");
+            }
         }
+
+         catch (UnknownHostException e) {
+            logger.error(e);
+        }
+
+
         return nodeDiscoveryResult;
     }
 
@@ -59,55 +85,12 @@ public class SubnetDiscoverer implements NodeDiscoverer {
         return ipConnectionDetailsSet;
     }
 
-    private boolean bogonSubnetIdentifier(String subnetIpAddress) {
+    public int getSubnetMaxMaskSize() {
+        return subnetMaxMaskSize;
+    }
 
-        CIDRUtils cidrUtils = null;
-        try {
-        
-
-            cidrUtils = new CIDRUtils("0.0.0.0/8");
-
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("127.0.0.0/8");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("128.0.0.0/8");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("169.254.0.0/16");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("192.0.0.0/24");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("192.0.2.0/24");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("224.0.0.0/4");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("240.0.0.0/4");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-            cidrUtils = new CIDRUtils("255.255.255.255/32");
-            if (cidrUtils.isInRange(subnetIpAddress)) {
-                return true;
-            }
-        
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        return false;
-
+    public void setSubnetMaxMaskSize(int subnetMaxMaskSize) {
+        this.subnetMaxMaskSize = subnetMaxMaskSize;
     }
 
     private boolean privateSubnetIdentifier(String ipv4Address) {
@@ -129,7 +112,7 @@ public class SubnetDiscoverer implements NodeDiscoverer {
                 return true;
             }
         }catch (UnknownHostException ex){
-             ex.printStackTrace();
+             logger.error(ex.getMessage());
         }
         return false;
 

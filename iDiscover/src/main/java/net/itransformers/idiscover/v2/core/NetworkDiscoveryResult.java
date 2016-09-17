@@ -35,6 +35,10 @@ public class NetworkDiscoveryResult {
     Map<String,ConnectionDetails> sourceConnectionDetails = new HashMap<String,  ConnectionDetails>();
     Map<String, Node> nodes = new HashMap<String, Node>();
 
+    public NetworkDiscoveryResult(Map<String, Node> nodes) {
+        this.nodes = nodes;
+    }
+
     public Object getDiscoveredData(String sourceId){
         return discoveredData.get(sourceId);
     }

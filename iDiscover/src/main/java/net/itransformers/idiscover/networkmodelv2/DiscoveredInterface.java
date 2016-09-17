@@ -51,6 +51,16 @@ public class DiscoveredInterface {
     public List<DeviceNeighbour> getNeighbours() {
         return neighbours;
     }
+
+
+    public DeviceNeighbour getDiscoveredNeighboursPerSubnet(String subnetName,String subnetProtocolType){
+
+
+        return null;
+
+
+    }
+
     public String getDiscoveryMethodsPerSubnet(String subnetName, String subnetProtocolType) throws UnknownHostException {
 
         StringBuilder discoveredMethods = new StringBuilder();
@@ -69,7 +79,7 @@ public class DiscoveredInterface {
                     if (ipv4SubnetName.equals(subnetName)) {
                         CIDRUtils cidrUtils = new CIDRUtils(ipv4SubnetName);
                         cidrUtils.isInRange(neighbourIPAddress);
-                        discoveredMethods.append(neighbour.getParameters().get("Discovery Method"));
+                        discoveredMethods.append(neighbour.getParameters().get("Discovery Method")+",");
                     }
 
                 }

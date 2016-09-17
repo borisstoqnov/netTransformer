@@ -6,7 +6,6 @@ package net.itransformers.idiscover.util;
 public  class DeviceTypeResolver {
 
 
-
     public static String getDeviceType(String sysDescr ) {
         if (sysDescr == null) return "UNKNOWN";
         String sysDescrToUpper = sysDescr.toUpperCase();

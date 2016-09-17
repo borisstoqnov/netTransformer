@@ -54,7 +54,7 @@ public class BGPMapNetworkDiscoverer extends ANetworkDiscoverer {
 
     @Override
     public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList,int depth) {
-        NetworkDiscoveryResult result = new NetworkDiscoveryResult();
+        NetworkDiscoveryResult result = new NetworkDiscoveryResult(null);
 
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
 

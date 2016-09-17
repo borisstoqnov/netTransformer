@@ -1,5 +1,6 @@
-name=R1,type=snmp:deviceType=CISCO,deviceName=R1,ipAddress=172.16.1.2,
-name=R1,type=ip:deviceType=CISCO,deviceName=R1,ipAddress=172.16.1.2,
- name=R1,type=subnet:deviceType=CISCO,deviceName=R1,ipAddress=172.16.1.2,
-
-name=R2,type=snmp:deviceType=JUNIPER,deviceName=R2,ipAddress=15.0.0.5,
+name=vGW1,type=snmp:deviceType=CISCO,deviceName=vGW1,ipAddress=193.19.175.129,
+name=OpenWrt,type=snmp:deviceName=OpenWrt,ipAddress=193.19.172.133,deviceType=OpenWrt,
+name=R1,type=snmp:deviceName=R1,ipAddress=10.17.1.6,deviceType=CISCO,
+name=R2,type=snmp:deviceName=R2,ipAddress=10.17.1.7,deviceType=CISCO,
+name=dc,type=subnet:ipAddress=10.17.1.0,protocolType=IPv4,subnetPrefixMask=24,
+name=mainController,type=icmp:ipAddress=10.17.1.11,

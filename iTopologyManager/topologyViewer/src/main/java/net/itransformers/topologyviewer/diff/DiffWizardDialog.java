@@ -257,8 +257,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     public void propertyChange(PropertyChangeEvent evt) {
         if ("progress".equals(evt.getPropertyName())) {
 
-            int progress = (Integer) evt.getNewValue();
-            progressMonitor.setProgress(progress);
+
             if (progressMonitor.isCanceled() || task.isDone()) {
                 if (progressMonitor.isCanceled()) {
                     task.cancel(true);

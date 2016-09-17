@@ -107,7 +107,6 @@ input.object.findAll {
 }.each {
     def name = it.name.text()
     foundNeighbours.add(name)
-
 }
 
 

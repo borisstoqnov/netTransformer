@@ -64,7 +64,6 @@ public class XmlDiscoveryHelperV2 {
         parseDeviceRawData(data, deviceXmlOutputStream, deviceType.getXslt(), params);
 
         ByteArrayInputStream is = new ByteArrayInputStream(deviceXmlOutputStream.toByteArray());
-        System.out.println(Arrays.toString(deviceXmlOutputStream.toByteArray()));
         try {
             return JaxbMarshalar.unmarshal(DiscoveredDeviceData.class, is);
         } catch (JAXBException e) {
@@ -75,15 +74,19 @@ public class XmlDiscoveryHelperV2 {
     }
 
     public DiscoveredDevice createDevice(DiscoveredDeviceData discoveredDeviceData,String deviceName) {
+         String id = null;
 
-        String discoveredDevice = deviceName;
-        String id = null;
         try {
-            id = HashGenerator.generateMd5(discoveredDevice);
+            if (deviceName!=null && !deviceName.isEmpty())
+                id = HashGenerator.generateMd5(deviceName);
+            else
+                logger.error("Trying to generate an id for an empty device!!!");
+
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(),e);
+            return null;
         }
-        DiscoveredDevice device = new DiscoveredDevice(discoveredDevice, id);
+        DiscoveredDevice device = new DiscoveredDevice(deviceName, id);
         List<DiscoveredInterface> discoveredInterfaces = new ArrayList<DiscoveredInterface>();
         LogicalDeviceData logicalDeviceData = null;
         HashMap<String,String> params = convertParams(discoveredDeviceData.getParameters());
@@ -178,6 +181,8 @@ public class XmlDiscoveryHelperV2 {
         HashMap<String, String> params2Map = convertParams(params2);
         String ipAddress = params2Map.get("Neighbor IP Address");
         String hostName = params2Map.get("Neighbour HostName");
+        String physicalAddress = params2Map.get("Neighbor MAC Address");
+
         return new DeviceNeighbour(hostName, ipAddress, params2Map);
 
     }
@@ -185,7 +190,8 @@ public class XmlDiscoveryHelperV2 {
     private DiscoveredIPv4Address createDiscoveredIPv4Address(ObjectType objectType) {
         ParametersType params2 = objectType.getParameters();
         HashMap<String, String> params2Map = convertParams(params2);
-        return new DiscoveredIPv4Address(objectType.getName(), params2Map);
+        DiscoveredIPv4Address discoveredIPv4Address = new DiscoveredIPv4Address(objectType.getName(), params2Map);
+        return discoveredIPv4Address;
     }
 
     private void parseDeviceRawData(byte[] rawData, OutputStream outputStream, String xsltFileName, Map<String, String> params) {

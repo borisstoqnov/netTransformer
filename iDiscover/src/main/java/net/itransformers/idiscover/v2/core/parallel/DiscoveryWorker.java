@@ -24,27 +24,36 @@ public class DiscoveryWorker implements Callable<NodeDiscoveryResult> {
     }
 
     @Override
-    public NodeDiscoveryResult call() throws Exception {
-        logger.debug("Discovery worker: " + Thread.currentThread().getName() + " started. connectionDetails = " + connectionDetails);
+    public NodeDiscoveryResult call()  {
+            logger.debug("Discovery worker: " + Thread.currentThread().getName() + " started. connectionDetails = " + connectionDetails);
 
-        String connectionType = connectionDetails.getConnectionType();
-        NodeDiscoverer nodeDiscoverer = discoverers.get(connectionType);
+            String connectionType = connectionDetails.getConnectionType();
+            NodeDiscoverer nodeDiscoverer = discoverers.get(connectionType);
+            NodeDiscoveryResult nodeDiscoveryResult = null;
+            try {
 
-        if (nodeDiscoverer == null) {
-            logger.debug("No node discoverer can be found for connectionType: " + connectionDetails);
-            logger.debug("Discovery worker: " + Thread.currentThread().getName() + " finished. connectionDetails = " + connectionDetails);
-            NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult(null, null);
+                if (nodeDiscoverer == null) {
+                    logger.debug("No node discoverer can be found for connectionType: " + connectionDetails);
+                    logger.debug("Trying with the discoverer with connectionType any");
+
+                    nodeDiscoverer = discoverers.get("any");
+
+                    nodeDiscoveryResult = nodeDiscoverer.discover((ConnectionDetails) connectionDetails.clone());
+                } else {
+                    nodeDiscoveryResult = nodeDiscoverer.discover((ConnectionDetails) connectionDetails.clone());
+                }
+            }catch (Exception e){
+                logger.error(e.getMessage(),e);
+            }
+            if (nodeDiscoveryResult == null) {
+                nodeDiscoveryResult = new NodeDiscoveryResult(null, null);
+            }
             nodeDiscoveryResult.setParentId(parentId);
+            nodeDiscoveryResult.setDiscoveryConnectionDetails(connectionDetails);
             return nodeDiscoveryResult;
+
+
         }
-        NodeDiscoveryResult discoveryResult = nodeDiscoverer.discover((ConnectionDetails) connectionDetails.clone());
-        if (discoveryResult == null) {
-            discoveryResult = new NodeDiscoveryResult(null, null);
-        }
-        discoveryResult.setParentId(parentId);
-        discoveryResult.setDiscoveryConnectionDetails(connectionDetails);
-        return discoveryResult;
-    }
 
 
 }

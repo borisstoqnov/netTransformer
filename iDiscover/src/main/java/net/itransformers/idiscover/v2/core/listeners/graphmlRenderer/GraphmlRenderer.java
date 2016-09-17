@@ -10,9 +10,12 @@ import java.util.Map;
 
 
 public class GraphmlRenderer
+
+
 {
     public String render(String template, HashMap<String,Object> parameters) throws Exception
     {
+
         /*  first, get and initialize an engine  */
         VelocityEngine ve = new VelocityEngine();
         ve.init();

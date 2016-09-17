@@ -10,6 +10,12 @@ public class PausableThreadPoolExecutor extends ThreadPoolExecutor {
   private Condition unpaused = pauseLock.newCondition();
   private Latch activeTasksLatch = new Latch();
 
+
+  public PausableThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime) {
+    super(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+  }
+
+
   public PausableThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
     super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
   }

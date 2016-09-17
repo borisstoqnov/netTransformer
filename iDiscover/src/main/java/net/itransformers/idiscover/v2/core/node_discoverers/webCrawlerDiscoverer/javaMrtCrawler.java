@@ -31,7 +31,7 @@ import edu.uci.ics.crawler4j.url.WebURL;
 import java.io.File;
 import java.util.regex.Pattern;
 
-public class javaMrtCrawler extends WebCrawler {
+public class javaMrtCrawler extends WebCrawler  {
 
   private static final Pattern filters = Pattern.compile(".*bview.*(\\.(bin|tar.gz|bz|bz2|zip|rar|gz))$");
 

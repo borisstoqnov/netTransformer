@@ -36,7 +36,9 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     protected List<NodeNeighboursDiscoveryListener> nodeNeighbourDiscoveryListeners;
     protected List<NetworkDiscoveryListener> networkDiscoveryListeners;
     protected NodeDiscoverFilter nodeDiscoverFilter;
+    // TODO rename nodes -> nodesByIds
     protected final Map<String, Node> nodes = new HashMap<String, Node>();
+    protected final Map<String, Node> nodesByAliases = new HashMap<String, Node>();
 
     public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList) {
         return discoverNetwork(connectionDetailsList, -1);
@@ -83,12 +85,12 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
         }
     }
 
-    protected void fireNeighboursDiscoveredEvent(final NodeDiscoveryResult nodeDiscoveryResult, Map<String, ConnectionDetails> neighbourDiscoveryResults) {
+    protected void fireNeighboursDiscoveredEvent(final NodeDiscoveryResult nodeDiscoveryResult) {
         if (nodeNeighbourDiscoveryListeners != null) {
             String nodeId = nodeDiscoveryResult.getNodeId();
             final Node node = nodes.get(nodeId);
             for (final NodeNeighboursDiscoveryListener nodeNeighboursDiscoveryListener : nodeNeighbourDiscoveryListeners) {
-                nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node, nodeDiscoveryResult, neighbourDiscoveryResults);
+                nodeNeighboursDiscoveryListener.handleNodeNeighboursDiscovered(node, nodeDiscoveryResult);
             }
         }
     }
@@ -100,4 +102,7 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
             }
     }
 
+    public Map<String, Node> getNodes() {
+        return nodes;
+    }
 }
