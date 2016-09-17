@@ -128,7 +128,7 @@
                     <url>http://localhost:8080/manager/text</url>
                     <username>admin</username>
                     <password>admin</password>
-                    <path>/</path>
+                    <path>/${project.name}</path>
                 </configuration>
             </plugin>
             <plugin>
