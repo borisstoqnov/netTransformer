@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -85,7 +86,7 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
         logger.info("Discovering "+ipAddressStr+" with "+snmpResource.getName());
         Map<String,String> initialSnmpConnParams = this.discoveryResource.getParamMap(snmpResource, "snmp");
         initialSnmpConnParams.put("ipAddress", ipAddressStr);
-        ArrayList<ResourceType> snmpResources = this.discoveryResource.returnResourcesByConnectionType("snmp");
+        List<ResourceType> snmpResources = this.discoveryResource.returnResourcesByConnectionType("snmp");
 
 
 

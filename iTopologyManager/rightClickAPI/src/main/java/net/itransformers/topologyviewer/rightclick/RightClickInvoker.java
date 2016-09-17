@@ -31,15 +31,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RightClickInvoker {
-    public static void invokeRightClickHandler(JFrame frame, String v, final RightClickItemType rcItemType,
-                                               Map<String, GraphMLMetadata<String>> vertexMetadatas,
-                                               File path,
-                                               File versionDir) throws Exception {
+
+    RightClickHandlerFactory rightClickHandlerFactory;
+
+    public RightClickInvoker(RightClickHandlerFactory rightClickHandlerFactory) {
+        this.rightClickHandlerFactory = rightClickHandlerFactory;
+    }
+
+    public void invokeRightClickHandler(JFrame frame, String v, final RightClickItemType rcItemType,
+                                        Map<String, GraphMLMetadata<String>> vertexMetadatas,
+                                        File path,
+                                        File versionDir) throws Exception {
+        // TODO change classStr to beanName
         String clazzStr = rcItemType.getHandlerClass();
-        Class<?> clazz;
-        clazz = Class.forName(clazzStr);
-        RightClickHandler inst;
-        inst = (RightClickHandler) clazz.newInstance();
+        RightClickHandler inst = rightClickHandlerFactory.createRightClickHandler(clazzStr);
         Map<String, String> graphMLParams = getParams(v, vertexMetadatas);
         Map<String, String> rcParams = new HashMap<String, String>();
         for (ParamType param : rcItemType.getParam()) {
@@ -50,7 +55,7 @@ public class RightClickInvoker {
 
     }
 
-    private static <G> Map<String, String> getParams(String v, Map<String, GraphMLMetadata<String>> vertexMetadata) {
+    private <G> Map<String, String> getParams(String v, Map<String, GraphMLMetadata<String>> vertexMetadata) {
         HashMap<String, String> params = new HashMap<String, String>();
         for (String key : vertexMetadata.keySet()){
             String value = vertexMetadata.get(key).transformer.transform(v);

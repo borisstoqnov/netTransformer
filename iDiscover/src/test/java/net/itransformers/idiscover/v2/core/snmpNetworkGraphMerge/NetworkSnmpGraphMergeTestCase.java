@@ -63,7 +63,7 @@ public class NetworkSnmpGraphMergeTestCase {
 
        Assert.assertEquals(7,inputFiles.length);
     }
-    @Test
+//    @Test
     public void merge(){
         try {
             new GrahmlMerge().merge(inputFiles, outputFile,vertexTypes, edgesTypes, "undirected");

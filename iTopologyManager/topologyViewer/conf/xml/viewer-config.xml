@@ -791,61 +791,60 @@
     <tooltip dataKey="nodeInfo" for="node" transformer="net.itransformers.topologyviewer.nodetooltip.DefaultNodeTooltipTransformer"/>
     <tooltip dataKey="edgeTooltip" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
     <!-- this is also possible it could be used as default value-->
-    <rightClickItem name="ShortestPath" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPath"/>
-    <rightClickItem name="TabViewerOpener" handlerClass="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener">
+    <rightClickItem name="ShortestPath" handlerClass="shortestPath"/>
+    <rightClickItem name="TabViewerOpener" handlerClass="tabbedViewerOpener">
         <submenu name="Connect">
-            <rightClickItem name="JConsole" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CreateTerminalHandler">
+            <rightClickItem name="JConsole" handlerClass="createTerminalHandler">
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
             </rightClickItem>
             <!--rightClickItem name="GoogleMapView" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
                 <param name="url">url</param>
             </rightClickItem-->
-            <rightClickItem name="HTTP" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
+            <rightClickItem name="HTTP" handlerClass="urlRightClickOpener">
                 <param name="protocol">http</param>
                 <param name="port">8080</param>
             </rightClickItem>
-            <rightClickItem name="HTTPS" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
+            <rightClickItem name="HTTPS" handlerClass="urlRightClickOpener">
                 <param name="protocol">https</param>
                 <param name="port">443</param>
             </rightClickItem>
 
-            <rightClickItem name="putty" handlerClass="net.itransformers.topologyviewer.rightclick.impl.PuttyRightClickHandler">
+            <rightClickItem name="putty" handlerClass="puttyRightClickHandler">
                 <param name="puttyRelativePath">../lib/putty/putty.exe</param>
                 <param name="ssh_no_saved_session">-ssh -l %s -pw %s %s</param>
                 <param name="ssh_saved_session">-ssh -l %s -pw %s -load %s %s </param>
                 <param name="telnet_no_saved_session">-telnet -l %s %s</param>
                 <param name="telnet_saved_session">-telnet -l %s -load %s %s</param>
-                <param name="resource">resourceManager/conf/xml/resource.xml</param>
                 <param name="saved_session"></param>
             </rightClickItem>
         </submenu>
 
 
         <submenu name="Node Data Management">
-            <rightClickItem name="Raw-data device model browser" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler">
+            <rightClickItem name="Raw-data device model browser" handlerClass="xmlTreeViewHandler">
                 <param name="type">raw</param>
                 <param name="path">raw-data</param>
             </rightClickItem>
-            <rightClickItem name="Device xml browser" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler">
+            <rightClickItem name="Device xml browser" handlerClass="xmlTreeViewHandler">
                 <param name="type">deviceXml</param>
                 <param name="path">device-hierarchical</param>
             </rightClickItem>
-            <rightClickItem name="Graphml device model browser" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler">
+            <rightClickItem name="Graphml device model browser" handlerClass="xmlTreeViewHandler">
                 <param name="type">graphml</param>
                 <param name="path">graphml-undirected</param>
             </rightClickItem>
-            <rightClickItem name="Graphml editor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
+            <rightClickItem name="Graphml editor" handlerClass="xmlFileEditorHandler">
                 <param name="type">graphml</param>
                 <param name="path">graphml-undirected</param>
                 <!--Path attrbiute should be equal to the setting of the "device-centric-logging-path" used in discoveryManager.xml-->
             </rightClickItem>
 
-            <rightClickItem name="Device xml editor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
+            <rightClickItem name="Device xml editor" handlerClass="xmlFileEditorHandler">
                 <param name="type">deviceXml</param>
                 <param name="path">device-hierarchical</param>
                 <!--Path attrbiute should be equal to the setting of the "device-data-logging-path" used in discoveryManager.xml-->
             </rightClickItem>
-            <rightClickItem name="Raw-Data XML Viewer" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
+            <rightClickItem name="Raw-Data XML Viewer" handlerClass="xmlFileEditorHandler">
                 <param name="type">raw-data</param>
                 <param name="path">raw-data</param>
                 <!--Path attrbiute should be equal to the setting of the "device-data-logging-path" used in discoveryManager.xml-->
@@ -853,75 +852,75 @@
 
         </submenu>
         <submenu name = "Configuration Management">
-            <rightClickItem name="Running Config Editor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
+            <rightClickItem name="Running Config Editor" handlerClass="xmlFileEditorHandler">
                 <param name="type">running-config</param>
                 <param name="path">post-discovery</param>
                 <!--Path attrbiute should be equal to the setting of the "device-data-logging-path" used in discoveryManager.xml-->
             </rightClickItem>
-            <rightClickItem name="Startup Config Editor" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XmlFileEditorHandler">
+            <rightClickItem name="Startup Config Editor" handlerClass="xmlFileEditorHandler">
                 <param name="type">startup-config</param>
                 <param name="path">post-discovery</param>
                 <!--Path attrbiute should be equal to the setting of the "device-data-logging-path" used in discoveryManager.xml-->
             </rightClickItem>
-            <rightClickItem name="CLI reviewer" handlerClass="net.itransformers.topologyviewer.rightclick.impl.FileOpeneerHandler">
-                <param name="extension">.txt</param>
-                <param name="path">post-discovery</param>
-            </rightClickItem>
+            <!--<rightClickItem name="CLI reviewer" handlerClass="fileOpeneerHandler">-->
+                <!--<param name="extension">.txt</param>-->
+                <!--<param name="path">post-discovery</param>-->
+            <!--</rightClickItem>-->
         </submenu>
         <submenu name="Reports">
-            <rightClickItem name="Device Neighbors" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
+            <rightClickItem name="Device Neighbors" handlerClass="xsltReportCreator">
                 <param name="xsl_transformator">iTopologyManager/rightClick/conf/xslt/deviceNeighbors.xslt</param>
                 <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt</param>
                 <param name="type">deviceXml</param>
                 <param name="path">device-hierarchical</param>
 
             </rightClickItem>
-            <rightClickItem name="Cable Cuts" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
+            <rightClickItem name="Cable Cuts" handlerClass="xsltReportCreator">
                 <param name="xsl_transformator">iTopologyManager/rightClick/conf/xslt/cableCut.xslt</param>
                 <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt</param>
                 <param name="type">deviceXml</param>
                 <param name="path">device-hierarchical</param>
 
             </rightClickItem>
-            <rightClickItem name="IPv4 Address Space" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
+            <rightClickItem name="IPv4 Address Space" handlerClass="xsltReportCreator">
                 <param name="xsl_transformator">iTopologyManager/rightClick/conf/xslt/IPv4.xslt</param>
                 <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt</param>
                 <param name="type">deviceXml</param>
                 <param name="path">device-hierarchical</param>
 
             </rightClickItem>
-            <rightClickItem name="IPv6 Address Space" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
+            <rightClickItem name="IPv6 Address Space" handlerClass="xsltReportCreator">
                 <param name="xsl_transformator">iTopologyManager/rightClick/conf/xslt/IPv6.xslt</param>
                 <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt</param>
                 <param name="type">deviceXml</param>
                 <param name="path">device-hierarchical</param>
 
             </rightClickItem>
-            <rightClickItem name="MPLS L3 VPN" handlerClass="net.itransformers.topologyviewer.rightclick.impl.XsltReportCreator">
+            <rightClickItem name="MPLS L3 VPN" handlerClass="xsltReportCreator">
                 <param name="xsl_transformator">iTopologyManager/rightClick/conf/xslt/mplsL3VPN.xslt</param>
                 <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt</param>
                 <param name="type">deviceXml</param>
                 <param name="path">device-hierarchical</param>
 
             </rightClickItem>
-            <rightClickItem name="CLI Security compliance" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CLIReportViewer">
+            <rightClickItem name="CLI Security compliance" handlerClass="cliReportViewer">
                 <param name="post-discovery-file-path">post-discovery</param>
                 <param name="table_transformator">iTopologyManager/rightClick/conf/xslt/table_creator.xslt"</param>
                 <param name="reportFileName">Cisco Config security audit.xml</param>
             </rightClickItem>
         </submenu>
         <submenu name="NeighborFinder">
-            <rightClickItem name="Neighbor Finder" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ipsec.NeighbourFinderByMethod">
+            <rightClickItem name="Neighbor Finder" handlerClass="neighbourFinderByMethod">
                 <param name="Discovery Method">IPSEC</param>
 
             </rightClickItem>
-            <rightClickItem name="Change IPsec key" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ipsec.ChangeIPSecKeyHandler">
+            <rightClickItem name="Change IPsec key" handlerClass="changeIPSecKeyHandler">
                 <param name="Discovery Method">IPSEC</param>
                 <param name="ipSecTemplatePath">iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ</param>
             </rightClickItem>
         </submenu>
         <submenu name="Network Activation">
-            <rightClickItem name="Node Activation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
+            <rightClickItem name="Node Activation" handlerClass="cmdRightClickHandler">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
@@ -929,7 +928,7 @@
 
             </rightClickItem>
 
-            <rightClickItem name="Shorthest Path Activation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
+            <rightClickItem name="Shorthest Path Activation" handlerClass="shortestPathProvisioning">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
@@ -937,22 +936,22 @@
             </rightClickItem>
 
 
-            <rightClickItem name="IPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
+            <rightClickItem name="IPv4toIPv6 Actication" handlerClass="cmdRightClickHandler">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6.xml</param>
             </rightClickItem>
-            <rightClickItem name="IPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
+            <rightClickItem name="IPv4toIPv6PathActivation" handlerClass="shortestPathProvisioning">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6.xml</param>
             </rightClickItem>
-            <rightClickItem name="undoIPv4toIPv6 Actication" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
+            <rightClickItem name="undoIPv4toIPv6 Actication" handlerClass="cmdRightClickHandler">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6_undo.xml</param>
             </rightClickItem>
-            <rightClickItem name="undoIPv4toIPv6PathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
+            <rightClickItem name="undoIPv4toIPv6PathActivation" handlerClass="shortestPathProvisioning">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6_undo.xml</param>

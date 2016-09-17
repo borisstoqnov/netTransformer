@@ -462,7 +462,6 @@
                 <param name="ssh_saved_session">../lib/putty/putty.exe -ssh -l %s -pw %s -load %s %s </param>
                 <param name="telnet_no_saved_session">../lib/putty/putty.exe -telnet -l %s %s</param>
                 <param name="telnet_saved_session">../lib/putty/putty.exe -telnet -l %s -load %s %s</param>
-                <param name="resource">resource-manager/conf/xml/resource.xml</param>
                 <param name="saved_session"></param>
             </rightClickItem>
         </submenu>

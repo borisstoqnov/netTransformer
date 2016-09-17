@@ -32,23 +32,30 @@
 
     <artifactId>wsitransformer</artifactId>
     <packaging>war</packaging>
-
+    <properties>
+        <spring.version>4.0.2.RELEASE</spring.version>
+        <log4j.version>1.2.17</log4j.version>
+    </properties>
     <dependencies>
-        <!--<dependency>-->
-        <!--<groupId>iTransformers.iTransformer</groupId>-->
-        <!--<artifactId>iDiscover</artifactId>-->
-        <!--<version>0.1-SNAPSHOT</version>&lt;!&ndash;Change for new version&ndash;&gt;-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-        <!--<groupId>mxquery</groupId>-->
-        <!--<artifactId>mxquery</artifactId>-->
-        <!--<version>0.6</version>-->
-        <!--</dependency>-->
         <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>jsr311-api</artifactId>
-            <version>1.1.1</version>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers.netTransformer</groupId>
+            <artifactId>resourceManagerAPI</artifactId>
+            <version>0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers.netTransformer</groupId>
+            <artifactId>xmlResourceManager</artifactId>
+            <version>0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -57,46 +64,32 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-servlet</artifactId>
-            <version>1.10</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
-            <groupId>net.sf.jung</groupId>
-            <artifactId>jung-io</artifactId>
-            <version>2.0.1</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
-            <groupId>net.sf.jung</groupId>
-            <artifactId>jung-graph-impl</artifactId>
-            <version>2.0.1</version>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>org.neo4j.app</groupId>-->
-            <!--<artifactId>neo4j-server</artifactId>-->
-            <!--<version>1.8.M07</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.neo4j.app</groupId>-->
-            <!--<artifactId>neo4j-server</artifactId>-->
-            <!--&lt;!&ndash;<classifier>static-web</classifier>&ndash;&gt;-->
-            <!--<version>1.8.M07</version>-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<artifactId>jetty</artifactId>-->
-                    <!--<groupId>org.mortbay.jetty</groupId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.neo4j</groupId>-->
-            <!--<artifactId>neo4j-lucene-index</artifactId>-->
-            <!--&lt;!&ndash;<classifier>static-web</classifier>&ndash;&gt;-->
-            <!--<version>1.8-SNAPSHOT</version>-->
-        <!--</dependency>-->
-
-
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.21</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.21</version>
+        </dependency>
     </dependencies>
     <pluginRepositories>
         <pluginRepository>
@@ -118,12 +111,7 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>2.2</version>
             </plugin>
-            <!--</plugins>-->
-            <!--</build>-->
-            <!--<build>-->
-            <!--<plugins>-->
-
-            <plugin>
+             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1.1</version>
@@ -131,43 +119,16 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-
-            <!--https://blogs.oracle.com/enterprisetechtips/entry/using_jax_ws_with_maven-->
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>jaxws-maven-plugin</artifactId>-->
-                <!--<version>1.10</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<goals>-->
-                            <!--<goal>wsgen</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-                <!--<configuration>-->
-
-                    <!--<sei>net.itransformers.ws.upload.TreeImporterImpl</sei>-->
-                    <!-- for demo purpose only, the webapp does not-->
-                    <!--need the generated wsdl files-->
-                    <!--<genWsdl>true</genWsdl>-->
-                    <!--<keep>true</keep>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>tomcat-maven-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<url>http://193.19.172.133:8080/manager/text</url>-->
-
-                <!--</configuration>-->
-            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.0-SNAPSHOT</version>
+                <version>2.2</version>
                 <configuration>
-                    <url>http://localhost:8080/manager/html</url>
-                    <update>true</update>
+                    <contextFile>C:\Users\vasko\IdeaProjects\netTransformer\wsitransformer\src\main\webapp\META-INF\context.xml</contextFile>
+                    <url>http://localhost:8080/manager/text</url>
+                    <username>admin</username>
+                    <password>admin</password>
+                    <path>/${project.name}</path>
                 </configuration>
             </plugin>
             <plugin>

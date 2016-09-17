@@ -24,6 +24,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+    <import resource="classpath:xmlResourceManager/xmlResourceManager.xml"/>
     <bean id="sampleNodeDiscoveryListener"
           class="net.itransformers.idiscover.v2.core.listeners.node.SampleNodeDiscoveryListener"/>
 
@@ -45,6 +46,7 @@
         <property name="resourceManagerPath" value="resourceManager/conf/xml/resource.xml"/>
         <property name="reportGeneratorPath" value="postDiscoverer/conf/xml/reportGenerator.xml"/>
         <property name="tableTransfomator" value="iTopologyManager/rightClick/conf/xslt/table_creator.xslt"/>
+        <property name="resourceManager" ref="resourceManager"/>
     </bean>
 
 
@@ -105,10 +107,9 @@
             </list>
         </property>
     </bean>
+
     <bean id="discoveryResourceManager" class="net.itransformers.idiscover.core.DiscoveryResourceManager">
-        <constructor-arg ref="projectPath"/>
-        <constructor-arg value="1"/>
-        <constructor-arg value="resourceManager/conf/xml/nbu.xml"/>
+        <constructor-arg ref="resourceManager"/>
     </bean>
 
 

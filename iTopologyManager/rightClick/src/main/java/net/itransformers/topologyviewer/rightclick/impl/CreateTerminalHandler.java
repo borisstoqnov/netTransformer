@@ -28,6 +28,12 @@ import java.io.File;
 import java.util.Map;
 
 public class CreateTerminalHandler implements RightClickHandler {
+    protected ResourceResolver resourceResolver;
+
+    public CreateTerminalHandler(ResourceResolver resourceResolver) {
+        this.resourceResolver = resourceResolver;
+    }
+
     public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
@@ -35,7 +41,7 @@ public class CreateTerminalHandler implements RightClickHandler {
                                      File s){
         Map<String,String> connParams;
         try {
-            connParams = ResourceResolver.getResource(graphMLParams, new File(projectPath, rightClickParams.get("resource")), "ssh");
+            connParams = resourceResolver.getResource(graphMLParams, "ssh");
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(parent, "Can not find resource : "+e.getMessage());
