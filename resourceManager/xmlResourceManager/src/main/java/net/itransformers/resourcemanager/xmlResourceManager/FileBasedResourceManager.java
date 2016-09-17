@@ -40,6 +40,7 @@ public class FileBasedResourceManager implements ResourceManager {
     public void load() throws IOException, JAXBException {
         FileInputStream is = null;
         try {
+            logger.info("Reading resource config from: "+new File(file).getAbsoluteFile());
             is = new FileInputStream(file);
             ResourcesType resourcesType;
             resourcesType = JaxbMarshalar.unmarshal(ResourcesType.class, is);
