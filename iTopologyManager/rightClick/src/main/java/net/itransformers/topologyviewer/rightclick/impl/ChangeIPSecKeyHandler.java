@@ -1,15 +1,13 @@
 
 package net.itransformers.topologyviewer.rightclick.impl;
 
-import net.itransformers.resourcemanager.config.IPsecPair;
 import net.itransformers.topologyviewer.fulfilmentfactory.impl.CLIInterface;
 import net.itransformers.topologyviewer.fulfilmentfactory.impl.TelnetCLIInterface;
 import net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl;
-
+import net.itransformers.utils.ipsec.IPsecPair;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -26,7 +24,7 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
     //We need the neighbours before connecting to them
 
 
-    @Override
+
     protected String performIPSecAction(IPsecPair[] ipsecpair) throws IOException {
         //If this is first run we want to save the old key before generating new ones
         List<String> userInput = firstTimeConfigurationCheck(ipsecpair);
