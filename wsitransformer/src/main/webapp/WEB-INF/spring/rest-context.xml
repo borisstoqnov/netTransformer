@@ -15,7 +15,8 @@
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
         </mvc:message-converters>
     </mvc:annotation-driven>
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
 
-    <context:component-scan base-package="net.itransformers.ws.resourceManager;"/>
+    <context:component-scan base-package="net.itransformers.ws"/>
 
 </beans>

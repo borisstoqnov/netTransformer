@@ -11,10 +11,7 @@ import net.itransformers.utils.CIDRUtils;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.UnknownHostException;
 import java.util.*;
 
@@ -51,19 +48,17 @@ public class FileBasedResourceManager implements ResourceManager {
     }
 
     public void save() {
-        FileInputStream is = null;
+        FileOutputStream os = null;
         try {
-            is = new FileInputStream(file);
-            ResourcesType resourcesType;
-            resourcesType = JaxbMarshalar.unmarshal(ResourcesType.class, is);
-            this.resource = resourcesType;
+            os = new FileOutputStream(file);
+            JaxbMarshalar.marshal(this.resource, os, "resources");
         } catch (FileNotFoundException e) {
             throw new ResourceManagerException(e.getMessage(), e);
         } catch (JAXBException e) {
             e.printStackTrace();
         } finally {
-            if (is != null) try {
-                is.close();
+            if (os != null) try {
+                os.close();
             } catch (IOException e) {}
         }
     }
@@ -232,6 +227,20 @@ public class FileBasedResourceManager implements ResourceManager {
     }
 
     @Override
+    public void createResource(ResourceType resourceType) {
+        String resourceName = resourceType.getName();
+        if (resourceName == null) {
+            throw new ResourceManagerException("Invalid resource name");
+        }
+        ResourceType existingResourceType = getResource(resourceName);
+        if (existingResourceType != null) {
+            throw new ResourceManagerException("Resource Type with name " + resourceName + " already exists");
+        }
+        resource.getResource().add(resourceType);
+        save();
+    }
+
+    @Override
     public void createResource(String resourceName) {
         ResourceType resourceType = getResource(resourceName);
         if (resourceType != null) {
@@ -259,8 +268,10 @@ public class FileBasedResourceManager implements ResourceManager {
         for (ResourceType currResourceType : list) {
             if (currResourceType.getName().equalsIgnoreCase(resourceName)){
                 list.remove(currResourceType);
+                break;
             }
         }
+        save();
     }
 
     @Override
@@ -273,10 +284,17 @@ public class FileBasedResourceManager implements ResourceManager {
     }
 
     @Override
-    public void createSelectionParam(String resourceName, ParamType resourceParamType) {
+    public void createSelectionParam(String resourceName, String paramName, String paramValue) {
+        ParamType resourceParamType = new ParamType();
+        resourceParamType.setName(paramName);
+        resourceParamType.setValue(paramValue);
         ResourceType resourceType = getResource(resourceName);
+        if (resourceType == null) {
+            throw new ResourceManagerException("Resource with name does not exist");
+        }
         List<ParamType> params = resourceType.getParam();
         createParam(resourceParamType, params);
+        save();
     }
 
     private void createParam(ParamType resourceParamType, List<ParamType> params) {
@@ -297,10 +315,17 @@ public class FileBasedResourceManager implements ResourceManager {
 
 
     @Override
-    public void updateSelectionParam(String resourceName, ParamType resourceParamType) {
+    public void updateSelectionParam(String resourceName, String paramName, String paramValue) {
+        ParamType resourceParamType = new ParamType();
+        resourceParamType.setName(paramName);
+        resourceParamType.setValue(paramValue);
         ResourceType resourceType = getResource(resourceName);
+        if (resourceType == null) {
+            throw new ResourceManagerException("Resource with name does not exist");
+        }
         List<ParamType> params = resourceType.getParam();
         updateParam(resourceParamType, params);
+        save();
     }
 
     private void updateParam(ParamType resourceParamType, List<ParamType> params) {
@@ -315,13 +340,18 @@ public class FileBasedResourceManager implements ResourceManager {
         if (!isFound) {
             throw new ResourceManagerException(String.format("Parameter with name %s can not be found",resourceParamType.getName()));
         }
+        save();
     }
 
     @Override
     public void deleteSelectionParam(String resourceName, String paramName) {
         ResourceType resourceType = getResource(resourceName);
+        if (resourceType == null) {
+            throw new ResourceManagerException("Resource with name does not exist");
+        }
         List<ParamType> params = resourceType.getParam();
         deleteParam(paramName, params);
+        save();
     }
 
     private void deleteParam(String paramName, List<ParamType> params) {
@@ -341,16 +371,25 @@ public class FileBasedResourceManager implements ResourceManager {
     @Override
     public List<ParamType> getSelectionParams(String resourceName) {
         ResourceType resourceType = getResource(resourceName);
+        if (resourceType == null) {
+            throw new ResourceManagerException("Resource with name does not exist");
+        }
         List<ParamType> params = resourceType.getParam();
         return params;
     }
 
     @Override
-    public void createConnectionParam(String resourceName, String connectionType, ParamType connectionParamsType) {
+    public void createConnectionParam(String resourceName, String connectionType, String paramName, String paramValue) {
+        ParamType connectionParamsType = new ParamType();
+        connectionParamsType.setName(paramName);
+        connectionParamsType.setValue(paramValue);
         ResourceType resourceType = getResource(resourceName);
+        if (resourceType == null) {
+            throw new ResourceManagerException("Resource with name does not exist");
+        }
         List<ParamType> params = getConnetionParam(connectionType, resourceType);
         createParam(connectionParamsType, params);
-
+        save();
     }
 
     private List<ParamType> getConnetionParam(String connParamType, ResourceType resourceType) {
@@ -364,10 +403,14 @@ public class FileBasedResourceManager implements ResourceManager {
     }
 
     @Override
-    public void updateConnectionParams(String resourceName, String connectionType, ParamType resourceParamType) {
+    public void updateConnectionParams(String resourceName, String connectionType, String paramName, String paramValue) {
+        ParamType resourceParamType = new ParamType();
+        resourceParamType.setName(paramName);
+        resourceParamType.setValue(paramValue);
         ResourceType resourceType = getResource(resourceName);
         List<ParamType> params = getConnetionParam(connectionType, resourceType);
         updateParam(resourceParamType, params);
+        save();
     }
 
     @Override
@@ -375,14 +418,53 @@ public class FileBasedResourceManager implements ResourceManager {
         ResourceType resourceType = getResource(resourceName);
         List<ParamType> params = getConnetionParam(connectionType, resourceType);
         deleteParam(paramName, params);
+        save();
+    }
+
+    @Override
+    public List<String> getConnections(String resourceName) {
+        ResourceType resourceType = getResource(resourceName);
+        if (resourceType == null) {
+            throw new ResourceManagerException("Resource with name does not exist");
+        }
+        List<String> connectionTypes = new ArrayList<>();
+        List<ConnectionParamsType> params = resourceType.getConnectionParams();
+        for (ConnectionParamsType param : params) {
+            connectionTypes.add(param.getConnectionType());
+        }
+        return connectionTypes;
+    }
+
+    @Override
+    public void createConnection(String resourceName, String connType) {
+        ResourceType resourceType = getResource(resourceName);
+        if (resourceType == null) {
+            throw new ResourceManagerException("Resource with name does not exist");
+        }
+        List<ConnectionParamsType> params = resourceType.getConnectionParams();
+        for (ConnectionParamsType param : params) {
+            if (param.getConnectionType() != null && param.getConnectionType().equals(connType)){
+                throw new ResourceManagerException("Connection type already exists");
+            }
+        }
+        ConnectionParamsType connParams = new ConnectionParamsType();
+        connParams.setConnectionType(connType);
+        resourceType.getConnectionParams().add(connParams);
+        save();
     }
 
     @Override
     public List<ParamType> getConnectionParams(String resourceName, String connectionType) {
-        return null;
+        ResourceType resourceType = getResource(resourceName);
+        if (resourceType == null) {
+            throw new ResourceManagerException("Resource with name does not exist");
+        }
+        List<ParamType> params = getConnetionParam(connectionType, resourceType);
+        return params;
     }
 
-    private ResourceType getResource(String resourceName) {
+    @Override
+    public ResourceType getResource(String resourceName) {
         List<ResourceType> resourceTypeList = resource.getResource();
         for (ResourceType resourceType : resourceTypeList) {
             if (resourceType.getName().equals(resourceName)) {

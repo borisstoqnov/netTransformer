@@ -33,21 +33,25 @@ public interface ResourceManager {
     List<ResourceType> findResourceBy(Map<String, String> deviceParams);
     List<ResourceType> findResourcesByConnectionType(String connectionParametersType);
 
-
+    void createResource(ResourceType resourceType);
     void createResource(String resourceName);
     void updateResource(String resourceName, String newResourceName);
     void deleteResource(String resourceName);
     List<String> getResources();
+    ResourceType getResource(String resourceName);
 
-    void createSelectionParam(String resourceName, ParamType resourceParamType);
-    void updateSelectionParam(String resourceName, ParamType resourceParamType);
+    void createSelectionParam(String resourceName, String paramName, String paramValue);
+    void updateSelectionParam(String resourceName, String paramName, String paramValue);
     void deleteSelectionParam(String resourceName, String paramName);
     List<ParamType> getSelectionParams(String resourceName);
 
-    void createConnectionParam(String resourceName, String connParamType, ParamType connectionParamsType);
-    void updateConnectionParams(String resourceName, String connectionType, ParamType resourceParamType);
+    List<String> getConnections(String resourceName);
+    void createConnection(String resourceName, String connType);
+    void createConnectionParam(String resourceName, String connectionType, String paramName, String paramValue);
+    void updateConnectionParams(String resourceName, String connectionType, String paramName, String paramValue);
     void deleteConnectionParams(String resourceName, String connectionType, String paramName);
     List<ParamType> getConnectionParams(String resourceName , String connectionType);
+
 
 
 }

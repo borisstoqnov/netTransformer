@@ -11,5 +11,5 @@
     <bean id="projectPath" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="java:comp/env/wsitransformer/projectPath"/>
     </bean>
-    <context:component-scan base-package="net.itransformers.ws.resourceManager" />
+    <context:component-scan base-package="net.itransformers.ws" />
 </beans>
