@@ -219,7 +219,6 @@
             <map>
                 <entry key="projectPath" value-ref="projectPath"/>
                 <entry key="fileName" value="iDiscover/conf/xml/discoveryParameters.xml"/>
-                <entry key="resourceXML" value="resourceManager/conf/xml/nbu.xml"/>
             </map>
         </constructor-arg>
     </bean>

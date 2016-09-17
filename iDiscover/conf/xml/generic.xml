@@ -106,10 +106,6 @@
             </list>
         </property>
     </bean>
-    <bean id="resourceManager" class="net.itransformers.resourcemanager.xmlResourceManager.FileBasedResourceManager">
-        <constructor-arg ref="projectPath"/>
-        <constructor-arg value="${projectPath}/resourceManager/conf/xml/nbu.xml"/>
-    </bean>
 
     <bean id="discoveryResourceManager" class="net.itransformers.idiscover.core.DiscoveryResourceManager">
         <constructor-arg ref="resourceManager"/>
