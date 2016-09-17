@@ -30,11 +30,11 @@ public class ParallelNetworkNodeDiscovererIntegrationTestCase {
 
             JSONObject connDetails = jsonObject.getJSONObject("connectionDetails");
             JSONObject params = connDetails.getJSONObject("params");
-            System.out.println("params:" +params);
+//            logger("params:" +params);
 
 
             String ipAddress = params.getString("ipAddress");
-            System.out.println("ipAddress:" +ipAddress);
+//            System.out.println("ipAddress:" +ipAddress);
             ipAddress2JsonObject.put(ipAddress, jsonObject);
         }
     }

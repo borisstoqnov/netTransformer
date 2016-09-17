@@ -74,12 +74,17 @@ public class XmlDiscoveryHelperV2 {
     }
 
     public DiscoveredDevice createDevice(DiscoveredDeviceData discoveredDeviceData,String deviceName) {
+         String id = null;
 
-        String id = null;
         try {
-            id = HashGenerator.generateMd5(deviceName);
+            if (deviceName!=null && !deviceName.isEmpty())
+                id = HashGenerator.generateMd5(deviceName);
+            else
+                logger.error("Trying to generate an id for an empty device!!!");
+
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(),e);
+            return null;
         }
         DiscoveredDevice device = new DiscoveredDevice(deviceName, id);
         List<DiscoveredInterface> discoveredInterfaces = new ArrayList<DiscoveredInterface>();
@@ -176,6 +181,8 @@ public class XmlDiscoveryHelperV2 {
         HashMap<String, String> params2Map = convertParams(params2);
         String ipAddress = params2Map.get("Neighbor IP Address");
         String hostName = params2Map.get("Neighbour HostName");
+        String physicalAddress = params2Map.get("Neighbor MAC Address");
+
         return new DeviceNeighbour(hostName, ipAddress, params2Map);
 
     }

@@ -65,7 +65,13 @@ public class SnmpGraphmlMetadataProvider {
         vertexMetadataTypes.put("hostname", "string");
         vertexMetadataTypes.put("deviceModel", "string");
         vertexMetadataTypes.put("deviceType", "string");
+        vertexMetadataTypes.put("subnet", "YES");
         vertexMetadataTypes.put("nodeInfo", "string");
+        vertexMetadataTypes.put("icmpStatus", "string");
+        vertexMetadataTypes.put("fqdn", "string");
+        vertexMetadataTypes.put("pqdn", "string");
+
+
         vertexMetadataTypes.put("discoveredState", "string");
         vertexMetadataTypes.put("discoveredIPv4Address", "string");
         vertexMetadataTypes.put("sysLocation", "string");
@@ -75,9 +81,10 @@ public class SnmpGraphmlMetadataProvider {
         vertexMetadataTypes.put("ipv6Forwarding", "string");
         vertexMetadataTypes.put("ipv4Forwarding", "string");
         vertexMetadataTypes.put("subnetPrefix", "string");
-        vertexMetadataTypes.put("ipProtocolType", "string");
         vertexMetadataTypes.put("bgpAS", "string");
         vertexMetadataTypes.put("subnetRangeType", "string");
+        vertexMetadataTypes.put("bogon", "string");
+
         vertexMetadataTypes.put("totalInterfaceCount", "string");
 
     }

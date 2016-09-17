@@ -149,13 +149,11 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
         RawDeviceData rawData = null;
 
         try {
-            logger.info("Starting to walk!!!");
             rawDatNode = snmpManager.snmpWalk(requestParamsList);
             snmpManager.closeSnmp();
-            logger.info("Walk finished !!!");
 
         } catch (IOException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage(),e);
         }
         if (rawDatNode != null) {
             SnmpXmlPrinter snmpXmlPrinter = new SnmpXmlPrinter(mibLoaderHolder.getLoader(), rawDatNode);

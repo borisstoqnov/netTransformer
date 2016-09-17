@@ -539,7 +539,6 @@
 	<xsl:template name="MAC">
 		<xsl:param name="neighborMACAddress"/>
 		<xsl:param name="neighborIPAddress"/>
-        <xsl:param name="ipv4addresses"/>
         <xsl:if test="$neighborMACAddress !=''">
 
 			<xsl:variable name="neighID">

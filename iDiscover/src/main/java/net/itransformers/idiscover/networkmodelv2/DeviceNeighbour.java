@@ -38,6 +38,10 @@ public class DeviceNeighbour {
     }
 
 
+
+
+
+
     public String getNeighbourIpAddress() {
         return neighbourIpAddress;
     }
@@ -77,5 +81,9 @@ public class DeviceNeighbour {
                 ", neighbourIpAddress='" + neighbourIpAddress + '\'' +
                 ", parameters=" + parameters +
                 '}';
+    }
+
+    public String getNeighbourMac() {
+        return parameters.get("Neighbor MAC Address");
     }
 }

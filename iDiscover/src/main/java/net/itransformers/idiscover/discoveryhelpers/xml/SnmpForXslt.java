@@ -145,8 +145,6 @@ public class SnmpForXslt {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        System.out.println(address.getHostAddress());
-
 
         return address.getHostAddress();
 

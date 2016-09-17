@@ -110,7 +110,7 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <xsl:message>DEBUG:<xsl:value-of select="$hostname"/></xsl:message>
+        <!--<xsl:message>DEBUG:<xsl:value-of select="$hostname"/></xsl:message>-->
         <xsl:variable name="sysDescr">
             <xsl:value-of select="//root/iso/org/dod/internet/mgmt/mib-2/system/sysDescr"/>
         </xsl:variable>
@@ -130,6 +130,12 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
         </xsl:variable>
         <xsl:variable name="firstMacAddress" select="(/root/iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry[ifPhysAddress!='']/ifPhysAddress)[1]"/>
         <xsl:variable name="secondMacAddress" select="(/root/iso/org/dod/internet/mgmt/mib-2/interfaces/ifTable/ifEntry[ifPhysAddress!='']/ifPhysAddress)[2]"/>
+        <xsl:variable name="macAddress">
+            <xsl:choose>
+            <xsl:when test="$firstMacAddress = '00:00:00:00:00:00' or $firstMacAddress=''"><xsl:value-of select="$secondMacAddress"/></xsl:when>
+            <xsl:otherwise><xsl:value-of select="$firstMacAddress"/></xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
 
         <xsl:variable name="mplsVRF">
             <root1>
@@ -239,13 +245,10 @@ from the one obtained by snmp or other snmpDiscovery methods.-->
                         <xsl:value-of select="$deviceIPv4Address"/>
                     </value>
                 </parameter>
-                <xsl:if test="$firstMacAddress = '00:00:00:00:00:00'">
-                    <parameter>
-                        <name>firstMacAddress</name>
-                        <value><xsl:value-of select="$secondMacAddress"/></value>
-                    </parameter>
-                </xsl:if>
-
+                <parameter>
+                    <name>MacAddress</name>
+                    <value><xsl:value-of select="$macAddress"/></value>
+                </parameter>
                 <parameter>
                     <name>totalInterfaceCount</name>
                     <value><xsl:value-of select="//root/iso/org/dod/internet/mgmt/mib-2/interfaces/ifNumber"/></value>
@@ -585,7 +588,6 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
 
                                     <xsl:call-template name="MAC">
                                         <xsl:with-param name="neighborMACAddress" select="dot1dTpFdbAddress"/>
-                                        <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr"/>
 
                                         <xsl:with-param name="neighborIPAddress"
                                                         select="$neighborIPAddress"/>
@@ -803,6 +805,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
                                 <xsl:with-param name="ifName" select="$ifName"/>
                                 <xsl:with-param name="ifType" select="$ifType"/>
                                 <xsl:with-param name="ifSped" select="$ifSpeed"/>
+                                <xsl:with-param name="ifPhysicalAddress" select="$ifPhysAddress"/>
                                 <xsl:with-param name="ifAdminStatus" select="$ifAdminStatus"/>
                                 <xsl:with-param name="ifOperStatus" select="$ifOperStatus"/>
                                 <xsl:with-param name="IPv4Forwarding" select="$IPv4Forwarding"/>
@@ -1026,7 +1029,7 @@ If the Admin status is UP and Operational is down the interface is marked as Cab
 
                                     <xsl:call-template name="MAC">
                                         <xsl:with-param name="neighborMACAddress" select="dot1dTpFdbAddress"/>
-                                        <xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr"/>
+                                        <!--<xsl:with-param name="ipv4addresses" select="$ipv4Addresses/ipv4/ipv4addr"/>-->
 
                                         <xsl:with-param name="neighborIPAddress"
                                                         select="$neighborIPAddress"/>

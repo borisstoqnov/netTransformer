@@ -3,6 +3,8 @@ package net.itransformers.topologyviewer.rightclick.impl;
 
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
+import net.itransformers.resourcemanager.config.IPsecPair;
+import net.itransformers.topologyviewer.diff.DiffWizardDialog;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
@@ -11,13 +13,16 @@ import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
-public class NeighbourFinderByMethod implements RightClickHandler {
+public class NeighbourFinderByMethod extends JPanel implements RightClickHandler, PropertyChangeListener {
 
-    protected String performIPSecAction(ChangeIPSecKeyHandler.IPsecPair[] ipsecpair) throws IOException, InterruptedException {
+    protected String performIPSecAction(IPsecPair[] ipsecpair) throws IOException, InterruptedException {
 
 
         StringBuilder entiremessage = new StringBuilder();
@@ -61,7 +66,7 @@ public class NeighbourFinderByMethod implements RightClickHandler {
 
         String method = (String) rightClickParams.get("Discovery Method");
         int i = 0;
-        ChangeIPSecKeyHandler.IPsecPair[] ipsecpair = new ChangeIPSecKeyHandler.IPsecPair[100];
+        IPsecPair[] ipsecpair = new IPsecPair[100];
 
         Collection<String> outedges = currentGraph.getEdges();
 
@@ -88,7 +93,7 @@ public class NeighbourFinderByMethod implements RightClickHandler {
                 if ((neighbourDeviceType != null && neighbourDeviceType.equals("Subnet")) && ((thisDeviceType != null && thisDeviceType.equals("Subnet")))) {
                     System.out.println("Neighbour " + second + " is a subnet");
                 } else if (v == first || v == second) {
-                    ChangeIPSecKeyHandler.IPsecPair p = new ChangeIPSecKeyHandler.IPsecPair(first,thisDeviceIPAddress,second,neighbourDeviceIPAddress);
+                    IPsecPair p = new IPsecPair(first,thisDeviceIPAddress,second,neighbourDeviceIPAddress);
                     ipsecpair[i] = p;
                     i++;
                 }
@@ -101,4 +106,9 @@ public class NeighbourFinderByMethod implements RightClickHandler {
         }
     }
 
+    //TODO add a progress bar to ChangeIPSecKeyHandler as well
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+    }
 }

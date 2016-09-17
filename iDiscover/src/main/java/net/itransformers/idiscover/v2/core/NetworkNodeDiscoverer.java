@@ -36,7 +36,9 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     protected List<NodeNeighboursDiscoveryListener> nodeNeighbourDiscoveryListeners;
     protected List<NetworkDiscoveryListener> networkDiscoveryListeners;
     protected NodeDiscoverFilter nodeDiscoverFilter;
+    // TODO rename nodes -> nodesByIds
     protected final Map<String, Node> nodes = new HashMap<String, Node>();
+    protected final Map<String, Node> nodesByAliases = new HashMap<String, Node>();
 
     public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList) {
         return discoverNetwork(connectionDetailsList, -1);
