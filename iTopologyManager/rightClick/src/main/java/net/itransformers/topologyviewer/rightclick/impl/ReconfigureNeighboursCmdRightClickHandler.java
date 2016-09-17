@@ -48,13 +48,26 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 public class ReconfigureNeighboursCmdRightClickHandler implements RightClickHandler {
-    protected ResourceManager resourceManager;
-    protected ResourceResolver resourceResolver;
-    public ReconfigureNeighboursCmdRightClickHandler(ResourceManager resourceManager, ResourceResolver resourceResolver) {
-        this.resourceManager = resourceManager;
-        this.resourceResolver = resourceResolver;
-    }
-
+//    public <G> void handleRightClick(JFrame parent, String v,
+//                                     Map<String, String> graphMLParams,
+//                                     Map<String, String> rightClickParams,
+//                                     String versionDir) throws Exception {
+//        Map<String,String> connParams;
+//        connParams = ResourceResolver.getResource(parent, graphMLParams, rightClickParams.get("resource"));
+//        String deviceType = graphMLParams.get("deviceType");
+//        ParameterFactoryBuilder builder = new ParameterFactoryBuilder(rightClickParams.get("parameterFactoryXml"));
+//        ParameterFactory factory = builder.buildParameterFactory(deviceType);
+//        Map<String, Object> context = new HashMap<String, Object>();
+//        context.put("graphml", graphMLParams);
+//        context.put("resource", connParams);
+//        context.put("rightClickParams", rightClickParams);
+//        context.put("xmlFileName",versionDir);
+//        Map<String,String> params = factory.createParameters(context);
+//        System.out.println(params);
+//
+//
+//
+//    }
     public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
@@ -99,9 +112,10 @@ public class ReconfigureNeighboursCmdRightClickHandler implements RightClickHand
         System.out.println(deviceXmlPath);
         context.put("xmlFileName", deviceXmlPath);
         context.put("parentFrame", parent);
-        ResourceType resource = resourceManager.findFirstResourceBy(graphMLParams);
+        ResourceManager resourceManager = new ResourceManager(new File(projectPath, rightClickParams.get("resource")));
+        ResourceType resource = resourceManager.findResource(graphMLParams);
         if (resource!=null){
-            context.put("connection-params", resourceResolver.getConnectionParams(resource, graphMLParams, "telnet"));
+            context.put("connection-params", ResourceResolver.getConnectionParams(resource, graphMLParams, "telnet"));
             FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(projectPath, new File(projectPath, rightClickParams.get("fulfilment-factory")),
                     builder,resource);
             String[] factoryNames = factory.getFulfilmentFactoryNamesForResource(resource.getName());

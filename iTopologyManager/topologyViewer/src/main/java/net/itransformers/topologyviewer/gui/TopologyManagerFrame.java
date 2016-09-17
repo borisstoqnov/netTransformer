@@ -21,6 +21,10 @@
 
 package net.itransformers.topologyviewer.gui;
 
+import edu.uci.ics.jung.graph.DirectedGraph;
+import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import edu.uci.ics.jung.graph.UndirectedGraph;
+import edu.uci.ics.jung.graph.UndirectedSparseMultigraph;
 import net.itransformers.topologyviewer.menu.MenuBuilder;
 import net.itransformers.utils.ProjectConstants;
 import net.itransformers.utils.graphmledgedefaultresolver.GraphmlEdgeDefaultResolver;
@@ -44,16 +48,10 @@ public class TopologyManagerFrame extends JFrame{
     private JTabbedPane tabbedPane;
     private Properties preferences = new Properties();
     Map<String, GraphViewerPanelManager> viewerPanelManagerMap = new HashMap<String, GraphViewerPanelManager>();
-    protected GraphViewerPanelManagerFactory graphViewerPanelManagerFactory;
 
-    public TopologyManagerFrame() {
+    public TopologyManagerFrame(final File path) throws Exception {
+
         super("netTransformer");
-    }
-
-    public void init() throws IOException {
-        this.init(null);
-    }
-    public void init(File path) throws IOException {
         //super.setIconImage(Toolkit.getDefaultToolkit().getImage("images/logo3.png"));
         File prefsFile = new File(VIEWER_PREFERENCES_PROPERTIES);
         try {
@@ -82,17 +80,14 @@ public class TopologyManagerFrame extends JFrame{
                     this.doOpenGraph(graphmlPathFile);
                 }
             }
+            // this.doOpenGraph(new File(projectPath,"n"));
         }
-    }
 
-    public GraphViewerPanelManagerFactory getGraphViewerPanelManagerFactory() {
-        return graphViewerPanelManagerFactory;
-    }
 
-    public void setGraphViewerPanelManagerFactory(GraphViewerPanelManagerFactory graphViewerPanelManagerFactory) {
-        this.graphViewerPanelManagerFactory = graphViewerPanelManagerFactory;
     }
-
+//    public TopologyManagerFrame(String s){
+//        super(s);
+//    }
     public File getPath() {
         return path;
     }
@@ -133,6 +128,8 @@ public class TopologyManagerFrame extends JFrame{
         this.setMinimumSize(new Dimension(640, 480));
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+
     }
 
 
@@ -158,18 +155,21 @@ public class TopologyManagerFrame extends JFrame{
         try {
             GraphmlEdgeDefaultResolver graphTypeResolver = new GraphmlEdgeDefaultResolver();
             String graphType = graphTypeResolver.resolveEdgeDefault(selectedFile);
-            GraphViewerPanelManager viewerPanelManager =
-                    graphViewerPanelManagerFactory.createGraphViewerPanelManager(
-                            graphType,
-                            projectType,
-                            viewerConfig,
-                            selectedFile,
-                            path,
-                            tabbedPane);
-            viewerPanelManager.init();
-            viewerPanelManagerMap.put(viewerPanelManager.getVersionDir().getAbsolutePath(),viewerPanelManager);
-            viewerPanelManager.createAndAddViewerPanel();
 
+            if (graphType.equals("undirected")) {
+                logger.info("Opening "+ projectType + " with viewer config" + viewerConfig + "and selected file" + selectedFile);
+                GraphViewerPanelManager<UndirectedGraph<String, String>> viewerPanelManager =
+                new GraphViewerPanelManager<UndirectedGraph<String, String>>(this, projectType, path, viewerConfig, selectedFile, UndirectedSparseMultigraph.<String, String>getFactory(), tabbedPane, GraphType.UNDIRECTED);
+                viewerPanelManagerMap.put(viewerPanelManager.getVersionDir().getAbsolutePath(),viewerPanelManager);
+                viewerPanelManager.createAndAddViewerPanel();
+            } else if (selectedFile.getAbsolutePath().contains("directed")) {
+
+                GraphViewerPanelManager<DirectedGraph<String, String>> viewerPanelManager = new GraphViewerPanelManager<DirectedGraph<String, String>>(this, projectType, path, viewerConfig, selectedFile, DirectedSparseMultigraph.<String, String>getFactory(), tabbedPane, GraphType.DIRECTED);
+                viewerPanelManagerMap.put(viewerPanelManager.getVersionDir().getAbsolutePath(), viewerPanelManager);
+                viewerPanelManager.createAndAddViewerPanel();
+            } else {
+                logger.error(String.format("Unknown graph type %s. Expected types are (directed, undirected)", selectedFile.getName()));
+            }
         }
          catch (Exception e){
             e.printStackTrace();
@@ -266,6 +266,23 @@ public class TopologyManagerFrame extends JFrame{
             JOptionPane.showMessageDialog(this, "Can not Store preferences: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+
+//    private void applyNeighborFilter(final FilterType filter, final Integer hops, final Set<String> pickedVertexes) {
+//        EdgePredicateFilter<String, String> KNeighborhoodFilter = createEdgeFilter(filter);
+//        final Graph<String,String> graph1 = KNeighborhoodFilter.transform(entireGraph);
+//        VertexPredicateFilter<String, String> filterV = createVertexFilter(filter, graph1);
+//        edu.uci.ics.jung.algorithms.filters.KNeighborhoodFilter <String,String> FilterN = null;
+//
+//        G graph2 = (G) filterV.transform(graph1);
+//        HashSet<String> set = new HashSet<String>(graph2.getVertices());
+//        if (pickedVertexes != null){
+//            set.retainAll(pickedVertexes);
+//        }
+//        KNeighborhoodFilter<String, String> f = new KNeighborhoodFilter<String,String>(set,hops, KNeighborhoodFilter.EdgeType.IN_OUT);
+//        currentGraph = (G) f.transform(graph2);
+//        vv.setGraphLayout(createLayout(currentGraph));
+//    }
 
     public void doCloseProject() {
 

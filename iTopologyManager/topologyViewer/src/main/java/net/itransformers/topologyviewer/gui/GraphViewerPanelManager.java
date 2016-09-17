@@ -48,11 +48,8 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private final File versionDir;
     private String layout;
     private final File deviceXmlPath;
-    protected  GraphViewerPanelFactory graphViewerPanelFactory;
 
-    public GraphViewerPanelManager(JFrame frame, String projectType, File projectPath, File viewerConfigFile,
-                                   File graphmlFile, Factory<G> factory, JTabbedPane tabbedPane,
-                                   GraphType graphType, GraphViewerPanelFactory graphViewerPanelFactory) throws Exception {
+    public GraphViewerPanelManager(JFrame frame, String projectType, File projectPath, File viewerConfigFile, File graphmlFile, Factory<G> factory, JTabbedPane tabbedPane, GraphType graphType) throws Exception {
         this.frame = frame;
         this.projectPath = projectPath;
         this.graphType = graphType;
@@ -66,8 +63,8 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
         entireGraph = factory.create();
         viewerConfig = ViewerConfigLoader.loadViewerConfig(this.viewerConfigFile);
         this.layout="FRLayout";
-        this.graphViewerPanelFactory = graphViewerPanelFactory;
-    }
+        init();
+}
 
     public Map<String, GraphMLMetadata<String>> getVertexMetadatas() {
         return graphmlLoader.getVertexMetadatas();
@@ -78,8 +75,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     }
 
     private GraphViewerPanel createViewerPanel() {
-        return graphViewerPanelFactory.createGraphViewerPanel(viewerConfig,graphmlLoader,iconMapLoader,edgeStrokeMapLoader,
-                edgeColorMapLoader,entireGraph,projectPath,deviceXmlPath,versionDir, graphmlFileName, initialNode, layout);
+        return new GraphViewerPanel<G>(frame, viewerConfig, graphmlLoader, iconMapLoader, edgeStrokeMapLoader, edgeColorMapLoader, entireGraph, projectPath, deviceXmlPath, versionDir, graphmlFileName, initialNode,layout);
     }
 
     public void init() throws Exception {

@@ -38,7 +38,7 @@
     <dependencies>
         <dependency>
             <groupId>net.itransformers.netTransformer</groupId>
-            <artifactId>resourceManagerAPI</artifactId>
+            <artifactId>resourceManager</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>

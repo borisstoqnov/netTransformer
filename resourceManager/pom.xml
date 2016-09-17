@@ -27,13 +27,7 @@
 
     <groupId>net.itransformers.netTransformer</groupId>
     <artifactId>resourceManager</artifactId>
-    <packaging>pom</packaging>
-    <version>0.8</version>
-    <modules>
-        <module>xmlResourceManager</module>
-        <module>resourceManagerAPI</module>
-    </modules>
-    <!--Change for new version-->
+    <version>0.8</version><!--Change for new version-->
 
     <parent>
         <groupId>net.itransformers</groupId>

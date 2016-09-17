@@ -470,7 +470,7 @@ public class DiscoveryResourcePanel extends JPanel {
     public void save(File file) throws Exception{
         ResourcesType resources = this.getResources();
         FileOutputStream os = new FileOutputStream(file);
-        JaxbMarshalar.marshal(resources, os, "src/main/resources");
+        JaxbMarshalar.marshal(resources, os, "resources");
     }
 
     public static void main(String[] args) throws IOException, JAXBException {

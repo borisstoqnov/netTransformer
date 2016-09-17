@@ -82,7 +82,7 @@ public class XslFulfilmentImpl implements Fulfilment {
 //        Map<String,String> params = new HashMap<String, String>();
 //        params.put("DeviceType","CISCO");
 //
-//        ResourceType resource = resourceManager.findFirstResourceBy(params);
+//        ResourceType resource = resourceManager.findResource(params);
 //        FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory("fulfilment-factory/conf/xml/fulfilment-factory.xml",
 //                builder,resource);
 //        Logger logger = Logger.getAnonymousLogger();

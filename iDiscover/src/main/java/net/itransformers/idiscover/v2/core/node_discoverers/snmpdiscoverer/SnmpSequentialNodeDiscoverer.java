@@ -77,7 +77,7 @@ public class SnmpSequentialNodeDiscoverer extends SnmpNodeDiscoverer implements 
         Map<String, String> snmpConnParams = new HashMap<String, String>();
 
         ResourceType snmpResource = this.discoveryResource.returnResourceByParam(params1);
-        List<ResourceType> snmpResources = this.discoveryResource.returnResourcesByConnectionType("snmp");
+        ArrayList<ResourceType> snmpResources = this.discoveryResource.returnResourcesByConnectionType("snmp");
         String sysDescr;
         snmpConnParams = this.discoveryResource.getParamMap(snmpResource, "snmp");
         snmpConnParams.put("ipAddress", ipAddressStr);

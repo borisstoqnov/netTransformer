@@ -24,6 +24,16 @@ import net.itransformers.resourcemanager.ResourceManager;
 import net.itransformers.resourcemanager.config.ConnectionParamsType;
 import net.itransformers.resourcemanager.config.ParamType;
 import net.itransformers.resourcemanager.config.ResourceType;
+import net.itransformers.resourcemanager.config.ResourcesType;
+import net.itransformers.resourcemanager.util.JaxbMarshalar;
+import org.apache.commons.io.FileUtils;
+
+import javax.xml.bind.JAXBException;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,19 +41,32 @@ import java.util.Map;
 public class DiscoveryResourceManager {
   private ResourceManager resourceManager;
 
-    public DiscoveryResourceManager(ResourceManager resourceManager) {
-        this.resourceManager = resourceManager;
+    public DiscoveryResourceManager(File projectDir, String label, String PathToXML) {
+        String xml = null;
+        try {
+            xml = FileUtils.readFileToString(new File(projectDir,PathToXML));
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        InputStream is = new ByteArrayInputStream(xml.getBytes());
+        ResourcesType deviceGroupsType = null;
+        try {
+            deviceGroupsType = JaxbMarshalar.unmarshal(ResourcesType.class, is);
+        } catch (JAXBException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        this.resourceManager = new ResourceManager(deviceGroupsType);
     }
 
     public ResourceManager getResourceManager() {
         return resourceManager;
     }
 
-    public List<ResourceType> returnResourcesByConnectionType(String connectionType){
+    public ArrayList<ResourceType> returnResourcesByConnectionType(String connectionType){
         return resourceManager.findResourcesByConnectionType(connectionType);
     }
     public ResourceType returnResourceByParam(Map params){
-        return resourceManager.findFirstResourceBy(params);
+        return resourceManager.findResource(params);
     }
 
     public Map<String, String> getParamMap(ResourceType resourceType,String connectionType) {

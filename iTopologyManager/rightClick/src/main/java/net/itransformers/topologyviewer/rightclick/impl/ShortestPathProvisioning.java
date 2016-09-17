@@ -49,18 +49,11 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 public class ShortestPathProvisioning implements RightClickHandler {
-    protected ResourceManager resourceManager;
-    protected ResourceResolver resourceResolver;
-    public ShortestPathProvisioning(ResourceManager resourceManager, ResourceResolver resourceResolver) {
-        this.resourceManager = resourceManager;
-        this.resourceResolver = resourceResolver;
-    }
-
     public <G> void  handleRightClick(JFrame parent, String v,
-                                      Map<String, String> graphMLParams,
-                                      Map<String, String> rightClickParams,
-                                      File projectPath,
-                                      java.io.File deviceDataXmlFileName) throws Exception {
+                                     Map<String, String> graphMLParams,
+                                     Map<String, String> rightClickParams,
+                                     File projectPath,
+                                     java.io.File deviceDataXmlFileName) throws Exception {
 
         TopologyManagerFrame viewer = (TopologyManagerFrame) parent;
         final GraphViewerPanel viewerPanel = (GraphViewerPanel) viewer.getTabbedPane().getSelectedComponent();
@@ -77,6 +70,7 @@ public class ShortestPathProvisioning implements RightClickHandler {
         }
         ParameterFactoryBuilder builder = new ParameterFactoryBuilder(new File(projectPath,rightClickParams.get("parameterFactoryXml")));
 
+        ResourceManager resourceManager = new ResourceManager(new File(projectPath, rightClickParams.get("resource")));
         Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = viewer.getCurrentGraphViewerManager().getVertexMetadatas();
 //
         final Layout<String,String> layout = vv.getGraphLayout();
@@ -106,8 +100,8 @@ public class ShortestPathProvisioning implements RightClickHandler {
             context.put("xmlFileName", deviceDataXmlFileName.toURI().toString());
             context.put("parentFrame", parent);
 
-            ResourceType resource = resourceManager.findFirstResourceBy(graphMLParams1);
-            context.put("connection-params", resourceResolver.getConnectionParams(resource, graphMLParams1, "telnet"));
+            ResourceType resource = resourceManager.findResource(graphMLParams1);
+            context.put("connection-params", ResourceResolver.getConnectionParams(resource, graphMLParams1, "telnet"));
             FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(projectPath, new File (projectPath, rightClickParams.get("fulfilment-factory")),
                     builder,resource);
             String[] factoryNames = factory.getFulfilmentFactoryNamesForResource(resource.getName());

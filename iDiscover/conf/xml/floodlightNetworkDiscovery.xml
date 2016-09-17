@@ -40,7 +40,7 @@
         <!--<ref bean="sampleNodeDiscoveryListener"/>-->
         <!--<ref bean="rawDataFileLogDiscoveryListener"/>-->
         <!--<ref bean="sdnDeviceXmlFileLogDiscoveryListener"/>-->
-        <!--<ref bean="SdnGraphmlFileLogDiscoveryListener"/>-->
+        <!--<ref bean="sdnGraphmlFileLogDiscoveryListener"/>-->
 
         <!--</list>-->
         <!--</property>-->
@@ -63,7 +63,7 @@
                 <!--&lt;!&ndash;<ref bean="sampleNodeDiscoveryListener"/>&ndash;&gt;-->
                 <!--&lt;!&ndash;<ref bean="rawDataFileLogDiscoveryListener"/>&ndash;&gt;-->
                 <!--&lt;!&ndash;<ref bean="sdnDeviceXmlFileLogDiscoveryListener"/>&ndash;&gt;-->
-                <!--&lt;!&ndash;<ref bean="SdnGraphmlFileLogDiscoveryListener"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<ref bean="sdnGraphmlFileLogDiscoveryListener"/>&ndash;&gt;-->
 
             <!--&lt;!&ndash;</list>&ndash;&gt;-->
         <!--&lt;!&ndash;</property>&ndash;&gt;-->
@@ -71,11 +71,10 @@
 
 
     <bean id="sdnGraphmlFileLogDiscoveryListener"
-          class="net.itransformers.idiscover.v2.core.listeners.node.SdnGraphmlFileLogDiscoveryListener">
+          class="net.itransformers.idiscover.v2.core.listeners.node.sdnGraphmlFileLogDiscoveryListener">
         <property name="graphmlDataDirName" value="network"/>
         <property name="labelDirName" value="network"/>
         <property name="floodLighGraphmlXsltTransformator" value="iDiscover/conf/xslt/floodLighGraphmlTransformator.xslt"/>
-        <property name="resourceManager" ref="resourceManager"/>
     </bean>
 
     <bean id="sdnDeviceXmlFileLogDiscoveryListener"

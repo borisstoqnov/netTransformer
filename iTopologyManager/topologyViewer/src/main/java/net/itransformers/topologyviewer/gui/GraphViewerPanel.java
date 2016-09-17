@@ -79,7 +79,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
     private String layout;
     private boolean vertexLabel;
     private JComboBox jComboBox = new JComboBox();
-    private RightClickInvoker rightClickInvoker;
+
 
     private boolean edgeLabel;
     DefaultModalGraphMouse graphMouse;
@@ -91,9 +91,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
                             IconMapLoader iconMapLoader,
                             EdgeStrokeMapLoader edgeStrokeMapLoader,
                             EdgeColorMapLoader edgeColorMapLoader,
-                            G entireGraph, File path, File versionDir, File deviceXmlPath, File graphmlDir,
-                            String initialNode, String layout,
-                            RightClickInvoker rightClickInvoker) {
+                            G entireGraph, File path, File versionDir, File deviceXmlPath, File graphmlDir, String initialNode, String layout) {
         super();
         this.parent = parent;
         this.viewerConfig = viewerConfig;
@@ -105,7 +103,6 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         this.path = path;
         this.deviceXmlPath = deviceXmlPath;
         this.layout = layout;
-        this.rightClickInvoker = rightClickInvoker;
         this.graphMouse = new DefaultModalGraphMouse();
         vv = new MyVisualizationViewer(viewerConfig, entireGraph,
                 graphmlLoader.getVertexMetadatas(),
@@ -113,7 +110,16 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
                 iconMapLoader.getIconMap(),
                 edgeStrokeMapLoader.getEdgesStrokeMap(),
                 edgeColorMapLoader.getEdgesColorMap());
-
+        //   vv.setGraphMouse(graphMouse);
+//       vv.setPreferredSize(new Dimension(parentSize.width-50,parentSize.height-150));
+//        int vertexCount = entireGraph.getVertexCount();
+//        if (vertexCount >= 2000){
+//            vv.setPreferredSize(new Dimension(parentSize.width*10,parentSize.height*10));
+//        }else if (vertexCount < c999 && vertexCount > 200 ){
+//            vv.setPreferredSize(new Dimension(parentSize.width*5,parentSize.height*5));
+//        }else {
+//           vv.setPreferredSize(new Dimension(parentSize.width+50,parentSize.height-150));
+//        }
         createPanel();
     }
 
@@ -126,6 +132,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
 
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<String>());
         vv.getRenderContext().setVertexLabelRenderer(new MyDefaultVertexLabelRenderer(Color.BLACK, Color.RED));
+       // vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<String>());
         vv.getRenderContext().setEdgeLabelTransformer(new ConstantTransformer(null));
         vv.getRenderContext().setEdgeLabelRenderer(new MyDefaultEdgeLabelRenderer(Color.BLACK, Color.RED));
 
@@ -133,6 +140,16 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         setEdgeLabel(false);
         setVertexLabel(true);
 
+//
+//            @Override
+//            public <T> Component getVertexLabelRendererComponent(JComponent jComponent, Object o, Font font, boolean b, T t) {
+//                JLabel jLabel = new JLabel(t.toString());
+//                //TOOD has to be a prefference setting
+//                Font font1 = new Font(font.getName(), font.getStyle()+Font.BOLD, font.getSize()+2);
+//                jLabel.setFont(font1);
+//                return jLabel;
+//            }
+//        });
         vv.setGraphMouse(graphMouse);
         vv.setToolTipText("<html><center>Type 'p' for Pick mode<p>Type 't' for Transform mode");
 
@@ -148,6 +165,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         JButton saveView = createSaveButton();
         JButton loadView = createLoadButton();
         JButton redraw = createRedrawAroundButton();
+        JButton hideEdgeLabels = hideEdgeLabels();
         controls = new JPanel();
         controls.add(saveView);
         controls.add(loadView);
@@ -170,7 +188,56 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
             vertexes.add(initialNode);
             applyFilter(currentFilter, currentHops, vertexes);
         }
+
+//        Animator(initialNode);
+
+        //controls.add(hideEdgeLabels);
+
+//        JPanel jp2 = new JPanel();
+//		jp2.add(new JLabel("vertex from", SwingConstants.LEFT));
+////		jp2.add(getSelectionBox(true));
+////		jp2.setBackground(Color.white);
+//		JPanel jp3 = new JPanel();
+//		jp3.add(new JLabel("vertex to", SwingConstants.LEFT));
+////		jp3.add(getSelectionBox(false));
+////		jp3.setBackground(Color.white);
+//
+//        controls.add( jp2 );
+//		controls.add( jp3 );
+
+
     }
+//    private Component getSelectionBox(final boolean from) {
+//		ToStringLabeller s1;
+//		Set s = new TreeSet();
+//
+//		for (Iterator iter = entireGraph.getVertices().iterator();
+//			iter.hasNext();
+//			) {
+//			s.add(sl.getLabel((GraphEvent.Vertex) iter.next()));
+//		}
+//		final JComboBox choices = new JComboBox(s.toArray());
+//		choices.setSelectedIndex(-1);
+//		choices.setBackground(Color.WHITE);
+//		choices.addActionListener(new ActionListener() {
+//
+//			public void actionPerformed(ActionEvent e) {
+//				StringLabeller sl = StringLabeller.getLabeller(entireGraph);
+//				GraphEvent.Vertex v = sl.getVertex((String) choices.getSelectedItem());
+//				if (from) {
+//					mFrom = v;
+////					System.out.println("Assigned mFrom!");
+//				} else {
+//					mTo = v;
+////					System.out.println("Assigned mTo!");
+//				}
+//				drawShortest();
+//				repaint();
+//			}
+//
+//		});
+//		return choices;
+//	}
 
     static class LayoutFileFilter extends FileFilter {
         @Override
@@ -214,6 +281,83 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         return load;
     }
 
+    //    public void captureScreen(String fileName){
+//        try {
+//    Robot robot = new Robot();
+//
+//    // Capture a particular area on the screen
+//    int x = 100;
+//    int y = 100;
+//    int width = 200;
+//    int height = 200;
+//    Rectangle area = new Rectangle(x, y, width, height);
+//    BufferedImage bufferedImage = robot.createScreenCapture(area);
+//
+//    // Capture the whole screen
+//    area = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+//    bufferedImage = robot.createScreenCapture(area);
+//            try {
+//        OutputStream out = new FileOutputStream(fileName);
+//           JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+//         encoder.encode(bufferedImage);
+//         out.close();
+//       } catch (Exception e) {
+//         e.printStackTrace();
+//      }
+//} catch (AWTException e) {
+//}
+//    }
+//    public void captureToFile(String file){
+//          vv.setDoubleBuffered( false );
+//
+//        // capture: create a BufferedImage
+//        // create the Graphics2D object that paints to it
+//       Layout pl = vv.getGraphLayout();
+//       int height = pl.getSize().height;
+//       int width = pl.getSize().width;
+//        System.out.println("X: "+ width+"Y: "+ height);
+//         BufferedImage myImage = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
+//         Graphics2D g2 = myImage.createGraphics();
+////        vv.repaint();
+//        vv.paintComponent(g2);
+//         vv.setDoubleBuffered( true );
+//       try {
+//        OutputStream out = new FileOutputStream(file);
+//           JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+//         encoder.encode(myImage);
+//         out.close();
+//       } catch (Exception e) {
+//         e.printStackTrace();
+//      }
+//    }
+//
+//
+//
+//     public void writeJPEGImage(String filename) {
+//        PersistentLayout pl = (PersistentLayout) vv.getGraphLayout();
+//        int height = pl.getSize().height;
+//        int width = pl.getSize().width;
+//        Color bg = getBackground();
+//
+//        BufferedImage bi = new BufferedImage(width,height,BufferedImage.TYPE_3BYTE_BGR);
+//        Graphics2D graphics = bi.createGraphics();
+//        graphics.setColor(bg);
+//        graphics.fillRect(0,0, width, height);
+//
+//        vv.paintComponent(graphics);
+//        try{
+//           ImageIO.write(bi, "jpg", new File(filename));
+//        }catch(Exception e){e.printStackTrace();}
+//
+//}
+////    public void writeImage(String filename) {
+////        PersistentLayout pl = (PersistentLayout) vv.getGraphLayout();
+//////        pl.setSize(innerSize);
+////     VisualizationImageServer   bvs = new VisualizationImageServer<V,E>(pl);
+////        // [...]
+////        BufferedImage image = (BufferedImage)bvs.getImage();
+////    }
+//
     public void writeToImageFile(String imageFileName) throws AWTException {
 
         final GraphZoomScrollPane panel = new GraphZoomScrollPane(vv);
@@ -294,6 +438,14 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         return save;
     }
 
+//    private JMenu createModeMenu(AbstractModalGraphMouse graphMouse) {
+//        JMenu modeMenu = graphMouse.getModeMenu(); // Obtain mode menu from the mouse
+//        modeMenu.setText("Mouse Mode");
+//        modeMenu.setIcon(null); // I'm using this in a main menu
+//        modeMenu.setPreferredSize(new Dimension(80,20)); // Change the size         menuBar.add(modeMenu);
+//        return modeMenu;
+//    }
+
     private JToggleButton createMouseModeButton(final AbstractModalGraphMouse graphMouse) {
         final String selectText = "Move graph";
         final JToggleButton button = new JToggleButton(selectText);
@@ -350,7 +502,7 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
                         final Map<String, GraphMLMetadata<String>> vertexMetadatas = graphmlLoader.getVertexMetadatas();
                         for (String v : varr) {
                             GraphViewerPanel.this.Animator(v.toString());
-                            rightClickInvoker.invokeRightClickHandler(GraphViewerPanel.this.parent, v, rcItemType, vertexMetadatas, path, versionDir);
+                            RightClickInvoker.invokeRightClickHandler(GraphViewerPanel.this.parent, v, rcItemType, vertexMetadatas, path, versionDir);
                         }
                     } catch (Exception e2) {
                         e2.printStackTrace();
@@ -514,7 +666,16 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
             }
         }
 
+//        for (FilterType filter : filters) {
+//            G graph = transformCurrentGraph(filter,matcherMap, Integer.valueOf(viewerConfig.getHops().getSelected()), null);
+//            int size = graph.getVertices().size();
+//            jComboBox.addItem(filter.getName()+ " ("+size+")");
+//            filterName2FilterType.put(filter.getName()+ " ("+size+")", filter);
+//
+//        }
         for (FilterType filter : filters) {
+          //  G graph = transformCurrentGraph(filter,matcherMap, Integer.valueOf(viewerConfig.getHops().getSelected()), null);
+          //  int size = graph.getVertices().size();
             jComboBox.addItem(filter.getName());
             filterName2FilterType.put(filter.getName(), filter);
 
@@ -527,7 +688,15 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         java.util.List<FilterType> filters = filtersType.getFilter();
         final Map<String, FilterType> filterName2FilterType = new HashMap<String, FilterType>();
 
+//        for (FilterType filter : filters) {
+//            G graph = transformGraph(filter, Integer.valueOf(viewerConfig.getHops().getSelected()), null);
+//            int size = graph.getVertices().size();
+//            filtersCombo.addItem(filter.getName()+ " ("+size+")");
+//            filterName2FilterType.put(filter.getName()+ " ("+size+")", filter);
+//        }
         for (FilterType filter : filters) {
+       //     G graph = transformGraph(filter, Integer.valueOf(viewerConfig.getHops().getSelected()), null);
+       //     int size = graph.getVertices().size();
             filtersCombo.addItem(filter.getName());
             filterName2FilterType.put(filter.getName(), filter);
         }
@@ -649,10 +818,17 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         PersistentLayout test = null;
         if (layout.equals("CircleLayout")) {
             CircleLayout circleLayoutLayout = new CircleLayout<String, String>(graph);
+//
+//            circleLayoutLayout.setRepulsionMultiplier(repultion);
+//            circleLayoutLayout.setAttractionMultiplier(attraction);
+//            circleLayoutLayout.setMaxIterations(maxIterations);
 
             test = new MyPersistentLayoutImpl(circleLayoutLayout);
         } else if (layout.equals("KKLayout")) {
             KKLayout kkLayout = new KKLayout<String, String>(graph);
+
+//            kkLayout.setRepulsionMultiplier(repultion);
+//            kkLayout.setAttractionMultiplier(attraction);
             kkLayout.setMaxIterations(maxIterations);
 
             test = new MyPersistentLayoutImpl(kkLayout);
@@ -668,7 +844,15 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
 
             test = new MyPersistentLayoutImpl(frLayout2);
 
+
+//        }   else if (layout.equals("DAGLayout")){
+//            DAGLayout<String,String> abx =    new DAGLayout<String,String>(graph);
+//             abx.setRoot("R1");
+//            test =  new PersistentLayoutImpl(abx);
         }
+//        } else if(layout.equals("TreeLayout")){
+//            TreeLayout<String,String> abx = new TreeLayout<String, String>(graph);
+//        }
         else {
             FRLayout frLayout = new FRLayout<String, String>(graph);
             frLayout.setRepulsionMultiplier(repultion);
@@ -758,6 +942,12 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         };
         Thread thread = new Thread(animator);
         thread.start();
+//        try {
+//            thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//        }
+
     }
 
     public void EdgeAnimator(Pair edge) {
@@ -787,6 +977,12 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         };
         Thread thread = new Thread(edgeAnimator);
         thread.start();
+//        try {
+//            thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//        }
+
     }
 
     public Set<String> findShortest(String aFrom, String aTo, Graph<String, String> aGraph) {

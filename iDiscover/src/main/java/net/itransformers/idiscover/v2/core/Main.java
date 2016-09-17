@@ -159,7 +159,7 @@ public class Main {
 
 
 
-public static FileSystemXmlApplicationContext initializeDiscoveryContext(String projectPath) throws MalformedURLException {
+    public static FileSystemXmlApplicationContext initializeDiscoveryContext(String projectPath) throws MalformedURLException {
 
 
         File generic = new File(projectPath,"iDiscover/conf/xml/generic.xml");

@@ -22,7 +22,6 @@
 package net.itransformers.topologyvierwer.gui.launcher;
 
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
-import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.io.File;
 import java.util.HashMap;
@@ -44,35 +43,55 @@ public class TopologyViewerLauncher {
         if (!params.containsKey("-t")) {
             params.put("-t", "directed");
         }
+        String initialNode = params.get("-n");
 
+        String graphmlRelDir = params.get("-g");
         String dirStr = params.get("-d");
         String urlStr = params.get("-u");
         if (dirStr != null && urlStr != null) {
             printUsage("Can not specify -d or -u options simultaneously");
             return;
         }
+        File baseUrl = null;
         if (dirStr != null) {
             File dir = new File(dirStr);
             if (!dir.exists()) {
                 System.out.println(String.format("The specified directory '%s' does not exists", dirStr));
                 return;
             }
+            baseUrl = dir;
+        } else if (urlStr != null) {
+            baseUrl = new File(urlStr);
+        } else {
+            baseUrl = null;
         }
-        GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
-        ctx.load("classpath:rightClick/rightClick.xml");
-        ctx.load("classpath:rightClickAPI/rightClickAPI.xml");
-        ctx.load("classpath:xmlResourceManager/xmlResourceManager.xml");
-        ctx.load("classpath:topologyViewer/topologyViewer.xml");
-        ctx.refresh();
-        TopologyManagerFrame frame = (TopologyManagerFrame) ctx.getBean("topologyManagerFrame");
-        frame.init();
+        String viewerConfig = params.get("-f");
+        File viewerConfigFile = null;
+        if (viewerConfig != null) {
+            viewerConfigFile = new File(viewerConfig);
+        }
+        new TopologyManagerFrame(null);
+//        if (params.get("-t").equals("undirected")) {
+//            new TopologyManagerFrame(baseUrl, graphmlRelDir, UndirectedSparseGraph.<String, String>getFactory(), viewerConfigFile, initialNode);
+//        } else if(params.get("-t").equals("multi")){
+//            new TopologyManagerFrame<UndirectedGraph<String, String>>(baseUrl, graphmlRelDir, UndirectedSparseMultigraph.<String, String>getFactory(), viewerConfigFile,initialNode);
+//        }else if (params.get("-t").equals("directed")) {
+//            new TopologyManagerFrame<DirectedGraph<String, String>>(baseUrl, graphmlRelDir, DirectedSparseGraph.<String, String>getFactory(), viewerConfigFile,initialNode);
+//        }else{
+//
+//        }
     }
 
     private static void printUsage(String msg) {
         System.out.println("Error: "+msg);
         System.out.println("Usage:   topoManager.bat [-t <directed|undirected>] -d <local_dir> -u <remote_url> -g <graphml_dir> -f <viewer_config]");
         System.out.println(
+                "-f <viewer-config>          # viewer configuration file\n" +
                         "-d <local_dir>              # relative or absolute path to local dir with 'graphml-dir' and 'device-data' dirs.\n"
+//                        "-g <graphml_dir>            # relative path to the 'graphml-dir' (relateive to the 'local_dir' or 'remote_url').\n" +
+//                        "-u <remote_url>             # URL to site with 'graphml-dir' and 'device-data' dirs.\n" +
+//                        "-t <directed|undirected>    # graph type - directed or undirected\n"+
+//                        "-n <Initial Node>           # Initial Node"
         );
     }
 }
