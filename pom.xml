@@ -48,6 +48,7 @@
         <module>wsitransformer</module>
         <module>postDiscoverer</module>
         <module>ideas</module>
+        <module>iDiscoverAPI</module>
 
     </modules>
     <build>
