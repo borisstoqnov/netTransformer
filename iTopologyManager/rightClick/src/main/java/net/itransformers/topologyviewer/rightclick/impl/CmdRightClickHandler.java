@@ -48,8 +48,9 @@ public class CmdRightClickHandler implements RightClickHandler {
     protected ResourceManager resourceManager;
     protected ResourceResolver resourceResolver;
 
-    public CmdRightClickHandler(ResourceManager resourceManager) {
+    public CmdRightClickHandler(ResourceManager resourceManager, ResourceResolver resourceResolver) {
         this.resourceManager = resourceManager;
+        this.resourceResolver = resourceResolver;
     }
 
     public <G> void handleRightClick(JFrame parent, String v,
