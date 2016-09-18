@@ -21,9 +21,12 @@
 
 package net.itransformers.topologyviewer.dialogs.discovery;
 
-import net.itransformers.idiscover.v2.core.CsvConnectionDetailsFileManager;
-import net.itransformers.idiscover.v2.core.connection_details.IPNetConnectionDetails;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.IPNetConnectionDetails;
+import net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager;
+
+
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

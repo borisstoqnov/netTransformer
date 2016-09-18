@@ -1,8 +1,8 @@
 package net.itransformers.idiscover.v2.core.parallel;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

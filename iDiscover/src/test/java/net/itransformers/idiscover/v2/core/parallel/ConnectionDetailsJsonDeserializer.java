@@ -1,7 +1,7 @@
 package net.itransformers.idiscover.v2.core.parallel;
 
-import net.itransformers.idiscover.v2.core.connection_details.IPNetConnectionDetails;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.IPNetConnectionDetails;
 import org.json.JSONException;
 import org.json.JSONObject;
 

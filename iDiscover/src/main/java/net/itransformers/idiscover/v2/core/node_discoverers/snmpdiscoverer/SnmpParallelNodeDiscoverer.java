@@ -21,6 +21,7 @@
 
 package net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.core.DiscoveryHelper;
 import net.itransformers.idiscover.core.DiscoveryResourceManager;
 import net.itransformers.idiscover.core.RawDeviceData;
@@ -33,7 +34,6 @@ import net.itransformers.idiscover.networkmodelv2.DiscoveredDevice;
 import net.itransformers.idiscover.util.DeviceTypeResolver;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder;
 import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;
 import org.apache.commons.lang.StringUtils;

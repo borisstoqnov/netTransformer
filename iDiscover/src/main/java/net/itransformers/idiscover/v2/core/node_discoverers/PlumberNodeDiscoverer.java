@@ -1,9 +1,9 @@
 package net.itransformers.idiscover.v2.core.node_discoverers;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.networkmodelv2.DiscoveredDevice;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.node_discoverers.dns.DnsNodeDiscoverer;
 import net.itransformers.idiscover.v2.core.node_discoverers.dns.DnsResolver;
 import net.itransformers.idiscover.v2.core.node_discoverers.icmp.IcmpDiscoverer;

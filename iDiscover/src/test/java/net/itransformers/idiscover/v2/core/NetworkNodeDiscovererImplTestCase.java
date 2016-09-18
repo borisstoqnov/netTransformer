@@ -19,7 +19,7 @@
 //
 //package net.itransformers.idiscover.v2.core;
 //
-//import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+//import main.java.net.itransformers.main.model.ConnectionDetails;
 //import net.itransformers.idiscover.v2.core.model.Node;
 //import org.junit.Assert;
 //import org.junit.Before;

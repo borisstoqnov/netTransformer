@@ -29,7 +29,7 @@
 //import net.itransformers.idiscover.v2.core.ANetworkDiscoverer;
 //import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
 //import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-//import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+//import main.java.net.itransformers.main.model.ConnectionDetails;
 //import net.sf.json.JSONArray;
 //import net.sf.json.JSONSerializer;
 //import net.sf.json.xml.XMLSerializer;

@@ -23,7 +23,7 @@
 
 package net.itransformers.idiscover.v2.core;
 
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
 
 import java.util.HashMap;

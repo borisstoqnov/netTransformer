@@ -21,13 +21,12 @@
 
 package net.itransformers.idiscover.v2.core.listeners.node;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.apache.log4j.Logger;
 
 import java.io.*;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 

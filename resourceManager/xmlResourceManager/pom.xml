@@ -18,5 +18,10 @@
             <artifactId>resourceManagerAPI</artifactId>
             <version>0.8</version>
         </dependency>
+        <dependency>
+            <groupId>net.itransformers.netTransformer</groupId>
+            <artifactId>utils</artifactId>
+            <version>0.8</version>
+        </dependency>
     </dependencies>
 </project>

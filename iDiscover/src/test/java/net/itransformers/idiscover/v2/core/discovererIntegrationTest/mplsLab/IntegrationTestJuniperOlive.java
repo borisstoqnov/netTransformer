@@ -35,7 +35,7 @@ import net.itransformers.idiscover.networkmodel.ObjectType;
 import net.itransformers.idiscover.networkmodel.ParameterType;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Before;

@@ -21,6 +21,7 @@
 
 package net.itransformers.idiscover.v2.core.discovererIntegrationTest.mplsLab;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.core.DiscoveryHelper;
 import net.itransformers.idiscover.core.DiscoveryTypes;
 import net.itransformers.idiscover.core.RawDeviceData;
@@ -30,7 +31,6 @@ import net.itransformers.idiscover.networkmodel.ObjectType;
 import net.itransformers.idiscover.networkmodel.ParameterType;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Before;

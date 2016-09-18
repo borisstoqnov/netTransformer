@@ -21,11 +21,14 @@
 
 package net.itransformers.idiscover.v2.core;
 
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
 import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {

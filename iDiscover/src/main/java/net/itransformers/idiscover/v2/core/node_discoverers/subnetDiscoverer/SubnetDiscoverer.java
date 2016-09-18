@@ -1,10 +1,10 @@
 package net.itransformers.idiscover.v2.core.node_discoverers.subnetDiscoverer;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.IPNetConnectionDetails;
 import net.itransformers.idiscover.v2.core.IPv4BogonIdentitifier;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.connection_details.IPNetConnectionDetails;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.utils.CIDRUtils;
 import org.apache.commons.net.util.SubnetUtils;
 import org.apache.log4j.Logger;

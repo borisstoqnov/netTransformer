@@ -1,9 +1,9 @@
 package net.itransformers.idiscover.v2.core.node_discoverers.icmp;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.core.DiscoveryResourceManager;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.node_discoverers.AbstractNodeDiscoverer;
 import net.itransformers.resourcemanager.config.ResourceType;
 import org.apache.log4j.Logger;

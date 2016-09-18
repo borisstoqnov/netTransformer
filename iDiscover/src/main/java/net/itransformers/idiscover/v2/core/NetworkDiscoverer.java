@@ -21,7 +21,8 @@
 
 package net.itransformers.idiscover.v2.core;
 
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 
 import java.util.List;
 import java.util.Set;

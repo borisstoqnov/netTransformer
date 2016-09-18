@@ -21,6 +21,7 @@
 
 package net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.core.*;
 import net.itransformers.idiscover.discoveryhelpers.xml.SnmpForXslt;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
@@ -28,7 +29,6 @@ import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.util.DeviceTypeResolver;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer.snmpmanager.SnmpManagerCreator;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder;
@@ -39,8 +39,11 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.*;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+@Deprecated
 public class SnmpSequentialNodeDiscoverer extends SnmpNodeDiscoverer implements NodeDiscoverer {
 
     public SnmpSequentialNodeDiscoverer(XmlDiscoveryHelperFactory discoveryHelperFactory, String[] discoveryTypes, DiscoveryResourceManager discoveryResource, MibLoaderHolder mibLoaderHolder, boolean icmpStatus) throws Exception {
