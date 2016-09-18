@@ -23,6 +23,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <bean id="projectPath" class="java.lang.String">
+        <constructor-arg value="."/>
+    </bean>
     <bean id="topologyManagerFrame" class="net.itransformers.topologyviewer.gui.TopologyManagerFrame">
     </bean>
     <bean id="graphViewerPanelManagerFactory" class="net.itransformers.topologyviewer.gui.GraphViewerPanelManagerFactory">
