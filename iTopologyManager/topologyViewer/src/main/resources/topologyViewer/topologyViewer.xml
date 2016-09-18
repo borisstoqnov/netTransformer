@@ -27,6 +27,7 @@
         <constructor-arg value="."/>
     </bean>
     <bean id="topologyManagerFrame" class="net.itransformers.topologyviewer.gui.TopologyManagerFrame">
+        <property name="graphViewerPanelManagerFactory" ref="graphViewerPanelManagerFactory"/>
     </bean>
     <bean id="graphViewerPanelManagerFactory" class="net.itransformers.topologyviewer.gui.GraphViewerPanelManagerFactory">
         <constructor-arg name="topologyManagerFrame" ref="topologyManagerFrame"/>

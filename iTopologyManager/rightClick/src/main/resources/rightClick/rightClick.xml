@@ -49,6 +49,7 @@
     <!--</bean>-->
     <bean id="cmdRightClickHandler" class="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
         <constructor-arg name="resourceManager" ref="resourceManager"/>
+        <constructor-arg name="resourceResolver" ref="resourceResolver"/>
     </bean>
     <bean id="shortestPathProvisioning" class="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
         <constructor-arg name="resourceManager" ref="resourceManager"/>

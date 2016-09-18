@@ -73,7 +73,7 @@ public class OpenGraphMenuHandler implements ActionListener {
                     if (f.exists() && f.isDirectory()){
 
                         undirectedDir = new File(f+File.separator);
-                        networkGraphml = new File(undirectedDir + ProjectConstants.networkGraphmlFileName);
+                        networkGraphml = new File(undirectedDir + File.separator+ProjectConstants.undirectedGraphmlDirName+File.separator+ProjectConstants.networkGraphmlFileName);
                         if (undirectedDir.exists() && networkGraphml.exists()){
                             return true;
                         }
