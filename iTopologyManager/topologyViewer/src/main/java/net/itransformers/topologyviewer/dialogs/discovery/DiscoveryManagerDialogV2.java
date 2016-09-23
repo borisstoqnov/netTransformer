@@ -21,6 +21,7 @@
 
 package net.itransformers.topologyviewer.dialogs.discovery;
 
+import net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager;
 import net.itransformers.idiscover.v2.core.*;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.parallel.ParallelNetworkNodeDiscovererImpl;
@@ -271,7 +272,9 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
             e.printStackTrace();
         }
 
-        LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", conDetails);
+        CsvConnectionDetailsFileManager connectionDetailsFileManager = (CsvConnectionDetailsFileManager) applicationContext.getBean("connectionList", conDetails);
+        LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap<String, ConnectionDetails>) connectionDetailsFileManager.getConnectionDetails();
+
 
         //TopologyManagerFrame frame = this.projectDir.;
 
