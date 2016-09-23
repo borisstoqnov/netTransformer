@@ -29,7 +29,10 @@ import java.util.Map;
 public class CsvConnectionDetailsFactory {
     @SuppressWarnings("unchecked")
     public static Map<String,ConnectionDetails> createConnectionDetail(File file) throws IOException {
-        return new CsvConnectionDetailsFileManager().load(file);
+
+       CsvConnectionDetailsFileManager csvConnectionDetailsFileManager = new CsvConnectionDetailsFileManager(file);
+
+        return csvConnectionDetailsFileManager.getConnectionDetails() ;
     }
 
 }

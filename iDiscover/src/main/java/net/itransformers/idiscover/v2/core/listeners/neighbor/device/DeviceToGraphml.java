@@ -123,16 +123,13 @@ public class DeviceToGraphml {
 
                         GraphmlEdge graphmlEdge = edgeIdGenerator.createEdge();
                         graphmlEdge.setGraphmlEdgeDataList(getGraphmlDirectNeighbourEdgeMetaData(deviceNeighbour));
-
+                        boolean edgeAlreadyDefined = false;
                         for (GraphmlEdge edge : graphmlEdges){
-                            if (!edge.getId().equals(graphmlEdge.getId())){
-
-                                graphmlEdges.add(graphmlEdge);
-
-                            } else {
+                            if (edge.getId().equals(graphmlEdge.getId())){
+                                edgeAlreadyDefined = true;
+                                int index = graphmlEdges.indexOf(edge);
                                 logger.info (graphmlEdge +"already exists" );
 
-                                int index = graphmlEdges.indexOf(edge);
 
                                 List <GraphmlEdgeData> existinGraphmlEdgeDatas = edge.getGraphmlEdgeDataList();
                                 List <GraphmlEdgeData> newGraphmlEdgeDatas = graphmlEdge.getGraphmlEdgeDataList();
@@ -143,9 +140,13 @@ public class DeviceToGraphml {
 
                                 graphmlEdges.set(index,edge);
 
-
                             }
                         }
+                        if (!edgeAlreadyDefined) {
+                            graphmlEdges.add(graphmlEdge);
+                        }
+
+
                         neighbourInSubnet = true;
                         break;
                     }
@@ -247,9 +248,9 @@ public class DeviceToGraphml {
         GraphmlEdgeData dataLink;
 
         if (discoveryMethod.equals("CDP")||discoveryMethod.equals("LLDP")||discoveryMethod.equals("MAC")){
-            dataLink  = new GraphmlEdgeData("dataLink","true");
+            dataLink  = new GraphmlEdgeData("dataLink","YES");
         }    else {
-            dataLink  = new GraphmlEdgeData("dataLink","false");
+            dataLink  = new GraphmlEdgeData("dataLink","NO");
 
         }
         graphmlEdgeDatas.add(dataLink);
@@ -353,14 +354,24 @@ public class DeviceToGraphml {
         graphmlEdgeDatas.add(dataLink);
 
         String protocolType= subnet.getSubnetProtocolType();
+        GraphmlEdgeData ipv4Forwarding;
+        GraphmlEdgeData ipv6Forwarding;
 
         switch (protocolType){
             case "IPv4":
-                GraphmlEdgeData ipv4Forwarding  = new GraphmlEdgeData("ipv4Forwarding",protocolType);
+                ipv4Forwarding  = new GraphmlEdgeData("ipv4Forwarding","YES");
+                ipv6Forwarding  = new GraphmlEdgeData("ipv6Forwarding","NO");
                 graphmlEdgeDatas.add(ipv4Forwarding);
-            case "IPv6":
-                GraphmlEdgeData ipv6Forwarding  = new GraphmlEdgeData("ipv6Forwarding",protocolType);
                 graphmlEdgeDatas.add(ipv6Forwarding);
+
+                break;
+            case "IPv6":
+                ipv6Forwarding  = new GraphmlEdgeData("ipv6Forwarding","YES");
+                ipv4Forwarding  = new GraphmlEdgeData("ipv4Forwarding","NO");
+                graphmlEdgeDatas.add(ipv4Forwarding);
+                graphmlEdgeDatas.add(ipv6Forwarding);
+                break;
+
 
         }
 

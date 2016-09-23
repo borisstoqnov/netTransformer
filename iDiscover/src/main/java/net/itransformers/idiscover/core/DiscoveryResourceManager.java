@@ -46,6 +46,7 @@ public class DiscoveryResourceManager {
         return resourceManager.findFirstResourceBy(params);
     }
 
+
     public Map<String, String> getParamMap(ResourceType resourceType,String connectionType) {
         Map<String, String> connParams = new HashMap<String, String>();
         List<ConnectionParamsType> connectionParams = resourceType.getConnectionParams();

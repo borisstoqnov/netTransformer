@@ -157,7 +157,7 @@ public class DiscoveryWizardDialog extends JDialog {
         if (contentPanel instanceof ConnectionDetailsPanel) {
             File connectionFile = new File(projectPath, "iDiscover/conf/txt/connection-details.txt");
             try {
-                ((ConnectionDetailsPanel) contentPanel).save(connectionFile);
+                ((ConnectionDetailsPanel) contentPanel).save();
             } catch (FileNotFoundException e1) {
                 e1.printStackTrace();
                 JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error saving connection details file");

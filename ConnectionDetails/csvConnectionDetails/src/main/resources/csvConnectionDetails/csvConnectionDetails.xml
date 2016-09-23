@@ -27,12 +27,13 @@
         <!--<constructor-arg name="file" value="#{projectPath+'/resourceManager/conf/xml/nbu.xml'}"/>-->
     <!--</bean>-->
 
-    <bean id="discoveryDepth" scope="prototype" class="java.lang.Integer" factory-method="parseInt"/>
     <!--<bean id="discoveryDepth" class="java.lang.Integer">-->
     <!--<constructor-arg value="1"/>-->
     <!--</bean>-->
 
-    <bean id="connectionList" scope="prototype" class="net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFactory"
-          factory-method="createConnectionDetail"/>
+    <bean id="connectionList" class="net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager" init-method="load">
+        <constructor-arg name="file" value="#{projectPath+'/iDiscover/conf/txt/connection-details.txt'}"/>
+    </bean>
+
 
 </beans>

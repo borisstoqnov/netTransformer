@@ -31,7 +31,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ConnectionDetails implements Cloneable, Serializable{
-    protected String name;
     protected String connectionType;
     protected Map<String,String> params = new LinkedHashMap<String, String>();
 
@@ -39,7 +38,6 @@ public class ConnectionDetails implements Cloneable, Serializable{
     }
 
     public ConnectionDetails(String name, String connectionType) {
-        this.name = name;
         this.connectionType = connectionType;
     }
     public ConnectionDetails(String connectionType) {
@@ -55,23 +53,12 @@ public class ConnectionDetails implements Cloneable, Serializable{
     }
 
     public ConnectionDetails(String name, String connectionType, Map<String, String> params){
-        this.name = name;
         this.connectionType = connectionType;
         for (String key : params.keySet()) {
             this.params.put(key,params.get(key));
         }
 
     }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
 
     public void setParams(Map<String, String> params) {
         this.params = params;

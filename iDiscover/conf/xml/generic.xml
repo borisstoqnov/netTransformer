@@ -26,6 +26,7 @@
 
     <import resource="classpath:xmlResourceManager/xmlResourceManager.xml"/>
     <import resource="classpath:csvConnectionDetails/csvConnectionDetails.xml"/>
+
     <bean id="sampleNodeDiscoveryListener"
           class="net.itransformers.idiscover.v2.core.listeners.node.SampleNodeDiscoveryListener"/>
 

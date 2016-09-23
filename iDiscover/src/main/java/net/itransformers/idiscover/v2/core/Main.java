@@ -22,6 +22,7 @@
 package net.itransformers.idiscover.v2.core;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager;
 import net.itransformers.utils.AutoLabeler;
 import net.itransformers.utils.CmdLineParser;
 import net.itransformers.utils.ProjectConstants;
@@ -91,7 +92,9 @@ public class Main {
             discoverer = applicationContext.getBean("snmpDiscoverer", NetworkDiscoverer.class);
 
         }
-        LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", conDetails);
+        CsvConnectionDetailsFileManager connectionDetailsFileManager = (CsvConnectionDetailsFileManager) applicationContext.getBean("connectionList");
+
+        LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap<String, ConnectionDetails>) connectionDetailsFileManager.getConnectionDetails();
         int depth = (Integer)applicationContext.getBean("discoveryDepth", depthCmdArg == null ? "-1" : depthCmdArg);
         NetworkDiscoveryResult result = discoverer.discoverNetwork(new HashSet<ConnectionDetails>(connectionList.values()), depth);
 
