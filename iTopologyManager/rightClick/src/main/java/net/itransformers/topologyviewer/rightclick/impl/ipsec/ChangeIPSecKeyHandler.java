@@ -1,15 +1,11 @@
 
 package net.itransformers.topologyviewer.rightclick.impl.ipsec;
 
-import net.itransformers.resourcemanager.config.IPsecPair;
-import net.itransformers.topologyviewer.rightclick.impl.NeighbourFinderByMethod;
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 

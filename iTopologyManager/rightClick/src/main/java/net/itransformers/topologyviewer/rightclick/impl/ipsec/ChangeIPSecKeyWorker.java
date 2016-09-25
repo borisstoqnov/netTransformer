@@ -1,6 +1,7 @@
 package net.itransformers.topologyviewer.rightclick.impl.ipsec;
 
-import net.itransformers.resourcemanager.config.IPsecPair;
+//import net.itransformers.resourcemanager.config.IPsecPair;
+
 import net.itransformers.topologyviewer.fulfilmentfactory.impl.CLIInterface;
 import net.itransformers.topologyviewer.fulfilmentfactory.impl.TelnetCLIInterface;
 import net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl;
