@@ -27,7 +27,9 @@
 
     <groupId>net.itransformers.netTransformer</groupId>
     <artifactId>iDiscover</artifactId>
+    <packaging>jar</packaging>
     <version>0.8</version>
+
     <!--Change for new version-->
 
     <parent>
@@ -44,6 +46,19 @@
             <version>0.8</version>
             <!--Change for new version-->
         </dependency>
+        <dependency>
+            <groupId>net.itransformers.netTransformer.connectiondetails</groupId>
+            <artifactId>connectiondetailsapi</artifactId>
+            <version>0.8</version>
+            <!--Change for new version-->
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers.netTransformer.connectiondetails</groupId>
+            <artifactId>csvConnectionDetails</artifactId>
+            <version>0.8</version>
+            <!--Change for new version-->
+        </dependency>
+
         <dependency>
             <groupId>net.itransformers.snmp2xml4j</groupId>
             <artifactId>snmptoolkit</artifactId>
@@ -176,6 +191,7 @@
             <artifactId>velocity</artifactId>
             <version>1.5</version>
         </dependency>
+
     </dependencies>
 
     <repositories>

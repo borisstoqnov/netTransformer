@@ -1,19 +1,5 @@
 package net.itransformers.idiscover.v2.core.parallel;
 
-import net.itransformers.idiscover.v2.core.NodeDiscoverer;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.factory.NodeFactory;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.model.Node;
-import net.itransformers.idiscover.v2.core.parallel.DiscoveryWorker;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.Map;
-import java.util.Set;
-
-import static org.mockito.Mockito.*;
-
 /**
  * Created by vasko on 20.06.16.
  */

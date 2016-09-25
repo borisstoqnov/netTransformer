@@ -1,8 +1,8 @@
 package net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.IPNetConnectionDetails;
 import net.itransformers.idiscover.core.Subnet;
-import net.itransformers.idiscover.v2.core.connection_details.IPNetConnectionDetails;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 
 import java.util.HashSet;
 import java.util.List;

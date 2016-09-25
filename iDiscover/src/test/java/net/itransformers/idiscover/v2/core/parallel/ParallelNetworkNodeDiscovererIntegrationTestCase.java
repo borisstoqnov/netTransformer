@@ -1,13 +1,12 @@
 package net.itransformers.idiscover.v2.core.parallel;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
 import net.itransformers.idiscover.v2.core.factory.NodeFactory;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;

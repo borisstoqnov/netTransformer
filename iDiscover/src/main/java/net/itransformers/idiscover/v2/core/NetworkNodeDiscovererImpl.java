@@ -19,11 +19,12 @@
 
 package net.itransformers.idiscover.v2.core;
 
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.model.Node;
 import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
 
 public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     static Logger logger = Logger.getLogger(NetworkNodeDiscovererImpl.class);

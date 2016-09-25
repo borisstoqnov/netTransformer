@@ -36,7 +36,7 @@
 // * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // */
 //
-//import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+//import main.java.net.itransformers.main.model.ConnectionDetails;
 //import net.itransformers.utils.Pair;
 //
 //import java.util.*;

@@ -23,5 +23,5 @@
 
 <Context override="false">
     <Environment name="wsitransformer/projectPath" type="java.lang.String"
-              value=".."/>
+              value="/Users/niau/Projects/netTransformer"/>
 </Context>

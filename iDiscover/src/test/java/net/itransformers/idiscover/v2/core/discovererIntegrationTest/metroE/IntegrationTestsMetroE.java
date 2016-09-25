@@ -21,15 +21,18 @@
 
 package net.itransformers.idiscover.v2.core.discovererIntegrationTest.metroE;
 
-import net.itransformers.idiscover.core.*;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.IPNetConnectionDetails;
+import net.itransformers.idiscover.core.DeviceNeighbour;
+import net.itransformers.idiscover.core.DiscoveryHelper;
+import net.itransformers.idiscover.core.DiscoveryResourceManager;
+import net.itransformers.idiscover.core.RawDeviceData;
 import net.itransformers.idiscover.discoveryhelpers.xml.SnmpForXslt;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
 import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
 import net.itransformers.idiscover.networkmodel.ObjectType;
 import net.itransformers.idiscover.networkmodel.ParameterType;
 import net.itransformers.idiscover.util.JaxbMarshalar;
-import net.itransformers.idiscover.v2.core.connection_details.IPNetConnectionDetails;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer.SnmpSequentialNodeDiscoverer;
 import net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder;
 import net.itransformers.snmp2xml4j.snmptoolkit.SnmpManager;

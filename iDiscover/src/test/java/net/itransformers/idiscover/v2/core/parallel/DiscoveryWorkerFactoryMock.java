@@ -2,15 +2,11 @@ package net.itransformers.idiscover.v2.core.parallel;
 
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.factory.DiscoveryWorkerFactory;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
-import org.json.JSONArray;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Map;
 
 /**

@@ -21,8 +21,9 @@
 
 package net.itransformers.topologyviewer.dialogs.discovery;
 
+import net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager;
 import net.itransformers.idiscover.v2.core.*;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.parallel.ParallelNetworkNodeDiscovererImpl;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.utils.ProjectConstants;
@@ -271,11 +272,22 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
             e.printStackTrace();
         }
 
-        LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap) applicationContext.getBean("connectionList", conDetails);
+        CsvConnectionDetailsFileManager connectionDetailsFileManager = null;
+        if (applicationContext != null) {
+            connectionDetailsFileManager = (CsvConnectionDetailsFileManager) applicationContext.getBean("connectionList", conDetails);
+        }
+        LinkedHashMap<String,ConnectionDetails> connectionList = null;
+        if (connectionDetailsFileManager != null) {
+            connectionList = (LinkedHashMap<String, ConnectionDetails>) connectionDetailsFileManager.getConnectionDetails();
+        }
+
 
         //TopologyManagerFrame frame = this.projectDir.;
 
-        ParallelNetworkNodeDiscovererImpl nodeDiscovererImpl = applicationContext.getBean(discoveryBeanName, ParallelNetworkNodeDiscovererImpl.class);
+        ParallelNetworkNodeDiscovererImpl nodeDiscovererImpl = null;
+        if (applicationContext != null) {
+            nodeDiscovererImpl = applicationContext.getBean(discoveryBeanName, ParallelNetworkNodeDiscovererImpl.class);
+        }
 
         int depth = (Integer) depthComboBox.getSelectedItem();
         NodeDiscoveryListener nodeListener = new NodeDiscoveryListener() {

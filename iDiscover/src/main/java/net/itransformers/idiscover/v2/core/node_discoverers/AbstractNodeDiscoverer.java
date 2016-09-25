@@ -23,6 +23,8 @@ public abstract class  AbstractNodeDiscoverer {
 
 
     protected ResourceType resourceProvider(Map<String, String> params){
+
+
         return this.discoveryResource.returnResourceByParam(params);
     }
     protected Map<String,String> returnResourceSelectionParams(String deviceName, String deviceType, String ipAddressStr){

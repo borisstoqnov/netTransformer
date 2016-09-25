@@ -1,5 +1,5 @@
-/*
- * ConnectionDetailsValidator.java
+package net.itransformers.connectiondetails.csvconnectiondetails;/*
+ * net.itransformers.connectiondetails.csvconnectiondetails.ConnectionDetailsValidator.java
  *
  * This work is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
@@ -19,9 +19,8 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-package net.itransformers.idiscover.v2.core;
 
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 
 /**
  * Created by niau on 2/28/16.

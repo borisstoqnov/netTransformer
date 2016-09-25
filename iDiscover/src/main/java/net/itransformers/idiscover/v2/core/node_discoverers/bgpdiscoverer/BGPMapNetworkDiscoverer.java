@@ -21,10 +21,10 @@
 
 package net.itransformers.idiscover.v2.core.node_discoverers.bgpdiscoverer;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.ANetworkDiscoverer;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.utils.ProjectConstants;
 import org.apache.commons.io.output.NullOutputStream;
 import org.apache.log4j.Logger;

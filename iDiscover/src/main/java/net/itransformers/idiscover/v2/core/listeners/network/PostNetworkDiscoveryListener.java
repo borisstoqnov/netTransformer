@@ -21,24 +21,25 @@
 
 package net.itransformers.idiscover.v2.core.listeners.network;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryListener;
 import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
-import net.itransformers.idiscover.v2.core.model.ConnectionDetails;
 import net.itransformers.postDiscoverer.core.ReportManager;
 import net.itransformers.postDiscoverer.reportGenerator.ReportGeneratorType;
 import net.itransformers.resourcemanager.ResourceManager;
 import net.itransformers.resourcemanager.config.ConnectionParamsType;
 import net.itransformers.resourcemanager.config.ParamType;
 import net.itransformers.resourcemanager.config.ResourceType;
-import net.itransformers.resourcemanager.config.ResourcesType;
 import net.itransformers.utils.JaxbMarshalar;
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,7 +106,7 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
             params.put("deviceName",nodeName);
            // NodeDiscoveryResult result1 = result.getSourceConnectionDetails().get(nodeName);
 
-           ConnectionDetails  connectionDetails = result.getSourceConnectionDetails().get(nodeName);
+           ConnectionDetails connectionDetails = result.getSourceConnectionDetails().get(nodeName);
             params.put("deviceType",connectionDetails.getParam("deviceType"));
             params.put("protocol", "telnet");
             params.put("address",connectionDetails.getParam("ipAddress"));
