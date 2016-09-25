@@ -31,27 +31,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ConnectionDetails implements Cloneable, Serializable{
-    protected String name;
     protected String connectionType;
     protected Map<String,String> params = new LinkedHashMap<String, String>();
 
     public ConnectionDetails() {
     }
 
-    public ConnectionDetails(String name, String connectionType) {
-        this.connectionType = connectionType;
-    }
     public ConnectionDetails(String connectionType) {
         this.connectionType = connectionType;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public ConnectionDetails(String connectionType, Map<String, String> params) {
         this.connectionType = connectionType;
