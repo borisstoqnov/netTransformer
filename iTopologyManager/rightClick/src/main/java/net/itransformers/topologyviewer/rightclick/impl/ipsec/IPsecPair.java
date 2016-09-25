@@ -1,4 +1,4 @@
-package net.itransformers.utils.ipsec;
+package net.itransformers.topologyviewer.rightclick.impl.ipsec;
 
 /**
  * Created by Bobi on 6/19/2016.
