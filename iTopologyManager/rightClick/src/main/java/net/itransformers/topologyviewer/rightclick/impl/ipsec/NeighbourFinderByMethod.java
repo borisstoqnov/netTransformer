@@ -1,13 +1,15 @@
-package net.itransformers.topologyviewer.rightclick.impl;
+package net.itransformers.topologyviewer.rightclick.impl.ipsec;
 
 
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
+import net.itransformers.resourcemanager.config.IPsecPair;
+import net.itransformers.topologyviewer.diff.DiffWizardDialog;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
-import net.itransformers.utils.ipsec.IPsecPair;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,9 +17,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.net.URL;
+import java.util.*;
 
 public class NeighbourFinderByMethod extends JPanel implements RightClickHandler, PropertyChangeListener {
 
