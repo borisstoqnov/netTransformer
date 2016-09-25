@@ -43,6 +43,9 @@
     </bean>
     <bean id="cliReportViewer" class="net.itransformers.topologyviewer.rightclick.impl.CLIReportViewer">
     </bean>
+    <bean id="NeighbourFinder" class="net.itransformers.topologyviewer.rightclick.impl.ipsec.NeighbourFinderByMethod">
+    </bean>
+
     <!--<bean id="neighbourFinderByMethod" class="net.itransformers.topologyviewer.rightclick.impl.ipsec.NeighbourFinderByMethod">-->
     <!--</bean>-->
     <!--<bean id="changeIPSecKeyHandler" class="net.itransformers.topologyviewer.rightclick.impl.ipsec.ChangeIPSecKeyHandler">-->
