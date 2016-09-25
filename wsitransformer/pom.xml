@@ -48,12 +48,12 @@
             <version>2.5.0</version>
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
+            <groupId>net.itransformers.netTransformer.connectiondetails</groupId>
             <artifactId>connectiondetailsapi</artifactId>
             <version>0.8</version>
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
+            <groupId>net.itransformers.netTransformer.connectiondetails</groupId>
             <artifactId>csvConnectionDetails</artifactId>
             <version>0.8</version>
         </dependency>

@@ -10,6 +10,5 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>connectiondetailsapi</artifactId>
     <version>0.8</version>
-
-
+    <groupId>net.itransformers.netTransformer.connectiondetails</groupId>
 </project>
