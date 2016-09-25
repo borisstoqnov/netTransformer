@@ -50,7 +50,7 @@
         <module>postDiscoverer</module>
         <module>ideas</module>
         <module>connectiondetails</module>
-
+        <module>iDiscoverAPI</module>
     </modules>
     <build>
         <pluginManagement>
