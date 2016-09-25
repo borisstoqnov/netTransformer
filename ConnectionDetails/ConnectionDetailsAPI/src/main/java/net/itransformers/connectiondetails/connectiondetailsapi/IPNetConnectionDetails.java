@@ -22,6 +22,10 @@ public class IPNetConnectionDetails extends ConnectionDetails implements Cloneab
     public IPNetConnectionDetails(String connectionType, Map<String, String> params) {
         super(connectionType, params);
     }
+    public IPNetConnectionDetails(String name,String connectionType, Map<String, String> params) {
+        super(name,connectionType, params);
+    }
+
 
     @Override
     public boolean equals(Object obj) {

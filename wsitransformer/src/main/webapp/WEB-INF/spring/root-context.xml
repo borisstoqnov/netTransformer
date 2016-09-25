@@ -8,8 +8,10 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <import resource="classpath:xmlResourceManager/xmlResourceManager.xml" />
+    <import resource="classpath:csvConnectionDetails/csvConnectionDetails.xml"/>
     <bean id="projectPath" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="java:comp/env/wsitransformer/projectPath"/>
     </bean>
     <context:component-scan base-package="net.itransformers.ws" />
+
 </beans>

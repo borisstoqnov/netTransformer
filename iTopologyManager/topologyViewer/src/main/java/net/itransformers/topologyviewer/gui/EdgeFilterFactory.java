@@ -66,7 +66,7 @@ public class EdgeFilterFactory {
 
                                 final GraphMLMetadata<String> stringGraphMLMetadata = edgeMetadata.get(dataKey);
                                 if (stringGraphMLMetadata == null) {
-                                    throw new RuntimeException("Can not find metadata for key: "+dataKey);
+                                    logger.error("Can not find metadata for key: "+dataKey);
                                 }
 
                                 final Transformer<String, String> transformer = stringGraphMLMetadata.transformer;

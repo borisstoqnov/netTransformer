@@ -13,7 +13,6 @@ public interface ConnectionDetailsAPI {
     ConnectionDetails getConnection(String name);
     void createConnectionType(String name, String type);
     void updateConnectionType(String name, String type);
-    void deleteConnectionType(String name);
     String getConnectionType(String name);
 
     void createConnectionParam(String name, String paramName, String paramValue);

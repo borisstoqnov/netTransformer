@@ -272,13 +272,22 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
             e.printStackTrace();
         }
 
-        CsvConnectionDetailsFileManager connectionDetailsFileManager = (CsvConnectionDetailsFileManager) applicationContext.getBean("connectionList", conDetails);
-        LinkedHashMap<String,ConnectionDetails> connectionList = (LinkedHashMap<String, ConnectionDetails>) connectionDetailsFileManager.getConnectionDetails();
+        CsvConnectionDetailsFileManager connectionDetailsFileManager = null;
+        if (applicationContext != null) {
+            connectionDetailsFileManager = (CsvConnectionDetailsFileManager) applicationContext.getBean("connectionList", conDetails);
+        }
+        LinkedHashMap<String,ConnectionDetails> connectionList = null;
+        if (connectionDetailsFileManager != null) {
+            connectionList = (LinkedHashMap<String, ConnectionDetails>) connectionDetailsFileManager.getConnectionDetails();
+        }
 
 
         //TopologyManagerFrame frame = this.projectDir.;
 
-        ParallelNetworkNodeDiscovererImpl nodeDiscovererImpl = applicationContext.getBean(discoveryBeanName, ParallelNetworkNodeDiscovererImpl.class);
+        ParallelNetworkNodeDiscovererImpl nodeDiscovererImpl = null;
+        if (applicationContext != null) {
+            nodeDiscovererImpl = applicationContext.getBean(discoveryBeanName, ParallelNetworkNodeDiscovererImpl.class);
+        }
 
         int depth = (Integer) depthComboBox.getSelectedItem();
         NodeDiscoveryListener nodeListener = new NodeDiscoveryListener() {

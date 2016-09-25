@@ -27,7 +27,7 @@
 
     <groupId>net.itransformers.netTransformer</groupId>
     <artifactId>iDiscover</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>0.8</version>
 
     <!--Change for new version-->
@@ -191,11 +191,7 @@
             <artifactId>velocity</artifactId>
             <version>1.5</version>
         </dependency>
-        <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
-            <artifactId>connectiondetailsapi</artifactId>
-            <version>0.8</version>
-        </dependency>
+
     </dependencies>
 
     <repositories>

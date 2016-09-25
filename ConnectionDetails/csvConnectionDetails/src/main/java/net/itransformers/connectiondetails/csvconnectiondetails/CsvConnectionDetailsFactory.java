@@ -22,13 +22,12 @@ package net.itransformers.connectiondetails.csvconnectiondetails;/*
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
 public class CsvConnectionDetailsFactory {
     @SuppressWarnings("unchecked")
-    public static Map<String,ConnectionDetails> createConnectionDetail(File file) throws IOException {
+    public static Map<String,ConnectionDetails> createConnectionDetail(String file) throws IOException {
 
        CsvConnectionDetailsFileManager csvConnectionDetailsFileManager = new CsvConnectionDetailsFileManager(file);
 

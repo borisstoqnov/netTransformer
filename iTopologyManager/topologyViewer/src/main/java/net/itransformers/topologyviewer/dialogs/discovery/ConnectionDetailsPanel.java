@@ -193,7 +193,7 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
     }
 
     public void load(File file) throws IOException {
-        csvConnectionDetailsFileManager = new CsvConnectionDetailsFileManager(file);
+        csvConnectionDetailsFileManager = new CsvConnectionDetailsFileManager(file.getAbsolutePath());
         Map<String,ConnectionDetails> connDetails = csvConnectionDetailsFileManager.getConnectionDetails();
        // this.connDetails = connDetails;
         initListModel();
