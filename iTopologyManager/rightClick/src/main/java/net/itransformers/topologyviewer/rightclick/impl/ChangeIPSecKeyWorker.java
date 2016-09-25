@@ -57,7 +57,6 @@ public class ChangeIPSecKeyWorker extends SwingWorker<String, Void> {
 
             if (pair!=null) {
                 ipseckeyFilename = pair.getRouterName() + pair.getRouterIP() + pair.getNeighbourName() + pair.getNeighbourIP();
-                //empty the counter and pair for the next iteration
 
                 //Generate key and file
                 if(userInput != null){
@@ -73,6 +72,10 @@ public class ChangeIPSecKeyWorker extends SwingWorker<String, Void> {
                 //Change IP sec key for first router
                 Map<String, String> paramsfirst = generateConfigMap(pair, oldkey, ipseckeyFilename);
 
+                progress += progressStep;
+                setProgress(progress);
+                System.out.println("progress is " + progress +  " step is " + progressStep);
+                progressMonitor.setNote("working on pair: " + pair.getNeighbourName() + ", " + pair.getRouterName() + ".");
 
                 cli.open();
                 TestFulfilmentImpl telnetTorouter = new TestFulfilmentImpl(cli);
@@ -91,10 +94,7 @@ public class ChangeIPSecKeyWorker extends SwingWorker<String, Void> {
                 cli.close();
 
                 counter++;
-                progress += progressStep;
-                setProgress(progress);
-                System.out.println("progress is " + progress +  " step is " + progressStep);
-                progressMonitor.setNote("working on pair: " + pair.getNeighbourName() + ", " + pair.getRouterName() + ".");
+
             }
             else if (counter > 0)
             {
