@@ -4,11 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>connectiondetails</artifactId>
-        <groupId>net.itransformers.netTransformer</groupId>
+        <groupId>net.itransformers</groupId>
         <version>0.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>connectiondetailsapi</artifactId>
     <version>0.8</version>
-    <groupId>net.itransformers.netTransformer.connectiondetails</groupId>
 </project>

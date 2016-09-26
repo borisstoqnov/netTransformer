@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>resourceManager</artifactId>
-        <groupId>net.itransformers.netTransformer</groupId>
+        <groupId>net.itransformers</groupId>
         <version>0.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,12 +14,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>resourceManagerAPI</artifactId>
             <version>0.8</version>
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>utils</artifactId>
             <version>0.8</version>
         </dependency>

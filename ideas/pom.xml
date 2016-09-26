@@ -29,18 +29,17 @@
         <version>0.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.itransformers.netTransformer</groupId>
     <artifactId>ideas</artifactId>
 
 
     <dependencies>
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
-            <artifactId>iDiscover</artifactId>
+            <groupId>net.itransformers</groupId>
+            <artifactId>netDiscoverer</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>utils</artifactId>
             <version>0.8</version>
             <!--Change for new version-->
