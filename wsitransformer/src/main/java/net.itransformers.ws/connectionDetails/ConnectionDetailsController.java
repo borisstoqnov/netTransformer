@@ -34,7 +34,7 @@ public class ConnectionDetailsController {
     }
     @RequestMapping(value = "/{connectionDetailsName}", method=RequestMethod.GET)
     @ResponseBody
-    public ConnectionDetails getResource(@PathVariable String connectionDetailsName) {
+    public ConnectionDetails getConnectionDetail(@PathVariable String connectionDetailsName) {
         return connectionDetailsAPI.getConnection(connectionDetailsName);
     }
 
