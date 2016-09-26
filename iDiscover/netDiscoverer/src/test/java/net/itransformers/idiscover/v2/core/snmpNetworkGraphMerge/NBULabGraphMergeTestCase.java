@@ -28,9 +28,9 @@ public class NBULabGraphMergeTestCase {
     @Before
     public void setUp() throws Exception {
 
-         outputFile = new File(baseDir + File.separator +"iDiscover/src/test/resources/lab-results/nbulab/network/version1/generated/network-generated.graphml");
+         outputFile = new File(baseDir + File.separator +"iDiscover/netDiscoverer/src/test/resources/lab-results/nbulab/network/version1/generated/network-generated.graphml");
 
-         inputVersionDir = new File(baseDir + File.separator+"iDiscover/src/test/resources/lab-results/nbulab/network/version1/graphml-undirected");
+         inputVersionDir = new File(baseDir + File.separator+"iDiscover/netDiscoverer/src/test/resources/lab-results/nbulab/network/version1/graphml-undirected");
 
 
 

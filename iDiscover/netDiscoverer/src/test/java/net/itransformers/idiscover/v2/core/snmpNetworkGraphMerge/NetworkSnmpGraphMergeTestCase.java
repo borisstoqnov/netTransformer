@@ -28,9 +28,9 @@ public class NetworkSnmpGraphMergeTestCase {
     @Before
     public void setUp() throws Exception {
 
-         outputFile = new File(baseDir + File.separator +"iDiscover/src/test/resources/lab-results/demo/network/version1/generated/network-generated.graphml");
+         outputFile = new File(baseDir + File.separator +"iDiscover/netDiscoverer/src/test/resources/lab-results/demo/network/version1/generated/network-generated.graphml");
 
-         inputVersionDir = new File(baseDir + File.separator+"iDiscover/src/test/resources/lab-results/demo/network/version1/graphml-undirected");
+         inputVersionDir = new File(baseDir + File.separator+"iDiscover/netDiscoverer/src/test/resources/lab-results/demo/network/version1/graphml-undirected");
 
 
 
@@ -71,7 +71,7 @@ public class NetworkSnmpGraphMergeTestCase {
             e.printStackTrace();
         }
 
-        File expected = new File(baseDir+File.separator+"iDiscover/src/test/resources/lab-results/demo/network/version1/expected/network-expected.graphml");
+        File expected = new File(baseDir+File.separator+"iDiscover/netDiscoverer/src/test/resources/lab-results/demo/network/version1/expected/network-expected.graphml");
         try {
             Assert.assertEquals(FileUtils.readFileToString(expected,"utf-8"),FileUtils.readFileToString(outputFile,"utf-8"));
         } catch (IOException e) {
