@@ -732,7 +732,7 @@ or communication through a proxy.
     <param name=”ssh\_saved\_session”>-ssh -l %s -pw %s -load %s %s</param>
     <param name=”telnet\_no\_saved\_session”>-telnet -l %s %s</param>
     <param name=”telnet\_saved\_session”>-telnet -l %s -load %s %s</param>
-    <param name=”resource”>resourceManager/conf/xml/resource.xml</param>
+    <param name=”resource”>iDiscover/iDiscover/resourceManager/conf/xml/resource.xml</param>
     <param name=”saved\_session”></param>
 </rightClickItem>
 ```
@@ -1151,7 +1151,7 @@ rightclick handler class. Then it might have one or more parameters.
     <rightClickItem name="TabViewerOpener" handlerClass="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener">
         <submenu name="Connect">
             <rightClickItem name="JConsole" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CreateTerminalHandler">
-                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+                <param name="resource">iDiscover/iDiscover/resourceManager/conf/xml/resource.xml</param>
             </rightClickItem>
             <!--rightClickItem name="GoogleMapView" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
                 <param name="url">url</param>
@@ -1171,7 +1171,7 @@ rightclick handler class. Then it might have one or more parameters.
                 <param name="ssh_saved_session">-ssh -l %s -pw %s -load %s %s </param>
                 <param name="telnet_no_saved_session">-telnet -l %s %s</param>
                 <param name="telnet_saved_session">-telnet -l %s -load %s %s</param>
-                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+                <param name="resource">iDiscover/iDiscover/resourceManager/conf/xml/resource.xml</param>
                 <param name="saved_session"></param>
             </rightClickItem>
         </submenu>

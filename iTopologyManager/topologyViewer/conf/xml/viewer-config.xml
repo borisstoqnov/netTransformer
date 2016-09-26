@@ -795,7 +795,7 @@
     <rightClickItem name="TabViewerOpener" handlerClass="tabbedViewerOpener">
         <submenu name="Connect">
             <rightClickItem name="JConsole" handlerClass="createTerminalHandler">
-                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+                <param name="resource">iDiscover/resourceManager/conf/xml/resource.xml</param>
             </rightClickItem>
             <!--rightClickItem name="GoogleMapView" handlerClass="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
                 <param name="url">url</param>
@@ -922,7 +922,7 @@
         <submenu name="Network Activation">
             <rightClickItem name="Node Activation" handlerClass="cmdRightClickHandler">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
-                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+                <param name="resource">iDiscover/resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
                 <param name="deviceXMlpath">device-hierarchical</param>
 
@@ -930,7 +930,7 @@
 
             <rightClickItem name="Shorthest Path Activation" handlerClass="shortestPathProvisioning">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
-                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+                <param name="resource">iDiscover/resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
                 <param name="deviceXMlpath">device-hierarchical</param>
             </rightClickItem>
@@ -938,22 +938,22 @@
 
             <rightClickItem name="IPv4toIPv6 Actication" handlerClass="cmdRightClickHandler">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
-                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+                <param name="resource">iDiscover/resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6.xml</param>
             </rightClickItem>
             <rightClickItem name="IPv4toIPv6PathActivation" handlerClass="shortestPathProvisioning">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
-                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+                <param name="resource">iDiscover/resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6.xml</param>
             </rightClickItem>
             <rightClickItem name="undoIPv4toIPv6 Actication" handlerClass="cmdRightClickHandler">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
-                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+                <param name="resource">iDiscover/resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6_undo.xml</param>
             </rightClickItem>
             <rightClickItem name="undoIPv4toIPv6PathActivation" handlerClass="shortestPathProvisioning">
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
-                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+                <param name="resource">iDiscover/resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-IPv4to6_undo.xml</param>
             </rightClickItem>
 

@@ -55,11 +55,11 @@
                 <fileSets>
                     <fileSet>
                         <directory>conf/xml</directory>
-                        <outputDirectory>resourceManager/conf/xml</outputDirectory>
+                        <outputDirectory>iDiscover/resourceManager/conf/xml</outputDirectory>
                     </fileSet>
                     <fileSet>
                         <directory>conf/xsd</directory>
-                        <outputDirectory>resourceManager/conf/xsd</outputDirectory>
+                        <outputDirectory>iDiscover/resourceManager/conf/xsd</outputDirectory>
                     </fileSet>
                 </fileSets>
             </sources>

@@ -139,7 +139,6 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
         listButtonsPanel.add(removeListButton);
 
         list = new JList<String>();
-        initListModel();
         JScrollPane listScrollPane = new JScrollPane(list);
         listPanel.add(listScrollPane);
 
@@ -194,6 +193,7 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
 
     public void load(File file) throws IOException {
         csvConnectionDetailsFileManager = new CsvConnectionDetailsFileManager(file.getAbsolutePath());
+        csvConnectionDetailsFileManager.load();
         Map<String,ConnectionDetails> connDetails = csvConnectionDetailsFileManager.getConnectionDetails();
        // this.connDetails = connDetails;
         initListModel();

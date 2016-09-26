@@ -274,7 +274,7 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
 
         CsvConnectionDetailsFileManager connectionDetailsFileManager = null;
         if (applicationContext != null) {
-            connectionDetailsFileManager = (CsvConnectionDetailsFileManager) applicationContext.getBean("connectionList", conDetails);
+            connectionDetailsFileManager = (CsvConnectionDetailsFileManager) applicationContext.getBean("connectionList");
         }
         LinkedHashMap<String,ConnectionDetails> connectionList = null;
         if (connectionDetailsFileManager != null) {
@@ -333,7 +333,7 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
 
         managerThread = new DiscoveryManagerThread(nodeDiscovererImpl, depth, connectionList);
         managerThread.addDiscoveryManagerListener(this);
-        managerThread.startDiscovery();
+        managerThread.start();
         return true;
     }
 
