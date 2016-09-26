@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml>
+  <key attr.name="hostname" attr.type="string" for="node" id="hostname"/>
+  <key attr.name="deviceModel" attr.type="string" for="node" id="deviceModel"/>
+  <key attr.name="deviceType" attr.type="string" for="node" id="deviceType"/>
+  <key attr.name="nodeInfo" attr.type="string" for="node" id="nodeInfo"/>
+  <key attr.name="discoveredIPv4Address" attr.type="string" for="node" id="discoveredIPv4Address"/>
+  <key attr.name="geoCoordinates" attr.type="string" for="node" id="geoCoordinates"/>
+  <key attr.name="site" attr.type="string" for="node" id="site"/>
+  <key attr.name="diff" attr.type="string" for="node" id="diff"/>
+  <key attr.name="diffs" attr.type="string" for="node" id="diffs"/>
+  <key attr.name="ipv6Forwarding" attr.type="string" for="node" id="ipv6Forwarding"/>
+  <key attr.name="ipv4Forwarding" attr.type="string" for="node" id="ipv4Forwarding"/>
+  <key attr.name="subnetPrefix" attr.type="string" for="node" id="subnetPrefix"/>
+  <key attr.name="subnetRangeType" attr.type="string" for="node" id="subnetRangeType"/>
+  <key attr.name="ipProtocolType" attr.type="string" for="node" id="ipProtocolType"/>
+  <key attr.name="totalInterfaceCount" attr.type="string" for="node" id="totalInterfaceCount"/>
+  <key attr.name="name" attr.type="string" for="edge" id="name"/>
+  <key attr.name="Discovery Method" attr.type="string" for="edge" id="Discovery Method"/>
+  <key attr.name="dataLink" attr.type="string" for="edge" id="dataLink"/>
+  <key attr.name="ipLink" attr.type="string" for="edge" id="ipLink"/>
+  <key attr.name="MPLS" attr.type="string" for="edge" id="MPLS"/>
+  <key attr.name="ipv6Forwarding" attr.type="string" for="edge" id="ipv6Forwarding"/>
+  <key attr.name="ipv4Forwarding" attr.type="string" for="edge" id="ipv4Forwarding"/>
+  <key attr.name="bgpLocalAS" attr.type="string" for="node" id="bgpLocalAS"/>
+  <key attr.name="bgpAutonomousSystemA" attr.type="string" for="edge" id="bgpAutonomousSystemA"/>
+  <key attr.name="bgpAutonomousSystemB" attr.type="string" for="edge" id="bgpAutonomousSystemB"/>
+  <key attr.name="Interface" attr.type="string" for="edge" id="Interface"/>
+  <key attr.name="edgeTooltip" attr.type="string" for="edge" id="edgeTooltip"/>
+  <key attr.name="diff" attr.type="string" for="edge" id="diff"/>
+  <key attr.name="diffs" attr.type="string" for="edge" id="diffs"/>
+  <graph edgedefault="undirected">
+    <node id="srv2NodeC" label="srv2NodeC">
+      <data key="deviceName">srv2NodeC</data>
+      <data key="deviceModel">Unknown</data>
+      <data key="deviceType">LINUX</data>
+      <data key="discoveredIPv4Address">10.192.6.23</data>
+      <data key="ipv4Forwarding">YES</data>
+      <data key="ipv6Forwarding">NO</data>
+      <data key="totalInterfaceCount">36</data>
+    </node>
+    <node id="r3845" label="r3845"/>
+    <node id="srv1NodeC" label="srv1NodeC"/>
+    <node id="ssrv1noded" label="ssrv1noded"/>
+    <node id="ssrv2nodeb" label="ssrv2nodeb"/>
+    <node id="ssrv2noded" label="ssrv2noded"/>
+    <node id="10.192.6.85" label="10.192.6.85"/>
+    <node id="10.192.6.140" label="10.192.6.140"/>
+    <node id="10.192.5.11" label="10.192.5.11"/>
+    <node id="10.192.5.12" label="10.192.5.12"/>
+    <node id="10.192.5.13" label="10.192.5.13"/>
+    <node id="10.192.5.14" label="10.192.5.14"/>
+    <node id="10.192.5.22" label="10.192.5.22"/>
+    <node id="10.192.5.24" label="10.192.5.24"/>
+    <node id="10.192.7.0/24" label="10.192.7.0/24">
+      <data key="deviceType">Subnet</data>
+      <data key="deviceModel">passiveHub</data>
+      <data key="subnetPrefix">10.192.7.0/24</data>
+      <data key="ipProtocolType">IPv4</data>
+      <data key="subnetRangeType">private</data>
+    </node>
+    <node id="10.192.5.0/24" label="10.192.5.0/24">
+      <data key="deviceType">Subnet</data>
+      <data key="deviceModel">passiveHub</data>
+      <data key="subnetPrefix">10.192.5.0/24</data>
+      <data key="ipProtocolType">IPv4</data>
+      <data key="subnetRangeType">private</data>
+    </node>
+    <node id="10.192.6.0/24" label="10.192.6.0/24">
+      <data key="deviceType">Subnet</data>
+      <data key="deviceModel">passiveHub</data>
+      <data key="subnetPrefix">10.192.6.0/24</data>
+      <data key="ipProtocolType">IPv4</data>
+      <data key="subnetRangeType">private</data>
+    </node>
+    <edge id="10.192.7.0/24-srv2NodeC" label="10.192.7.0/24-srv2NodeC"
+      source="10.192.7.0/24" target="srv2NodeC">
+      <data key="Interface">ens1f3</data>
+    </edge>
+    <edge id="10.192.5.0/24-srv2NodeC" label="10.192.5.0/24-srv2NodeC"
+      source="10.192.5.0/24" target="srv2NodeC">
+      <data key="Interface">bond1</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.5.0/24-r3845" label="10.192.5.0/24-r3845"
+      source="10.192.5.0/24" target="r3845">
+      <data key="Neighbor IP Address">10.192.5.1</data>
+      <data key="Reachable">YES</data>
+      <data key="Neighbor Device Type">CISCO</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.5.0/24-10.192.5.14"
+      label="10.192.5.0/24-10.192.5.14" source="10.192.5.0/24" target="10.192.5.14">
+      <data key="Neighbor IP Address">10.192.5.14</data>
+      <data key="Reachable">NO</data>
+      <data key="Neighbor Device Type">UNKNOWN</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.5.0/24-10.192.5.13"
+      label="10.192.5.0/24-10.192.5.13" source="10.192.5.0/24" target="10.192.5.13">
+      <data key="Neighbor IP Address">10.192.5.13</data>
+      <data key="Reachable">NO</data>
+      <data key="Neighbor Device Type">UNKNOWN</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.5.0/24-10.192.5.24"
+      label="10.192.5.0/24-10.192.5.24" source="10.192.5.0/24" target="10.192.5.24">
+      <data key="Neighbor IP Address">10.192.5.24</data>
+      <data key="Reachable">NO</data>
+      <data key="Neighbor Device Type">UNKNOWN</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.5.0/24-10.192.5.12"
+      label="10.192.5.0/24-10.192.5.12" source="10.192.5.0/24" target="10.192.5.12">
+      <data key="Neighbor IP Address">10.192.5.12</data>
+      <data key="Reachable">NO</data>
+      <data key="Neighbor Device Type">UNKNOWN</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.5.0/24-10.192.5.11"
+      label="10.192.5.0/24-10.192.5.11" source="10.192.5.0/24" target="10.192.5.11">
+      <data key="Neighbor IP Address">10.192.5.11</data>
+      <data key="Reachable">NO</data>
+      <data key="Neighbor Device Type">UNKNOWN</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.5.0/24-10.192.5.22"
+      label="10.192.5.0/24-10.192.5.22" source="10.192.5.0/24" target="10.192.5.22">
+      <data key="Neighbor IP Address">10.192.5.22</data>
+      <data key="Reachable">NO</data>
+      <data key="Neighbor Device Type">UNKNOWN</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.6.0/24-srv2NodeC" label="10.192.6.0/24-srv2NodeC"
+      source="10.192.6.0/24" target="srv2NodeC">
+      <data key="Interface">bond0</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.6.0/24-ssrv2noded" label="10.192.6.0/24-ssrv2noded"
+      source="10.192.6.0/24" target="ssrv2noded">
+      <data key="Neighbor IP Address">10.192.6.24</data>
+      <data key="Reachable">YES</data>
+      <data key="Neighbor Device Type">LINUX</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.6.0/24-ssrv1noded" label="10.192.6.0/24-ssrv1noded"
+      source="10.192.6.0/24" target="ssrv1noded">
+      <data key="Neighbor IP Address">10.192.6.14</data>
+      <data key="Reachable">YES</data>
+      <data key="Neighbor Device Type">LINUX</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.6.0/24-r3845" label="10.192.6.0/24-r3845"
+      source="10.192.6.0/24" target="r3845">
+      <data key="Neighbor IP Address">10.192.6.1</data>
+      <data key="Reachable">YES</data>
+      <data key="Neighbor Device Type">CISCO</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.6.0/24-ssrv2nodeb" label="10.192.6.0/24-ssrv2nodeb"
+      source="10.192.6.0/24" target="ssrv2nodeb">
+      <data key="Neighbor IP Address">10.192.6.22</data>
+      <data key="Reachable">YES</data>
+      <data key="Neighbor Device Type">LINUX</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.6.0/24-10.192.6.140"
+      label="10.192.6.0/24-10.192.6.140" source="10.192.6.0/24" target="10.192.6.140">
+      <data key="Neighbor IP Address">10.192.6.140</data>
+      <data key="Reachable">NO</data>
+      <data key="Neighbor Device Type">UNKNOWN</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.6.0/24-srv1NodeC" label="10.192.6.0/24-srv1NodeC"
+      source="10.192.6.0/24" target="srv1NodeC">
+      <data key="Neighbor IP Address">10.192.6.15</data>
+      <data key="Reachable">YES</data>
+      <data key="Neighbor Device Type">LINUX</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+    <edge id="10.192.6.0/24-10.192.6.85"
+      label="10.192.6.0/24-10.192.6.85" source="10.192.6.0/24" target="10.192.6.85">
+      <data key="Neighbor IP Address">10.192.6.85</data>
+      <data key="Reachable">NO</data>
+      <data key="Neighbor Device Type">UNKNOWN</data>
+      <data key="Discovery Method">ARP</data>
+    </edge>
+  </graph>
+</graphml>

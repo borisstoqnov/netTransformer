@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="DiscoveredDevice" type="DiscoveredDeviceType"/>
+  <xs:complexType name="parametersType" mixed="true">
+    <xs:sequence>
+      <xs:element type="parameterType" name="parameter" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DiscoveredDeviceType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="parametersType" name="parameters"/>
+      <xs:element type="objectType" name="object" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parameterType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="xs:string" name="value"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="objectType">
+    <xs:sequence>
+      <xs:element type="xxss:string" name="name"/>
+      <xs:element name="objectType">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="IPv4 Address"/>
+            <xs:enumeration value="Discovery Interface"/>
+            <xs:enumeration value="Discovered Neighbor"/>
+            <xs:enumeration value="DeviceLogicalData"/>
+            <xs:enumeration value="mplsL3VPNs"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="parametersType" name="parameters"/>
+      <xs:element type="objectType" name="object" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

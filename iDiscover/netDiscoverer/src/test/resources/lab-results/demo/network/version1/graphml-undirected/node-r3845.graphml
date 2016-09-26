@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml>
+  <key id="networkName" for="graph" attr.name="Network Name" attr.type="string"/>
+
+  <key id="hostname" for="node" attr.name="hostname" attr.type="string"/>
+  <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string"/>
+  <key id="deviceType" for="node" attr.name="deviceType" attr.type="string"/>
+  <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string"/>
+  <key id="discoveredIPv4Address" for="node" attr.name="discoveredIPv4Address" attr.type="string"/>
+  <key id="discoveredState" for="node" attr.name="discoveredState" attr.type="string"/>
+  <key id="sysLocation" for="node" attr.name="sysLocation" attr.type="string"/>
+  <key id="site" for="node" attr.name="site" attr.type="string"/>
+  <key id="diff" for="node" attr.name="diff" attr.type="string"/>
+  <key id="diffs" for="node" attr.name="diffs" attr.type="string"/>
+  <key id="ipv6Forwarding" for="node" attr.name="ipv6Forwarding" attr.type="string"/>
+  <key id="ipv4Forwarding" for="node" attr.name="ipv4Forwarding" attr.type="string"/>
+  <key id="subnetPrefix" for="node" attr.name="subnetPrefix" attr.type="string"/>
+  <key id="ipProtocolType" for="node" attr.name="ipProtocolType" attr.type="string"/>
+  <key id="bgpAS" for="node" attr.name="bgpAS" attr.type="string"/>
+  <key id="totalInterfaceCount" for="node" attr.name="totalInterfaceCount" attr.type="string"/>
+
+  <key id="discoveryMethod" for="edge" attr.name="discoveryMethod" attr.type="string"/>
+  <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string"/>
+  <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string"/>
+  <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string"/>
+  <key id="ipv6Forwarding" for="edge" attr.name="ipv6Forwarding" attr.type="string"/>
+  <key id="ipv4Forwarding" for="edge" attr.name="ipv4Forwarding" attr.type="string"/>
+  <key id="interface" for="edge" attr.name="interface" attr.type="string"/>
+  <key id="diff" for="edge" attr.name="diff" attr.type="string"/>
+  <key id="diffs" for="edge" attr.name="diffs" attr.type="string"/>
+  <key id="encapsulation" for="edge" attr.name="encapsulation" attr.type="string"/>
+  <key id="speed" for="edge" attr.name="speed" attr.type="string"/>
+  <graph edgedefault="undirected">
+    <node id="r3845" label="r3845">
+      <data key="deviceName">r3845</data>
+      <data key="deviceModel">cisco3845</data>
+      <data key="deviceType">CISCO</data>
+      <data key="discoveredIPv4Address">10.192.6.1</data>
+      <data key="ipv4Forwarding">YES</data>
+      <data key="ipv6Forwarding">NO</data>
+      <data key="totalInterfaceCount">7</data>
+    </node>
+    <node id="10.192.0.1" label="10.192.0.1"/>
+    <node id="10.192.5.0/24" label="10.192.5.0/24">
+      <data key="deviceType">Subnet</data>
+      <data key="deviceModel">passiveHub</data>
+      <data key="subnetPrefix">10.192.5.0/24</data>
+      <data key="ipProtocolType">IPv4</data>
+      <data key="subnetRangeType">private</data>
+    </node>
+    <node id="10.192.6.0/24" label="10.192.6.0/24">
+      <data key="deviceType">Subnet</data>
+      <data key="deviceModel">passiveHub</data>
+      <data key="subnetPrefix">10.192.6.0/24</data>
+      <data key="ipProtocolType">IPv4</data>
+      <data key="subnetRangeType">private</data>
+    </node>
+    <node id="10.192.0.0/30" label="10.192.0.0/30">
+      <data key="deviceType">Subnet</data>
+      <data key="deviceModel">passiveHub</data>
+      <data key="subnetPrefix">10.192.0.0/30</data>
+      <data key="ipProtocolType">IPv4</data>
+      <data key="subnetRangeType">private</data>
+    </node>
+    <node id="10.192.1.0/24" label="10.192.1.0/24">
+      <data key="deviceType">Subnet</data>
+      <data key="deviceModel">passiveHub</data>
+      <data key="subnetPrefix">10.192.1.0/24</data>
+      <data key="ipProtocolType">IPv4</data>
+      <data key="subnetRangeType">private</data>
+    </node>
+    <edge id="10.192.5.0/24-r3845" label="10.192.5.0/24-r3845"
+      source="10.192.5.0/24" target="r3845">
+      <data key="Interface">GigabitEthernet0/0.4005</data>
+    </edge>
+    <edge id="10.192.6.0/24-r3845" label="10.192.6.0/24-r3845"
+      source="10.192.6.0/24" target="r3845">
+      <data key="Interface">GigabitEthernet0/0.4006</data>
+    </edge>
+    <edge id="10.192.0.0/30-r3845" label="10.192.0.0/30-r3845"
+      source="10.192.0.0/30" target="r3845">
+      <data key="Interface">GigabitEthernet0/1</data>
+      <data key="Discovery Method">Slash30</data>
+    </edge>
+    <edge id="10.192.0.0/30-10.192.0.1" label="10.192.0.0/30-10.192.0.1"
+      source="10.192.0.0/30" target="10.192.0.1">
+      <data key="Neighbor IP Address">10.192.0.1</data>
+      <data key="Reachable">NO</data>
+      <data key="Neighbor Device Type">UNKNOWN</data>
+      <data key="Discovery Method">Slash30</data>
+    </edge>
+    <edge id="10.192.1.0/24-r3845" label="10.192.1.0/24-r3845"
+      source="10.192.1.0/24" target="r3845">
+      <data key="Interface">GigabitEthernet0/0.4000</data>
+    </edge>
+  </graph>
+</graphml>
