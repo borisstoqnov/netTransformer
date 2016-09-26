@@ -23,7 +23,7 @@
 
 package net.itransformers.idiscover.core;
 
-import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
+import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
 
 import java.util.Map;
 

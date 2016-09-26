@@ -28,7 +28,7 @@ import net.itransformers.idiscover.core.RawDeviceData;
 import net.itransformers.idiscover.core.Subnet;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperV2;
-import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
+import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
 import net.itransformers.idiscover.networkmodelv2.DeviceNeighbour;
 import net.itransformers.idiscover.networkmodelv2.DiscoveredDevice;
 import net.itransformers.idiscover.util.DeviceTypeResolver;

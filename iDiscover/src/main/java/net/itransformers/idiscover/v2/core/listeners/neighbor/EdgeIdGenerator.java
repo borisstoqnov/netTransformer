@@ -1,6 +1,6 @@
 package net.itransformers.idiscover.v2.core.listeners.neighbor;
 
-import net.itransformers.idiscover.v2.core.listeners.graphmlRenderer.model.GraphmlEdge;
+import net.itransformers.idiscover.api.models.graphml.GraphmlEdge;
 
 /**
  * Created by niau on 9/16/16.

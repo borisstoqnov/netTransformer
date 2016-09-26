@@ -40,13 +40,13 @@
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
-            <artifactId>bgpPeeringMap</artifactId>
+            <groupId>net.itransformers</groupId>
+            <artifactId>iDiscoverAPI</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>
             <groupId>net.itransformers.netTransformer</groupId>
-            <artifactId>iDiscover</artifactId>
+            <artifactId>bgpPeeringMap</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>

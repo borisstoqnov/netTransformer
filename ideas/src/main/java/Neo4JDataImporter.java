@@ -19,10 +19,10 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
-import net.itransformers.idiscover.networkmodel.ObjectType;
-import net.itransformers.idiscover.networkmodel.ParameterType;
-import net.itransformers.idiscover.networkmodel.ParametersType;
+//import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
+//import net.itransformers.idiscover.networkmodel.ObjectType;
+//import net.itransformers.idiscover.networkmodel.ParameterType;
+//import net.itransformers.idiscover.networkmodel.ParametersType;
 import net.itransformers.idiscover.util.JaxbMarshalar;
 import org.neo4j.graphdb.DynamicRelationshipType;
 import org.neo4j.graphdb.GraphDatabaseService;
@@ -153,66 +153,66 @@ org.neo4j.rest.logging_filter=false (set to true if verbose request/response log
     }
 
     public static void importData(GraphDatabaseService dbApi, Node root, File file) throws Exception {
-        Transaction tr = dbApi.beginTx();
-        try {
-            FileInputStream is = new FileInputStream(file);
-            DiscoveredDeviceData discoveryManagerType = null;
-            try {
-                discoveryManagerType = JaxbMarshalar.unmarshal(DiscoveredDeviceData.class, is);
-            } finally {
-                is.close();
-            }
-            importDiscoveredDeviceData(dbApi,root, discoveryManagerType);
-            System.out.println("before to commit transaction");
-            tr.success();
-            System.out.println("after to commit transaction");
-        } catch (Exception e) {
-            e.printStackTrace();
-            tr.failure();
-        } finally {
-            System.out.println("before to finish transaction");
-            tr.finish();
-            System.out.println("after to finish transaction");
-        }
+//        Transaction tr = dbApi.beginTx();
+//        try {
+//            FileInputStream is = new FileInputStream(file);
+//            DiscoveredDeviceData discoveryManagerType = null;
+//            try {
+//                discoveryManagerType = JaxbMarshalar.unmarshal(DiscoveredDeviceData.class, is);
+//            } finally {
+//                is.close();
+//            }
+//            importDiscoveredDeviceData(dbApi,root, discoveryManagerType);
+//            System.out.println("before to commit transaction");
+//            tr.success();
+//            System.out.println("after to commit transaction");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            tr.failure();
+//        } finally {
+//            System.out.println("before to finish transaction");
+//            tr.finish();
+//            System.out.println("after to finish transaction");
+//        }
     }
-    public static void importDiscoveredDeviceData(GraphDatabaseService dbApi, Node root, DiscoveredDeviceData discoveryManagerType) throws Exception {
-        org.neo4j.graphdb.Node node= dbApi.createNode();
-        nodeCounter++;
-        root.createRelationshipTo(node,DynamicRelationshipType.withName("parent"));
-//        System.out.println("Created node id= "+node.getId());
-        System.out.println("Created node count= "+nodeCounter);
-        node.setProperty("name",discoveryManagerType.getName());
-        node.setProperty("objectType","Node"); // Hardcoded because the DiscoveredDeviceData is not natural data type
-        ParametersType parameters = discoveryManagerType.getParameters();
-        for (ParameterType param : parameters.getParameter()) {
-            String nameURI = UriBuilder.fromPath(param.getName()).build("").toString();
-            node.setProperty(nameURI,param.getValue());
-        }
-        List<ObjectType> objectTypeList = discoveryManagerType.getObject();
-        for (ObjectType objectType : objectTypeList) {
-            org.neo4j.graphdb.Node child = importObjectType(dbApi, objectType);
-            node.createRelationshipTo(child, DynamicRelationshipType.withName("parent"));
-        }
-    }
+//    public static void importDiscoveredDeviceData(GraphDatabaseService dbApi, Node root, DiscoveredDeviceData discoveryManagerType) throws Exception {
+//        org.neo4j.graphdb.Node node= dbApi.createNode();
+//        nodeCounter++;
+//        root.createRelationshipTo(node,DynamicRelationshipType.withName("parent"));
+////        System.out.println("Created node id= "+node.getId());
+//        System.out.println("Created node count= "+nodeCounter);
+//        node.setProperty("name",discoveryManagerType.getName());
+//        node.setProperty("objectType","Node"); // Hardcoded because the DiscoveredDeviceData is not natural data type
+//        ParametersType parameters = discoveryManagerType.getParameters();
+//        for (ParameterType param : parameters.getParameter()) {
+//            String nameURI = UriBuilder.fromPath(param.getName()).build("").toString();
+//            node.setProperty(nameURI,param.getValue());
+//        }
+//        List<ObjectType> objectTypeList = discoveryManagerType.getObject();
+//        for (ObjectType objectType : objectTypeList) {
+//            org.neo4j.graphdb.Node child = importObjectType(dbApi, objectType);
+//            node.createRelationshipTo(child, DynamicRelationshipType.withName("parent"));
+//        }
+//    }
 
-    public static org.neo4j.graphdb.Node importObjectType(GraphDatabaseService dbApi, ObjectType objectType) throws Exception {
-        org.neo4j.graphdb.Node node= dbApi.createNode();
-        nodeCounter++;
-//        System.out.println("Created node id= "+node.getId());
-        System.out.println("Created node count= "+nodeCounter);
-        if (objectType.getName() != null) node.setProperty("name",objectType.getName());
-        node.setProperty("objectType",objectType.getObjectType());
-        ParametersType parameters = objectType.getParameters();
-        for (ParameterType param : parameters.getParameter()) {
-            String nameURI = UriBuilder.fromPath(param.getName()).build("").toString();
-            node.setProperty(nameURI,param.getValue());
-        }
-        List<ObjectType> objectTypeList = objectType.getObject();
-        for (ObjectType childObjectType : objectTypeList) {
-            org.neo4j.graphdb.Node child = importObjectType(dbApi, childObjectType);
-            node.createRelationshipTo(child, DynamicRelationshipType.withName("parent"));
-        }
-        return node;
-    }
+//    public static org.neo4j.graphdb.Node importObjectType(GraphDatabaseService dbApi, ObjectType objectType) throws Exception {
+//        org.neo4j.graphdb.Node node= dbApi.createNode();
+//        nodeCounter++;
+////        System.out.println("Created node id= "+node.getId());
+//        System.out.println("Created node count= "+nodeCounter);
+//        if (objectType.getName() != null) node.setProperty("name",objectType.getName());
+//        node.setProperty("objectType",objectType.getObjectType());
+//        ParametersType parameters = objectType.getParameters();
+//        for (ParameterType param : parameters.getParameter()) {
+//            String nameURI = UriBuilder.fromPath(param.getName()).build("").toString();
+//            node.setProperty(nameURI,param.getValue());
+//        }
+//        List<ObjectType> objectTypeList = objectType.getObject();
+//        for (ObjectType childObjectType : objectTypeList) {
+//            org.neo4j.graphdb.Node child = importObjectType(dbApi, childObjectType);
+//            node.createRelationshipTo(child, DynamicRelationshipType.withName("parent"));
+//        }
+//        return node;
+//    }
 
 }

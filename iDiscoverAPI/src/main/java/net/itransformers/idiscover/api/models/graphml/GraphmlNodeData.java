@@ -1,13 +1,13 @@
-package net.itransformers.idiscover.v2.core.listeners.graphmlRenderer.model;
+package net.itransformers.idiscover.api.models.graphml;
 
 /**
  * Created by niau on 8/17/16.
  */
-public class GraphmlEdgeData {
+public class GraphmlNodeData {
     private  String key;
     private String value;
 
-    public GraphmlEdgeData(String key, String value) {
+    public GraphmlNodeData(String key, String value) {
         this.key = key;
         this.value = value;
     }

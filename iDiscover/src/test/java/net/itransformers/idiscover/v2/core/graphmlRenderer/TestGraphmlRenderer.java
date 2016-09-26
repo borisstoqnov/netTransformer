@@ -1,8 +1,8 @@
 package net.itransformers.idiscover.v2.core.graphmlRenderer;
 
 import net.itransformers.idiscover.v2.core.listeners.graphmlRenderer.GraphmlRenderer;
-import net.itransformers.idiscover.v2.core.listeners.graphmlRenderer.model.GraphmlNode;
-import net.itransformers.idiscover.v2.core.listeners.graphmlRenderer.model.GraphmlNodeData;
+import net.itransformers.idiscover.api.models.graphml.GraphmlNode;
+import net.itransformers.idiscover.api.models.graphml.GraphmlNodeData;
 import org.junit.Assert;
 import org.junit.Test;
 import org.apache.commons.io.FileUtils;

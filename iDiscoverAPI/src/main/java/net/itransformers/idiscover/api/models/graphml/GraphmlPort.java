@@ -1,6 +1,5 @@
-package net.itransformers.idiscover.v2.core.listeners.graphmlRenderer.model;
+package net.itransformers.idiscover.api.models.graphml;
 
-import net.itransformers.utils.hash.HashGenerator;
 
 /**
  * Created by niau on 8/26/16.
@@ -8,15 +7,6 @@ import net.itransformers.utils.hash.HashGenerator;
 public class GraphmlPort {
     String id;
     String name;
-
-    public GraphmlPort( String name) {
-        try {
-            this.id = HashGenerator.generateMd5(name);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        this.name = name;
-    }
 
     public String getId() {
         return id;

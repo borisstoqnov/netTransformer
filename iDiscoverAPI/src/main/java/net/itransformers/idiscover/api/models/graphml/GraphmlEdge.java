@@ -1,4 +1,4 @@
-package net.itransformers.idiscover.v2.core.listeners.graphmlRenderer.model;
+package net.itransformers.idiscover.api.models.graphml;
 
 import java.util.ArrayList;
 import java.util.List;

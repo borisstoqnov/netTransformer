@@ -120,7 +120,7 @@ public class SdnGraphmlFileLogDiscoveryListener implements NodeDiscoveryListener
 
             File nodesFileListFile = new File(labelDirName, "nodes.graphmls");
             FileUtils.writeStringToFile(nodesFileListFile, graphmlFileName);
-            logger.debug("Graphml Data \n" + outputStream1.toString());
+            logger.debug("GraphmlGraph Data \n" + outputStream1.toString());
 
         } catch (IOException e) {
             logger.error(e);

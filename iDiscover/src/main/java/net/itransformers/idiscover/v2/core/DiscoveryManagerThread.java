@@ -24,6 +24,7 @@
 package net.itransformers.idiscover.v2.core;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.idiscover.api.DiscoveryProcess;
 import net.itransformers.idiscover.core.DiscoveryManagerStatus;
 import net.itransformers.idiscover.v2.core.parallel.ParallelNetworkNodeDiscovererImpl;
 import org.apache.log4j.Logger;
@@ -34,7 +35,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 
-public class DiscoveryManagerThread extends Thread {
+public class DiscoveryManagerThread extends Thread  {
     static Logger logger = Logger.getLogger(DiscoveryManagerThread.class);
 
     private ParallelNetworkNodeDiscovererImpl parallelNetworkNodeDiscoverer;
@@ -47,10 +48,6 @@ public class DiscoveryManagerThread extends Thread {
         this.parallelNetworkNodeDiscoverer = parallelNetworkNodeDiscoverer;
         this.depth = depth;
         this.connectionDetails = connectionDetails;
-    }
-
-    public DiscoveryManagerThread( String s, String[] discoveryTypes) {
-
     }
 
     @Override
@@ -69,6 +66,11 @@ public class DiscoveryManagerThread extends Thread {
         for (DiscoveryManagerListener managerListener : managerListeners) {
             managerListener.handleEvent(started);
         }
+    }
+
+    public void startDiscovery(){
+        logger.info("starting discovery");
+        start();
     }
 
     public void stopDiscovery(){

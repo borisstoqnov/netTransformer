@@ -19,21 +19,13 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
-import net.itransformers.idiscover.networkmodel.ObjectType;
-import net.itransformers.idiscover.networkmodel.ParameterType;
-import net.itransformers.idiscover.networkmodel.ParametersType;
-import net.itransformers.idiscover.util.JaxbMarshalar;
-import net.itransformers.utils.ProjectConstants;
+//import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
+//import net.itransformers.idiscover.networkmodel.ObjectType;
+//import net.itransformers.idiscover.networkmodel.ParameterType;
+//import net.itransformers.idiscover.networkmodel.ParametersType;
 //import upload.Node;
 //import upload.TreeImporterImplService;
 
-import javax.ws.rs.core.UriBuilder;
-import javax.xml.namespace.QName;
-import java.io.*;
-import java.lang.Exception;
-import java.net.URL;
-import java.util.List;
 
 public class Neo4JWsDataImporter {
 //    public static int nodeCounter = 0;

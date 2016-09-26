@@ -6,7 +6,7 @@ import net.itransformers.idiscover.core.RawDeviceData;
 import net.itransformers.idiscover.discoveryhelpers.xml.SnmpForXslt;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperV2;
-import net.itransformers.idiscover.networkmodel.DiscoveredDeviceData;
+import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
 import net.itransformers.idiscover.v2.core.node_discoverers.AbstractNodeDiscoverer;
 import net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer.snmpmanager.SnmpManagerCreator;
 import net.itransformers.resourcemanager.config.ResourceType;
@@ -17,7 +17,6 @@ import net.itransformers.snmp2xml4j.snmptoolkit.SnmpXmlPrinter;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

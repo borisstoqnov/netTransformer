@@ -333,7 +333,7 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
 
         managerThread = new DiscoveryManagerThread(nodeDiscovererImpl, depth, connectionList);
         managerThread.addDiscoveryManagerListener(this);
-        managerThread.start();
+        managerThread.startDiscovery();
         return true;
     }
 
