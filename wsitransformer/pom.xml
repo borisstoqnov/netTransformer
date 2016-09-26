@@ -140,7 +140,7 @@
                 <version>2.2</version>
                 <configuration>
                     <server>localhost</server>
-                    <contextFile>/Users/niau/Projects/netTransformer/wsitransformer/src/main/webapp/META-INF/context.xml</contextFile>
+                    <contextFile>${project.basedir}/src/main/webapp/META-INF/context.xml</contextFile>
                     <url>http://localhost:8080/manager/text</url>
                     <username>admin1</username>
                     <password>admin</password>
