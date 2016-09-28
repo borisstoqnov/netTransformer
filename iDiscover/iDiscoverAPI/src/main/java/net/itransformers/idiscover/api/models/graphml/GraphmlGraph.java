@@ -6,6 +6,8 @@ import java.util.List;
  * Created by vasko on 26.09.16.
  */
 public class GraphmlGraph {
+    List<GraphmlKeyData> graphmlKeys;
+
     List<GraphmlEdge> graphmlEdges;
     List<GraphmlNode> graphmlNodes;
 
