@@ -46,7 +46,9 @@ import static net.itransformers.idiscover.v2.core.Main.initializeDiscoveryContex
 
 
 public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManagerListener{
-    public static final String DISCOVERED_DEVICES = "discovered devices";
+    public static final String DISCOVERED_DEVICES = "reachable devices";
+    public static final String UNDISCOVERED_DEVICES = "unreachable devices";
+
     public static final String VERSION_LABEL = ProjectConstants.labelDirName;
     private final JButton stopStartButton;
     private File projectDir;
@@ -55,6 +57,7 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
     private JLabel loggerConsole;
     final JButton pauseResumeButton = new JButton("Pause");
     private int discoveredDevices;
+    private int undiscoveredDevices;
     private JTextArea lblDiscoveredDevices;
     private JTextField labelTextField;
     private JCheckBox autoLabelCheckBox;
@@ -293,9 +296,19 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
         NodeDiscoveryListener nodeListener = new NodeDiscoveryListener() {
             @Override
             public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
-                discoveredDevices++;
-                loggerConsole.setText(discoveryResult.getNodeId() + " has been discovered. " + "Total number of " + DISCOVERED_DEVICES + " " + discoveredDevices);
+                if (discoveryResult.getNodeId()!=null) {
+                    discoveredDevices++;
+                    loggerConsole.setText(DISCOVERED_DEVICES + ": " + discoveredDevices + " "+UNDISCOVERED_DEVICES+": " +undiscoveredDevices+" Latest discovered device: "+discoveryResult.getNodeId());
+
+
+                }else{
+                    undiscoveredDevices++;
+                    loggerConsole.setText(DISCOVERED_DEVICES + ": " + discoveredDevices + " "+UNDISCOVERED_DEVICES+": "+undiscoveredDevices);
+
+                }
+
                 loggerConsole.repaint();
+
 
             }
         };
@@ -369,7 +382,7 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
                 stopStartButton.setEnabled(true);
                 break;
             case STOPPED:
-                loggerConsole.setText("Discovery finished");
+                loggerConsole.setText("Discovery finished! "+DISCOVERED_DEVICES+": "+discoveredDevices+ " " + UNDISCOVERED_DEVICES+": " +undiscoveredDevices);
                 stopStartButton.setEnabled(true);
                 stopStartButton.setText("Start");
                 depthComboBox.setEditable(true);

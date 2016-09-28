@@ -211,7 +211,7 @@
 		<xsl:if test="$lldpNeighbor !=''">
 			<object>
 				<name>
-					<xsl:value-of select="$neighID"/>
+					<xsl:value-of select="$lldpNeighbor"/>
 				</name>
 				<objectType>Discovered Neighbor</objectType>
 				<parameters>

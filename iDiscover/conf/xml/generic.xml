@@ -51,7 +51,10 @@
         <property name="resourceManager" ref="resourceManager"/>
     </bean>
 
-
+    <bean id="discoveredNodesListUpdaterListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.DiscoveredNodesListUpdaterListener">
+        <property name="labelDirName" ref="labelDirName"/>
+    </bean>
     <bean id="deviceDataFileLogDiscoveryListener"
           class="net.itransformers.idiscover.v2.core.listeners.node.DeviceDataFileLogDiscoveryListener">
         <property name="projectPath" ref="projectPath"/>

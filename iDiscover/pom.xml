@@ -39,6 +39,7 @@
         <module>iDiscoverAPI</module>
         <module>connectiondetails</module>
         <module>resourceManager</module>
+        <module>xmlNodeDataProvider</module>
     </modules>
 
     <!--Change for new version-->

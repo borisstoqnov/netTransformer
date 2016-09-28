@@ -713,7 +713,7 @@
 
 
         <filter name="diff" type="or">
-            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+            <include dataKey="discoveredState" dataValue="discovered" for="node"/>
             <include dataKey="Discovery Method" dataValue="NEXT_HOP" for="edge"/>
             <include dataKey="Discovery Method" dataValue="CDP" for="edge"/>
             <include dataKey="Discovery Method" dataValue="LLDP" for="edge"/>
@@ -775,7 +775,7 @@
         </filter>
         <filter name="IPLinkLayer-reachable" type="and">
             <include dataKey="ipLink" dataValue="YES" for="edge"/>
-            <include dataKey="deviceStatus" dataValue="discovered" for="node"/>
+            <include dataKey="discoveredState" dataValue="discovered" for="node"/>
             <tooltip dataKey="deviceInfo" for="node"/>
             <tooltip dataKey="Discovery Method" for="edge" transformer="net.itransformers.topologyviewer.edgetooltip.CSVEdgeTooltipTransformer"/>
         </filter>
