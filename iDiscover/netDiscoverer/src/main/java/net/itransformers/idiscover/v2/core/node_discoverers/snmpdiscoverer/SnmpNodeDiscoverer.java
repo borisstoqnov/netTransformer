@@ -3,7 +3,7 @@ package net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer;
 import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
 import net.itransformers.idiscover.core.DiscoveryHelper;
 import net.itransformers.idiscover.core.DiscoveryResourceManager;
-import net.itransformers.idiscover.core.RawDeviceData;
+import net.itransformers.idiscover.api.models.node_data.RawDeviceData;
 import net.itransformers.idiscover.discoveryhelpers.xml.SnmpForXslt;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperV2;

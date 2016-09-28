@@ -24,7 +24,7 @@ package net.itransformers.idiscover.v2.core.discovererIntegrationTest.mplsLab;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.core.DiscoveryHelper;
 import net.itransformers.idiscover.core.DiscoveryTypes;
-import net.itransformers.idiscover.core.RawDeviceData;
+import net.itransformers.idiscover.api.models.node_data.RawDeviceData;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
 import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
 import net.itransformers.idiscover.api.models.node_data.ObjectType;

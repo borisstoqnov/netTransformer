@@ -31,16 +31,21 @@ public class DeviceNeighbour {
     private HashMap<String,String> parameters;
     private String id;
 
-    public DeviceNeighbour(String neighbourHostName, String neighbourIpAddress, HashMap<String, String> parameters) {
+    public DeviceNeighbour(String id, String neighbourHostName, String neighbourIpAddress, HashMap<String, String> parameters) {
+        this.id = id;
         this.neighbourIpAddress = neighbourIpAddress;
         this.neighbourHostName = neighbourHostName;
         this.parameters = parameters;
     }
 
 
+    public String getId() {
+        return id;
+    }
 
-
-
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getNeighbourIpAddress() {
         return neighbourIpAddress;

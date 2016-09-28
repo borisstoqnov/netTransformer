@@ -120,4 +120,5 @@ public class DiscoveredInterface {
     public void setIpv6AddressList(List<DiscoveredIPv6Address> ipv6AddressList) {
         this.ipv6AddressList = ipv6AddressList;
     }
+
 }

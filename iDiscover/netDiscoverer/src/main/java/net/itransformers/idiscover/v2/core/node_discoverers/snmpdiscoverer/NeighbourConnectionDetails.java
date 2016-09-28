@@ -36,10 +36,7 @@ public class NeighbourConnectionDetails {
 
             ConnectionDetails neighbourConnectionDetails = new IPNetConnectionDetails();
 
-            if (neighbourConnectionDetails.getParam("ipAddress")!=null || neighbourConnectionDetails.getParam("Neighbor hostname")!=null ||  neighbourConnectionDetails.getParam("Neighbor MAC Address")!=null ){
-                connectionDetailses.add(neighbourConnectionDetails);
 
-            }
             neighbourConnectionDetails.setConnectionType("snmp");
 
             String ipAddress = neighbour.getIpAddress();
@@ -67,6 +64,11 @@ public class NeighbourConnectionDetails {
             if (ipAddress != null && !ipAddress.isEmpty()) {
                 neighbourConnectionDetails.put("ipAddress", ipAddress);
             }
+
+//            if (neighbourConnectionDetails.getParam("ipAddress")!=null || neighbourConnectionDetails.getParam("Neighbor hostname")!=null ||  neighbourConnectionDetails.getParam("Neighbor MAC Address")!=null ){
+                connectionDetailses.add(neighbourConnectionDetails);
+//
+//            }
 
 
         }

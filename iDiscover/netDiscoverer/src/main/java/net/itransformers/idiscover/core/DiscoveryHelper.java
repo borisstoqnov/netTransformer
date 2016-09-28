@@ -23,13 +23,13 @@
 
 package net.itransformers.idiscover.core;
 
-import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
+import net.itransformers.idiscover.api.models.node_data.*;
 
 import java.util.Map;
 
 public interface DiscoveryHelper {
 
-    DiscoveredDeviceData parseDeviceRawData(RawDeviceData rawData, String[] discoveryTypes, Map<String, String> params);
+    DiscoveredDeviceData parseDeviceRawData(net.itransformers.idiscover.api.models.node_data.RawDeviceData rawData, String[] discoveryTypes, Map<String, String> params);
 
     Device createDevice(DiscoveredDeviceData discoveredDeviceData);
 

@@ -23,13 +23,10 @@
 
 package net.itransformers.idiscover.discoveryhelpers.xml;
 
+import net.itransformers.idiscover.api.models.node_data.*;
 import net.itransformers.idiscover.core.Subnet;
 import net.itransformers.idiscover.core.*;
 import net.itransformers.idiscover.discoveryhelpers.xml.discoveryParameters.*;
-import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
-import net.itransformers.idiscover.api.models.node_data.ObjectType;
-import net.itransformers.idiscover.api.models.node_data.ParameterType;
-import net.itransformers.idiscover.api.models.node_data.ParametersType;
 import net.itransformers.idiscover.util.JaxbMarshalar;
 import net.itransformers.utils.XsltTransformer;
 import org.apache.commons.beanutils.NestedNullException;
@@ -64,7 +61,7 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
 
 
 
-    public DiscoveredDeviceData parseDeviceRawData(RawDeviceData rawData, String[] discoveryTypes, Map<String, String> params) {
+    public DiscoveredDeviceData parseDeviceRawData(net.itransformers.idiscover.api.models.node_data.RawDeviceData rawData, String[] discoveryTypes, Map<String, String> params) {
 
         byte[] data = rawData.getData();
         ByteArrayOutputStream deviceXmlOutputStream = new ByteArrayOutputStream();

@@ -21,7 +21,7 @@
 
 package net.itransformers.idiscover.discoveryhelpers.xml;
 
-import net.itransformers.idiscover.core.RawDeviceData;
+import net.itransformers.idiscover.api.models.node_data.RawDeviceData;
 import net.itransformers.idiscover.discoveryhelpers.xml.discoveryParameters.DeviceType;
 import net.itransformers.idiscover.discoveryhelpers.xml.discoveryParameters.DiscoveryMethodType;
 import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
@@ -178,12 +178,13 @@ public class XmlDiscoveryHelperV2 {
 
     private DeviceNeighbour createNeighbour(ObjectType objectType) {
         ParametersType params2 = objectType.getParameters();
+        String neighbourId = objectType.getName();
         HashMap<String, String> params2Map = convertParams(params2);
         String ipAddress = params2Map.get("Neighbor IP Address");
-        String hostName = params2Map.get("Neighbour HostName");
+        String hostName = params2Map.get("Neighbor hostname");
         String physicalAddress = params2Map.get("Neighbor MAC Address");
 
-        return new DeviceNeighbour(hostName, ipAddress, params2Map);
+        return new DeviceNeighbour(neighbourId,hostName, ipAddress, params2Map);
 
     }
 

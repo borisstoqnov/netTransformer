@@ -22,10 +22,10 @@
 package net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.idiscover.api.models.node_data.*;
 import net.itransformers.idiscover.core.*;
 import net.itransformers.idiscover.discoveryhelpers.xml.SnmpForXslt;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
-import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
 import net.itransformers.idiscover.util.DeviceTypeResolver;
 import net.itransformers.idiscover.v2.core.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
@@ -148,7 +148,7 @@ public class SnmpSequentialNodeDiscoverer extends SnmpNodeDiscoverer implements 
 
 
         Node rawDatNode = null;
-        RawDeviceData rawData = null;
+        net.itransformers.idiscover.api.models.node_data.RawDeviceData rawData = null;
         try {
             rawDatNode = snmpManager.snmpWalk(requestParamsList);
             snmpManager.closeSnmp();
@@ -158,7 +158,7 @@ public class SnmpSequentialNodeDiscoverer extends SnmpNodeDiscoverer implements 
         }
         if (rawDatNode != null) {
             SnmpXmlPrinter snmpXmlPrinter = new SnmpXmlPrinter(mibLoaderHolder.getLoader(), rawDatNode);
-            rawData = new RawDeviceData(snmpXmlPrinter.printTreeAsXML().getBytes());
+            rawData = new net.itransformers.idiscover.api.models.node_data.RawDeviceData(snmpXmlPrinter.printTreeAsXML().getBytes());
 
             logger.trace(new String(rawData.getData()));
 
