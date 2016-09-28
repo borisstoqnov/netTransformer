@@ -8,7 +8,7 @@ import com.tinkerpop.blueprints.impls.tg.TinkerGraph;
 import net.itransformers.idiscover.api.DiscoveryResult;
 import net.itransformers.idiscover.api.models.graphml.*;
 import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
-import net.itransformers.idiscover.core.RawDeviceData;
+import net.itransformers.idiscover.api.models.node_data.RawDeviceData;
 import net.itransformers.utils.JaxbMarshalar;
 import net.itransformers.utils.ProjectConstants;
 import net.itransformers.utils.blueprints_patch.MyGraphMLReader;
