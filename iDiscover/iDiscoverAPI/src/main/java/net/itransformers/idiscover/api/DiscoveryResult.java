@@ -3,7 +3,7 @@ package net.itransformers.idiscover.api;
 import net.itransformers.idiscover.api.models.graphml.GraphmlGraph;
 import net.itransformers.idiscover.api.models.graphml.GraphmlNode;
 import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
-import net.itransformers.idiscover.core.RawDeviceData;
+import net.itransformers.idiscover.api.models.node_data.RawDeviceData;
 
 import java.util.List;
 
