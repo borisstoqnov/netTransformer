@@ -9,6 +9,8 @@
 
     <import resource="classpath:xmlResourceManager/xmlResourceManager.xml" />
     <import resource="classpath:csvConnectionDetails/csvConnectionDetails.xml"/>
+    <import resource="classpath:xmlNodeDataProvider/xmlNodeDataProvider.xml" />
+
     <bean id="projectPath" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="java:comp/env/wsitransformer/projectPath"/>
     </bean>
