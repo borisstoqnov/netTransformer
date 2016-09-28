@@ -9,8 +9,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.itransformers</groupId>
     <artifactId>xmlNodeDataProvider</artifactId>
-
+    <dependencies>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>utils</artifactId>
+            <version>0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>iDiscoverAPI</artifactId>
+            <version>0.8</version>
+        </dependency>
+    </dependencies>
 
 </project>
