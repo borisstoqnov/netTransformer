@@ -10,13 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>iDiscoverAPI</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
-            <artifactId>iDiscover</artifactId>
-            <version>0.8</version>
-        </dependency>
-    </dependencies>
+
 
 
 </project>
