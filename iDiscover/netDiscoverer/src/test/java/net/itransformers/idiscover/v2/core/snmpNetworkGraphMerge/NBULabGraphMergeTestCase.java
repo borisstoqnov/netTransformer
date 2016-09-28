@@ -71,7 +71,7 @@ public class NBULabGraphMergeTestCase {
             e.printStackTrace();
         }
 
-        File expected = new File(baseDir+File.separator+"iDiscover/src/test/resources/lab-results/nbulab/network/version1/expected/network-expected.graphml");
+        File expected = new File(baseDir+File.separator+"iDiscover/netDiscoverer/src/test/resources/lab-results/nbulab/network/version1/expected/network-expected.graphml");
         try {
             Assert.assertEquals(FileUtils.readFileToString(expected,"utf-8"),FileUtils.readFileToString(outputFile,"utf-8"));
         } catch (IOException e) {

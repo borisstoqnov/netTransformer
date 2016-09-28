@@ -82,10 +82,10 @@ public class IntegrationTestsMetroE {
 
 
 
-        File IntegrationTestCiscoASR1000 = new File(baseDir + File.separator + "iDiscover/src/test/resources/test/metroE");
+        File IntegrationTestCiscoASR1000 = new File(baseDir + File.separator + "iDiscover/netDiscoverer/src/test/resources/test/metroE");
         if (IntegrationTestCiscoASR1000.exists()){
             try {
-                FileUtils.deleteDirectory(new File(baseDir + File.separator + "iDiscover/src/test/resources/test/metroE"));
+                FileUtils.deleteDirectory(new File(baseDir + File.separator + "iDiscover/netDiscoverer/src/test/resources/test/metroE"));
             } catch (IOException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -116,7 +116,7 @@ public class IntegrationTestsMetroE {
 
         FileInputStream is = null;
         try {
-            is = new FileInputStream("iDiscover/src/test/resources/raw-data-metroE/raw-data-M-238.xml");
+            is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-metroE/raw-data-M-238.xml");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -137,7 +137,7 @@ public class IntegrationTestsMetroE {
         Map<String, HashMap<String, String>> discoveredDevices = new HashMap<String, HashMap<String, String>>();
         OutputStream os = null;
         try {
-            os = new FileOutputStream("iDiscover/src/test/resources/test-device-data-M-238.xml");
+            os = new FileOutputStream("iDiscover/netDiscoverer/src/test/resources/test-device-data-M-238.xml");
             JaxbMarshalar.marshal(discoveredDeviceData, os, "DiscoveredDevice");
         } catch (FileNotFoundException e) {
         } catch (JAXBException e) {
@@ -153,8 +153,8 @@ public class IntegrationTestsMetroE {
             }
         }
         try {
-            String deviceDataGenerated = FileUtils.readFileToString(new File("iDiscover/src/test/resources/device-data-metro-E/test-device-data-M-238.xml"));
-            String expected = FileUtils.readFileToString(new File("iDiscover/src/test/resources/device-data-metro-E/device-data-M-238.xml"));
+            String deviceDataGenerated = FileUtils.readFileToString(new File("iDiscover/netDiscoverer/src/test/resources/device-data-metro-E/test-device-data-M-238.xml"));
+            String expected = FileUtils.readFileToString(new File("iDiscover/netDiscoverer/src/test/resources/device-data-metro-E/device-data-M-238.xml"));
                     Assert.assertEquals(expected,deviceDataGenerated);
         } catch (IOException e) {
             e.printStackTrace();
@@ -170,7 +170,7 @@ public class IntegrationTestsMetroE {
 
         FileInputStream is = null;
         try {
-            is = new FileInputStream("iDiscover/src/test/resources/raw-data-metroE/raw-data-M-238.xml");
+            is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-metroE/raw-data-M-238.xml");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Assert.fail();
@@ -227,7 +227,7 @@ public class IntegrationTestsMetroE {
 //
 //                FileInputStream is = null;
 //                try {
-//                    is = new FileInputStream("iDiscover/src/test/resources/raw-data-metroE/raw-data-M-238.xml");
+//                    is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-metroE/raw-data-M-238.xml");
 //                } catch (FileNotFoundException e) {
 //                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 //                }
@@ -279,7 +279,7 @@ public class IntegrationTestsMetroE {
 
         FileInputStream is = null;
         try {
-            is = new FileInputStream("iDiscover/src/test/resources/raw-data-metroE/raw-data-R-112.xml");
+            is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-metroE/raw-data-R-112.xml");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -393,7 +393,7 @@ public class IntegrationTestsMetroE {
 //
 //                FileInputStream is = null;
 //                try {
-//                    is = new FileInputStream("iDiscover/src/test/resources/raw-data-metroE/raw-data-MAG-RTI-0.xml");
+//                    is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-metroE/raw-data-MAG-RTI-0.xml");
 //                } catch (FileNotFoundException e) {
 //                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 //                }
@@ -459,7 +459,7 @@ public class IntegrationTestsMetroE {
 //
 //                FileInputStream is = null;
 //                try {
-//                    is = new FileInputStream("iDiscover/src/test/resources/raw-data-metroE/raw-data-R-112.xml");
+//                    is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-metroE/raw-data-R-112.xml");
 //                } catch (FileNotFoundException e) {
 //                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 //                }
@@ -522,7 +522,7 @@ public class IntegrationTestsMetroE {
 //
 //                FileInputStream is = null;
 //                try {
-//                    is = new FileInputStream("iDiscover/src/test/resources/raw-data-metroE/raw-data-R-248.xml");
+//                    is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-metroE/raw-data-R-248.xml");
 //                } catch (FileNotFoundException e) {
 //                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 //                }
@@ -585,7 +585,7 @@ public class IntegrationTestsMetroE {
 //
 //                FileInputStream is = null;
 //                try {
-//                    is = new FileInputStream("iDiscover/src/test/resources/raw-data-metroE/raw-data-RR-RTI.xml");
+//                    is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-metroE/raw-data-RR-RTI.xml");
 //                } catch (FileNotFoundException e) {
 //                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 //                }
@@ -648,7 +648,7 @@ public class IntegrationTestsMetroE {
 //
 //                FileInputStream is = null;
 //                try {
-//                    is = new FileInputStream("iDiscover/src/test/resources/raw-data-metroE/raw-data-S-209-7.xml");
+//                    is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-metroE/raw-data-S-209-7.xml");
 //                } catch (FileNotFoundException e) {
 //                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 //                }

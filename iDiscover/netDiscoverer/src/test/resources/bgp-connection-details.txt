@@ -1,4 +1,4 @@
-#type=javaMRT,nodeId=ATLA,date=2014/01/01/0113,pathToFile=/Users/niau/Projects/netTransformer/iDiscover/src/test/resources/cps_rib.20140101.0113.gz
+#type=javaMRT,nodeId=ATLA,date=2014/01/01/0113,pathToFile=/Users/niau/Projects/netTransformer/iDiscover/netDiscoverer/src/test/resources/cps_rib.20140101.0113.gz
 type=javaMRT,nodeId=routeviews1,pathToFile=/Users/niau/Projects/java-mrt/ribs/arhieve2/rib.20141027.1800.bz2,version=201411027
 
 #type=javaMRT,nodeId=Ripe1,pathToFile=/Users/niau/Projects/java-mrt/ribs/archieve2-ipv6/bz2s/rib.20030531.2304.bz2,version=20030531

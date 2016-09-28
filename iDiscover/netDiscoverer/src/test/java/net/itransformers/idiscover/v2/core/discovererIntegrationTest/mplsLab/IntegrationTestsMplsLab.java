@@ -68,10 +68,10 @@ public class IntegrationTestsMplsLab {
     public void setUp() throws Exception {
 
 
-        File IntegrationTestCiscoASR1000 = new File(baseDir + File.separator + "iDiscover/src/test/resources/test/mpls-lab");
+        File IntegrationTestCiscoASR1000 = new File(baseDir + File.separator + "iDiscover/netDiscoverer/src/test/resources/test/mpls-lab");
         if (IntegrationTestCiscoASR1000.exists()){
             try {
-                FileUtils.deleteDirectory(new File(baseDir + File.separator + "iDiscover/src/test/resources/test/mpls-lab"));
+                FileUtils.deleteDirectory(new File(baseDir + File.separator + "iDiscover/netDiscoverer/src/test/resources/test/mpls-lab"));
             } catch (IOException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -80,7 +80,7 @@ public class IntegrationTestsMplsLab {
 
 
 
-        params1.put("path","iDiscover/src/test/resources/test");
+        params1.put("path","iDiscover/netDiscoverer/src/test/resources/test");
         params1.put("device-data-logging-path","device-hierarchical");
         params1.put("raw-data-logging-path","raw-data");
         params1.put("device-centric-logging-path","device-centric");
@@ -123,7 +123,7 @@ public class IntegrationTestsMplsLab {
 
                 FileInputStream is = null;
                 try {
-                    is = new FileInputStream("iDiscover/src/test/resources/raw-data-mpls-lab/raw-data-R1.xml");
+                    is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-mpls-lab/raw-data-R1.xml");
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
@@ -188,7 +188,7 @@ public class IntegrationTestsMplsLab {
 
                     FileInputStream is = null;
                     try {
-                        is = new FileInputStream("iDiscover/src/test/resources/raw-data-mpls-lab/raw-data-R2.xml");
+                        is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-mpls-lab/raw-data-R2.xml");
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
@@ -237,7 +237,7 @@ public class IntegrationTestsMplsLab {
 
                 FileInputStream is = null;
                 try {
-                    is = new FileInputStream("iDiscover/src/test/resources/raw-data-mpls-lab/raw-data-R3.xml");
+                    is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-mpls-lab/raw-data-R3.xml");
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
@@ -286,7 +286,7 @@ public class IntegrationTestsMplsLab {
 
                 FileInputStream is = null;
                 try {
-                    is = new FileInputStream("iDiscover/src/test/resources/raw-data-mpls-lab/raw-data-R4.xml");
+                    is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-mpls-lab/raw-data-R4.xml");
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
@@ -333,7 +333,7 @@ public class IntegrationTestsMplsLab {
 
                 FileInputStream is = null;
                 try {
-                    is = new FileInputStream("iDiscover/src/test/resources/raw-data-mpls-lab/raw-data-R5.xml");
+                    is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-mpls-lab/raw-data-R5.xml");
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }

@@ -66,10 +66,10 @@ public class IntegrationTestJuniperOlive {
     @Before
     public void setUp() throws Exception {
 
-        File IntegrationTestJuniperOlive = new File(baseDir + File.separator + "iDiscover/src/test/resources/test/IntegrationTestJuniperOlive");
+        File IntegrationTestJuniperOlive = new File(baseDir + File.separator + "iDiscover/netDiscoverer/src/test/resources/test/IntegrationTestJuniperOlive");
         if (IntegrationTestJuniperOlive.exists()){
             try {
-                FileUtils.deleteDirectory(new File(baseDir + File.separator + "iDiscover/src/test/resources/test/IntegrationTestJuniperOlive"));
+                FileUtils.deleteDirectory(new File(baseDir + File.separator + "iDiscover/netDiscoverer/src/test/resources/test/IntegrationTestJuniperOlive"));
             } catch (IOException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -105,7 +105,7 @@ public class IntegrationTestJuniperOlive {
 
 
         Map<String, String> params1 = new HashMap<String, String>();
-        params1.put("path","iDiscover/src/test/resources/test");
+        params1.put("path","iDiscover/netDiscoverer/src/test/resources/test");
         params1.put("device-data-logging-path","device-hierarchical");
         params1.put("raw-data-logging-path","raw-data");
         params1.put("device-centric-logging-path","device-centric");
@@ -119,7 +119,7 @@ public class IntegrationTestJuniperOlive {
 
 
 
-        FileInputStream is = new FileInputStream("iDiscover/src/test/resources/raw-data-juniper-olive.xml");
+        FileInputStream is = new FileInputStream("iDiscover/netDiscoverer/src/test/resources/raw-data-juniper-olive.xml");
         byte[] data = new byte[is.available()];
         is.read(data);
         rawdata.setData(data);
@@ -201,9 +201,9 @@ public class IntegrationTestJuniperOlive {
                 String ipv6Prefix = ipv6Address.getName();
 
 //                try {
-//                     System.out.println("Deleting" + baseDir + File.separator + "iDiscover/src/test/resources/test/IntegrationTestJuniperOlive");
+//                     System.out.println("Deleting" + baseDir + File.separator + "iDiscover/netDiscoverer/src/test/resources/test/IntegrationTestJuniperOlive");
 
-//                  //  FileUtils.deleteDirectory(new File(baseDir + File.separator + "iDiscover/src/test/resources/test/IntegrationTestJuniperOlive"));
+//                  //  FileUtils.deleteDirectory(new File(baseDir + File.separator + "iDiscover/netDiscoverer/src/test/resources/test/IntegrationTestJuniperOlive"));
 //                } catch (IOException e) {
 //                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 //                }

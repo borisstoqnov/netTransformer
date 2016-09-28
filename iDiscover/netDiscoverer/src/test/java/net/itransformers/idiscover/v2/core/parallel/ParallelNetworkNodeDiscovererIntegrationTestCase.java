@@ -22,7 +22,7 @@ public class ParallelNetworkNodeDiscovererIntegrationTestCase {
     protected ConnectionDetailsJsonDeserializer connectionDetailsJsonDeserializer = new ConnectionDetailsJsonDeserializer();
 
     public ParallelNetworkNodeDiscovererIntegrationTestCase() throws IOException, JSONException {
-        String json = new String(Files.readAllBytes(Paths.get("iDiscover/src/test/java/net/itransformers/idiscover/v2/core/parallel/mock-discovery.json")));
+        String json = new String(Files.readAllBytes(Paths.get("iDiscover/netDiscoverer/src/test/java/net/itransformers/idiscover/v2/core/parallel/mock-discovery.json")));
         JSONArray jsonArray = new JSONArray(json);
         for (int i=0;i<jsonArray.length(); i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);

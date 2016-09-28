@@ -46,7 +46,7 @@
 //        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 //        "discovery.xml", "conf/xml/connectionsDetails.xml");
 //        networkNodeDiscovererImpl = applicationContext.getBean("bgpPeeringMapDiscovery", NetworkNodeDiscovererImpl.class);
-//        String connectionDetailsFileName = "iDiscover/src/test/resources/bgp-connection-details.txt";
+//        String connectionDetailsFileName = "iDiscover/netDiscoverer/src/test/resources/bgp-connection-details.txt";
 //        connectionList = (List) applicationContext.getBean("connectionList", connectionDetailsFileName == null ? null:new File(connectionDetailsFileName));
 //    }
 //    @Test
