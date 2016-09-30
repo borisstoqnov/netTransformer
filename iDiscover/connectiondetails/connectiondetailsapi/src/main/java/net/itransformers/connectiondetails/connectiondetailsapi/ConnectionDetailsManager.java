@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Created by niau on 9/18/16.
  */
-public interface ConnectionDetailsAPI {
+public interface ConnectionDetailsManager {
     Map<String,ConnectionDetails> getConnectionDetails();
     void createConnection(String name, ConnectionDetails connectionDetails);
     void updateConnection(String name, String newConnectionDetailName);

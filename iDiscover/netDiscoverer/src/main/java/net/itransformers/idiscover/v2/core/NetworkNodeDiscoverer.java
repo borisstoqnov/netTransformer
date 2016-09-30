@@ -105,4 +105,12 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     public void removeNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListener) {
         this.networkDiscoveryListeners.remove(networkDiscoveryListener);
     }
+
+    public List<NetworkDiscoveryListener> getNetworkDiscoveryListeners() {
+        return networkDiscoveryListeners;
+    }
+
+    public void setNetworkDiscoveryListeners(List<NetworkDiscoveryListener> networkDiscoveryListeners) {
+        this.networkDiscoveryListeners = networkDiscoveryListeners;
+    }
 }

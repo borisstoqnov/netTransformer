@@ -15,11 +15,12 @@ public class SpringBasedNetworkDiscovererFactory implements NetworkDiscovererFac
 
     @Override
     public NetworkDiscoverer createNetworkDiscoverer(String projectPath, String version) {
-        throw new UnsupportedOperationException();
+        return this.createNetworkDiscoverer(projectPath, version, -1, -1);
     }
 
     @Override
     public NetworkDiscoverer createNetworkDiscoverer(String projectPath, String version, int initialNumberOfThreads, int maxNumberOfThreads) {
+        // TODO set number of threads
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:netDiscoverer/netDiscoverer.xml");
         AbstractBeanDefinition projectPathBeanDefinition = BeanDefinitionBuilder.rootBeanDefinition(String.class)

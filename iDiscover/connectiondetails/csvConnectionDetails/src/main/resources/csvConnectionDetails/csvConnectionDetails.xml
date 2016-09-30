@@ -36,8 +36,11 @@
                          <!--value="#{projectPath+'/iDiscover/conf/txt/connection-details.txt'}" />-->
     <!--</bean>-->
 
-    <bean id="connectionList" class="net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager" init-method="load">
-        <constructor-arg name="file" value="#{projectPath+'/iDiscover/conf/txt/connection-details.txt'}"/>
+    <!--<bean id="connectionList" class="net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager" init-method="load">-->
+        <!--<constructor-arg name="file" value="#{projectPath+'/iDiscover/conf/txt/connection-details.txt'}"/>-->
+    <!--</bean>-->
+
+    <bean id="connectionManagerFactory" class="net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsManagerFactory">
     </bean>
 
 

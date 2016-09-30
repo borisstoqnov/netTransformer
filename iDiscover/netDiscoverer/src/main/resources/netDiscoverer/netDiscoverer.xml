@@ -26,7 +26,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <import resource="classpath:xmlResourceManager/xmlResourceManager.xml"/>
-    <import resource="classpath:csvConnectionDetails/csvConnectionDetails.xml"/>
 
     <bean id="eventExecutor" class="java.util.concurrent.Executors" factory-method="newFixedThreadPool">
         <constructor-arg value="5" type="int"/>

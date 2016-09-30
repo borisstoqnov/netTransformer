@@ -1,7 +1,7 @@
 package net.itransformers.ws.connectionDetails;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
-import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsAPI;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ import java.util.Map;
 public class ConnectionDetailsController {
     final Logger logger = LoggerFactory.getLogger(ConnectionDetailsController.class);
     @Resource(name="connectionList")
-    private ConnectionDetailsAPI connectionDetailsAPI;
+    private ConnectionDetailsManager connectionDetailsAPI;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody

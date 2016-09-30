@@ -1,11 +1,10 @@
 package net.itransformer.cli_discovery_launcher;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
-import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsAPI;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManagerFactory;
 import net.itransformers.idiscover.api.NetworkDiscoverer;
 import net.itransformers.idiscover.api.NetworkDiscovererFactory;
-import net.itransformers.idiscover.api.NetworkDiscoveryListener;
-import net.itransformers.idiscover.api.NetworkDiscoveryResult;
 import net.itransformers.idiscover.api.models.network.Node;
 import net.itransformers.utils.CmdLineParser;
 import org.apache.log4j.Logger;
@@ -13,6 +12,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -43,7 +43,7 @@ public class CliDiscoveryLauncher {
         }
 
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
-        ctx.load("classpath:netDiscoverer/cliDiscoveryLauncher.xml");
+        ctx.load("classpath:cliDiscoveryLauncher/cliDiscoveryLauncher.xml");
         ctx.refresh();
 
         NetworkDiscovererFactory discovererFactory = ctx.getBean("networkDiscoveryFactory", NetworkDiscovererFactory.class);
@@ -53,11 +53,17 @@ public class CliDiscoveryLauncher {
         networkDiscoverer.addNetworkDiscoveryListeners(result -> {
             Map<String, Node> nodes = result.getNodes();
             for (String node : nodes.keySet()) {
-                System.out.println("Discovered node: "+node);
+                System.out.println("Discovered node: " + node);
             }
         });
-        ConnectionDetailsAPI connectionDetailsAPI = ctx.getBean("connectionList", ConnectionDetailsAPI.class);
-        Map<String, ConnectionDetails> connectionDetails = connectionDetailsAPI.getConnectionDetails();
+        ConnectionDetailsManagerFactory factory = ctx.getBean("connectionManagerFactory",
+                ConnectionDetailsManagerFactory .class);
+
+        Map<String, String> properties = new HashMap<>();
+        properties.put("projectPath", projectPath);
+
+        ConnectionDetailsManager connectionDetailsManager = factory.createConnectionDetailsManager("csv", properties);
+        Map<String, ConnectionDetails> connectionDetails = connectionDetailsManager.getConnectionDetails();
         networkDiscoverer.startDiscovery(new HashSet<>(connectionDetails.values()));
     }
 }
