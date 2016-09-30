@@ -23,9 +23,9 @@
 
 package net.itransformers.idiscover.v2.core.listeners.network;
 
-import net.itransformers.idiscover.v2.core.NetworkDiscoveryListener;
-import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.api.NetworkDiscoveryListener;
+import net.itransformers.idiscover.api.NetworkDiscoveryResult;
+import net.itransformers.idiscover.api.NodeDiscoveryResult;
 import net.itransformers.utils.ProjectConstants;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;

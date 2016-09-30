@@ -23,7 +23,7 @@ package net.itransformers.idiscover.v2.core.listeners;
 
 import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
 import net.itransformers.idiscover.util.JaxbMarshalar;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.api.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.listeners.node.GraphmlFileLogGroovyDiscoveryListener;
 import net.itransformers.utils.ProjectConstants;
 import org.junit.Assert;

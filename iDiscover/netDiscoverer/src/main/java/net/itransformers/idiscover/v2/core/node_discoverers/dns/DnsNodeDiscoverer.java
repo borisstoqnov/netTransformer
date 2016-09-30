@@ -1,8 +1,8 @@
 package net.itransformers.idiscover.v2.core.node_discoverers.dns;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.NodeDiscoverer;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.api.NodeDiscoverer;
+import net.itransformers.idiscover.api.NodeDiscoveryResult;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 

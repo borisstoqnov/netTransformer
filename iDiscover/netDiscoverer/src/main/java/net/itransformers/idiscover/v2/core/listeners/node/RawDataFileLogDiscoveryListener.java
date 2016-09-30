@@ -21,8 +21,8 @@
 
 package net.itransformers.idiscover.v2.core.listeners.node;
 
-import net.itransformers.idiscover.v2.core.NodeDiscoveryListener;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.api.NodeDiscoveryListener;
+import net.itransformers.idiscover.api.NodeDiscoveryResult;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 

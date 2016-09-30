@@ -1,8 +1,9 @@
 package net.itransformers.idiscover.v2.core.listeners.node;
 
+
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryListener;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.api.NodeDiscoveryListener;
+import net.itransformers.idiscover.api.NodeDiscoveryResult;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +13,7 @@ import java.util.Set;
 /**
  * Created by niau on 9/27/16.
  */
-public class DiscoveredNodesListUpdaterListener implements NodeDiscoveryListener{
+public class DiscoveredNodesListUpdaterListener implements NodeDiscoveryListener {
     String labelDirName;
 
     @Override

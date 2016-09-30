@@ -19,7 +19,7 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-package net.itransformers.utils;
+package net.itransformer.cli_discovery_launcher;
 
 import java.io.File;
 
@@ -28,35 +28,16 @@ import java.io.File;
  */
 public class AutoLabeler {
 
-    private static String projectPath;
-    private static String networkFolderName;
-    private static String versionLabel;
+    private String networkFolderName;
+    private String versionLabel;
 
 
-    public void setProjectPath(String projectPath) {
-        this.projectPath = projectPath;
-    }
-
-    public AutoLabeler(String projectPath, String networkFolderName, String versionLabel) {
-        this.projectPath = projectPath;
+    public AutoLabeler(String networkFolderName, String versionLabel) {
         this.networkFolderName = networkFolderName;
         this.versionLabel = versionLabel;
 
     }
-
-    public String getProjectPath() {
-        return projectPath;
-    }
-
-    public String getNetworkFolderName() {
-        return networkFolderName;
-    }
-
-    public void setNetworkFolderName(String networkFolderName) {
-        this.networkFolderName = networkFolderName;
-    }
-
-    public static String autolabel() {
+    public String autolabel(String projectPath) {
 
         String[] fileList = new File(projectPath, networkFolderName).list();
         int max = 0;

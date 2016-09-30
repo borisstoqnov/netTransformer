@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ snmpNetworkDiscovery.xml
+  ~
+  ~ This work is free software; you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published
+  ~ by the Free Software Foundation; either version 2 of the License,
+  ~ or (at your option) any later version.
+  ~
+  ~ This work is distributed in the hope that it will be useful, but
+  ~ WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program; if not, write to the Free Software
+  ~ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+  ~ USA
+  ~
+  ~ Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <import resource="classpath:xmlResourceManager/xmlResourceManager.xml"/>
+
+    <bean id="eventExecutor" class="java.util.concurrent.Executors" factory-method="newFixedThreadPool">
+        <constructor-arg value="5" type="int"/>
+    </bean>
+    <bean id="eventExecutorCompletionService" class="java.util.concurrent.ExecutorCompletionService">
+        <constructor-arg ref="eventExecutor"/>
+    </bean>
+    <bean id="executorService" class="net.itransformers.idiscover.v2.core.parallel.PausableThreadPoolExecutor">
+        <constructor-arg  value="200" type="int"/>
+        <constructor-arg  value="500" type="int"/>
+        <constructor-arg  value="0" type="long"/>
+    </bean>
+
+    <bean id="executorCompletionService" class="java.util.concurrent.ExecutorCompletionService">
+        <constructor-arg  ref="executorService"/>
+    </bean>
+
+    <bean id="discoveryWorkerFactory" class="net.itransformers.idiscover.v2.core.factory.DiscoveryWorkerFactory"/>
+    <bean id="parallelSnmpDiscovery" class="net.itransformers.idiscover.v2.core.parallel.ParallelNetworkNodeDiscovererImpl">
+        <property name="eventExecutorService" ref="eventExecutor"/>
+        <property name="eventExecutorCompletionService" ref="eventExecutorCompletionService"/>
+        <property name="executorService" ref="executorService"/>
+        <property name="executorCompletionService" ref="executorCompletionService"/>
+        <property name="discoveryWorkerFactory" ref="discoveryWorkerFactory"/>
+        <property name="nodeDiscoverers">
+            <map>
+                <entry key="any" value-ref="plumberNodeDiscoverer"/>
+                <entry key="subnet" value-ref="subnetNodeDiscoverer"/>
+            </map>
+        </property>
+        <property name="nodeDiscoverFilter" ref="simpleNodeDiscoveryFilter"/>
+
+
+        <property name="nodeDiscoveryListeners">
+            <list>
+                <ref bean="sampleNodeDiscoveryListener"/>
+                <ref bean="rawDataFileLogDiscoveryListener"/>
+                <ref bean="deviceDataFileLogDiscoveryListener"/>
+                <ref bean="discoveredNodesListUpdaterListener"/>
+            </list>
+        </property>
+        <property name="nodeNeighbourDiscoveryListeners">
+            <list>
+                <ref bean="snmpNodeNeighbourDiscoveryListener"/>
+            </list>
+        </property>
+        <property name="networkDiscoveryListeners">
+            <list>
+                <ref bean="snmpNetworkDiscoveryListener"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="snmpNetworkDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.network.SnmpNetworkDiscoveryListener">
+        <property name="projectPath" ref="projectPath"/>
+        <property name="labelDirName" ref="labelDirName"/>
+        <property name="graphmlDataDirName" value="graphml-undirected"/>
+    </bean>
+
+    <bean id="snmpNodeNeighbourDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.neighbor.SnmpNodeNeighbourDiscoveryListener">
+        <property name="projectPath" ref="projectPath"/>
+        <property name="labelDirName" ref="labelDirName"/>
+        <property name="graphmlDirName" value="graphml-undirected"/>
+        <property name="velocityTemplate" value="iDiscover/conf/xml/snmpGraphmlTemplate.vm"/>
+    </bean>
+    <bean id="mibLoaderHolder"
+          class="net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder">
+        <constructor-arg value="snmptoolkit/mibs"/>
+        <constructor-arg value="true"/>
+    </bean>
+
+
+    <bean id="snmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer.SnmpSequentialNodeDiscoverer">
+        <constructor-arg ref="discoveryHelperFactory"/>
+        <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,IPSEC,BGP,RIP,ADDITIONAL,IPV6"/>
+        <constructor-arg ref="discoveryResourceManager"/>
+        <constructor-arg ref="mibLoaderHolder"/>
+        <constructor-arg value="false"/>
+
+    </bean>
+
+    <bean id="plumberNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.PlumberNodeDiscoverer">
+        <constructor-arg ref="icmpNodeDiscoverer"/>
+        <constructor-arg ref="dnsNodeDiscoverer"/>
+        <constructor-arg ref="snmpParallelNodeDiscoverer"/>
+    </bean>
+
+    <bean id="snmpParallelNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer.SnmpParallelNodeDiscoverer">
+        <constructor-arg ref="discoveryHelperFactory"/>
+        <constructor-arg value="PHYSICAL,NEXT_HOP,OSPF,ISIS,IPSEC,BGP,RIP,ADDITIONAL,IPV6"/>
+        <constructor-arg ref="discoveryResourceManager"/>
+        <constructor-arg ref="mibLoaderHolder"/>
+        <constructor-arg name="useOnlyTheFirstSnmpBeingMatched" value="true"/>
+    </bean>
+
+    <bean id="subnetNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.subnetDiscoverer.SubnetDiscoverer">
+        <constructor-arg name="generateIPconnectionsForSubnetMembers" value="true"/>
+        <constructor-arg name="subnetMaxMaskSize" value="24"/>
+    </bean>
+
+    <bean id="icmpNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.icmp.IcmpDiscoverer">
+        <constructor-arg  ref="discoveryResourceManager"/>
+    </bean>
+
+    <bean id="dnsNodeDiscoverer" class="net.itransformers.idiscover.v2.core.node_discoverers.dns.DnsNodeDiscoverer">
+    </bean>
+
+    <bean id="discoveryHelperFactory" class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">
+        <constructor-arg>
+            <map>
+                <entry key="projectPath" value-ref="projectPath"/>
+                <entry key="fileName" value="iDiscover/conf/xml/discoveryParameters.xml"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+
+    <bean id="sampleNodeDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.SampleNodeDiscoveryListener"/>
+
+
+    <bean id="rawDataFileLogDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.RawDataFileLogDiscoveryListener">
+        <property name="labelDirName" ref="labelDirName"/>
+        <property name="rawDataDirName" value="raw-data"/>
+        <property name="projectPath" ref="projectPath"/>
+
+    </bean>
+
+    <bean id="PostNetworkDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.network.PostNetworkDiscoveryListener">
+        <property name="labelDirName" ref="labelDirName"/>
+        <property name="postDiscoveryDataDirName" value="post-discovery"/>
+        <property name="scriptPath" value="postDiscoverer/conf/groovy/"/>
+        <property name="projectPath" value="."/>
+        <property name="resourceManagerPath" value="iDiscover/resourceManager/conf/xml/resource.xml"/>
+        <property name="reportGeneratorPath" value="postDiscoverer/conf/xml/reportGenerator.xml"/>
+        <property name="tableTransfomator" value="iTopologyManager/rightClick/conf/xslt/table_creator.xslt"/>
+        <property name="resourceManager" ref="resourceManager"/>
+    </bean>
+
+    <bean id="discoveredNodesListUpdaterListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.DiscoveredNodesListUpdaterListener">
+        <property name="labelDirName" ref="labelDirName"/>
+    </bean>
+    <bean id="deviceDataFileLogDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.DeviceDataFileLogDiscoveryListener">
+        <property name="projectPath" ref="projectPath"/>
+        <property name="labelDirName" ref="labelDirName"/>
+        <property name="deviceDataDirName" value="device-hierarchical"/>
+    </bean>
+
+    <bean id="GraphmlFileLogDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.GraphmlFileLogDiscoveryListener">
+        <property name="projectPath" ref="projectPath"/>
+        <property name="labelDirName" ref="labelDirName"/>
+        <property name="graphmlDirName" value="graphml-undirected"/>
+        <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
+    </bean>
+
+    <bean id="ConnectionDetailsListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.ConnectionDetailsListener">
+        <property name="projectPath" ref="projectPath"/>
+        <property name="connectionDetailsPath" value="iDiscover/conf/txt/connection-details.txt"/>
+    </bean>
+
+    <bean id="GraphmlFileLogGroovyDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.GraphmlFileLogGroovyDiscoveryListener">
+        <property name="projectPath" ref="projectPath"/>
+        <property name="labelDirName" ref="labelDirName"/>
+        <property name="graphmlDirName" value="graphml-undirected"/>
+        <property name="rawData2GraphmlGroovyTransformer" value="iDiscover/conf/groovy/RawData2GraphmlTransformer.groovy"/>
+    </bean>
+
+
+    <bean id="Neo4JGraphmlLoggerLogDiscoveryListener"
+          class="net.itransformers.idiscover.v2.core.listeners.node.Neo4JGraphmlLoggerLogDiscoveryListener">
+        <property name="projectPath" ref="projectPath"/>
+        <property name="labelDirName" ref="labelDirName"/>
+        <property name="graphmlDirName" value="graphml-undirected"/>
+        <property name="xsltFileName" value="iDiscover/conf/xslt/transformator-undirected2.xslt"/>
+        <property name="graphDbUrl" value="http://54.69.21.203:7474/db/data"/>
+        <property name="dataType" value="deviceData"/>
+
+    </bean>
+
+    <bean id="simpleNodeDiscoveryFilter" class="net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer.SimpleNodeDiscoveryFilter">
+        <property name="matches">
+            <list>
+                <!--<value>ipAddress=.*</value>-->
+                <!--<value>ipAddress=10.121</value>-->
+                <!--<value>ipAddress=10.122</value>-->
+            </list>
+        </property>
+        <property name="notMatches">
+            <list>
+                <!--<value>ipAddress=10\..*</value>-->
+                <!--<value>ipAddress=c82\..*</value>-->
+                <!--<value>ipAddress=c92\.168.*</value>-->
+            </list>
+        </property>
+    </bean>
+
+    <bean id="discoveryResourceManager" class="net.itransformers.idiscover.core.DiscoveryResourceManager">
+        <constructor-arg ref="resourceManager"/>
+    </bean>
+
+    <bean id="networkDiscoveryFactory" class="net.itransformers.idiscover.v2.core.factory.spring.SpringBasedNetworkDiscovererFactory">
+    </bean>
+</beans>

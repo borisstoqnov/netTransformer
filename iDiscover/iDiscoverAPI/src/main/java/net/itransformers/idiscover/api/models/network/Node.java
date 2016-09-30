@@ -1,5 +1,5 @@
 /*
- * DiscoverySource.java
+ * Node.java
  *
  * This work is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
@@ -19,38 +19,41 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-package net.itransformers.idiscover.v2.core.model;
+package net.itransformers.idiscover.api.models.network;
 
-import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import java.io.Serializable;
+import java.util.*;
 
-import java.util.Collections;
-import java.util.List;
+public class Node implements Serializable{
+    private String id;
+    private Set<String> aliases;
+    private Map<String,Node> aliasToNeighbourMap;
+    private Set<Node> neighbours = new HashSet<Node>();
 
-public class DiscoverySource {
-    String id;
-    List<ConnectionDetails> connectionDetailsList;
-
-    public DiscoverySource(String id, List<ConnectionDetails> connectionDetailsList) {
+    public Node(String id) {
         this.id = id;
-        this.connectionDetailsList = connectionDetailsList;
     }
-
     public String getId() {
         return id;
     }
 
-    public List<ConnectionDetails> getConnectionDetailsList() {
-        return Collections.unmodifiableList(connectionDetailsList);
+    public void addNeighbour(Node neighbour){
+        neighbours.add(neighbour);
     }
 
+    public Set<Node> getNeighbours() {
+        return Collections.unmodifiableSet(neighbours);
+    }
 
     @Override
     public String toString() {
         StringBuilder neighboursStr = new StringBuilder();
-
+        for (Node neighbour : neighbours) {
+            neighboursStr.append(neighbour.getId());
+            neighboursStr.append(",");
+        }
         return "Node{" +
                 "id='" + id + '\'' +
-                ", connectionDetailsList=" + connectionDetailsList +
                 String.format(", neighbours=[%s]",neighboursStr.toString())+
                 '}';
     }
@@ -60,7 +63,7 @@ public class DiscoverySource {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        DiscoverySource node = (DiscoverySource) o;
+        Node node = (Node) o;
 
         if (id != null ? !id.equals(node.id) : node.id != null) return false;
 
@@ -70,5 +73,21 @@ public class DiscoverySource {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    public Set<String> getAliases() {
+        return aliases;
+    }
+
+    public void setAliases(Set<String> aliases) {
+        this.aliases = aliases;
+    }
+
+    public Map<String, Node> getAliasToNeighbourMap() {
+        return aliasToNeighbourMap;
+    }
+
+    public void setAliasToNeighbourMap(Map<String, Node> aliasToNeighbourMap) {
+        this.aliasToNeighbourMap = aliasToNeighbourMap;
     }
 }

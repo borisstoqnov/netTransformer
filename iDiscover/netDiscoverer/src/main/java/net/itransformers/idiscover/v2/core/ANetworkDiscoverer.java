@@ -23,6 +23,10 @@ package net.itransformers.idiscover.v2.core;
 
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.idiscover.api.NetworkDiscoverer;
+import net.itransformers.idiscover.api.NetworkDiscoveryListener;
+import net.itransformers.idiscover.api.NetworkDiscoveryResult;
+import net.itransformers.idiscover.api.NodeDiscoverFilter;
 
 import java.util.List;
 import java.util.Set;
@@ -34,15 +38,10 @@ import java.util.Set;
  * Time: 11:52 AM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class ANetworkDiscoverer implements NetworkDiscoverer  {
+public abstract class ANetworkDiscoverer implements NetworkDiscoverer {
     protected List<NetworkDiscoveryListener> networkDiscoveryListeners;
 
     protected NodeDiscoverFilter nodeDiscoverFilter;
-
-    //TODO fix as moving connectionDetails to a new module
-    public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList) {
-        return discoverNetwork(connectionDetailsList, -1);
-    }
 
     public List<NetworkDiscoveryListener> getNetworkDiscoveryListeners() {
         return networkDiscoveryListeners;
@@ -63,5 +62,14 @@ public abstract class ANetworkDiscoverer implements NetworkDiscoverer  {
 
 
 
+    @Override
+    public void addNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListener) {
+        this.networkDiscoveryListeners.add(networkDiscoveryListener);
+    }
+
+    @Override
+    public void removeNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListener) {
+        this.networkDiscoveryListeners.remove(networkDiscoveryListener);
+    }
 
 }

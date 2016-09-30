@@ -27,8 +27,8 @@
 //import com.sun.jersey.api.client.ClientResponse;
 //import com.sun.jersey.api.client.WebResource;
 //import net.itransformers.idiscover.v2.core.ANetworkDiscoverer;
-//import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
-//import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+//import net.itransformers.idiscover.api.NetworkDiscoveryResult;
+//import net.itransformers.idiscover.api.NodeDiscoveryResult;
 //import main.java.net.itransformers.main.model.ConnectionDetails;
 //import net.sf.json.JSONArray;
 //import net.sf.json.JSONSerializer;

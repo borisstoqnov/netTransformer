@@ -9,7 +9,7 @@ import net.itransformers.idiscover.networkmodelv2.DeviceNeighbour;
 import net.itransformers.idiscover.networkmodelv2.DiscoveredDevice;
 import net.itransformers.idiscover.networkmodelv2.DiscoveredInterface;
 import net.itransformers.idiscover.v2.core.listeners.neighbor.EdgeIdGenerator;
-import net.itransformers.idiscover.v2.core.model.Node;
+import net.itransformers.idiscover.api.models.network.Node;
 import org.apache.log4j.Logger;
 
 import java.net.Inet4Address;

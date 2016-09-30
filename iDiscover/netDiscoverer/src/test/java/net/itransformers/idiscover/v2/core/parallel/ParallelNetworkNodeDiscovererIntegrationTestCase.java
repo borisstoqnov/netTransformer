@@ -1,7 +1,8 @@
 package net.itransformers.idiscover.v2.core.parallel;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
+import net.itransformers.idiscover.api.NetworkDiscoveryListener;
+import net.itransformers.idiscover.api.NetworkDiscoveryResult;
 import net.itransformers.idiscover.v2.core.factory.NodeFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,10 +55,17 @@ public class ParallelNetworkNodeDiscovererIntegrationTestCase {
                     ipAddress2JsonObject.get("10.192.6.12").getJSONObject("connectionDetails"));
             connectionDetailsSet.add(connectionDetails);
         }
-        NetworkDiscoveryResult result = discovery.discoverNetwork(connectionDetailsSet);
-        Set<String> expectedNodes = new HashSet<String>();
-        Collections.addAll(expectedNodes, "ssrv2noded", "7k-1", "srv1nodeB", "10.192.0.1", "r3845", "ssrv2nodeb", "10.192.5.13", "10.192.5.24", "10.192.5.23","10.192.5.12", "10.192.5.11", "10.192.5.22", "sw0", "ssrv1nodea", "srv2NodeC", "ssrv1noded", "srv1NodeC", "172.17.0.2", "172.17.0.3", "10.133.5.1");
-        Assert.assertEquals(expectedNodes.toString(), result.getNodes().keySet().toString());
+
+        discovery.addNetworkDiscoveryListeners(new NetworkDiscoveryListener() {
+            @Override
+            public void networkDiscovered(NetworkDiscoveryResult result) {
+                Set<String> expectedNodes = new HashSet<String>();
+                Collections.addAll(expectedNodes, "ssrv2noded", "7k-1", "srv1nodeB", "10.192.0.1", "r3845", "ssrv2nodeb", "10.192.5.13", "10.192.5.24", "10.192.5.23","10.192.5.12", "10.192.5.11", "10.192.5.22", "sw0", "ssrv1nodea", "srv2NodeC", "ssrv1noded", "srv1NodeC", "172.17.0.2", "172.17.0.3", "10.133.5.1");
+                Assert.assertEquals(expectedNodes.toString(), result.getNodes().keySet().toString());
+            }
+        });
+        discovery.startDiscovery(connectionDetailsSet);
+
     }
 
 

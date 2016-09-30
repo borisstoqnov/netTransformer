@@ -11,6 +11,12 @@
 
     <artifactId>iDiscoverAPI</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>connectiondetailsapi</artifactId>
+            <version>0.8</version>
+        </dependency>
+    </dependencies>
 
 </project>

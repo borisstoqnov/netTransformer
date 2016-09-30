@@ -24,8 +24,8 @@
 package net.itransformers.idiscover.v2.core.listeners.node;
 
 
-import net.itransformers.idiscover.v2.core.NodeDiscoveryListener;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.api.NodeDiscoveryListener;
+import net.itransformers.idiscover.api.NodeDiscoveryResult;
 import net.itransformers.resourcemanager.ResourceManager;
 import net.itransformers.resourcemanager.config.ConnectionParamsType;
 import net.itransformers.resourcemanager.config.ParamType;

@@ -21,7 +21,9 @@
 
 package net.itransformers.topologyviewer.dialogs.discovery;
 
+import net.itransformer.cli_discovery_launcher.AutoLabeler;
 import net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager;
+import net.itransformers.idiscover.api.*;
 import net.itransformers.idiscover.v2.core.*;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.parallel.ParallelNetworkNodeDiscovererImpl;
@@ -32,6 +34,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,25 +42,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import static net.itransformers.idiscover.v2.core.Main.initializeDiscoveryContext;
 
-
-public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManagerListener{
-    public static final String DISCOVERED_DEVICES = "reachable devices";
-    public static final String UNDISCOVERED_DEVICES = "unreachable devices";
-
+public class DiscoveryManagerDialogV2 extends JDialog {
+    public static final String DISCOVERED_DEVICES = "discovered devices";
     public static final String VERSION_LABEL = ProjectConstants.labelDirName;
     private final JButton stopStartButton;
     private File projectDir;
     private JComboBox depthComboBox;
-    private DiscoveryManagerThread managerThread;
+    private NetworkDiscovererFactory networkDiscovererFactory;
     private JLabel loggerConsole;
     final JButton pauseResumeButton = new JButton("Pause");
     private int discoveredDevices;
-    private int undiscoveredDevices;
     private JTextArea lblDiscoveredDevices;
     private JTextField labelTextField;
     private JCheckBox autoLabelCheckBox;
@@ -156,7 +155,7 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
                             onStartDiscovery();
                         } else {
                             onStopDiscoveryPre(stopStartButton);
-                            onStopDiscovery();
+//                            onStopDiscovery();
                         }
                     }
                 });
@@ -169,11 +168,11 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
                         public void actionPerformed(ActionEvent e) {
                             if ("Pause".equals(pauseResumeButton.getText())) {
                                 pauseResumeButton.setEnabled(false);
-                                onPauseDiscovery();
+//                                onPauseDiscovery();
 
                             } else {
                                 pauseResumeButton.setEnabled(false);
-                                onResumeDiscovery();
+//                                onResumeDiscovery();
                             }
                         }
                     });
@@ -240,22 +239,22 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
         //TextField.setEditable(false);
     }
 
-    private void onResumeDiscovery() {
-        managerThread.resumeDiscovery();
-    }
-
-    private void onPauseDiscovery() {
-        managerThread.pauseDiscovery();
-    }
+//    private void onResumeDiscovery() {
+//        managerThread.resumeDiscovery();
+//    }
+//
+//    private void onPauseDiscovery() {
+//        managerThread.pauseDiscovery();
+//    }
 
     private static File getProjPath(TopologyManagerFrame viewer) {
         File projectDir = viewer.getPath();
         return projectDir;
     }
 
-    private void onStopDiscovery() {
-        managerThread.stopDiscovery();
-    }
+//    private void onStopDiscovery() {
+//        managerThread.stopDiscovery();
+//    }
 
     private boolean onStartDiscovery() {
 
@@ -266,14 +265,9 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
         } else {
             if (!isValidLabel(label)) return false;
         }
-
-
-        FileSystemXmlApplicationContext applicationContext = null;
-        try {
-            applicationContext = initializeDiscoveryContext(projectDir.getAbsolutePath());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext();
+        applicationContext.load("classpath:csvConnectionDetails/csvConnectionDetails.xml");
+        applicationContext.refresh();
 
         CsvConnectionDetailsFileManager connectionDetailsFileManager = null;
         if (applicationContext != null) {
@@ -284,50 +278,27 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
             connectionList = (LinkedHashMap<String, ConnectionDetails>) connectionDetailsFileManager.getConnectionDetails();
         }
 
-
-        //TopologyManagerFrame frame = this.projectDir.;
-
-        ParallelNetworkNodeDiscovererImpl nodeDiscovererImpl = null;
-        if (applicationContext != null) {
-            nodeDiscovererImpl = applicationContext.getBean(discoveryBeanName, ParallelNetworkNodeDiscovererImpl.class);
-        }
+        // TODO remove this dependecy on cliDiscoveryLauncher
+        AutoLabeler autoLabeler = new AutoLabeler("network", "version");
+        String version = autoLabeler.autolabel(projectDir.getAbsolutePath());
+        NetworkDiscoverer nodeDiscovererImpl =
+                this.networkDiscovererFactory.createNetworkDiscoverer(projectDir.getAbsolutePath(), version);
 
         int depth = (Integer) depthComboBox.getSelectedItem();
         NodeDiscoveryListener nodeListener = new NodeDiscoveryListener() {
             @Override
             public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
-                if (discoveryResult.getNodeId()!=null) {
-                    discoveredDevices++;
-                    loggerConsole.setText(DISCOVERED_DEVICES + ": " + discoveredDevices + " "+UNDISCOVERED_DEVICES+": " +undiscoveredDevices+" Latest discovered device: "+discoveryResult.getNodeId());
-
-
-                }else{
-                    undiscoveredDevices++;
-                    loggerConsole.setText(DISCOVERED_DEVICES + ": " + discoveredDevices + " "+UNDISCOVERED_DEVICES+": "+undiscoveredDevices);
-
-                }
-
-                loggerConsole.repaint();
-
-
-            }
-        };
-
-        NodeDiscoveryListener nodeListener1 = new NodeDiscoveryListener() {
-            @Override
-            public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
-                discoveryResult.getNeighboursConnectionDetails();
+                discoveredDevices++;
                 loggerConsole.setText(discoveryResult.getNodeId() + " has been discovered. " + "Total number of " + DISCOVERED_DEVICES + " " + discoveredDevices);
                 loggerConsole.repaint();
 
             }
         };
 
-        List<NodeDiscoveryListener> nodeListeners = nodeDiscovererImpl.getNodeDiscoveryListeners();
-        nodeListeners.add(nodeListener);
-
-        nodeDiscovererImpl.setNodeDiscoveryListeners(nodeListeners);
-
+//        List<NodeDiscoveryListener> nodeListeners = nodeDiscovererImpl.getNodeDiscoveryListeners();
+//        nodeListeners.add(nodeListener);
+//
+//        nodeDiscovererImpl.setNodeDiscoveryListeners(nodeListeners);
 
         NetworkDiscoveryListener networkListener = new NetworkDiscoveryListener() {
             @Override
@@ -337,16 +308,9 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
                 loggerConsole.repaint();
             }
         };
-        List<NetworkDiscoveryListener> networkListeners = nodeDiscovererImpl.getNetworkDiscoveryListeners();
-        networkListeners.add(networkListener);
-        nodeDiscovererImpl.setNetworkDiscoveryListeners(networkListeners);
 
-
-
-
-        managerThread = new DiscoveryManagerThread(nodeDiscovererImpl, depth, connectionList);
-        managerThread.addDiscoveryManagerListener(this);
-        managerThread.start();
+        nodeDiscovererImpl.addNetworkDiscoveryListeners(networkListener);
+        nodeDiscovererImpl.startDiscovery(new HashSet<>(connectionList.values()));
         return true;
     }
 
@@ -373,34 +337,34 @@ public class DiscoveryManagerDialogV2 extends JDialog implements DiscoveryManage
         return true;
     }
 
-    @Override
-    public void handleEvent(DiscoveryManagerEvent event) {
-        switch (event) {
-            case STARTED: loggerConsole.setText("Discovery Started");
-                stopStartButton.setText("Stop");
-                pauseResumeButton.setEnabled(true);
-                stopStartButton.setEnabled(true);
-                break;
-            case STOPPED:
-                loggerConsole.setText("Discovery finished! "+DISCOVERED_DEVICES+": "+discoveredDevices+ " " + UNDISCOVERED_DEVICES+": " +undiscoveredDevices);
-                stopStartButton.setEnabled(true);
-                stopStartButton.setText("Start");
-                depthComboBox.setEditable(true);
-                pauseResumeButton.setEnabled(false);
-                break;
-            case STOPPING:
-                loggerConsole.setText("Discovery stopping");
-                stopStartButton.setEnabled(false);
-                pauseResumeButton.setEnabled(false);
-                break;
-            case PAUSED: loggerConsole.setText("Discovery paused");
-                pauseResumeButton.setText("Resume");
-                pauseResumeButton.setEnabled(true);
-                break;
-            case RESUMED: loggerConsole.setText("Discovery resumed");
-                pauseResumeButton.setText("Pause");
-                pauseResumeButton.setEnabled(true);
-                break;
-        }
-    }
+//    @Override
+//    public void handleEvent(NetworkDiscoveryStatus event) {
+//        switch (event) {
+//            case STARTED: loggerConsole.setText("Discovery Started");
+//                stopStartButton.setText("Stop");
+//                pauseResumeButton.setEnabled(true);
+//                stopStartButton.setEnabled(true);
+//                break;
+//            case STOPPED:
+//                loggerConsole.setText("Discovery finished");
+//                stopStartButton.setEnabled(true);
+//                stopStartButton.setText("Start");
+//                depthComboBox.setEditable(true);
+//                pauseResumeButton.setEnabled(false);
+//                break;
+//            case STOPPING:
+//                loggerConsole.setText("Discovery stopping");
+//                stopStartButton.setEnabled(false);
+//                pauseResumeButton.setEnabled(false);
+//                break;
+//            case PAUSED: loggerConsole.setText("Discovery paused");
+//                pauseResumeButton.setText("Resume");
+//                pauseResumeButton.setEnabled(true);
+//                break;
+//            case RESUMED: loggerConsole.setText("Discovery resumed");
+//                pauseResumeButton.setText("Pause");
+//                pauseResumeButton.setEnabled(true);
+//                break;
+//        }
+//    }
 }

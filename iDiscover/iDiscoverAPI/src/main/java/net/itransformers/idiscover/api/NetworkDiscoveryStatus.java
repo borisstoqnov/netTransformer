@@ -19,16 +19,15 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-package net.itransformers.idiscover.v2.core;
+package net.itransformers.idiscover.api;
 
 /**
  * Created by niau on 5/28/15.
  */
-public enum DiscoveryManagerEvent {
-    STARTED,
+public enum NetworkDiscoveryStatus {
+    NEW,
+    RUNNING,
     STOPPED,
     STOPPING,
-    PAUSED,
-    RESUMED
-
+    PAUSED
 }

@@ -1,6 +1,6 @@
 package net.itransformers.idiscover.v2.core.factory;
 
-import net.itransformers.idiscover.v2.core.model.Node;
+import net.itransformers.idiscover.api.models.network.Node;
 
 /**
  * Created by vasko on 20.06.16.

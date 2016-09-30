@@ -25,8 +25,8 @@ package net.itransformers.idiscover.v2.core.listeners.node;
 
 import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
 import net.itransformers.idiscover.util.JaxbMarshalar;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryListener;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.api.NodeDiscoveryListener;
+import net.itransformers.idiscover.api.NodeDiscoveryResult;
 import net.itransformers.utils.XmlFormatter;
 import net.itransformers.utils.XsltTransformer;
 import org.apache.commons.io.FileUtils;

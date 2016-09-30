@@ -38,8 +38,8 @@ package net.itransformers.idiscover.v2.core.listeners.node;/*
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import net.itransformers.idiscover.v2.core.NodeDiscoveryListener;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.api.NodeDiscoveryListener;
+import net.itransformers.idiscover.api.NodeDiscoveryResult;
 import org.apache.log4j.Logger;
 
 public class SampleNodeDiscoveryListener implements NodeDiscoveryListener {

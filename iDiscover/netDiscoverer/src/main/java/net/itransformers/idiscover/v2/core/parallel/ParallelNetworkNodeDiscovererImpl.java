@@ -20,10 +20,11 @@
 package net.itransformers.idiscover.v2.core.parallel;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.idiscover.api.*;
 import net.itransformers.idiscover.v2.core.*;
 import net.itransformers.idiscover.v2.core.factory.DiscoveryWorkerFactory;
 import net.itransformers.idiscover.v2.core.factory.NodeFactory;
-import net.itransformers.idiscover.v2.core.model.Node;
+import net.itransformers.idiscover.api.models.network.Node;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -64,7 +65,8 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         this.nodeFactory = nodeFactory;
     }
 
-    public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth) {
+    @Override
+    public void startDiscovery(Set<ConnectionDetails> connectionDetailsList) {
         try {
             long startTime = System.currentTimeMillis();
             futureCounter = 0;
@@ -118,7 +120,6 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
             this.eventExecutorService.shutdown();
 
             logger.info("Discovery finished in " + ((System.currentTimeMillis() - startTime) / 1000) + " seconds.");
-            return result;
         } finally {
             nodes.clear();
             discoveredConnectionDetails.clear();
@@ -217,12 +218,6 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
 
     }
 
-
-
-    public synchronized void stop() {
-        executorService.shutdown();
-    }
-
     public synchronized boolean isStopped() {
         return executorService.isTerminated();
     }
@@ -230,14 +225,6 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     public synchronized boolean isRunning() {
         return !executorService.isTerminated();
 
-    }
-
-    public synchronized void pause() {
-        this.executorService.pause();
-    }
-
-    public synchronized void resume() {
-        this.executorService.resume();
     }
 
     public synchronized void fireNodeDiscoveredEvent(final NodeDiscoveryResult discoveryResult) {
@@ -357,5 +344,21 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
 
     public void setDiscoveryWorkerFactory(DiscoveryWorkerFactory discoveryWorkerFactory) {
         this.discoveryWorkerFactory = discoveryWorkerFactory;
+    }
+
+
+    @Override
+    public synchronized void stopDiscovery() {
+        executorService.shutdown();
+    }
+
+    @Override
+    public void pauseDiscovery() {
+        this.executorService.pause();
+    }
+
+    @Override
+    public void resumeDiscovery() {
+        this.executorService.resume();
     }
 }

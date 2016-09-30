@@ -1,7 +1,7 @@
 package net.itransformers.idiscover.v2.core.factory;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.NodeDiscoverer;
+import net.itransformers.idiscover.api.NodeDiscoverer;
 import net.itransformers.idiscover.v2.core.parallel.DiscoveryWorker;
 
 import java.util.Map;

@@ -20,7 +20,7 @@ package net.itransformers.connectiondetails.csvconnectiondetails;/*
  */
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
-import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsAPI;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
 import net.itransformers.connectiondetails.connectiondetailsapi.IPNetConnectionDetails;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -36,7 +36,7 @@ import java.util.Map;
 /**
  * Created by niau on 6/18/15.
  */
-public class CsvConnectionDetailsFileManager implements ConnectionDetailsAPI{
+public class CsvConnectionDetailsFileManager implements ConnectionDetailsManager {
 
     static Logger logger = Logger.getLogger(CsvConnectionDetailsFileManager.class);
     private Map<String,ConnectionDetails> connectionDetailsMap;
