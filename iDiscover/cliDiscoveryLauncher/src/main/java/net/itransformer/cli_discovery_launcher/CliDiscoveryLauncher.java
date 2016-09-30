@@ -6,6 +6,7 @@ import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetail
 import net.itransformers.idiscover.api.NetworkDiscoverer;
 import net.itransformers.idiscover.api.NetworkDiscovererFactory;
 import net.itransformers.idiscover.api.models.network.Node;
+import net.itransformers.idiscover.v2.core.factory.spring.AutoVersionCreator;
 import net.itransformers.utils.CmdLineParser;
 import org.apache.log4j.Logger;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -47,9 +48,9 @@ public class CliDiscoveryLauncher {
         ctx.refresh();
 
         NetworkDiscovererFactory discovererFactory = ctx.getBean("networkDiscoveryFactory", NetworkDiscovererFactory.class);
-        AutoLabeler autoLabeler = ctx.getBean("autoLabeler", AutoLabeler.class);
-        String version = autoLabeler.autolabel(projectPath);
-        NetworkDiscoverer networkDiscoverer = discovererFactory.createNetworkDiscoverer(projectPath, version);
+        Map<String, String> props = new HashMap<>();
+        props.put("projectPath", projectPath);
+        NetworkDiscoverer networkDiscoverer = discovererFactory.createNetworkDiscoverer("parallel", props);
         networkDiscoverer.addNetworkDiscoveryListeners(result -> {
             Map<String, Node> nodes = result.getNodes();
             for (String node : nodes.keySet()) {
@@ -59,10 +60,7 @@ public class CliDiscoveryLauncher {
         ConnectionDetailsManagerFactory factory = ctx.getBean("connectionManagerFactory",
                 ConnectionDetailsManagerFactory .class);
 
-        Map<String, String> properties = new HashMap<>();
-        properties.put("projectPath", projectPath);
-
-        ConnectionDetailsManager connectionDetailsManager = factory.createConnectionDetailsManager("csv", properties);
+        ConnectionDetailsManager connectionDetailsManager = factory.createConnectionDetailsManager("csv", props);
         Map<String, ConnectionDetails> connectionDetails = connectionDetailsManager.getConnectionDetails();
         networkDiscoverer.startDiscovery(new HashSet<>(connectionDetails.values()));
     }

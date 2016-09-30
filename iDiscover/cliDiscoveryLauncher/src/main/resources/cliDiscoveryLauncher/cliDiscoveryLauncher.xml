@@ -26,12 +26,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <import resource="classpath:netDiscoverer/netDiscovererFactory.xml"/>
-    <import resource="classpath:csvConnectionDetails/csvConnectionDetails.xml"/>
+    <import resource="classpath:csvConnectionDetails/csvConnectionDetailsFactory.xml"/>
 
-
-    <bean id="autoLabeler" class="net.itransformer.cli_discovery_launcher.AutoLabeler">
-        <constructor-arg name="networkFolderName" value="network"/>
-        <constructor-arg name="versionLabel" value="version"/>
-    </bean>
 
 </beans>

@@ -151,21 +151,6 @@
             <artifactId>netDiscoverer</artifactId>
             <version>0.8</version>
         </dependency>
-        <dependency>
-            <groupId>net.itransformers</groupId>
-            <artifactId>cliDiscoveryLauncher</artifactId>
-            <version>0.8</version>
-        </dependency>
-        <!--dependency>
-            <groupId>org.jfree</groupId>
-            <artifactId>jfreechart</artifactId>
-            <version>1.0.15</version>
-        </dependency-->
-        <!--<dependency>-->
-            <!--<groupId>org.eclipse.birt.runtime</groupId>-->
-            <!--<artifactId>org.eclipse.birt.runtime</artifactId>-->
-            <!--<version>4.2.2</version>-->
-        <!--</dependency>-->
 
     </dependencies>
 

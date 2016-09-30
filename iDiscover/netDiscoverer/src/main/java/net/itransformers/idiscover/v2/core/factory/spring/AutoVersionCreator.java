@@ -19,27 +19,33 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-package net.itransformer.cli_discovery_launcher;
+package net.itransformers.idiscover.v2.core.factory.spring;
 
 import java.io.File;
 
 /**
  * Created by niau on 2/29/16.
  */
-public class AutoLabeler {
+public class AutoVersionCreator {
 
     private String networkFolderName;
     private String versionLabel;
 
 
-    public AutoLabeler(String networkFolderName, String versionLabel) {
+    public AutoVersionCreator(String networkFolderName, String versionLabel) {
         this.networkFolderName = networkFolderName;
         this.versionLabel = versionLabel;
 
     }
     public String autolabel(String projectPath) {
-
-        String[] fileList = new File(projectPath, networkFolderName).list();
+        if (projectPath == null){
+            throw new IllegalArgumentException("Parameter ProjectPath is not specified");
+        }
+        File file = new File(projectPath, networkFolderName);
+        if (!file.exists() || !file.isDirectory()){
+            throw new IllegalArgumentException("The network folder is not a valid directory: "+file);
+        }
+        String[] fileList = file.list();
         int max = 0;
         for (String fName : fileList) {
             if (fName.matches(versionLabel + "\\d+")) {

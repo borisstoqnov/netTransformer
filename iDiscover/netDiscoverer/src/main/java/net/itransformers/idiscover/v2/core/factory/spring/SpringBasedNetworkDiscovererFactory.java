@@ -8,19 +8,30 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
+import java.util.Map;
+
 /**
  * Created by vasko on 9/30/2016.
  */
 public class SpringBasedNetworkDiscovererFactory implements NetworkDiscovererFactory{
+    protected AutoVersionCreator autoVersionCreator;
 
-    @Override
-    public NetworkDiscoverer createNetworkDiscoverer(String projectPath, String version) {
-        return this.createNetworkDiscoverer(projectPath, version, -1, -1);
+    public SpringBasedNetworkDiscovererFactory(AutoVersionCreator autoVersionCreator) {
+        this.autoVersionCreator = autoVersionCreator;
     }
 
     @Override
-    public NetworkDiscoverer createNetworkDiscoverer(String projectPath, String version, int initialNumberOfThreads, int maxNumberOfThreads) {
-        // TODO set number of threads
+    public NetworkDiscoverer createNetworkDiscoverer(String type, Map<String, String> properties) {
+        String projectPath = properties.get("projectPath");
+        if (projectPath == null) {
+            throw new IllegalArgumentException("Missing projectPath parameter");
+        }
+        String version = autoVersionCreator.autolabel(projectPath);
+        return createNetworkDiscoverer(projectPath, version, -1, -1);
+    }
+
+    private NetworkDiscoverer createNetworkDiscoverer(String projectPath, String version, int initialNumberOfThreads, int maxNumberOfThreads) {
+
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:netDiscoverer/netDiscoverer.xml");
         AbstractBeanDefinition projectPathBeanDefinition = BeanDefinitionBuilder.rootBeanDefinition(String.class)

@@ -23,25 +23,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-    <!--<bean id="resourceManager" class="net.itransformers.resourcemanager.xmlResourceManager.FileBasedResourceManager" init-method="load">-->
-        <!--<constructor-arg name="file" value="#{projectPath+'/resourceManager/conf/xml/nbu.xml'}"/>-->
-    <!--</bean>-->
-
-    <!--<bean id="discoveryDepth" class="java.lang.Integer">-->
-    <!--<constructor-arg value="1"/>-->
-    <!--</bean>-->
-    <!--<bean id="fileBean" class="java.io.File">-->
-        <!--<constructor-arg index="0"-->
-                         <!--type="java.lang.String"-->
-                         <!--value="#{projectPath+'/iDiscover/conf/txt/connection-details.txt'}" />-->
-    <!--</bean>-->
-
-    <!--<bean id="connectionList" class="net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager" init-method="load">-->
-        <!--<constructor-arg name="file" value="#{projectPath+'/iDiscover/conf/txt/connection-details.txt'}"/>-->
-    <!--</bean>-->
-
-    <bean id="connectionManagerFactory" class="net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsManagerFactory">
+    <bean id="resourceManagerFactory" class="net.itransformers.resourcemanager.xmlResourceManager.XmlResourceManagerFactory">
     </bean>
-
-
 </beans>

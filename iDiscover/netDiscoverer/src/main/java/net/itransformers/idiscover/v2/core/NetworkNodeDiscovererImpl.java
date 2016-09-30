@@ -171,4 +171,9 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     public void removeNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListeners) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public String getVersion() {
+        return null;
+    }
 }

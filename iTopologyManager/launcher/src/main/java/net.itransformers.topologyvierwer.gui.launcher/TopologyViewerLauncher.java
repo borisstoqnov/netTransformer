@@ -61,8 +61,8 @@ public class TopologyViewerLauncher {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:rightClick/rightClick.xml");
         ctx.load("classpath:rightClickAPI/rightClickAPI.xml");
-        ctx.load("classpath:xmlResourceManager/xmlResourceManager.xml");
-        ctx.load("classpath:csvConnectionDetails/csvConnectionDetails.xml");
+        ctx.load("classpath:xmlResourceManager/xmlResourceManagerFactory.xml");
+        ctx.load("classpath:csvConnectionDetails/csvConnectionDetailsFactory.xml");
         ctx.load("classpath:topologyViewer/topologyViewer.xml");
         ctx.refresh();
         TopologyManagerFrame frame = (TopologyManagerFrame) ctx.getBean("topologyManagerFrame");

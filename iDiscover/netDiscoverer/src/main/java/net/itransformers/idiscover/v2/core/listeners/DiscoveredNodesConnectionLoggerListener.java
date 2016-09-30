@@ -1,8 +1,8 @@
 package net.itransformers.idiscover.v2.core.listeners;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryListener;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.api.NodeDiscoveryListener;
+import net.itransformers.idiscover.api.NodeDiscoveryResult;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * Created by niau on 9/27/16.
  */
-public class DiscoveredNodesConnectionLoggerListener implements NodeDiscoveryListener{
+public class DiscoveredNodesConnectionLoggerListener implements NodeDiscoveryListener {
     String labelDirName;
 
     @Override

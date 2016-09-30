@@ -21,19 +21,16 @@
 
 package net.itransformers.topologyviewer.dialogs.discovery;
 
-import net.itransformer.cli_discovery_launcher.AutoLabeler;
+import net.itransformers.idiscover.v2.core.factory.spring.AutoVersionCreator;
 import net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager;
 import net.itransformers.idiscover.api.*;
-import net.itransformers.idiscover.v2.core.*;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.parallel.ParallelNetworkNodeDiscovererImpl;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.utils.ProjectConstants;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import javax.swing.*;
@@ -41,10 +38,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.net.MalformedURLException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.Map;
 
 
 public class DiscoveryManagerDialogV2 extends JDialog {
@@ -266,7 +263,7 @@ public class DiscoveryManagerDialogV2 extends JDialog {
             if (!isValidLabel(label)) return false;
         }
         GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext();
-        applicationContext.load("classpath:csvConnectionDetails/csvConnectionDetails.xml");
+        applicationContext.load("classpath:csvConnectionDetails/csvConnectionDetailsFactory.xml");
         applicationContext.refresh();
 
         CsvConnectionDetailsFileManager connectionDetailsFileManager = null;
@@ -278,11 +275,10 @@ public class DiscoveryManagerDialogV2 extends JDialog {
             connectionList = (LinkedHashMap<String, ConnectionDetails>) connectionDetailsFileManager.getConnectionDetails();
         }
 
-        // TODO remove this dependecy on cliDiscoveryLauncher
-        AutoLabeler autoLabeler = new AutoLabeler("network", "version");
-        String version = autoLabeler.autolabel(projectDir.getAbsolutePath());
+        Map<String ,String> props = new HashMap<>();
+        props.put("projectPath", projectDir.getAbsolutePath());
         NetworkDiscoverer nodeDiscovererImpl =
-                this.networkDiscovererFactory.createNetworkDiscoverer(projectDir.getAbsolutePath(), version);
+                this.networkDiscovererFactory.createNetworkDiscoverer("parallel", props);
 
         int depth = (Integer) depthComboBox.getSelectedItem();
         NodeDiscoveryListener nodeListener = new NodeDiscoveryListener() {
