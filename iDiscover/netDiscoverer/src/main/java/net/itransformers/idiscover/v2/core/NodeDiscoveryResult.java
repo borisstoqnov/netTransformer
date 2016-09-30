@@ -49,16 +49,24 @@ public class NodeDiscoveryResult implements Cloneable, Serializable{
     protected String nodeId;
     protected Set<String> nodeAliases;
     protected Set<ConnectionDetails> neighboursConnectionDetails = new HashSet<ConnectionDetails>();
+    protected Set<ConnectionDetails> ownConnectionDetails = new HashSet<ConnectionDetails>();
     protected Map<String,Object> discoveredData = new HashMap<String,Object>();
     protected ConnectionDetails discoveryConnectionDetails;
 
     public NodeDiscoveryResult(){
 
     }
+
     public NodeDiscoveryResult(String nodeId, Set<ConnectionDetails> neighboursConnectionDetails) {
+        this(nodeId,neighboursConnectionDetails,null);
+    }
+    public NodeDiscoveryResult(String nodeId, Set<ConnectionDetails> neighboursConnectionDetails,Set<ConnectionDetails> ownConnectionDetails) {
         this.nodeId = nodeId;
         if (neighboursConnectionDetails != null) {
             this.neighboursConnectionDetails.addAll(neighboursConnectionDetails);
+        }
+        if (ownConnectionDetails != null) {
+            this.ownConnectionDetails.addAll(ownConnectionDetails);
         }
     }
 
@@ -105,11 +113,13 @@ public class NodeDiscoveryResult implements Cloneable, Serializable{
 
     @Override
     public String toString() {
-        return "{" +
-                "\"nodeId\":"+(nodeId == null? "null":"\"" + nodeId + "\"")+ "" +
-                ",\"parentId\":"+(parentId == null? "null":"\"" + parentId + "\"")+"" +
-                ",\"connectionDetails\": " + discoveryConnectionDetails +
-                ",\"neighboursConnectionDetails\": " + neighboursConnectionDetails +
+        return "NodeDiscoveryResult{" +
+                "parentId='" + parentId + '\'' +
+                ", nodeId='" + nodeId + '\'' +
+                ", nodeAliases=" + nodeAliases +
+                ", neighboursConnectionDetails=" + neighboursConnectionDetails +
+                ", ownConnectionDetails=" + ownConnectionDetails +
+                ", discoveryConnectionDetails=" + discoveryConnectionDetails +
                 '}';
     }
 
@@ -133,5 +143,13 @@ public class NodeDiscoveryResult implements Cloneable, Serializable{
 
     public void setNodeAliases(Set<String> nodeAliases) {
         this.nodeAliases = nodeAliases;
+    }
+
+    public Set<ConnectionDetails> getOwnConnectionDetails() {
+        return ownConnectionDetails;
+    }
+
+    public void setOwnConnectionDetails(Set<ConnectionDetails> ownConnectionDetails) {
+        this.ownConnectionDetails = ownConnectionDetails;
     }
 }

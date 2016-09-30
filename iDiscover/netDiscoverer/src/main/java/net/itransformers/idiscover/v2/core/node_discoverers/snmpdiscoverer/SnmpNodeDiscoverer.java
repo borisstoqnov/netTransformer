@@ -174,8 +174,7 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
         Map<String,String> transformationParameters = new HashMap<String, String>();
 
         transformationParameters.put("neighbourIPDryRun", "true");
-        DiscoveredDeviceData discoveredDeviceData = discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, transformationParameters);
-        return discoveredDeviceData;
+        return discoveryHelper.parseDeviceRawData(rawData, discoveryTypes, transformationParameters);
     }
 
     protected XmlDiscoveryHelperV2 createXmlDiscoveryHelper(String deviceType){

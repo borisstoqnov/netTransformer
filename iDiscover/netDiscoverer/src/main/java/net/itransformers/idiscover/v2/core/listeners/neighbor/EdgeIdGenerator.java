@@ -40,7 +40,7 @@ public class EdgeIdGenerator {
         String graphmlEdgeId;
         String from;
         String to;
-        if (toMac!=null && fromMac!=null){
+        if (toMac!=null && !toMac.isEmpty() && fromMac!=null && !fromMac.isEmpty()){
             int comparisson = fromNodeId.compareToIgnoreCase(toNodeId);
             if (comparisson <0){
                 graphmlEdgeId =   fromNodeEdgeId+fromMac+"-"+toNodeEdgeId+toMac;

@@ -42,7 +42,7 @@ public class SubnetDiscoverer implements NodeDiscoverer {
 
         String subnetPrefix=subnetIpAddress+"/"+subnetPrefixMask;
 
-        NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult(subnetPrefix,null);
+        NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult(subnetPrefix,null,null);
         nodeDiscoveryResult.setDiscoveredData("subnetDetails", connectionDetails.getParams());
         int discoverySubnetPrefixSize =  Integer.parseInt(subnetPrefixMask);
 

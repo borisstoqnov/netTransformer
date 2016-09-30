@@ -133,6 +133,7 @@ public class DeviceToGraphml {
 
                             GraphmlEdge graphmlEdge = edgeIdGenerator.createEdge();
                             graphmlEdge.setGraphmlEdgeDataList(getGraphmlDirectNeighbourEdgeMetaData(deviceNeighbour));
+
                             boolean edgeAlreadyDefined = false;
                             for (GraphmlEdge edge : graphmlEdges){
                                 if (edge.getId().equals(graphmlEdge.getId())){
@@ -169,7 +170,32 @@ public class DeviceToGraphml {
 
                     GraphmlEdge graphmlEdge = edgeIdGenerator.createEdge();
                     graphmlEdge.setGraphmlEdgeDataList(getGraphmlDirectNeighbourEdgeMetaData(deviceNeighbour));
-                    graphmlEdges.add(graphmlEdge);
+
+                    boolean edgeAlreadyDefined = false;
+                    for (GraphmlEdge edge : graphmlEdges){
+                        if (edge.getId().equals(graphmlEdge.getId())){
+                            edgeAlreadyDefined = true;
+                            int index = graphmlEdges.indexOf(edge);
+                            logger.info (graphmlEdge +"already exists" );
+
+
+                            List <GraphmlEdgeData> existingGraphmlEdgeDatas = edge.getGraphmlEdgeDataList();
+                            List <GraphmlEdgeData> newGraphmlEdgeDatas = graphmlEdge.getGraphmlEdgeDataList();
+
+                            existingGraphmlEdgeDatas.addAll(newGraphmlEdgeDatas);
+
+                            edge.setGraphmlEdgeDataList(existingGraphmlEdgeDatas);
+
+                            graphmlEdges.set(index,edge);
+
+                        }
+                    }
+                    if (!edgeAlreadyDefined) {
+                        graphmlEdges.add(graphmlEdge);
+                    }
+
+
+                   // graphmlEdges.add(graphmlEdge);
                 }
 
 

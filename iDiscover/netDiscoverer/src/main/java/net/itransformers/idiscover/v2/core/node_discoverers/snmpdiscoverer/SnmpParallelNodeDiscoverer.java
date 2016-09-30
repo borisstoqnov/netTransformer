@@ -22,13 +22,13 @@
 package net.itransformers.idiscover.v2.core.node_discoverers.snmpdiscoverer;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
+import net.itransformers.idiscover.api.models.node_data.RawDeviceData;
 import net.itransformers.idiscover.core.DiscoveryHelper;
 import net.itransformers.idiscover.core.DiscoveryResourceManager;
-import net.itransformers.idiscover.api.models.node_data.RawDeviceData;
 import net.itransformers.idiscover.core.Subnet;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory;
 import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperV2;
-import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
 import net.itransformers.idiscover.networkmodelv2.DeviceNeighbour;
 import net.itransformers.idiscover.networkmodelv2.DiscoveredDevice;
 import net.itransformers.idiscover.util.DeviceTypeResolver;
@@ -116,6 +116,7 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
 
             List<DeviceNeighbour> neighbours = discoveredDevice.getDeviceNeighbours();
             List<Subnet> subnets = discoveredDevice.getDeviceSubnetsFromActiveInterfaces();
+            Set<ConnectionDetails> ownConnectionDetails = discoveredDevice.getDeviceOwnConnectionDetails();
             Set<ConnectionDetails> neighboursConnDetails = new HashSet<ConnectionDetails>();
 
             if (neighbours != null) {
@@ -128,6 +129,7 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
                 neighboursConnDetails.addAll(subnetConnectionDetails1.getSubnetConnectionDetails());
             }
 
+            result.setOwnConnectionDetails(ownConnectionDetails);
             result.setNeighboursConnectionDetails(neighboursConnDetails);
             result.setDiscoveredData("deviceData", discoveredDeviceData);
             result.setDiscoveredData("DiscoveredDevice", discoveredDevice);

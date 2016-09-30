@@ -65,6 +65,8 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
     public NodeDiscoveryResult discover(ConnectionDetails connectionDetails) {
         Set<String> nodeAliases = new HashSet<>();
         NodeDiscoveryResult nodeDiscoveryResult = new NodeDiscoveryResult();
+        Set<ConnectionDetails> neighbourConnectionDetails  = new HashSet<>();
+        Set<ConnectionDetails> ownConnectionDetails  = new HashSet<>();
 
         Map<String, Object> discoveryData  = new HashMap<>();
 
@@ -114,11 +116,6 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
             }
         }
 
-
-
-
-        Set<ConnectionDetails> neighbourConnectionDetails  = new HashSet<>();
-
         NodeDiscoveryResult icmpDiscoveryResult =  doIcmpDiscovery(connectionDetails);
         String icmpNodeId = null;
         if (icmpDiscoveryResult!=null) {
@@ -166,7 +163,9 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
             nodeAliases.addAll(discoveredDevice.getDeviceAliases());
 
             Set<ConnectionDetails> snmpNeighbourConnectionDetails = snmpDiscoveryResult.getNeighboursConnectionDetails();
+            Set<ConnectionDetails> snmpOwnConnectionDetails = snmpDiscoveryResult.getOwnConnectionDetails();
 
+            ownConnectionDetails.addAll(snmpOwnConnectionDetails);
             neighbourConnectionDetails.addAll(snmpNeighbourConnectionDetails);
 
             for (String s : snmpDiscoveryData.keySet()) {
@@ -184,6 +183,7 @@ public class PlumberNodeDiscoverer implements NodeDiscoverer {
         String nodeId = determineNodeId(connectionDetailsNodeId,icmpNodeId,dnsNodeId,snmpNodeId);
         nodeDiscoveryResult.setNodeId(nodeId);
         nodeDiscoveryResult.setNeighboursConnectionDetails(neighbourConnectionDetails);
+        nodeDiscoveryResult.setOwnConnectionDetails(ownConnectionDetails);
         nodeDiscoveryResult.setDiscoveredData(discoveryData);
         nodeDiscoveryResult.setNodeAliases(nodeAliases);
 

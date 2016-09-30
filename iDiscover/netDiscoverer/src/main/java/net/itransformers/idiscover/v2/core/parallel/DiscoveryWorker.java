@@ -46,7 +46,7 @@ public class DiscoveryWorker implements Callable<NodeDiscoveryResult> {
                 logger.error(e.getMessage(),e);
             }
             if (nodeDiscoveryResult == null) {
-                nodeDiscoveryResult = new NodeDiscoveryResult(null, null);
+                nodeDiscoveryResult = new NodeDiscoveryResult(null, null,null);
             }
             nodeDiscoveryResult.setParentId(parentId);
             nodeDiscoveryResult.setDiscoveryConnectionDetails(connectionDetails);

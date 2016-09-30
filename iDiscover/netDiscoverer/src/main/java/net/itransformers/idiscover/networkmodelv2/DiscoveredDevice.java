@@ -1,5 +1,7 @@
 package net.itransformers.idiscover.networkmodelv2;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.IPNetConnectionDetails;
 import net.itransformers.idiscover.core.Subnet;
 
 import java.net.UnknownHostException;
@@ -33,6 +35,55 @@ public class DiscoveredDevice {
         }
         deviceNeighbours.addAll(logicalDeviceData.getDeviceNeighbourList());
         return deviceNeighbours;
+    }
+
+
+    public Set<ConnectionDetails> getDeviceOwnConnectionDetails() {
+        Set<ConnectionDetails> ipNetConnectionDetailses = new HashSet<>();
+        for (DiscoveredInterface discoveredInterface : interfaceList) {
+            String status = discoveredInterface.getParams().get("ifOperStatus");
+
+            if (status.equals("UP")) {
+                List<DiscoveredIPv4Address> iPv4Addresses = discoveredInterface.getiPv4AddressList();
+                for (DiscoveredIPv4Address iPv4Address : iPv4Addresses) {
+                    String ipv4AddressStr =iPv4Address.getParams().get("IPv4Address");
+                    if (ipv4AddressStr!=null && !ipv4AddressStr.isEmpty() && !iPv4Address.isBogon()){
+                        HashMap<String,String> conDetailParams = new HashMap<>();
+                        conDetailParams.put("ipAddress", ipv4AddressStr);
+                        conDetailParams.put("deviceName",name);
+                        conDetailParams.put("deviceType",params.get("deviceType"));
+                        IPNetConnectionDetails snmpNetConnectionDetail = new IPNetConnectionDetails("snmp",conDetailParams);
+                     //   IPNetConnectionDetails icmpNetConnectionDetail = new IPNetConnectionDetails("icmp",conDetailParams);
+
+                        ipNetConnectionDetailses.add(snmpNetConnectionDetail);
+                     //   ipNetConnectionDetailses.add(icmpNetConnectionDetail);
+
+                    }
+
+                }
+                List<DiscoveredIPv6Address> iPv6AddressList = discoveredInterface.getIpv6AddressList();
+                for (DiscoveredIPv6Address iPv6Address : iPv6AddressList) {
+                    String ipv6AddressStr = iPv6Address.getParams().get("IPv6Address");
+                    if (ipv6AddressStr!=null && !ipv6AddressStr.isEmpty()){
+                        HashMap<String,String> conDetailParams = new HashMap<>();
+                        conDetailParams.put("ipAddress", ipv6AddressStr);
+                        conDetailParams.put("deviceName",name);
+                        conDetailParams.put("deviceType",params.get("deviceType"));
+                        IPNetConnectionDetails snmpNetConnectionDetail = new IPNetConnectionDetails("snmp",conDetailParams);
+                    //    IPNetConnectionDetails icmpNetConnectionDetail = new IPNetConnectionDetails("icmp",conDetailParams);
+
+                        ipNetConnectionDetailses.add(snmpNetConnectionDetail);
+                    //    ipNetConnectionDetailses.add(icmpNetConnectionDetail);
+
+                    }
+
+                }
+
+            }
+
+        }
+        return ipNetConnectionDetailses;
+
     }
 
     public Set<String> getDeviceAliases() {

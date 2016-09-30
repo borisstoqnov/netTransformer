@@ -97,7 +97,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
                     Set<String> nodeAliases = result.getNodeAliases();
                     this.updateNodesStructure(parentId, nodeId, nodeAliases);
                     nodeDiscoveryResultMap.put(nodeId, result);
-                    ArrayList<Future<NodeDiscoveryResult>> neighbourFutures = createNewDiscoveryWorkers(result.getNeighboursConnectionDetails(), nodeId);
+                    ArrayList<Future<NodeDiscoveryResult>> neighbourFutures = createNewDiscoveryWorkers(nodeId, result.getNeighboursConnectionDetails(), result.getOwnConnectionDetails());
                     logger.info("Adding node neighbours for discovery... nodeId=" + nodeId + ", neighbour future size=" + neighbourFutures.size());
                     if (neighbourFutures.size() > 0) {
                         nodeNeighbourFuturesMap.put(nodeId, neighbourFutures);
@@ -150,9 +150,15 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         }
     }
 
-    private ArrayList<Future<NodeDiscoveryResult>> createNewDiscoveryWorkers(Set<ConnectionDetails> aNeighboursConnectionDetailsSet, String nodeId) {
+    private ArrayList<Future<NodeDiscoveryResult>> createNewDiscoveryWorkers(String nodeId,
+                                                                             Set<ConnectionDetails> aNeighboursConnectionDetailsSet,
+                                                                             Set<ConnectionDetails> aOwnConnectionDetailsSet
+                                                                             ) {
         Set<ConnectionDetails> neighboursConnectionDetailsSet = new HashSet<>(aNeighboursConnectionDetailsSet);
+        discoveredConnectionDetails.addAll(aOwnConnectionDetailsSet);
+
         neighboursConnectionDetailsSet.removeAll(discoveredConnectionDetails);
+
         ArrayList<Future<NodeDiscoveryResult>> neighbourFutures = new ArrayList<>();
 
         for (ConnectionDetails neighboursConnectionDetails : neighboursConnectionDetailsSet) {

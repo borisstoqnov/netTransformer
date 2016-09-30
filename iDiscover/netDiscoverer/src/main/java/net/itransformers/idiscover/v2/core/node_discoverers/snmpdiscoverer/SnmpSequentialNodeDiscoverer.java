@@ -134,11 +134,11 @@ public class SnmpSequentialNodeDiscoverer extends SnmpNodeDiscoverer implements 
         //Despite all our efforts we got nothing from that device!
         if (sysDescr == null) {
             if (deviceName!=null) {
-                 result = new NodeDiscoveryResult(deviceName, null);
+                 result = new NodeDiscoveryResult(deviceName, null,null);
             }else if (dnsCanonicalName!=null){
-                result =  new NodeDiscoveryResult(dnsShortName, null);
+                result =  new NodeDiscoveryResult(dnsShortName, null,null);
             }else {
-                result = new NodeDiscoveryResult(ipAddressStr,null);
+                result = new NodeDiscoveryResult(ipAddressStr, null,null);
             }
 
             return result;
@@ -197,7 +197,8 @@ public class SnmpSequentialNodeDiscoverer extends SnmpNodeDiscoverer implements 
 
        }
 
-        result = new NodeDiscoveryResult(deviceName, neighboursConnDetails);
+        //TODO add also own connectionDetails
+        result = new NodeDiscoveryResult(deviceName, neighboursConnDetails,null);
         result.setDiscoveredData("deviceData", discoveredDeviceData);
         result.setDiscoveredData("rawData", rawData.getData());
         return result;
