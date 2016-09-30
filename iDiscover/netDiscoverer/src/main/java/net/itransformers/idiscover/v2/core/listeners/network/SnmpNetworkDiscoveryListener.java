@@ -22,8 +22,8 @@
 package net.itransformers.idiscover.v2.core.listeners.network;
 
 import net.itransformers.idiscover.v2.core.SnmpGraphmlMetadataProvider;
-import net.itransformers.idiscover.v2.core.NetworkDiscoveryListener;
-import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
+import net.itransformers.idiscover.api.NetworkDiscoveryListener;
+import net.itransformers.idiscover.api.NetworkDiscoveryResult;
 import net.itransformers.utils.ProjectConstants;
 import net.itransformers.utils.graphmlmerge.GrahmlMerge;
 import org.apache.log4j.Logger;

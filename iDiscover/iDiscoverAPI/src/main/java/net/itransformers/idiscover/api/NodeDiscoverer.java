@@ -1,5 +1,5 @@
 /*
- * DiscoveryManagerListener.java
+ * NodeDiscoverer.java
  *
  * This work is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
@@ -19,11 +19,11 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-package net.itransformers.idiscover.v2.core;
+package net.itransformers.idiscover.api;
 
-/**
- * Created by niau on 5/28/15.
- */
-public interface DiscoveryManagerListener {
-    void handleEvent(DiscoveryManagerEvent event);
+
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+
+public interface NodeDiscoverer {
+    public NodeDiscoveryResult discover(ConnectionDetails connectionDetails);
 }

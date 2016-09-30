@@ -20,7 +20,11 @@
 package net.itransformers.idiscover.v2.core;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.model.Node;
+import net.itransformers.idiscover.api.NetworkDiscoveryListener;
+import net.itransformers.idiscover.api.NetworkDiscoveryResult;
+import net.itransformers.idiscover.api.NodeDiscoverer;
+import net.itransformers.idiscover.api.NodeDiscoveryResult;
+import net.itransformers.idiscover.api.models.network.Node;
 import org.apache.log4j.Logger;
 
 import java.util.Map;
@@ -32,7 +36,7 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     private boolean isPaused;
     private boolean isStopped;
 
-    public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth) {
+    private NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth) {
         isRunning = true;
 
         NetworkDiscoveryResult result = new NetworkDiscoveryResult(null);
@@ -136,5 +140,35 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
 
     public synchronized boolean isRunning() {
         return isRunning;
+    }
+
+    @Override
+    public void startDiscovery(Set<ConnectionDetails> connectionDetailsList) {
+        discoverNetwork(connectionDetailsList, -1);
+    }
+
+    @Override
+    public void stopDiscovery() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void pauseDiscovery() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void resumeDiscovery() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void addNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListeners) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void removeNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListeners) {
+        throw new UnsupportedOperationException();
     }
 }

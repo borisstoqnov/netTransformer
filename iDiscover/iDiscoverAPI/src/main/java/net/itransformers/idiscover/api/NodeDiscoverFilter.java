@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.itransformers.idiscover.v2.core;/*
+package net.itransformers.idiscover.api;/*
  * iTransformer is an open source tool able to discover IP networks
  * and to perform dynamic data data population into a xml based inventory system.
  * Copyright (C) 2010  http://itransformers.net
@@ -36,6 +36,16 @@ package net.itransformers.idiscover.v2.core;/*
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public interface NeighborDiscoveryListener {
-    void neighborDiscovered(NeighborDiscoveryResult discoveryResult);
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+
+/**
+ * Filter that specify which nodes will not be discovered
+ * */
+public interface NodeDiscoverFilter {
+    /**
+     * Returns true if the corresponding node must not be discovered
+     * @param details the connection details of the node that will be discovered if mach filter criteria
+     * @return
+     */
+    boolean match(ConnectionDetails details);
 }

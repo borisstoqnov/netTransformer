@@ -1,14 +1,14 @@
 package net.itransformers.idiscover.v2.core.listeners.neighbor;
 
 import net.itransformers.idiscover.networkmodelv2.DiscoveredDevice;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
-import net.itransformers.idiscover.v2.core.NodeNeighboursDiscoveryListener;
+import net.itransformers.idiscover.api.NodeDiscoveryResult;
+import net.itransformers.idiscover.api.NodeNeighboursDiscoveryListener;
 import net.itransformers.idiscover.v2.core.listeners.graphmlRenderer.GraphmlRenderer;
 import net.itransformers.idiscover.api.models.graphml.GraphmlEdge;
 import net.itransformers.idiscover.api.models.graphml.GraphmlNode;
 import net.itransformers.idiscover.api.models.graphml.GraphmlNodeData;
 import net.itransformers.idiscover.v2.core.listeners.neighbor.device.DeviceToGraphml;
-import net.itransformers.idiscover.v2.core.model.Node;
+import net.itransformers.idiscover.api.models.network.Node;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 

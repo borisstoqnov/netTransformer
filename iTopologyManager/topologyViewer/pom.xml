@@ -151,6 +151,11 @@
             <artifactId>netDiscoverer</artifactId>
             <version>0.8</version>
         </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>cliDiscoveryLauncher</artifactId>
+            <version>0.8</version>
+        </dependency>
         <!--dependency>
             <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>

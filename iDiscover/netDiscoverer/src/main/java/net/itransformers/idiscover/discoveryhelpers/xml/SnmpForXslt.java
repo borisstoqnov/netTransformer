@@ -22,8 +22,7 @@
 package net.itransformers.idiscover.discoveryhelpers.xml;
 
 import net.itransformers.idiscover.core.DiscoveryResourceManager;
-import net.itransformers.idiscover.v2.core.NeighborDiscoveryListener;
-import net.itransformers.idiscover.v2.core.NeighborDiscoveryResult;
+//import net.itransformers.idiscover.v2.core.NeighborDiscoveryResult;
 import net.itransformers.resourcemanager.config.ConnectionParamsType;
 import net.itransformers.resourcemanager.config.ParamType;
 import net.itransformers.resourcemanager.config.ResourceType;
@@ -35,7 +34,6 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +45,7 @@ public class SnmpForXslt {
     private static InetAddressValidator ipAddressValidator = new InetAddressValidator();
     private static CIDRUtils cidrUtils;
 
-    private static List<NeighborDiscoveryListener> neighborDiscoveryListeners;
+//    private static List<NeighborDiscoveryListener> neighborDiscoveryListeners;
     private static Map<String, HashMap<String, String>> discoveredIPs = new HashMap<String, HashMap<String, String>>();
     private static Map<String, HashMap<String, String>> discoveredMACs = new HashMap<String, HashMap<String, String>>();
 
@@ -382,20 +380,20 @@ public class SnmpForXslt {
                 deviceNameMap.put("deviceType", deviceTypeFromSNMP);
 
                 discoveredIPs.put(ipAddress, deviceNameMap);
-                NeighborDiscoveryResult neighborDiscoveryResult = new NeighborDiscoveryResult();
-                neighborDiscoveryResult.setDiscoveredIpAddress(ipAddress);
-                neighborDiscoveryResult.setNeighborType(deviceTypeFromSNMP);
-                neighborDiscoveryResult.setNodeId(deviceNameFromSNMP);
-                neighborDiscoveryResult.setConnParams(connParams);
-
-                if (neighborDiscoveryListeners != null) {
-                    //Fire neighbourDiscoveredEvent
-                    for (NeighborDiscoveryListener neighbourDiscoveryListerner : neighborDiscoveryListeners) {
-
-                        neighbourDiscoveryListerner.neighborDiscovered(neighborDiscoveryResult);
-
-                    }
-                }
+//                NeighborDiscoveryResult neighborDiscoveryResult = new NeighborDiscoveryResult();
+//                neighborDiscoveryResult.setDiscoveredIpAddress(ipAddress);
+//                neighborDiscoveryResult.setNeighborType(deviceTypeFromSNMP);
+//                neighborDiscoveryResult.setNodeId(deviceNameFromSNMP);
+//                neighborDiscoveryResult.setConnParams(connParams);
+//
+//                if (neighborDiscoveryListeners != null) {
+//                    //Fire neighbourDiscoveredEvent
+//                    for (NeighborDiscoveryListener neighbourDiscoveryListerner : neighborDiscoveryListeners) {
+//
+//                        neighbourDiscoveryListerner.neighborDiscovered(neighborDiscoveryResult);
+//
+//                    }
+//                }
 
 
             } catch (IOException e) {
@@ -434,14 +432,14 @@ public class SnmpForXslt {
             return "UNKNOWN";
         }
     }
-
-    public static List<NeighborDiscoveryListener> getNeighborDiscoveryListeners() {
-        return neighborDiscoveryListeners;
-    }
-
-    public static void setNeighborDiscoveryListeners(List<NeighborDiscoveryListener> neighborDiscoveryListeners) {
-        SnmpForXslt.neighborDiscoveryListeners = neighborDiscoveryListeners;
-    }
+//
+//    public static List<NeighborDiscoveryListener> getNeighborDiscoveryListeners() {
+//        return neighborDiscoveryListeners;
+//    }
+//
+//    public static void setNeighborDiscoveryListeners(List<NeighborDiscoveryListener> neighborDiscoveryListeners) {
+//        SnmpForXslt.neighborDiscoveryListeners = neighborDiscoveryListeners;
+//    }
 
     public static MibLoaderHolder getMibLoaderHolder() {
         return mibLoaderHolder;

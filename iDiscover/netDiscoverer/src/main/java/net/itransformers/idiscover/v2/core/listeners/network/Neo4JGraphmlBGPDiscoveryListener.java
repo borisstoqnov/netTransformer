@@ -25,8 +25,8 @@ package net.itransformers.idiscover.v2.core.listeners.network;
 
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.impls.tg.TinkerGraph;
-import net.itransformers.idiscover.v2.core.NetworkDiscoveryListener;
-import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
+import net.itransformers.idiscover.api.NetworkDiscoveryListener;
+import net.itransformers.idiscover.api.NetworkDiscoveryResult;
 import net.itransformers.utils.blueprints_patch.MyGraphMLReader;
 import net.itransformers.utils.neo4j.merge.Neo4jGraphmlMerger;
 import org.apache.log4j.Logger;

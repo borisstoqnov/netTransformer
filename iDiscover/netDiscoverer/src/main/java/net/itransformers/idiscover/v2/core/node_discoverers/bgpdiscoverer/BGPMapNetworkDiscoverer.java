@@ -23,8 +23,8 @@ package net.itransformers.idiscover.v2.core.node_discoverers.bgpdiscoverer;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.idiscover.v2.core.ANetworkDiscoverer;
-import net.itransformers.idiscover.v2.core.NetworkDiscoveryResult;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.api.NetworkDiscoveryResult;
+import net.itransformers.idiscover.api.NodeDiscoveryResult;
 import net.itransformers.utils.ProjectConstants;
 import org.apache.commons.io.output.NullOutputStream;
 import org.apache.log4j.Logger;
@@ -51,9 +51,9 @@ public class BGPMapNetworkDiscoverer extends ANetworkDiscoverer {
        // walker = (JsonDiscoverer) new DefaultDiscovererFactory().createDiscoverer(resource);
     }
 
-
     @Override
-    public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList,int depth) {
+    public void startDiscovery(Set<ConnectionDetails> connectionDetailsList) {
+
         NetworkDiscoveryResult result = new NetworkDiscoveryResult(null);
 
         for (ConnectionDetails connectionDetails : connectionDetailsList) {
@@ -62,7 +62,7 @@ public class BGPMapNetworkDiscoverer extends ANetworkDiscoverer {
             if (!"javaMRT".equals(connectionDetails.getConnectionType())){
                 logger.debug("Connection details are not for javaMRTfile");
 
-                return null;
+                return;
             }
 
             String pathToFile = connectionDetails.getParam("pathToFile");
@@ -128,9 +128,21 @@ public class BGPMapNetworkDiscoverer extends ANetworkDiscoverer {
         }
         fireNetworkDiscoveredEvent(result);
 
-        return result;
     }
 
 
+    @Override
+    public void stopDiscovery() {
 
+    }
+
+    @Override
+    public void pauseDiscovery() {
+
+    }
+
+    @Override
+    public void resumeDiscovery() {
+
+    }
 }

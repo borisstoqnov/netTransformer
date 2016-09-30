@@ -1,5 +1,5 @@
 /*
- * NodeDiscoveryListener.java
+ * NetworkDiscoveryListener.java
  *
  * This work is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
@@ -19,7 +19,7 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-package net.itransformers.idiscover.v2.core;/*
+package net.itransformers.idiscover.api;/*
  * iTransformer is an open source tool able to discover IP networks
  * and to perform dynamic data data population into a xml based inventory system.
  * Copyright (C) 2010  http://itransformers.net
@@ -38,6 +38,7 @@ package net.itransformers.idiscover.v2.core;/*
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public interface NodeDiscoveryListener {
-    void nodeDiscovered(NodeDiscoveryResult discoveryResult);
+public interface NetworkDiscoveryListener {
+    void networkDiscovered(NetworkDiscoveryResult result);
+
 }

@@ -19,7 +19,7 @@
  * Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
  */
 
-package net.itransformers.idiscover.v2.core;
+package net.itransformers.idiscover.api;
 
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
@@ -28,8 +28,11 @@ import java.util.List;
 import java.util.Set;
 
 public interface NetworkDiscoverer  {
-    NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList);
-    NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth);
-    void setNetworkDiscoveryListeners(List<NetworkDiscoveryListener> networkDiscoveryListeners);
-    List<NetworkDiscoveryListener>  getNetworkDiscoveryListeners();
-    }
+    void startDiscovery(Set<ConnectionDetails> connectionDetailsList);
+    void stopDiscovery();
+    void pauseDiscovery();
+    void resumeDiscovery();
+
+    void addNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListeners);
+    void removeNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListeners);
+}

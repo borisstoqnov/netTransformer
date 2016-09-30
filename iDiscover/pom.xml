@@ -40,6 +40,7 @@
         <module>connectiondetails</module>
         <module>resourceManager</module>
         <module>xmlNodeDataProvider</module>
+        <module>cliDiscoveryLauncher</module>
     </modules>
 
     <!--Change for new version-->

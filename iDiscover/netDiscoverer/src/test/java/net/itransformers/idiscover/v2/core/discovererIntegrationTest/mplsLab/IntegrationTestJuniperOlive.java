@@ -33,8 +33,8 @@ import net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactor
 import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
 import net.itransformers.idiscover.api.models.node_data.ObjectType;
 import net.itransformers.idiscover.api.models.node_data.ParameterType;
-import net.itransformers.idiscover.v2.core.NodeDiscoverer;
-import net.itransformers.idiscover.v2.core.NodeDiscoveryResult;
+import net.itransformers.idiscover.api.NodeDiscoverer;
+import net.itransformers.idiscover.api.NodeDiscoveryResult;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;

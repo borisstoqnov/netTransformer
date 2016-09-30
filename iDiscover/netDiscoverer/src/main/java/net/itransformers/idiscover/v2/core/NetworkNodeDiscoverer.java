@@ -21,14 +21,13 @@
 
 package net.itransformers.idiscover.v2.core;
 
-import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
-import net.itransformers.idiscover.v2.core.model.Node;
+import net.itransformers.idiscover.api.*;
+import net.itransformers.idiscover.api.models.network.Node;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 
 public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
@@ -42,10 +41,6 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     // TODO rename nodes -> nodesByIds
     protected final Map<String, Node> nodes = new HashMap<String, Node>();
     protected final Map<String, Node> nodesByAliases = new HashMap<String, Node>();
-
-    public NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList) {
-        return discoverNetwork(connectionDetailsList, -1);
-    }
 
     public void setNodeDiscoverFilter(NodeDiscoverFilter filter) {
         this.nodeDiscoverFilter = filter;
@@ -70,14 +65,6 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
 
     public void setNodeDiscoveryListeners(List<NodeDiscoveryListener> nodeDiscoveryListeners) {
         this.nodeDiscoveryListeners = nodeDiscoveryListeners;
-    }
-
-    public List<NetworkDiscoveryListener> getNetworkDiscoveryListeners() {
-        return networkDiscoveryListeners;
-    }
-
-    public void setNetworkDiscoveryListeners(List<NetworkDiscoveryListener> networkDiscoveryListeners) {
-        this.networkDiscoveryListeners = networkDiscoveryListeners;
     }
 
     public synchronized void fireNodeDiscoveredEvent(NodeDiscoveryResult discoveryResult) {
@@ -107,5 +94,15 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
 
     public Map<String, Node> getNodes() {
         return nodes;
+    }
+
+    @Override
+    public void addNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListener) {
+        this.networkDiscoveryListeners.add(networkDiscoveryListener);
+    }
+
+    @Override
+    public void removeNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListener) {
+        this.networkDiscoveryListeners.remove(networkDiscoveryListener);
     }
 }
