@@ -21,7 +21,7 @@
 
 <!--Change the value to refer to your project path -->
 
-<Context override="false">
+<Context override="false" name="api">
     <Environment name="wsitransformer/projectPath" type="java.lang.String"
               value=".."/>
 </Context>

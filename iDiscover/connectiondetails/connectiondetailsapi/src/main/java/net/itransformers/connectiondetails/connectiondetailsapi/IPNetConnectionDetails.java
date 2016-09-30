@@ -27,18 +27,27 @@ public class IPNetConnectionDetails extends ConnectionDetails implements Cloneab
     @Override
     public boolean equals(Object obj) {
         String ip = params.get(IP_ADDRESS_PARAM_KEY);
-        String connectionType = getConnectionType();
-        if (ip == null || connectionType==null) {
-            return false;
-        }
+       // String connectionType = getConnectionType();
         ConnectionDetails connectionDetails2 = (ConnectionDetails)obj;
-        String connectionType2=((ConnectionDetails) obj).getConnectionType();
-
         String ip2 = connectionDetails2.getParam(IP_ADDRESS_PARAM_KEY);
-        if (ip2 == null|| connectionType2==null){
+
+        if (ip==null || ip2==null) {
             return false;
         }
-        return ip.equals(ip2) && connectionType.equals(connectionType2);
+        return ip.equals(ip2);
+
+//        if (ip == null || connectionType==null) {
+//            return false;
+//        }
+//        String connectionType2=((ConnectionDetails) obj).getConnectionType();
+//
+//
+//        if (ip2 == null|| connectionType2==null){
+//            return false;
+//        }
+//        if (ip.equals(ip2) && !connectionType.equals(connectionType2))
+//            System.out.println(connectionType+":"+connectionType2);
+//        return ip.equals(ip2) && connectionType.equals(connectionType2);
     }
 
     @Override

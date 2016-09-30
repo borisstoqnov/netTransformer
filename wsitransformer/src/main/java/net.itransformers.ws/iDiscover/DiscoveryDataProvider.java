@@ -1,14 +1,15 @@
 package net.itransformers.ws.iDiscover;
 
 import net.itransformers.idiscover.api.models.graphml.GraphmlGraph;
-import net.itransformers.idiscover.api.models.graphml.GraphmlNode;
 import net.itransformers.idiscover.api.models.node_data.DiscoveredDeviceData;
 import net.itransformers.xmlNodeDataProvider.XmlNodeDataProvider;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by niau on 9/27/16.
@@ -36,21 +37,28 @@ public class DiscoveryDataProvider {
 
     @RequestMapping(value = "/{version}/network", method=RequestMethod.GET)
     @ResponseBody
-    GraphmlGraph getNetwork(@PathVariable String version){
-        return xmlNodeDataProvider.getNetwork(version);
+    GraphmlGraph getNetwork(@PathVariable String version,
+                            @RequestParam(value="nodeId", required=false) String nodeId,
+                            @RequestParam(value="hops", required = false, defaultValue = "1") int hops){
+
+        if (nodeId==null){
+            return xmlNodeDataProvider.getNetwork(version);
+
+        }else{
+            return xmlNodeDataProvider.getNetwork(version, nodeId,hops);
+        }
     }
 
-    @RequestMapping(value = "/{version}/network?nodeId={nodeId}", method=RequestMethod.GET)
-    @ResponseBody
-    GraphmlNode getNode(@PathVariable String version, @RequestParam(value="nodeId", required=false) String nodeId){
-        return xmlNodeDataProvider.getNode(version, nodeId);
-
-    }
+//    @RequestMapping(value = "/{version}/network?nodeId={nodeId}", method=RequestMethod.GET)
+//    @ResponseBody
+//    GraphmlNode getNode(@PathVariable String version,  String nodeId){
+//        return );
+//
+//    }
 
     @RequestMapping(value = "/{version}/nodes", method=RequestMethod.GET)
     @ResponseBody
-
-    List<String> getDiscoveredNodes(@PathVariable String version){
+    Set<String> getDiscoveredNodes(@PathVariable String version){
         return xmlNodeDataProvider.getDiscoveredNodes(version);
     }
 
@@ -58,15 +66,20 @@ public class DiscoveryDataProvider {
     @ResponseBody
 
     DiscoveredDeviceData getDeviceHierarchicalModel(@PathVariable String version, @PathVariable String nodeId){
-         return xmlNodeDataProvider.getDeviceHierarchicalModel(version, nodeId);
+         return xmlNodeDataProvider.getDiscoverdNodeData(version, nodeId);
     }
 
 
-    @RequestMapping(value = "/{version}/nodes/{nodeId}/raw", method=RequestMethod.GET)
+    @RequestMapping(value = "/{version}/nodes/{nodeId}/raw", method=RequestMethod.GET, produces={"application/xml","application/json"})
     @ResponseBody
     String getRawData(@PathVariable String version, @PathVariable String nodeId){
-        return new String(xmlNodeDataProvider.getRawData(version, nodeId).getData());
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+        byte [] rawData = xmlNodeDataProvider.getRawData(version, nodeId).getData();
+        return new String(rawData);
+
     }
+
 
 
 }

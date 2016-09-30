@@ -1,9 +1,6 @@
 package net.itransformers.xmlNodeDataProvider;
 
-import com.tinkerpop.blueprints.Direction;
-import com.tinkerpop.blueprints.Edge;
-import com.tinkerpop.blueprints.Graph;
-import com.tinkerpop.blueprints.Vertex;
+import com.tinkerpop.blueprints.*;
 import com.tinkerpop.blueprints.impls.tg.TinkerGraph;
 import net.itransformers.idiscover.api.DiscoveryResult;
 import net.itransformers.idiscover.api.models.graphml.*;
@@ -47,9 +44,9 @@ public class XmlNodeDataProvider implements DiscoveryResult {
     }
 
     @Override
-    public List<String> getDiscoveredNodes(String version) {
+    public Set<String> getDiscoveredNodes(String version) {
         File versionDir = new File(networkPath+File.separator+version);
-        ArrayList<String> list = new ArrayList<String>();
+        HashSet<String> set = new HashSet<>();
 
         if (versionDir.exists()){
             File undirectedGraphmls = new File(versionDir+File.separator+ProjectConstants.nodesListFileName);
@@ -57,7 +54,7 @@ public class XmlNodeDataProvider implements DiscoveryResult {
             try {
                 s = new Scanner(undirectedGraphmls);
                 while (s.hasNext()){
-                    list.add(s.next());
+                    set.add(s.next());
                 }
                 s.close();
             } catch (FileNotFoundException e) {
@@ -68,7 +65,7 @@ public class XmlNodeDataProvider implements DiscoveryResult {
             System.out.println(versionDir+File.separator+ProjectConstants.nodesListFileName +" "+ "does not exist");
             logger.info(versionDir + File.separator + ProjectConstants.nodesListFileName + " " + "does not exist");
         }
-        return list;
+        return set;
     }
 
     @Override
@@ -137,33 +134,67 @@ public class XmlNodeDataProvider implements DiscoveryResult {
     }
 
     @Override
-    public GraphmlNode getNode(String version, String nodeId) {
+    public GraphmlGraph getNetwork(String version, String nodeId,int hops) {
         File versionDir = new File(networkPath+File.separator+version);
+        GraphmlGraph graphmlGraph = new GraphmlGraph();
+        List<GraphmlEdge> graphmlEdges = new ArrayList<>();
+        List<GraphmlNode> graphmlNodes = new ArrayList<>();
+
         if (versionDir.exists()){
-            File graphmlFile = new File(versionDir+File.separator+ProjectConstants.undirectedGraphmlDirName+File.separator+ProjectConstants.graphmlDataPrefix+ProjectConstants.graphmlDataPrefix+nodeId+".graphml");
+            File graphmlFile = new File(versionDir+File.separator+ProjectConstants.undirectedGraphmlDirName+File.separator+ProjectConstants.networkGraphmlFileName);
 
             if (graphmlFile.exists()){
 
-                GraphmlGraph graphmlGraph = loadGraphml(graphmlFile.getAbsolutePath());
-                for (GraphmlNode node : graphmlGraph.getGraphmlNodes()) {
-                   if (node.getId().equals(nodeId)){
-                       return node;
-                   }
+                Graph graph = loadGraphmlInTinkerGraph(graphmlFile.getAbsolutePath());
+                GraphQuery result = graph.query().has(nodeId);
+
+                for (Vertex vertex : result.vertices()) {
+                    graphmlNodes.add(vertexToNode(vertex));
                 }
+                for (Edge edge :result.limit(hops).edges()){
+                     graphmlEdges.add(edgeToGraphmlEdge(edge));
+                }
+
+                graphmlGraph.setGraphmlNodes(graphmlNodes);
+                graphmlGraph.setGraphmlEdges(graphmlEdges);
+
             }else{
                 logger.info(graphmlFile.getAbsolutePath() +" "+ "does not exist");
                 return null;
             }
 
         }
+        logger.info(versionDir.getAbsolutePath() + " " + "does not exist");
+
+      return graphmlGraph;
+        }
+
+
+    public List<Vertex> getNodesWithProperties(String version, String property) {
+        File versionDir = new File(networkPath+File.separator+version);
+//        if (versionDir.exists()){
+//            File graphmlFile = new File(versionDir+File.separator+ProjectConstants.undirectedGraphmlDirName+File.separator+ProjectConstants.graphmlDataPrefix+ProjectConstants.graphmlDataPrefix+nodeId+".graphml");
+//
+//            if (graphmlFile.exists()){
+//
+//                Graph graph = loadGraphmlInTinkerGraph(graphmlFile.getAbsolutePath());
+//
+//                return (List<Vertex>) graph.query().has(property).vertices();
+//
+//            }else{
+//                logger.info(graphmlFile.getAbsolutePath() +" "+ "does not exist");
+//                return null;
+//            }
+//
+//        }
         logger.info(versionDir.getAbsolutePath() +" "+ "does not exist");
 
         return null;
 
-        }
+    }
 
     @Override
-    public DiscoveredDeviceData getDeviceHierarchicalModel(String version, String nodeId) {
+    public DiscoveredDeviceData getDiscoverdNodeData(String version, String nodeId) {
         File versionDir = new File(networkPath + File.separator + version);
         if (versionDir.exists()) {
             File deviceDataFile = new File(versionDir + File.separator + ProjectConstants.deviceDataDirName + File.separator + ProjectConstants.deviceDataPrefix  + nodeId + ".xml");
@@ -214,37 +245,13 @@ public class XmlNodeDataProvider implements DiscoveryResult {
         Graph graph = loadGraphmlInTinkerGraph(filePath);
 
         for (Vertex vertex: graph.getVertices()){
-            GraphmlNode node = new GraphmlNode();
-            List<GraphmlNodeData> graphmlNodeDataList = new ArrayList<>();
-            node.setId(vertex.getId().toString());
-            Set<String> keys = vertex.getPropertyKeys();
-            for (String key : keys) {
-                graphmlNodeDataList.add(new GraphmlNodeData(key,vertex.getProperty(key)));
-            }
-            node.setGraphmlNodeDataList(graphmlNodeDataList);
-            graphmlNodes.add(node);
+            graphmlNodes.add(vertexToNode(vertex));
 
         }
         for (Edge edge: graph.getEdges()){
 
-            GraphmlEdge graphmlEdge = new GraphmlEdge();
-            List<GraphmlEdgeData> graphmlEdgeDataList = new ArrayList<>();
-            graphmlEdge.setId(edge.getId().toString());
 
-            Vertex vertexIn = edge.getVertex(Direction.IN);
-
-            graphmlEdge.setFromNode(vertexIn.getId().toString());
-            Vertex vertexOut = edge.getVertex(Direction.OUT);
-
-            graphmlEdge.setToNode(vertexOut.getId().toString());
-
-
-            Set<String> keys = edge.getPropertyKeys();
-            for (String key : keys) {
-                graphmlEdgeDataList.add(new GraphmlEdgeData(key,edge.getProperty(key)));
-            }
-            graphmlEdge.setGraphmlEdgeDataList(graphmlEdgeDataList);
-            graphmlEdges.add(graphmlEdge);
+            graphmlEdges.add(edgeToGraphmlEdge(edge));
 
 
         }
@@ -253,6 +260,45 @@ public class XmlNodeDataProvider implements DiscoveryResult {
         graphmlGraph.setGraphmlNodes(graphmlNodes);
         return graphmlGraph;
 
+    }
+
+    private GraphmlNode vertexToNode(Vertex vertex){
+
+        GraphmlNode node = new GraphmlNode();
+        List<GraphmlNodeData> graphmlNodeDataList = new ArrayList<>();
+        node.setId(vertex.getId().toString());
+        Set<String> keys = vertex.getPropertyKeys();
+        for (String key : keys) {
+            graphmlNodeDataList.add(new GraphmlNodeData(key,vertex.getProperty(key)));
+        }
+        node.setGraphmlNodeDataList(graphmlNodeDataList);
+
+       return node;
+    }
+
+    private GraphmlEdge edgeToGraphmlEdge(Edge edge){
+
+        GraphmlEdge graphmlEdge = new GraphmlEdge();
+
+        List<GraphmlEdgeData> graphmlEdgeDataList = new ArrayList<>();
+        graphmlEdge.setId(edge.getId().toString());
+
+        Vertex vertexIn = edge.getVertex(Direction.IN);
+
+        graphmlEdge.setFromNode(vertexIn.getId().toString());
+        Vertex vertexOut = edge.getVertex(Direction.OUT);
+
+        graphmlEdge.setToNode(vertexOut.getId().toString());
+
+
+        Set<String> keys = edge.getPropertyKeys();
+        for (String key : keys) {
+            graphmlEdgeDataList.add(new GraphmlEdgeData(key,edge.getProperty(key)));
+        }
+        graphmlEdge.setGraphmlEdgeDataList(graphmlEdgeDataList);
+
+
+        return graphmlEdge;
     }
 
 
