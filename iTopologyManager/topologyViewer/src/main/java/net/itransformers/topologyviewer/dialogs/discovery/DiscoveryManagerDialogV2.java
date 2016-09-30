@@ -21,7 +21,6 @@
 
 package net.itransformers.topologyviewer.dialogs.discovery;
 
-import net.itransformers.idiscover.v2.core.factory.spring.AutoVersionCreator;
 import net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager;
 import net.itransformers.idiscover.api.*;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;

@@ -5,8 +5,9 @@ import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetail
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManagerFactory;
 import net.itransformers.idiscover.api.NetworkDiscoverer;
 import net.itransformers.idiscover.api.NetworkDiscovererFactory;
+import net.itransformers.idiscover.api.VersionManager;
+import net.itransformers.idiscover.api.VersionManagerFactory;
 import net.itransformers.idiscover.api.models.network.Node;
-import net.itransformers.idiscover.v2.core.factory.spring.AutoVersionCreator;
 import net.itransformers.utils.CmdLineParser;
 import org.apache.log4j.Logger;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -48,9 +49,15 @@ public class CliDiscoveryLauncher {
         ctx.refresh();
 
         NetworkDiscovererFactory discovererFactory = ctx.getBean("networkDiscoveryFactory", NetworkDiscovererFactory.class);
+        VersionManagerFactory versionManagerFactory = ctx.getBean("versionManagerFactory", VersionManagerFactory.class);
         Map<String, String> props = new HashMap<>();
         props.put("projectPath", projectPath);
+        VersionManager versionManager = versionManagerFactory.createVersionManager("dir", props);
+        String version = versionManager.createVersion();
+        props.put("version", version);
         NetworkDiscoverer networkDiscoverer = discovererFactory.createNetworkDiscoverer("parallel", props);
+
+
         networkDiscoverer.addNetworkDiscoveryListeners(result -> {
             Map<String, Node> nodes = result.getNodes();
             for (String node : nodes.keySet()) {

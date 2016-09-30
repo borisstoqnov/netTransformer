@@ -26,11 +26,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <bean id="networkDiscoveryFactory" class="net.itransformers.idiscover.v2.core.factory.spring.SpringBasedNetworkDiscovererFactory">
-        <constructor-arg name="autoVersionCreator" ref="autoVersionCreator"/>
     </bean>
 
-    <bean id="autoVersionCreator" class="net.itransformers.idiscover.v2.core.factory.spring.AutoVersionCreator">
-        <constructor-arg name="networkFolderName" value="network"/>
-        <constructor-arg name="versionLabel" value="version"/>
+    <bean id="versionManagerFactory" class="net.itransformers.idiscover.v2.core.version_manager.DirectoryVersionManagerFactory">
     </bean>
 </beans>

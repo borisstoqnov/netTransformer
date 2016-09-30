@@ -54,7 +54,6 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
      */
     protected Map<String, List<Future<NodeDiscoveryResult>>> nodeNeighbourFuturesMap = new HashMap<>();
     protected Map<String, NodeDiscoveryResult> nodeDiscoveryResultMap = new HashMap<>();
-    private String version;
 
 
     public ParallelNetworkNodeDiscovererImpl() {
@@ -363,11 +362,4 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         this.executorService.resume();
     }
 
-    @Override
-    public String getVersion() {
-        return version;
-    }
-    public void setVersion(String version){
-        this.version = version;
-    }
 }

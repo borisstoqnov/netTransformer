@@ -45,7 +45,6 @@
 
     <bean id="discoveryWorkerFactory" class="net.itransformers.idiscover.v2.core.factory.DiscoveryWorkerFactory"/>
     <bean id="parallelSnmpDiscovery" class="net.itransformers.idiscover.v2.core.parallel.ParallelNetworkNodeDiscovererImpl">
-        <property name="version" ref="labelDirName"/>
         <property name="eventExecutorService" ref="eventExecutor"/>
         <property name="eventExecutorCompletionService" ref="eventExecutorCompletionService"/>
         <property name="executorService" ref="executorService"/>
@@ -95,7 +94,7 @@
     </bean>
     <bean id="mibLoaderHolder"
           class="net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder">
-        <constructor-arg value="snmptoolkit/mibs"/>
+        <constructor-arg value="#{projectPath+'/snmptoolkit/mibs'}"/>
         <constructor-arg value="true"/>
     </bean>
 

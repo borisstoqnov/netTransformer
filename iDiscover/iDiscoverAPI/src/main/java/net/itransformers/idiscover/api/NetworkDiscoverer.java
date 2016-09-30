@@ -36,5 +36,4 @@ public interface NetworkDiscoverer  {
     void addNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListeners);
     void removeNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListeners);
 
-    String getVersion();
 }

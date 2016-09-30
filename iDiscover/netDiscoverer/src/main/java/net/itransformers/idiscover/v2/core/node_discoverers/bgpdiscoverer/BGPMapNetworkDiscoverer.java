@@ -145,9 +145,4 @@ public class BGPMapNetworkDiscoverer extends ANetworkDiscoverer {
     public void resumeDiscovery() {
 
     }
-
-    @Override
-    public String getVersion() {
-        return null;
-    }
 }

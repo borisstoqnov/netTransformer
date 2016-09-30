@@ -20,7 +20,6 @@ public class CsvConnectionDetailsManagerFactory implements ConnectionDetailsMana
         if (projectPath == null) {
             throw new IllegalArgumentException("projectPath is not specified");
         }
-//        String version = properties.get("version");
         String file = projectPath+"/iDiscover/conf/txt/connection-details.txt";
         CsvConnectionDetailsFileManager csvConnectionDetailsFileManager = new CsvConnectionDetailsFileManager(file);
         try {

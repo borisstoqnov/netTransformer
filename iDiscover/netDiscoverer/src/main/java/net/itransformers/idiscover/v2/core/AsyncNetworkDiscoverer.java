@@ -47,9 +47,4 @@ public class AsyncNetworkDiscoverer implements NetworkDiscoverer {
         networkDiscoverer.removeNetworkDiscoveryListeners(networkDiscoveryListeners);
     }
 
-    @Override
-    public String getVersion() {
-        return networkDiscoverer.getVersion();
-    }
-
 }
