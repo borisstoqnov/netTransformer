@@ -43,14 +43,14 @@ public class NetworkGraphmlFileLogDiscoveryListener implements NetworkDiscoveryL
 
     @Override
     public void networkDiscovered(NetworkDiscoveryResult result) {
-        File baseDir = new File(projectPath, ProjectConstants.networkGraphmlFileName);
+        File baseDir = new File(projectPath);
         if (!baseDir.exists()) baseDir.mkdir();
 
         File labelDirPath = new File(baseDir, labelDirName);
         if (!labelDirPath.exists()) labelDirPath.mkdir();
 
 
-        File graphmlDir = new File(labelDirName, getGraphmlDirName());
+        File graphmlDir = new File(labelDirPath, graphmlDirName);
         if (!graphmlDir.exists()) graphmlDir.mkdir();
 
 
@@ -66,7 +66,7 @@ public class NetworkGraphmlFileLogDiscoveryListener implements NetworkDiscoveryL
                 final File nodeFile = new File(graphmlDir,fileName);
                 String graphml = new String(discoveredDeviceData);
                 FileUtils.writeStringToFile(nodeFile, graphml);
-                FileWriter writer = new FileWriter(new File(labelDirName,"undirected"+".graphmls"),true);
+                FileWriter writer = new FileWriter(new File(labelDirPath,"undirected"+".graphmls"),true);
                 writer.append(String.valueOf(fileName)).append("\n");
                 writer.close();
             } catch (IOException e) {

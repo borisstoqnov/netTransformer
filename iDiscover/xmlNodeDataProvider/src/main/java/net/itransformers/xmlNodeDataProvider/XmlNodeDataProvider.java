@@ -22,34 +22,31 @@ public class XmlNodeDataProvider implements DiscoveryResult {
     static Logger logger = Logger.getLogger(XmlNodeDataProvider.class);
 
     String projectPath;
-    File networkPath;
-
-
 
     public XmlNodeDataProvider(String projectPath) {
         this.projectPath = projectPath;
-        networkPath = new File(projectPath+File.separator+ ProjectConstants.networkDirName);
     }
 
 
 
     @Override
     public List<String> getDiscoveredVersions() {
-        return Arrays.asList(networkPath.list(new FilenameFilter() {
+
+        return Arrays.asList(new File(projectPath).list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return new File(dir, name).isDirectory();
+                return name.startsWith("version") && new File(dir, name).isDirectory();
             }
         }));
     }
 
     @Override
     public Set<String> getDiscoveredNodes(String version) {
-        File versionDir = new File(networkPath+File.separator+version);
+        File versionDir = new File(projectPath, version);
         HashSet<String> set = new HashSet<>();
+        File undirectedGraphmls = new File(versionDir,ProjectConstants.nodesListFileName);
 
         if (versionDir.exists()){
-            File undirectedGraphmls = new File(versionDir+File.separator+ProjectConstants.nodesListFileName);
             Scanner s = null;
             try {
                 s = new Scanner(undirectedGraphmls);
@@ -62,8 +59,7 @@ public class XmlNodeDataProvider implements DiscoveryResult {
             }
 
         }else {
-            System.out.println(versionDir+File.separator+ProjectConstants.nodesListFileName +" "+ "does not exist");
-            logger.info(versionDir + File.separator + ProjectConstants.nodesListFileName + " " + "does not exist");
+            logger.info(undirectedGraphmls.getAbsoluteFile() +" "+ "does not exist");
         }
         return set;
     }
@@ -75,9 +71,10 @@ public class XmlNodeDataProvider implements DiscoveryResult {
 
     @Override
     public GraphmlGraph getNetwork(String version) {
-        File versionDir = new File(networkPath+File.separator+version);
+        File versionDir = new File(projectPath, version);
         if (versionDir.exists()){
-            File graphmlFile = new File(versionDir+File.separator+ProjectConstants.undirectedGraphmlDirName+File.separator+ProjectConstants.networkGraphmlFileName);
+            File undirectedGraphmlDir = new File(versionDir, ProjectConstants.undirectedGraphmlDirName);
+            File graphmlFile = new File(undirectedGraphmlDir, ProjectConstants.networkGraphmlFileName);
 
             if (graphmlFile.exists()){
 
@@ -98,10 +95,11 @@ public class XmlNodeDataProvider implements DiscoveryResult {
 
     @Override
     public RawDeviceData getRawData(String version, String nodeId) {
-        File versionDir = new File(networkPath+File.separator+version);
+        File versionDir = new File(projectPath, version);
 
         if (versionDir.exists()){
-            File rawDataFile = new File(versionDir+File.separator+ProjectConstants.rawDataDirName+File.separator+nodeId+".xml");
+            File rawDataDir = new File(versionDir, ProjectConstants.rawDataDirName);
+            File rawDataFile = new File(rawDataDir, File.separator+nodeId+".xml");
 
             if (rawDataFile.exists()){
 
@@ -135,13 +133,14 @@ public class XmlNodeDataProvider implements DiscoveryResult {
 
     @Override
     public GraphmlGraph getNetwork(String version, String nodeId,int hops) {
-        File versionDir = new File(networkPath+File.separator+version);
+        File versionDir = new File(projectPath, version);
         GraphmlGraph graphmlGraph = new GraphmlGraph();
         List<GraphmlEdge> graphmlEdges = new ArrayList<>();
         List<GraphmlNode> graphmlNodes = new ArrayList<>();
 
         if (versionDir.exists()){
-            File graphmlFile = new File(versionDir+File.separator+ProjectConstants.undirectedGraphmlDirName+File.separator+ProjectConstants.networkGraphmlFileName);
+            File undirectedGraphmlDir = new File(versionDir, ProjectConstants.undirectedGraphmlDirName);
+            File graphmlFile = new File(undirectedGraphmlDir, ProjectConstants.networkGraphmlFileName);
 
             if (graphmlFile.exists()){
 
@@ -171,7 +170,7 @@ public class XmlNodeDataProvider implements DiscoveryResult {
 
 
     public List<Vertex> getNodesWithProperties(String version, String property) {
-        File versionDir = new File(networkPath+File.separator+version);
+        File versionDir = new File(projectPath, version);
 //        if (versionDir.exists()){
 //            File graphmlFile = new File(versionDir+File.separator+ProjectConstants.undirectedGraphmlDirName+File.separator+ProjectConstants.graphmlDataPrefix+ProjectConstants.graphmlDataPrefix+nodeId+".graphml");
 //
@@ -195,9 +194,10 @@ public class XmlNodeDataProvider implements DiscoveryResult {
 
     @Override
     public DiscoveredDeviceData getDiscoverdNodeData(String version, String nodeId) {
-        File versionDir = new File(networkPath + File.separator + version);
+        File versionDir = new File(projectPath, version);
         if (versionDir.exists()) {
-            File deviceDataFile = new File(versionDir + File.separator + ProjectConstants.deviceDataDirName + File.separator + ProjectConstants.deviceDataPrefix  + nodeId + ".xml");
+            File deviceDataDir = new File(versionDir, ProjectConstants.deviceDataDirName);
+            File deviceDataFile = new File(deviceDataDir, ProjectConstants.deviceDataPrefix  + nodeId + ".xml");
 
             FileInputStream fis = null;
             try {

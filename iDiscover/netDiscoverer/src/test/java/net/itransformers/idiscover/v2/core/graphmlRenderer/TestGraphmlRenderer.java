@@ -57,7 +57,7 @@ public class TestGraphmlRenderer
 
             graphmlNodes.add(graphmlNode);
         }
-        String graphml = graphmlRenderer.render("iDiscover/conf/xml/snmpGraphmlTemplate.vm",params);
+        String graphml = graphmlRenderer.render("netDiscoverer/velocity/snmpGraphmlTemplate.vm",params);
 
        // FileUtils.writeStringToFile(new File(baseDir + "/" + "iDiscover/src/test/resources/expectedGraphml.graphml"), graphml);
         Assert.assertEquals(FileUtils.readFileToString(new File(baseDir + "/" + "iDiscover/netDiscoverer/src/test/resources/graphmlRenderer/expectedGraphml.graphml")), graphml);

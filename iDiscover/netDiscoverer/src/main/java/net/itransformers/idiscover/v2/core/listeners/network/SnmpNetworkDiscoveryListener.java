@@ -97,7 +97,7 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
             }
         });
         if (files == null) {
-            // some log
+            logger.error("Can not find graphml files to merge");
             return;
         }
         try {
