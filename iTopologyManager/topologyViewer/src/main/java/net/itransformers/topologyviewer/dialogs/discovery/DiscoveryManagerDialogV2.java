@@ -21,6 +21,8 @@
 
 package net.itransformers.topologyviewer.dialogs.discovery;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManagerFactory;
 import net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager;
 import net.itransformers.idiscover.api.*;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
@@ -261,23 +263,33 @@ public class DiscoveryManagerDialogV2 extends JDialog {
         } else {
             if (!isValidLabel(label)) return false;
         }
-        GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext();
-        applicationContext.load("classpath:csvConnectionDetails/csvConnectionDetailsFactory.xml");
-        applicationContext.refresh();
-
-        CsvConnectionDetailsFileManager connectionDetailsFileManager = null;
-        if (applicationContext != null) {
-            connectionDetailsFileManager = (CsvConnectionDetailsFileManager) applicationContext.getBean("connectionList");
-        }
-        LinkedHashMap<String,ConnectionDetails> connectionList = null;
-        if (connectionDetailsFileManager != null) {
-            connectionList = (LinkedHashMap<String, ConnectionDetails>) connectionDetailsFileManager.getConnectionDetails();
-        }
+        GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
+        ctx.load("classpath:csvConnectionDetails/csvConnectionDetailsFactory.xml");
+        ctx.load("classpath:netDiscoverer/netDiscovererFactory.xml");
+        ctx.refresh();
 
         Map<String ,String> props = new HashMap<>();
         props.put("projectPath", projectDir.getAbsolutePath());
+        VersionManagerFactory versionManagerFactory = ctx.getBean("versionManagerFactory", VersionManagerFactory.class);
+
+        VersionManager versionManager = versionManagerFactory.createVersionManager("dir", props);
+        String version = versionManager.createVersion();
+        props.put("version", version);
+
+        networkDiscovererFactory =
+                ctx.getBean("networkDiscoveryFactory", NetworkDiscovererFactory.class);
+
+        ConnectionDetailsManagerFactory connectionManagerFacotry =
+                ctx.getBean("connectionManagerFactory", ConnectionDetailsManagerFactory.class);
+        ConnectionDetailsManager connectionDetails = connectionManagerFacotry.createConnectionDetailsManager("csv", props);
+
+        LinkedHashMap<String,ConnectionDetails> connectionList = null;
+        if (connectionDetails != null) {
+            connectionList = (LinkedHashMap<String, ConnectionDetails>) connectionDetails.getConnectionDetails();
+        }
+        props.put("version", version);
         NetworkDiscoverer nodeDiscovererImpl =
-                this.networkDiscovererFactory.createNetworkDiscoverer("parallel", props);
+                this.networkDiscovererFactory.createNetworkDiscoverer("async_parallel", props);
 
         int depth = (Integer) depthComboBox.getSelectedItem();
         NodeDiscoveryListener nodeListener = new NodeDiscoveryListener() {

@@ -37,7 +37,7 @@ public class CliDiscoveryLauncher {
             System.out.println("Project path is not specified. Will use current dir: " + cwd.getAbsolutePath());
             projectPath = cwd.getAbsolutePath();
         }
-
+        System.setProperty("base.dir",new File(".").getAbsolutePath());
         File workingDir = new File(projectPath);
         if (!workingDir.exists()) {
             System.out.println("Invalid project path!");

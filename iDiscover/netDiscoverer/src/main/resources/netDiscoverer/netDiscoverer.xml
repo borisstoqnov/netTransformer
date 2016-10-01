@@ -94,7 +94,7 @@
     </bean>
     <bean id="mibLoaderHolder"
           class="net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder">
-        <constructor-arg value="#{projectPath+'/snmptoolkit/mibs'}"/>
+        <constructor-arg value="#{systemProperties['base.dir']+'/snmptoolkit/mibs'}"/>
         <constructor-arg value="true"/>
     </bean>
 

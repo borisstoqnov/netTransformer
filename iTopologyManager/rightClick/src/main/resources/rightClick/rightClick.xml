@@ -61,4 +61,12 @@
     <bean id="resourceResolver" class="net.itransformers.topologyviewer.rightclick.impl.ResourceResolver">
         <constructor-arg name="resourceManager" ref="resourceManager"/>
     </bean>
+    <bean id="resourceManager" factory-bean="resourceManagerFactory" factory-method="createResourceManager">
+        <constructor-arg name="type" value="xml"/>
+        <constructor-arg name="properties">
+            <map>
+                <entry key="projectPath" value-ref="projectPath"/>
+            </map>
+        </constructor-arg>
+    </bean>
 </beans>
