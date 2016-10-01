@@ -70,6 +70,8 @@ public class NetDiscovererController implements ServletContextAware {
     @RequestMapping(value = "/{version}/discoverer", method=RequestMethod.POST)
     @ResponseBody
     public void createDiscoverer(@PathVariable String version) {
+        // TODO some xslt transformations depend on base.dir, fix this.
+        System.setProperty("base.dir",projectPath);
         Map<String, String> props = new HashMap<>();
         props.put("projectPath",projectPath);
         props.put("version",version);

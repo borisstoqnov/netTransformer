@@ -14,7 +14,13 @@ import java.util.Set;
  * Created by niau on 9/27/16.
  */
 public class DiscoveredNodesListUpdaterListener implements NodeDiscoveryListener {
-    String labelDirName;
+    protected String projectPath;
+    protected String labelDirName;
+
+    public DiscoveredNodesListUpdaterListener(String projectPath, String labelDirName) {
+        this.projectPath = projectPath;
+        this.labelDirName = labelDirName;
+    }
 
     @Override
     public void nodeDiscovered(NodeDiscoveryResult discoveryResult) {
@@ -29,18 +35,9 @@ public class DiscoveredNodesListUpdaterListener implements NodeDiscoveryListener
     }
 
     public synchronized void updatelist(String nodeId, ConnectionDetails connectionDetails, Set<ConnectionDetails> ownConnectionDetails, Set<ConnectionDetails> neighbourConnectionDetails) throws IOException {
-
-            FileWriter writer = new FileWriter(new File(labelDirName, "nodes.lst"),true);
+        File parent = new File(projectPath, labelDirName);
+        FileWriter writer = new FileWriter(new File(parent, "nodes.lst"),true);
             writer.append(String.valueOf(nodeId)).append("\n");
             writer.close();
-
-    }
-
-    public String getLabelDirName() {
-        return labelDirName;
-    }
-
-    public void setLabelDirName(String labelDirName) {
-        this.labelDirName = labelDirName;
     }
 }

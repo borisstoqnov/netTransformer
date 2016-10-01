@@ -30,29 +30,29 @@ import java.io.File;
  */
 public class DirectoryVersionManager implements VersionManager{
 
-    private String networkFolderName;
-    private String versionLabel;
     private String projectPath;
 
 
-    public DirectoryVersionManager(String networkFolderName, String versionLabel, String projectPath) {
-        this.networkFolderName = networkFolderName;
-        this.versionLabel = versionLabel;
-
+    DirectoryVersionManager(String projectPath) {
         this.projectPath = projectPath;
     }
 
     @Override
     public String createVersion() {
+        final String versionLabel = "version";
         if (projectPath == null){
             throw new IllegalArgumentException("Parameter ProjectPath is not specified");
         }
-        File file = new File(projectPath, networkFolderName);
+        File file = new File(projectPath);
         if (!file.exists() || !file.isDirectory()){
             throw new IllegalArgumentException("The network folder is not a valid directory: "+file);
         }
         String[] fileList = file.list();
+        if (fileList == null){
+            throw new IllegalArgumentException("Can not list the dir: "+file);
+        }
         int max = 0;
+
         for (String fName : fileList) {
             if (fName.matches(versionLabel + "\\d+")) {
                 int curr = Integer.parseInt(fName.substring(versionLabel.length()));

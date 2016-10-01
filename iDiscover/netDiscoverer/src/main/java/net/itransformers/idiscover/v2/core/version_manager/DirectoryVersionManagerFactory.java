@@ -12,6 +12,6 @@ public class DirectoryVersionManagerFactory implements VersionManagerFactory{
     @Override
     public VersionManager createVersionManager(String type, Map<String, String> properties) {
         String projectPath = properties.get("projectPath");
-        return new DirectoryVersionManager("network", "version", projectPath);
+        return new DirectoryVersionManager(projectPath);
     }
 }

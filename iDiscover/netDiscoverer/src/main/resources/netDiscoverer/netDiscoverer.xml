@@ -170,7 +170,8 @@
 
     <bean id="discoveredNodesListUpdaterListener"
           class="net.itransformers.idiscover.v2.core.listeners.node.DiscoveredNodesListUpdaterListener">
-        <property name="labelDirName" ref="labelDirName"/>
+        <constructor-arg name="projectPath" ref="projectPath"/>
+        <constructor-arg name="labelDirName" ref="labelDirName"/>
     </bean>
     <bean id="deviceDataFileLogDiscoveryListener"
           class="net.itransformers.idiscover.v2.core.listeners.node.DeviceDataFileLogDiscoveryListener">
