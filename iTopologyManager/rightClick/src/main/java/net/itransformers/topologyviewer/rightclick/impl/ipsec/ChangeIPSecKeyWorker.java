@@ -32,80 +32,81 @@ public class ChangeIPSecKeyWorker extends SwingWorker<String, Void> {
     @Override
     protected String doInBackground() throws Exception {
 
-        int pairCounter =0;
+        int pairCounter = 0;
 
-        for(IPsecPair pair : ipsecpair){
+        for (IPsecPair pair : ipsecpair) {
 
-            if(pair != null){
+            if (pair != null) {
                 pairCounter++;
             }
         }
-        //If we have already done this continue
-        if(userInput != null && userInput.size() != pairCounter) {
+
+        if (userInput != null && userInput.size() != pairCounter) {
             return "Something happened";
         }
 
         String ipseckeyFilename = "";
         String oldkey = "";
-        int counter=0;
-        String message="";
+        int counter = 0;
 
+        String message = "";
+        int numberofpairs = getLenghtWithoutNulls(ipsecpair);
         int progress = 0;
-        int progressStep = 100 / getLenghtWithoutNulls(ipsecpair);
+        int progressStep = 100 / numberofpairs;
         setProgress(1);
+        while (counter < numberofpairs)
+        {
+            for (IPsecPair pair : ipsecpair) {
 
-        for (IPsecPair pair : ipsecpair) {
+                if (pair != null) {
+                    ipseckeyFilename = pair.getRouterName() + pair.getRouterIP() + pair.getNeighbourName() + pair.getNeighbourIP();
 
-            if (pair!=null) {
-                ipseckeyFilename = pair.getRouterName() + pair.getRouterIP() + pair.getNeighbourName() + pair.getNeighbourIP();
+                    //Generate key and file
+                    if (userInput != null) {
+                        oldkey = userInput.get(counter);
+                    } else {
+                        oldkey = KeyFromFile(ipseckeyFilename);
+                    }
+                    KeyGenerator(ipseckeyFilename);
 
-                //Generate key and file
-                if (userInput != null) {
-                    oldkey = userInput.get(counter);
+                    Logger.getAnonymousLogger().log(Level.INFO, "Initialising cli" + Thread.currentThread().getName());
+                    CLIInterface cli;
+                    cli = new TelnetCLIInterface(pair.getRouterIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
+                    //Change IP sec key for first router
+                    Map<String, String> paramsfirst = generateConfigMap(pair, oldkey, ipseckeyFilename);
+
+                    progressMonitor.setNote("working on pair: " + pair.getNeighbourName() + ", " + pair.getRouterName() + ".");
+                    Thread.sleep(2000);
+                    progress += progressStep -1;
+                    setProgress(progress);
+                    Thread.sleep(2000);
+                    TestFulfilmentImpl telnetTorouter = new TestFulfilmentImpl(cli);
+
+                    cli.open();
+                    telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ", paramsfirst);
+                    cli.close();
+
+                    Map<String, String> paramssecond = generateConfigMap(pair, oldkey, ipseckeyFilename);
+                    //Change IP sec key for second router
+                    cli = new TelnetCLIInterface(pair.getNeighbourIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
+
+                    cli.open();
+                    telnetTorouter = new TestFulfilmentImpl(cli);
+                    telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ", paramssecond);
+                    cli.close();
+
+                    counter++;
+
+
+                } else if (counter > 0) {
+                    message = "Key change completed";
                 } else {
-                    oldkey = KeyFromFile(ipseckeyFilename);
+                    message = "Pair is null";
                 }
-                KeyGenerator(ipseckeyFilename);
-
-                Logger.getAnonymousLogger().log(Level.INFO, "Initialising cli" + Thread.currentThread().getName());
-                CLIInterface cli;
-                cli = new TelnetCLIInterface(pair.getRouterIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
-                //Change IP sec key for first router
-                Map<String, String> paramsfirst = generateConfigMap(pair, oldkey, ipseckeyFilename);
-
-                progress += progressStep;
-                setProgress(progress);
-                System.out.println("progress is " + progress + " step is " + progressStep);
-                progressMonitor.setNote("working on pair: " + pair.getNeighbourName() + ", " + pair.getRouterName() + ".");
-                TestFulfilmentImpl telnetTorouter = new TestFulfilmentImpl(cli);
-
-                cli.open();
-                telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ", paramsfirst);
-                cli.close();
-
-                Map<String, String> paramssecond = generateConfigMap(pair, oldkey, ipseckeyFilename);
-                //Change IP sec key for second router
-                cli = new TelnetCLIInterface(pair.getNeighbourIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
-
-                cli.open();
-                telnetTorouter = new TestFulfilmentImpl(cli);
-                telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ", paramssecond);
-                cli.close();
-
-
-                counter++;
-
             }
-            else if (counter > 0)
-            {
-                message = "Key change completed";
-            }
-            else {
-                message = "Pair is null";
-            }
-        }
-
+    }
         if (isCancelled()) return null;
+        setProgress(100);
         return message;
     }
 

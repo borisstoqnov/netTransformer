@@ -19,24 +19,25 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
 
     ChangeIPSecKeyWorker worker;
     private ProgressMonitor progressMonitor;
+    List<String> userInput = null;
 
     @Override
     protected String performIPSecAction(IPsecPair[] ipsecpair) throws IOException {
-        //If this is first run we want to save the old key before generating new ones
+
         String userAnswer = getUserAnswer();
-        if((userAnswer == "Yes") || (userAnswer == "No")) {
-            List<String> userInput = firstTimeConfigurationCheck(ipsecpair);
-
-            progressMonitor = new ProgressMonitor(this, "Running routers", "", 0, 100);
-
-            progressMonitor.setMillisToPopup(0);
-            worker = new ChangeIPSecKeyWorker(ipsecpair, progressMonitor, userInput);
-            worker.addPropertyChangeListener(this);
-            worker.execute();
-        }else if(userAnswer =="Cancel")
-        {
-            return "";
+        if(userAnswer == "Yes") {
+            userInput = firstTimeConfigurationCheck(ipsecpair);
         }
+        else if(userAnswer == "Cancel"){
+            return"";
+        }
+
+        progressMonitor = new ProgressMonitor(this, "Running routers", "", 0, 100);
+
+        progressMonitor.setMillisToPopup(0);
+        worker = new ChangeIPSecKeyWorker(ipsecpair, progressMonitor, userInput);
+        worker.addPropertyChangeListener(this);
+        worker.execute();
         return "";
 
     }
@@ -74,8 +75,6 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
     }
 
     private List<String> firstTimeConfigurationCheck(IPsecPair[] ipsecpair) {
-
-        java.util.List<String> userInput = null;
 
             userInput = new ArrayList<>();
             for(int i = 0; i < ipsecpair.length; i++)
