@@ -23,21 +23,20 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
     @Override
     protected String performIPSecAction(IPsecPair[] ipsecpair) throws IOException {
         //If this is first run we want to save the old key before generating new ones
-        List<String> userInput = firstTimeConfigurationCheck(ipsecpair);
-        if(userInput == null)
-            {
+        String userAnswer = getUserAnswer();
+        if((userAnswer == "Yes") || (userAnswer == "No")) {
+            List<String> userInput = firstTimeConfigurationCheck(ipsecpair);
 
-                return"";
-            }
-            else
-            {
-                progressMonitor = new ProgressMonitor(this, "Running routers", "", 0, 100);
+            progressMonitor = new ProgressMonitor(this, "Running routers", "", 0, 100);
 
-                progressMonitor.setMillisToPopup(0);
-                worker = new ChangeIPSecKeyWorker(ipsecpair, progressMonitor, userInput);
-                worker.addPropertyChangeListener(this);
-                worker.execute();
-            }
+            progressMonitor.setMillisToPopup(0);
+            worker = new ChangeIPSecKeyWorker(ipsecpair, progressMonitor, userInput);
+            worker.addPropertyChangeListener(this);
+            worker.execute();
+        }else if(userAnswer =="Cancel")
+        {
+            return "";
+        }
         return "";
 
     }
@@ -59,15 +58,24 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
         frame.getContentPane().add("Center",text);
         frame.setVisible(true);
     }
-
+    private String getUserAnswer(){
+        String userAnswer = "";
+        int reply = JOptionPane.showConfirmDialog(null, "First time configurtion?", "Close?",  JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            userAnswer = "Yes";
+        }
+        if (reply == JOptionPane.NO_OPTION) {
+            userAnswer = "No";
+        }
+        if (reply == JOptionPane.CANCEL_OPTION) {
+            userAnswer = "Cancel";
+        }
+        return userAnswer;
+    }
 
     private List<String> firstTimeConfigurationCheck(IPsecPair[] ipsecpair) {
 
-        int reply = JOptionPane.showConfirmDialog(null, "First time configurtion?", "Close?",  JOptionPane.YES_NO_OPTION);
-
         java.util.List<String> userInput = null;
-
-        if (reply == JOptionPane.YES_OPTION) {
 
             userInput = new ArrayList<>();
             for(int i = 0; i < ipsecpair.length; i++)
@@ -92,9 +100,6 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
                     userInput.add(new String(p.getPassword()));
                 }
             }
-        } else if (reply == JOptionPane.CLOSED_OPTION){
-            userInput = null;
-        }
 
         return userInput;
     }
