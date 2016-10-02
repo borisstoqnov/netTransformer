@@ -43,7 +43,7 @@
     </bean>
     <bean id="cliReportViewer" class="net.itransformers.topologyviewer.rightclick.impl.CLIReportViewer">
     </bean>
-    <bean id="neighbourFinderByMethod" class="net.itransformers.topologyviewer.rightclick.impl.ipsec.NeighbourFinderByMethod">
+    <bean id="NeighbourFinderByMethod" class="net.itransformers.topologyviewer.rightclick.impl.ipsec.NeighbourFinderByMethod">
     </bean>
 
     <!--<bean id="neighbourFinderByMethod" class="net.itransformers.topologyviewer.rightclick.impl.ipsec.NeighbourFinderByMethod">-->
