@@ -24,15 +24,22 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
     protected String performIPSecAction(IPsecPair[] ipsecpair) throws IOException {
         //If this is first run we want to save the old key before generating new ones
         List<String> userInput = firstTimeConfigurationCheck(ipsecpair);
+        if(userInput == null)
+            {
 
-        progressMonitor = new ProgressMonitor(this, "Running routers", "", 0, 100);
+                return"";
+            }
+            else
+            {
+                progressMonitor = new ProgressMonitor(this, "Running routers", "", 0, 100);
 
-        progressMonitor.setMillisToPopup(0);
-        worker = new ChangeIPSecKeyWorker(ipsecpair, progressMonitor, userInput);
-        worker.addPropertyChangeListener(this);
-        worker.execute();
-
+                progressMonitor.setMillisToPopup(0);
+                worker = new ChangeIPSecKeyWorker(ipsecpair, progressMonitor, userInput);
+                worker.addPropertyChangeListener(this);
+                worker.execute();
+            }
         return "";
+
     }
 
     private void printMessageToScreen(String message) {
@@ -85,6 +92,8 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
                     userInput.add(new String(p.getPassword()));
                 }
             }
+        } else if (reply == JOptionPane.CLOSED_OPTION){
+            userInput = null;
         }
 
         return userInput;

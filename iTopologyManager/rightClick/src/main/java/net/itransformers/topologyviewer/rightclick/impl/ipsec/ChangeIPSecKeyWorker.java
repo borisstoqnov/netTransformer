@@ -60,7 +60,7 @@ public class ChangeIPSecKeyWorker extends SwingWorker<String, Void> {
                 ipseckeyFilename = pair.getRouterName() + pair.getRouterIP() + pair.getNeighbourName() + pair.getNeighbourIP();
 
                 //Generate key and file
-                if(userInput != null){
+                if (userInput != null) {
                     oldkey = userInput.get(counter);
                 } else {
                     oldkey = KeyFromFile(ipseckeyFilename);
@@ -75,29 +75,22 @@ public class ChangeIPSecKeyWorker extends SwingWorker<String, Void> {
 
                 progress += progressStep;
                 setProgress(progress);
-                System.out.println("progress is " + progress +  " step is " + progressStep);
+                System.out.println("progress is " + progress + " step is " + progressStep);
                 progressMonitor.setNote("working on pair: " + pair.getNeighbourName() + ", " + pair.getRouterName() + ".");
                 TestFulfilmentImpl telnetTorouter = new TestFulfilmentImpl(cli);
-                try {
-                    cli.open();
-                    telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ", paramsfirst);
-                    cli.close();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+
+                cli.open();
+                telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ", paramsfirst);
+                cli.close();
 
                 Map<String, String> paramssecond = generateConfigMap(pair, oldkey, ipseckeyFilename);
                 //Change IP sec key for second router
                 cli = new TelnetCLIInterface(pair.getNeighbourIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
 
-                try {
-                    cli.open();
-                    telnetTorouter = new TestFulfilmentImpl(cli);
-                    telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ", paramssecond);
-                    cli.close();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                cli.open();
+                telnetTorouter = new TestFulfilmentImpl(cli);
+                telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ", paramssecond);
+                cli.close();
 
 
                 counter++;
