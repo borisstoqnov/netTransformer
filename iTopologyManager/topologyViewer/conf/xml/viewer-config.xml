@@ -912,7 +912,6 @@
         <submenu name="NeighborFinder">
             <rightClickItem name="Neighbor Finder" handlerClass="neighbourFinderByMethod">
                 <param name="Discovery Method">IPSEC</param>
-
             </rightClickItem>
             <rightClickItem name="Change IPsec key" handlerClass="changeIPSecKeyHandler">
                 <param name="Discovery Method">IPSEC</param>

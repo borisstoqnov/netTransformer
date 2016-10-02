@@ -15,8 +15,6 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
-    boolean whichrouter=false;
-    //We need the neighbours before connecting to them
 
 
     ChangeIPSecKeyWorker worker;
@@ -30,7 +28,7 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
         progressMonitor = new ProgressMonitor(this, "Running routers", "", 0, 100);
 
         progressMonitor.setMillisToPopup(0);
-        worker = new ChangeIPSecKeyWorker(ipsecpair, progressMonitor,userInput);
+        worker = new ChangeIPSecKeyWorker(ipsecpair, progressMonitor, userInput);
         worker.addPropertyChangeListener(this);
         worker.execute();
 
