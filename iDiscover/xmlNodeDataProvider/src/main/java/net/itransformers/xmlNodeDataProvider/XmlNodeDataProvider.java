@@ -145,6 +145,9 @@ public class XmlNodeDataProvider implements DiscoveryResult {
             if (graphmlFile.exists()){
 
                 Graph graph = loadGraphmlInTinkerGraph(graphmlFile.getAbsolutePath());
+                if (graph.getFeatures().supportsVertexIndex && graph instanceof KeyIndexableGraph) {
+                    ((KeyIndexableGraph) graph).createKeyIndex("name", Vertex.class);
+                }
                 GraphQuery result = graph.query().has(nodeId);
 
                 for (Vertex vertex : result.vertices()) {
