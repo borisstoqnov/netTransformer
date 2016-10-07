@@ -56,8 +56,8 @@ public class ConnectionDetailsController implements ServletContextAware {
 
     @RequestMapping(value = "/", method=RequestMethod.POST)
     @ResponseBody
-    public void createConnection(@RequestBody String name, @RequestBody ConnectionDetails connectionDetails){
-        getConnectionDetailsManager().createConnection(name,connectionDetails);
+    public void createConnection(@RequestBody String name){
+        getConnectionDetailsManager().createConnection(name, null);
     }
     @RequestMapping(value = "/{connectionDetailsName}", method=RequestMethod.GET)
     @ResponseBody
