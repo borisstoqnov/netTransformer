@@ -180,7 +180,7 @@ public class SnmpSequentialNodeDiscoverer extends SnmpNodeDiscoverer implements 
 
 
         List<DeviceNeighbour> neighbours = device.getDeviceNeighbours();
-        List<Subnet> subnets = device.getDeviceSubnets();
+        Set<Subnet> subnets = device.getDeviceSubnets();
         Set<ConnectionDetails> neighboursConnDetails = null;
         if (neighbours != null) {
 
@@ -192,7 +192,8 @@ public class SnmpSequentialNodeDiscoverer extends SnmpNodeDiscoverer implements 
         Set<ConnectionDetails> subnetConnectionDetails=null;
 
        if (subnets!=null){
-           SubnetConnectionDetails subnetConnectionDetailsCreator = new SubnetConnectionDetails(subnets);
+           SubnetConnectionDetails subnetConnectionDetailsCreator = new SubnetConnectionDetails();
+           subnetConnectionDetailsCreator.load(subnets);
            neighboursConnDetails.addAll(subnetConnectionDetails);
 
        }

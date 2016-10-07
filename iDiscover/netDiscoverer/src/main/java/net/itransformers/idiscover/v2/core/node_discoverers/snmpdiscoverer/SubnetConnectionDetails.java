@@ -5,7 +5,6 @@ import net.itransformers.connectiondetails.connectiondetailsapi.IPNetConnectionD
 import net.itransformers.idiscover.core.Subnet;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,11 +14,15 @@ public class SubnetConnectionDetails {
 
     Set<ConnectionDetails> subnetConnectionDetails;
 
+    public SubnetConnectionDetails(){
+        subnetConnectionDetails = new HashSet<>();
+    }
+
     public SubnetConnectionDetails(Set<ConnectionDetails> subnetConnectionDetails) {
         this.subnetConnectionDetails = subnetConnectionDetails;
     }
 
-    public SubnetConnectionDetails(List<Subnet> subnets) {
+    public void load(Set<Subnet> subnets) {
        this.subnetConnectionDetails = createSubnetConnectionDetails(subnets);
     }
 
@@ -27,7 +30,7 @@ public class SubnetConnectionDetails {
         return subnetConnectionDetails;
     }
 
-    private Set<ConnectionDetails> createSubnetConnectionDetails(List<Subnet> subnets) {
+    private Set<ConnectionDetails> createSubnetConnectionDetails(Set<Subnet> subnets) {
         Set<ConnectionDetails> subnetConnectionDetails = new HashSet<ConnectionDetails>();
 
         for (Subnet subnet : subnets) {

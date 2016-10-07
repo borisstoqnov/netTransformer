@@ -113,7 +113,8 @@ public class XmlDiscoveryHelperV2 {
 
         for (ObjectType type : objList2) {
             if (type.getObjectType().equals("Discovered Neighbor")) {
-                neighbours.add(createNeighbour(objectType));
+                neighbours.add(createNeighbour(type));
+                System.out.println("hoi");
             } else {
                 logger.info("Unrecognized logicalData object type " + type.getObjectType());
             }

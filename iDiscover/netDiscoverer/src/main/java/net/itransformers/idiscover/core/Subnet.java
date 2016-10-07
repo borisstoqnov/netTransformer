@@ -134,6 +134,25 @@ public class Subnet {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Subnet subnet = (Subnet) o;
+
+        if (!ipAddress.equals(subnet.ipAddress)) return false;
+        return subnetMask.equals(subnet.subnetMask);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = ipAddress.hashCode();
+        result = 31 * result + subnetMask.hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Subnet{" +
                 "name='" + name + '\'' +

@@ -115,7 +115,7 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
             discoveredDevice.setParams(deviceParams);
 
             List<DeviceNeighbour> neighbours = discoveredDevice.getDeviceNeighbours();
-            List<Subnet> subnets = discoveredDevice.getDeviceSubnetsFromActiveInterfaces();
+            Set<Subnet> subnets = discoveredDevice.getDeviceSubnetsFromActiveInterfaces();
             Set<ConnectionDetails> ownConnectionDetails = discoveredDevice.getDeviceOwnConnectionDetails();
             Set<ConnectionDetails> neighboursConnDetails = new HashSet<ConnectionDetails>();
 
@@ -125,7 +125,8 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
             }
 
             if (subnets != null) {
-                SubnetConnectionDetails subnetConnectionDetails1 = new SubnetConnectionDetails(subnets);
+                SubnetConnectionDetails subnetConnectionDetails1 = new SubnetConnectionDetails();
+                subnetConnectionDetails1.load(subnets);
                 neighboursConnDetails.addAll(subnetConnectionDetails1.getSubnetConnectionDetails());
             }
 

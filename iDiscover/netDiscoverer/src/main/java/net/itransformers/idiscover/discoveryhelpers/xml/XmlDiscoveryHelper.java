@@ -81,7 +81,7 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
     public Device createDevice(DiscoveredDeviceData discoveredDeviceData) {
         Device device = new Device(discoveredDeviceData.getName());
         List<DeviceNeighbour> deviceNeighbours = createDeviceNeighbours(discoveredDeviceData);
-        List<Subnet> deviceSubnets = createDeviceSubnets(discoveredDeviceData);
+        Set<Subnet> deviceSubnets = createDeviceSubnets(discoveredDeviceData);
         List<MacAddress> deviceMacAddresses = createDeviceMacAddreses(discoveredDeviceData);
         device.setDeviceNeighbours(deviceNeighbours);
         device.setDeviceSubnets(deviceSubnets);
@@ -117,11 +117,11 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
 
     }
 
-    private List<Subnet> createDeviceSubnets(DiscoveredDeviceData discoveredDeviceData) {
+    private Set<Subnet> createDeviceSubnets(DiscoveredDeviceData discoveredDeviceData) {
 
         List<ObjectType> objList1 = discoveredDeviceData.getObject();
 
-        List<Subnet> result = new ArrayList<Subnet>();
+        Set<Subnet> result = new HashSet<>();
         for (ObjectType objectType1 : objList1) {
             String objectType = objectType1.getObjectType();
 

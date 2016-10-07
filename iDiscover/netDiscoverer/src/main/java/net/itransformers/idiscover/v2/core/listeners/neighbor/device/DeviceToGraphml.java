@@ -4,20 +4,18 @@ import net.itransformers.idiscover.api.models.graphml.GraphmlEdge;
 import net.itransformers.idiscover.api.models.graphml.GraphmlEdgeData;
 import net.itransformers.idiscover.api.models.graphml.GraphmlNode;
 import net.itransformers.idiscover.api.models.graphml.GraphmlNodeData;
+import net.itransformers.idiscover.api.models.network.Node;
 import net.itransformers.idiscover.core.Subnet;
 import net.itransformers.idiscover.networkmodelv2.DeviceNeighbour;
 import net.itransformers.idiscover.networkmodelv2.DiscoveredDevice;
 import net.itransformers.idiscover.networkmodelv2.DiscoveredInterface;
 import net.itransformers.idiscover.v2.core.listeners.neighbor.EdgeIdGenerator;
-import net.itransformers.idiscover.api.models.network.Node;
 import org.apache.log4j.Logger;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by niau on 9/2/16.
@@ -35,9 +33,9 @@ public class DeviceToGraphml {
 
 
     public List<GraphmlNode> getSubnetNodes(){
-        List<Subnet> subnetList =  device.getDeviceSubnetsFromActiveInterfaces();
+        Set<Subnet> subnetSet =  device.getDeviceSubnetsFromActiveInterfaces();
         List<GraphmlNode> graphmlSubnetNodes     = new ArrayList<>();
-        for (Subnet subnet : subnetList) {
+        for (Subnet subnet : subnetSet) {
             GraphmlNode subnetNode = new GraphmlNode();
             subnetNode.setId(subnet.getName());
             subnetNode.setLabel(subnet.getName());
@@ -83,8 +81,8 @@ public class DeviceToGraphml {
     public List<GraphmlEdge> getSubnetEdgesToMainNode(){
         List <GraphmlEdge> graphmlEdges = new ArrayList<>();
 
-        List<Subnet> subnetList =  device.getDeviceSubnetsFromActiveInterfaces();
-        for (Subnet subnet : subnetList) {
+        Set<Subnet> subnetSet =  device.getDeviceSubnetsFromActiveInterfaces();
+        for (Subnet subnet : subnetSet) {
             //TODO this has to create edges with id from the local ip address and the subnet.
             EdgeIdGenerator edgeIdGenerator = new EdgeIdGenerator(device.getName(), subnet.getName(),device.getName(), subnet.getName());
 
@@ -101,11 +99,11 @@ public class DeviceToGraphml {
     public List<GraphmlEdge> getEdgesToNeighbours(){
         List <GraphmlEdge> graphmlEdges = new ArrayList<>();
 
-        List<Subnet> subnetList =  device.getDeviceSubnetsFromActiveInterfaces();
+        Set<Subnet> subnetSet =  device.getDeviceSubnetsFromActiveInterfaces();
         //List<DeviceNeighbour> deviceNeighbours = device.getDeviceNeighbours();
 
 
-        for (DiscoveredInterface devInterface : device.getInterfaceList()){
+        for (DiscoveredInterface devInterface : device.getInterfaceList()) {
             String localMac = devInterface.getParams().get("ifPhysAddress");
 
 
@@ -121,13 +119,97 @@ public class DeviceToGraphml {
 
                 String neighbourId = getNeighbourIdFromAliases(neighbourHostName, neighbourIpAddress, neighbourMac);
 
+                if (neighbourId == null)
+                    continue;
+
+                boolean neighbourInSubnet = false;
+
+                if (neighbourIpAddress != null && !neighbourIpAddress.isEmpty()) {
+                    for (Subnet subnet : subnetSet) {
+                        if (subnet.contains(neighbourIpAddress)) {
+                            EdgeIdGenerator edgeIdGenerator = new EdgeIdGenerator(neighbourId, subnet.getName(), neighbourIpAddress, subnet.getIpAddress());
+
+                            GraphmlEdge graphmlEdge = edgeIdGenerator.createEdge();
+                            graphmlEdge.setGraphmlEdgeDataList(getGraphmlDirectNeighbourEdgeMetaData(deviceNeighbour));
+
+                            boolean edgeAlreadyDefined = false;
+                            for (GraphmlEdge edge : graphmlEdges) {
+                                if (edge.getId().equals(graphmlEdge.getId())) {
+                                    edgeAlreadyDefined = true;
+                                    int index = graphmlEdges.indexOf(edge);
+                                    logger.info(graphmlEdge + "already exists");
+
+
+                                    List<GraphmlEdgeData> existingGraphmlEdgeDatas = edge.getGraphmlEdgeDataList();
+                                    List<GraphmlEdgeData> newGraphmlEdgeDatas = graphmlEdge.getGraphmlEdgeDataList();
+                                    edge.setGraphmlEdgeDataList(new ArrayList<>(combineEdgeMetaDatas(existingGraphmlEdgeDatas, newGraphmlEdgeDatas)));
+
+
+                                    graphmlEdges.set(index, edge);
+
+                                }
+                            }
+                            if (!edgeAlreadyDefined) {
+                                graphmlEdges.add(graphmlEdge);
+                            }
+
+
+                            neighbourInSubnet = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!neighbourInSubnet) {
+                    EdgeIdGenerator edgeIdGenerator = new EdgeIdGenerator(neighbourId, node.getId(), neighbourId, node.getId(), localMac, neighbourMac);
+
+                    GraphmlEdge graphmlEdge = edgeIdGenerator.createEdge();
+                    graphmlEdge.setGraphmlEdgeDataList(getGraphmlDirectNeighbourEdgeMetaData(deviceNeighbour));
+
+                    boolean edgeAlreadyDefined = false;
+                    for (GraphmlEdge edge : graphmlEdges) {
+                        if (edge.getId().equals(graphmlEdge.getId())) {
+                            edgeAlreadyDefined = true;
+                            int index = graphmlEdges.indexOf(edge);
+                            logger.info(graphmlEdge + "already exists");
+
+
+                            List<GraphmlEdgeData> existingGraphmlEdgeDatas = edge.getGraphmlEdgeDataList();
+                            List<GraphmlEdgeData> newGraphmlEdgeDatas = graphmlEdge.getGraphmlEdgeDataList();
+
+
+                            edge.setGraphmlEdgeDataList(new ArrayList<>(combineEdgeMetaDatas(existingGraphmlEdgeDatas, newGraphmlEdgeDatas)));
+
+                            graphmlEdges.set(index, edge);
+
+                        }
+                    }
+                    if (!edgeAlreadyDefined) {
+                        graphmlEdges.add(graphmlEdge);
+                    }
+
+                }
+
+            }
+        }
+            //Handle logicalDataNeighbours
+
+            for (DeviceNeighbour deviceNeighbour : device.getLogicalDeviceData().getDeviceNeighbourList()) {
+
+                String neighbourIpAddress = deviceNeighbour.getNeighbourIpAddress();
+                String neighbourHostName = deviceNeighbour.getNeighbourHostName();
+                String neighbourMac = deviceNeighbour.getNeighbourMac();
+
+                String neighbourId = getNeighbourIdFromAliases(neighbourHostName, neighbourIpAddress, neighbourMac);
+
                 if (neighbourId==null)
                     continue;
 
                 boolean neighbourInSubnet = false;
 
+
                 if(neighbourIpAddress!=null&& !neighbourIpAddress.isEmpty()) {
-                    for (Subnet subnet : subnetList) {
+                    for (Subnet subnet : subnetSet) {
                         if (subnet.contains(neighbourIpAddress)) {
                             EdgeIdGenerator edgeIdGenerator = new EdgeIdGenerator(neighbourId, subnet.getName(),neighbourIpAddress,subnet.getIpAddress());
 
@@ -141,13 +223,10 @@ public class DeviceToGraphml {
                                     int index = graphmlEdges.indexOf(edge);
                                     logger.info (graphmlEdge +"already exists" );
 
-
                                     List <GraphmlEdgeData> existingGraphmlEdgeDatas = edge.getGraphmlEdgeDataList();
                                     List <GraphmlEdgeData> newGraphmlEdgeDatas = graphmlEdge.getGraphmlEdgeDataList();
 
-                                    existingGraphmlEdgeDatas.addAll(newGraphmlEdgeDatas);
-
-                                    edge.setGraphmlEdgeDataList(existingGraphmlEdgeDatas);
+                                    edge.setGraphmlEdgeDataList(new ArrayList<>(combineEdgeMetaDatas(existingGraphmlEdgeDatas,newGraphmlEdgeDatas)));
 
                                     graphmlEdges.set(index,edge);
 
@@ -166,66 +245,96 @@ public class DeviceToGraphml {
                 }
 
                 if (!neighbourInSubnet){
-                    EdgeIdGenerator edgeIdGenerator = new EdgeIdGenerator(neighbourId, node.getId(),neighbourId,node.getId(),localMac,neighbourMac);
 
+                    EdgeIdGenerator edgeIdGenerator = new EdgeIdGenerator(neighbourId, node.getId(),neighbourId,node.getId());
                     GraphmlEdge graphmlEdge = edgeIdGenerator.createEdge();
                     graphmlEdge.setGraphmlEdgeDataList(getGraphmlDirectNeighbourEdgeMetaData(deviceNeighbour));
 
                     boolean edgeAlreadyDefined = false;
-                    for (GraphmlEdge edge : graphmlEdges){
-                        if (edge.getId().equals(graphmlEdge.getId())){
+                    for (GraphmlEdge edge : graphmlEdges) {
+                        if (edge.getId().equals(graphmlEdge.getId())) {
                             edgeAlreadyDefined = true;
                             int index = graphmlEdges.indexOf(edge);
-                            logger.info (graphmlEdge +"already exists" );
-
-
-                            List <GraphmlEdgeData> existingGraphmlEdgeDatas = edge.getGraphmlEdgeDataList();
-                            List <GraphmlEdgeData> newGraphmlEdgeDatas = graphmlEdge.getGraphmlEdgeDataList();
-
-                            existingGraphmlEdgeDatas.addAll(newGraphmlEdgeDatas);
-
-                            edge.setGraphmlEdgeDataList(existingGraphmlEdgeDatas);
-
-                            graphmlEdges.set(index,edge);
+                            logger.info(graphmlEdge + "already exists");
+                            edge.setGraphmlEdgeDataList(new ArrayList<>(combineEdgeMetaDatas(edge.getGraphmlEdgeDataList(),graphmlEdge.getGraphmlEdgeDataList())));
+                            graphmlEdges.set(index, edge);
 
                         }
                     }
                     if (!edgeAlreadyDefined) {
                         graphmlEdges.add(graphmlEdge);
                     }
-
-
-                   // graphmlEdges.add(graphmlEdge);
                 }
-
-
             }
-            //TODO
-           //ь device.getLogicalDeviceData().getDeviceNeighbourList()
-
-
-
-//            for (DiscoveredIPv4Address discoveredIPv4Address : discoveredIPv4Addresses) {
-//                  if (!discoveredIPv4Address.isBogon()) {
-//
-//                      HashMap<String,String> params = discoveredIPv4Address.getParams();
-//                      String ipv4Subnet = params.get("ipv4Subnet");
-//                      String subnetPrefixMask = params.get("ipv4SubnetPrefix");
-//
-//                  }
-//            }
-
-
-
-        }
-
-
 
 
         return graphmlEdges;
 
     }
 
+    private ArrayList<GraphmlEdgeData> combineEdgeMetaDatas(List<GraphmlEdgeData> existingGraphmlEdgeDatas,List<GraphmlEdgeData> newGraphmlEdgeDatas) {
+
+        HashMap<String, String> combined = new HashMap<String, String>();
+
+        for (GraphmlEdgeData existingGraphmlEdgeData : existingGraphmlEdgeDatas) {
+            String key = existingGraphmlEdgeData.getKey();
+
+            String value = existingGraphmlEdgeData.getValue();
+            if (combined.get(key) == null) {
+                combined.put(key, value);
+
+            }
+        }
+
+        for (GraphmlEdgeData  newGraphmlEdgeData: newGraphmlEdgeDatas) {
+            String key = newGraphmlEdgeData.getKey();
+
+            String value =  newGraphmlEdgeData.getValue();
+
+            if (combined.get(key) == null) {
+                combined.put(key, value);
+            } else{
+                String oldValue = combined.get(key);
+
+                if (oldValue.equals(value))
+                    continue;
+
+                StringTokenizer oldValueTockens = new StringTokenizer(oldValue,",");
+
+                Set<String> combinedSet = new HashSet<>();
+
+                while(oldValueTockens.hasMoreTokens()){
+                    String token = oldValueTockens.nextToken();
+                    combinedSet.add(token);
+                }
+
+                StringTokenizer newValueTockens = new StringTokenizer(value,",");
+
+                while(newValueTockens.hasMoreTokens()){
+                    String token = newValueTockens.nextToken();
+                    combinedSet.add(token);
+                }
+
+                StringBuilder finalString = new StringBuilder();
+                for(String s: combinedSet){
+                    finalString.append(s).append(",");
+                }
+
+
+                if (!value.equals(oldValue))
+                     combined.put(newGraphmlEdgeData.getKey(),finalString.toString());
+             }
+            }
+
+
+        ArrayList<GraphmlEdgeData> finalDatas = new ArrayList<>();
+
+        for (Map.Entry<String,String> entry: combined.entrySet()){
+            finalDatas.add(new GraphmlEdgeData(entry.getKey(),entry.getValue()));
+        }
+
+        return finalDatas;
+    }
 
     private String getNeighbourIdFromAliases(String neighbourHostName,String neighbourIpAddress, String neighbourMac){
        String neighbourId;

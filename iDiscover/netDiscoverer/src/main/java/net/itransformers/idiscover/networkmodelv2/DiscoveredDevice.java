@@ -117,9 +117,9 @@ public class DiscoveredDevice {
 
     }
 
-    public List<Subnet> getDeviceSubnetsFromActiveInterfaces(){
+    public Set<Subnet> getDeviceSubnetsFromActiveInterfaces(){
 
-        List<Subnet> subnets = new ArrayList<>();
+        Set<Subnet> subnets = new HashSet<>();
 
         for(DiscoveredInterface discoveredInterface: interfaceList) {
 

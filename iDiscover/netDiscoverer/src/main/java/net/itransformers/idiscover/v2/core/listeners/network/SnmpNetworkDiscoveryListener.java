@@ -40,7 +40,6 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
     String labelDirName;
 
     String projectPath;
-    String networkDir = ProjectConstants.networkDirName;
 
     Map<String,String> vertexTypes ;
     Map<String,String> edgesTypes;
@@ -66,13 +65,6 @@ public class SnmpNetworkDiscoveryListener implements NetworkDiscoveryListener {
         return labelDirName;
     }
 
-    public String getNetworkDir() {
-        return networkDir;
-    }
-
-    public void setNetworkDir(String networkDir) {
-        this.networkDir = networkDir;
-    }
 
     public String getProjectPath() {
         return projectPath;

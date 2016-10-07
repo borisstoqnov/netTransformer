@@ -24,6 +24,8 @@
 package net.itransformers.idiscover.core;
 
 import java.util.List;
+import java.util.Set;
+
 /*
 * 
 */
@@ -32,7 +34,7 @@ public class Device {
     private String name;
     private String uniqueIdentifier;
     private List<DeviceNeighbour> deviceNeighbours;
-    private List<Subnet>  deviceSubnets;
+    private Set<Subnet> deviceSubnets;
     private List<MacAddress> deviceMacAddresses;
 
     public Device(String name) {
@@ -51,7 +53,7 @@ public class Device {
     public List<DeviceNeighbour> getDeviceNeighbours() {
         return deviceNeighbours;
     }
-    public List<Subnet> getDeviceSubnets() {
+    public Set<Subnet> getDeviceSubnets() {
         return deviceSubnets;
     }
 
@@ -60,7 +62,7 @@ public class Device {
         this.deviceNeighbours = deviceNeighbours;
     }
 
-    public void setDeviceSubnets(List<Subnet> deviceSubnets) {
+    public void setDeviceSubnets(Set<Subnet> deviceSubnets) {
         this.deviceSubnets = deviceSubnets;
     }
 
