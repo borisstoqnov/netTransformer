@@ -49,17 +49,28 @@ public class XsltReportCreator implements RightClickHandler {
 
         String path =  rightClickParams.get("path");
         String xmlSourcePath = null;
+        File deviceXmlFileDir;
+        File xmlSourceFile = null;
         if(rightClickParams.get("type").equals("deviceXml")){
             xmlSourcePath = versionDir.getAbsolutePath() + File.separator + path + File.separator + ProjectConstants.deviceDataPrefix + v + ".xml";
             String deviceXmlDir =  versionDir+File.separator+path;
-        }else {
-            xmlSourcePath = versionDir+File.separator+path+File.separator+"node-"+v+".graphml";
-            String graphmlDir =  versionDir + File.separator+path;
+            deviceXmlFileDir = new File(deviceXmlDir);
+            if (!deviceXmlFileDir.exists()){
+                JOptionPane.showMessageDialog(frame,"Could not find folder: "+deviceXmlDir,"Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            xmlSourceFile=new File(xmlSourcePath);
+            if (!xmlSourceFile.exists()){
+                JOptionPane.showMessageDialog(frame,"Could not find folder: "+xmlSourceFile,"Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
         }
+
+
         logger.info("XML source path: " + xmlSourcePath + " xsltFile: " + xsltFile + "xsltTableFile: " + xsltTableFile);
         if (!xsltTableFile.equals("")) {
-            XsltReport testReport = new XsltReport(new File(projectPath, xsltFile), new File(projectPath, xsltTableFile), new File(xmlSourcePath));
+            XsltReport testReport = new XsltReport(new File(projectPath, xsltFile), new File(projectPath, xsltTableFile), xmlSourceFile);
             try {
 
                 String report = testReport.doubleTransformer().toString();

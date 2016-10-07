@@ -37,7 +37,7 @@ public class ProjectConstants {
     public static final String freeGraphProjectType = "freeGraph";
 
 
-    public static final String networkDirName = "network";
+    public static final String networkDirName = ".";
     public static final String labelDirName = "version";
     public static final String deviceDataDirName = "device-hierarchical";
     public static final String rawDataDirName = "raw-data";

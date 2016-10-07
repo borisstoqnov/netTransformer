@@ -59,6 +59,7 @@ public class TopologyViewerLauncher {
             }
         }
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
+        System.setProperty("base.dir",new File(".").getAbsolutePath());
         ctx.load("classpath:rightClick/rightClick.xml");
         ctx.load("classpath:rightClickAPI/rightClickAPI.xml");
         ctx.load("classpath:xmlResourceManager/xmlResourceManagerFactory.xml");
