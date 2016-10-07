@@ -24,33 +24,32 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>net.itransformers.netTransformer</groupId>
+        <groupId>net.itransformers</groupId>
         <artifactId>iTopologyManager</artifactId>
         <version>0.8</version><!--Change for new version-->
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.itransformers.netTransformer.iTopologyManager</groupId>
     <artifactId>topologyViewer</artifactId>
     <version>0.8</version><!--Change for new version-->
     <dependencies>
         <dependency>
-            <groupId>net.itransformers.netTransformer.iTopologyManager</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>topologyManagerConfig</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
+            <groupId>net.itransformers</groupId>
+            <artifactId>iDiscoverAPI</artifactId>
+            <version>0.8</version><!--Change for new version-->
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
             <artifactId>bgpPeeringMap</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
-            <artifactId>iDiscover</artifactId>
-            <version>0.8</version><!--Change for new version-->
-        </dependency>
-        <dependency>
-            <groupId>net.itransformers.netTransformer.iTopologyManager</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>rightClickAPI</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
@@ -61,12 +60,12 @@
             <!--<scope>runtime</scope>-->
         <!--</dependency>-->
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>utils</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>resourceManagerAPI</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
@@ -138,30 +137,20 @@
             <version>2.1</version>
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer.connectiondetails</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>connectiondetailsapi</artifactId>
             <version>0.8</version>
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer.connectiondetails</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>csvConnectionDetails</artifactId>
             <version>0.8</version>
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
-            <artifactId>iDiscover</artifactId>
+            <groupId>net.itransformers</groupId>
+            <artifactId>netDiscoverer</artifactId>
             <version>0.8</version>
         </dependency>
-        <!--dependency>
-            <groupId>org.jfree</groupId>
-            <artifactId>jfreechart</artifactId>
-            <version>1.0.15</version>
-        </dependency-->
-        <!--<dependency>-->
-            <!--<groupId>org.eclipse.birt.runtime</groupId>-->
-            <!--<artifactId>org.eclipse.birt.runtime</artifactId>-->
-            <!--<version>4.2.2</version>-->
-        <!--</dependency>-->
 
     </dependencies>
 

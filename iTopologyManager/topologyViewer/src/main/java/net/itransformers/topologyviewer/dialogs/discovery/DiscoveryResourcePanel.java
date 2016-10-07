@@ -470,13 +470,13 @@ public class DiscoveryResourcePanel extends JPanel {
     public void save(File file) throws Exception{
         ResourcesType resources = this.getResources();
         FileOutputStream os = new FileOutputStream(file);
-        JaxbMarshalar.marshal(resources, os, "src/main/resources");
+        JaxbMarshalar.marshal(resources, os, "resourcesType");
     }
 
     public static void main(String[] args) throws IOException, JAXBException {
         FileInputStream is = null;
         try {
-            is = new FileInputStream("resourceManager/conf/xml/resource.xml");
+            is = new FileInputStream("iDiscover/resourceManager/conf/xml/resource.xml");
 
             ResourcesType resources = JaxbMarshalar.unmarshal(ResourcesType.class, is);
             final DiscoveryResourcePanel panel = new DiscoveryResourcePanel();

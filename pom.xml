@@ -37,9 +37,6 @@
 
     <!--http://mvnrepository.com/artifact/net.sf.jung-->
     <modules>
-        <module>resourceManager</module>
-        <!--module>snmptoolkit</module-->
-
         <module>utils</module>
         <module>bgpPeeringMap</module>
         <module>iDiscover</module>
@@ -49,8 +46,6 @@
         <module>wsitransformer</module>
         <module>postDiscoverer</module>
         <module>ideas</module>
-        <module>connectiondetails</module>
-        <module>iDiscoverAPI</module>
     </modules>
     <build>
         <pluginManagement>

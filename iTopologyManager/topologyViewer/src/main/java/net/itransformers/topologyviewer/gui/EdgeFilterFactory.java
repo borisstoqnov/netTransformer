@@ -68,9 +68,12 @@ public class EdgeFilterFactory {
                                 if (stringGraphMLMetadata == null) {
                                     logger.error("Can not find metadata for key: "+dataKey);
                                 }
+                                String value =null;
+                                if (stringGraphMLMetadata != null) {
+                                    final Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
+                                    value = transformer.transform(edge);
 
-                                final Transformer<String, String> transformer = stringGraphMLMetadata.transformer;
-                                String value = transformer.transform(edge);
+                                }
                                 if (value != null){
                                     String[] dataValues = value.split(",");
                                     String includeDataValue = include.getDataValue();

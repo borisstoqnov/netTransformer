@@ -25,7 +25,7 @@ public class Main {
 //
 //        ResourceManager resourceManager;
 //
-//        String xml = FileUtils.readFileToString(new File(projectDir, "/resourceManager/conf/xml/resource.xml"));
+//        String xml = FileUtils.readFileToString(new File(projectDir, "/iDiscover/resourceManager/conf/xml/resource.xml"));
 //
 //        InputStream is1 = new ByteArrayInputStream(xml.getBytes());
 //        ResourcesType deviceGroupsType = null;

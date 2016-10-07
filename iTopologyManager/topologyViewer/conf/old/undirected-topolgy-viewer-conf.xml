@@ -628,13 +628,13 @@
     </rightClickItem>
     <rightClickItem name="nodeActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
         <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
-        <param name="resource">resourceManager/conf/xml/resource.xml</param>
+        <param name="resource">iDiscover/resourceManager/conf/xml/resource.xml</param>
         <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
     </rightClickItem>
 
     <rightClickItem name="pathActivation" handlerClass="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
         <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
-        <param name="resource">resourceManager/conf/xml/resource.xml</param>
+        <param name="resource">iDiscover/resourceManager/conf/xml/resource.xml</param>
         <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
     </rightClickItem>
     <!--submenu name="IPv4toIPv6 Actication">

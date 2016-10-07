@@ -36,6 +36,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Node.Attributes }
+     * 
+     */
+    public Node.Attributes createNodeAttributes() {
+        return new Node.Attributes();
+    }
+
+    /**
      * Create an instance of {@link Exception }
      * 
      */
@@ -57,14 +65,6 @@ public class ObjectFactory {
      */
     public Node.Attributes.Entry createNodeAttributesEntry() {
         return new Node.Attributes.Entry();
-    }
-
-    /**
-     * Create an instance of {@link Node.Attributes }
-     * 
-     */
-    public Node.Attributes createNodeAttributes() {
-        return new Node.Attributes();
     }
 
     /**

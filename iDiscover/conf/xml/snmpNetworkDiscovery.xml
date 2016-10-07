@@ -132,6 +132,7 @@
                 <ref bean="sampleNodeDiscoveryListener"/>
                 <ref bean="rawDataFileLogDiscoveryListener"/>
                 <ref bean="deviceDataFileLogDiscoveryListener"/>
+                <ref bean="discoveredNodesListUpdaterListener"/>
                 <!--ref bean="ConnectionDetailsListener"/-->
 
                 <!--<ref bean="GraphmlFileLogDiscoveryListener"/>-->

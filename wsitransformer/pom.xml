@@ -48,23 +48,33 @@
             <version>2.5.0</version>
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer.connectiondetails</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>connectiondetailsapi</artifactId>
             <version>0.8</version>
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer.connectiondetails</groupId>
+            <groupId>net.itransformers</groupId>
+            <artifactId>xmlNodeDataProvider</artifactId>
+            <version>0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
             <artifactId>csvConnectionDetails</artifactId>
             <version>0.8</version>
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>resourceManagerAPI</artifactId>
             <version>0.8</version>
         </dependency>
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>xmlResourceManager</artifactId>
+            <version>0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>netDiscoverer</artifactId>
             <version>0.8</version>
         </dependency>
         <dependency>
@@ -140,8 +150,9 @@
                 <version>2.2</version>
                 <configuration>
                     <server>localhost</server>
+                    <port>8888</port>
                     <contextFile>${project.basedir}/src/main/webapp/META-INF/context.xml</contextFile>
-                    <url>http://localhost:8080/manager/text</url>
+                    <url>http://localhost:8888/manager/text</url>
                     <username>admin1</username>
                     <password>admin</password>
                     <path>/${project.name}</path>
