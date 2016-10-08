@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resources>
+    <resource name="cisco">
+    <param name="deviceType">CISCO</param>
+    <connection-params connection-type="telnet">
+        <param name="password">nbu</param>
+        <param name="enable-password">nbu</param>
+        <param name="timeout">3000</param>
+        <param name="retries">3</param>
+        <param name="destinationPort">23</param>
+    </connection-params>
+    </resource>
     <resource name="huawei">
         <param name="deviceType">HUAWEI</param>
         <connection-params connection-type="ssh">

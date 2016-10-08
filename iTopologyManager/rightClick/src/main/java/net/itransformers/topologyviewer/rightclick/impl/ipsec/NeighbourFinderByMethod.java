@@ -71,7 +71,7 @@ public class NeighbourFinderByMethod extends JPanel implements RightClickHandler
         for (String edge : outedges) {
 
             HashMap<String, String> edgeParamsMetadata = (HashMap<String, String>) viewerPanel.getEdgeParams(edge);
-            String discoveryMethod = edgeParamsMetadata.get("Discovery Method");
+            String discoveryMethod = edgeParamsMetadata.get("discoveryMethod");
 
             if (discoveryMethod != null && discoveryMethod.contains(method)) {
                 Pair pair = viewerPanel.getEdgeVertexes(edge);

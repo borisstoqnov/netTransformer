@@ -928,6 +928,10 @@
             <rightClickItem name="Change IPsec key" handlerClass="changeIPSecKeyHandler">
                 <param name="Discovery Method">IPSEC</param>
                 <param name="ipSecTemplatePath">iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ</param>
+                <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
+                <param name="resource">resourceManager/conf/xml/resource.xml</param>
+                <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
+                <param name="deviceXMlpath">device-hierarchical</param>
             </rightClickItem>
         </submenu>
         <submenu name="Network Activation">
