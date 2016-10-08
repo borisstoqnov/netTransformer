@@ -51,7 +51,7 @@ public class NeighbourFinderByMethod extends JPanel implements RightClickHandler
         frame.setVisible(true);
     }
 
-    @Override
+
     public void handleRightClick(JFrame parent, String v, Map graphMLParams, Map rightClickParams, File projectPath, File s)
             throws Exception, IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
 

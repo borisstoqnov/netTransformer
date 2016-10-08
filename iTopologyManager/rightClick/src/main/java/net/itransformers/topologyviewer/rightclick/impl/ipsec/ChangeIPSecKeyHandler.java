@@ -28,7 +28,7 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
         if(userAnswer == "Yes") {
             userInput = firstTimeConfigurationCheck(ipsecpair);
         }
-        else if(userAnswer == "Cancel"){
+        else if(userAnswer == ""){
             return"";
         }
 
