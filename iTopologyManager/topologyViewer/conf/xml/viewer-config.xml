@@ -923,10 +923,11 @@
         </submenu>
         <submenu name="NeighborFinder">
             <rightClickItem name="Neighbor Finder" handlerClass="neighbourFinderByMethod">
-                <param name="Discovery Method">IPSEC</param>
+                <param name="discoveryMethod">IPSEC</param>
+
             </rightClickItem>
             <rightClickItem name="Change IPsec key" handlerClass="changeIPSecKeyHandler">
-                <param name="Discovery Method">IPSEC</param>
+                <param name="discoveryMethod">IPSEC</param>
                 <param name="ipSecTemplatePath">iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ</param>
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
