@@ -95,6 +95,8 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
 
             //We got an Snmp Device
             GraphmlNodeData snmpStatus = new GraphmlNodeData("snmpStatus","REACHABLE");
+            GraphmlNodeData discoveredIPv4AddressNodeData = new GraphmlNodeData("discoveredIPv4Address",discoveredIPv4Address);
+            mainNodeGraphmlDatas.add(discoveredIPv4AddressNodeData);
             mainNodeGraphmlDatas.add(snmpStatus);
             List<GraphmlNodeData> snmpNodeData = getSnmpMainNode(discoveredDevice);
             mainNodeGraphmlDatas.addAll(snmpNodeData);

@@ -923,11 +923,11 @@
         </submenu>
         <submenu name="NeighborFinder">
             <rightClickItem name="Neighbor Finder" handlerClass="neighbourFinderByMethod">
-                <param name="Discovery Method">IPSEC</param>
+                <param name="discoveryMethod">IPSEC</param>
 
             </rightClickItem>
             <rightClickItem name="Change IPsec key" handlerClass="changeIPSecKeyHandler">
-                <param name="Discovery Method">IPSEC</param>
+                <param name="discoveryMethod">IPSEC</param>
                 <param name="ipSecTemplatePath">iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ</param>
             </rightClickItem>
         </submenu>
@@ -1019,8 +1019,4 @@
             <param name="action">resume</param>
         </rightClickItem>
     </submenu-->
-
-
-
-
 </topology-viewer-conf>
