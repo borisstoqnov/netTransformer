@@ -125,7 +125,7 @@ public class DiscoveryWizardDialog extends JDialog {
         prevButton.setEnabled(true);
         nextButton.setEnabled(true);
         if (contentPanel instanceof DiscoveryResourcePanel) {
-            File resourceFile = new File(projectPath, "resourceManager/conf/xml/resource.xml");
+            File resourceFile = new File(projectPath, "iDiscover/resourceManager/conf/xml/resource.xml");
             try {
                 ((DiscoveryResourcePanel) contentPanel).save(resourceFile);
             } catch (Exception e) {
@@ -166,7 +166,7 @@ public class DiscoveryWizardDialog extends JDialog {
         }
 
         final DiscoveryResourcePanel panel = new DiscoveryResourcePanel();
-        File resourceFile = new File(projectPath, "resourceManager/conf/xml/resource.xml");
+        File resourceFile = new File(projectPath, "iDiscover/resourceManager/conf/xml/resource.xml");
         try {
             panel.load(resourceFile);
         } catch (Exception e) {
@@ -191,7 +191,7 @@ public class DiscoveryWizardDialog extends JDialog {
 
 
     private void go() {
-        File resourceFile = new File(projectPath, "resourceManager/conf/xml/resource.xml");
+        File resourceFile = new File(projectPath, "iDiscover/resourceManager/conf/xml/resource.xml");
         try {
             ((DiscoveryResourcePanel) contentPanel).save(resourceFile);
         } catch (Exception e) {

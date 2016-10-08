@@ -211,7 +211,7 @@
 		<xsl:if test="$lldpNeighbor !=''">
 			<object>
 				<name>
-					<xsl:value-of select="$neighID"/>
+					<xsl:value-of select="$lldpNeighbor"/>
 				</name>
 				<objectType>Discovered Neighbor</objectType>
 				<parameters>
@@ -274,24 +274,12 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:variable>
-			<xsl:variable name="neighID">
-				<xsl:call-template name="getNeighID">
-					<xsl:with-param name="neighIP" select="$otherIp"/>
-				</xsl:call-template>
-			</xsl:variable>
+
 			<object>
-				<name><xsl:value-of select="$neighID"/></name>
+				<name><xsl:value-of select="$otherIp"/></name>
 				<objectType>Discovered Neighbor</objectType>
 				<parameters>
-					<parameter>
-						<name>Reachable</name>
-						<value>
-							<xsl:choose>
-								<xsl:when test="$neighID!='' and $neighID!=$otherIp">YES</xsl:when>
-								<xsl:otherwise>NO</xsl:otherwise>
-							</xsl:choose>
-						</value>
-					</parameter>
+
 					<parameter>
 						<name>Discovery Method</name>
 						<value>Slash31</value>
@@ -304,7 +292,7 @@
 					</parameter>
 					<xsl:call-template name="return-neighbor-params">
 						<xsl:with-param name="neighborIP" select="$otherIp"/>
-						<xsl:with-param name="neighborHostname" select="$neighID"/>
+						<xsl:with-param name="neighborHostname" />
 					</xsl:call-template>
 				</parameters>
 			</object>
@@ -337,24 +325,12 @@
 				</xsl:choose>
 			</xsl:variable>
 			<!--Slash 30-->
-			<xsl:variable name="neighID">
-				<xsl:call-template name="getNeighID">
-					<xsl:with-param name="neighIP" select="$otherIp"/>
-				</xsl:call-template>
-			</xsl:variable>
+
 			<object>
-				<name><xsl:value-of select="$neighID"/></name>
+				<name><xsl:value-of select="$otherIp"/></name>
 				<objectType>Discovered Neighbor</objectType>
 				<parameters>
-					<parameter>
-						<name>Reachable</name>
-						<value>
-							<xsl:choose>
-								<xsl:when test="$neighID!='' and $neighID != $otherIp">YES</xsl:when>
-								<xsl:otherwise>NO</xsl:otherwise>
-							</xsl:choose>
-						</value>
-					</parameter>
+
 					<parameter>
 						<name>Discovery Method</name>
 						<value>Slash30</value>
@@ -369,7 +345,7 @@
 
                     <xsl:call-template name="return-neighbor-params">
 						<xsl:with-param name="neighborIP" select="$otherIp"/>
-						<xsl:with-param name="neighborHostname" select="$neighID"/>
+						<xsl:with-param name="neighborHostname"/>
 
 					</xsl:call-template>
 
@@ -384,28 +360,13 @@
         <xsl:param name="ipv4addresses"/>
 		<xsl:for-each select="distinct-values($ipRouteTable/ipRouteNextHop)">
 			<xsl:variable name="next-hop-ip" select="."/>
-            <xsl:if test="SnmpForXslt:checkBogons($next-hop-ip)=$next-hop-ip and count($ipv4addresses[ipAdEntAddr=$next-hop-ip])=0 and  count($ipv4addresses[ipv4SubnetBroadcast=$next-hop-ip]) = 0">
+            <xsl:if test="$next-hop-ip!='' and SnmpForXslt:checkBogons($next-hop-ip)=$next-hop-ip and count($ipv4addresses[ipAdEntAddr=$next-hop-ip])=0 and  count($ipv4addresses[ipv4SubnetBroadcast=$next-hop-ip]) = 0">
 
-				<xsl:variable name="neighID">
-					<xsl:call-template name="getNeighID">
-						<xsl:with-param name="neighIP" select="$next-hop-ip"/>
-					</xsl:call-template>
-				</xsl:variable>
-
-\				<xsl:if test="$neighID!=$sysName">
 					<object>
-						<name><xsl:value-of select="$neighID"/></name>
+						<name><xsl:value-of select="$next-hop-ip"/></name>
 						<objectType>Discovered Neighbor</objectType>
 						<parameters>
-							<parameter>
-								<name>Reachable</name>
-								<value>
-									<xsl:choose>
-										<xsl:when test="$neighID!='' and $neighID != $next-hop-ip">YES</xsl:when>
-										<xsl:otherwise>NO</xsl:otherwise>
-									</xsl:choose>
-								</value>
-							</parameter>
+
                             <parameter>
                                 <name>Discovery Method</name>
                                 <xsl:variable name="test">
@@ -423,11 +384,10 @@
                             </parameter>
 							<xsl:call-template name="return-neighbor-params">
 								<xsl:with-param name="neighborIP" select="$next-hop-ip"/>
-								<xsl:with-param name="neighborHostname" select="$neighID"/>
+								<xsl:with-param name="neighborHostname"/>
 							</xsl:call-template>
 						</parameters>
 					</object>
-				</xsl:if>
 			</xsl:if>
 		</xsl:for-each>
 	</xsl:template>
@@ -441,26 +401,13 @@
 			<xsl:if test="SnmpForXslt:checkBogons($next-hop-ip)=$next-hop-ip and count($ipv4addresses[ipAdEntAddr=$next-hop-ip])=0 and  count($ipv4addresses[ipv4SubnetBroadcast=$next-hop-ip]) = 0 ">
 
 
-				<xsl:variable name="neighID">
-					<xsl:call-template name="getNeighID">
-						<xsl:with-param name="neighIP" select="$next-hop-ip"/>
-					</xsl:call-template>
-				</xsl:variable>
 
-				<xsl:if test="$neighID!=$sysName and not(contains($ipv4addresses,$next-hop-ip))">
+
+				<xsl:if test="not(contains($ipv4addresses,$next-hop-ip))">
 					<object>
-						<name><xsl:value-of select="$neighID"/></name>
+						<name><xsl:value-of select="$next-hop-ip"/></name>
 						<objectType>Discovered Neighbor</objectType>
 						<parameters>
-							<parameter>
-								<name>Reachable</name>
-								<value>
-									<xsl:choose>
-										<xsl:when test="$neighID !='' and $neighID != $next-hop-ip">YES</xsl:when>
-										<xsl:otherwise>NO</xsl:otherwise>
-									</xsl:choose>
-								</value>
-							</parameter>
 							<parameter>
 								<name>Discovery Method</name>
 								<xsl:variable name="test">
@@ -478,7 +425,7 @@
 							</parameter>
 							<xsl:call-template name="return-neighbor-params">
 								<xsl:with-param name="neighborIP" select="$next-hop-ip"/>
-								<xsl:with-param name="neighborHostname" select="$neighID"/>
+								<xsl:with-param name="neighborHostname"/>
 							</xsl:call-template>
 						</parameters>
 					</object>
@@ -497,26 +444,18 @@
             <xsl:if test="$ipNetToMediaNetAddress">
                 <xsl:if test="SnmpForXslt:checkBogons($ipNetToMediaNetAddress)=$ipNetToMediaNetAddress and count($ipv4addresses[ipAdEntAddr=$ipNetToMediaNetAddress])=0 and count($ipv4addresses[ipv4Subnet=$ipNetToMediaNetAddress]) = 0 and  count($ipv4addresses[ipv4SubnetBroadcast=$ipNetToMediaNetAddress]) = 0 ">
 
-                    <xsl:variable name="neighID">
-                        <xsl:call-template name="getNeighID">
-                            <xsl:with-param name="neighIP" select="$ipNetToMediaNetAddress"/>
-                        </xsl:call-template>
-                    </xsl:variable>
+                    <!--<xsl:variable name="neighID">-->
+                        <!--<xsl:call-template name="getNeighID">-->
+                            <!--<xsl:with-param name="neighIP" select="$ipNetToMediaNetAddress"/>-->
+                        <!--</xsl:call-template>-->
+                    <!--</xsl:variable>-->
                     <xsl:message>DEBUG: ARP<xsl:value-of select="$ipNetToMediaNetAddress"/></xsl:message>
-                    <xsl:if test="$neighID!=$sysName and count($ipv4addresses[ipAdEntAddr=$neighID])=0">
+                    <xsl:if test="count($ipv4addresses[ipAdEntAddr=$ipNetToMediaNetAddress])=0">
                         <object>
-							<name><xsl:value-of select="$neighID"/></name>
+							<name><xsl:value-of select="$ipNetToMediaNetAddress"/></name>
                             <objectType>Discovered Neighbor</objectType>
                             <parameters>
-                                <parameter>
-                                    <name>Reachable</name>
-                                    <value>
-                                        <xsl:choose>
-                                            <xsl:when test="$neighID!='' and $neighID!=$ipNetToMediaNetAddress">YES</xsl:when>
-                                            <xsl:otherwise>NO</xsl:otherwise>
-                                        </xsl:choose>
-                                    </value>
-                                </parameter>
+
                                 <parameter>
                                     <name>Discovery Method</name>
                                     <value>ARP</value>
@@ -528,7 +467,7 @@
                                     </value>
                                 </parameter><xsl:call-template name="return-neighbor-params">
                                     <xsl:with-param name="neighborIP" select="$ipNetToMediaNetAddress"/>
-                                    <xsl:with-param name="neighborHostname" select="$neighID"/>
+                                    <xsl:with-param name="neighborHostname" />
                                 </xsl:call-template></parameters>
                         </object>
                     </xsl:if>
@@ -541,26 +480,18 @@
 		<xsl:param name="neighborIPAddress"/>
         <xsl:if test="$neighborMACAddress !=''">
 
-			<xsl:variable name="neighID">
-				<xsl:call-template name="getNeighID">
-					<xsl:with-param name="neighIP" select="$neighborIPAddress"/>
-				</xsl:call-template>
-			</xsl:variable>
+			<!--<xsl:variable name="neighID">-->
+				<!--<xsl:call-template name="getNeighID">-->
+					<!--<xsl:with-param name="neighIP" select="$neighborIPAddress"/>-->
+				<!--</xsl:call-template>-->
+			<!--</xsl:variable>-->
 			<object>
 				<objectType>Discovered Neighbor</objectType>
 				<xsl:choose>
 					<xsl:when test="$neighborIPAddress!=''">
-						<name><xsl:value-of select="$neighID"/></name>
+						<name><xsl:value-of select="$neighborIPAddress"/></name>
 						<parameters>
-							<parameter>
-								<name>Reachable</name>
-								<value>
-									<xsl:choose>
-										<xsl:when test="$neighID!='' and $neighID!=$neighborIPAddress">YES</xsl:when>
-										<xsl:otherwise>NO</xsl:otherwise>
-									</xsl:choose>
-								</value>
-							</parameter>
+
 							<parameter>
 								<name>Discovery Method</name>
 								<value>MAC</value>
@@ -573,7 +504,7 @@
 							</parameter>
 							<xsl:call-template name="return-neighbor-params">
 								<xsl:with-param name="neighborIP" select="$neighborIPAddress"/>
-								<xsl:with-param name="neighborHostname" select="$neighID"/>
+								<xsl:with-param name="neighborHostname" />
 							</xsl:call-template>
 						</parameters>
 					</xsl:when>
@@ -618,27 +549,19 @@
 			<xsl:value-of select="$ospfNbr/ospfNbrIpAddr"/>
 		</xsl:variable>
 		<xsl:if test="$ospfNbrIpAddr!=''">
-			<xsl:variable name="neighID">
-				<xsl:call-template name="getNeighID">
-					<xsl:with-param name="neighIP" select="$ospfNbrIpAddr"/>
-				</xsl:call-template>
-			</xsl:variable>
+			<!--<xsl:variable name="neighID">-->
+				<!--<xsl:call-template name="getNeighID">-->
+					<!--<xsl:with-param name="neighIP" select="$ospfNbrIpAddr"/>-->
+				<!--</xsl:call-template>-->
+			<!--</xsl:variable>-->
 
 
 			<object>
 
-				<name><xsl:value-of select="$neighID"/></name>
+				<name><xsl:value-of select="$ospfNbrIpAddr"/></name>
 				<objectType>Discovered Neighbor</objectType>
 				<parameters>
-					<parameter>
-						<name>Reachable</name>
-						<value>
-							<xsl:choose>
-								<xsl:when test="$neighID!='' and $neighID!=$ospfNbrIpAddr">YES</xsl:when>
-								<xsl:otherwise>NO</xsl:otherwise>
-							</xsl:choose>
-						</value>
-					</parameter>
+
 					<parameter>
 						<name>Local IP address</name>
 						<value><xsl:value-of select="$ospfNbr/ospfIfIpAddress"/></value>
@@ -653,7 +576,7 @@
 					</parameter>
 					<xsl:call-template name="return-neighbor-params">
 						<xsl:with-param name="neighborIP" select="$ospfNbrIpAddr"/>
-						<xsl:with-param name="neighborHostname" select="$neighID"/>
+						<xsl:with-param name="neighborHostname"/>
 					</xsl:call-template>
 				</parameters>
 			</object>
@@ -665,25 +588,12 @@
 			<xsl:value-of select="$bgpPeer/bgpPeerRemoteAddr"/>
 		</xsl:variable>
 		<xsl:if test="$bgpPeerRemoteAddr!=''">
-		<xsl:variable name="neighID">
-			<xsl:call-template name="getNeighID">
-				<xsl:with-param name="neighIP" select="$bgpPeerRemoteAddr"/>
-			</xsl:call-template>
-		</xsl:variable>
-		<object>
 
-			<name><xsl:value-of select="$neighID"/></name>
+			<object>
+			<name><xsl:value-of select="$bgpPeerRemoteAddr"/></name>
 			<objectType>Discovered Neighbor</objectType>
 			<parameters>
-				<parameter>
-					<name>Reachable</name>
-					<value>
-						<xsl:choose>
-							<xsl:when test="$neighID!='' and $neighID!=$bgpPeerRemoteAddr">YES</xsl:when>
-							<xsl:otherwise>NO</xsl:otherwise>
-						</xsl:choose>
-					</value>
-				</parameter>
+
 				<parameter>
 					<name>Discovery Method</name>
 					<value>BGP</value>
@@ -711,10 +621,10 @@
 					</value>
 				</parameter><xsl:call-template name="return-neighbor-params">
 					<xsl:with-param name="neighborIP" select="$bgpPeerRemoteAddr"/>
-					<xsl:with-param name="neighborHostname" select="$neighID"/>
+					<xsl:with-param name="neighborHostname" />
 				</xsl:call-template></parameters>
 
-		</object>
+			</object>
 		</xsl:if>
 	</xsl:template>
 
@@ -742,33 +652,25 @@
 
 			<xsl:if test="SnmpForXslt:checkBogons($next-hop-ip)=$next-hop-ip and count($ipv4addresses/ipAddrEntry[ipAdEntAddr=$next-hop-ip])=0 and  count($ipv4addresses/ipAddrEntry[ipv4SubnetBroadcast=$next-hop-ip]) = 0">
 
-				<xsl:variable name="neighID">
-					<xsl:call-template name="getNeighID">
-						<xsl:with-param name="neighIP" select="$next-hop-ip"/>
-					</xsl:call-template>
-				</xsl:variable>
+				<!--<xsl:variable name="neighID">-->
+					<!--<xsl:call-template name="getNeighID">-->
+						<!--<xsl:with-param name="neighIP" select="$next-hop-ip"/>-->
+					<!--</xsl:call-template>-->
+				<!--</xsl:variable>     -->
 
-				<xsl:if test="$neighID!=$sysName">
+				<xsl:if test="$next-hop-ip!=$sysName">
 				<object>
-					<name><xsl:value-of select="$neighID"/></name>
+					<name><xsl:value-of select="$next-hop-ip"/></name>
 					<objectType>Discovered Neighbor</objectType>
 					<parameters>
-						<parameter>
-							<name>Reachable</name>
-							<value>
-								<xsl:choose>
-									<xsl:when test="$neighID!='' and $neighID != $next-hop-ip">YES</xsl:when>
-									<xsl:otherwise>NO</xsl:otherwise>
-								</xsl:choose>
-							</value>
-						</parameter>
+
 						<parameter>
 							<name>Discovery Method</name>
 							<value>IPSEC-Phase2</value>
 						</parameter>
 						<xsl:call-template name="return-neighbor-params">
 							<xsl:with-param name="neighborIP" select="$next-hop-ip"/>
-							<xsl:with-param name="neighborHostname" select="$neighID"/>
+							<xsl:with-param name="neighborHostname" />
 						</xsl:call-template>
 					</parameters>
 					<parameter>
@@ -823,21 +725,12 @@
 						<objectType>Discovered Neighbor</objectType>
 						<parameters>
 							<parameter>
-								<name>Reachable</name>
-								<value>
-									<xsl:choose>
-										<xsl:when test="$neighID!='' and $neighID != $next-hop-ip">YES</xsl:when>
-										<xsl:otherwise>NO</xsl:otherwise>
-									</xsl:choose>
-								</value>
-							</parameter>
-							<parameter>
 								<name>Discovery Method</name>
 								<value>IPSEC-Phase1</value>
 							</parameter>
 							<xsl:call-template name="return-neighbor-params">
 								<xsl:with-param name="neighborIP" select="$next-hop-ip"/>
-								<xsl:with-param name="neighborHostname" select="$neighID"/>
+								<xsl:with-param name="neighborHostname" />
 							</xsl:call-template>
 						</parameters>
 						<parameter>

@@ -43,13 +43,11 @@
     </bean>
     <bean id="cliReportViewer" class="net.itransformers.topologyviewer.rightclick.impl.CLIReportViewer">
     </bean>
-    <bean id="NeighbourFinderByMethod" class="net.itransformers.topologyviewer.rightclick.impl.ipsec.NeighbourFinderByMethod">
-    </bean>
 
-    <!--<bean id="neighbourFinderByMethod" class="net.itransformers.topologyviewer.rightclick.impl.ipsec.NeighbourFinderByMethod">-->
-    <!--</bean>-->
-    <bean id="changeIPSecKeyHandler" class="net.itransformers.topologyviewer.rightclick.impl.ipsec.ChangeIPSecKeyHandler">
+    <bean id="neighbourFinderByMethod" class="net.itransformers.topologyviewer.rightclick.impl.ipsec.NeighbourFinderByMethod">
     </bean>
+    <bean id="changeIPSecKeyHandler" class="net.itransformers.topologyviewer.rightclick.impl.ipsec.ChangeIPSecKeyHandler"/>
+    <!--</bean>-->
     <bean id="cmdRightClickHandler" class="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
         <constructor-arg name="resourceManager" ref="resourceManager"/>
         <constructor-arg name="resourceResolver" ref="resourceResolver"/>
@@ -60,5 +58,13 @@
     </bean>
     <bean id="resourceResolver" class="net.itransformers.topologyviewer.rightclick.impl.ResourceResolver">
         <constructor-arg name="resourceManager" ref="resourceManager"/>
+    </bean>
+    <bean id="resourceManager" factory-bean="resourceManagerFactory" factory-method="createResourceManager">
+        <constructor-arg name="type" value="xml"/>
+        <constructor-arg name="properties">
+            <map>
+                <entry key="projectPath" value-ref="projectPath"/>
+            </map>
+        </constructor-arg>
     </bean>
 </beans>

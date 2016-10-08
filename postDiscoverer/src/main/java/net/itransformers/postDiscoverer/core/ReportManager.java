@@ -220,7 +220,7 @@ public class ReportManager {
 //        } catch (JAXBException e) {
 //            e.printStackTrace();
 //        }
-//        resourceManager = new ResourceManager(new File(projectDir, "/resourceManager/conf/xml/resource.xml"));
+//        resourceManager = new ResourceManager(new File(projectDir, "/iDiscover/resourceManager/conf/xml/resource.xml"));
 //
 //
 //        Map<String, String> params = new HashMap<String, String>();

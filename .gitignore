@@ -3,9 +3,9 @@
 *.class
 .idea/
 
-network/
+^/network/
 
-version1/
+^/version1/
 
 
 # Package Files #

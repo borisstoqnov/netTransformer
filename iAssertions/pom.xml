@@ -29,12 +29,11 @@
         <version>0.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.itransformers.netTransformer</groupId>
     <artifactId>iAssertions</artifactId>
     <version>0.8</version><!--Change for new version-->
     <dependencies>
         <dependency>
-            <groupId>net.itransformers.netTransformer</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>utils</artifactId>
             <version>0.8</version>
             <!--Change for new version-->
