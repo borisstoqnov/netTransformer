@@ -102,7 +102,8 @@ public class NeighbourFinderByMethod extends JPanel implements RightClickHandler
                 if ((neighbourDeviceType != null && neighbourDeviceType.equals("Subnet")) && ((thisDeviceType != null && thisDeviceType.equals("Subnet")))) {
                     System.out.println("Neighbour " + second + " is a subnet");
                 } else if ((v == first || v == second) && (second !=null || first !=null)) {
-                    //Get the password for the deviceType
+
+                    //Get the password based on deviceType for now
                     ResourceType resource = resourceManager.findFirstResourceBy(graphMLParams);
                     Map <String,String> connectionparameters = resourceResolver.getConnectionParams(resource, graphMLParams, "telnet");
                     String pass = connectionparameters.get("password");

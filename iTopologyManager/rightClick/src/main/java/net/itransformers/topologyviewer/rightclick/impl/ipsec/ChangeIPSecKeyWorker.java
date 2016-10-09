@@ -97,7 +97,6 @@ public class ChangeIPSecKeyWorker extends SwingWorker<String, Void> {
 
                     counter++;
 
-
                 } else if (counter > 0) {
                     message = "Key change completed";
                 } else {
