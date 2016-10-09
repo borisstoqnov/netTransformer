@@ -3,10 +3,13 @@ package net.itransformers.topologyviewer.rightclick.impl.ipsec;
 
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
+import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
+import net.itransformers.topologyviewer.rightclick.impl.ResourceResolver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +22,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NeighbourFinderByMethod extends JPanel implements RightClickHandler, PropertyChangeListener {
+
+    protected ResourceManager resourceManager;
+    protected ResourceResolver resourceResolver;
+
+    public NeighbourFinderByMethod(ResourceManager resourceManager, ResourceResolver resourceResolver) {
+        this.resourceManager = resourceManager;
+        this.resourceResolver = resourceResolver;
+    }
 
     protected String performIPSecAction(IPsecPair[] ipsecpair) throws IOException, InterruptedException {
 
@@ -59,10 +70,9 @@ public class NeighbourFinderByMethod extends JPanel implements RightClickHandler
         final GraphViewerPanel viewerPanel = (GraphViewerPanel) viewer.getTabbedPane().getSelectedComponent();
         final MyVisualizationViewer vv = (MyVisualizationViewer) viewerPanel.getVisualizationViewer();
         Graph currentGraph = viewerPanel.getCurrentGraph();
-        //Keep count of the neighbours
-        System.out.println(v);
 
         String method = (String) rightClickParams.get("Discovery Method");
+
         int i = 0;
         IPsecPair[] ipsecpair = new IPsecPair[100];
 
@@ -77,6 +87,7 @@ public class NeighbourFinderByMethod extends JPanel implements RightClickHandler
                 Pair pair = viewerPanel.getEdgeVertexes(edge);
 
                 String first = pair.getFirst().toString();
+                System.out.printf("First is " + first + " is an IPSEC neighbour");
                 String second = pair.getSecond().toString();
                 System.out.printf("Second is " + second + " is an IPSEC neighbour");
                 HashMap<String, String> neighbourMetaData = (HashMap<String, String>) viewerPanel.getVertexParams(second);
@@ -90,8 +101,15 @@ public class NeighbourFinderByMethod extends JPanel implements RightClickHandler
 
                 if ((neighbourDeviceType != null && neighbourDeviceType.equals("Subnet")) && ((thisDeviceType != null && thisDeviceType.equals("Subnet")))) {
                     System.out.println("Neighbour " + second + " is a subnet");
-                } else if (v == first || v == second) {
-                    IPsecPair p = new IPsecPair(first,thisDeviceIPAddress,second,neighbourDeviceIPAddress);
+                } else if ((v == first || v == second) && (second !=null || first !=null)) {
+                    //Get the password for the deviceType
+                    ResourceType resource = resourceManager.findFirstResourceBy(graphMLParams);
+                    Map <String,String> connectionparameters = resourceResolver.getConnectionParams(resource, graphMLParams, "telnet");
+                    String pass = connectionparameters.get("password");
+                    String enablepass = connectionparameters.get("enable-password");
+                    String username = connectionparameters.get("username");
+
+                    IPsecPair p = new IPsecPair(first,thisDeviceIPAddress,second,neighbourDeviceIPAddress,username,pass,enablepass);
                     ipsecpair[i] = p;
                     i++;
                 }

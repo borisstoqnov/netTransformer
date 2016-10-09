@@ -1,6 +1,9 @@
 
 package net.itransformers.topologyviewer.rightclick.impl.ipsec;
 
+import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.topologyviewer.rightclick.impl.ResourceResolver;
+
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -16,10 +19,13 @@ import java.util.concurrent.ExecutionException;
 
 public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
 
-
     ChangeIPSecKeyWorker worker;
     private ProgressMonitor progressMonitor;
     List<String> userInput = null;
+
+    public ChangeIPSecKeyHandler(ResourceManager resourceManager, ResourceResolver resourceResolver) {
+        super(resourceManager, resourceResolver);
+    }
 
     @Override
     protected String performIPSecAction(IPsecPair[] ipsecpair) throws IOException {

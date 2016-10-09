@@ -8,13 +8,20 @@ public class IPsecPair {
     public String routerIP;
     public String neighbourName;
     public String neighbourIP;
+    protected String enablepass;
+    protected String telnetpass;
+    protected String username;
 
-    public IPsecPair(String routerName, String routerIP, String neighbourName, String neighbourIP)
+
+    public IPsecPair(String routerName, String routerIP, String neighbourName, String neighbourIP, String username, String enablepass, String telnetpass)
     {
         this.routerName = routerName;
         this.routerIP = routerIP;
         this.neighbourName = neighbourName;
         this.neighbourIP = neighbourIP;
+        this.username = username;
+        this.enablepass = enablepass;
+        this.telnetpass = telnetpass;
     }
 
     public String getRouterName() {
@@ -32,6 +39,16 @@ public class IPsecPair {
     public String getNeighbourIP() {
         return neighbourIP;
     }
+
+    public String getTelnetpass() {
+        return telnetpass;
+    }
+
+    public String getEnablepass() {
+        return enablepass;
+    }
+
+    public String getUsername() { return username; }
 
     public void setRouterName(String routerName) {
         this.routerName = routerName;

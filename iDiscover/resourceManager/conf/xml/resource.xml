@@ -3,6 +3,7 @@
     <resource name="cisco">
     <param name="deviceType">CISCO</param>
     <connection-params connection-type="telnet">
+        <param name="username">nbu</param>
         <param name="password">nbu</param>
         <param name="enable-password">nbu</param>
         <param name="timeout">3000</param>

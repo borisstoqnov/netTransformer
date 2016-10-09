@@ -924,15 +924,16 @@
         <submenu name="NeighborFinder">
             <rightClickItem name="Neighbor Finder" handlerClass="neighbourFinderByMethod">
                 <param name="discoveryMethod">IPSEC</param>
-
-            </rightClickItem>
-            <rightClickItem name="Change IPsec key" handlerClass="changeIPSecKeyHandler">
-                <param name="discoveryMethod">IPSEC</param>
                 <param name="ipSecTemplatePath">iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ</param>
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>
                 <param name="deviceXMlpath">device-hierarchical</param>
+
+            </rightClickItem>
+            <rightClickItem name="Change IPsec key" handlerClass="changeIPSecKeyHandler">
+                <param name="discoveryMethod">IPSEC</param>
+
             </rightClickItem>
         </submenu>
         <submenu name="Network Activation">

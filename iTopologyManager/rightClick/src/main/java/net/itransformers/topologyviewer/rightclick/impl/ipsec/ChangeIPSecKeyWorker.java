@@ -71,7 +71,7 @@ public class ChangeIPSecKeyWorker extends SwingWorker<String, Void> {
 
                     Logger.getAnonymousLogger().log(Level.INFO, "Initialising cli" + Thread.currentThread().getName());
                     CLIInterface cli;
-                    cli = new TelnetCLIInterface(pair.getRouterIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
+                    cli = new TelnetCLIInterface(pair.getRouterIP(), pair.getTelnetpass(), pair.getEnablepass(), "#", 1000, Logger.getAnonymousLogger());
                     //Change IP sec key for first router
                     Map<String, String> paramsfirst = generateConfigMap(pair, oldkey, ipseckeyFilename);
 
@@ -88,7 +88,7 @@ public class ChangeIPSecKeyWorker extends SwingWorker<String, Void> {
 
                     Map<String, String> paramssecond = generateConfigMap(pair, oldkey, ipseckeyFilename);
                     //Change IP sec key for second router
-                    cli = new TelnetCLIInterface(pair.getNeighbourIP(), "nbu", "nbu", "#", 1000, Logger.getAnonymousLogger());
+                    cli = new TelnetCLIInterface(pair.getNeighbourIP(), pair.getTelnetpass(), pair.getEnablepass(), "#", 1000, Logger.getAnonymousLogger());
 
                     cli.open();
                     telnetTorouter = new TestFulfilmentImpl(cli);
@@ -116,8 +116,8 @@ public class ChangeIPSecKeyWorker extends SwingWorker<String, Void> {
         Map<String, String> configMap = null;
         try {
             configMap = new HashMap<>();
-            configMap.put("username", "nbu");
-            configMap.put("password", "nbu");
+            configMap.put("username",pair.getUsername());
+            configMap.put("password", pair.getTelnetpass());
             if (whichrouter==false) {
                 configMap.put("discoveredIPv4address", pair.getRouterIP());
                 configMap.put("ipsecneighbour", pair.getNeighbourIP());
@@ -130,7 +130,7 @@ public class ChangeIPSecKeyWorker extends SwingWorker<String, Void> {
                 whichrouter=false;
             }
             configMap.put("prompt", "#");
-            configMap.put("enable-password", "nbu");
+            configMap.put("enable-password", pair.getEnablepass());
             //get the IPsec key from file
             configMap.put("oldipseckey", oldkey);
             configMap.put("ipseckey", KeyFromFile(ipseckeyFilename));
