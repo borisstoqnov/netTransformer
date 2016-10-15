@@ -52,6 +52,7 @@ public class NeighbourFinderByMethod extends JPanel implements RightClickHandler
         JFrame frame = new JFrame("IPsec Neighbours");
         JTextArea text;
         frame.setSize(300, 200);
+
         frame.getContentPane().setLayout(new BorderLayout());
         text = new JTextArea();
         text.setEditable(false);
@@ -59,6 +60,7 @@ public class NeighbourFinderByMethod extends JPanel implements RightClickHandler
         JScrollPane scrollPane = new JScrollPane(text);
         frame.getContentPane().add("Center", scrollPane);
         text.setText(message.toString());
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
