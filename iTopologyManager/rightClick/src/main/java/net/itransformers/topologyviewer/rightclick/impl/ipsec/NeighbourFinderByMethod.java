@@ -121,6 +121,9 @@ public class NeighbourFinderByMethod extends JPanel implements RightClickHandler
         if (i > 0) {
             showmessage(performIPSecAction(ipsecpair));
         }
+        else {
+            showmessage("No IPsec neighbours found");
+        }
     }
 
     //TODO add a progress bar to ChangeIPSecKeyHandler as well
