@@ -93,6 +93,7 @@ public class ChangeIPSecKeyWorker extends SwingWorker<String, Void> {
                     cli.open();
                     telnetTorouter = new TestFulfilmentImpl(cli);
                     telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ", paramssecond);
+                    telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/restartsession.templ", paramssecond);
                     cli.close();
 
                     counter++;
@@ -109,7 +110,12 @@ public class ChangeIPSecKeyWorker extends SwingWorker<String, Void> {
         return message;
     }
 
-
+/*    private void restartsession(TelnetCLIInterface cli, TestFulfilmentImpl telnetTorouter, Map <String,String> paramssecond) throws IOException {
+        cli.open();
+        telnetTorouter = new TestFulfilmentImpl(cli);
+        telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ", paramssecond);
+        cli.close();
+    }*/
     private Map<String, String> generateConfigMap(IPsecPair pair, String oldkey, String ipseckeyFilename) {
 
         Map<String, String> configMap = null;

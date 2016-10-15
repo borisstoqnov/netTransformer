@@ -1,0 +1,14 @@
+### vars: password, enable-password, discoveredIPv4address, ipsecneighbour
+### read_until('(Password:|password:)',3)
+$password
+### read_until('.*>',3)
+enable
+### read_until('Password:',3)
+$enable-password
+
+### start read_until('.*#',3)
+clear crypto session remote $ipsecneighbour
+end
+### stop read_until
+exit
+### exit
