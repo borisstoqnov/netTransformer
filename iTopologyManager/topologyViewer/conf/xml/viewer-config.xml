@@ -925,6 +925,7 @@
             <rightClickItem name="Neighbor Finder" handlerClass="neighbourFinderByMethod">
                 <param name="discoveryMethod">IPSEC</param>
                 <param name="ipSecTemplatePath">iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ</param>
+                <param name="ipSecSessionTemplatePath">iTopologyManager/fulfilmentFactory/conf/templ/RestartSessionForPeer.templ</param>
                 <param name="parameterFactoryXml">iTopologyManager/parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">resourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">iTopologyManager/fulfilmentFactory/conf/xml/fulfilment-factory.xml</param>

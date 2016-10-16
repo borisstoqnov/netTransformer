@@ -94,7 +94,7 @@ public class ChangeIPSecKeyWorker extends SwingWorker<String, Void> {
                     telnetTorouter = new TestFulfilmentImpl(cli);
                     telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ", paramssecond);
                     //restart the session when both config templates are completed
-                    telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/restartsession.templ", paramssecond);
+                    telnetTorouter.execute("iTopologyManager/fulfilmentFactory/conf/templ/RestartSessionForPeer.templ", paramssecond);
                     cli.close();
 
                     counter++;

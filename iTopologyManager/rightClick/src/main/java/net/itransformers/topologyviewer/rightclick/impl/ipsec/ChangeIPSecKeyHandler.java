@@ -67,7 +67,7 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
     }
     private String getUserAnswer(){
         String userAnswer = "";
-        int reply = JOptionPane.showConfirmDialog(null, "First time configurtion?", "Close?",  JOptionPane.YES_NO_OPTION);
+        int reply = JOptionPane.showConfirmDialog(null, "First time configurtion?", "IPsec Key change",  JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
             userAnswer = "Yes";
         }
@@ -101,7 +101,7 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
                     input.add(Box.createVerticalStrut(10));
                     input.add(p);
 
-                    JOptionPane.showConfirmDialog(null, input, "Login", JOptionPane.DEFAULT_OPTION);
+                    JOptionPane.showConfirmDialog(null, input, "IPsec Key change", JOptionPane.DEFAULT_OPTION);
                     userInput.add(new String(p.getPassword()));
                 }
             }

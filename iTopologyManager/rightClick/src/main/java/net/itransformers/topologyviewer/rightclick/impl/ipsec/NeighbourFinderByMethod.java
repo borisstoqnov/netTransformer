@@ -39,7 +39,7 @@ public class NeighbourFinderByMethod extends JPanel implements RightClickHandler
         {
             if (ipsecpair[i] != null) {
                 String message = ipsecpair[i].toString();
-                entiremessage.append(message + "\n");
+                entiremessage.append("Tunnel:"+ message + "\n");
             }
         }
         return entiremessage.toString();
