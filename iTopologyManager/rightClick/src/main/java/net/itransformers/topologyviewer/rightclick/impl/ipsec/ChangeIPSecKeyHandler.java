@@ -38,7 +38,7 @@ public class ChangeIPSecKeyHandler extends NeighbourFinderByMethod {
             return"";
         }
 
-        progressMonitor = new ProgressMonitor(this, "Running routers", "", 0, 100);
+        progressMonitor = new ProgressMonitor(this, "Modifying configuration...", "", 0, 100);
 
         progressMonitor.setMillisToPopup(0);
         worker = new ChangeIPSecKeyWorker(ipsecpair, progressMonitor, userInput);
