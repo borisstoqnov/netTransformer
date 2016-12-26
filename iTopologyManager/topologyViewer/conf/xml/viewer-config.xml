@@ -921,8 +921,8 @@
                 <param name="reportFileName">Cisco Config security audit.xml</param>
             </rightClickItem>
         </submenu>
-        <submenu name="NeighborFinder">
-            <rightClickItem name="Neighbor Finder" handlerClass="neighbourFinderByMethod">
+        <submenu name="Manage IPsec">
+            <rightClickItem name="Find IPsec neighbours" handlerClass="neighbourFinderByMethod">
                 <param name="discoveryMethod">IPSEC</param>
                 <param name="ipSecTemplatePath">iTopologyManager/fulfilmentFactory/conf/templ/ChangeIPsecKey.templ</param>
                 <param name="ipSecSessionTemplatePath">iTopologyManager/fulfilmentFactory/conf/templ/RestartSessionForPeer.templ</param>
